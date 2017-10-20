@@ -1,0 +1,134 @@
+Linux Network Enabling Requirements for
+Audio/Video Bridging (AVB)
+Linux Plumbers 2012
+Eric Mann
+Software Architect - Intel
+August 29 2012
+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+
+Audio Video Bridging (AVB) Overview
+AVB on Linux
+
+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+
+Why AVB?
+
+People have been sending audio & video over networks for decades now … so what is new about AVB?
+사람들은 수십 년 동안 네트워크를 통해 오디오 및 비디오를 전송 해왔고 ... AVB에 대해 새로운 점은 무엇입니까?
+
+- Buffering data to hide packet loss and bandwidth issues causes presentation lag (the echo cancellation in your ear tolerates up to 10 msec)
+- 패킷 손실 및 대역폭 문제를 숨기기위한 데이터 버퍼링은 프리젠 테이션 지연을 유발합니다 (귀에있는 반향 제거는 최대 10msec를 허용합니다)
+
+- Sending audio to multiple devices requires synchronization of the presentation-time (e.g. lip-sync of video to audio, warbling in 7.1 audio systems) ,
+- 여러 장치에 오디오를 전송하려면 프레젠테이션 시간 (예:오디오의 비디오 립 싱크, 7.1 오디오 시스템의 워블 링) 동기화가 필요하다,
+
+- Auto companies want to use AVB to reduce cost.
+- 자동차 회사는 비용을 줄이기 위해 AVB를 사용하기를 원합니다.
+
+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+
+What is “AVB”? for this discussion at least …*
+"AVB"란 무엇입니까? 이 토론은 적어도 ... *
+
+AVB := 802.1Qat + 802.1Qav + 802.1AS
+
+- 802.1Qat := MMRP + MVRP + MSRP = “Stream Reservation”
+- 802.1Qat := MMRP + MVRP + MSRP = "스트림 예약"
+
+- 802.1Qav := “Hardware-based traffic shapers”
+- 802.1Qav := "하드웨어 기반 트래픽 셰이프"
+
+- 802.1AS := “Time Synchronization”
+- 802.1AS := "시간 동기화"
+
+* There are a number of additional user-mode protocols layered on top to handle AVB device discovery & control, as well as media framing:
+* 맨 위로 AVB 장치 검색 및 제어는 물론 미디어 프레이밍을 처리하기 위해 여러 가지 추가 사용자 모드 프로토콜이 계층화되어 있습니다.
+
+- L2-based IEEE 1722, 1722.1
+- L3-based 1733 & RTP
+- I also don’t talk about the receiving end of these streams – as they only really need to support 802.1AS and MRP – no need for traffic shaping.
+- 또한 이러한 스트림의 수신 말단에 대해서는 언급하지 않습니다. 802.1X 및 MRP를 실제로 지원해야하기 때문에 트래픽을 형성 할 필요가 없습니다.
+
+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+
+Functional Overview
+
+Each stream contains zero (0) or more media channels.
+각 스트림에는 제로 (0) 이상의 미디어 채널이 포함됩니다.
+
+As streams are added/removed to a class, bandwidth of the class is adjusted.
+스트림이 클래스에 추가/제거되면 클래스의 대역폭이 조정됩니다.
+
+Discovery of UserPrio and VLAN made during Qat (the “DOMAIN” msg).
+Qat 중에 만들어진 UserPrio와 VLAN 발견 ("DOMAIN"msg).
+
+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+
+Gap 1 - Timed Transmission
+
+- Prior patches enabled passing timestamp information to applications on receive, and returning tx timestamps on the ERRMSG queue …
+- 이전 패치는 수신시 응용 프로그램에 타임 스탬프 정보를 전달하고 ERRMSG 대기열에 tx 타임 스탬프를 반환합니다
+
+- Need to extend timestamps to control actual packet transmit time …
+- 실제 패킷 전송 시간을 제어하기 위해 타임 스탬프를 확장해야합니다 ...
+
+- As the class shaper is adjusted, the class shaper may momentarily send more or less data on existing streams with traffic outstanding
+on a class. This can cause over-runs or under-runs on receivers.
+- 클래스 셰이 퍼가 조정됨에 따라 클래스 셰이퍼는 클래스에서 현저한 트래픽으로 기존 스트림에 대한 데이터를 일시적으로 전송할 수 있습니다. 이로 인해 수신기에서 초과 실행 또는 실행 불량이 발생할 수 있습니다.
+
+- Helps with sequencing of streams onto the same Class shaper (e.g. multiple apps write onto streams and expects the class shaper to pace out the traffic fairly …) <- can workaround with driver-based knowledge of individual streams (not desirable).
+- 동일한 클래스 셰이퍼에 스트림을 시퀀싱하는 데 도움이됩니다 (예 : 여러 앱이 스트림에 쓰고 클래스 셰이퍼가 매우 좁은 속도로 속도를 내줄 것으로 기대합니다 ...) <- 개별 스트림에 대한 드라이버 기반 지식으로 해결할 수 있습니다 (바람직하지 않음).
+
+- This works with L2 or message-based protocols (like UDP) – not stream based like TCP however.
+- 이것은 TCP와 같은 스트림 기반이 아닌 L2와 같은 메시지 기반 프로토콜 (UDP와 같은)에서도 작동합니다.
+
+
+CMSG PROPOSAL for Timed Tx
+
+New CMSG type to indicating timed transmission (as well as corresponding transmission time).
+새로운 CMSG 유형에서 시간 전송 (해당 전송 시간은 물론)을 나타냅니다.
+
+- Transmission time is relative to the physical interface.
+- 전송 시간은 실제 인터페이스와 관련이 있습니다.
+
+- User-mode application will need to perform translation if required from the global “AS” time to the physical interface relative time.
+- 사용자 모드 응용 프로그램은 전역 "AS"시간에서 실제 인터페이스 상대 시간까지 필요한 경우 변환을 수행해야합니다.
+
+      cmsg->cmsg_level = SOL_RAW; /* UDP too? */
+      cmsg->cmsg_type = TIMED_TX;
+      cmsg->cmsg_len = CMSG_LEN(8); /* seconds.nsec format */
+      /* Initialize the payload: */
+      tx_time = (u_int64_t*) CMSG_DATA(cmsg);
+      *tx_time = tx_seconds << 32 | tx_nsec;
+
+
+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+
+Gap (2) – ethtool support
+
+
+Would be desirable to dynamically configure “AVB” functionality (enable/disable) via ethtool.
+ethtool을 통해 "AVB"기능 (활성화 / 비활성화)을 동적으로 구성하는 것이 바람직합니다.
+
+- Based on our experience, requires device reset.
+- 우리의 경험에 비추어 볼 때 기기 리셋이 필요합니다.
+
+- New option to display as well as change “AV” state of adapter interface.
+- 어댑터 인터페이스의 "AV"상태를 변경하고 표시하는 새로운 옵션.
+
+
+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+
+For More Information & Planned Future Steps
+추가 정보 및 계획된 향후 단계
+
+- “linux_igb_avb” tarballs of this code are posted to Intel’s existing e1000.sourceforge.net project.
+- 이 코드의 "linux_igb_avb" 타볼은 Intel의 기존 e1000.sourceforge.net 프로젝트에 게시됩니다.
+
+- In process of establishing a github repos for open source collaboration and contribution
+- 오픈 소스 협업 및 기여를 위한 github repos를 구축하는 과정
+
+- Enhancements to example applications
+- 예제 애플리케이션 향상
+
+
