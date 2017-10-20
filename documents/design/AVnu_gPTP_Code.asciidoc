@@ -56,93 +56,84 @@ This event is scheduled when Announce message is received (ptp_message.cpp line 
 This event is handled in code lines 433-540 in ieee1588port.cpp +
 BMCA 알고리즘 실행의 결과로 이 이벤트는 알림 메시지를 받으면 예약됩니다 (ptp_message.cpp 줄 775).
 
-* SYNC_INTERVAL_TIMEOUT_EXPIRES
-+
-When a port object is in PTP_MASTER mode, this event is delivered once
-per sync interval (see [1] clause 11.2)
-+
+* *SYNC_INTERVAL_TIMEOUT_EXPIRES* +
+When a port object is in PTP_MASTER mode, this event is delivered once per sync interval (see [1] clause 11.2) +
+포트 객체가 PTP_MASTER 모드에있을 때,이 이벤트는 동기 간격 당 한 번 전달됩니다 ([1] 절 11.2 참조). +
 This event is handled in code lines 715-844 in ieee1588port.cpp
-* PDELAY_INTERVAL_TIMEOUT_EXPIRES
-+
-This event is delivered once per pdelay interval (see [1] clause 11.2)
-+
+
+* *PDELAY_INTERVAL_TIMEOUT_EXPIRES* +
+This event is delivered once per pdelay interval (see [1] clause 11.2) +
+이 이벤트는 pdelay 간격 당 한 번 전달됩니다 ([1] 절 11.2 참조).
 This event is handled in code lines 612-714 in ieee1588port.cpp
-* ANNOUNCE_INTERVAL_TIMEOUT_EXPIRES
-+
-When a port object is in PTP_MASTER mode, this event is delivered once
-per announce interval (see [1] clause 10.2)
-+
+
+* *ANNOUNCE_INTERVAL_TIMEOUT_EXPIRES* +
+When a port object is in PTP_MASTER mode, this event is delivered once per announce interval (see [1] clause 10.2) +
+포트 객체가 PTP_MASTER 모드에있을 때이 이벤트는 알림 간격마다 한 번 전달됩니다 ([1] 절 10.2 참조). +
 This event is handled in code lines 845-862 in ieee1588port.cpp
-* SYNC_RECEIPT_TIMEOUT_EXPIRES
-+
-This event is delivered if a sync message is not received before the
-sync receipt timeout occurs (see [1] clause 10.6.3.1)
-+
+
+* *SYNC_RECEIPT_TIMEOUT_EXPIRES* +
+This event is delivered if a sync message is not received before the sync receipt timeout occurs (see [1] clause 10.6.3.1) +
+이 이벤트는 동기화 수신 확인 시간 초과가 발생하기 전에 동기화 메시지가 수신되지 않으면 전달됩니다 ([1] 절 10.6.3.1 참조).+
 This event is handled in code lines 541-611 in ieee1588port.cpp
-* ANNOUNCE_RECEIPT_TIMEOUT_EXPIRES
-+
-This event is delivered if a sync message is not received before the
-sync receipt timeout occurs (see [1] clause 10.6.3.1)
-+
+
+* *ANNOUNCE_RECEIPT_TIMEOUT_EXPIRES* +
+This event is delivered if a sync message is not received before the sync receipt timeout occurs (see [1] clause 10.6.3.1) +
+이 이벤트는 동기화 수신 확인 시간 초과가 발생하기 전에 동기화 메시지가 수신되지 않으면 전달됩니다 ([1] 절 10.6.3.1 참조). +
 This event is handled in code lines 541-611 in ieee1588port.cpp
-* PDELAY_DEFERRED_PROCESSING
-+
-This event is scheduled (code line 1390 in ptp_message.cpp) when a
-pdelay response followup message is received and the corresponding
-pdelay request timestamp is not complete (PDELAY_PENDING_TIMESTAMP)
-+
+
+* *PDELAY_DEFERRED_PROCESSING* +
+This event is scheduled (code line 1390 in ptp_message.cpp) when a pdelay response followup message is received and the corresponding
+pdelay request timestamp is not complete (PDELAY_PENDING_TIMESTAMP) +
+이 이벤트는 pdelay 응답 후속 조치 메시지가 수신 될 때 (ptp_message.cpp의 코드 행 1390) pdelay 요청 시간 소인이 완료되지 않았습니다 (PDELAY_PENDING_TIMESTAMP). +
 This event is handled in code lines 866-878 in ieee1588port.cpp
-* PDELAY_RESP_RECEIPT_TIMEOUT_EXPIRES
-+
-This event is delivered if a pdelay response is not received within the
-timeout interval
-+
+
+* *PDELAY_RESP_RECEIPT_TIMEOUT_EXPIRES* +
+This event is delivered if a pdelay response is not received within the timeout interval +
+이 이벤트는 pdelay 응답이 시간 종료 간격 내에 수신되지 않은 경우 전달됩니다. +
 This event is handled in code lines 879-882 in ieee1588port.cpp
-* POWERUP – duplicate of INITIALIZE event
-* INITIALIZE
-+
-This event causes the port object to initialize and start processing
-+
-This event is handled in code lines 380-432 in ieee1588port.cpp [called
-from daemon]
-* FAULT_DETECTED
-+
+
+* *POWERUP* – duplicate of INITIALIZE event +
+INITIALIZE 이벤트 중복
+
+* *INITIALIZE* +
+This event causes the port object to initialize and start processing +
+이 이벤트는 포트 객체를 초기화하고 처리를 시작합니다 +
+This event is handled in code lines 380-432 in ieee1588port.cpp [called from daemon]
+
+* *FAULT_DETECTED* +
 This event is handled in code lines 863-865 in ieee1588port.cpp
-* QUALIFICATION_TIMEOUT_EXPIRES (unused)
 
-addEventTimer()/addEventTimerLocked() – add event timer and locks the
-underlying OSTimerQueue object in locked version of the call [more
-explanation, why]
+* *QUALIFICATION_TIMEOUT_EXPIRES* (unused)
 
-deleteEventTimer()/deleteEventTimerLocked() – delete event timer and
-locks the underlying OSTimerQueue object in locked version of the call
+addEventTimer()/addEventTimerLocked() – add event timer and locks the underlying OSTimerQueue object in locked version of the call [more explanation, why]
+addEventTimer()/addEventTimerLocked() - 이벤트 타이머를 추가하고, 잠긴 호출 버전에서 기본 OSTimerQueue 객체를 잠급니다. [자세한 설명, 이유]
+
+deleteEventTimer()/deleteEventTimerLocked() – delete event timer and locks the underlying OSTimerQueue object in locked version of the call
+deleteEventTimer()/deleteEventTimerLocked() - 이벤트 타이머를 삭제하고 잠긴 호출 버전에서 기본 OSTimerQueue 객체를 잠급니다.
 
 [[selected-methods]]
 ==== Selected Methods
 
-_setMasterOffset_ – this function updates the frequency and phase
-offsets between the 802.1AS grandmaster and the local network device
-clock and between the system (e.g. gettimeofday) and local network
-clock.[what is this used for?]
+*_setMasterOffset_* – this function updates the frequency and phase offsets between the 802.1AS grandmaster and the local network device clock and between the system (e.g. gettimeofday) and local network clock.[what is this used for?]
+*_setMasterOffset_* - 이 함수는 802.1AS 그랜드 마스터와 로컬 네트워크 장치 클럭 사이 및 시스템(예 : gettimeofday)과 로컬 네트워크 클럭 사이의 주파수 및 위상 오프셋을 업데이트합니다. [이것은 무엇을 위해 사용됩니까?]
 
-This function is called from ptp_message.cpp (code line 1001) when the
-port is in PTP_SLAVE mode and followup message is received. It is also
-called from ieee1588port.cpp (code line 816) when the port is in
-PTP_MASTER mode.
+This function is called from ptp_message.cpp (code line 1001) when the port is in PTP_SLAVE mode and followup message is received. It is also called from ieee1588port.cpp (code line 816) when the port is in PTP_MASTER mode.
+이 함수는 포트가 PTP_SLAVE 모드이고 후속 메시지가 수신 될 때 ptp_message.cpp (코드 줄 1001)에서 호출됩니다. 또한 포트가 PTP_MASTER 모드 일 때 ieee1588port.cpp (코드 줄 816)에서 호출됩니다.
 
-_serializeState_ – this function writes out several clock parameters to
-char buffer. This may be used to cache state for faster startup.
+*_serializeState_* – this function writes out several clock parameters to char buffer. This may be used to cache state for faster startup.
+* _serializeState_ * -이 함수는 여러 클럭 매개 변수를 char 버퍼에 씁니다. 이것은 빠른 시작을 위해 상태를 캐시하는 데 사용될 수 있습니다.
 
-The parameters currently cached are: Local device to GM clock offsets,
-Local device to System clock offset, GM Identity
+The parameters currently cached are: Local device to GM clock offsets, Local device to System clock offset, GM Identity
+현재 캐싱 된 매개 변수는 다음과 같습니다. 로컬 장치에서 GM 클록 오프셋, 로컬 장치에서 시스템 클록 오프셋, GM ID
 
-_restoreSerializedState_ – this function reads clock parameters that
-were previously written out by a call to serializeState
+*_restoreSerializedState_* – this function reads clock parameters that were previously written out by a call to serializeState +
+*_restoreSerializedState_* - 이 함수는 serializeState를 호출하여 이전에 기록한 클럭 매개 변수를 읽습니다.
 
 [[port-ieee1588port-class-in-avbts_port.hppieei1588port.cpp]]
 === 2. Port (IEEE1588Port class in avbts_port.hpp/ieei1588port.cpp)
 
-The IEEE1588Port class is a container for per-port state and methods
+The IEEE1588Port class is a container for per-port state and methods + 
+IEEE1588Port 클래스는 포트 별 상태 및 메서드에 대한 컨테이너입니다.
 
 [[initialization]]
 ==== Initialization
