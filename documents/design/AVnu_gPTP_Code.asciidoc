@@ -206,25 +206,25 @@ All message types derive from this class. The common methods are: +
 [[selected-methods-2]]
 ==== Selected Methods
 
-_buildPTPMessage_ – when a message buffer is received, this function is
-called to parse it. The return value is an object representing the
-message or NULL if parsing fails
+*_buildPTPMessage_* – when a message buffer is received, this function is called to parse it. The return value is an object representing the message or NULL if parsing fails. +
+*_buildPTPMessage_* - 메시지 버퍼가 수신되면 이 함수를 호출하여 구문 분석합니다. 반환 값은 메시지를 나타내는 객체이거나 구문 분석에 실패하면 NULL입니다.
 
-_buildCommonHeader_ – this function writes the common header information
-(see [1] clause 10.5.2 and clause 11.4.2) to a buffer for transmission
+*_buildCommonHeader_* – this function writes the common header information (see [1] clause 10.5.2 and clause 11.4.2) to a buffer for transmission. +
+*_buildPTPMessage_* - 메시지 버퍼가 수신되면이 함수를 호출하여 구문 분석합니다. 반환 값은 메시지를 나타내는 객체이거나 구문 분석에 실패하면 NULL입니다.
 
-_PTPMessageAnnounce::isBetterThan_ – this function compares this object
-with that of the argument and returns true if this is better (see
-discussion of systemIdentity in [1] clause 10.3.2)
+*_PTPMessageAnnounce::isBetterThan_* – this function compares this object with that of the argument and returns true if this is better (see discussion of systemIdentity in [1] clause 10.3.2) +
+*_PTPMessageAnnounce::isBetterThan_* -이 함수는이 객체를 인수의 객체와 비교하고 이것이 더 좋은 경우 true를 반환합니다 ([1] 절 10.3.2의 systemIdentity에 대한 설명 참조)
 
 [[sync-transmission-ptp_master-mode]]
-==== Sync Transmission (PTP_MASTER mode)
+==== Sync Transmission (PTP_MASTER mode) +
+==== 동기 전송 (PTP_MASTER 모드)
 
-When the SYNC_INTERVAL_TIMEOUT_EXPIRES event (see section I.a of this
-document) is received by the port a new PTPMessageSync object is
-initialized and transmitted. The transmit timestamp is read from the
-timestamper object. A PTPMessageFollowUp object is initialized and the
-timestamp is added to the object and transmitted.
+When the SYNC_INTERVAL_TIMEOUT_EXPIRES event (see section I.a of this document) is received by the port a new PTPMessageSync object is initialized and transmitted. +
+SYNC_INTERVAL_TIMEOUT_EXPIRES 이벤트 (본 문서의 섹션 I.a 참조)가 포트에 수신되면 새로운 PTPMessageSync 객체가 초기화되어 전송된다. +
+The transmit timestamp is read from the timestamper object. +
+전송 타임 스탬프는 타임 스탬프 개체에서 읽습니다. +
+A PTPMessageFollowUp object is initialized and the timestamp is added to the object and transmitted.
+PTPMessageFollowUp 객체가 초기화되고 타임 스탬프가 객체에 추가되어 전송됩니다.
 
 image:{img}/Sync%20Transmission%20%28PTP_MASTER%20mode%29.PNG[]
 *Figure 1. Sync Transmission (PTP_MASTER mode) Sequence Diagram*
