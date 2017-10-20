@@ -105,25 +105,25 @@ This event is handled in code lines 863-865 in ieee1588port.cpp
 
 * *QUALIFICATION_TIMEOUT_EXPIRES* (unused)
 
-addEventTimer()/addEventTimerLocked() – add event timer and locks the underlying OSTimerQueue object in locked version of the call [more explanation, why]
+addEventTimer()/addEventTimerLocked() – add event timer and locks the underlying OSTimerQueue object in locked version of the call [more explanation, why] +
 addEventTimer()/addEventTimerLocked() - 이벤트 타이머를 추가하고, 잠긴 호출 버전에서 기본 OSTimerQueue 객체를 잠급니다. [자세한 설명, 이유]
 
-deleteEventTimer()/deleteEventTimerLocked() – delete event timer and locks the underlying OSTimerQueue object in locked version of the call
+deleteEventTimer()/deleteEventTimerLocked() – delete event timer and locks the underlying OSTimerQueue object in locked version of the call +
 deleteEventTimer()/deleteEventTimerLocked() - 이벤트 타이머를 삭제하고 잠긴 호출 버전에서 기본 OSTimerQueue 객체를 잠급니다.
 
 [[selected-methods]]
 ==== Selected Methods
 
-*_setMasterOffset_* – this function updates the frequency and phase offsets between the 802.1AS grandmaster and the local network device clock and between the system (e.g. gettimeofday) and local network clock.[what is this used for?]
+*_setMasterOffset_* – this function updates the frequency and phase offsets between the 802.1AS grandmaster and the local network device clock and between the system (e.g. gettimeofday) and local network clock.[what is this used for?] +
 *_setMasterOffset_* - 이 함수는 802.1AS 그랜드 마스터와 로컬 네트워크 장치 클럭 사이 및 시스템(예 : gettimeofday)과 로컬 네트워크 클럭 사이의 주파수 및 위상 오프셋을 업데이트합니다. [이것은 무엇을 위해 사용됩니까?]
 
-This function is called from ptp_message.cpp (code line 1001) when the port is in PTP_SLAVE mode and followup message is received. It is also called from ieee1588port.cpp (code line 816) when the port is in PTP_MASTER mode.
+This function is called from ptp_message.cpp (code line 1001) when the port is in PTP_SLAVE mode and followup message is received. It is also called from ieee1588port.cpp (code line 816) when the port is in PTP_MASTER mode. +
 이 함수는 포트가 PTP_SLAVE 모드이고 후속 메시지가 수신 될 때 ptp_message.cpp (코드 줄 1001)에서 호출됩니다. 또한 포트가 PTP_MASTER 모드 일 때 ieee1588port.cpp (코드 줄 816)에서 호출됩니다.
 
-*_serializeState_* – this function writes out several clock parameters to char buffer. This may be used to cache state for faster startup.
+*_serializeState_* – this function writes out several clock parameters to char buffer. This may be used to cache state for faster startup. +
 * _serializeState_ * -이 함수는 여러 클럭 매개 변수를 char 버퍼에 씁니다. 이것은 빠른 시작을 위해 상태를 캐시하는 데 사용될 수 있습니다.
 
-The parameters currently cached are: Local device to GM clock offsets, Local device to System clock offset, GM Identity
+The parameters currently cached are: Local device to GM clock offsets, Local device to System clock offset, GM Identity +
 현재 캐싱 된 매개 변수는 다음과 같습니다. 로컬 장치에서 GM 클록 오프셋, 로컬 장치에서 시스템 클록 오프셋, GM ID
 
 *_restoreSerializedState_* – this function reads clock parameters that were previously written out by a call to serializeState +
@@ -138,32 +138,35 @@ IEEE1588Port 클래스는 포트 별 상태 및 메서드에 대한 컨테이너
 [[initialization]]
 ==== Initialization
 
-Initialization of port state is done in the constructor. Much of the
-state corresponds closely with the MDPort entity in [1]. The rest of the
-initialization, including initializing the OS/device specific
-timestamper (HWTimestamper derived object) and network device
-(OSNetworkInterface derived object) is completed in init_port which is
-called in main. The initialization operation is split in two functions
-to accommodate future implementations that require additional OS/device
-specific initialization in between. Initialization and the port
-operations is started when the POWERUP/INITIALIZE event is received. The
-openPort method is started in another thread. This thread processes
-incoming messages.
+Initialization of port state is done in the constructor. +
+포트 상태의 초기화는 생성자에서 수행됩니다. +
+Much of the state corresponds closely with the MDPort entity in [1]. +
+많은 상태는 [1]의 MDPort 엔터티와 밀접하게 일치합니다. +
+The rest of the initialization, including initializing the OS/device specific timestamper (HWTimestamper derived object) and network device (OSNetworkInterface derived object) is completed in init_port which is called in main. +
+OS/장치 고유 타임 스탬프 (HWTimestamper 파생 개체) 및 네트워크 장치 (OSNetworkInterface 파생 개체)를 초기화하는 것을 포함하여 나머지 초기화 작업은 main에서 호출되는 init_port에서 완료됩니다. +
+The initialization operation is split in two functions to accommodate future implementations that require additional OS/device specific initialization in between. +
+초기화 작업은 나중에 OS / 장치 고유의 초기화를 추가로 필요로하는 향후 구현을 수용하기 위해 두 가지 기능으로 나뉩니다. +
+Initialization and the port operations is started when the POWERUP/INITIALIZE event is received. +
+초기화 및 포트 조작은 POWERUP/INITIALIZE 이벤트가 수신 될 때 시작됩니다. +
+The openPort method is started in another thread. +
+openPort 메소드는 다른 스레드에서 시작됩니다. +
+This thread processes incoming messages. +
+이 스레드는 들어오는 메시지를 처리합니다.
 
 [[selected-methods-1]]
 ==== Selected Methods
 
-_openPort_ – receives incoming messages and associated timestamps in
-while loop. Triggers processing of those messages.
+*_openPort_* – receives incoming messages and associated timestamps in while loop. Triggers processing of those messages. +
+*_openPort_* - 수신 메시지와 관련된 타임 스탬프를 while 루프에서 수신합니다. 해당 메시지 처리를 트리거합니다.
 
-_processEvent_ – processes events received by the port. See section I.a
-of this document for message types and associated actions
+*_processEvent_* – processes events received by the port. See section I.a of this document for message types and associated actions +
+*_processEvent_* - 포트가 수신 한 이벤트를 처리합니다. 메시지 유형 및 관련 작업에 대해서는 본 문서의 I.a 절을 참조하십시오.
 
-_serializeState_ – this function writes out several port parameters to
-char buffer. This may be used to cache state for faster startup
+*_serializeState_* – this function writes out several port parameters to char buffer. This may be used to cache state for faster startup +
+*_serializeState_* - 이 함수는 여러 포트 매개 변수를 char 버퍼에 씁니다. 빠른 시동을 위해 상태를 캐시하는 데 사용될 수 있습니다.
 
-_restoreSerializedState_ – this function reads port parameters that were
-previously written out by a call to serializeState
+*_restoreSerializedState_* – this function reads port parameters that were previously written out by a call to serializeState +
+* _restoreSerializedState_ * -이 함수는 이전에 serializeState를 호출하여 작성된 포트 매개 변수를 읽습니다
 
 [[message]]
 === 3. Message
@@ -173,19 +176,32 @@ ptp_message.cpp
 [[class-ptpmessagecommon]]
 ==== class PTPMessageCommon
 
-All message types derive from this class. The common methods are:
+All message types derive from this class. The common methods are: +
+모든 메시지 유형은이 클래스에서 파생됩니다. 일반적인 방법은 다음과 같습니다.
 
-* _processMessage_ – this code processes a message after it is received
-* _sendPort_ – this code transmits a message
+* *_processMessage_* – this code processes a message after it is received +
+* *_processMessage_* -이 코드는 메시지를받은 후 처리합니다.
+
+* *_sendPort_* – this code transmits a message +
+* *_sendPort_* -이 코드는 메시지를 전송합니다.
 
 [[derived-message-typesclasses]]
 ==== Derived Message Types/Classes
 
-* PTPMessageSync – represents sync message
-* PTPMessageFollowUp – followup message
-* PTPMessagePathDelayReq – pdelay request
-* PTPMessagePathDelayResp – pdelay response
-* PTPMessagePathDelayRespFollowUp – pdelay response followup
+* *PTPMessageSync* – represents sync message +
+* *PTPMessageSync* - 동기화 메시지를 나타냅니다.
+
+* *PTPMessageFollowUp* – followup message +
+* *PTPMessageFollowUp* - 후속 조치 메시지
+
+* *PTPMessagePathDelayReq* – pdelay request +
+* *PTPMessagePathDelayReq* - pdelay 요청
+
+* *PTPMessagePathDelayResp* – pdelay response +
+* *PTPMessagePathDelayResp* - pdelay 응답
+
+* *PTPMessagePathDelayRespFollowUp* – pdelay response followup +
+* *PTPMessagePathDelayRespFollowUp* - 지연 응답 후속 조치
 
 [[selected-methods-2]]
 ==== Selected Methods
