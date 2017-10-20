@@ -12,46 +12,50 @@ toc::[]
 [[conventions]]
 === Conventions
 
-Text in red denotes information that is correct at the time the document
-of writing, but is likely to change
+Text in red denotes information that is correct at the time the document of writing, but is likely to change
+빨간색 텍스트는 문서 작성 당시에는 정확한 정보를 나타내지 만 변경 될 가능성이 있습니다
 
-All CAPS text denotes constants or enumerations taken from the OpenAVB
-gPTP code
+All CAPS text denotes constants or enumerations taken from the OpenAVB gPTP code
+모든 CAPS 텍스트는 OpenAVB gPTP 코드에서 가져온 상수 또는 열거 형을 나타냅니다.
 
 [[abbreviation-definitions]]
 === Abbreviation Definitions
 
 GM – Grandmaster. The clock that serves as master for the network
+GM - 그랜드 마스터. 네트워크의 마스터 역할을하는 시계
 
 BMCA – best master clock algorithm
+BMCA - 최고의 마스터 시계 알고리즘
 
 [[references]]
 === References
 
-*[1]* IEEE 802.1AS-2011: Timing and Synchronization for Time-Sensitive
-Applications in Bridged Local Area Networks
+*[1]* IEEE 802.1AS-2011: Timing and Synchronization for Time-Sensitive Applications in Bridged Local Area Networks
+*[1]* IEEE 802.1AS-2011 : 브리지 로컬 영역 네트워크에서 시간에 민감한 응용 프로그램을위한 타이밍 및 동기화
 
 [[common-code]]
 == Common Code
 
 Top level code three components clock, port, message, handling
+최상위 레벨 코드 세 가지 구성 요소 (clock, port, message) 처리 
 
 [[clock-ieee1588clock-class-in-avbts_clock.hppieee1588clock.cpp]]
-=== Clock (IEEE1588Clock class in avbts_clock.hpp/ieee1588clock.cpp)
+=== 1. Clock (IEEE1588Clock class in avbts_clock.hpp/ieee1588clock.cpp)
 
-The IEEE1588Clock class is a container for timing functions and state
-that is global across all ports.
+The IEEE1588Clock class is a container for timing functions and state that is global across all ports.
+IEEE1588Clock 클래스는 타이밍 기능을위한 컨테이너이며 모든 포트에서 전역인 상태입니다.
 
 [[timers]]
 ==== Timers
 
-The timers API is part of the Clock class and is used to deliver events
-to deliver events to Port objects. The event types are:
+The timers API is part of the Clock class and is used to deliver events to Port objects. The event types are:
+타이머 API는 Clock 클래스의 일부이며 이벤트를 전달하여 Port 객체에 이벤트를 전달하는 데 사용됩니다. 이벤트 유형은 다음과 같습니다.
 
 * STATE_CHANGE_EVENT – causes BMCA algorithm to run +
-This event is scheduled when Announce message is received
-(ptp_message.cpp line 775) +
+This event is scheduled when Announce message is received (ptp_message.cpp line 775) +
 This event is handled in code lines 433-540 in ieee1588port.cpp
+BMCA 알고리즘 실행의 결과로 이 이벤트는 알림 메시지를 받으면 예약됩니다 (ptp_message.cpp 줄 775).
+
 * SYNC_INTERVAL_TIMEOUT_EXPIRES
 +
 When a port object is in PTP_MASTER mode, this event is delivered once
@@ -136,7 +140,7 @@ _restoreSerializedState_ – this function reads clock parameters that
 were previously written out by a call to serializeState
 
 [[port-ieee1588port-class-in-avbts_port.hppieei1588port.cpp]]
-=== Port (IEEE1588Port class in avbts_port.hpp/ieei1588port.cpp)
+=== 2. Port (IEEE1588Port class in avbts_port.hpp/ieei1588port.cpp)
 
 The IEEE1588Port class is a container for per-port state and methods
 
@@ -171,7 +175,7 @@ _restoreSerializedState_ – this function reads port parameters that were
 previously written out by a call to serializeState
 
 [[message]]
-=== Message
+=== 3. Message
 
 ptp_message.cpp
 
