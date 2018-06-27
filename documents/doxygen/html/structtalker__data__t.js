@@ -1,0 +1,25 @@
+var structtalker__data__t =
+[
+    [ "avtpHandle", "structtalker__data__t.html#a4b9351eb0c3d027b65d2babae355d2c1", null ],
+    [ "classRate", "structtalker__data__t.html#a0bf28249cb23ce65c155693440118df5", null ],
+    [ "cntFrames", "structtalker__data__t.html#aba2cd205107b713b2d945cbb84442316", null ],
+    [ "cntWakes", "structtalker__data__t.html#aac58e4369721569b14577c867c852feb", null ],
+    [ "destAddr", "structtalker__data__t.html#a016f2167ae2143dcacd762c10be2f614", null ],
+    [ "fwmark", "structtalker__data__t.html#a2feeac72308795682394e8b3796d9502", null ],
+    [ "ifname", "structtalker__data__t.html#a11d6071e5fa37b0c5776e17651485f11", null ],
+    [ "intervalNS", "structtalker__data__t.html#a94f53f00878c9928b413df5a29abbe38", null ],
+    [ "lastReportFrames", "structtalker__data__t.html#afcd18ba6ccac35cfc976d61591b8a718", null ],
+    [ "nextCycleNS", "structtalker__data__t.html#a50f30f37b36cd7b3518289897953a685", null ],
+    [ "nextReportNS", "structtalker__data__t.html#a9ed17cd4b781b5f67b657069d5b4382f", null ],
+    [ "nextSecondNS", "structtalker__data__t.html#af7e8f07dc431af3a82b4ee9b960772ce", null ],
+    [ "sleepUsec", "structtalker__data__t.html#a73390de3ee9147b58f6eb97fcd64a0dd", null ],
+    [ "srClass", "structtalker__data__t.html#a0ce524f0210a76139ed0aa1ae3ff24f4", null ],
+    [ "stats", "structtalker__data__t.html#ad690691ca7f6f435d5ade9ccfcaa211d", null ],
+    [ "streamID", "structtalker__data__t.html#a989c1ccd88811e9926203a07d587bc21", null ],
+    [ "tSpec", "structtalker__data__t.html#ab928eca0e7b010a8cc3a80be5bc8adcc", null ],
+    [ "vlanID", "structtalker__data__t.html#a6f9e150f3345cb797072070d8972aec8", null ],
+    [ "vlanPCP", "structtalker__data__t.html#aeceb46fe9886e43a65d96da0339c43fb", null ],
+    [ "wakeFrames", "structtalker__data__t.html#a89864f8fd627d63b752a2edca16bda66", null ],
+    [ "wakeRate", "structtalker__data__t.html#adce972cc95f97beca374e38bea861870", null ],
+    [ "wakesPerReport", "structtalker__data__t.html#a0d3335b6780650fc534470f66692e6fd", null ]
+];

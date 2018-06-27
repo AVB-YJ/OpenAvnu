@@ -1,0 +1,45 @@
+var group__jdks__log =
+[
+    [ "jdksavdecc_jdks_log_control", "structjdksavdecc__jdks__log__control.html", [
+      [ "blob_size", "group__jdks.html#ga32143551b70893faef60f6e35f88ed50", null ],
+      [ "cmd", "group__jdks.html#ga38de55b081b42c70b4caeb189e999cef", null ],
+      [ "log_detail", "group__jdks.html#ga61044f81305d515f41eea13f02f3cb81", null ],
+      [ "reserved", "group__jdks.html#gacb7bc06bed6f6408d719334fc41698c7", null ],
+      [ "text", "group__jdks.html#ga77513c59b654d8ce1e07a7f3bcdf70db", null ],
+      [ "vendor_eui64", "group__jdks.html#ga6183c85748a8af0003d293d653c4ae9b", null ]
+    ] ],
+    [ "jdksavdecc_jdks_log_console_command", "structjdksavdecc__jdks__log__console__command.html", [
+      [ "blob_size", "group__jdks.html#ga32143551b70893faef60f6e35f88ed50", null ],
+      [ "cmd", "group__jdks.html#ga0c878e1ddbac611b7218077c5c482cde", null ],
+      [ "log_detail", "group__jdks.html#ga61044f81305d515f41eea13f02f3cb81", null ],
+      [ "reserved", "group__jdks.html#gacb7bc06bed6f6408d719334fc41698c7", null ],
+      [ "text", "group__jdks.html#ga77513c59b654d8ce1e07a7f3bcdf70db", null ],
+      [ "vendor_eui64", "group__jdks.html#ga6183c85748a8af0003d293d653c4ae9b", null ]
+    ] ],
+    [ "JDKSAVDECC_JDKS_AEM_CONTROL_LOG_TEXT", "group__jdks__log.html#ga2540d677bf8f7ee2ab29e06e74c384bf", null ],
+    [ "JDKSAVDECC_JDKS_LOG_CONSOLE", "group__jdks__log.html#ga9ced78c29484cde4fb6d621e8be5c65b", null ],
+    [ "JDKSAVDECC_JDKS_LOG_CONTROL_HEADER_LEN", "group__jdks__log.html#gaade756dffaac6e4f6d3d3b16e4cea38b", null ],
+    [ "JDKSAVDECC_JDKS_LOG_CONTROL_MAX_TEXT_LEN", "group__jdks__log.html#gaaa43d62d581d06b4c563a3ac9f689730", null ],
+    [ "JDKSAVDECC_JDKS_LOG_CONTROL_OFFSET_BLOB_SIZE", "group__jdks__log.html#ga14027480ca9c47f6e02e3d96e3e9a1ad", null ],
+    [ "JDKSAVDECC_JDKS_LOG_CONTROL_OFFSET_LOG_DETAIL", "group__jdks__log.html#ga15244e4065b3ef420cd990e0d2e6bc0d", null ],
+    [ "JDKSAVDECC_JDKS_LOG_CONTROL_OFFSET_RESERVED", "group__jdks__log.html#gad860e4d61ae3f91cd3f9799e6b1dd3c5", null ],
+    [ "JDKSAVDECC_JDKS_LOG_CONTROL_OFFSET_TEXT", "group__jdks__log.html#gaa3f2c42190fdfb5a9f8927254dcc38f0", null ],
+    [ "JDKSAVDECC_JDKS_LOG_CONTROL_OFFSET_VENDOR_EUI64", "group__jdks__log.html#gaa09f0dec1864081c2abbc426b9e387fd", null ],
+    [ "JDKSAVDECC_JDKS_LOG_DEBUG1", "group__jdks__log.html#ga64e80ebc82c6c88ac37806ac0da6cef0", null ],
+    [ "JDKSAVDECC_JDKS_LOG_DEBUG2", "group__jdks__log.html#ga4ed4c60943c2bf8efe5670badab16a79", null ],
+    [ "JDKSAVDECC_JDKS_LOG_DEBUG3", "group__jdks__log.html#ga04ac1c6799542605464015ecb9bbd207", null ],
+    [ "JDKSAVDECC_JDKS_LOG_ERROR", "group__jdks__log.html#gab4244a790ff2c0aa1fa3a077b7b7e935", null ],
+    [ "JDKSAVDECC_JDKS_LOG_INFO", "group__jdks__log.html#ga21fdc8ed4fe36814540b461a4b72d9eb", null ],
+    [ "JDKSAVDECC_JDKS_LOG_WARNING", "group__jdks__log.html#gab00fb723ba991ceb1e80dfb91b91af5d", null ],
+    [ "JDKSAVDECC_JDKS_MULTICAST_LOG", "group__jdks__log.html#gabc09ee25e033c56beeee59de6ce2fc6a", null ],
+    [ "JDKSAVDECC_JDKS_NOTIFICATIONS_CONTROLLER_ENTITY_ID", "group__jdks__log.html#ga1eb9143013c3f45edaa1605695e5a6f1", null ],
+    [ "jdksavdecc_jdks_is_console_command", "group__jdks__log.html#gada9d0277e95b72f1841157ad9941cfbc", null ],
+    [ "jdksavdecc_jdks_is_log", "group__jdks__log.html#ga794436f7d0288c29ac4c0002b27c615b", null ],
+    [ "jdksavdecc_jdks_log_console_generate", "group__jdks__log.html#gafe5b02f5ce9b2bf01f6b6f2213e1a209", null ],
+    [ "jdksavdecc_jdks_log_console_read", "group__jdks__log.html#gae585c2248e5de55f0cc52a0241a8cd21", null ],
+    [ "jdksavdecc_jdks_log_control_generate", "group__jdks__log.html#gac5d38dde1fbdb45e3d413b9e1cae5ac3", null ],
+    [ "jdksavdecc_jdks_log_control_read", "group__jdks__log.html#ga564507c73741faa269e846895bae6e16", null ],
+    [ "jdksavdecc_jdks_aem_control_log_text", "group__jdks__log.html#ga492c3be3079a48fdf9366bdc514c0333", null ],
+    [ "jdksavdecc_jdks_multicast_log", "group__jdks__log.html#gae6aee409d176c6cbbc79c18ec2bed520", null ],
+    [ "jdksavdecc_jdks_notifications_controller_entity_id", "group__jdks__log.html#gaa8a55f45c47024872aea1d756c51cd7d", null ]
+];

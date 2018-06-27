@@ -1,0 +1,850 @@
+\hypertarget{maap__log__linux_8c}{}\section{daemons/maap/linux/src/maap\+\_\+log\+\_\+linux.c 파일 참조}
+\label{maap__log__linux_8c}\index{daemons/maap/linux/src/maap\+\_\+log\+\_\+linux.\+c@{daemons/maap/linux/src/maap\+\_\+log\+\_\+linux.\+c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$stdarg.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$inttypes.\+h$>$}\\*
+{\ttfamily \#include $<$limits.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}platform.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}maap\+\_\+log\+\_\+queue.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}maap\+\_\+helper\+\_\+linux.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}maap\+\_\+log.\+h\char`\"{}}\\*
+maap\+\_\+log\+\_\+linux.\+c에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap__log__linux_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{데이타 구조}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structlog__queue__item__t}{log\+\_\+queue\+\_\+item\+\_\+t}
+\item 
+struct \hyperlink{structlog__rt__queue__item__t}{log\+\_\+rt\+\_\+queue\+\_\+item\+\_\+t}
+\end{DoxyCompactItemize}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{maap__log__linux_8c_af641e281ec3ad594d47b9071f3cbc493}{M\+A\+A\+P\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}~\char`\"{}Log\char`\"{}
+\item 
+\#define \hyperlink{maap__log__linux_8c_a9373ce7683ab48b75cda3c068c6f9f0e}{logging\+Thread\+\_\+\+T\+H\+R\+E\+A\+D\+\_\+\+S\+T\+K\+\_\+\+S\+I\+ZE}~\hyperlink{maap__log__windows_8c_a90b7a8cb7bc3fdbd98014a3e15ee6e9a}{T\+H\+R\+E\+A\+D\+\_\+\+S\+T\+A\+C\+K\+\_\+\+S\+I\+ZE}
+\item 
+\#define \hyperlink{maap__log__linux_8c_a11e0170fce31cef3d3637001b575bbdc}{L\+O\+G\+\_\+\+L\+O\+CK}()~\hyperlink{openavb__os__services__osal__pub_8h_a5f5f93e391f44e2c8d23c9fffb7abbb8}{M\+U\+T\+E\+X\+\_\+\+L\+O\+C\+K\+\_\+\+A\+LT}(\hyperlink{maap__log__windows_8c_a83e0fa84cebfd7344197d386e57af6bc}{g\+Log\+Mutex})
+\item 
+\#define \hyperlink{maap__log__linux_8c_aa6d92b26d315ad0b9562711c0ff97878}{L\+O\+G\+\_\+\+U\+N\+L\+O\+CK}()~\hyperlink{openavb__os__services__osal__pub_8h_a67f133ff29f9d944cd15ebc8b5f6ef09}{M\+U\+T\+E\+X\+\_\+\+U\+N\+L\+O\+C\+K\+\_\+\+A\+LT}(\hyperlink{maap__log__windows_8c_a83e0fa84cebfd7344197d386e57af6bc}{g\+Log\+Mutex})
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+void $\ast$ \hyperlink{maap__log__linux_8c_a1853bbdfb162b9fa84c011ee3aaa95d8}{logging\+Thread\+Fn} (void $\ast$pv)
+\item 
+\hyperlink{maap__log__linux_8c_abb5e768e12b298211a6381bcb57e7327}{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE} (\hyperlink{maap__log__windows_8c_adf591e6834fc8d927dc5d9b1a02ac5eb}{logging\+Thread})
+\item 
+\hyperlink{maap__log__linux_8c_a5d22cb81833265675bdcfc953cea9c44}{T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+ON} (\hyperlink{maap__log__windows_8c_adf591e6834fc8d927dc5d9b1a02ac5eb}{logging\+Thread})
+\item 
+static \hyperlink{maap__log__linux_8c_a276fed837d0ac6cbe9fc26a90f4dca5b}{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+L\+E\+\_\+\+A\+LT} (\hyperlink{maap__log__windows_8c_a83e0fa84cebfd7344197d386e57af6bc}{g\+Log\+Mutex})
+\item 
+void \hyperlink{maap__log__linux_8c_ad1bcedee2250466424ad142ba41a147a}{maap\+Log\+R\+T\+Render} (\hyperlink{structlog__queue__item__t}{log\+\_\+queue\+\_\+item\+\_\+t} $\ast$p\+Log\+Item)
+\item 
+\hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\+\_\+t} \hyperlink{maap__log__linux_8c_a78d1cbbc84ed1b894edaa9e8f607ffd8}{maap\+Log\+Get\+Msg} (\hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\+\_\+t} $\ast$p\+Buf, \hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\+\_\+t} buf\+Size)
+\item 
+void \hyperlink{maap__log__linux_8c_a6e00763bf98d288ddb54fe99ebba30c4}{maap\+Log\+Init} (void)
+\item 
+void \hyperlink{maap__log__linux_8c_a8bd99130062748d4939d58e59a085571}{maap\+Log\+Exit} ()
+\item 
+void \hyperlink{maap__log__linux_8c_a359fd898fb00c1866bbd54968b34c78d}{maap\+Log\+Fn} (int level, const char $\ast$tag, const char $\ast$company, const char $\ast$component, const char $\ast$path, int line, const char $\ast$fmt,...)
+\item 
+void \hyperlink{maap__log__linux_8c_a616d8fa5d08336050eba3f15fb0801a4}{maap\+Log\+RT} (int level, int b\+Begin, int b\+Item, int b\+End, char $\ast$p\+Format, \hyperlink{maap__log_8h_a478140af25cbb77e3fd5e15d175706e7}{log\+\_\+rt\+\_\+datatype\+\_\+t} data\+Type, void $\ast$p\+Var)
+\item 
+void \hyperlink{maap__log__linux_8c_a7a64635244f923fc5ecfec74615b8654}{maap\+Log\+Buffer} (int level, const \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\+\_\+t} $\ast$p\+Data, int data\+Len, int line\+Len, const char $\ast$company, const char $\ast$component, const char $\ast$path, int line)
+\end{DoxyCompactItemize}
+\subsection*{변수}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{maap__log__queue_8h_a5863a685429f40d6c95cf550eafa6ea3}{maap\+\_\+log\+\_\+queue\+\_\+t} \hyperlink{maap__log__linux_8c_a12a8c3ac1796469aa38e22335d7b0e93}{log\+Queue}
+\item 
+static \hyperlink{maap__log__queue_8h_a5863a685429f40d6c95cf550eafa6ea3}{maap\+\_\+log\+\_\+queue\+\_\+t} \hyperlink{maap__log__linux_8c_a1a85b5ef7d223c1e2f8e3e5518b9e30b}{log\+R\+T\+Queue}
+\item 
+static char \hyperlink{maap__log__linux_8c_a0c7e58a50354c4a4d6dad428d0e47029}{msg} \mbox{[}\hyperlink{include_2openavb__log__pub_8h_ac1578b85d7efd7ce6501707e96f53b07}{L\+O\+G\+\_\+\+M\+S\+G\+\_\+\+L\+EN}\mbox{]} = \char`\"{}\char`\"{}
+\item 
+static char \hyperlink{maap__log__linux_8c_afa92916bc8163ff97f4ab9cf92e55429}{time\+\_\+msg} \mbox{[}\hyperlink{include_2openavb__log__pub_8h_af908196e407bb67394664c7b0d5999b8}{L\+O\+G\+\_\+\+T\+I\+M\+E\+\_\+\+L\+EN}\mbox{]} = \char`\"{}\char`\"{}
+\item 
+static char \hyperlink{maap__log__linux_8c_a04ee9a2d03c51567d17af0d058d0e750}{timestamp\+\_\+msg} \mbox{[}\hyperlink{include_2openavb__log__pub_8h_aa673d41c2bd46c9fdeab4169ecb012a4}{L\+O\+G\+\_\+\+T\+I\+M\+E\+S\+T\+A\+M\+P\+\_\+\+L\+EN}\mbox{]} = \char`\"{}\char`\"{}
+\item 
+static char \hyperlink{maap__log__linux_8c_a21dd859ebe9e700309dc224741774096}{file\+\_\+msg} \mbox{[}\hyperlink{include_2openavb__log__pub_8h_a485d4224b8e007bde0e6fda8c91cb0c8}{L\+O\+G\+\_\+\+F\+I\+L\+E\+\_\+\+L\+EN}\mbox{]} = \char`\"{}\char`\"{}
+\item 
+static char \hyperlink{maap__log__linux_8c_a57e0ac8e722c8cb7738d968757ff195c}{proc\+\_\+msg} \mbox{[}\hyperlink{include_2openavb__log__pub_8h_a653af859839bdbb51ce777b4b039831e}{L\+O\+G\+\_\+\+P\+R\+O\+C\+\_\+\+L\+EN}\mbox{]} = \char`\"{}\char`\"{}
+\item 
+static char \hyperlink{maap__log__linux_8c_a82dd27020d09c78fc3cbdfdce1bf4716}{thread\+\_\+msg} \mbox{[}\hyperlink{include_2openavb__log__pub_8h_a0e1f239d7e1456e76b4804fef8482cf4}{L\+O\+G\+\_\+\+T\+H\+R\+E\+A\+D\+\_\+\+L\+EN}\mbox{]} = \char`\"{}\char`\"{}
+\item 
+static char \hyperlink{maap__log__linux_8c_a5670633f699944d8df262539386c8839}{full\+\_\+msg} \mbox{[}\hyperlink{include_2openavb__log__pub_8h_a467681e7aef1b3fb6659edcc15952bd1}{L\+O\+G\+\_\+\+F\+U\+L\+L\+\_\+\+M\+S\+G\+\_\+\+L\+EN}\mbox{]} = \char`\"{}\char`\"{}
+\item 
+static char \hyperlink{maap__log__linux_8c_ae94e6da629086c0ec14c336cc5bb54dd}{rt\+\_\+msg} \mbox{[}\hyperlink{include_2openavb__log__pub_8h_ad7d09ebd052988bb7278ddc544ec1f8b}{L\+O\+G\+\_\+\+R\+T\+\_\+\+M\+S\+G\+\_\+\+L\+EN}\mbox{]} = \char`\"{}\char`\"{}
+\item 
+static int \hyperlink{maap__log__linux_8c_ad6f257febaeb5a53e5e83acd38bf4a6a}{logging\+Thread\+Running} = \hyperlink{lib_2igb_2e1000__osdep_8h_aa93f0eb578d23995850d61f7d61c55c1}{F\+A\+L\+SE}
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}!L\+O\+G\+\_\+\+L\+O\+CK@{L\+O\+G\+\_\+\+L\+O\+CK}}
+\index{L\+O\+G\+\_\+\+L\+O\+CK@{L\+O\+G\+\_\+\+L\+O\+CK}!maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{L\+O\+G\+\_\+\+L\+O\+CK}{LOG_LOCK}}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\+O\+G\+\_\+\+L\+O\+CK(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~{\bf M\+U\+T\+E\+X\+\_\+\+L\+O\+C\+K\+\_\+\+A\+LT}({\bf g\+Log\+Mutex})}\hypertarget{maap__log__linux_8c_a11e0170fce31cef3d3637001b575bbdc}{}\label{maap__log__linux_8c_a11e0170fce31cef3d3637001b575bbdc}
+
+
+maap\+\_\+log\+\_\+linux.\+c 파일의 89 번째 라인에서 정의되었습니다.
+
+\index{maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}!L\+O\+G\+\_\+\+U\+N\+L\+O\+CK@{L\+O\+G\+\_\+\+U\+N\+L\+O\+CK}}
+\index{L\+O\+G\+\_\+\+U\+N\+L\+O\+CK@{L\+O\+G\+\_\+\+U\+N\+L\+O\+CK}!maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{L\+O\+G\+\_\+\+U\+N\+L\+O\+CK}{LOG_UNLOCK}}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\+O\+G\+\_\+\+U\+N\+L\+O\+CK(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~{\bf M\+U\+T\+E\+X\+\_\+\+U\+N\+L\+O\+C\+K\+\_\+\+A\+LT}({\bf g\+Log\+Mutex})}\hypertarget{maap__log__linux_8c_aa6d92b26d315ad0b9562711c0ff97878}{}\label{maap__log__linux_8c_aa6d92b26d315ad0b9562711c0ff97878}
+
+
+maap\+\_\+log\+\_\+linux.\+c 파일의 90 번째 라인에서 정의되었습니다.
+
+\index{maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}!logging\+Thread\+\_\+\+T\+H\+R\+E\+A\+D\+\_\+\+S\+T\+K\+\_\+\+S\+I\+ZE@{logging\+Thread\+\_\+\+T\+H\+R\+E\+A\+D\+\_\+\+S\+T\+K\+\_\+\+S\+I\+ZE}}
+\index{logging\+Thread\+\_\+\+T\+H\+R\+E\+A\+D\+\_\+\+S\+T\+K\+\_\+\+S\+I\+ZE@{logging\+Thread\+\_\+\+T\+H\+R\+E\+A\+D\+\_\+\+S\+T\+K\+\_\+\+S\+I\+ZE}!maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{logging\+Thread\+\_\+\+T\+H\+R\+E\+A\+D\+\_\+\+S\+T\+K\+\_\+\+S\+I\+ZE}{loggingThread_THREAD_STK_SIZE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define logging\+Thread\+\_\+\+T\+H\+R\+E\+A\+D\+\_\+\+S\+T\+K\+\_\+\+S\+I\+ZE~{\bf T\+H\+R\+E\+A\+D\+\_\+\+S\+T\+A\+C\+K\+\_\+\+S\+I\+ZE}}\hypertarget{maap__log__linux_8c_a9373ce7683ab48b75cda3c068c6f9f0e}{}\label{maap__log__linux_8c_a9373ce7683ab48b75cda3c068c6f9f0e}
+
+
+maap\+\_\+log\+\_\+linux.\+c 파일의 86 번째 라인에서 정의되었습니다.
+
+\index{maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}!M\+A\+A\+P\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT@{M\+A\+A\+P\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}}
+\index{M\+A\+A\+P\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT@{M\+A\+A\+P\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}!maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{M\+A\+A\+P\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}{MAAP_LOG_COMPONENT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+A\+P\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT~\char`\"{}Log\char`\"{}}\hypertarget{maap__log__linux_8c_af641e281ec3ad594d47b9071f3cbc493}{}\label{maap__log__linux_8c_af641e281ec3ad594d47b9071f3cbc493}
+
+
+maap\+\_\+log\+\_\+linux.\+c 파일의 36 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{함수 문서화}
+\index{maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}!logging\+Thread\+Fn@{logging\+Thread\+Fn}}
+\index{logging\+Thread\+Fn@{logging\+Thread\+Fn}!maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{logging\+Thread\+Fn(void $\ast$pv)}{loggingThreadFn(void *pv)}}]{\setlength{\rightskip}{0pt plus 5cm}void $\ast$ logging\+Thread\+Fn (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{pv}
+\end{DoxyParamCaption}
+)}\hypertarget{maap__log__linux_8c_a1853bbdfb162b9fa84c011ee3aaa95d8}{}\label{maap__log__linux_8c_a1853bbdfb162b9fa84c011ee3aaa95d8}
+
+
+maap\+\_\+log\+\_\+linux.\+c 파일의 176 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+177 \{
+178     \textcolor{keywordflow}{while} (\hyperlink{maap__log__linux_8c_ad6f257febaeb5a53e5e83acd38bf4a6a}{loggingThreadRunning}) \{
+179         \hyperlink{maap__helper__linux_8h_a63121b744a6265fe4bae4963b032ac02}{SLEEP\_MSEC}(\hyperlink{maap__log_8h_a71121b25c4a669d49ac2101436f1e529}{LOG\_QUEUE\_SLEEP\_MSEC});
+180 
+181         \textcolor{keywordtype}{int} more = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+182 
+183         \textcolor{keywordflow}{while} (more) \{
+184             more = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+185             \hyperlink{structmaap__log__queue__elem}{maap\_log\_queue\_elem\_t} elem = 
+      \hyperlink{maap__log__queue_8c_a0becc9286dfe7d3b8e3f1d2b9898bba0}{maapLogQueueTailLock}(\hyperlink{maap__log__linux_8c_a12a8c3ac1796469aa38e22335d7b0e93}{logQueue});
+186             \textcolor{keywordflow}{if} (elem) \{
+187                 \hyperlink{structlog__queue__item__t}{log\_queue\_item\_t} *pLogItem = (\hyperlink{structlog__queue__item__t}{log\_queue\_item\_t} *)
+      \hyperlink{maap__log__queue_8c_a873dec1b06b8eb1adc83f114779749cc}{maapLogQueueData}(elem);
+188 
+189                 \textcolor{keywordflow}{if} (pLogItem->\hyperlink{structlog__queue__item__t_a30f8c58f5752c309e3ea89708f8dff4f}{bRT})
+190                     \hyperlink{maap__log__linux_8c_ad1bcedee2250466424ad142ba41a147a}{maapLogRTRender}(pLogItem);
+191 
+192                 fputs((\textcolor{keyword}{const} \textcolor{keywordtype}{char} *)pLogItem->\hyperlink{structlog__queue__item__t_ad6dd0ed011025f01f3d77d2e437d5a10}{msg}, \hyperlink{maap__log_8h_ab70966e6153021f9fc0a7507ca1afa78}{MAAP\_LOG\_OUTPUT\_FD});
+193                 \hyperlink{maap__log__queue_8c_a647ac0d82e5b0b4057e8d1c665b78ef4}{maapLogQueueTailPull}(\hyperlink{maap__log__linux_8c_a12a8c3ac1796469aa38e22335d7b0e93}{logQueue});
+194                 more = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+195             \}
+196         \}
+197     \}
+198 
+199     \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+200 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap__log__linux_8c_a1853bbdfb162b9fa84c011ee3aaa95d8_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=275pt]{maap__log__linux_8c_a1853bbdfb162b9fa84c011ee3aaa95d8_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}!maap\+Log\+Buffer@{maap\+Log\+Buffer}}
+\index{maap\+Log\+Buffer@{maap\+Log\+Buffer}!maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{maap\+Log\+Buffer(int level, const uint8\+\_\+t $\ast$p\+Data, int data\+Len, int line\+Len, const char $\ast$company, const char $\ast$component, const char $\ast$path, int line)}{maapLogBuffer(int level, const uint8_t *pData, int dataLen, int lineLen, const char *company, const char *component, const char *path, int line)}}]{\setlength{\rightskip}{0pt plus 5cm}void maap\+Log\+Buffer (
+\begin{DoxyParamCaption}
+\item[{int}]{level, }
+\item[{const {\bf uint8\+\_\+t} $\ast$}]{p\+Data, }
+\item[{int}]{data\+Len, }
+\item[{int}]{line\+Len, }
+\item[{const char $\ast$}]{company, }
+\item[{const char $\ast$}]{component, }
+\item[{const char $\ast$}]{path, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}\hypertarget{maap__log__linux_8c_a7a64635244f923fc5ecfec74615b8654}{}\label{maap__log__linux_8c_a7a64635244f923fc5ecfec74615b8654}
+
+
+maap\+\_\+log\+\_\+linux.\+c 파일의 405 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+414 \{
+415     \textcolor{keywordtype}{char} szDataLine[ 400 ];
+416     \textcolor{keywordtype}{char} *pszOut;
+417     \textcolor{keywordtype}{size\_t} i, j;
+418 
+419     \textcolor{keywordflow}{if} (level > \hyperlink{maap__log_8h_a2ccd1b8477f20e51a331f4a2b20901e7}{MAAP\_LOG\_LEVEL}) \{ \textcolor{keywordflow}{return}; \}
+420 
+421     \textcolor{keywordflow}{for} (i = 0; i < dataLen; i += lineLen) \{
+422         \textcolor{comment}{/* Create the hexadecimal output for the buffer. */}
+423         pszOut = szDataLine;
+424         *pszOut++ = \textcolor{charliteral}{'\(\backslash\)t'};
+425         \textcolor{keywordflow}{for} (j = i; j < i + lineLen; ++j) \{
+426             \textcolor{keywordflow}{if} (j < dataLen) \{
+427                 sprintf(pszOut, \textcolor{stringliteral}{"%02x "}, pData[j]);
+428             \} \textcolor{keywordflow}{else} \{
+429                 strcpy(pszOut, \textcolor{stringliteral}{"   "});
+430             \}
+431             pszOut += 3;
+432         \}
+433 
+434         *pszOut++ = \textcolor{charliteral}{' '};
+435         *pszOut++ = \textcolor{charliteral}{' '};
+436 
+437         \textcolor{comment}{/* Append the ASCII equivalent of each character. */}
+438         \textcolor{keywordflow}{for} (j = i; j < dataLen && j < i + lineLen; ++j) \{
+439             \textcolor{keywordflow}{if} (pData[j] >= 0x20 && pData[j] < 0x7f) \{
+440                 *pszOut++ = (char) pData[j];
+441             \} \textcolor{keywordflow}{else} \{
+442                 *pszOut++ = \textcolor{charliteral}{'.'};
+443             \}
+444         \}
+445 
+446         \textcolor{comment}{/* Display this line of text. */}
+447         *pszOut = \textcolor{charliteral}{'\(\backslash\)0'};
+448         \hyperlink{maap__log__linux_8c_a359fd898fb00c1866bbd54968b34c78d}{maapLogFn}(level, \textcolor{stringliteral}{"BUFFER"}, company, component, path, line, \textcolor{stringliteral}{"%s"}, szDataLine);
+449     \}
+450 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap__log__linux_8c_a7a64635244f923fc5ecfec74615b8654_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}!maap\+Log\+Exit@{maap\+Log\+Exit}}
+\index{maap\+Log\+Exit@{maap\+Log\+Exit}!maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{maap\+Log\+Exit()}{maapLogExit()}}]{\setlength{\rightskip}{0pt plus 5cm}void maap\+Log\+Exit (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{maap__log__linux_8c_a8bd99130062748d4939d58e59a085571}{}\label{maap__log__linux_8c_a8bd99130062748d4939d58e59a085571}
+
+
+maap\+\_\+log\+\_\+linux.\+c 파일의 229 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+230 \{
+231     \textcolor{keywordflow}{if} (\hyperlink{maap__log_8h_ada49b78daafc9ccc4d4f531d44727921}{MAAP\_LOG\_FROM\_THREAD} && \hyperlink{maap__log__linux_8c_ad6f257febaeb5a53e5e83acd38bf4a6a}{loggingThreadRunning} ) \{
+232         \hyperlink{maap__log__linux_8c_ad6f257febaeb5a53e5e83acd38bf4a6a}{loggingThreadRunning} = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+233         \hyperlink{maap__helper__linux_8h_ab2bcb74112112a2ed181d5784e0530f3}{THREAD\_JOIN}(\hyperlink{maap__log__windows_8c_adf591e6834fc8d927dc5d9b1a02ac5eb}{loggingThread}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+234     \}
+235 \}
+\end{DoxyCode}
+\index{maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}!maap\+Log\+Fn@{maap\+Log\+Fn}}
+\index{maap\+Log\+Fn@{maap\+Log\+Fn}!maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{maap\+Log\+Fn(int level, const char $\ast$tag, const char $\ast$company, const char $\ast$component, const char $\ast$path, int line, const char $\ast$fmt,...)}{maapLogFn(int level, const char *tag, const char *company, const char *component, const char *path, int line, const char *fmt,...)}}]{\setlength{\rightskip}{0pt plus 5cm}void maap\+Log\+Fn (
+\begin{DoxyParamCaption}
+\item[{int}]{level, }
+\item[{const char $\ast$}]{tag, }
+\item[{const char $\ast$}]{company, }
+\item[{const char $\ast$}]{component, }
+\item[{const char $\ast$}]{path, }
+\item[{int}]{line, }
+\item[{const char $\ast$}]{fmt, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)}\hypertarget{maap__log__linux_8c_a359fd898fb00c1866bbd54968b34c78d}{}\label{maap__log__linux_8c_a359fd898fb00c1866bbd54968b34c78d}
+
+
+maap\+\_\+log\+\_\+linux.\+c 파일의 237 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+246 \{
+247     \textcolor{keywordflow}{if} (level <= \hyperlink{maap__log_8h_a2ccd1b8477f20e51a331f4a2b20901e7}{MAAP\_LOG\_LEVEL}) \{
+248         va\_list \hyperlink{namespaceastime__fitline_a8187411843a6284ffb964ef3fb9fcab3}{args};
+249         va\_start(args, fmt);
+250 
+251         \hyperlink{maap__log__linux_8c_a11e0170fce31cef3d3637001b575bbdc}{LOG\_LOCK}();
+252 
+253         vsprintf(\hyperlink{maap__log__linux_8c_a0c7e58a50354c4a4d6dad428d0e47029}{msg}, fmt, args);
+254 
+255         \textcolor{keywordflow}{if} (\hyperlink{maap__log_8h_a4489b1ca131c063b7bbcd6fcfafddbc3}{MAAP\_LOG\_FILE\_INFO} && path) \{
+256             \textcolor{keywordtype}{char}* file = strrchr(path, \textcolor{charliteral}{'/'});
+257             \textcolor{keywordflow}{if} (!file)
+258                 file = strrchr(path, \textcolor{charliteral}{'\(\backslash\)\(\backslash\)'});
+259             \textcolor{keywordflow}{if} (file)
+260                 file += 1;
+261             \textcolor{keywordflow}{else}
+262                 file = (\textcolor{keywordtype}{char}*)path;
+263             sprintf(\hyperlink{maap__log__linux_8c_a21dd859ebe9e700309dc224741774096}{file\_msg}, \textcolor{stringliteral}{" %s:%d"}, file, line);
+264         \}
+265         \textcolor{keywordflow}{if} (\hyperlink{maap__log_8h_a0e89e51aa27c063afa08d4e8bee7bfe8}{MAAP\_LOG\_PROC\_INFO}) \{
+266             sprintf(\hyperlink{maap__log__linux_8c_a57e0ac8e722c8cb7738d968757ff195c}{proc\_msg}, \textcolor{stringliteral}{" P:%5.5d"}, \hyperlink{maap__helper__linux_8h_ab962ad63d625bd73c120e8a5a9c62052}{GET\_PID}());
+267         \}
+268         \textcolor{keywordflow}{if} (\hyperlink{maap__log_8h_a359609274792a588d458aeed59201cfa}{MAAP\_LOG\_THREAD\_INFO}) \{
+269             sprintf(\hyperlink{maap__log__linux_8c_a82dd27020d09c78fc3cbdfdce1bf4716}{thread\_msg}, \textcolor{stringliteral}{" T:%lu"}, \hyperlink{maap__helper__linux_8h_a2310e7fcb309a05edf2a12694714256a}{THREAD\_SELF}());
+270         \}
+271         \textcolor{keywordflow}{if} (\hyperlink{maap__log_8h_afc4f4ea2840cb57cfc04560e08d19601}{MAAP\_LOG\_TIME\_INFO}) \{
+272             time\_t tNow = time(\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+273             \textcolor{keyword}{struct }tm tmNow;
+274             localtime\_r(&tNow, &tmNow);
+275 
+276             sprintf(\hyperlink{maap__log__linux_8c_afa92916bc8163ff97f4ab9cf92e55429}{time\_msg}, \textcolor{stringliteral}{"%2.2d:%2.2d:%2.2d"}, tmNow.tm\_hour, tmNow.tm\_min, tmNow.tm\_sec);
+277         \}
+278         \textcolor{keywordflow}{if} (\hyperlink{maap__log_8h_a00dafa87344465dbafbe145172906d31}{MAAP\_LOG\_TIMESTAMP\_INFO}) \{
+279             \textcolor{keyword}{struct }timespec nowTS;
+280             clock\_gettime(CLOCK\_REALTIME, &nowTS);
+281 
+282             sprintf(\hyperlink{maap__log__linux_8c_a04ee9a2d03c51567d17af0d058d0e750}{timestamp\_msg}, \textcolor{stringliteral}{"%lu:%09lu"}, nowTS.tv\_sec, nowTS.tv\_nsec);
+283         \}
+284 
+285         \textcolor{comment}{// using sprintf and puts allows using static buffers rather than heap.}
+286         \textcolor{keywordflow}{if} (\hyperlink{maap__log_8h_a6ce7b7032fcc293bf3af00e3b719fb4b}{MAAP\_LOG\_EXTRA\_NEWLINE})
+287             \textcolor{comment}{/* int32\_t full\_msg\_len = */} sprintf(\hyperlink{maap__log__linux_8c_a5670633f699944d8df262539386c8839}{full\_msg}, \textcolor{stringliteral}{"[%s%s%s%s %s %s%s] %s: %s\(\backslash\)n"}, 
+      \hyperlink{maap__log__linux_8c_afa92916bc8163ff97f4ab9cf92e55429}{time\_msg}, \hyperlink{maap__log__linux_8c_a04ee9a2d03c51567d17af0d058d0e750}{timestamp\_msg}, \hyperlink{maap__log__linux_8c_a57e0ac8e722c8cb7738d968757ff195c}{proc\_msg}, \hyperlink{maap__log__linux_8c_a82dd27020d09c78fc3cbdfdce1bf4716}{thread\_msg}, company, component, 
+      \hyperlink{maap__log__linux_8c_a21dd859ebe9e700309dc224741774096}{file\_msg}, tag, \hyperlink{maap__log__linux_8c_a0c7e58a50354c4a4d6dad428d0e47029}{msg});
+288         \textcolor{keywordflow}{else}
+289             \textcolor{comment}{/* int32\_t full\_msg\_len = */} sprintf(\hyperlink{maap__log__linux_8c_a5670633f699944d8df262539386c8839}{full\_msg}, \textcolor{stringliteral}{"[%s%s%s%s %s %s%s] %s: %s"}, 
+      \hyperlink{maap__log__linux_8c_afa92916bc8163ff97f4ab9cf92e55429}{time\_msg}, \hyperlink{maap__log__linux_8c_a04ee9a2d03c51567d17af0d058d0e750}{timestamp\_msg}, \hyperlink{maap__log__linux_8c_a57e0ac8e722c8cb7738d968757ff195c}{proc\_msg}, \hyperlink{maap__log__linux_8c_a82dd27020d09c78fc3cbdfdce1bf4716}{thread\_msg}, company, component, 
+      \hyperlink{maap__log__linux_8c_a21dd859ebe9e700309dc224741774096}{file\_msg}, tag, \hyperlink{maap__log__linux_8c_a0c7e58a50354c4a4d6dad428d0e47029}{msg});
+290 
+291         \textcolor{keywordflow}{if} (!\hyperlink{maap__log_8h_ada49b78daafc9ccc4d4f531d44727921}{MAAP\_LOG\_FROM\_THREAD} && !\hyperlink{maap__log_8h_a039eec3cc9aa3e25d5ca837a27984b15}{MAAP\_LOG\_PULL\_MODE}) \{
+292             fputs(\hyperlink{maap__log__linux_8c_a5670633f699944d8df262539386c8839}{full\_msg}, \hyperlink{maap__log_8h_ab70966e6153021f9fc0a7507ca1afa78}{MAAP\_LOG\_OUTPUT\_FD});
+293         \}
+294         \textcolor{keywordflow}{else} \{
+295             \textcolor{keywordflow}{if} (\hyperlink{maap__log__linux_8c_a12a8c3ac1796469aa38e22335d7b0e93}{logQueue}) \{
+296                 \hyperlink{structmaap__log__queue__elem}{maap\_log\_queue\_elem\_t} elem = 
+      \hyperlink{maap__log__queue_8c_a69999859d8b391585209a00378314bdb}{maapLogQueueHeadLock}(\hyperlink{maap__log__linux_8c_a12a8c3ac1796469aa38e22335d7b0e93}{logQueue});
+297                 \textcolor{keywordflow}{if} (elem) \{
+298                     \hyperlink{structlog__queue__item__t}{log\_queue\_item\_t} *pLogItem = (
+      \hyperlink{structlog__queue__item__t}{log\_queue\_item\_t} *)\hyperlink{maap__log__queue_8c_a873dec1b06b8eb1adc83f114779749cc}{maapLogQueueData}(elem);
+299                     pLogItem->\hyperlink{structlog__queue__item__t_a30f8c58f5752c309e3ea89708f8dff4f}{bRT} = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+300                     strncpy((\textcolor{keywordtype}{char} *)pLogItem->\hyperlink{structlog__queue__item__t_ad6dd0ed011025f01f3d77d2e437d5a10}{msg}, \hyperlink{maap__log__linux_8c_a5670633f699944d8df262539386c8839}{full\_msg}, 
+      \hyperlink{maap__log_8h_a4a189d3725ffaa3069029a11e66748bd}{LOG\_QUEUE\_MSG\_LEN});
+301                     \hyperlink{maap__log__queue_8c_ad980c36f60984acf082a6751b480292f}{maapLogQueueHeadPush}(\hyperlink{maap__log__linux_8c_a12a8c3ac1796469aa38e22335d7b0e93}{logQueue});
+302                 \}
+303             \}
+304         \}
+305 
+306         va\_end(args);
+307 
+308         \hyperlink{maap__log__linux_8c_aa6d92b26d315ad0b9562711c0ff97878}{LOG\_UNLOCK}();
+309     \}
+310 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=315pt]{maap__log__linux_8c_a359fd898fb00c1866bbd54968b34c78d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=267pt]{maap__log__linux_8c_a359fd898fb00c1866bbd54968b34c78d_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}!maap\+Log\+Get\+Msg@{maap\+Log\+Get\+Msg}}
+\index{maap\+Log\+Get\+Msg@{maap\+Log\+Get\+Msg}!maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{maap\+Log\+Get\+Msg(uint8\+\_\+t $\ast$p\+Buf, uint32\+\_\+t buf\+Size)}{maapLogGetMsg(uint8_t *pBuf, uint32_t bufSize)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint32\+\_\+t} maap\+Log\+Get\+Msg (
+\begin{DoxyParamCaption}
+\item[{{\bf uint8\+\_\+t} $\ast$}]{p\+Buf, }
+\item[{{\bf uint32\+\_\+t}}]{buf\+Size}
+\end{DoxyParamCaption}
+)}\hypertarget{maap__log__linux_8c_a78d1cbbc84ed1b894edaa9e8f607ffd8}{}\label{maap__log__linux_8c_a78d1cbbc84ed1b894edaa9e8f607ffd8}
+
+
+maap\+\_\+log\+\_\+linux.\+c 파일의 153 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+154 \{
+155     \hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\_t} dataLen = 0;
+156     \textcolor{keywordflow}{if} (\hyperlink{maap__log__linux_8c_a12a8c3ac1796469aa38e22335d7b0e93}{logQueue}) \{
+157         \hyperlink{structmaap__log__queue__elem}{maap\_log\_queue\_elem\_t} elem = \hyperlink{maap__log__queue_8c_a0becc9286dfe7d3b8e3f1d2b9898bba0}{maapLogQueueTailLock}(
+      \hyperlink{maap__log__linux_8c_a12a8c3ac1796469aa38e22335d7b0e93}{logQueue});
+158         \textcolor{keywordflow}{if} (elem) \{
+159             \hyperlink{structlog__queue__item__t}{log\_queue\_item\_t} *pLogItem = (\hyperlink{structlog__queue__item__t}{log\_queue\_item\_t} *)
+      \hyperlink{maap__log__queue_8c_a873dec1b06b8eb1adc83f114779749cc}{maapLogQueueData}(elem);
+160 
+161             \textcolor{keywordflow}{if} (pLogItem->\hyperlink{structlog__queue__item__t_a30f8c58f5752c309e3ea89708f8dff4f}{bRT})
+162                 \hyperlink{maap__log__linux_8c_ad1bcedee2250466424ad142ba41a147a}{maapLogRTRender}(pLogItem);
+163 
+164             dataLen = strlen((\textcolor{keyword}{const} \textcolor{keywordtype}{char} *)pLogItem->\hyperlink{structlog__queue__item__t_ad6dd0ed011025f01f3d77d2e437d5a10}{msg});
+165             \textcolor{keywordflow}{if} (dataLen <= bufSize)
+166                 memcpy(pBuf, (\hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} *)pLogItem->\hyperlink{structlog__queue__item__t_ad6dd0ed011025f01f3d77d2e437d5a10}{msg}, dataLen);
+167             \textcolor{keywordflow}{else}
+168                 memcpy(pBuf, (\hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} *)pLogItem->\hyperlink{structlog__queue__item__t_ad6dd0ed011025f01f3d77d2e437d5a10}{msg}, bufSize);
+169             \hyperlink{maap__log__queue_8c_a647ac0d82e5b0b4057e8d1c665b78ef4}{maapLogQueueTailPull}(\hyperlink{maap__log__linux_8c_a12a8c3ac1796469aa38e22335d7b0e93}{logQueue});
+170             \textcolor{keywordflow}{return} dataLen;
+171         \}
+172     \}
+173     \textcolor{keywordflow}{return} dataLen;
+174 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap__log__linux_8c_a78d1cbbc84ed1b894edaa9e8f607ffd8_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}!maap\+Log\+Init@{maap\+Log\+Init}}
+\index{maap\+Log\+Init@{maap\+Log\+Init}!maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{maap\+Log\+Init(void)}{maapLogInit(void)}}]{\setlength{\rightskip}{0pt plus 5cm}void maap\+Log\+Init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{maap__log__linux_8c_a6e00763bf98d288ddb54fe99ebba30c4}{}\label{maap__log__linux_8c_a6e00763bf98d288ddb54fe99ebba30c4}
+
+
+maap\+\_\+log\+\_\+linux.\+c 파일의 202 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+203 \{
+204     \hyperlink{maap__helper__linux_8h_ab40dfddcb36164878528420b4f6cb5b6}{MUTEX\_CREATE\_ALT}(\hyperlink{maap__log__windows_8c_a83e0fa84cebfd7344197d386e57af6bc}{gLogMutex});
+205 
+206     \hyperlink{maap__log__linux_8c_a12a8c3ac1796469aa38e22335d7b0e93}{logQueue} = \hyperlink{maap__log__queue_8c_a852b7c800a8ac28218f10df76324e0ad}{maapLogQueueNewQueue}(\textcolor{keyword}{sizeof}(
+      \hyperlink{structlog__queue__item__t}{log\_queue\_item\_t}), \hyperlink{maap__log_8h_a652a7841484a0cb13ca23f3330175d58}{LOG\_QUEUE\_MSG\_CNT});
+207     \textcolor{keywordflow}{if} (!\hyperlink{maap__log__linux_8c_a12a8c3ac1796469aa38e22335d7b0e93}{logQueue}) \{
+208         printf(\textcolor{stringliteral}{"Failed to initialize logging facility\(\backslash\)n"});
+209     \}
+210 
+211     \hyperlink{maap__log__linux_8c_a1a85b5ef7d223c1e2f8e3e5518b9e30b}{logRTQueue} = \hyperlink{maap__log__queue_8c_a852b7c800a8ac28218f10df76324e0ad}{maapLogQueueNewQueue}(\textcolor{keyword}{sizeof}(
+      \hyperlink{structlog__rt__queue__item__t}{log\_rt\_queue\_item\_t}), \hyperlink{maap__log_8h_aa8178be15f077c6e2d21355a006ed17f}{LOG\_RT\_QUEUE\_CNT});
+212     \textcolor{keywordflow}{if} (!\hyperlink{maap__log__linux_8c_a1a85b5ef7d223c1e2f8e3e5518b9e30b}{logRTQueue}) \{
+213         printf(\textcolor{stringliteral}{"Failed to initialize logging RT facility\(\backslash\)n"});
+214     \}
+215 
+216     \textcolor{comment}{// Start the logging task}
+217     \textcolor{keywordflow}{if} (\hyperlink{maap__log_8h_ada49b78daafc9ccc4d4f531d44727921}{MAAP\_LOG\_FROM\_THREAD}) \{
+218         \textcolor{keywordtype}{int} errResult;
+219         \hyperlink{maap__log__linux_8c_ad6f257febaeb5a53e5e83acd38bf4a6a}{loggingThreadRunning} = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+220         \hyperlink{maap__helper__linux_8h_a153e2ca1dd20bd23c619f8d2bafcc764}{THREAD\_CREATE}(\hyperlink{maap__log__windows_8c_adf591e6834fc8d927dc5d9b1a02ac5eb}{loggingThread}, \hyperlink{maap__log__windows_8c_adf591e6834fc8d927dc5d9b1a02ac5eb}{loggingThread}, 
+      \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{maap__log__linux_8c_a1853bbdfb162b9fa84c011ee3aaa95d8}{loggingThreadFn}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+221         \hyperlink{maap__helper__linux_8h_a2d61dbf377bb5ab560d4b4bddf49c9c2}{THREAD\_CHECK\_ERROR}(\hyperlink{maap__log__windows_8c_adf591e6834fc8d927dc5d9b1a02ac5eb}{loggingThread}, \textcolor{stringliteral}{"Thread / task creation failed"}, 
+      errResult);
+222         \textcolor{keywordflow}{if} (errResult) \{
+223             \hyperlink{maap__log__linux_8c_ad6f257febaeb5a53e5e83acd38bf4a6a}{loggingThreadRunning} = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+224             \hyperlink{maap__log_8h_a953cc1d79351edec0f60b7e736a308de}{MAAP\_LOG\_ERROR}(\textcolor{stringliteral}{"Could not log data: loggingThread create failure"});
+225         \}
+226     \}
+227 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap__log__linux_8c_a6e00763bf98d288ddb54fe99ebba30c4_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}!maap\+Log\+RT@{maap\+Log\+RT}}
+\index{maap\+Log\+RT@{maap\+Log\+RT}!maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{maap\+Log\+R\+T(int level, int b\+Begin, int b\+Item, int b\+End, char $\ast$p\+Format, log\+\_\+rt\+\_\+datatype\+\_\+t data\+Type, void $\ast$p\+Var)}{maapLogRT(int level, int bBegin, int bItem, int bEnd, char *pFormat, log_rt_datatype_t dataType, void *pVar)}}]{\setlength{\rightskip}{0pt plus 5cm}void maap\+Log\+RT (
+\begin{DoxyParamCaption}
+\item[{int}]{level, }
+\item[{int}]{b\+Begin, }
+\item[{int}]{b\+Item, }
+\item[{int}]{b\+End, }
+\item[{char $\ast$}]{p\+Format, }
+\item[{{\bf log\+\_\+rt\+\_\+datatype\+\_\+t}}]{data\+Type, }
+\item[{void $\ast$}]{p\+Var}
+\end{DoxyParamCaption}
+)}\hypertarget{maap__log__linux_8c_a616d8fa5d08336050eba3f15fb0801a4}{}\label{maap__log__linux_8c_a616d8fa5d08336050eba3f15fb0801a4}
+
+
+maap\+\_\+log\+\_\+linux.\+c 파일의 312 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+313 \{
+314     \textcolor{keywordflow}{if} (level <= \hyperlink{maap__log_8h_a2ccd1b8477f20e51a331f4a2b20901e7}{MAAP\_LOG\_LEVEL}) \{
+315         \textcolor{keywordflow}{if} (\hyperlink{maap__log__linux_8c_a1a85b5ef7d223c1e2f8e3e5518b9e30b}{logRTQueue}) \{
+316             \textcolor{keywordflow}{if} (bBegin) \{
+317                 \hyperlink{maap__log__linux_8c_a11e0170fce31cef3d3637001b575bbdc}{LOG\_LOCK}();
+318 
+319                 \hyperlink{structmaap__log__queue__elem}{maap\_log\_queue\_elem\_t} elem = 
+      \hyperlink{maap__log__queue_8c_a69999859d8b391585209a00378314bdb}{maapLogQueueHeadLock}(\hyperlink{maap__log__linux_8c_a1a85b5ef7d223c1e2f8e3e5518b9e30b}{logRTQueue});
+320                 \textcolor{keywordflow}{if} (elem) \{
+321                     \hyperlink{structlog__rt__queue__item__t}{log\_rt\_queue\_item\_t} *pLogRTItem = (
+      \hyperlink{structlog__rt__queue__item__t}{log\_rt\_queue\_item\_t} *)\hyperlink{maap__log__queue_8c_a873dec1b06b8eb1adc83f114779749cc}{maapLogQueueData}(elem);
+322                     pLogRTItem->\hyperlink{structlog__rt__queue__item__t_a58a77a6b362aa6d3c50ec19a105e8f09}{bEnd} = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+323                     pLogRTItem->\hyperlink{structlog__rt__queue__item__t_aaabdaef4a231b60eb9d0afe757204cab}{pFormat} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+324                     pLogRTItem->\hyperlink{structlog__rt__queue__item__t_aed0db02095b8e7cd776304a6deb5e2ec}{dataType} = \hyperlink{maap__log_8h_a478140af25cbb77e3fd5e15d175706e7a29c8121c88d28479a3e5f3ff2c2139e9}{LOG\_RT\_DATATYPE\_NOW\_TS};
+325                     clock\_gettime(CLOCK\_REALTIME, &pLogRTItem->\hyperlink{structlog__rt__queue__item__t_af4bb2c71b1d19ccd55d78ad070264bdf}{data}.\hyperlink{structlog__rt__queue__item__t_a7f62ac5d8f12c4bf0d29e42e8dff68df}{nowTS});
+326                     \hyperlink{maap__log__queue_8c_ad980c36f60984acf082a6751b480292f}{maapLogQueueHeadPush}(\hyperlink{maap__log__linux_8c_a1a85b5ef7d223c1e2f8e3e5518b9e30b}{logRTQueue});
+327                 \}
+328             \}
+329 
+330             \textcolor{keywordflow}{if} (bItem) \{
+331                 \hyperlink{structmaap__log__queue__elem}{maap\_log\_queue\_elem\_t} elem = 
+      \hyperlink{maap__log__queue_8c_a69999859d8b391585209a00378314bdb}{maapLogQueueHeadLock}(\hyperlink{maap__log__linux_8c_a1a85b5ef7d223c1e2f8e3e5518b9e30b}{logRTQueue});
+332                 \textcolor{keywordflow}{if} (elem) \{
+333                     \hyperlink{structlog__rt__queue__item__t}{log\_rt\_queue\_item\_t} *pLogRTItem = (
+      \hyperlink{structlog__rt__queue__item__t}{log\_rt\_queue\_item\_t} *)\hyperlink{maap__log__queue_8c_a873dec1b06b8eb1adc83f114779749cc}{maapLogQueueData}(elem);
+334                     \textcolor{keywordflow}{if} (bEnd)
+335                         pLogRTItem->\hyperlink{structlog__rt__queue__item__t_a58a77a6b362aa6d3c50ec19a105e8f09}{bEnd} = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+336                     \textcolor{keywordflow}{else}
+337                         pLogRTItem->\hyperlink{structlog__rt__queue__item__t_a58a77a6b362aa6d3c50ec19a105e8f09}{bEnd} = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+338                     pLogRTItem->\hyperlink{structlog__rt__queue__item__t_aaabdaef4a231b60eb9d0afe757204cab}{pFormat} = pFormat;
+339                     pLogRTItem->\hyperlink{structlog__rt__queue__item__t_aed0db02095b8e7cd776304a6deb5e2ec}{dataType} = dataType;
+340 
+341                     \textcolor{keywordflow}{switch} (pLogRTItem->\hyperlink{structlog__rt__queue__item__t_aed0db02095b8e7cd776304a6deb5e2ec}{dataType}) \{
+342                         \textcolor{keywordflow}{case} \hyperlink{maap__log_8h_a478140af25cbb77e3fd5e15d175706e7a80aa447ad64d740ffd7752bd25fc4e57}{LOG\_RT\_DATATYPE\_CONST\_STR}:
+343                             \textcolor{keywordflow}{break};
+344                         \textcolor{keywordflow}{case} \hyperlink{maap__log_8h_a478140af25cbb77e3fd5e15d175706e7a73da5c98d0390a4a5801a8c30b6d638c}{LOG\_RT\_DATATYPE\_U16}:
+345                             pLogRTItem->\hyperlink{structlog__rt__queue__item__t_af4bb2c71b1d19ccd55d78ad070264bdf}{data}.\hyperlink{structlog__rt__queue__item__t_aa8ae3bfcb3e941363e128eba96d09bee}{unsignedLongVar} = *(uint16\_t *)pVar;
+346                             \textcolor{keywordflow}{break};
+347                         \textcolor{keywordflow}{case} \hyperlink{maap__log_8h_a478140af25cbb77e3fd5e15d175706e7ab146625afaa5556b6c4f4bf9c344057b}{LOG\_RT\_DATATYPE\_S16}:
+348                             pLogRTItem->\hyperlink{structlog__rt__queue__item__t_af4bb2c71b1d19ccd55d78ad070264bdf}{data}.\hyperlink{structlog__rt__queue__item__t_aa12bde1623a54d11dedc033ffbead487}{signedLongVar} = *(int16\_t *)pVar;
+349                             \textcolor{keywordflow}{break};
+350                         \textcolor{keywordflow}{case} \hyperlink{maap__log_8h_a478140af25cbb77e3fd5e15d175706e7ab4fefb514be0afe33ae9025e7ccc7b8f}{LOG\_RT\_DATATYPE\_U32}:
+351                             pLogRTItem->\hyperlink{structlog__rt__queue__item__t_af4bb2c71b1d19ccd55d78ad070264bdf}{data}.\hyperlink{structlog__rt__queue__item__t_aa8ae3bfcb3e941363e128eba96d09bee}{unsignedLongVar} = *(
+      \hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\_t} *)pVar;
+352                             \textcolor{keywordflow}{break};
+353                         \textcolor{keywordflow}{case} \hyperlink{maap__log_8h_a478140af25cbb77e3fd5e15d175706e7aedca725fdbff38be8c7b39c9a894b9d1}{LOG\_RT\_DATATYPE\_S32}:
+354                             pLogRTItem->\hyperlink{structlog__rt__queue__item__t_af4bb2c71b1d19ccd55d78ad070264bdf}{data}.\hyperlink{structlog__rt__queue__item__t_aa12bde1623a54d11dedc033ffbead487}{signedLongVar} = *(
+      \hyperlink{parse_8c_a37994e3b11c72957c6f454c6ec96d43d}{int32\_t} *)pVar;
+355                             \textcolor{keywordflow}{break};
+356                         \textcolor{keywordflow}{case} \hyperlink{maap__log_8h_a478140af25cbb77e3fd5e15d175706e7a7ff22820993e8a73f2e2597026c24e22}{LOG\_RT\_DATATYPE\_U64}:
+357                             pLogRTItem->\hyperlink{structlog__rt__queue__item__t_af4bb2c71b1d19ccd55d78ad070264bdf}{data}.\hyperlink{structlog__rt__queue__item__t_ae009f33bec8f50209814033004cec38d}{unsignedLongLongVar} = *(
+      \hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\_t} *)pVar;
+358                             \textcolor{keywordflow}{break};
+359                         \textcolor{keywordflow}{case} \hyperlink{maap__log_8h_a478140af25cbb77e3fd5e15d175706e7a56ce7a748c456a926438f18ac29d98bd}{LOG\_RT\_DATATYPE\_S64}:
+360                             pLogRTItem->\hyperlink{structlog__rt__queue__item__t_af4bb2c71b1d19ccd55d78ad070264bdf}{data}.\hyperlink{structlog__rt__queue__item__t_a54d6e1f6bfe85ec7387103c044c87479}{signedLongLongVar} = *(
+      \hyperlink{parse_8c_a67a9885ef4908cb72ce26d75b694386c}{int64\_t} *)pVar;
+361                             \textcolor{keywordflow}{break};
+362                         \textcolor{keywordflow}{case} \hyperlink{maap__log_8h_a478140af25cbb77e3fd5e15d175706e7a7ccb2c0e81f5329c0c27d78f3d21710f}{LOG\_RT\_DATATYPE\_FLOAT}:
+363                             pLogRTItem->\hyperlink{structlog__rt__queue__item__t_af4bb2c71b1d19ccd55d78ad070264bdf}{data}.\hyperlink{structlog__rt__queue__item__t_a097418d0271cd5318e481be1ae56c841}{floatVar} = *(\textcolor{keywordtype}{float} *)pVar;
+364                             \textcolor{keywordflow}{break};
+365                         \textcolor{keywordflow}{default}:
+366                             \textcolor{keywordflow}{break};
+367                     \}
+368                     \hyperlink{maap__log__queue_8c_ad980c36f60984acf082a6751b480292f}{maapLogQueueHeadPush}(\hyperlink{maap__log__linux_8c_a1a85b5ef7d223c1e2f8e3e5518b9e30b}{logRTQueue});
+369                 \}
+370             \}
+371 
+372             \textcolor{keywordflow}{if} (!bItem && bEnd) \{
+373                 \hyperlink{structmaap__log__queue__elem}{maap\_log\_queue\_elem\_t} elem = 
+      \hyperlink{maap__log__queue_8c_a69999859d8b391585209a00378314bdb}{maapLogQueueHeadLock}(\hyperlink{maap__log__linux_8c_a1a85b5ef7d223c1e2f8e3e5518b9e30b}{logRTQueue});
+374                 \textcolor{keywordflow}{if} (elem) \{
+375                     \hyperlink{structlog__rt__queue__item__t}{log\_rt\_queue\_item\_t} *pLogRTItem = (
+      \hyperlink{structlog__rt__queue__item__t}{log\_rt\_queue\_item\_t} *)\hyperlink{maap__log__queue_8c_a873dec1b06b8eb1adc83f114779749cc}{maapLogQueueData}(elem);
+376                     pLogRTItem->\hyperlink{structlog__rt__queue__item__t_a58a77a6b362aa6d3c50ec19a105e8f09}{bEnd} = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+377                     pLogRTItem->\hyperlink{structlog__rt__queue__item__t_aaabdaef4a231b60eb9d0afe757204cab}{pFormat} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+378                     pLogRTItem->\hyperlink{structlog__rt__queue__item__t_aed0db02095b8e7cd776304a6deb5e2ec}{dataType} = \hyperlink{maap__log_8h_a478140af25cbb77e3fd5e15d175706e7a943e1811d1a2ffe1342321dc628e75bb}{LOG\_RT\_DATATYPE\_NONE};
+379                     \hyperlink{maap__log__queue_8c_ad980c36f60984acf082a6751b480292f}{maapLogQueueHeadPush}(\hyperlink{maap__log__linux_8c_a1a85b5ef7d223c1e2f8e3e5518b9e30b}{logRTQueue});
+380                 \}
+381             \}
+382 
+383             \textcolor{keywordflow}{if} (bEnd) \{
+384                 \textcolor{keywordflow}{if} (\hyperlink{maap__log__linux_8c_a12a8c3ac1796469aa38e22335d7b0e93}{logQueue}) \{
+385                     \hyperlink{structmaap__log__queue__elem}{maap\_log\_queue\_elem\_t} elem = 
+      \hyperlink{maap__log__queue_8c_a69999859d8b391585209a00378314bdb}{maapLogQueueHeadLock}(\hyperlink{maap__log__linux_8c_a12a8c3ac1796469aa38e22335d7b0e93}{logQueue});
+386                     \textcolor{keywordflow}{if} (elem) \{
+387                         \hyperlink{structlog__queue__item__t}{log\_queue\_item\_t} *pLogItem = (
+      \hyperlink{structlog__queue__item__t}{log\_queue\_item\_t} *)\hyperlink{maap__log__queue_8c_a873dec1b06b8eb1adc83f114779749cc}{maapLogQueueData}(elem);
+388                         pLogItem->\hyperlink{structlog__queue__item__t_a30f8c58f5752c309e3ea89708f8dff4f}{bRT} = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+389                         \textcolor{keywordflow}{if} (\hyperlink{maap__log_8h_ada49b78daafc9ccc4d4f531d44727921}{MAAP\_LOG\_FROM\_THREAD}) \{
+390                             \hyperlink{maap__log__queue_8c_ad980c36f60984acf082a6751b480292f}{maapLogQueueHeadPush}(\hyperlink{maap__log__linux_8c_a12a8c3ac1796469aa38e22335d7b0e93}{logQueue});
+391                         \} \textcolor{keywordflow}{else} \{
+392                             \hyperlink{maap__log__linux_8c_ad1bcedee2250466424ad142ba41a147a}{maapLogRTRender}(pLogItem);
+393                             fputs((\textcolor{keyword}{const} \textcolor{keywordtype}{char} *)pLogItem->\hyperlink{structlog__queue__item__t_ad6dd0ed011025f01f3d77d2e437d5a10}{msg}, 
+      \hyperlink{maap__log_8h_ab70966e6153021f9fc0a7507ca1afa78}{MAAP\_LOG\_OUTPUT\_FD});
+394                             \hyperlink{maap__log__queue_8c_ac3ab5bbbb43bef3faa6d694f69f87a2f}{maapLogQueueHeadUnlock}(
+      \hyperlink{maap__log__linux_8c_a12a8c3ac1796469aa38e22335d7b0e93}{logQueue});
+395                         \}
+396                     \}
+397                 \}
+398 
+399                 \hyperlink{maap__log__linux_8c_aa6d92b26d315ad0b9562711c0ff97878}{LOG\_UNLOCK}();
+400             \}
+401         \}
+402     \}
+403 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap__log__linux_8c_a616d8fa5d08336050eba3f15fb0801a4_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}!maap\+Log\+R\+T\+Render@{maap\+Log\+R\+T\+Render}}
+\index{maap\+Log\+R\+T\+Render@{maap\+Log\+R\+T\+Render}!maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{maap\+Log\+R\+T\+Render(log\+\_\+queue\+\_\+item\+\_\+t $\ast$p\+Log\+Item)}{maapLogRTRender(log_queue_item_t *pLogItem)}}]{\setlength{\rightskip}{0pt plus 5cm}void maap\+Log\+R\+T\+Render (
+\begin{DoxyParamCaption}
+\item[{{\bf log\+\_\+queue\+\_\+item\+\_\+t} $\ast$}]{p\+Log\+Item}
+\end{DoxyParamCaption}
+)}\hypertarget{maap__log__linux_8c_ad1bcedee2250466424ad142ba41a147a}{}\label{maap__log__linux_8c_ad1bcedee2250466424ad142ba41a147a}
+
+
+maap\+\_\+log\+\_\+linux.\+c 파일의 92 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+93 \{
+94     \textcolor{keywordflow}{if} (\hyperlink{maap__log__linux_8c_a1a85b5ef7d223c1e2f8e3e5518b9e30b}{logRTQueue}) \{
+95         pLogItem->\hyperlink{structlog__queue__item__t_ad6dd0ed011025f01f3d77d2e437d5a10}{msg}[0] = 0x00;
+96         \textcolor{keywordtype}{int} bMore = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+97         \textcolor{keywordflow}{while} (bMore) \{
+98             \hyperlink{structmaap__log__queue__elem}{maap\_log\_queue\_elem\_t} elem = 
+      \hyperlink{maap__log__queue_8c_a0becc9286dfe7d3b8e3f1d2b9898bba0}{maapLogQueueTailLock}(\hyperlink{maap__log__linux_8c_a1a85b5ef7d223c1e2f8e3e5518b9e30b}{logRTQueue});
+99             \textcolor{keywordflow}{if} (elem) \{
+100                 \hyperlink{structlog__rt__queue__item__t}{log\_rt\_queue\_item\_t} *pLogRTItem = (
+      \hyperlink{structlog__rt__queue__item__t}{log\_rt\_queue\_item\_t} *)\hyperlink{maap__log__queue_8c_a873dec1b06b8eb1adc83f114779749cc}{maapLogQueueData}(elem);
+101 
+102                 \textcolor{keywordflow}{switch} (pLogRTItem->\hyperlink{structlog__rt__queue__item__t_aed0db02095b8e7cd776304a6deb5e2ec}{dataType}) \{
+103                     \textcolor{keywordflow}{case} \hyperlink{maap__log_8h_a478140af25cbb77e3fd5e15d175706e7a80aa447ad64d740ffd7752bd25fc4e57}{LOG\_RT\_DATATYPE\_CONST\_STR}:
+104                         strcat((\textcolor{keywordtype}{char} *)pLogItem->\hyperlink{structlog__queue__item__t_ad6dd0ed011025f01f3d77d2e437d5a10}{msg}, pLogRTItem->\hyperlink{structlog__rt__queue__item__t_aaabdaef4a231b60eb9d0afe757204cab}{pFormat});
+105                         \textcolor{keywordflow}{break};
+106                     \textcolor{keywordflow}{case} \hyperlink{maap__log_8h_a478140af25cbb77e3fd5e15d175706e7a29c8121c88d28479a3e5f3ff2c2139e9}{LOG\_RT\_DATATYPE\_NOW\_TS}:
+107                         sprintf(\hyperlink{maap__log__linux_8c_ae94e6da629086c0ec14c336cc5bb54dd}{rt\_msg}, \textcolor{stringliteral}{"[%lu:%09lu] "}, pLogRTItem->\hyperlink{structlog__rt__queue__item__t_af4bb2c71b1d19ccd55d78ad070264bdf}{data}.
+      \hyperlink{structlog__rt__queue__item__t_a7f62ac5d8f12c4bf0d29e42e8dff68df}{nowTS}.tv\_sec, pLogRTItem->\hyperlink{structlog__rt__queue__item__t_af4bb2c71b1d19ccd55d78ad070264bdf}{data}.\hyperlink{structlog__rt__queue__item__t_a7f62ac5d8f12c4bf0d29e42e8dff68df}{nowTS}.tv\_nsec);
+108                         strcat((\textcolor{keywordtype}{char} *)pLogItem->\hyperlink{structlog__queue__item__t_ad6dd0ed011025f01f3d77d2e437d5a10}{msg}, \hyperlink{maap__log__linux_8c_ae94e6da629086c0ec14c336cc5bb54dd}{rt\_msg});
+109                         \textcolor{keywordflow}{break};
+110                     \textcolor{keywordflow}{case} \hyperlink{maap__log_8h_a478140af25cbb77e3fd5e15d175706e7a73da5c98d0390a4a5801a8c30b6d638c}{LOG\_RT\_DATATYPE\_U16}:
+111                         sprintf(\hyperlink{maap__log__linux_8c_ae94e6da629086c0ec14c336cc5bb54dd}{rt\_msg}, pLogRTItem->\hyperlink{structlog__rt__queue__item__t_aaabdaef4a231b60eb9d0afe757204cab}{pFormat}, pLogRTItem->
+      \hyperlink{structlog__rt__queue__item__t_af4bb2c71b1d19ccd55d78ad070264bdf}{data}.\hyperlink{structlog__rt__queue__item__t_a5ff4647f0732e05863c136edfe1ae337}{unsignedShortVar});
+112                         strcat((\textcolor{keywordtype}{char} *)pLogItem->\hyperlink{structlog__queue__item__t_ad6dd0ed011025f01f3d77d2e437d5a10}{msg}, \hyperlink{maap__log__linux_8c_ae94e6da629086c0ec14c336cc5bb54dd}{rt\_msg});
+113                         \textcolor{keywordflow}{break};
+114                     \textcolor{keywordflow}{case} \hyperlink{maap__log_8h_a478140af25cbb77e3fd5e15d175706e7ab146625afaa5556b6c4f4bf9c344057b}{LOG\_RT\_DATATYPE\_S16}:
+115                         sprintf(\hyperlink{maap__log__linux_8c_ae94e6da629086c0ec14c336cc5bb54dd}{rt\_msg}, pLogRTItem->\hyperlink{structlog__rt__queue__item__t_aaabdaef4a231b60eb9d0afe757204cab}{pFormat}, pLogRTItem->
+      \hyperlink{structlog__rt__queue__item__t_af4bb2c71b1d19ccd55d78ad070264bdf}{data}.\hyperlink{structlog__rt__queue__item__t_a969c99005328132f5ec57e410747d20f}{signedShortVar});
+116                         strcat((\textcolor{keywordtype}{char} *)pLogItem->\hyperlink{structlog__queue__item__t_ad6dd0ed011025f01f3d77d2e437d5a10}{msg}, \hyperlink{maap__log__linux_8c_ae94e6da629086c0ec14c336cc5bb54dd}{rt\_msg});
+117                         \textcolor{keywordflow}{break};
+118                     \textcolor{keywordflow}{case} \hyperlink{maap__log_8h_a478140af25cbb77e3fd5e15d175706e7ab4fefb514be0afe33ae9025e7ccc7b8f}{LOG\_RT\_DATATYPE\_U32}:
+119                         sprintf(\hyperlink{maap__log__linux_8c_ae94e6da629086c0ec14c336cc5bb54dd}{rt\_msg}, pLogRTItem->\hyperlink{structlog__rt__queue__item__t_aaabdaef4a231b60eb9d0afe757204cab}{pFormat}, pLogRTItem->
+      \hyperlink{structlog__rt__queue__item__t_af4bb2c71b1d19ccd55d78ad070264bdf}{data}.\hyperlink{structlog__rt__queue__item__t_aa8ae3bfcb3e941363e128eba96d09bee}{unsignedLongVar});
+120                         strcat((\textcolor{keywordtype}{char} *)pLogItem->\hyperlink{structlog__queue__item__t_ad6dd0ed011025f01f3d77d2e437d5a10}{msg}, \hyperlink{maap__log__linux_8c_ae94e6da629086c0ec14c336cc5bb54dd}{rt\_msg});
+121                         \textcolor{keywordflow}{break};
+122                     \textcolor{keywordflow}{case} \hyperlink{maap__log_8h_a478140af25cbb77e3fd5e15d175706e7aedca725fdbff38be8c7b39c9a894b9d1}{LOG\_RT\_DATATYPE\_S32}:
+123                         sprintf(\hyperlink{maap__log__linux_8c_ae94e6da629086c0ec14c336cc5bb54dd}{rt\_msg}, pLogRTItem->\hyperlink{structlog__rt__queue__item__t_aaabdaef4a231b60eb9d0afe757204cab}{pFormat}, pLogRTItem->
+      \hyperlink{structlog__rt__queue__item__t_af4bb2c71b1d19ccd55d78ad070264bdf}{data}.\hyperlink{structlog__rt__queue__item__t_aa12bde1623a54d11dedc033ffbead487}{signedLongVar});
+124                         strcat((\textcolor{keywordtype}{char} *)pLogItem->\hyperlink{structlog__queue__item__t_ad6dd0ed011025f01f3d77d2e437d5a10}{msg}, \hyperlink{maap__log__linux_8c_ae94e6da629086c0ec14c336cc5bb54dd}{rt\_msg});
+125                         \textcolor{keywordflow}{break};
+126                     \textcolor{keywordflow}{case} \hyperlink{maap__log_8h_a478140af25cbb77e3fd5e15d175706e7a7ff22820993e8a73f2e2597026c24e22}{LOG\_RT\_DATATYPE\_U64}:
+127                         sprintf(\hyperlink{maap__log__linux_8c_ae94e6da629086c0ec14c336cc5bb54dd}{rt\_msg}, pLogRTItem->\hyperlink{structlog__rt__queue__item__t_aaabdaef4a231b60eb9d0afe757204cab}{pFormat}, pLogRTItem->
+      \hyperlink{structlog__rt__queue__item__t_af4bb2c71b1d19ccd55d78ad070264bdf}{data}.\hyperlink{structlog__rt__queue__item__t_ae009f33bec8f50209814033004cec38d}{unsignedLongLongVar});
+128                         strcat((\textcolor{keywordtype}{char} *)pLogItem->\hyperlink{structlog__queue__item__t_ad6dd0ed011025f01f3d77d2e437d5a10}{msg}, \hyperlink{maap__log__linux_8c_ae94e6da629086c0ec14c336cc5bb54dd}{rt\_msg});
+129                         \textcolor{keywordflow}{break};
+130                     \textcolor{keywordflow}{case} \hyperlink{maap__log_8h_a478140af25cbb77e3fd5e15d175706e7a56ce7a748c456a926438f18ac29d98bd}{LOG\_RT\_DATATYPE\_S64}:
+131                         sprintf(\hyperlink{maap__log__linux_8c_ae94e6da629086c0ec14c336cc5bb54dd}{rt\_msg}, pLogRTItem->\hyperlink{structlog__rt__queue__item__t_aaabdaef4a231b60eb9d0afe757204cab}{pFormat}, pLogRTItem->
+      \hyperlink{structlog__rt__queue__item__t_af4bb2c71b1d19ccd55d78ad070264bdf}{data}.\hyperlink{structlog__rt__queue__item__t_a54d6e1f6bfe85ec7387103c044c87479}{signedLongLongVar});
+132                         strcat((\textcolor{keywordtype}{char} *)pLogItem->\hyperlink{structlog__queue__item__t_ad6dd0ed011025f01f3d77d2e437d5a10}{msg}, \hyperlink{maap__log__linux_8c_ae94e6da629086c0ec14c336cc5bb54dd}{rt\_msg});
+133                         \textcolor{keywordflow}{break};
+134                     \textcolor{keywordflow}{case} \hyperlink{maap__log_8h_a478140af25cbb77e3fd5e15d175706e7a7ccb2c0e81f5329c0c27d78f3d21710f}{LOG\_RT\_DATATYPE\_FLOAT}:
+135                         sprintf(\hyperlink{maap__log__linux_8c_ae94e6da629086c0ec14c336cc5bb54dd}{rt\_msg}, pLogRTItem->\hyperlink{structlog__rt__queue__item__t_aaabdaef4a231b60eb9d0afe757204cab}{pFormat}, pLogRTItem->
+      \hyperlink{structlog__rt__queue__item__t_af4bb2c71b1d19ccd55d78ad070264bdf}{data}.\hyperlink{structlog__rt__queue__item__t_a097418d0271cd5318e481be1ae56c841}{floatVar});
+136                         strcat((\textcolor{keywordtype}{char} *)pLogItem->\hyperlink{structlog__queue__item__t_ad6dd0ed011025f01f3d77d2e437d5a10}{msg}, \hyperlink{maap__log__linux_8c_ae94e6da629086c0ec14c336cc5bb54dd}{rt\_msg});
+137                         \textcolor{keywordflow}{break};
+138                     \textcolor{keywordflow}{default}:
+139                         \textcolor{keywordflow}{break};
+140                 \}
+141 
+142                 \textcolor{keywordflow}{if} (pLogRTItem->\hyperlink{structlog__rt__queue__item__t_a58a77a6b362aa6d3c50ec19a105e8f09}{bEnd}) \{
+143                     \textcolor{keywordflow}{if} (\hyperlink{maap__log_8h_a6ce7b7032fcc293bf3af00e3b719fb4b}{MAAP\_LOG\_EXTRA\_NEWLINE})
+144                         strcat((\textcolor{keywordtype}{char} *)pLogItem->\hyperlink{structlog__queue__item__t_ad6dd0ed011025f01f3d77d2e437d5a10}{msg}, \textcolor{stringliteral}{"\(\backslash\)n"});
+145                     bMore = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+146                 \}
+147                 \hyperlink{maap__log__queue_8c_a647ac0d82e5b0b4057e8d1c665b78ef4}{maapLogQueueTailPull}(\hyperlink{maap__log__linux_8c_a1a85b5ef7d223c1e2f8e3e5518b9e30b}{logRTQueue});
+148             \}
+149         \}
+150     \}
+151 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=339pt]{maap__log__linux_8c_ad1bcedee2250466424ad142ba41a147a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap__log__linux_8c_ad1bcedee2250466424ad142ba41a147a_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}!M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+L\+E\+\_\+\+A\+LT@{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+L\+E\+\_\+\+A\+LT}}
+\index{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+L\+E\+\_\+\+A\+LT@{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+L\+E\+\_\+\+A\+LT}!maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+L\+E\+\_\+\+A\+L\+T(g\+Log\+Mutex)}{MUTEX_HANDLE_ALT(gLogMutex)}}]{\setlength{\rightskip}{0pt plus 5cm}static M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+L\+E\+\_\+\+A\+LT (
+\begin{DoxyParamCaption}
+\item[{{\bf g\+Log\+Mutex}}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{maap__log__linux_8c_a276fed837d0ac6cbe9fc26a90f4dca5b}{}\label{maap__log__linux_8c_a276fed837d0ac6cbe9fc26a90f4dca5b}
+\index{maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}!T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+ON@{T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+ON}}
+\index{T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+ON@{T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+ON}!maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+O\+N(logging\+Thread)}{THREAD_DEFINITON(loggingThread)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+ON (
+\begin{DoxyParamCaption}
+\item[{{\bf logging\+Thread}}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{maap__log__linux_8c_a5d22cb81833265675bdcfc953cea9c44}{}\label{maap__log__linux_8c_a5d22cb81833265675bdcfc953cea9c44}
+\index{maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}!T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE@{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE}}
+\index{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE@{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE}!maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+P\+E(logging\+Thread)}{THREAD_TYPE(loggingThread)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE (
+\begin{DoxyParamCaption}
+\item[{{\bf logging\+Thread}}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{maap__log__linux_8c_abb5e768e12b298211a6381bcb57e7327}{}\label{maap__log__linux_8c_abb5e768e12b298211a6381bcb57e7327}
+
+
+\subsection{변수 문서화}
+\index{maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}!file\+\_\+msg@{file\+\_\+msg}}
+\index{file\+\_\+msg@{file\+\_\+msg}!maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{file\+\_\+msg}{file_msg}}]{\setlength{\rightskip}{0pt plus 5cm}char file\+\_\+msg\mbox{[}{\bf L\+O\+G\+\_\+\+F\+I\+L\+E\+\_\+\+L\+EN}\mbox{]} = \char`\"{}\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{maap__log__linux_8c_a21dd859ebe9e700309dc224741774096}{}\label{maap__log__linux_8c_a21dd859ebe9e700309dc224741774096}
+
+
+maap\+\_\+log\+\_\+linux.\+c 파일의 66 번째 라인에서 정의되었습니다.
+
+\index{maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}!full\+\_\+msg@{full\+\_\+msg}}
+\index{full\+\_\+msg@{full\+\_\+msg}!maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{full\+\_\+msg}{full_msg}}]{\setlength{\rightskip}{0pt plus 5cm}char full\+\_\+msg\mbox{[}{\bf L\+O\+G\+\_\+\+F\+U\+L\+L\+\_\+\+M\+S\+G\+\_\+\+L\+EN}\mbox{]} = \char`\"{}\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{maap__log__linux_8c_a5670633f699944d8df262539386c8839}{}\label{maap__log__linux_8c_a5670633f699944d8df262539386c8839}
+
+
+maap\+\_\+log\+\_\+linux.\+c 파일의 69 번째 라인에서 정의되었습니다.
+
+\index{maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}!logging\+Thread\+Running@{logging\+Thread\+Running}}
+\index{logging\+Thread\+Running@{logging\+Thread\+Running}!maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{logging\+Thread\+Running}{loggingThreadRunning}}]{\setlength{\rightskip}{0pt plus 5cm}int logging\+Thread\+Running = {\bf F\+A\+L\+SE}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{maap__log__linux_8c_ad6f257febaeb5a53e5e83acd38bf4a6a}{}\label{maap__log__linux_8c_ad6f257febaeb5a53e5e83acd38bf4a6a}
+
+
+maap\+\_\+log\+\_\+linux.\+c 파일의 73 번째 라인에서 정의되었습니다.
+
+\index{maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}!log\+Queue@{log\+Queue}}
+\index{log\+Queue@{log\+Queue}!maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{log\+Queue}{logQueue}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf maap\+\_\+log\+\_\+queue\+\_\+t} log\+Queue\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{maap__log__linux_8c_a12a8c3ac1796469aa38e22335d7b0e93}{}\label{maap__log__linux_8c_a12a8c3ac1796469aa38e22335d7b0e93}
+
+
+maap\+\_\+log\+\_\+linux.\+c 파일의 60 번째 라인에서 정의되었습니다.
+
+\index{maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}!log\+R\+T\+Queue@{log\+R\+T\+Queue}}
+\index{log\+R\+T\+Queue@{log\+R\+T\+Queue}!maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{log\+R\+T\+Queue}{logRTQueue}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf maap\+\_\+log\+\_\+queue\+\_\+t} log\+R\+T\+Queue\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{maap__log__linux_8c_a1a85b5ef7d223c1e2f8e3e5518b9e30b}{}\label{maap__log__linux_8c_a1a85b5ef7d223c1e2f8e3e5518b9e30b}
+
+
+maap\+\_\+log\+\_\+linux.\+c 파일의 61 번째 라인에서 정의되었습니다.
+
+\index{maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}!msg@{msg}}
+\index{msg@{msg}!maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{msg}{msg}}]{\setlength{\rightskip}{0pt plus 5cm}char msg\mbox{[}{\bf L\+O\+G\+\_\+\+M\+S\+G\+\_\+\+L\+EN}\mbox{]} = \char`\"{}\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{maap__log__linux_8c_a0c7e58a50354c4a4d6dad428d0e47029}{}\label{maap__log__linux_8c_a0c7e58a50354c4a4d6dad428d0e47029}
+
+
+maap\+\_\+log\+\_\+linux.\+c 파일의 63 번째 라인에서 정의되었습니다.
+
+\index{maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}!proc\+\_\+msg@{proc\+\_\+msg}}
+\index{proc\+\_\+msg@{proc\+\_\+msg}!maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{proc\+\_\+msg}{proc_msg}}]{\setlength{\rightskip}{0pt plus 5cm}char proc\+\_\+msg\mbox{[}{\bf L\+O\+G\+\_\+\+P\+R\+O\+C\+\_\+\+L\+EN}\mbox{]} = \char`\"{}\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{maap__log__linux_8c_a57e0ac8e722c8cb7738d968757ff195c}{}\label{maap__log__linux_8c_a57e0ac8e722c8cb7738d968757ff195c}
+
+
+maap\+\_\+log\+\_\+linux.\+c 파일의 67 번째 라인에서 정의되었습니다.
+
+\index{maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}!rt\+\_\+msg@{rt\+\_\+msg}}
+\index{rt\+\_\+msg@{rt\+\_\+msg}!maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{rt\+\_\+msg}{rt_msg}}]{\setlength{\rightskip}{0pt plus 5cm}char rt\+\_\+msg\mbox{[}{\bf L\+O\+G\+\_\+\+R\+T\+\_\+\+M\+S\+G\+\_\+\+L\+EN}\mbox{]} = \char`\"{}\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{maap__log__linux_8c_ae94e6da629086c0ec14c336cc5bb54dd}{}\label{maap__log__linux_8c_ae94e6da629086c0ec14c336cc5bb54dd}
+
+
+maap\+\_\+log\+\_\+linux.\+c 파일의 71 번째 라인에서 정의되었습니다.
+
+\index{maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}!thread\+\_\+msg@{thread\+\_\+msg}}
+\index{thread\+\_\+msg@{thread\+\_\+msg}!maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{thread\+\_\+msg}{thread_msg}}]{\setlength{\rightskip}{0pt plus 5cm}char thread\+\_\+msg\mbox{[}{\bf L\+O\+G\+\_\+\+T\+H\+R\+E\+A\+D\+\_\+\+L\+EN}\mbox{]} = \char`\"{}\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{maap__log__linux_8c_a82dd27020d09c78fc3cbdfdce1bf4716}{}\label{maap__log__linux_8c_a82dd27020d09c78fc3cbdfdce1bf4716}
+
+
+maap\+\_\+log\+\_\+linux.\+c 파일의 68 번째 라인에서 정의되었습니다.
+
+\index{maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}!time\+\_\+msg@{time\+\_\+msg}}
+\index{time\+\_\+msg@{time\+\_\+msg}!maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{time\+\_\+msg}{time_msg}}]{\setlength{\rightskip}{0pt plus 5cm}char time\+\_\+msg\mbox{[}{\bf L\+O\+G\+\_\+\+T\+I\+M\+E\+\_\+\+L\+EN}\mbox{]} = \char`\"{}\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{maap__log__linux_8c_afa92916bc8163ff97f4ab9cf92e55429}{}\label{maap__log__linux_8c_afa92916bc8163ff97f4ab9cf92e55429}
+
+
+maap\+\_\+log\+\_\+linux.\+c 파일의 64 번째 라인에서 정의되었습니다.
+
+\index{maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}!timestamp\+\_\+msg@{timestamp\+\_\+msg}}
+\index{timestamp\+\_\+msg@{timestamp\+\_\+msg}!maap\+\_\+log\+\_\+linux.\+c@{maap\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{timestamp\+\_\+msg}{timestamp_msg}}]{\setlength{\rightskip}{0pt plus 5cm}char timestamp\+\_\+msg\mbox{[}{\bf L\+O\+G\+\_\+\+T\+I\+M\+E\+S\+T\+A\+M\+P\+\_\+\+L\+EN}\mbox{]} = \char`\"{}\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{maap__log__linux_8c_a04ee9a2d03c51567d17af0d058d0e750}{}\label{maap__log__linux_8c_a04ee9a2d03c51567d17af0d058d0e750}
+
+
+maap\+\_\+log\+\_\+linux.\+c 파일의 65 번째 라인에서 정의되었습니다.
+

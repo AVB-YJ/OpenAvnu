@@ -1,0 +1,38 @@
+var group__command__set__name__response =
+[
+    [ "jdksavdecc_aem_command_set_name_response", "structjdksavdecc__aem__command__set__name__response.html", [
+      [ "aem_header", "structjdksavdecc__aem__command__set__name__response.html#ae1e77ccb75ff5021ad923221eab38294", null ],
+      [ "configuration_index", "structjdksavdecc__aem__command__set__name__response.html#afaad1bd7c66f9611e134d8c5ce98f444", null ],
+      [ "descriptor_index", "structjdksavdecc__aem__command__set__name__response.html#a042bbc76d835b82d27c1932431ee38d4", null ],
+      [ "descriptor_type", "structjdksavdecc__aem__command__set__name__response.html#ab7c32b6c7131c13d4ea3b7ee2f09b78d", null ],
+      [ "name", "structjdksavdecc__aem__command__set__name__response.html#a7e615b51b7768e9b59bfa450051e0f8e", null ],
+      [ "name_index", "structjdksavdecc__aem__command__set__name__response.html#a898a74ada625e0b227dadb02901404e6", null ]
+    ] ],
+    [ "JDKSAVDECC_AEM_COMMAND_SET_NAME_RESPONSE_LEN", "group__command__set__name__response.html#ga96ac430b10ef061e0be85f7a77bc3c6f", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_SET_NAME_RESPONSE_OFFSET_COMMAND_TYPE", "group__command__set__name__response.html#gab707d3a657b273b91d0217d336bd386c", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_SET_NAME_RESPONSE_OFFSET_CONFIGURATION_INDEX", "group__command__set__name__response.html#ga1e3553576702f286b6c0a714b06fa61d", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_SET_NAME_RESPONSE_OFFSET_CONTROLLER_ENTITY_ID", "group__command__set__name__response.html#gadf9404e54a40ec49ab5dfc043228a4d6", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_SET_NAME_RESPONSE_OFFSET_DESCRIPTOR_INDEX", "group__command__set__name__response.html#gae37273b9920a4d507b9ff32c1bef8e78", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_SET_NAME_RESPONSE_OFFSET_DESCRIPTOR_TYPE", "group__command__set__name__response.html#ga725174059092bcf14a4e499d147f5df1", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_SET_NAME_RESPONSE_OFFSET_NAME", "group__command__set__name__response.html#ga4845fdb88255fc99d6e6bb3ad3a7dd74", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_SET_NAME_RESPONSE_OFFSET_NAME_INDEX", "group__command__set__name__response.html#ga54ea04534002a4259f8d2b671cb3ae5f", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_SET_NAME_RESPONSE_OFFSET_SEQUENCE_ID", "group__command__set__name__response.html#ga1f01d9c24d5d60ee7d5af99e5256b08f", null ],
+    [ "jdksavdecc_aem_command_set_name_response_get_command_type", "group__command__set__name__response.html#ga2bd961918b59e649d28f04b381d3ebc6", null ],
+    [ "jdksavdecc_aem_command_set_name_response_get_configuration_index", "group__command__set__name__response.html#ga955980672080aa93ba297af1ce8cfbde", null ],
+    [ "jdksavdecc_aem_command_set_name_response_get_controller_entity_id", "group__command__set__name__response.html#ga9104a02f30d2d08aa1b7bffdf4e55c9d", null ],
+    [ "jdksavdecc_aem_command_set_name_response_get_descriptor_index", "group__command__set__name__response.html#gac265a30c605f8469b6add2d6f1dd254d", null ],
+    [ "jdksavdecc_aem_command_set_name_response_get_descriptor_type", "group__command__set__name__response.html#ga3a95f51790a717c477cf1729aa02306e", null ],
+    [ "jdksavdecc_aem_command_set_name_response_get_name", "group__command__set__name__response.html#gada94428543e621860b0cf2b7d7196089", null ],
+    [ "jdksavdecc_aem_command_set_name_response_get_name_index", "group__command__set__name__response.html#gad489dfe5dc5ba74fe0f1e4d01d1e7438", null ],
+    [ "jdksavdecc_aem_command_set_name_response_get_sequence_id", "group__command__set__name__response.html#gae7da10e58e290a746e572ea3709c4258", null ],
+    [ "jdksavdecc_aem_command_set_name_response_read", "group__command__set__name__response.html#gaef863bcb2206bfcbd21e95fe8f59869d", null ],
+    [ "jdksavdecc_aem_command_set_name_response_set_command_type", "group__command__set__name__response.html#gae8218aed4eb09c755fbb5c94ec385b75", null ],
+    [ "jdksavdecc_aem_command_set_name_response_set_configuration_index", "group__command__set__name__response.html#ga6c9e7cdf606f462429b92fb86d49495e", null ],
+    [ "jdksavdecc_aem_command_set_name_response_set_controller_entity_id", "group__command__set__name__response.html#ga4e4187317fdbba0b5ca2e45c5bc58d59", null ],
+    [ "jdksavdecc_aem_command_set_name_response_set_descriptor_index", "group__command__set__name__response.html#gafb3e3170a81ee60767208482a79ec3a4", null ],
+    [ "jdksavdecc_aem_command_set_name_response_set_descriptor_type", "group__command__set__name__response.html#ga393325f18f5a7fb3e8e94ee3ce916564", null ],
+    [ "jdksavdecc_aem_command_set_name_response_set_name", "group__command__set__name__response.html#ga2b83e16312f2fe731574c6b6d7d26d71", null ],
+    [ "jdksavdecc_aem_command_set_name_response_set_name_index", "group__command__set__name__response.html#ga57bd6a794cc05e03fd4395bfa47ddfb4", null ],
+    [ "jdksavdecc_aem_command_set_name_response_set_sequence_id", "group__command__set__name__response.html#ga9e266313aeee4b9116a5f181eaa13159", null ],
+    [ "jdksavdecc_aem_command_set_name_response_write", "group__command__set__name__response.html#gac87ff2e29820e2a4150c4f205962cf67", null ]
+];

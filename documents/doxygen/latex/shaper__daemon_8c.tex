@@ -1,0 +1,1800 @@
+\hypertarget{shaper__daemon_8c}{}\section{daemons/shaper/src/shaper\+\_\+daemon.c 파일 참조}
+\label{shaper__daemon_8c}\index{daemons/shaper/src/shaper\+\_\+daemon.\+c@{daemons/shaper/src/shaper\+\_\+daemon.\+c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$unistd.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$math.\+h$>$}\\*
+{\ttfamily \#include $<$ctype.\+h$>$}\\*
+{\ttfamily \#include $<$net/if.\+h$>$}\\*
+{\ttfamily \#include $<$sys/socket.\+h$>$}\\*
+{\ttfamily \#include $<$sys/types.\+h$>$}\\*
+{\ttfamily \#include $<$netinet/in.\+h$>$}\\*
+{\ttfamily \#include $<$errno.\+h$>$}\\*
+{\ttfamily \#include $<$fcntl.\+h$>$}\\*
+{\ttfamily \#include $<$signal.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}shaper\+\_\+log.\+h\char`\"{}}\\*
+shaper\+\_\+daemon.\+c에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{shaper__daemon_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{데이타 구조}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structcmd__ip}{cmd\+\_\+ip}
+\item 
+struct \hyperlink{structstream__da}{stream\+\_\+da}
+\end{DoxyCompactItemize}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{shaper__daemon_8c_a8ff9eab82e462838cdff7a19dbe8a21a}{S\+H\+A\+P\+E\+R\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}~\char`\"{}Main\char`\"{}
+\item 
+\#define \hyperlink{shaper__daemon_8c_a4d02202f6eb4ba09b3da91b3573043dc}{S\+T\+R\+E\+A\+M\+D\+A\+\_\+\+L\+E\+N\+G\+TH}~18
+\item 
+\#define \hyperlink{shaper__daemon_8c_ac32844dc4686e2af4c974b54f7648d73}{S\+H\+A\+P\+E\+R\+\_\+\+P\+O\+RT}~15365 /$\ast$ Unassigned at https\+://www.\+iana.\+org/assignments/\hyperlink{gst__avb__playbin_8c_a63c89c04d1feae07ca35558055155ffb}{port}-\/numbers $\ast$/
+\item 
+\#define \hyperlink{shaper__daemon_8c_ae320f47fc351f85d43c1bc99b292bd64}{M\+A\+X\+\_\+\+C\+L\+I\+E\+N\+T\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+NS}~10
+\item 
+\#define \hyperlink{shaper__daemon_8c_af79d3e3db16869b0cf8b1cc2ac6d6c7c}{U\+S\+E\+R\+\_\+\+C\+O\+M\+M\+A\+N\+D\+\_\+\+P\+R\+O\+M\+PT}~\char`\"{}\textbackslash{}n\+Enter the command\+:  \char`\"{}
+\end{DoxyCompactItemize}
+\subsection*{타입정의}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structcmd__ip}{cmd\+\_\+ip} \hyperlink{shaper__daemon_8c_a3b76f4159d30d5c7c04ad5e5b462ccbf}{cmd\+\_\+ip}
+\item 
+typedef struct \hyperlink{structstream__da}{stream\+\_\+da} \hyperlink{shaper__daemon_8c_abf9fdef008573e6144daf0dd36d0768e}{stream\+\_\+da}
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{shaper__daemon_8c_a5a2cb997ac731840ca1dbea80f7ba042}{signal\+\_\+handler} (int signal)
+\item 
+void \hyperlink{shaper__daemon_8c_a9a7896f218dea6259835f0e8501059ea}{log\+\_\+client\+\_\+error\+\_\+message} (int sockfd, const char $\ast$fmt,...)
+\item 
+void \hyperlink{shaper__daemon_8c_a91bbcacf465ab6a6c18ca226e99620f8}{log\+\_\+client\+\_\+debug\+\_\+message} (int sockfd, const char $\ast$fmt,...)
+\item 
+int \hyperlink{shaper__daemon_8c_aa77441abb51d931eda08806ba657ddfe}{is\+\_\+empty} ()
+\item 
+void \hyperlink{shaper__daemon_8c_abd1d44defc81f46518150ab6393d4b01}{insert\+\_\+stream\+\_\+da} (int sockfd, char dest\+\_\+addr\mbox{[}$\,$\mbox{]}, int \hyperlink{shaper__daemon_8c_a71b420b9a271ff67fe17d3f93d6a81b1}{bandwidth}, char class\+\_\+id\mbox{[}$\,$\mbox{]}, int filter\+\_\+handle)
+\item 
+int \hyperlink{shaper__daemon_8c_a6dcd499cbe61338ce4e39caf2e2fe34b}{check\+\_\+stream\+\_\+da} (int sockfd, char dest\+\_\+addr\mbox{[}$\,$\mbox{]})
+\item 
+\hyperlink{structstream__da}{stream\+\_\+da} $\ast$ \hyperlink{shaper__daemon_8c_afdc8c4b5b3810e7738e6e127e6d96619}{get\+\_\+stream\+\_\+da} (int sockfd, char dest\+\_\+addr\mbox{[}$\,$\mbox{]})
+\item 
+void \hyperlink{shaper__daemon_8c_a7e8d8c54c86dae01ced699f41efce4cc}{remove\+\_\+stream\+\_\+da} (int sockfd, char dest\+\_\+addr\mbox{[}$\,$\mbox{]})
+\item 
+void \hyperlink{shaper__daemon_8c_a8aeb94eb8493a0cabf4012ae10181d32}{delete\+\_\+streamda\+\_\+list} ()
+\item 
+void \hyperlink{shaper__daemon_8c_ae04a3751d04ec8edb2412458813ee21e}{usage} (int sockfd)
+\item 
+\hyperlink{structcmd__ip}{cmd\+\_\+ip} \hyperlink{shaper__daemon_8c_afa6167723929f4d2ceedbf3201bb8804}{parse\+\_\+cmd} (char command\mbox{[}$\,$\mbox{]})
+\item 
+void \hyperlink{shaper__daemon_8c_ae46164c3a009962f4558b528c8832fb3}{tc\+\_\+class\+\_\+command} (int sockfd, char command\mbox{[}$\,$\mbox{]}, char class\+\_\+id\mbox{[}$\,$\mbox{]}, char \hyperlink{rawsock__tx_8c_af663a7576d2f8f288bb3996381484cd3}{interface}\mbox{[}$\,$\mbox{]}, int \hyperlink{shaper__daemon_8c_a71b420b9a271ff67fe17d3f93d6a81b1}{bandwidth}, int cburst)
+\item 
+void \hyperlink{shaper__daemon_8c_a9d1b8f7ab58ca39fede193a37defabed}{add\+\_\+filter} (int sockfd, char \hyperlink{rawsock__tx_8c_af663a7576d2f8f288bb3996381484cd3}{interface}\mbox{[}$\,$\mbox{]}, int parent, int filter\+\_\+handle, char class\+\_\+id\mbox{[}$\,$\mbox{]}, char dest\+\_\+addr\mbox{[}$\,$\mbox{]})
+\item 
+int \hyperlink{shaper__daemon_8c_ac94b1764973cf812bac78946db0eab90}{process\+\_\+command} (int sockfd, char command\mbox{[}$\,$\mbox{]})
+\item 
+int \hyperlink{shaper__daemon_8c_a49a29e48111f73def1f5a291e1688ca8}{init\+\_\+socket} ()
+\item 
+int \hyperlink{shaper__daemon_8c_a0ddf1224851353fc92bfbff6f499fa97}{main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\subsection*{변수}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structstream__da}{stream\+\_\+da} $\ast$ \hyperlink{shaper__daemon_8c_a6423244370f9aca2693040c79ba1f400}{head} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{N\+U\+LL}
+\item 
+int \hyperlink{shaper__daemon_8c_a334ce40e81d4165749d8490538bf163e}{sr\+\_\+classa} =0
+\item 
+int \hyperlink{shaper__daemon_8c_a96ab29408d85d90318b3837a3b87aa47}{sr\+\_\+classb} =0
+\item 
+int \hyperlink{shaper__daemon_8c_af61d0c246f4521dd02d20aaf0e83a12c}{classa\+\_\+48} =0
+\item 
+int \hyperlink{shaper__daemon_8c_a7932944d2ed3542056804005a0a49560}{classa\+\_\+44} =0
+\item 
+int \hyperlink{shaper__daemon_8c_a3af27b1f449e8a7be92c2a168bca810c}{classb\+\_\+48} =0
+\item 
+int \hyperlink{shaper__daemon_8c_aa4266bbb4af330b4b29e092d7bdd1569}{classb\+\_\+44} =0
+\item 
+int \hyperlink{shaper__daemon_8c_aa93f9fa8cca352dc2fa78cc6971ab0e8}{classa\+\_\+bw\+\_\+48} =0
+\item 
+int \hyperlink{shaper__daemon_8c_aa6f2f04169830ae3a06d3ee4d368a361}{classa\+\_\+bw\+\_\+44} =0
+\item 
+int \hyperlink{shaper__daemon_8c_a0250857a4b797b488d69265d0cce1a2d}{classb\+\_\+bw\+\_\+48} =0
+\item 
+int \hyperlink{shaper__daemon_8c_a438bedb25c01075b894d50f39e72f839}{classb\+\_\+bw\+\_\+44} =0
+\item 
+int \hyperlink{shaper__daemon_8c_aa2339b21f98abccd12533a54d5f9d712}{daemonize} =0
+\item 
+int \hyperlink{shaper__daemon_8c_a4e1e0e72dd773439e333c84dd762a9c3}{c} =0
+\item 
+int \hyperlink{shaper__daemon_8c_a72e1da38f48907e21a83259cee633481}{filterhandle\+\_\+classa} =1
+\item 
+int \hyperlink{shaper__daemon_8c_a0f9ad71fc5b318ea336ebef09ad2dc5d}{filterhandle\+\_\+classb} =20
+\item 
+char \hyperlink{shaper__daemon_8c_ad5c78a9a8849355e506a63eea0d0426c}{classid\+\_\+a\+\_\+48} \mbox{[}$\,$\mbox{]} =\char`\"{}2\+:10\char`\"{}
+\item 
+char \hyperlink{shaper__daemon_8c_ae1f55b437c3abfbdf323cabe15471183}{classid\+\_\+a\+\_\+44} \mbox{[}$\,$\mbox{]} =\char`\"{}2\+:20\char`\"{}
+\item 
+char \hyperlink{shaper__daemon_8c_ac800554fece286a78adf31c45553fea4}{classid\+\_\+b\+\_\+48} \mbox{[}$\,$\mbox{]} =\char`\"{}3\+:30\char`\"{}
+\item 
+char \hyperlink{shaper__daemon_8c_a6df03efe2cc43233160a5945ad3350d9}{classid\+\_\+b\+\_\+44} \mbox{[}$\,$\mbox{]} =\char`\"{}3\+:40\char`\"{}
+\item 
+char \hyperlink{shaper__daemon_8c_adef660e3c86e05938c7534436677f6ee}{interface} \mbox{[}\hyperlink{tl_2openavb__tl__pub_8h_acd06da230a96d3b7e6f193c5b3142002}{I\+F\+N\+A\+M\+S\+IZ}\mbox{]} = \{0\}
+\item 
+int \hyperlink{shaper__daemon_8c_a71b420b9a271ff67fe17d3f93d6a81b1}{bandwidth} = 0
+\item 
+int \hyperlink{shaper__daemon_8c_a6d1f9fea50d2bd53d7a12e208c306196}{classa\+\_\+parent} = 2
+\item 
+int \hyperlink{shaper__daemon_8c_a331375753a3514101a36276bac280794}{classb\+\_\+parent} =3
+\item 
+int \hyperlink{shaper__daemon_8c_ad14115fb75ed8842782c1c82654dfafa}{exit\+\_\+received} = 0
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}!M\+A\+X\+\_\+\+C\+L\+I\+E\+N\+T\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+NS@{M\+A\+X\+\_\+\+C\+L\+I\+E\+N\+T\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+NS}}
+\index{M\+A\+X\+\_\+\+C\+L\+I\+E\+N\+T\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+NS@{M\+A\+X\+\_\+\+C\+L\+I\+E\+N\+T\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+NS}!shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{M\+A\+X\+\_\+\+C\+L\+I\+E\+N\+T\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+NS}{MAX_CLIENT_CONNECTIONS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+X\+\_\+\+C\+L\+I\+E\+N\+T\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+NS~10}\hypertarget{shaper__daemon_8c_ae320f47fc351f85d43c1bc99b292bd64}{}\label{shaper__daemon_8c_ae320f47fc351f85d43c1bc99b292bd64}
+
+
+shaper\+\_\+daemon.\+c 파일의 45 번째 라인에서 정의되었습니다.
+
+\index{shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}!S\+H\+A\+P\+E\+R\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT@{S\+H\+A\+P\+E\+R\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}}
+\index{S\+H\+A\+P\+E\+R\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT@{S\+H\+A\+P\+E\+R\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}!shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{S\+H\+A\+P\+E\+R\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}{SHAPER_LOG_COMPONENT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+H\+A\+P\+E\+R\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT~\char`\"{}Main\char`\"{}}\hypertarget{shaper__daemon_8c_a8ff9eab82e462838cdff7a19dbe8a21a}{}\label{shaper__daemon_8c_a8ff9eab82e462838cdff7a19dbe8a21a}
+
+
+shaper\+\_\+daemon.\+c 파일의 40 번째 라인에서 정의되었습니다.
+
+\index{shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}!S\+H\+A\+P\+E\+R\+\_\+\+P\+O\+RT@{S\+H\+A\+P\+E\+R\+\_\+\+P\+O\+RT}}
+\index{S\+H\+A\+P\+E\+R\+\_\+\+P\+O\+RT@{S\+H\+A\+P\+E\+R\+\_\+\+P\+O\+RT}!shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{S\+H\+A\+P\+E\+R\+\_\+\+P\+O\+RT}{SHAPER_PORT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+H\+A\+P\+E\+R\+\_\+\+P\+O\+RT~15365 /$\ast$ Unassigned at https\+://www.\+iana.\+org/assignments/{\bf port}-\/numbers $\ast$/}\hypertarget{shaper__daemon_8c_ac32844dc4686e2af4c974b54f7648d73}{}\label{shaper__daemon_8c_ac32844dc4686e2af4c974b54f7648d73}
+
+
+shaper\+\_\+daemon.\+c 파일의 44 번째 라인에서 정의되었습니다.
+
+\index{shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}!S\+T\+R\+E\+A\+M\+D\+A\+\_\+\+L\+E\+N\+G\+TH@{S\+T\+R\+E\+A\+M\+D\+A\+\_\+\+L\+E\+N\+G\+TH}}
+\index{S\+T\+R\+E\+A\+M\+D\+A\+\_\+\+L\+E\+N\+G\+TH@{S\+T\+R\+E\+A\+M\+D\+A\+\_\+\+L\+E\+N\+G\+TH}!shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{S\+T\+R\+E\+A\+M\+D\+A\+\_\+\+L\+E\+N\+G\+TH}{STREAMDA_LENGTH}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+T\+R\+E\+A\+M\+D\+A\+\_\+\+L\+E\+N\+G\+TH~18}\hypertarget{shaper__daemon_8c_a4d02202f6eb4ba09b3da91b3573043dc}{}\label{shaper__daemon_8c_a4d02202f6eb4ba09b3da91b3573043dc}
+
+
+shaper\+\_\+daemon.\+c 파일의 43 번째 라인에서 정의되었습니다.
+
+\index{shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}!U\+S\+E\+R\+\_\+\+C\+O\+M\+M\+A\+N\+D\+\_\+\+P\+R\+O\+M\+PT@{U\+S\+E\+R\+\_\+\+C\+O\+M\+M\+A\+N\+D\+\_\+\+P\+R\+O\+M\+PT}}
+\index{U\+S\+E\+R\+\_\+\+C\+O\+M\+M\+A\+N\+D\+\_\+\+P\+R\+O\+M\+PT@{U\+S\+E\+R\+\_\+\+C\+O\+M\+M\+A\+N\+D\+\_\+\+P\+R\+O\+M\+PT}!shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{U\+S\+E\+R\+\_\+\+C\+O\+M\+M\+A\+N\+D\+\_\+\+P\+R\+O\+M\+PT}{USER_COMMAND_PROMPT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define U\+S\+E\+R\+\_\+\+C\+O\+M\+M\+A\+N\+D\+\_\+\+P\+R\+O\+M\+PT~\char`\"{}\textbackslash{}n\+Enter the command\+:  \char`\"{}}\hypertarget{shaper__daemon_8c_af79d3e3db16869b0cf8b1cc2ac6d6c7c}{}\label{shaper__daemon_8c_af79d3e3db16869b0cf8b1cc2ac6d6c7c}
+
+
+shaper\+\_\+daemon.\+c 파일의 46 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{타입정의 문서화}
+\index{shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}!cmd\+\_\+ip@{cmd\+\_\+ip}}
+\index{cmd\+\_\+ip@{cmd\+\_\+ip}!shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{cmd\+\_\+ip}{cmd_ip}}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf cmd\+\_\+ip}  {\bf cmd\+\_\+ip}}\hypertarget{shaper__daemon_8c_a3b76f4159d30d5c7c04ad5e5b462ccbf}{}\label{shaper__daemon_8c_a3b76f4159d30d5c7c04ad5e5b462ccbf}
+\index{shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}!stream\+\_\+da@{stream\+\_\+da}}
+\index{stream\+\_\+da@{stream\+\_\+da}!shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{stream\+\_\+da}{stream_da}}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf stream\+\_\+da}  {\bf stream\+\_\+da}}\hypertarget{shaper__daemon_8c_abf9fdef008573e6144daf0dd36d0768e}{}\label{shaper__daemon_8c_abf9fdef008573e6144daf0dd36d0768e}
+
+
+\subsection{함수 문서화}
+\index{shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}!add\+\_\+filter@{add\+\_\+filter}}
+\index{add\+\_\+filter@{add\+\_\+filter}!shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{add\+\_\+filter(int sockfd, char interface[], int parent, int filter\+\_\+handle, char class\+\_\+id[], char dest\+\_\+addr[])}{add_filter(int sockfd, char interface[], int parent, int filter_handle, char class_id[], char dest_addr[])}}]{\setlength{\rightskip}{0pt plus 5cm}void add\+\_\+filter (
+\begin{DoxyParamCaption}
+\item[{int}]{sockfd, }
+\item[{char}]{interface\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{parent, }
+\item[{int}]{filter\+\_\+handle, }
+\item[{char}]{class\+\_\+id\mbox{[}$\,$\mbox{]}, }
+\item[{char}]{dest\+\_\+addr\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{shaper__daemon_8c_a9d1b8f7ab58ca39fede193a37defabed}{}\label{shaper__daemon_8c_a9d1b8f7ab58ca39fede193a37defabed}
+
+
+shaper\+\_\+daemon.\+c 파일의 429 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+430 \{
+431     \textcolor{keywordtype}{char} tc\_command[1000]=\{0\};
+432     sprintf(tc\_command, \textcolor{stringliteral}{"tc filter add dev %s prio 1 handle 800::%d parent %d: u32 classid %s  match ether
+       dst %s"},
+433         \hyperlink{shaper__daemon_8c_adef660e3c86e05938c7534436677f6ee}{interface}, filter\_handle, parent, class\_id, dest\_addr);
+434     \hyperlink{shaper__daemon_8c_a91bbcacf465ab6a6c18ca226e99620f8}{log\_client\_debug\_message}(sockfd, \textcolor{stringliteral}{"tc command:  \(\backslash\)"%s\(\backslash\)""}, tc\_command);
+435     \textcolor{keywordflow}{if} (system(tc\_command) < 0)
+436     \{
+437         \hyperlink{shaper__daemon_8c_a9a7896f218dea6259835f0e8501059ea}{log\_client\_error\_message}(sockfd, \textcolor{stringliteral}{"command(\(\backslash\)"%s\(\backslash\)") failed"}, tc\_command);
+438     \}
+439 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=306pt]{shaper__daemon_8c_a9d1b8f7ab58ca39fede193a37defabed_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=345pt]{shaper__daemon_8c_a9d1b8f7ab58ca39fede193a37defabed_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}!check\+\_\+stream\+\_\+da@{check\+\_\+stream\+\_\+da}}
+\index{check\+\_\+stream\+\_\+da@{check\+\_\+stream\+\_\+da}!shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{check\+\_\+stream\+\_\+da(int sockfd, char dest\+\_\+addr[])}{check_stream_da(int sockfd, char dest_addr[])}}]{\setlength{\rightskip}{0pt plus 5cm}int check\+\_\+stream\+\_\+da (
+\begin{DoxyParamCaption}
+\item[{int}]{sockfd, }
+\item[{char}]{dest\+\_\+addr\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{shaper__daemon_8c_a6dcd499cbe61338ce4e39caf2e2fe34b}{}\label{shaper__daemon_8c_a6dcd499cbe61338ce4e39caf2e2fe34b}
+
+
+shaper\+\_\+daemon.\+c 파일의 204 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+205 \{
+206     \hyperlink{structstream__da}{stream\_da} *current = \hyperlink{shaper__daemon_8c_a6423244370f9aca2693040c79ba1f400}{head};
+207     \textcolor{keywordflow}{while} (current != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL})
+208     \{
+209         \textcolor{keywordflow}{if} (!strcmp(current->\hyperlink{structstream__da_a48e2dd031360cb9786e3650c897a3d44}{dest\_addr}, dest\_addr))
+210         \{
+211             \hyperlink{shaper__daemon_8c_a9a7896f218dea6259835f0e8501059ea}{log\_client\_error\_message}(sockfd, \textcolor{stringliteral}{"Stream DA already present"});
+212             \textcolor{keywordflow}{return} 1;
+213         \}
+214         current = current->\hyperlink{structstream__da_a47d59761a90bc27f0a5135bfdf7c6eab}{next};
+215     \}
+216     \textcolor{keywordflow}{return} 0;
+217 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=338pt]{shaper__daemon_8c_a6dcd499cbe61338ce4e39caf2e2fe34b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{shaper__daemon_8c_a6dcd499cbe61338ce4e39caf2e2fe34b_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}!delete\+\_\+streamda\+\_\+list@{delete\+\_\+streamda\+\_\+list}}
+\index{delete\+\_\+streamda\+\_\+list@{delete\+\_\+streamda\+\_\+list}!shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{delete\+\_\+streamda\+\_\+list()}{delete_streamda_list()}}]{\setlength{\rightskip}{0pt plus 5cm}void delete\+\_\+streamda\+\_\+list (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{shaper__daemon_8c_a8aeb94eb8493a0cabf4012ae10181d32}{}\label{shaper__daemon_8c_a8aeb94eb8493a0cabf4012ae10181d32}
+
+
+shaper\+\_\+daemon.\+c 파일의 260 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+261 \{
+262     \hyperlink{structstream__da}{stream\_da} *current = \hyperlink{shaper__daemon_8c_a6423244370f9aca2693040c79ba1f400}{head};
+263     \hyperlink{structstream__da}{stream\_da} *next = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+264     \textcolor{keywordflow}{while} (current != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL})
+265     \{
+266         next = current->\hyperlink{structstream__da_a47d59761a90bc27f0a5135bfdf7c6eab}{next};
+267         \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(current);
+268         current = next;
+269     \}
+270     \hyperlink{shaper__daemon_8c_a6423244370f9aca2693040c79ba1f400}{head} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+271 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{shaper__daemon_8c_a8aeb94eb8493a0cabf4012ae10181d32_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}!get\+\_\+stream\+\_\+da@{get\+\_\+stream\+\_\+da}}
+\index{get\+\_\+stream\+\_\+da@{get\+\_\+stream\+\_\+da}!shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{get\+\_\+stream\+\_\+da(int sockfd, char dest\+\_\+addr[])}{get_stream_da(int sockfd, char dest_addr[])}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf stream\+\_\+da}$\ast$ get\+\_\+stream\+\_\+da (
+\begin{DoxyParamCaption}
+\item[{int}]{sockfd, }
+\item[{char}]{dest\+\_\+addr\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{shaper__daemon_8c_afdc8c4b5b3810e7738e6e127e6d96619}{}\label{shaper__daemon_8c_afdc8c4b5b3810e7738e6e127e6d96619}
+
+
+shaper\+\_\+daemon.\+c 파일의 219 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+220 \{
+221     \hyperlink{structstream__da}{stream\_da} *current = \hyperlink{shaper__daemon_8c_a6423244370f9aca2693040c79ba1f400}{head};
+222     \textcolor{keywordflow}{while} (current != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL})
+223     \{
+224         \textcolor{keywordflow}{if} (!strcmp(current->\hyperlink{structstream__da_a48e2dd031360cb9786e3650c897a3d44}{dest\_addr}, dest\_addr))
+225         \{
+226 
+227             \textcolor{keywordflow}{return} current;
+228         \}
+229         current = current->\hyperlink{structstream__da_a47d59761a90bc27f0a5135bfdf7c6eab}{next};
+230     \}
+231     \hyperlink{shaper__daemon_8c_a9a7896f218dea6259835f0e8501059ea}{log\_client\_error\_message}(sockfd, \textcolor{stringliteral}{"Unknown Stream DA"});
+232     \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+233 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=325pt]{shaper__daemon_8c_afdc8c4b5b3810e7738e6e127e6d96619_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{shaper__daemon_8c_afdc8c4b5b3810e7738e6e127e6d96619_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}!init\+\_\+socket@{init\+\_\+socket}}
+\index{init\+\_\+socket@{init\+\_\+socket}!shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{init\+\_\+socket()}{init_socket()}}]{\setlength{\rightskip}{0pt plus 5cm}int init\+\_\+socket (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{shaper__daemon_8c_a49a29e48111f73def1f5a291e1688ca8}{}\label{shaper__daemon_8c_a49a29e48111f73def1f5a291e1688ca8}
+
+
+shaper\+\_\+daemon.\+c 파일의 711 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+712 \{
+713     \textcolor{keywordtype}{int} \hyperlink{openavb__endpoint__osal__shaper_8c_a16ece46816348fa6d2c5d0e8b47c0098}{socketfd} = 0;
+714     \textcolor{keyword}{struct }sockaddr\_in serv\_addr;
+715     \textcolor{keywordtype}{int} yes=1;
+716     \textcolor{keywordflow}{if} ((socketfd = socket(AF\_INET, SOCK\_STREAM, 0)) == -1 )
+717     \{
+718         \hyperlink{shaper__log_8h_aac99ac9170387e3cf645b788c386e86e}{SHAPER\_LOGF\_ERROR}(\textcolor{stringliteral}{"Could not open socket %d.  Error %d (%s)"}, socketfd, errno, 
+      strerror(errno));
+719         \textcolor{keywordflow}{return} -1;
+720     \}
+721     \textcolor{keywordflow}{if} (fcntl(socketfd, F\_SETFL, O\_NONBLOCK) < 0)
+722     \{
+723         \hyperlink{shaper__log_8h_aac99ac9170387e3cf645b788c386e86e}{SHAPER\_LOGF\_ERROR}(\textcolor{stringliteral}{"Could not set the socket to non-blocking.  Error %d (%s)"}, 
+      errno, strerror(errno));
+724         close(socketfd);
+725         \textcolor{keywordflow}{return} -1;
+726     \}
+727 
+728 
+729     memset(&serv\_addr, \textcolor{charliteral}{'0'}, \textcolor{keyword}{sizeof}(serv\_addr));
+730 
+731     serv\_addr.sin\_family = AF\_INET;
+732     serv\_addr.sin\_addr.s\_addr = htonl(INADDR\_LOOPBACK);
+733     serv\_addr.sin\_port = htons(\hyperlink{shaper__daemon_8c_ac32844dc4686e2af4c974b54f7648d73}{SHAPER\_PORT});
+734     setsockopt(socketfd, SOL\_SOCKET, SO\_REUSEADDR, &yes, \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}));
+735 
+736     \textcolor{keywordflow}{if} (bind(socketfd, (\textcolor{keyword}{struct} sockaddr*)&serv\_addr, \textcolor{keyword}{sizeof}(serv\_addr))<0)
+737     \{
+738         \hyperlink{shaper__log_8h_aac99ac9170387e3cf645b788c386e86e}{SHAPER\_LOGF\_ERROR}(\textcolor{stringliteral}{"bind() error %d (%s)"}, errno, strerror(errno));
+739         \textcolor{keywordflow}{return} -1;
+740     \}
+741     \textcolor{keywordflow}{if} (listen(socketfd, 10)<0)
+742     \{
+743         \hyperlink{shaper__log_8h_aac99ac9170387e3cf645b788c386e86e}{SHAPER\_LOGF\_ERROR}(\textcolor{stringliteral}{"listen() error %d (%s)"}, errno, strerror(errno));
+744         \textcolor{keywordflow}{return} -1;
+745     \}
+746 
+747     \textcolor{keywordflow}{return} \hyperlink{openavb__endpoint__osal__shaper_8c_a16ece46816348fa6d2c5d0e8b47c0098}{socketfd};
+748 
+749 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=218pt]{shaper__daemon_8c_a49a29e48111f73def1f5a291e1688ca8_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}!insert\+\_\+stream\+\_\+da@{insert\+\_\+stream\+\_\+da}}
+\index{insert\+\_\+stream\+\_\+da@{insert\+\_\+stream\+\_\+da}!shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{insert\+\_\+stream\+\_\+da(int sockfd, char dest\+\_\+addr[], int bandwidth, char class\+\_\+id[], int filter\+\_\+handle)}{insert_stream_da(int sockfd, char dest_addr[], int bandwidth, char class_id[], int filter_handle)}}]{\setlength{\rightskip}{0pt plus 5cm}void insert\+\_\+stream\+\_\+da (
+\begin{DoxyParamCaption}
+\item[{int}]{sockfd, }
+\item[{char}]{dest\+\_\+addr\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{bandwidth, }
+\item[{char}]{class\+\_\+id\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{filter\+\_\+handle}
+\end{DoxyParamCaption}
+)}\hypertarget{shaper__daemon_8c_abd1d44defc81f46518150ab6393d4b01}{}\label{shaper__daemon_8c_abd1d44defc81f46518150ab6393d4b01}
+
+
+shaper\+\_\+daemon.\+c 파일의 175 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+176 \{
+177     \hyperlink{structstream__da}{stream\_da} *node = (\hyperlink{structstream__da}{stream\_da} *)\hyperlink{_memory_leak_detector_malloc_macros_8h_ab8b25cd8f16d4a6552afe4e65c4f082d}{malloc}(\textcolor{keyword}{sizeof}(
+      \hyperlink{structstream__da}{stream\_da}));
+178     \textcolor{keywordflow}{if} (node == \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL})
+179     \{
+180         \hyperlink{shaper__daemon_8c_a9a7896f218dea6259835f0e8501059ea}{log\_client\_error\_message}(sockfd, \textcolor{stringliteral}{"Unable to allocate memory. Exiting
+       program"});
+181         \hyperlink{shaper__log_8h_a5341efc8ab4d2c5bef223b2658ad8a85}{shaperLogExit}();
+182         exit(1);
+183     \}
+184     strcpy(node->\hyperlink{structstream__da_a48e2dd031360cb9786e3650c897a3d44}{dest\_addr},dest\_addr);
+185     node->\hyperlink{structstream__da_a71b420b9a271ff67fe17d3f93d6a81b1}{bandwidth} = \hyperlink{shaper__daemon_8c_a71b420b9a271ff67fe17d3f93d6a81b1}{bandwidth};
+186     strcpy(node->\hyperlink{structstream__da_a04a01ac17f2b59581f15f1a4ff5c99d0}{class\_id},class\_id);
+187     node->\hyperlink{structstream__da_acfe0fcb6ee8972f5b5bc4b1aca1e8c7a}{filter\_handle}=filter\_handle;
+188     node->\hyperlink{structstream__da_a47d59761a90bc27f0a5135bfdf7c6eab}{next} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+189     \textcolor{keywordflow}{if} (\hyperlink{shaper__daemon_8c_aa77441abb51d931eda08806ba657ddfe}{is\_empty}())
+190     \{
+191         \hyperlink{shaper__daemon_8c_a6423244370f9aca2693040c79ba1f400}{head} = node;
+192     \}
+193     \textcolor{keywordflow}{else}
+194     \{
+195         \hyperlink{structstream__da}{stream\_da} *current = \hyperlink{shaper__daemon_8c_a6423244370f9aca2693040c79ba1f400}{head};
+196         \textcolor{keywordflow}{while} (current->\hyperlink{structstream__da_a47d59761a90bc27f0a5135bfdf7c6eab}{next} != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL})
+197         \{
+198             current = current->\hyperlink{structstream__da_a47d59761a90bc27f0a5135bfdf7c6eab}{next};
+199         \}
+200         current->\hyperlink{structstream__da_a47d59761a90bc27f0a5135bfdf7c6eab}{next} = node;
+201     \}
+202 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=336pt]{shaper__daemon_8c_abd1d44defc81f46518150ab6393d4b01_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{shaper__daemon_8c_abd1d44defc81f46518150ab6393d4b01_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}!is\+\_\+empty@{is\+\_\+empty}}
+\index{is\+\_\+empty@{is\+\_\+empty}!shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{is\+\_\+empty()}{is_empty()}}]{\setlength{\rightskip}{0pt plus 5cm}int is\+\_\+empty (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{shaper__daemon_8c_aa77441abb51d931eda08806ba657ddfe}{}\label{shaper__daemon_8c_aa77441abb51d931eda08806ba657ddfe}
+
+
+shaper\+\_\+daemon.\+c 파일의 170 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+171 \{
+172     \textcolor{keywordflow}{return} \hyperlink{shaper__daemon_8c_a6423244370f9aca2693040c79ba1f400}{head} == \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+173 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{shaper__daemon_8c_aa77441abb51d931eda08806ba657ddfe_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}!log\+\_\+client\+\_\+debug\+\_\+message@{log\+\_\+client\+\_\+debug\+\_\+message}}
+\index{log\+\_\+client\+\_\+debug\+\_\+message@{log\+\_\+client\+\_\+debug\+\_\+message}!shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{log\+\_\+client\+\_\+debug\+\_\+message(int sockfd, const char $\ast$fmt,...)}{log_client_debug_message(int sockfd, const char *fmt,...)}}]{\setlength{\rightskip}{0pt plus 5cm}void log\+\_\+client\+\_\+debug\+\_\+message (
+\begin{DoxyParamCaption}
+\item[{int}]{sockfd, }
+\item[{const char $\ast$}]{fmt, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)}\hypertarget{shaper__daemon_8c_a91bbcacf465ab6a6c18ca226e99620f8}{}\label{shaper__daemon_8c_a91bbcacf465ab6a6c18ca226e99620f8}
+
+
+shaper\+\_\+daemon.\+c 파일의 138 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+139 \{
+140     \textcolor{keyword}{static} \textcolor{keywordtype}{char} debug\_msg[200], combined\_debug\_msg[250];
+141     va\_list \hyperlink{namespaceastime__fitline_a8187411843a6284ffb964ef3fb9fcab3}{args};
+142 
+143     \textcolor{keywordflow}{if} (\hyperlink{shaper__log_8h_adedd6d23ed69fcb5e8c6d2756c4057fc}{SHAPER\_LOG\_LEVEL\_DEBUG} > \hyperlink{shaper__log_8h_ab10a4a70a4d7ce97ed7ddde462a29c04}{SHAPER\_LOG\_LEVEL})
+144     \{
+145         \textcolor{keywordflow}{return};
+146     \}
+147 
+148     \textcolor{comment}{/* Get the debug message. */}
+149     va\_start(args, fmt);
+150     vsprintf(debug\_msg, fmt, args);
+151     va\_end(args);
+152 
+153     \textcolor{keywordflow}{if} (sockfd < 0)
+154     \{
+155         \textcolor{comment}{/* Received from stdin.  Just log this message. */}
+156         \hyperlink{shaper__log_8h_aa0d0f44d2e6f350fb9e7e4ab41e7a475}{SHAPER\_LOG\_DEBUG}(debug\_msg);
+157     \}
+158     \textcolor{keywordflow}{else}
+159     \{
+160         \textcolor{comment}{/* Log this as a remote client message. */}
+161         sprintf(combined\_debug\_msg, \textcolor{stringliteral}{"Client %d: %s"}, sockfd, debug\_msg);
+162         \hyperlink{shaper__log_8h_aa0d0f44d2e6f350fb9e7e4ab41e7a475}{SHAPER\_LOG\_DEBUG}(combined\_debug\_msg);
+163 
+164         \textcolor{comment}{/* Send the message to the client. */}
+165         sprintf(combined\_debug\_msg, \textcolor{stringliteral}{"DEBUG: %s\(\backslash\)n"}, debug\_msg);
+166         send(sockfd, combined\_debug\_msg, strlen(combined\_debug\_msg), 0);
+167     \}
+168 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{shaper__daemon_8c_a91bbcacf465ab6a6c18ca226e99620f8_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}!log\+\_\+client\+\_\+error\+\_\+message@{log\+\_\+client\+\_\+error\+\_\+message}}
+\index{log\+\_\+client\+\_\+error\+\_\+message@{log\+\_\+client\+\_\+error\+\_\+message}!shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{log\+\_\+client\+\_\+error\+\_\+message(int sockfd, const char $\ast$fmt,...)}{log_client_error_message(int sockfd, const char *fmt,...)}}]{\setlength{\rightskip}{0pt plus 5cm}void log\+\_\+client\+\_\+error\+\_\+message (
+\begin{DoxyParamCaption}
+\item[{int}]{sockfd, }
+\item[{const char $\ast$}]{fmt, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)}\hypertarget{shaper__daemon_8c_a9a7896f218dea6259835f0e8501059ea}{}\label{shaper__daemon_8c_a9a7896f218dea6259835f0e8501059ea}
+
+
+shaper\+\_\+daemon.\+c 파일의 106 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+107 \{
+108     \textcolor{keyword}{static} \textcolor{keywordtype}{char} error\_msg[200], combined\_error\_msg[250];
+109     va\_list \hyperlink{namespaceastime__fitline_a8187411843a6284ffb964ef3fb9fcab3}{args};
+110 
+111     \textcolor{keywordflow}{if} (\hyperlink{shaper__log_8h_ad69476c604c9dd93d41fb48212a89415}{SHAPER\_LOG\_LEVEL\_ERROR} > \hyperlink{shaper__log_8h_ab10a4a70a4d7ce97ed7ddde462a29c04}{SHAPER\_LOG\_LEVEL})
+112     \{
+113         \textcolor{keywordflow}{return};
+114     \}
+115 
+116     \textcolor{comment}{/* Get the error message. */}
+117     va\_start(args, fmt);
+118     vsprintf(error\_msg, fmt, args);
+119     va\_end(args);
+120 
+121     \textcolor{keywordflow}{if} (sockfd < 0)
+122     \{
+123         \textcolor{comment}{/* Received from stdin.  Just log this error. */}
+124         \hyperlink{shaper__log_8h_a1dceb97cb3e0f72d04de207adc543628}{SHAPER\_LOG\_ERROR}(error\_msg);
+125     \}
+126     \textcolor{keywordflow}{else}
+127     \{
+128         \textcolor{comment}{/* Log this as a remote client error. */}
+129         sprintf(combined\_error\_msg, \textcolor{stringliteral}{"Client %d: %s"}, sockfd, error\_msg);
+130         \hyperlink{shaper__log_8h_a1dceb97cb3e0f72d04de207adc543628}{SHAPER\_LOG\_ERROR}(combined\_error\_msg);
+131 
+132         \textcolor{comment}{/* Send the error message to the client. */}
+133         sprintf(combined\_error\_msg, \textcolor{stringliteral}{"ERROR: %s\(\backslash\)n"}, error\_msg);
+134         send(sockfd, combined\_error\_msg, strlen(combined\_error\_msg), 0);
+135     \}
+136 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{shaper__daemon_8c_a9a7896f218dea6259835f0e8501059ea_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}!main@{main}}
+\index{main@{main}!shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{main(int argc, char $\ast$argv[])}{main(int argc, char *argv[])}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{shaper__daemon_8c_a0ddf1224851353fc92bfbff6f499fa97}{}\label{shaper__daemon_8c_a0ddf1224851353fc92bfbff6f499fa97}
+
+
+shaper\+\_\+daemon.\+c 파일의 751 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+752 \{
+753     \textcolor{keywordtype}{char} command[100];
+754     \textcolor{keywordtype}{int} \hyperlink{openavb__endpoint__osal__shaper_8c_a16ece46816348fa6d2c5d0e8b47c0098}{socketfd} = 0,newfd = 0;
+755     \textcolor{keywordtype}{int} clientfd[\hyperlink{shaper__daemon_8c_ae320f47fc351f85d43c1bc99b292bd64}{MAX\_CLIENT\_CONNECTIONS}];
+756     \textcolor{keywordtype}{int} i, nextclientindex;
+757     fd\_set read\_fds;
+758     \textcolor{keywordtype}{int} fdmax;
+759     \textcolor{keywordtype}{int} recvbytes;
+760 
+761     \hyperlink{shaper__log_8h_af96a217cc421c0a322b3a7c14b1109df}{shaperLogInit}();
+762 
+763     \textcolor{keywordflow}{while}((\hyperlink{shaper__daemon_8c_a4e1e0e72dd773439e333c84dd762a9c3}{c} = \hyperlink{getopt_8c_a5b4d105808f29eef11f1a690ccc4e04a}{getopt}(argc,argv,\textcolor{stringliteral}{"d"}))>=0)
+764     \{
+765         \textcolor{keywordflow}{switch}(\hyperlink{shaper__daemon_8c_a4e1e0e72dd773439e333c84dd762a9c3}{c})
+766         \{
+767             \textcolor{keywordflow}{case} \textcolor{charliteral}{'d'}:
+768             \hyperlink{shaper__daemon_8c_aa2339b21f98abccd12533a54d5f9d712}{daemonize} = 1;
+769             \textcolor{keywordflow}{break};
+770         \}
+771     \}
+772 
+773     \textcolor{keywordflow}{if} (\hyperlink{shaper__daemon_8c_aa2339b21f98abccd12533a54d5f9d712}{daemonize} == 1 && daemon(1,0) < 0)
+774     \{
+775         \hyperlink{shaper__log_8h_aac99ac9170387e3cf645b788c386e86e}{SHAPER\_LOGF\_ERROR}(\textcolor{stringliteral}{"Error %d (%s) starting the daemon"}, errno, strerror(errno));
+776         \hyperlink{shaper__log_8h_a5341efc8ab4d2c5bef223b2658ad8a85}{shaperLogExit}();
+777         \textcolor{keywordflow}{return} 1;
+778     \}
+779 
+780     \textcolor{keywordflow}{if} ((socketfd = \hyperlink{shaper__daemon_8c_a49a29e48111f73def1f5a291e1688ca8}{init\_socket}())<0)
+781     \{
+782         \hyperlink{shaper__log_8h_a5341efc8ab4d2c5bef223b2658ad8a85}{shaperLogExit}();
+783         \textcolor{keywordflow}{return} 1;
+784     \}
+785 
+786     \textcolor{comment}{// Setup signal handler}
+787     \textcolor{comment}{// We catch SIGINT and shutdown cleanly}
+788     \textcolor{keywordtype}{int} \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err};
+789     \textcolor{keyword}{struct }sigaction sa;
+790     sa.sa\_handler = \hyperlink{shaper__daemon_8c_a5a2cb997ac731840ca1dbea80f7ba042}{signal\_handler};
+791     sigemptyset(&sa.sa\_mask);
+792     sa.sa\_flags = 0;
+793     err = sigaction(SIGINT, &sa, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+794     \textcolor{keywordflow}{if} (err)
+795     \{
+796         \hyperlink{shaper__log_8h_a1dceb97cb3e0f72d04de207adc543628}{SHAPER\_LOG\_ERROR}(\textcolor{stringliteral}{"Failed to setup SIGINT handler"});
+797         \hyperlink{shaper__log_8h_a5341efc8ab4d2c5bef223b2658ad8a85}{shaperLogExit}();
+798         \textcolor{keywordflow}{return} 1;
+799     \}
+800     err = sigaction(SIGTERM, &sa, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+801     \textcolor{keywordflow}{if} (err)
+802     \{
+803         \hyperlink{shaper__log_8h_a1dceb97cb3e0f72d04de207adc543628}{SHAPER\_LOG\_ERROR}(\textcolor{stringliteral}{"Failed to setup SIGTERM handler"});
+804         \hyperlink{shaper__log_8h_a5341efc8ab4d2c5bef223b2658ad8a85}{shaperLogExit}();
+805         \textcolor{keywordflow}{return} 1;
+806     \}
+807     err = sigaction(SIGUSR1, &sa, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+808     \textcolor{keywordflow}{if} (err)
+809     \{
+810         \hyperlink{shaper__log_8h_a1dceb97cb3e0f72d04de207adc543628}{SHAPER\_LOG\_ERROR}(\textcolor{stringliteral}{"Failed to setup SIGUSR1 handler"});
+811         \hyperlink{shaper__log_8h_a5341efc8ab4d2c5bef223b2658ad8a85}{shaperLogExit}();
+812         \textcolor{keywordflow}{return} 1;
+813     \}
+814 
+815     \textcolor{comment}{// Ignore SIGPIPE signals.}
+816     signal(SIGPIPE, SIG\_IGN);
+817 
+818     \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{shaper__daemon_8c_ae320f47fc351f85d43c1bc99b292bd64}{MAX\_CLIENT\_CONNECTIONS}; ++i)
+819     \{
+820         clientfd[i] = -1;
+821     \}
+822     nextclientindex = 0;
+823 
+824     fputs(\hyperlink{shaper__daemon_8c_af79d3e3db16869b0cf8b1cc2ac6d6c7c}{USER\_COMMAND\_PROMPT}, stdout);
+825     fflush(stdout);
+826 
+827     \textcolor{keywordflow}{while} (!\hyperlink{shaper__daemon_8c_ad14115fb75ed8842782c1c82654dfafa}{exit\_received})
+828     \{
+829         FD\_ZERO(&read\_fds);
+830         \textcolor{keywordflow}{if} (!\hyperlink{shaper__daemon_8c_aa2339b21f98abccd12533a54d5f9d712}{daemonize})
+831         \{
+832             FD\_SET(STDIN\_FILENO, &read\_fds);
+833         \}
+834         FD\_SET(socketfd, &read\_fds);
+835         fdmax = \hyperlink{openavb__endpoint__osal__shaper_8c_a16ece46816348fa6d2c5d0e8b47c0098}{socketfd};
+836         \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{shaper__daemon_8c_ae320f47fc351f85d43c1bc99b292bd64}{MAX\_CLIENT\_CONNECTIONS}; ++i)
+837         \{
+838             \textcolor{keywordflow}{if} (clientfd[i] > 0)
+839             \{
+840                 FD\_SET(clientfd[i], &read\_fds);
+841                 \textcolor{keywordflow}{if} (clientfd[i] > fdmax)
+842                 \{
+843                     fdmax = clientfd[i];
+844                 \}
+845             \}
+846         \}
+847         \textcolor{keywordtype}{int} n = select(fdmax+1, &read\_fds, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+848         \textcolor{keywordflow}{if}(n == -1)
+849         \{
+850             \textcolor{keywordflow}{if} (\hyperlink{shaper__daemon_8c_ad14115fb75ed8842782c1c82654dfafa}{exit\_received})
+851             \{
+852                 \textcolor{comment}{// Assume the app received a signal to quit.}
+853                 \textcolor{comment}{// Process the quit command.}
+854                 \hyperlink{shaper__daemon_8c_ac94b1764973cf812bac78946db0eab90}{process\_command}(-1, \textcolor{stringliteral}{"-q"});
+855             \}
+856             \textcolor{keywordflow}{else}
+857             \{
+858                 \hyperlink{shaper__log_8h_aac99ac9170387e3cf645b788c386e86e}{SHAPER\_LOGF\_ERROR}(\textcolor{stringliteral}{"select() error %d (%s)"}, errno, strerror(errno));
+859                 \textcolor{keywordflow}{break};
+860             \}
+861         \}
+862         \textcolor{keywordflow}{else}
+863         \{
+864             \textcolor{comment}{/* Handle any commands received via stdin. */}
+865             \textcolor{keywordflow}{if} (FD\_ISSET(STDIN\_FILENO, &read\_fds))
+866             \{
+867                 recvbytes = read(STDIN\_FILENO, command, \textcolor{keyword}{sizeof}(command) - 1);
+868                 \textcolor{keywordflow}{if} (recvbytes <= 0)
+869                 \{
+870                     \hyperlink{shaper__log_8h_aac99ac9170387e3cf645b788c386e86e}{SHAPER\_LOGF\_ERROR}(\textcolor{stringliteral}{"Error %d reading from stdin (%s)"}, errno, strerror(
+      errno));
+871                 \}
+872                 \textcolor{keywordflow}{else}
+873                 \{
+874                     command[recvbytes] = \textcolor{charliteral}{'\(\backslash\)0'};
+875 
+876                     \textcolor{comment}{/* Process the command data. */}
+877                     \textcolor{keywordtype}{int} ret = \hyperlink{shaper__daemon_8c_ac94b1764973cf812bac78946db0eab90}{process\_command}(-1, command);
+878                     \textcolor{keywordflow}{if} (!ret)
+879                     \{
+880                         \textcolor{comment}{/* Received a command to exit. */}
+881                         \hyperlink{shaper__daemon_8c_ad14115fb75ed8842782c1c82654dfafa}{exit\_received} = 1;
+882                     \}
+883                     \textcolor{keywordflow}{else}
+884                     \{
+885                         \textcolor{comment}{/* Prompt the user again. */}
+886                         \hyperlink{shaper__log_8h_a21dbf27be8dafc2ca9ec6194220ecc2d}{shaperLogDisplayAll}();
+887                         fputs(\hyperlink{shaper__daemon_8c_af79d3e3db16869b0cf8b1cc2ac6d6c7c}{USER\_COMMAND\_PROMPT}, stdout);
+888                         fflush(stdout);
+889                     \}
+890                 \}
+891             \}
+892 
+893             \textcolor{keywordflow}{if} (FD\_ISSET(socketfd, &read\_fds))
+894             \{
+895                 newfd = accept(socketfd, (\textcolor{keyword}{struct} sockaddr*)\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+896                 \textcolor{keywordflow}{if} (clientfd[nextclientindex] != -1)
+897                 \{
+898                     \textcolor{comment}{/* Find the next available index. */}
+899                     \textcolor{keywordflow}{for} (i = (nextclientindex + 1) % MAX\_CLIENT\_CONNECTIONS; i != nextclientindex; i = (i +
+       1) % MAX\_CLIENT\_CONNECTIONS)
+900                     \{
+901                         \textcolor{keywordflow}{if} (clientfd[nextclientindex] == -1)
+902                         \{
+903                             \textcolor{comment}{/* Found an empty array slot. */}
+904                             \textcolor{keywordflow}{break};
+905                         \}
+906                     \}
+907                     \textcolor{keywordflow}{if} (i == nextclientindex)
+908                     \{
+909                         \textcolor{comment}{/* No more client slots available.  Connection rejected. */}
+910                         \hyperlink{shaper__log_8h_aaad00d81941a8525ecbf1b811476f5b5}{SHAPER\_LOG\_WARNING}(\textcolor{stringliteral}{"Out of client connection slots.  Connection
+       rejected."});
+911                         close(newfd);
+912                         newfd = -1;
+913                     \}
+914                 \}
+915 
+916 
+917                 \textcolor{keywordflow}{if} (newfd != -1)
+918                 \{
+919                     clientfd[nextclientindex] = newfd;
+920                     nextclientindex = (nextclientindex + 1) % MAX\_CLIENT\_CONNECTIONS; \textcolor{comment}{/* Next slot used for
+       the next try. */}
+921 
+922                     \textcolor{comment}{/* Send a prompt to the user. */}
+923                     send(newfd, \hyperlink{shaper__daemon_8c_af79d3e3db16869b0cf8b1cc2ac6d6c7c}{USER\_COMMAND\_PROMPT}, strlen(
+      \hyperlink{shaper__daemon_8c_af79d3e3db16869b0cf8b1cc2ac6d6c7c}{USER\_COMMAND\_PROMPT}), 0);
+924                 \}
+925             \}
+926 
+927             \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{shaper__daemon_8c_ae320f47fc351f85d43c1bc99b292bd64}{MAX\_CLIENT\_CONNECTIONS}; ++i)
+928             \{
+929                 \textcolor{keywordflow}{if} (clientfd[i] != -1 && FD\_ISSET(clientfd[i], &read\_fds))
+930                 \{
+931                     recvbytes = recv(clientfd[i], command, \textcolor{keyword}{sizeof}(command) - 1, 0);
+932                     \textcolor{keywordflow}{if} (recvbytes < 0)
+933                     \{
+934                         \hyperlink{shaper__log_8h_aac99ac9170387e3cf645b788c386e86e}{SHAPER\_LOGF\_ERROR}(\textcolor{stringliteral}{"Error %d reading from socket %d (%s). 
+       Connection closed."}, errno, clientfd[i], strerror(errno));
+935                         close(clientfd[i]);
+936                         clientfd[i] = -1;
+937                         nextclientindex = i; \textcolor{comment}{/* We know this slot will be empty. */}
+938                         \textcolor{keywordflow}{continue};
+939                     \}
+940                     \textcolor{keywordflow}{if} (recvbytes == 0)
+941                     \{
+942                         \hyperlink{shaper__log_8h_a9d3575153b784abf6cc88fd9147f55ea}{SHAPER\_LOGF\_INFO}(\textcolor{stringliteral}{"Socket %d closed"}, clientfd[i]);
+943                         close(clientfd[i]);
+944                         clientfd[i] = -1;
+945                         nextclientindex = i; \textcolor{comment}{/* We know this slot will be empty. */}
+946                         \textcolor{keywordflow}{continue};
+947                     \}
+948 
+949                     command[recvbytes] = \textcolor{charliteral}{'\(\backslash\)0'};
+950                     \textcolor{keywordflow}{while} (recvbytes > 0 && isspace(command[recvbytes - 1]))
+951                     \{
+952                         \textcolor{comment}{/* Remove trailing whitespace. */}
+953                         command[--recvbytes] = \textcolor{charliteral}{'\(\backslash\)0'};
+954                     \}
+955                     \hyperlink{shaper__log_8h_a9d3575153b784abf6cc88fd9147f55ea}{SHAPER\_LOGF\_INFO}(\textcolor{stringliteral}{"The received command is \(\backslash\)"%s\(\backslash\)""},command);
+956                     \textcolor{keywordtype}{int} ret = \hyperlink{shaper__daemon_8c_ac94b1764973cf812bac78946db0eab90}{process\_command}(clientfd[i], command);
+957                     \textcolor{keywordflow}{if} (!ret)
+958                     \{
+959                         \textcolor{comment}{/* Received a command to exit. */}
+960                         \hyperlink{shaper__daemon_8c_ad14115fb75ed8842782c1c82654dfafa}{exit\_received} = 1;
+961                     \}
+962                     \textcolor{keywordflow}{else}
+963                     \{
+964                         \textcolor{comment}{/* Send another prompt to the user. */}
+965                         send(clientfd[i], \hyperlink{shaper__daemon_8c_af79d3e3db16869b0cf8b1cc2ac6d6c7c}{USER\_COMMAND\_PROMPT}, strlen(
+      \hyperlink{shaper__daemon_8c_af79d3e3db16869b0cf8b1cc2ac6d6c7c}{USER\_COMMAND\_PROMPT}), 0);
+966                     \}
+967                 \}
+968             \}
+969         \}
+970     \}\textcolor{comment}{//main while loop}
+971 
+972     close(socketfd);
+973 
+974     \textcolor{comment}{/* Close any connected sockets. */}
+975     \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{shaper__daemon_8c_ae320f47fc351f85d43c1bc99b292bd64}{MAX\_CLIENT\_CONNECTIONS}; ++i) \{
+976         \textcolor{keywordflow}{if} (clientfd[i] != -1) \{
+977             \hyperlink{shaper__log_8h_a9d3575153b784abf6cc88fd9147f55ea}{SHAPER\_LOGF\_INFO}(\textcolor{stringliteral}{"Socket %d closed"}, clientfd[i]);
+978             close(clientfd[i]);
+979             clientfd[i] = -1;
+980         \}
+981     \}
+982 
+983     \hyperlink{shaper__log_8h_a5341efc8ab4d2c5bef223b2658ad8a85}{shaperLogExit}();
+984 
+985     \textcolor{keywordflow}{return} 0;
+986 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{shaper__daemon_8c_a0ddf1224851353fc92bfbff6f499fa97_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}!parse\+\_\+cmd@{parse\+\_\+cmd}}
+\index{parse\+\_\+cmd@{parse\+\_\+cmd}!shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{parse\+\_\+cmd(char command[])}{parse_cmd(char command[])}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf cmd\+\_\+ip} parse\+\_\+cmd (
+\begin{DoxyParamCaption}
+\item[{char}]{command\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{shaper__daemon_8c_afa6167723929f4d2ceedbf3201bb8804}{}\label{shaper__daemon_8c_afa6167723929f4d2ceedbf3201bb8804}
+
+
+shaper\+\_\+daemon.\+c 파일의 305 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+306 \{
+307     \hyperlink{structcmd__ip}{cmd\_ip} inputs=\{0\};
+308     \textcolor{keywordtype}{int} i=0;
+309     \textcolor{keywordtype}{char} temp[100];
+310     \textcolor{keywordflow}{while}(command[i++] != \textcolor{charliteral}{'\(\backslash\)0'})
+311     \{
+312 
+313         \textcolor{keywordflow}{if} (command[i] == \textcolor{charliteral}{'r'})
+314         \{
+315             inputs.\hyperlink{structcmd__ip_a097e8a948d42cb86e10e0c667e2226bf}{reserve\_bw}=1;
+316             i++;
+317         \}
+318 
+319         \textcolor{keywordflow}{if} (command[i] == \textcolor{charliteral}{'u'})
+320         \{
+321             inputs.\hyperlink{structcmd__ip_a7f0818a9cd62d9342ed94c8165764abe}{unreserve\_bw}=1;
+322             i++;
+323         \}
+324 
+325         \textcolor{keywordflow}{if} (command[i] == \textcolor{charliteral}{'i'})
+326         \{
+327             \textcolor{keywordtype}{int} k=0;
+328             i = i+2;
+329             \textcolor{keywordflow}{while} (command[i] != \textcolor{charliteral}{' '} && k < \hyperlink{openavb__avdecc__pub_8h_acd06da230a96d3b7e6f193c5b3142002}{IFNAMSIZ}-1)
+330             \{
+331                 inputs.\hyperlink{structcmd__ip_adef660e3c86e05938c7534436677f6ee}{interface}[k] = command[i];
+332                 k++;i++;
+333             \}
+334             inputs.\hyperlink{structcmd__ip_adef660e3c86e05938c7534436677f6ee}{interface}[k] = \textcolor{charliteral}{'\(\backslash\)0'};
+335         \}
+336 
+337         \textcolor{keywordflow}{if} (command[i] == \textcolor{charliteral}{'c'})
+338         \{
+339             i = i+2;
+340             \textcolor{keywordflow}{if} (command[i] == \textcolor{charliteral}{'A'} || command[i] == \textcolor{charliteral}{'a'})
+341             \{
+342                 inputs.\hyperlink{structcmd__ip_a6dbf62a77a5eba89b03f961c1674a8e2}{class\_a} = 1;
+343             \}
+344             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (command[i] == \textcolor{charliteral}{'B'} || command[i] == \textcolor{charliteral}{'b'})
+345             \{
+346                 inputs.\hyperlink{structcmd__ip_a2f8fc8fa9d90656bc7012b2da063c4f5}{class\_b} = 1;
+347             \}
+348             i++;
+349         \}
+350 
+351         \textcolor{keywordflow}{if} (command[i] == \textcolor{charliteral}{'s'})
+352         \{
+353             \textcolor{keywordtype}{int} k=0;
+354             i = i+2;
+355             \textcolor{keywordflow}{while} (command[i] != \textcolor{charliteral}{' '} && k < (\textcolor{keywordtype}{int}) \textcolor{keyword}{sizeof}(temp)-1)
+356             \{
+357                 temp[k] = command[i];
+358                 k++;i++;
+359             \}
+360             temp[k] = \textcolor{charliteral}{'\(\backslash\)0'};
+361             inputs.\hyperlink{structcmd__ip_a848591ef9ab34f6f2eb816fe385fa4d4}{measurement\_interval} = atoi(temp);
+362         \}
+363 
+364         \textcolor{keywordflow}{if} (command[i] == \textcolor{charliteral}{'b'})
+365         \{
+366             \textcolor{keywordtype}{int} k=0;
+367             i = i+2;
+368             \textcolor{keywordflow}{while} (command[i]  != \textcolor{charliteral}{' '} && k < (\textcolor{keywordtype}{int}) \textcolor{keyword}{sizeof}(temp)-1)
+369             \{
+370                 temp[k] = command[i];
+371                 k++;i++;
+372             \}
+373             temp[k] = \textcolor{charliteral}{'\(\backslash\)0'};
+374             inputs.\hyperlink{structcmd__ip_a09c29b0090a82147afdb50ae0013b9c6}{max\_frame\_size} = atoi(temp);
+375         \}
+376 
+377         \textcolor{keywordflow}{if} (command[i] == \textcolor{charliteral}{'f'})
+378         \{
+379             \textcolor{keywordtype}{int} k=0;
+380             i = i+2;
+381             \textcolor{keywordflow}{while} (command[i]  != \textcolor{charliteral}{' '} && k < (\textcolor{keywordtype}{int}) \textcolor{keyword}{sizeof}(temp)-1)
+382             \{
+383                 temp[k] = command[i];
+384                 k++;i++;
+385             \}
+386             temp[k] = \textcolor{charliteral}{'\(\backslash\)0'};
+387             inputs.\hyperlink{structcmd__ip_a0aab5ed8ce61499c1535ea86d3090930}{max\_frame\_interval} = atoi(temp);
+388         \}
+389 
+390         \textcolor{keywordflow}{if} (command[i] == \textcolor{charliteral}{'a'})
+391         \{
+392             \textcolor{keywordtype}{int} k=0;
+393             i = i+2;
+394             \textcolor{keywordflow}{while} (command[i]  != \textcolor{charliteral}{' '} && k < \hyperlink{shaper__daemon_8c_a4d02202f6eb4ba09b3da91b3573043dc}{STREAMDA\_LENGTH}-1)
+395             \{
+396                 inputs.\hyperlink{structcmd__ip_a2a697cef6f075b15af7e7976a9bdd095}{stream\_da}[k] = command[i];
+397                 k++;i++;
+398             \}
+399             inputs.\hyperlink{structcmd__ip_a2a697cef6f075b15af7e7976a9bdd095}{stream\_da}[k] = \textcolor{charliteral}{'\(\backslash\)0'};
+400         \}
+401 
+402         \textcolor{keywordflow}{if} (command[i] == \textcolor{charliteral}{'d'})
+403         \{
+404             inputs.\hyperlink{structcmd__ip_ac8c5880d70b2a0f4ada79a3d4fedf962}{delete\_qdisc}=1;
+405             i++;
+406         \}
+407 
+408         \textcolor{keywordflow}{if} (command[i] == \textcolor{charliteral}{'q'})
+409         \{
+410             inputs.\hyperlink{structcmd__ip_a2896431d6a80cd39b3d24b40237612ee}{quit} = 1;
+411             i++;
+412         \}
+413     \}
+414     \textcolor{keywordflow}{return} inputs;
+415 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{shaper__daemon_8c_afa6167723929f4d2ceedbf3201bb8804_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}!process\+\_\+command@{process\+\_\+command}}
+\index{process\+\_\+command@{process\+\_\+command}!shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{process\+\_\+command(int sockfd, char command[])}{process_command(int sockfd, char command[])}}]{\setlength{\rightskip}{0pt plus 5cm}int process\+\_\+command (
+\begin{DoxyParamCaption}
+\item[{int}]{sockfd, }
+\item[{char}]{command\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{shaper__daemon_8c_ac94b1764973cf812bac78946db0eab90}{}\label{shaper__daemon_8c_ac94b1764973cf812bac78946db0eab90}
+
+
+shaper\+\_\+daemon.\+c 파일의 442 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+443 \{
+444     \hyperlink{structcmd__ip}{cmd\_ip} input = \hyperlink{shaper__daemon_8c_afa6167723929f4d2ceedbf3201bb8804}{parse\_cmd}(command);
+445     \textcolor{keywordtype}{char} tc\_command[1000]=\{0\};
+446     \textcolor{keywordtype}{int} maxburst = 0;
+447 
+448     \textcolor{keywordflow}{if} (input.\hyperlink{structcmd__ip_a097e8a948d42cb86e10e0c667e2226bf}{reserve\_bw} && input.\hyperlink{structcmd__ip_a7f0818a9cd62d9342ed94c8165764abe}{unreserve\_bw})
+449     \{
+450         \hyperlink{shaper__daemon_8c_a9a7896f218dea6259835f0e8501059ea}{log\_client\_error\_message}(sockfd, \textcolor{stringliteral}{"Cannot reserve and unreserve bandwidth at
+       the same time"});
+451         \hyperlink{shaper__daemon_8c_ae04a3751d04ec8edb2412458813ee21e}{usage}(sockfd);
+452         \textcolor{keywordflow}{return} -1;
+453     \}
+454 
+455 
+456     \textcolor{keywordflow}{if} (input.\hyperlink{structcmd__ip_a097e8a948d42cb86e10e0c667e2226bf}{reserve\_bw})
+457     \{
+458         \textcolor{keywordflow}{if} (input.\hyperlink{structcmd__ip_a09c29b0090a82147afdb50ae0013b9c6}{max\_frame\_size} == 0 || input.
+      \hyperlink{structcmd__ip_a848591ef9ab34f6f2eb816fe385fa4d4}{measurement\_interval} == 0 || input.\hyperlink{structcmd__ip_a0aab5ed8ce61499c1535ea86d3090930}{max\_frame\_interval} == 0 ||
+459             (!input.\hyperlink{structcmd__ip_a6dbf62a77a5eba89b03f961c1674a8e2}{class\_a} && !input.\hyperlink{structcmd__ip_a2f8fc8fa9d90656bc7012b2da063c4f5}{class\_b}))
+460         \{
+461             \hyperlink{shaper__daemon_8c_a9a7896f218dea6259835f0e8501059ea}{log\_client\_error\_message}(sockfd, \textcolor{stringliteral}{"class, max\_frame\_size,
+       measurement\_interval and max\_frame\_interval are mandatory inputs"});
+462             \hyperlink{shaper__daemon_8c_ae04a3751d04ec8edb2412458813ee21e}{usage}(sockfd);
+463             \textcolor{keywordflow}{return} -1;
+464         \}
+465 
+466         \textcolor{keywordflow}{if} (input.\hyperlink{structcmd__ip_a6dbf62a77a5eba89b03f961c1674a8e2}{class\_a} && input.\hyperlink{structcmd__ip_a2f8fc8fa9d90656bc7012b2da063c4f5}{class\_b})
+467         \{
+468             \hyperlink{shaper__daemon_8c_a9a7896f218dea6259835f0e8501059ea}{log\_client\_error\_message}(sockfd, \textcolor{stringliteral}{"Cannot reserve for both class A and
+       class B"});
+469             \hyperlink{shaper__daemon_8c_ae04a3751d04ec8edb2412458813ee21e}{usage}(sockfd);
+470             \textcolor{keywordflow}{return} -1;
+471         \}
+472     \}
+473     \textcolor{keywordflow}{if} (input.\hyperlink{structcmd__ip_a7f0818a9cd62d9342ed94c8165764abe}{unreserve\_bw})
+474     \{
+475         \textcolor{keywordflow}{if} (input.\hyperlink{structcmd__ip_a2a697cef6f075b15af7e7976a9bdd095}{stream\_da} == 0)
+476         \{
+477             \hyperlink{shaper__daemon_8c_a9a7896f218dea6259835f0e8501059ea}{log\_client\_error\_message}(sockfd, \textcolor{stringliteral}{"Stream Destination Address is
+       required to unreserve bandwidth"});
+478             \hyperlink{shaper__daemon_8c_ae04a3751d04ec8edb2412458813ee21e}{usage}(sockfd);
+479             \textcolor{keywordflow}{return} -1;
+480         \}
+481     \}
+482     \textcolor{keywordflow}{if} ((input.\hyperlink{structcmd__ip_a2896431d6a80cd39b3d24b40237612ee}{quit}==1 || input.\hyperlink{structcmd__ip_ac8c5880d70b2a0f4ada79a3d4fedf962}{delete\_qdisc}==1) &&(input.
+      \hyperlink{structcmd__ip_a097e8a948d42cb86e10e0c667e2226bf}{reserve\_bw}==1 || input.\hyperlink{structcmd__ip_a7f0818a9cd62d9342ed94c8165764abe}{unreserve\_bw}==1))
+483     \{
+484         \hyperlink{shaper__daemon_8c_a9a7896f218dea6259835f0e8501059ea}{log\_client\_error\_message}(sockfd, \textcolor{stringliteral}{"Quit or Delete cannot be used with other
+       commands"});
+485         \hyperlink{shaper__daemon_8c_ae04a3751d04ec8edb2412458813ee21e}{usage}(sockfd);
+486         \textcolor{keywordflow}{return} -1;
+487     \}
+488 
+489     \textcolor{keywordflow}{if} (input.\hyperlink{structcmd__ip_a2896431d6a80cd39b3d24b40237612ee}{quit} == 1 || input.\hyperlink{structcmd__ip_ac8c5880d70b2a0f4ada79a3d4fedf962}{delete\_qdisc} == 1)
+490     \{
+491         \textcolor{keywordflow}{if} (\hyperlink{shaper__daemon_8c_a334ce40e81d4165749d8490538bf163e}{sr\_classa} != 0 || \hyperlink{shaper__daemon_8c_a96ab29408d85d90318b3837a3b87aa47}{sr\_classb} != 0)
+492         \{
+493             \textcolor{comment}{//delete all the Stream DAs in list}
+494             \hyperlink{shaper__daemon_8c_a8aeb94eb8493a0cabf4012ae10181d32}{delete\_streamda\_list}();
+495             \textcolor{keywordflow}{if} (strlen(\hyperlink{shaper__daemon_8c_adef660e3c86e05938c7534436677f6ee}{interface}) != 0)
+496             \{
+497                 \textcolor{comment}{//delete qdisc}
+498                 sprintf(tc\_command, \textcolor{stringliteral}{"tc qdisc del dev %s root handle 1:"}, 
+      \hyperlink{shaper__daemon_8c_adef660e3c86e05938c7534436677f6ee}{interface});
+499                 \hyperlink{shaper__daemon_8c_a91bbcacf465ab6a6c18ca226e99620f8}{log\_client\_debug\_message}(sockfd, \textcolor{stringliteral}{"tc command:  \(\backslash\)"%s\(\backslash\)""}, tc\_command)
+      ;
+500                 \textcolor{keywordflow}{if} (system(tc\_command) < 0)
+501                 \{
+502                     \hyperlink{shaper__daemon_8c_a9a7896f218dea6259835f0e8501059ea}{log\_client\_error\_message}(sockfd, \textcolor{stringliteral}{"command(\(\backslash\)"%s\(\backslash\)") failed"}, 
+      tc\_command);
+503                 \}
+504             \}
+505             \hyperlink{shaper__daemon_8c_a334ce40e81d4165749d8490538bf163e}{sr\_classa} = \hyperlink{shaper__daemon_8c_a96ab29408d85d90318b3837a3b87aa47}{sr\_classb} = 0;
+506             \hyperlink{shaper__daemon_8c_af61d0c246f4521dd02d20aaf0e83a12c}{classa\_48} = \hyperlink{shaper__daemon_8c_a7932944d2ed3542056804005a0a49560}{classa\_44} = \hyperlink{shaper__daemon_8c_a3af27b1f449e8a7be92c2a168bca810c}{classb\_48} = 
+      \hyperlink{shaper__daemon_8c_aa4266bbb4af330b4b29e092d7bdd1569}{classb\_44} = 0;
+507             \hyperlink{shaper__daemon_8c_aa93f9fa8cca352dc2fa78cc6971ab0e8}{classa\_bw\_48} = \hyperlink{shaper__daemon_8c_aa6f2f04169830ae3a06d3ee4d368a361}{classa\_bw\_44} = \hyperlink{shaper__daemon_8c_a0250857a4b797b488d69265d0cce1a2d}{classb\_bw\_48} = 
+      \hyperlink{shaper__daemon_8c_a438bedb25c01075b894d50f39e72f839}{classb\_bw\_44} = 0;
+508         \}
+509 
+510         \textcolor{keywordflow}{if} (input.\hyperlink{structcmd__ip_a2896431d6a80cd39b3d24b40237612ee}{quit} == 1)
+511         \{
+512             \textcolor{keywordflow}{return} 0;
+513         \}
+514     \}
+515 
+516     \textcolor{keywordflow}{if} (\hyperlink{shaper__daemon_8c_a334ce40e81d4165749d8490538bf163e}{sr\_classa} == 0 && \hyperlink{shaper__daemon_8c_a96ab29408d85d90318b3837a3b87aa47}{sr\_classb} == 0)
+517     \{
+518         \textcolor{comment}{//Initializing qdisc}
+519         \textcolor{keywordflow}{if} (strlen(input.\hyperlink{structcmd__ip_adef660e3c86e05938c7534436677f6ee}{interface})==0)
+520         \{
+521             \textcolor{keywordflow}{if} (input.\hyperlink{structcmd__ip_a7f0818a9cd62d9342ed94c8165764abe}{unreserve\_bw} || input.\hyperlink{structcmd__ip_a097e8a948d42cb86e10e0c667e2226bf}{reserve\_bw})
+522             \{
+523                 \hyperlink{shaper__daemon_8c_a9a7896f218dea6259835f0e8501059ea}{log\_client\_error\_message}(sockfd, \textcolor{stringliteral}{"Interface is mandatory for the
+       first command"});
+524             \}
+525             \hyperlink{shaper__daemon_8c_ae04a3751d04ec8edb2412458813ee21e}{usage}(sockfd);
+526             \textcolor{keywordflow}{return} -1;
+527         \}
+528         sprintf(tc\_command, \textcolor{stringliteral}{"tc qdisc add dev %s root handle 1: mqprio num\_tc 4 map 3 3 1 0 2 2 2 2 2 2 2 2
+       2 2 2 2 queues 1@0 1@1 1@2 1@3 hw 0"}, input.\hyperlink{structcmd__ip_adef660e3c86e05938c7534436677f6ee}{interface});
+529         \hyperlink{shaper__daemon_8c_a91bbcacf465ab6a6c18ca226e99620f8}{log\_client\_debug\_message}(sockfd, \textcolor{stringliteral}{"tc command:  \(\backslash\)"%s\(\backslash\)""}, tc\_command);
+530         \textcolor{keywordflow}{if} (system(tc\_command) < 0)
+531         \{
+532             \hyperlink{shaper__daemon_8c_a9a7896f218dea6259835f0e8501059ea}{log\_client\_error\_message}(sockfd, \textcolor{stringliteral}{"command(\(\backslash\)"%s\(\backslash\)") failed"}, tc\_command);
+533             \textcolor{keywordflow}{return} -1;
+534         \}
+535         strcpy(\hyperlink{shaper__daemon_8c_adef660e3c86e05938c7534436677f6ee}{interface},input.\hyperlink{structcmd__ip_adef660e3c86e05938c7534436677f6ee}{interface});
+536     \}
+537 
+538     \textcolor{keywordflow}{if} (input.\hyperlink{structcmd__ip_a7f0818a9cd62d9342ed94c8165764abe}{unreserve\_bw} || input.\hyperlink{structcmd__ip_a097e8a948d42cb86e10e0c667e2226bf}{reserve\_bw})
+539     \{
+540         \hyperlink{shaper__daemon_8c_a71b420b9a271ff67fe17d3f93d6a81b1}{bandwidth} = ceil(((1/(input.\hyperlink{structcmd__ip_a848591ef9ab34f6f2eb816fe385fa4d4}{measurement\_interval}*pow(10,-6))) * (input
+      .\hyperlink{structcmd__ip_a09c29b0090a82147afdb50ae0013b9c6}{max\_frame\_size}*8) * input.\hyperlink{structcmd__ip_a0aab5ed8ce61499c1535ea86d3090930}{max\_frame\_interval}) / 8);
+541         maxburst = input.\hyperlink{structcmd__ip_a09c29b0090a82147afdb50ae0013b9c6}{max\_frame\_size}*input.\hyperlink{structcmd__ip_a0aab5ed8ce61499c1535ea86d3090930}{max\_frame\_interval}*2;
+542     \}
+543 
+544     \textcolor{keywordflow}{if} (input.\hyperlink{structcmd__ip_a097e8a948d42cb86e10e0c667e2226bf}{reserve\_bw} == 1)
+545     \{
+546         \textcolor{keywordflow}{if} (\hyperlink{shaper__daemon_8c_a6dcd499cbe61338ce4e39caf2e2fe34b}{check\_stream\_da}(sockfd, input.\hyperlink{structcmd__ip_a2a697cef6f075b15af7e7976a9bdd095}{stream\_da}))
+547         \{
+548             \textcolor{keywordflow}{return} 1;
+549         \}
+550         \textcolor{keywordflow}{if} (input.\hyperlink{structcmd__ip_a6dbf62a77a5eba89b03f961c1674a8e2}{class\_a})
+551         \{
+552             \textcolor{keywordflow}{if} (\hyperlink{shaper__daemon_8c_a334ce40e81d4165749d8490538bf163e}{sr\_classa} == 0)
+553             \{
+554                 \hyperlink{shaper__daemon_8c_a334ce40e81d4165749d8490538bf163e}{sr\_classa} = 1;
+555                 \textcolor{comment}{//Create qdisc for Class A traffic}
+556                 sprintf(tc\_command, \textcolor{stringliteral}{"tc qdisc add dev %s handle %d:  parent 1:5 htb"}, 
+      \hyperlink{shaper__daemon_8c_adef660e3c86e05938c7534436677f6ee}{interface}, \hyperlink{shaper__daemon_8c_a6d1f9fea50d2bd53d7a12e208c306196}{classa\_parent});
+557                 \hyperlink{shaper__daemon_8c_a91bbcacf465ab6a6c18ca226e99620f8}{log\_client\_debug\_message}(sockfd, \textcolor{stringliteral}{"tc command:  \(\backslash\)"%s\(\backslash\)""}, tc\_command)
+      ;
+558                 \textcolor{keywordflow}{if} (system(tc\_command) < 0)
+559                 \{
+560                     \hyperlink{shaper__daemon_8c_a9a7896f218dea6259835f0e8501059ea}{log\_client\_error\_message}(sockfd, \textcolor{stringliteral}{"command(\(\backslash\)"%s\(\backslash\)") failed"}, 
+      tc\_command);
+561                     \textcolor{keywordflow}{return} -1;
+562                 \}
+563             \}
+564 
+565             \textcolor{keywordflow}{if} (input.\hyperlink{structcmd__ip_a848591ef9ab34f6f2eb816fe385fa4d4}{measurement\_interval} == 125)
+566             \{
+567                 \hyperlink{shaper__daemon_8c_aa93f9fa8cca352dc2fa78cc6971ab0e8}{classa\_bw\_48} = \hyperlink{shaper__daemon_8c_aa93f9fa8cca352dc2fa78cc6971ab0e8}{classa\_bw\_48} + \hyperlink{shaper__daemon_8c_a71b420b9a271ff67fe17d3f93d6a81b1}{bandwidth};
+568                 \textcolor{keywordflow}{if} (\hyperlink{shaper__daemon_8c_af61d0c246f4521dd02d20aaf0e83a12c}{classa\_48} == 0)
+569                 \{
+570                     \hyperlink{shaper__daemon_8c_af61d0c246f4521dd02d20aaf0e83a12c}{classa\_48} = 1;
+571                     \hyperlink{shaper__daemon_8c_ae46164c3a009962f4558b528c8832fb3}{tc\_class\_command}(sockfd, \textcolor{stringliteral}{"add"}, \hyperlink{shaper__daemon_8c_ad5c78a9a8849355e506a63eea0d0426c}{classid\_a\_48}, 
+      \hyperlink{shaper__daemon_8c_adef660e3c86e05938c7534436677f6ee}{interface}, \hyperlink{shaper__daemon_8c_aa93f9fa8cca352dc2fa78cc6971ab0e8}{classa\_bw\_48}, maxburst);
+572                 \}
+573                 \textcolor{keywordflow}{else}
+574                 \{
+575                     \hyperlink{shaper__daemon_8c_ae46164c3a009962f4558b528c8832fb3}{tc\_class\_command}(sockfd, \textcolor{stringliteral}{"change"}, 
+      \hyperlink{shaper__daemon_8c_ad5c78a9a8849355e506a63eea0d0426c}{classid\_a\_48}, \hyperlink{shaper__daemon_8c_adef660e3c86e05938c7534436677f6ee}{interface}, \hyperlink{shaper__daemon_8c_aa93f9fa8cca352dc2fa78cc6971ab0e8}{classa\_bw\_48}, maxburst);
+576                 \}
+577 
+578                 \hyperlink{shaper__daemon_8c_a9d1b8f7ab58ca39fede193a37defabed}{add\_filter}(sockfd, \hyperlink{shaper__daemon_8c_adef660e3c86e05938c7534436677f6ee}{interface}, \hyperlink{shaper__daemon_8c_a6d1f9fea50d2bd53d7a12e208c306196}{classa\_parent}, 
+      \hyperlink{shaper__daemon_8c_a72e1da38f48907e21a83259cee633481}{filterhandle\_classa}, \hyperlink{shaper__daemon_8c_ad5c78a9a8849355e506a63eea0d0426c}{classid\_a\_48}, input.
+      \hyperlink{structcmd__ip_a2a697cef6f075b15af7e7976a9bdd095}{stream\_da});
+579                 \hyperlink{shaper__daemon_8c_abd1d44defc81f46518150ab6393d4b01}{insert\_stream\_da}(sockfd, input.\hyperlink{structcmd__ip_a2a697cef6f075b15af7e7976a9bdd095}{stream\_da}, bandwidth, 
+      \hyperlink{shaper__daemon_8c_ad5c78a9a8849355e506a63eea0d0426c}{classid\_a\_48}, \hyperlink{shaper__daemon_8c_a72e1da38f48907e21a83259cee633481}{filterhandle\_classa} );
+580                 \hyperlink{shaper__daemon_8c_a72e1da38f48907e21a83259cee633481}{filterhandle\_classa}++;
+581             \}
+582             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (input.\hyperlink{structcmd__ip_a848591ef9ab34f6f2eb816fe385fa4d4}{measurement\_interval} == 136)
+583             \{
+584                 \hyperlink{shaper__daemon_8c_aa6f2f04169830ae3a06d3ee4d368a361}{classa\_bw\_44} = \hyperlink{shaper__daemon_8c_aa6f2f04169830ae3a06d3ee4d368a361}{classa\_bw\_44} + \hyperlink{shaper__daemon_8c_a71b420b9a271ff67fe17d3f93d6a81b1}{bandwidth};
+585                 \textcolor{keywordflow}{if} (\hyperlink{shaper__daemon_8c_a7932944d2ed3542056804005a0a49560}{classa\_44} == 0)
+586                 \{
+587                     \hyperlink{shaper__daemon_8c_a7932944d2ed3542056804005a0a49560}{classa\_44} = 1;
+588                     \hyperlink{shaper__daemon_8c_ae46164c3a009962f4558b528c8832fb3}{tc\_class\_command}(sockfd, \textcolor{stringliteral}{"add"}, \hyperlink{shaper__daemon_8c_ae1f55b437c3abfbdf323cabe15471183}{classid\_a\_44}, 
+      \hyperlink{shaper__daemon_8c_adef660e3c86e05938c7534436677f6ee}{interface}, \hyperlink{shaper__daemon_8c_aa6f2f04169830ae3a06d3ee4d368a361}{classa\_bw\_44}, maxburst);
+589                 \}
+590                 \textcolor{keywordflow}{else}
+591                 \{
+592                     \hyperlink{shaper__daemon_8c_ae46164c3a009962f4558b528c8832fb3}{tc\_class\_command}(sockfd, \textcolor{stringliteral}{"change"}, 
+      \hyperlink{shaper__daemon_8c_ae1f55b437c3abfbdf323cabe15471183}{classid\_a\_44}, \hyperlink{shaper__daemon_8c_adef660e3c86e05938c7534436677f6ee}{interface}, \hyperlink{shaper__daemon_8c_aa6f2f04169830ae3a06d3ee4d368a361}{classa\_bw\_44}, maxburst);
+593                 \}
+594 
+595                 \hyperlink{shaper__daemon_8c_a9d1b8f7ab58ca39fede193a37defabed}{add\_filter}(sockfd, \hyperlink{shaper__daemon_8c_adef660e3c86e05938c7534436677f6ee}{interface}, \hyperlink{shaper__daemon_8c_a6d1f9fea50d2bd53d7a12e208c306196}{classa\_parent}, 
+      \hyperlink{shaper__daemon_8c_a72e1da38f48907e21a83259cee633481}{filterhandle\_classa}, \hyperlink{shaper__daemon_8c_ae1f55b437c3abfbdf323cabe15471183}{classid\_a\_44}, input.
+      \hyperlink{structcmd__ip_a2a697cef6f075b15af7e7976a9bdd095}{stream\_da});
+596                 \hyperlink{shaper__daemon_8c_abd1d44defc81f46518150ab6393d4b01}{insert\_stream\_da}(sockfd, input.\hyperlink{structcmd__ip_a2a697cef6f075b15af7e7976a9bdd095}{stream\_da}, bandwidth, 
+      \hyperlink{shaper__daemon_8c_ae1f55b437c3abfbdf323cabe15471183}{classid\_a\_44}, \hyperlink{shaper__daemon_8c_a72e1da38f48907e21a83259cee633481}{filterhandle\_classa});
+597                 \hyperlink{shaper__daemon_8c_a72e1da38f48907e21a83259cee633481}{filterhandle\_classa}++;
+598             \}
+599             \textcolor{keywordflow}{else}
+600             \{
+601                 \hyperlink{shaper__daemon_8c_a9a7896f218dea6259835f0e8501059ea}{log\_client\_error\_message}(sockfd, \textcolor{stringliteral}{"Measurement Interval (%d) doesn't
+       match that of Class A (125 or 136) traffic. "}
+602                         \textcolor{stringliteral}{"Enter a valid measurement interval"},
+603                         input.\hyperlink{structcmd__ip_a848591ef9ab34f6f2eb816fe385fa4d4}{measurement\_interval});
+604                 \textcolor{keywordflow}{return} -1;
+605             \}
+606         \}
+607         \textcolor{keywordflow}{else}
+608         \{
+609             \textcolor{keywordflow}{if} (\hyperlink{shaper__daemon_8c_a96ab29408d85d90318b3837a3b87aa47}{sr\_classb} == 0)
+610             \{
+611                 \hyperlink{shaper__daemon_8c_a96ab29408d85d90318b3837a3b87aa47}{sr\_classb} = 1;
+612                 \textcolor{comment}{//Create qdisc for Class B traffic}
+613                 sprintf(tc\_command, \textcolor{stringliteral}{"tc qdisc add dev %s handle %d:  parent 1:6 htb"}, 
+      \hyperlink{shaper__daemon_8c_adef660e3c86e05938c7534436677f6ee}{interface}, \hyperlink{shaper__daemon_8c_a331375753a3514101a36276bac280794}{classb\_parent});
+614                 \hyperlink{shaper__daemon_8c_a91bbcacf465ab6a6c18ca226e99620f8}{log\_client\_debug\_message}(sockfd, \textcolor{stringliteral}{"tc command:  \(\backslash\)"%s\(\backslash\)""}, tc\_command)
+      ;
+615                 \textcolor{keywordflow}{if} (system(tc\_command) < 0)
+616                 \{
+617                     \hyperlink{shaper__daemon_8c_a9a7896f218dea6259835f0e8501059ea}{log\_client\_error\_message}(sockfd, \textcolor{stringliteral}{"command(\(\backslash\)"%s\(\backslash\)") failed"}, 
+      tc\_command);
+618                     \textcolor{keywordflow}{return} -1;
+619                 \}
+620             \}
+621 
+622             \textcolor{keywordflow}{if} (input.\hyperlink{structcmd__ip_a848591ef9ab34f6f2eb816fe385fa4d4}{measurement\_interval} == 250)
+623             \{
+624                 \hyperlink{shaper__daemon_8c_a0250857a4b797b488d69265d0cce1a2d}{classb\_bw\_48} = \hyperlink{shaper__daemon_8c_a0250857a4b797b488d69265d0cce1a2d}{classb\_bw\_48} + \hyperlink{shaper__daemon_8c_a71b420b9a271ff67fe17d3f93d6a81b1}{bandwidth};
+625                 \textcolor{keywordflow}{if} (\hyperlink{shaper__daemon_8c_a3af27b1f449e8a7be92c2a168bca810c}{classb\_48} == 0)
+626                 \{
+627                     \hyperlink{shaper__daemon_8c_a3af27b1f449e8a7be92c2a168bca810c}{classb\_48} = 1;
+628                     \hyperlink{shaper__daemon_8c_ae46164c3a009962f4558b528c8832fb3}{tc\_class\_command}(sockfd, \textcolor{stringliteral}{"add"}, \hyperlink{shaper__daemon_8c_ac800554fece286a78adf31c45553fea4}{classid\_b\_48}, 
+      \hyperlink{shaper__daemon_8c_adef660e3c86e05938c7534436677f6ee}{interface}, \hyperlink{shaper__daemon_8c_a0250857a4b797b488d69265d0cce1a2d}{classb\_bw\_48}, maxburst);
+629                 \}
+630                 \textcolor{keywordflow}{else}
+631                 \{
+632                     \hyperlink{shaper__daemon_8c_ae46164c3a009962f4558b528c8832fb3}{tc\_class\_command}(sockfd, \textcolor{stringliteral}{"change"}, 
+      \hyperlink{shaper__daemon_8c_ac800554fece286a78adf31c45553fea4}{classid\_b\_48}, \hyperlink{shaper__daemon_8c_adef660e3c86e05938c7534436677f6ee}{interface}, \hyperlink{shaper__daemon_8c_a0250857a4b797b488d69265d0cce1a2d}{classb\_bw\_48}, maxburst);
+633                 \}
+634                 \hyperlink{shaper__daemon_8c_a9d1b8f7ab58ca39fede193a37defabed}{add\_filter}(sockfd, \hyperlink{shaper__daemon_8c_adef660e3c86e05938c7534436677f6ee}{interface}, \hyperlink{shaper__daemon_8c_a331375753a3514101a36276bac280794}{classb\_parent}, 
+      \hyperlink{shaper__daemon_8c_a0f9ad71fc5b318ea336ebef09ad2dc5d}{filterhandle\_classb}, \hyperlink{shaper__daemon_8c_ac800554fece286a78adf31c45553fea4}{classid\_b\_48}, input.
+      \hyperlink{structcmd__ip_a2a697cef6f075b15af7e7976a9bdd095}{stream\_da});
+635                 \hyperlink{shaper__daemon_8c_abd1d44defc81f46518150ab6393d4b01}{insert\_stream\_da}(sockfd, input.\hyperlink{structcmd__ip_a2a697cef6f075b15af7e7976a9bdd095}{stream\_da}, bandwidth, 
+      \hyperlink{shaper__daemon_8c_ac800554fece286a78adf31c45553fea4}{classid\_b\_48}, \hyperlink{shaper__daemon_8c_a0f9ad71fc5b318ea336ebef09ad2dc5d}{filterhandle\_classb});
+636                 \hyperlink{shaper__daemon_8c_a0f9ad71fc5b318ea336ebef09ad2dc5d}{filterhandle\_classb}++;
+637             \}
+638             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (input.\hyperlink{structcmd__ip_a848591ef9ab34f6f2eb816fe385fa4d4}{measurement\_interval} == 272)
+639             \{
+640                 \hyperlink{shaper__daemon_8c_a438bedb25c01075b894d50f39e72f839}{classb\_bw\_44} = \hyperlink{shaper__daemon_8c_a438bedb25c01075b894d50f39e72f839}{classb\_bw\_44} + \hyperlink{shaper__daemon_8c_a71b420b9a271ff67fe17d3f93d6a81b1}{bandwidth};
+641                 \textcolor{keywordflow}{if} (\hyperlink{shaper__daemon_8c_aa4266bbb4af330b4b29e092d7bdd1569}{classb\_44} == 0)
+642                 \{
+643                     \hyperlink{shaper__daemon_8c_aa4266bbb4af330b4b29e092d7bdd1569}{classb\_44} = 1;
+644                     \hyperlink{shaper__daemon_8c_ae46164c3a009962f4558b528c8832fb3}{tc\_class\_command}(sockfd, \textcolor{stringliteral}{"add"}, \hyperlink{shaper__daemon_8c_a6df03efe2cc43233160a5945ad3350d9}{classid\_b\_44}, 
+      \hyperlink{shaper__daemon_8c_adef660e3c86e05938c7534436677f6ee}{interface}, \hyperlink{shaper__daemon_8c_a438bedb25c01075b894d50f39e72f839}{classb\_bw\_44}, maxburst);
+645                 \}
+646                 \textcolor{keywordflow}{else}
+647                 \{
+648                     \hyperlink{shaper__daemon_8c_ae46164c3a009962f4558b528c8832fb3}{tc\_class\_command}(sockfd, \textcolor{stringliteral}{"change"}, 
+      \hyperlink{shaper__daemon_8c_a6df03efe2cc43233160a5945ad3350d9}{classid\_b\_44}, \hyperlink{shaper__daemon_8c_adef660e3c86e05938c7534436677f6ee}{interface}, \hyperlink{shaper__daemon_8c_a438bedb25c01075b894d50f39e72f839}{classb\_bw\_44}, maxburst);
+649                 \}
+650                 \hyperlink{shaper__daemon_8c_a9d1b8f7ab58ca39fede193a37defabed}{add\_filter}(sockfd, \hyperlink{shaper__daemon_8c_adef660e3c86e05938c7534436677f6ee}{interface}, \hyperlink{shaper__daemon_8c_a331375753a3514101a36276bac280794}{classb\_parent}, 
+      \hyperlink{shaper__daemon_8c_a0f9ad71fc5b318ea336ebef09ad2dc5d}{filterhandle\_classb}, \hyperlink{shaper__daemon_8c_a6df03efe2cc43233160a5945ad3350d9}{classid\_b\_44}, input.
+      \hyperlink{structcmd__ip_a2a697cef6f075b15af7e7976a9bdd095}{stream\_da});
+651                 \hyperlink{shaper__daemon_8c_abd1d44defc81f46518150ab6393d4b01}{insert\_stream\_da}(sockfd, input.\hyperlink{structcmd__ip_a2a697cef6f075b15af7e7976a9bdd095}{stream\_da}, bandwidth, 
+      \hyperlink{shaper__daemon_8c_a6df03efe2cc43233160a5945ad3350d9}{classid\_b\_44}, \hyperlink{shaper__daemon_8c_a0f9ad71fc5b318ea336ebef09ad2dc5d}{filterhandle\_classb});
+652                 \hyperlink{shaper__daemon_8c_a0f9ad71fc5b318ea336ebef09ad2dc5d}{filterhandle\_classb}++;
+653             \}
+654             \textcolor{keywordflow}{else}
+655             \{
+656                 \hyperlink{shaper__daemon_8c_a9a7896f218dea6259835f0e8501059ea}{log\_client\_error\_message}(sockfd, \textcolor{stringliteral}{"Measurement Interval (%d) doesn't
+       match that of Class B (250 or 272) traffic. "}
+657                         \textcolor{stringliteral}{"Enter a valid measurement interval"},
+658                         input.\hyperlink{structcmd__ip_a848591ef9ab34f6f2eb816fe385fa4d4}{measurement\_interval});
+659                 \textcolor{keywordflow}{return} -1;
+660             \}
+661         \}
+662     \}
+663     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (input.\hyperlink{structcmd__ip_a7f0818a9cd62d9342ed94c8165764abe}{unreserve\_bw}==1)
+664     \{
+665         \hyperlink{structstream__da}{stream\_da} *remove\_stream = \hyperlink{shaper__daemon_8c_afdc8c4b5b3810e7738e6e127e6d96619}{get\_stream\_da}(sockfd, input.
+      \hyperlink{structcmd__ip_a2a697cef6f075b15af7e7976a9bdd095}{stream\_da});
+666         \textcolor{keywordflow}{if} (remove\_stream != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL})
+667         \{
+668             \textcolor{keywordtype}{int} class\_bw = 0;
+669             \textcolor{keywordflow}{if} (!strcmp(remove\_stream->\hyperlink{structstream__da_a04a01ac17f2b59581f15f1a4ff5c99d0}{class\_id}, \hyperlink{shaper__daemon_8c_ad5c78a9a8849355e506a63eea0d0426c}{classid\_a\_48}))
+670             \{
+671                 \hyperlink{shaper__daemon_8c_aa93f9fa8cca352dc2fa78cc6971ab0e8}{classa\_bw\_48} = \hyperlink{shaper__daemon_8c_aa93f9fa8cca352dc2fa78cc6971ab0e8}{classa\_bw\_48} - remove\_stream->
+      \hyperlink{structstream__da_a71b420b9a271ff67fe17d3f93d6a81b1}{bandwidth};
+672                 class\_bw = \hyperlink{shaper__daemon_8c_aa93f9fa8cca352dc2fa78cc6971ab0e8}{classa\_bw\_48};
+673             \}
+674             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!strcmp(remove\_stream->\hyperlink{structstream__da_a04a01ac17f2b59581f15f1a4ff5c99d0}{class\_id}, \hyperlink{shaper__daemon_8c_ae1f55b437c3abfbdf323cabe15471183}{classid\_a\_44}))
+675             \{
+676                 \hyperlink{shaper__daemon_8c_aa6f2f04169830ae3a06d3ee4d368a361}{classa\_bw\_44} = \hyperlink{shaper__daemon_8c_aa6f2f04169830ae3a06d3ee4d368a361}{classa\_bw\_44} - remove\_stream->
+      \hyperlink{structstream__da_a71b420b9a271ff67fe17d3f93d6a81b1}{bandwidth};
+677                 class\_bw = \hyperlink{shaper__daemon_8c_aa6f2f04169830ae3a06d3ee4d368a361}{classa\_bw\_44};
+678             \}
+679             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!strcmp(remove\_stream->\hyperlink{structstream__da_a04a01ac17f2b59581f15f1a4ff5c99d0}{class\_id}, \hyperlink{shaper__daemon_8c_ac800554fece286a78adf31c45553fea4}{classid\_b\_48}))
+680             \{
+681                 \hyperlink{shaper__daemon_8c_a0250857a4b797b488d69265d0cce1a2d}{classb\_bw\_48} = \hyperlink{shaper__daemon_8c_a0250857a4b797b488d69265d0cce1a2d}{classb\_bw\_48} - remove\_stream->
+      \hyperlink{structstream__da_a71b420b9a271ff67fe17d3f93d6a81b1}{bandwidth};
+682                 class\_bw = \hyperlink{shaper__daemon_8c_a0250857a4b797b488d69265d0cce1a2d}{classb\_bw\_48};
+683             \}
+684             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!strcmp(remove\_stream->\hyperlink{structstream__da_a04a01ac17f2b59581f15f1a4ff5c99d0}{class\_id}, \hyperlink{shaper__daemon_8c_a6df03efe2cc43233160a5945ad3350d9}{classid\_b\_44}))
+685             \{
+686                 \hyperlink{shaper__daemon_8c_a438bedb25c01075b894d50f39e72f839}{classb\_bw\_44} = \hyperlink{shaper__daemon_8c_a438bedb25c01075b894d50f39e72f839}{classb\_bw\_44} - remove\_stream->
+      \hyperlink{structstream__da_a71b420b9a271ff67fe17d3f93d6a81b1}{bandwidth};
+687                 class\_bw = \hyperlink{shaper__daemon_8c_a438bedb25c01075b894d50f39e72f839}{classb\_bw\_44};
+688             \}
+689             \textcolor{keywordflow}{if} (class\_bw == 0)
+690             \{
+691                 class\_bw = 1;
+692             \}
+693             \hyperlink{shaper__daemon_8c_ae46164c3a009962f4558b528c8832fb3}{tc\_class\_command}(sockfd, \textcolor{stringliteral}{"change"}, remove\_stream->
+      \hyperlink{structstream__da_a04a01ac17f2b59581f15f1a4ff5c99d0}{class\_id}, \hyperlink{shaper__daemon_8c_adef660e3c86e05938c7534436677f6ee}{interface}, class\_bw, maxburst);
+694             \textcolor{keywordtype}{char} parent[3] = \{0\};
+695             strncpy(parent,remove\_stream->\hyperlink{structstream__da_a04a01ac17f2b59581f15f1a4ff5c99d0}{class\_id},2);
+696             sprintf(tc\_command, \textcolor{stringliteral}{"tc filter del dev %s parent %s handle 800::%d prio 1 protocol all u32"},
+697                 \hyperlink{shaper__daemon_8c_adef660e3c86e05938c7534436677f6ee}{interface}, parent, remove\_stream->\hyperlink{structstream__da_acfe0fcb6ee8972f5b5bc4b1aca1e8c7a}{filter\_handle});
+698             \hyperlink{shaper__daemon_8c_a91bbcacf465ab6a6c18ca226e99620f8}{log\_client\_debug\_message}(sockfd, \textcolor{stringliteral}{"tc command:  \(\backslash\)"%s\(\backslash\)""}, tc\_command);
+699             \textcolor{keywordflow}{if} (system(tc\_command) < 0)
+700             \{
+701                 \hyperlink{shaper__daemon_8c_a9a7896f218dea6259835f0e8501059ea}{log\_client\_error\_message}(sockfd, \textcolor{stringliteral}{"command(\(\backslash\)"%s\(\backslash\)") failed"}, 
+      tc\_command);
+702                 \textcolor{keywordflow}{return} -1;
+703             \}
+704             \hyperlink{shaper__daemon_8c_a7e8d8c54c86dae01ced699f41efce4cc}{remove\_stream\_da}(sockfd, remove\_stream->\hyperlink{structstream__da_a48e2dd031360cb9786e3650c897a3d44}{dest\_addr});
+705         \}
+706     \}
+707 
+708     \textcolor{keywordflow}{return} 1;
+709 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{shaper__daemon_8c_ac94b1764973cf812bac78946db0eab90_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=253pt]{shaper__daemon_8c_ac94b1764973cf812bac78946db0eab90_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}!remove\+\_\+stream\+\_\+da@{remove\+\_\+stream\+\_\+da}}
+\index{remove\+\_\+stream\+\_\+da@{remove\+\_\+stream\+\_\+da}!shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{remove\+\_\+stream\+\_\+da(int sockfd, char dest\+\_\+addr[])}{remove_stream_da(int sockfd, char dest_addr[])}}]{\setlength{\rightskip}{0pt plus 5cm}void remove\+\_\+stream\+\_\+da (
+\begin{DoxyParamCaption}
+\item[{int}]{sockfd, }
+\item[{char}]{dest\+\_\+addr\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{shaper__daemon_8c_a7e8d8c54c86dae01ced699f41efce4cc}{}\label{shaper__daemon_8c_a7e8d8c54c86dae01ced699f41efce4cc}
+
+
+shaper\+\_\+daemon.\+c 파일의 235 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+236 \{
+237     \hyperlink{structstream__da}{stream\_da} *current = \hyperlink{shaper__daemon_8c_a6423244370f9aca2693040c79ba1f400}{head};
+238     (void) sockfd;
+239 
+240     \textcolor{keywordflow}{if} (current != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} && !strcmp(current->\hyperlink{structstream__da_a48e2dd031360cb9786e3650c897a3d44}{dest\_addr}, dest\_addr))
+241     \{
+242         \hyperlink{shaper__daemon_8c_a6423244370f9aca2693040c79ba1f400}{head} = current->\hyperlink{structstream__da_a47d59761a90bc27f0a5135bfdf7c6eab}{next};
+243         \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(current);
+244         \textcolor{keywordflow}{return};
+245     \}
+246 
+247     \textcolor{keywordflow}{while} (current->\hyperlink{structstream__da_a47d59761a90bc27f0a5135bfdf7c6eab}{next} != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL})
+248     \{
+249         \textcolor{keywordflow}{if} (!strcmp(current->\hyperlink{structstream__da_a47d59761a90bc27f0a5135bfdf7c6eab}{next}->\hyperlink{structstream__da_a48e2dd031360cb9786e3650c897a3d44}{dest\_addr}, dest\_addr))
+250         \{
+251             \hyperlink{structstream__da}{stream\_da} *temp = current->\hyperlink{structstream__da_a47d59761a90bc27f0a5135bfdf7c6eab}{next};
+252             current->\hyperlink{structstream__da_a47d59761a90bc27f0a5135bfdf7c6eab}{next} = current->\hyperlink{structstream__da_a47d59761a90bc27f0a5135bfdf7c6eab}{next}->\hyperlink{structstream__da_a47d59761a90bc27f0a5135bfdf7c6eab}{next};
+253             \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(temp);
+254             \textcolor{keywordflow}{return};
+255         \}
+256         current = current->\hyperlink{structstream__da_a47d59761a90bc27f0a5135bfdf7c6eab}{next};
+257     \}
+258 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{shaper__daemon_8c_a7e8d8c54c86dae01ced699f41efce4cc_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}!signal\+\_\+handler@{signal\+\_\+handler}}
+\index{signal\+\_\+handler@{signal\+\_\+handler}!shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{signal\+\_\+handler(int signal)}{signal_handler(int signal)}}]{\setlength{\rightskip}{0pt plus 5cm}static void signal\+\_\+handler (
+\begin{DoxyParamCaption}
+\item[{int}]{signal}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{shaper__daemon_8c_a5a2cb997ac731840ca1dbea80f7ba042}{}\label{shaper__daemon_8c_a5a2cb997ac731840ca1dbea80f7ba042}
+
+
+shaper\+\_\+daemon.\+c 파일의 86 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+87 \{
+88     \textcolor{keywordflow}{if} (signal == SIGINT || signal == SIGTERM) \{
+89         \textcolor{keywordflow}{if} (!\hyperlink{shaper__daemon_8c_ad14115fb75ed8842782c1c82654dfafa}{exit\_received}) \{
+90             \hyperlink{shaper__log_8h_a73814697b05e87389786a4eec473dd16}{SHAPER\_LOG\_INFO}(\textcolor{stringliteral}{"Shutdown signal received"});
+91             \hyperlink{shaper__daemon_8c_ad14115fb75ed8842782c1c82654dfafa}{exit\_received} = 1;
+92         \}
+93         \textcolor{keywordflow}{else} \{
+94             \textcolor{comment}{// Force shutdown}
+95             exit(2);
+96         \}
+97     \}
+98     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (signal == SIGUSR1) \{
+99         \hyperlink{shaper__log_8h_aa0d0f44d2e6f350fb9e7e4ab41e7a475}{SHAPER\_LOG\_DEBUG}(\textcolor{stringliteral}{"Waking up streaming thread"});
+100     \}
+101     \textcolor{keywordflow}{else} \{
+102         \hyperlink{shaper__log_8h_a1dceb97cb3e0f72d04de207adc543628}{SHAPER\_LOG\_ERROR}(\textcolor{stringliteral}{"Unexpected signal"});
+103     \}
+104 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=233pt]{shaper__daemon_8c_a5a2cb997ac731840ca1dbea80f7ba042_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}!tc\+\_\+class\+\_\+command@{tc\+\_\+class\+\_\+command}}
+\index{tc\+\_\+class\+\_\+command@{tc\+\_\+class\+\_\+command}!shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{tc\+\_\+class\+\_\+command(int sockfd, char command[], char class\+\_\+id[], char interface[], int bandwidth, int cburst)}{tc_class_command(int sockfd, char command[], char class_id[], char interface[], int bandwidth, int cburst)}}]{\setlength{\rightskip}{0pt plus 5cm}void tc\+\_\+class\+\_\+command (
+\begin{DoxyParamCaption}
+\item[{int}]{sockfd, }
+\item[{char}]{command\mbox{[}$\,$\mbox{]}, }
+\item[{char}]{class\+\_\+id\mbox{[}$\,$\mbox{]}, }
+\item[{char}]{interface\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{bandwidth, }
+\item[{int}]{cburst}
+\end{DoxyParamCaption}
+)}\hypertarget{shaper__daemon_8c_ae46164c3a009962f4558b528c8832fb3}{}\label{shaper__daemon_8c_ae46164c3a009962f4558b528c8832fb3}
+
+
+shaper\+\_\+daemon.\+c 파일의 417 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+418 \{
+419     \textcolor{keywordtype}{char} tc\_command[1000]=\{0\};
+420     sprintf(tc\_command, \textcolor{stringliteral}{"tc class %s dev %s classid %s htb rate %dbps cburst %d"},
+421         command, \hyperlink{shaper__daemon_8c_adef660e3c86e05938c7534436677f6ee}{interface}, class\_id, \hyperlink{shaper__daemon_8c_a71b420b9a271ff67fe17d3f93d6a81b1}{bandwidth}, cburst);
+422     \hyperlink{shaper__daemon_8c_a91bbcacf465ab6a6c18ca226e99620f8}{log\_client\_debug\_message}(sockfd, \textcolor{stringliteral}{"tc command:  \(\backslash\)"%s\(\backslash\)""}, tc\_command);
+423     \textcolor{keywordflow}{if} (system(tc\_command) < 0)
+424     \{
+425         \hyperlink{shaper__daemon_8c_a9a7896f218dea6259835f0e8501059ea}{log\_client\_error\_message}(sockfd, \textcolor{stringliteral}{"command(\(\backslash\)"%s\(\backslash\)") failed"}, tc\_command);
+426     \}
+427 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{shaper__daemon_8c_ae46164c3a009962f4558b528c8832fb3_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{shaper__daemon_8c_ae46164c3a009962f4558b528c8832fb3_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}!usage@{usage}}
+\index{usage@{usage}!shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{usage(int sockfd)}{usage(int sockfd)}}]{\setlength{\rightskip}{0pt plus 5cm}void usage (
+\begin{DoxyParamCaption}
+\item[{int}]{sockfd}
+\end{DoxyParamCaption}
+)}\hypertarget{shaper__daemon_8c_ae04a3751d04ec8edb2412458813ee21e}{}\label{shaper__daemon_8c_ae04a3751d04ec8edb2412458813ee21e}
+
+
+shaper\+\_\+daemon.\+c 파일의 273 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+274 \{
+275     \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\hyperlink{shaper__daemon_8c_ae04a3751d04ec8edb2412458813ee21e}{usage} = \textcolor{stringliteral}{"Usage:\(\backslash\)n"}
+276             \textcolor{stringliteral}{"   -r  Reserve Bandwidth\(\backslash\)n"}
+277             \textcolor{stringliteral}{"   -u  Unreserve Bandwidth\(\backslash\)n"}
+278             \textcolor{stringliteral}{"   -i  Interface\(\backslash\)n"}
+279             \textcolor{stringliteral}{"   -c  Class ('A' or 'B')\(\backslash\)n"}
+280             \textcolor{stringliteral}{"   -s  Measurement interval (in microseconds)\(\backslash\)n"}
+281             \textcolor{stringliteral}{"   -b  Maximum frame size (in bytes)\(\backslash\)n"}
+282             \textcolor{stringliteral}{"   -f  Maximum frame interval\(\backslash\)n"}
+283             \textcolor{stringliteral}{"   -a  Stream Destination Address\(\backslash\)n"}
+284             \textcolor{stringliteral}{"   -d  Delete qdisc\(\backslash\)n"}
+285             \textcolor{stringliteral}{"   -q  Quit Application\(\backslash\)n"}
+286             \textcolor{stringliteral}{"Reserving Bandwidth Example:\(\backslash\)n"}
+287             \textcolor{stringliteral}{"   -ri eth2 -c A -s 125 -b 74 -f 1 -a ff:ff:ff:ff:ff:11\(\backslash\)n"}
+288             \textcolor{stringliteral}{"Unreserving Bandwidth Example:\(\backslash\)n"}
+289             \textcolor{stringliteral}{"   -ua ff:ff:ff:ff:ff:11\(\backslash\)n"}
+290             \textcolor{stringliteral}{"Quit Example:\(\backslash\)n"}
+291             \textcolor{stringliteral}{"   -q\(\backslash\)n"}
+292             \textcolor{stringliteral}{"Delete qdisc Example:\(\backslash\)n"}
+293             \textcolor{stringliteral}{"   -d\(\backslash\)n"};
+294     \textcolor{keywordflow}{if} (sockfd < 0)
+295     \{
+296         printf(\textcolor{stringliteral}{"%s"},usage);
+297     \}
+298     \textcolor{keywordflow}{else}
+299     \{
+300         send(sockfd, usage, strlen(usage),0);
+301     \}
+302 
+303 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=332pt]{shaper__daemon_8c_ae04a3751d04ec8edb2412458813ee21e_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{변수 문서화}
+\index{shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}!bandwidth@{bandwidth}}
+\index{bandwidth@{bandwidth}!shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{bandwidth}{bandwidth}}]{\setlength{\rightskip}{0pt plus 5cm}int bandwidth = 0}\hypertarget{shaper__daemon_8c_a71b420b9a271ff67fe17d3f93d6a81b1}{}\label{shaper__daemon_8c_a71b420b9a271ff67fe17d3f93d6a81b1}
+
+
+shaper\+\_\+daemon.\+c 파일의 82 번째 라인에서 정의되었습니다.
+
+\index{shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}!c@{c}}
+\index{c@{c}!shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{c}{c}}]{\setlength{\rightskip}{0pt plus 5cm}int c =0}\hypertarget{shaper__daemon_8c_a4e1e0e72dd773439e333c84dd762a9c3}{}\label{shaper__daemon_8c_a4e1e0e72dd773439e333c84dd762a9c3}
+
+
+shaper\+\_\+daemon.\+c 파일의 75 번째 라인에서 정의되었습니다.
+
+\index{shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}!classa\+\_\+44@{classa\+\_\+44}}
+\index{classa\+\_\+44@{classa\+\_\+44}!shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{classa\+\_\+44}{classa_44}}]{\setlength{\rightskip}{0pt plus 5cm}int classa\+\_\+44 =0}\hypertarget{shaper__daemon_8c_a7932944d2ed3542056804005a0a49560}{}\label{shaper__daemon_8c_a7932944d2ed3542056804005a0a49560}
+
+
+shaper\+\_\+daemon.\+c 파일의 73 번째 라인에서 정의되었습니다.
+
+\index{shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}!classa\+\_\+48@{classa\+\_\+48}}
+\index{classa\+\_\+48@{classa\+\_\+48}!shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{classa\+\_\+48}{classa_48}}]{\setlength{\rightskip}{0pt plus 5cm}int classa\+\_\+48 =0}\hypertarget{shaper__daemon_8c_af61d0c246f4521dd02d20aaf0e83a12c}{}\label{shaper__daemon_8c_af61d0c246f4521dd02d20aaf0e83a12c}
+
+
+shaper\+\_\+daemon.\+c 파일의 73 번째 라인에서 정의되었습니다.
+
+\index{shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}!classa\+\_\+bw\+\_\+44@{classa\+\_\+bw\+\_\+44}}
+\index{classa\+\_\+bw\+\_\+44@{classa\+\_\+bw\+\_\+44}!shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{classa\+\_\+bw\+\_\+44}{classa_bw_44}}]{\setlength{\rightskip}{0pt plus 5cm}int classa\+\_\+bw\+\_\+44 =0}\hypertarget{shaper__daemon_8c_aa6f2f04169830ae3a06d3ee4d368a361}{}\label{shaper__daemon_8c_aa6f2f04169830ae3a06d3ee4d368a361}
+
+
+shaper\+\_\+daemon.\+c 파일의 74 번째 라인에서 정의되었습니다.
+
+\index{shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}!classa\+\_\+bw\+\_\+48@{classa\+\_\+bw\+\_\+48}}
+\index{classa\+\_\+bw\+\_\+48@{classa\+\_\+bw\+\_\+48}!shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{classa\+\_\+bw\+\_\+48}{classa_bw_48}}]{\setlength{\rightskip}{0pt plus 5cm}int classa\+\_\+bw\+\_\+48 =0}\hypertarget{shaper__daemon_8c_aa93f9fa8cca352dc2fa78cc6971ab0e8}{}\label{shaper__daemon_8c_aa93f9fa8cca352dc2fa78cc6971ab0e8}
+
+
+shaper\+\_\+daemon.\+c 파일의 74 번째 라인에서 정의되었습니다.
+
+\index{shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}!classa\+\_\+parent@{classa\+\_\+parent}}
+\index{classa\+\_\+parent@{classa\+\_\+parent}!shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{classa\+\_\+parent}{classa_parent}}]{\setlength{\rightskip}{0pt plus 5cm}int classa\+\_\+parent = 2}\hypertarget{shaper__daemon_8c_a6d1f9fea50d2bd53d7a12e208c306196}{}\label{shaper__daemon_8c_a6d1f9fea50d2bd53d7a12e208c306196}
+
+
+shaper\+\_\+daemon.\+c 파일의 83 번째 라인에서 정의되었습니다.
+
+\index{shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}!classb\+\_\+44@{classb\+\_\+44}}
+\index{classb\+\_\+44@{classb\+\_\+44}!shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{classb\+\_\+44}{classb_44}}]{\setlength{\rightskip}{0pt plus 5cm}int classb\+\_\+44 =0}\hypertarget{shaper__daemon_8c_aa4266bbb4af330b4b29e092d7bdd1569}{}\label{shaper__daemon_8c_aa4266bbb4af330b4b29e092d7bdd1569}
+
+
+shaper\+\_\+daemon.\+c 파일의 73 번째 라인에서 정의되었습니다.
+
+\index{shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}!classb\+\_\+48@{classb\+\_\+48}}
+\index{classb\+\_\+48@{classb\+\_\+48}!shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{classb\+\_\+48}{classb_48}}]{\setlength{\rightskip}{0pt plus 5cm}int classb\+\_\+48 =0}\hypertarget{shaper__daemon_8c_a3af27b1f449e8a7be92c2a168bca810c}{}\label{shaper__daemon_8c_a3af27b1f449e8a7be92c2a168bca810c}
+
+
+shaper\+\_\+daemon.\+c 파일의 73 번째 라인에서 정의되었습니다.
+
+\index{shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}!classb\+\_\+bw\+\_\+44@{classb\+\_\+bw\+\_\+44}}
+\index{classb\+\_\+bw\+\_\+44@{classb\+\_\+bw\+\_\+44}!shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{classb\+\_\+bw\+\_\+44}{classb_bw_44}}]{\setlength{\rightskip}{0pt plus 5cm}int classb\+\_\+bw\+\_\+44 =0}\hypertarget{shaper__daemon_8c_a438bedb25c01075b894d50f39e72f839}{}\label{shaper__daemon_8c_a438bedb25c01075b894d50f39e72f839}
+
+
+shaper\+\_\+daemon.\+c 파일의 74 번째 라인에서 정의되었습니다.
+
+\index{shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}!classb\+\_\+bw\+\_\+48@{classb\+\_\+bw\+\_\+48}}
+\index{classb\+\_\+bw\+\_\+48@{classb\+\_\+bw\+\_\+48}!shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{classb\+\_\+bw\+\_\+48}{classb_bw_48}}]{\setlength{\rightskip}{0pt plus 5cm}int classb\+\_\+bw\+\_\+48 =0}\hypertarget{shaper__daemon_8c_a0250857a4b797b488d69265d0cce1a2d}{}\label{shaper__daemon_8c_a0250857a4b797b488d69265d0cce1a2d}
+
+
+shaper\+\_\+daemon.\+c 파일의 74 번째 라인에서 정의되었습니다.
+
+\index{shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}!classb\+\_\+parent@{classb\+\_\+parent}}
+\index{classb\+\_\+parent@{classb\+\_\+parent}!shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{classb\+\_\+parent}{classb_parent}}]{\setlength{\rightskip}{0pt plus 5cm}int classb\+\_\+parent =3}\hypertarget{shaper__daemon_8c_a331375753a3514101a36276bac280794}{}\label{shaper__daemon_8c_a331375753a3514101a36276bac280794}
+
+
+shaper\+\_\+daemon.\+c 파일의 83 번째 라인에서 정의되었습니다.
+
+\index{shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}!classid\+\_\+a\+\_\+44@{classid\+\_\+a\+\_\+44}}
+\index{classid\+\_\+a\+\_\+44@{classid\+\_\+a\+\_\+44}!shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{classid\+\_\+a\+\_\+44}{classid_a_44}}]{\setlength{\rightskip}{0pt plus 5cm}char classid\+\_\+a\+\_\+44\mbox{[}$\,$\mbox{]} =\char`\"{}2\+:20\char`\"{}}\hypertarget{shaper__daemon_8c_ae1f55b437c3abfbdf323cabe15471183}{}\label{shaper__daemon_8c_ae1f55b437c3abfbdf323cabe15471183}
+
+
+shaper\+\_\+daemon.\+c 파일의 78 번째 라인에서 정의되었습니다.
+
+\index{shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}!classid\+\_\+a\+\_\+48@{classid\+\_\+a\+\_\+48}}
+\index{classid\+\_\+a\+\_\+48@{classid\+\_\+a\+\_\+48}!shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{classid\+\_\+a\+\_\+48}{classid_a_48}}]{\setlength{\rightskip}{0pt plus 5cm}char classid\+\_\+a\+\_\+48\mbox{[}$\,$\mbox{]} =\char`\"{}2\+:10\char`\"{}}\hypertarget{shaper__daemon_8c_ad5c78a9a8849355e506a63eea0d0426c}{}\label{shaper__daemon_8c_ad5c78a9a8849355e506a63eea0d0426c}
+
+
+shaper\+\_\+daemon.\+c 파일의 77 번째 라인에서 정의되었습니다.
+
+\index{shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}!classid\+\_\+b\+\_\+44@{classid\+\_\+b\+\_\+44}}
+\index{classid\+\_\+b\+\_\+44@{classid\+\_\+b\+\_\+44}!shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{classid\+\_\+b\+\_\+44}{classid_b_44}}]{\setlength{\rightskip}{0pt plus 5cm}char classid\+\_\+b\+\_\+44\mbox{[}$\,$\mbox{]} =\char`\"{}3\+:40\char`\"{}}\hypertarget{shaper__daemon_8c_a6df03efe2cc43233160a5945ad3350d9}{}\label{shaper__daemon_8c_a6df03efe2cc43233160a5945ad3350d9}
+
+
+shaper\+\_\+daemon.\+c 파일의 80 번째 라인에서 정의되었습니다.
+
+\index{shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}!classid\+\_\+b\+\_\+48@{classid\+\_\+b\+\_\+48}}
+\index{classid\+\_\+b\+\_\+48@{classid\+\_\+b\+\_\+48}!shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{classid\+\_\+b\+\_\+48}{classid_b_48}}]{\setlength{\rightskip}{0pt plus 5cm}char classid\+\_\+b\+\_\+48\mbox{[}$\,$\mbox{]} =\char`\"{}3\+:30\char`\"{}}\hypertarget{shaper__daemon_8c_ac800554fece286a78adf31c45553fea4}{}\label{shaper__daemon_8c_ac800554fece286a78adf31c45553fea4}
+
+
+shaper\+\_\+daemon.\+c 파일의 79 번째 라인에서 정의되었습니다.
+
+\index{shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}!daemonize@{daemonize}}
+\index{daemonize@{daemonize}!shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{daemonize}{daemonize}}]{\setlength{\rightskip}{0pt plus 5cm}int daemonize =0}\hypertarget{shaper__daemon_8c_aa2339b21f98abccd12533a54d5f9d712}{}\label{shaper__daemon_8c_aa2339b21f98abccd12533a54d5f9d712}
+
+
+shaper\+\_\+daemon.\+c 파일의 75 번째 라인에서 정의되었습니다.
+
+\index{shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}!exit\+\_\+received@{exit\+\_\+received}}
+\index{exit\+\_\+received@{exit\+\_\+received}!shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{exit\+\_\+received}{exit_received}}]{\setlength{\rightskip}{0pt plus 5cm}int exit\+\_\+received = 0}\hypertarget{shaper__daemon_8c_ad14115fb75ed8842782c1c82654dfafa}{}\label{shaper__daemon_8c_ad14115fb75ed8842782c1c82654dfafa}
+
+
+shaper\+\_\+daemon.\+c 파일의 84 번째 라인에서 정의되었습니다.
+
+\index{shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}!filterhandle\+\_\+classa@{filterhandle\+\_\+classa}}
+\index{filterhandle\+\_\+classa@{filterhandle\+\_\+classa}!shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{filterhandle\+\_\+classa}{filterhandle_classa}}]{\setlength{\rightskip}{0pt plus 5cm}int filterhandle\+\_\+classa =1}\hypertarget{shaper__daemon_8c_a72e1da38f48907e21a83259cee633481}{}\label{shaper__daemon_8c_a72e1da38f48907e21a83259cee633481}
+
+
+shaper\+\_\+daemon.\+c 파일의 76 번째 라인에서 정의되었습니다.
+
+\index{shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}!filterhandle\+\_\+classb@{filterhandle\+\_\+classb}}
+\index{filterhandle\+\_\+classb@{filterhandle\+\_\+classb}!shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{filterhandle\+\_\+classb}{filterhandle_classb}}]{\setlength{\rightskip}{0pt plus 5cm}int filterhandle\+\_\+classb =20}\hypertarget{shaper__daemon_8c_a0f9ad71fc5b318ea336ebef09ad2dc5d}{}\label{shaper__daemon_8c_a0f9ad71fc5b318ea336ebef09ad2dc5d}
+
+
+shaper\+\_\+daemon.\+c 파일의 76 번째 라인에서 정의되었습니다.
+
+\index{shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}!head@{head}}
+\index{head@{head}!shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{head}{head}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf stream\+\_\+da}$\ast$ head = {\bf N\+U\+LL}}\hypertarget{shaper__daemon_8c_a6423244370f9aca2693040c79ba1f400}{}\label{shaper__daemon_8c_a6423244370f9aca2693040c79ba1f400}
+
+
+shaper\+\_\+daemon.\+c 파일의 71 번째 라인에서 정의되었습니다.
+
+\index{shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}!interface@{interface}}
+\index{interface@{interface}!shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{interface}{interface}}]{\setlength{\rightskip}{0pt plus 5cm}char interface\mbox{[}{\bf I\+F\+N\+A\+M\+S\+IZ}\mbox{]} = \{0\}}\hypertarget{shaper__daemon_8c_adef660e3c86e05938c7534436677f6ee}{}\label{shaper__daemon_8c_adef660e3c86e05938c7534436677f6ee}
+
+
+shaper\+\_\+daemon.\+c 파일의 81 번째 라인에서 정의되었습니다.
+
+\index{shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}!sr\+\_\+classa@{sr\+\_\+classa}}
+\index{sr\+\_\+classa@{sr\+\_\+classa}!shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{sr\+\_\+classa}{sr_classa}}]{\setlength{\rightskip}{0pt plus 5cm}int sr\+\_\+classa =0}\hypertarget{shaper__daemon_8c_a334ce40e81d4165749d8490538bf163e}{}\label{shaper__daemon_8c_a334ce40e81d4165749d8490538bf163e}
+
+
+shaper\+\_\+daemon.\+c 파일의 72 번째 라인에서 정의되었습니다.
+
+\index{shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}!sr\+\_\+classb@{sr\+\_\+classb}}
+\index{sr\+\_\+classb@{sr\+\_\+classb}!shaper\+\_\+daemon.\+c@{shaper\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{sr\+\_\+classb}{sr_classb}}]{\setlength{\rightskip}{0pt plus 5cm}int sr\+\_\+classb =0}\hypertarget{shaper__daemon_8c_a96ab29408d85d90318b3837a3b87aa47}{}\label{shaper__daemon_8c_a96ab29408d85d90318b3837a3b87aa47}
+
+
+shaper\+\_\+daemon.\+c 파일의 72 번째 라인에서 정의되었습니다.
+

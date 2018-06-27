@@ -1,0 +1,1589 @@
+\hypertarget{mrp_8c}{}\section{daemons/mrpd/mrp.c 파일 참조}
+\label{mrp_8c}\index{daemons/mrpd/mrp.\+c@{daemons/mrpd/mrp.\+c}}
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$stddef.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}mrpd.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}mrp.\+h\char`\"{}}\\*
+mrp.\+c에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrp_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+static int \hyperlink{mrp_8c_afd0e2fb03b69295a81167b4070e53cd6}{client\+\_\+lookup} (\hyperlink{mrp_8h_a8db229da62af6e778b15d0dfeab62c2d}{client\+\_\+t} $\ast$list, struct sockaddr\+\_\+in $\ast$newclient)
+\item 
+int \hyperlink{mrp_8c_a40096936f28d5366a5693ecd33e9ee51}{mrp\+\_\+client\+\_\+count} (\hyperlink{mrp_8h_a8db229da62af6e778b15d0dfeab62c2d}{client\+\_\+t} $\ast$list)
+\item 
+int \hyperlink{mrp_8c_ad342a9b9e146ac2b9027550e60958807}{mrp\+\_\+client\+\_\+add} (\hyperlink{mrp_8h_a8db229da62af6e778b15d0dfeab62c2d}{client\+\_\+t} $\ast$$\ast$list, struct sockaddr\+\_\+in $\ast$newclient)
+\item 
+int \hyperlink{mrp_8c_acb17ba76c88c8425d5daf5132bcaf623}{mrp\+\_\+client\+\_\+delete} (\hyperlink{mrp_8h_a8db229da62af6e778b15d0dfeab62c2d}{client\+\_\+t} $\ast$$\ast$list, struct sockaddr\+\_\+in $\ast$newclient)
+\item 
+int \hyperlink{mrp_8c_adde14a545c8c52173b54c3c39ae9bbb1}{mrp\+\_\+client\+\_\+remove\+\_\+all} (\hyperlink{mrp_8h_a8db229da62af6e778b15d0dfeab62c2d}{client\+\_\+t} $\ast$$\ast$list)
+\item 
+int \hyperlink{mrp_8c_a6dae5292c68e6e7d9f19c18c174219f2}{mrp\+\_\+jointimer\+\_\+start} (struct \hyperlink{structmrp__database}{mrp\+\_\+database} $\ast$mrp\+\_\+db)
+\item 
+int \hyperlink{mrp_8c_a1a9cfb025f5995d622477c446a1e46d7}{mrp\+\_\+jointimer\+\_\+stop} (struct \hyperlink{structmrp__database}{mrp\+\_\+database} $\ast$mrp\+\_\+db)
+\item 
+int \hyperlink{mrp_8c_a2587be1eaac7a82b4765d68fd556cc58}{mrp\+\_\+lvtimer\+\_\+start} (struct \hyperlink{structmrp__database}{mrp\+\_\+database} $\ast$mrp\+\_\+db)
+\item 
+int \hyperlink{mrp_8c_ae9dc27744c17e2817ced68ab6409cc2f}{mrp\+\_\+lvtimer\+\_\+stop} (struct \hyperlink{structmrp__database}{mrp\+\_\+database} $\ast$mrp\+\_\+db)
+\item 
+int \hyperlink{mrp_8c_a7ab8588a1c933bef5e941edebc32d55c}{mrp\+\_\+lvatimer\+\_\+start} (struct \hyperlink{structmrp__database}{mrp\+\_\+database} $\ast$mrp\+\_\+db)
+\item 
+int \hyperlink{mrp_8c_ad42384ab059d663e202e580d41a64c08}{mrp\+\_\+lvatimer\+\_\+stop} (struct \hyperlink{structmrp__database}{mrp\+\_\+database} $\ast$mrp\+\_\+db)
+\item 
+int \hyperlink{mrp_8c_ad0bb039d29737ed13eb012ec30a37ef9}{mrp\+\_\+lvatimer\+\_\+fsm} (struct \hyperlink{structmrp__database}{mrp\+\_\+database} $\ast$mrp\+\_\+db, int event)
+\item 
+int \hyperlink{mrp_8c_a7c21142533f2b1ceb222468d9eb691c4}{mrp\+\_\+periodictimer\+\_\+fsm} (struct \hyperlink{structmrp__periodictimer__state}{mrp\+\_\+periodictimer\+\_\+state} $\ast$periodic\+\_\+state, int event)
+\item 
+int \hyperlink{mrp_8c_aa9b640b997e3a09bd1ee1dce72ecda12}{mrp\+\_\+applicant\+\_\+fsm} (struct \hyperlink{structmrp__database}{mrp\+\_\+database} $\ast$mrp\+\_\+db, \hyperlink{mrp_8h_a958c5bcf98d8118f9ba46d7b44862232}{mrp\+\_\+applicant\+\_\+attribute\+\_\+t} $\ast$attrib, int event, int registrar\+\_\+is\+\_\+\+IN)
+\item 
+int \hyperlink{mrp_8c_a992ae582a10aa753e05efad96e636920}{mrp\+\_\+applicant\+\_\+state\+\_\+transition\+\_\+implies\+\_\+tx} (\hyperlink{mrp_8h_a958c5bcf98d8118f9ba46d7b44862232}{mrp\+\_\+applicant\+\_\+attribute\+\_\+t} $\ast$attrib)
+\item 
+int \hyperlink{mrp_8c_acb9b03668d000bdc49c042f1b47d32f4}{mrp\+\_\+registrar\+\_\+fsm} (\hyperlink{mrp_8h_a74a88ecd39ca17a8765eb9cbf15b3da9}{mrp\+\_\+registrar\+\_\+attribute\+\_\+t} $\ast$attrib, struct \hyperlink{structmrp__database}{mrp\+\_\+database} $\ast$mrp\+\_\+db, int event)
+\item 
+int \hyperlink{mrp_8c_a974b1a782e68ccea082758b5ec0e288a}{mrp\+\_\+registrar\+\_\+in} (\hyperlink{mrp_8h_a74a88ecd39ca17a8765eb9cbf15b3da9}{mrp\+\_\+registrar\+\_\+attribute\+\_\+t} $\ast$attrib)
+\item 
+int \hyperlink{mrp_8c_a178c5a4ac1dbc4bb40064aaaae6ed84e}{mrp\+\_\+decode\+\_\+state} (\hyperlink{mrp_8h_a74a88ecd39ca17a8765eb9cbf15b3da9}{mrp\+\_\+registrar\+\_\+attribute\+\_\+t} $\ast$rattrib, \hyperlink{mrp_8h_a958c5bcf98d8118f9ba46d7b44862232}{mrp\+\_\+applicant\+\_\+attribute\+\_\+t} $\ast$aattrib, char $\ast$str, int strlen)
+\item 
+int \hyperlink{mrp_8c_a5396c032a7efad48c8c58b20277c941f}{mrp\+\_\+init} (void)
+\end{DoxyCompactItemize}
+\subsection*{변수}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{mrp_8c_aecea009b9969a0c4c0a494c5bf79c789}{p2pmac}
+\item 
+static unsigned long \hyperlink{mrp_8c_a7085c09d2609136fce8057e2322b87af}{lva\+\_\+next}
+\end{DoxyCompactItemize}
+
+
+\subsection{함수 문서화}
+\index{mrp.\+c@{mrp.\+c}!client\+\_\+lookup@{client\+\_\+lookup}}
+\index{client\+\_\+lookup@{client\+\_\+lookup}!mrp.\+c@{mrp.\+c}}
+\subsubsection[{\texorpdfstring{client\+\_\+lookup(client\+\_\+t $\ast$list, struct sockaddr\+\_\+in $\ast$newclient)}{client_lookup(client_t *list, struct sockaddr_in *newclient)}}]{\setlength{\rightskip}{0pt plus 5cm}static int client\+\_\+lookup (
+\begin{DoxyParamCaption}
+\item[{{\bf client\+\_\+t} $\ast$}]{list, }
+\item[{struct sockaddr\+\_\+in $\ast$}]{newclient}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{mrp_8c_afd0e2fb03b69295a81167b4070e53cd6}{}\label{mrp_8c_afd0e2fb03b69295a81167b4070e53cd6}
+
+
+mrp.\+c 파일의 233 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+234 \{
+235     \hyperlink{structclient__s}{client\_t} *client\_item;
+236 
+237     client\_item = list;
+238 
+239     \textcolor{keywordflow}{if} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} == newclient)
+240         \textcolor{keywordflow}{return} 0;
+241 
+242     \textcolor{keywordflow}{while} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} != client\_item) \{
+243         \textcolor{keywordflow}{if} (client\_item->\hyperlink{structclient__s_abf7df3c8f5ff035f1843f41668a2168c}{client}.sin\_port == newclient->sin\_port)
+244             \textcolor{keywordflow}{return} 1;
+245         client\_item = client\_item->\hyperlink{structclient__s_af3acd6523ace0fc96b77f04cf1b88d06}{next};
+246     \}
+247     \textcolor{keywordflow}{return} 0;
+248 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrp_8c_afd0e2fb03b69295a81167b4070e53cd6_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrp.\+c@{mrp.\+c}!mrp\+\_\+applicant\+\_\+fsm@{mrp\+\_\+applicant\+\_\+fsm}}
+\index{mrp\+\_\+applicant\+\_\+fsm@{mrp\+\_\+applicant\+\_\+fsm}!mrp.\+c@{mrp.\+c}}
+\subsubsection[{\texorpdfstring{mrp\+\_\+applicant\+\_\+fsm(struct mrp\+\_\+database $\ast$mrp\+\_\+db, mrp\+\_\+applicant\+\_\+attribute\+\_\+t $\ast$attrib, int event, int registrar\+\_\+is\+\_\+\+I\+N)}{mrp_applicant_fsm(struct mrp_database *mrp_db, mrp_applicant_attribute_t *attrib, int event, int registrar_is_IN)}}]{\setlength{\rightskip}{0pt plus 5cm}int mrp\+\_\+applicant\+\_\+fsm (
+\begin{DoxyParamCaption}
+\item[{struct {\bf mrp\+\_\+database} $\ast$}]{mrp\+\_\+db, }
+\item[{{\bf mrp\+\_\+applicant\+\_\+attribute\+\_\+t} $\ast$}]{attrib, }
+\item[{int}]{event, }
+\item[{int}]{registrar\+\_\+is\+\_\+\+IN}
+\end{DoxyParamCaption}
+)}\hypertarget{mrp_8c_aa9b640b997e3a09bd1ee1dce72ecda12}{}\label{mrp_8c_aa9b640b997e3a09bd1ee1dce72ecda12}
+
+
+mrp.\+c 파일의 551 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+554 \{
+555     \textcolor{keywordtype}{int} tx = 0;
+556     \textcolor{keywordtype}{int} optional = 0;
+557     \textcolor{keywordtype}{int} mrp\_state = attrib->\hyperlink{structmrp__applicant__attribute_a81aba50506912ce81758c19f9859445e}{mrp\_state};
+558     \textcolor{keywordtype}{int} sndmsg = \hyperlink{mrp_8h_aba082c372473ab19ad097360ad5aad18}{MRP\_SND\_NULL};
+559     (void)mrp\_db;
+560 
+561     \textcolor{keywordflow}{switch} (event) \{
+562     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_ad926766e10d051bc1ad0d8c4dd1d8114}{MRP\_EVENT\_BEGIN}:
+563         mrp\_state = \hyperlink{mrp_8h_a4179c286e5c5f6489dd0db7aa4f8fb84}{MRP\_VO\_STATE};
+564         \textcolor{keywordflow}{break};
+565     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a69f6f4690b00da18d02751bb7c9019df}{MRP\_EVENT\_NEW}:
+566         \textcolor{comment}{/*}
+567 \textcolor{comment}{         * New declaration (publish) event as a result}
+568 \textcolor{comment}{         * of a mad\_join request}
+569 \textcolor{comment}{         */}
+570         \textcolor{keywordflow}{switch} (mrp\_state) \{
+571         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_ab8e5aa88c54282bf8c56929698a9d5f1}{MRP\_VN\_STATE}:
+572         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a20b0991164cfe35299c418cfcf4801ca}{MRP\_AN\_STATE}:
+573             \textcolor{comment}{/* do nothing */}
+574             \textcolor{keywordflow}{break};
+575         \textcolor{keywordflow}{default}:
+576             mrp\_state = \hyperlink{mrp_8h_ab8e5aa88c54282bf8c56929698a9d5f1}{MRP\_VN\_STATE};
+577             \textcolor{keywordflow}{break};
+578         \}
+579         \textcolor{keywordflow}{break};
+580     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a73034a9f9d56f42478a0cb46eff9fd34}{MRP\_EVENT\_JOIN}:
+581         \textcolor{comment}{/*}
+582 \textcolor{comment}{         * declaration (of interest) event as a result of}
+583 \textcolor{comment}{         * a mad\_join request}
+584 \textcolor{comment}{         */}
+585         \textcolor{keywordflow}{switch} (mrp\_state) \{
+586         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a53a446506a9c6007d03065db035a3100}{MRP\_LO\_STATE}:
+587         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a4179c286e5c5f6489dd0db7aa4f8fb84}{MRP\_VO\_STATE}:
+588             mrp\_state = \hyperlink{mrp_8h_a116f3e0b8794140a434d385e034dd863}{MRP\_VP\_STATE};
+589             \textcolor{keywordflow}{break};
+590         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a681610813a8f12a0fdb87b1e53260892}{MRP\_LA\_STATE}:
+591             mrp\_state = \hyperlink{mrp_8h_afb0d8653e24cbb603b35baee9a6e32f8}{MRP\_AA\_STATE};
+592             \textcolor{keywordflow}{break};
+593         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a1ea8e5576e73ff786fe420fe1e51cfaf}{MRP\_AO\_STATE}:
+594             mrp\_state = \hyperlink{mrp_8h_a49813897cb3a2b4bbc9ebed5a188f0a2}{MRP\_AP\_STATE};
+595             \textcolor{keywordflow}{break};
+596         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_ae12a5764b75063959a5180538d5c3dec}{MRP\_QO\_STATE}:
+597             mrp\_state = \hyperlink{mrp_8h_afeb250a47e52aed4d23eac79f707f26b}{MRP\_QP\_STATE};
+598             \textcolor{keywordflow}{break};
+599         \textcolor{keywordflow}{default}:
+600             \textcolor{keywordflow}{break};
+601         \}
+602         \textcolor{keywordflow}{break};
+603     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a50c24398dc19a268492fb2e30f1c8b18}{MRP\_EVENT\_LV}:
+604         \textcolor{comment}{/*}
+605 \textcolor{comment}{         * declaration removal event as a result of a mad\_leave request}
+606 \textcolor{comment}{         */}
+607         \textcolor{keywordflow}{switch} (mrp\_state) \{
+608         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_ab8e5aa88c54282bf8c56929698a9d5f1}{MRP\_VN\_STATE}:
+609         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a20b0991164cfe35299c418cfcf4801ca}{MRP\_AN\_STATE}:
+610         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_afb0d8653e24cbb603b35baee9a6e32f8}{MRP\_AA\_STATE}:
+611         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a04744a9e26801a2b4aac8cf78c8d1419}{MRP\_QA\_STATE}:
+612             mrp\_state = \hyperlink{mrp_8h_a681610813a8f12a0fdb87b1e53260892}{MRP\_LA\_STATE};
+613             \textcolor{keywordflow}{break};
+614         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a116f3e0b8794140a434d385e034dd863}{MRP\_VP\_STATE}:
+615             mrp\_state = \hyperlink{mrp_8h_a4179c286e5c5f6489dd0db7aa4f8fb84}{MRP\_VO\_STATE};
+616             \textcolor{keywordflow}{break};
+617         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a49813897cb3a2b4bbc9ebed5a188f0a2}{MRP\_AP\_STATE}:
+618             mrp\_state = \hyperlink{mrp_8h_a1ea8e5576e73ff786fe420fe1e51cfaf}{MRP\_AO\_STATE};
+619             \textcolor{keywordflow}{break};
+620         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_afeb250a47e52aed4d23eac79f707f26b}{MRP\_QP\_STATE}:
+621             mrp\_state = \hyperlink{mrp_8h_ae12a5764b75063959a5180538d5c3dec}{MRP\_QO\_STATE};
+622             \textcolor{keywordflow}{break};
+623         \textcolor{keywordflow}{default}:
+624             \textcolor{keywordflow}{break};
+625         \}
+626         \textcolor{keywordflow}{break};
+627     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a49db74ad792de9b57bc08c273a3dc684}{MRP\_EVENT\_TXLA}:
+628         \textcolor{comment}{/*}
+629 \textcolor{comment}{         * transmit leaveall is signaled (overrides a TX)}
+630 \textcolor{comment}{         */}
+631         \textcolor{keywordflow}{switch} (mrp\_state) \{
+632         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a4179c286e5c5f6489dd0db7aa4f8fb84}{MRP\_VO\_STATE}:
+633             \textcolor{comment}{/* send <NULL> only if it improves encoding */}
+634             optional = 1;
+635             tx = 1;
+636             sndmsg = \hyperlink{mrp_8h_a65de89abcee7799ad6d2bf93223d865b}{MRP\_SND\_IN};
+637             mrp\_state = \hyperlink{mrp_8h_a53a446506a9c6007d03065db035a3100}{MRP\_LO\_STATE};
+638             \textcolor{keywordflow}{break};
+639         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a116f3e0b8794140a434d385e034dd863}{MRP\_VP\_STATE}:
+640             tx = 1;
+641             sndmsg = \hyperlink{mrp_8h_a65de89abcee7799ad6d2bf93223d865b}{MRP\_SND\_IN};
+642             mrp\_state = \hyperlink{mrp_8h_afb0d8653e24cbb603b35baee9a6e32f8}{MRP\_AA\_STATE};
+643             \textcolor{keywordflow}{break};
+644         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_ab8e5aa88c54282bf8c56929698a9d5f1}{MRP\_VN\_STATE}:
+645             \textcolor{comment}{/* send NEW */}
+646             tx = 1;
+647             sndmsg = \hyperlink{mrp_8h_a9524a40536688e41bc37013c412d0592}{MRP\_SND\_NEW};
+648             mrp\_state = \hyperlink{mrp_8h_a20b0991164cfe35299c418cfcf4801ca}{MRP\_AN\_STATE};
+649             \textcolor{keywordflow}{break};
+650         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a20b0991164cfe35299c418cfcf4801ca}{MRP\_AN\_STATE}:
+651             \textcolor{comment}{/* send NEW */}
+652             tx = 1;
+653             sndmsg = \hyperlink{mrp_8h_a9524a40536688e41bc37013c412d0592}{MRP\_SND\_NEW};
+654             mrp\_state = \hyperlink{mrp_8h_a04744a9e26801a2b4aac8cf78c8d1419}{MRP\_QA\_STATE};
+655             \textcolor{keywordflow}{break};
+656         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_afeb250a47e52aed4d23eac79f707f26b}{MRP\_QP\_STATE}:
+657         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a49813897cb3a2b4bbc9ebed5a188f0a2}{MRP\_AP\_STATE}:
+658         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_afb0d8653e24cbb603b35baee9a6e32f8}{MRP\_AA\_STATE}:
+659             \textcolor{comment}{/* send JOIN */}
+660             tx = 1;
+661             sndmsg = \hyperlink{mrp_8h_ad734c1e366b17f71f1649371499a26e1}{MRP\_SND\_JOIN};
+662             mrp\_state = \hyperlink{mrp_8h_a04744a9e26801a2b4aac8cf78c8d1419}{MRP\_QA\_STATE};
+663             \textcolor{keywordflow}{break};
+664         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a04744a9e26801a2b4aac8cf78c8d1419}{MRP\_QA\_STATE}:
+665             \textcolor{comment}{/* send JOIN */}
+666             tx = 1;
+667             sndmsg = \hyperlink{mrp_8h_ad734c1e366b17f71f1649371499a26e1}{MRP\_SND\_JOIN};
+668             \textcolor{keywordflow}{break};
+669         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a681610813a8f12a0fdb87b1e53260892}{MRP\_LA\_STATE}:
+670         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a1ea8e5576e73ff786fe420fe1e51cfaf}{MRP\_AO\_STATE}:
+671         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_ae12a5764b75063959a5180538d5c3dec}{MRP\_QO\_STATE}:
+672             \textcolor{comment}{/* send <NULL> only if it improves encoding */}
+673             optional = 1;
+674             tx = 1;
+675             sndmsg = \hyperlink{mrp_8h_a65de89abcee7799ad6d2bf93223d865b}{MRP\_SND\_IN};
+676             mrp\_state = \hyperlink{mrp_8h_a53a446506a9c6007d03065db035a3100}{MRP\_LO\_STATE};
+677             \textcolor{keywordflow}{break};
+678         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a53a446506a9c6007d03065db035a3100}{MRP\_LO\_STATE}:
+679             \textcolor{comment}{/* send <NULL> */}
+680             optional = 1;
+681             tx = 1;
+682             sndmsg = \hyperlink{mrp_8h_a65de89abcee7799ad6d2bf93223d865b}{MRP\_SND\_IN};
+683             \textcolor{keywordflow}{break};
+684         \textcolor{keywordflow}{default}:
+685             \textcolor{keywordflow}{break};
+686         \}
+687         \textcolor{keywordflow}{break};
+688     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a6acd5c88aecdc764e34ca73b59347c6c}{MRP\_EVENT\_TXLAF}:
+689         \textcolor{comment}{/*}
+690 \textcolor{comment}{         * transmit leaveall failure (no room)}
+691 \textcolor{comment}{         */}
+692         \textcolor{keywordflow}{switch} (mrp\_state) \{
+693         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a4179c286e5c5f6489dd0db7aa4f8fb84}{MRP\_VO\_STATE}:
+694             mrp\_state = \hyperlink{mrp_8h_a53a446506a9c6007d03065db035a3100}{MRP\_LO\_STATE};
+695             \textcolor{keywordflow}{break};
+696         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a53a446506a9c6007d03065db035a3100}{MRP\_LO\_STATE}:
+697         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a116f3e0b8794140a434d385e034dd863}{MRP\_VP\_STATE}:
+698         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_ab8e5aa88c54282bf8c56929698a9d5f1}{MRP\_VN\_STATE}:
+699             \textcolor{comment}{/* don't advance state */}
+700             \textcolor{keywordflow}{break};
+701         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a20b0991164cfe35299c418cfcf4801ca}{MRP\_AN\_STATE}:
+702             mrp\_state = \hyperlink{mrp_8h_ab8e5aa88c54282bf8c56929698a9d5f1}{MRP\_VN\_STATE};
+703             \textcolor{keywordflow}{break};
+704         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_afeb250a47e52aed4d23eac79f707f26b}{MRP\_QP\_STATE}:
+705         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a49813897cb3a2b4bbc9ebed5a188f0a2}{MRP\_AP\_STATE}:
+706         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_afb0d8653e24cbb603b35baee9a6e32f8}{MRP\_AA\_STATE}:
+707         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a04744a9e26801a2b4aac8cf78c8d1419}{MRP\_QA\_STATE}:
+708             mrp\_state = \hyperlink{mrp_8h_a116f3e0b8794140a434d385e034dd863}{MRP\_VP\_STATE};
+709             \textcolor{keywordflow}{break};
+710         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_ae12a5764b75063959a5180538d5c3dec}{MRP\_QO\_STATE}:
+711         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a1ea8e5576e73ff786fe420fe1e51cfaf}{MRP\_AO\_STATE}:
+712         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a681610813a8f12a0fdb87b1e53260892}{MRP\_LA\_STATE}:
+713             mrp\_state = \hyperlink{mrp_8h_a53a446506a9c6007d03065db035a3100}{MRP\_LO\_STATE};
+714             \textcolor{keywordflow}{break};
+715         \textcolor{keywordflow}{default}:
+716             \textcolor{keywordflow}{break};
+717         \}
+718         \textcolor{keywordflow}{break};
+719     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_afc138ed41cc8e8ca7f7ccb9ec3347bf2}{MRP\_EVENT\_TX}:
+720         \textcolor{comment}{/*}
+721 \textcolor{comment}{         * transmit updates unless leaveall is signaled}
+722 \textcolor{comment}{         * (then it becomes a TXLA)}
+723 \textcolor{comment}{         */}
+724         \textcolor{keywordflow}{switch} (mrp\_state) \{
+725         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a4179c286e5c5f6489dd0db7aa4f8fb84}{MRP\_VO\_STATE}:
+726             \textcolor{comment}{/* send <NULL> only if it improves encoding */}
+727             tx = 1;
+728             optional = 1;
+729             sndmsg = \hyperlink{mrp_8h_a65de89abcee7799ad6d2bf93223d865b}{MRP\_SND\_IN};
+730             \textcolor{keywordflow}{break};
+731         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a116f3e0b8794140a434d385e034dd863}{MRP\_VP\_STATE}:
+732             \textcolor{comment}{/* send JOIN */}
+733             tx = 1;
+734             sndmsg = \hyperlink{mrp_8h_ad734c1e366b17f71f1649371499a26e1}{MRP\_SND\_JOIN};
+735             mrp\_state = \hyperlink{mrp_8h_afb0d8653e24cbb603b35baee9a6e32f8}{MRP\_AA\_STATE};
+736             \textcolor{keywordflow}{break};
+737         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_ab8e5aa88c54282bf8c56929698a9d5f1}{MRP\_VN\_STATE}:
+738             \textcolor{comment}{/* send NEW */}
+739             tx = 1;
+740             sndmsg = \hyperlink{mrp_8h_a9524a40536688e41bc37013c412d0592}{MRP\_SND\_NEW};
+741             mrp\_state = \hyperlink{mrp_8h_a20b0991164cfe35299c418cfcf4801ca}{MRP\_AN\_STATE};
+742             \textcolor{keywordflow}{break};
+743         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a20b0991164cfe35299c418cfcf4801ca}{MRP\_AN\_STATE}:
+744             \textcolor{comment}{/* send NEW */}
+745             tx = 1;
+746             sndmsg = \hyperlink{mrp_8h_a9524a40536688e41bc37013c412d0592}{MRP\_SND\_NEW};
+747             \textcolor{comment}{/*}
+748 \textcolor{comment}{             * See Note 8 for tx! event in Table 10-3 of IEEE 802.1Q-2011.}
+749 \textcolor{comment}{             */}
+750             \textcolor{keywordflow}{if}(registrar\_is\_IN)
+751                 mrp\_state = \hyperlink{mrp_8h_a04744a9e26801a2b4aac8cf78c8d1419}{MRP\_QA\_STATE};
+752             \textcolor{keywordflow}{else}
+753                 mrp\_state = \hyperlink{mrp_8h_afb0d8653e24cbb603b35baee9a6e32f8}{MRP\_AA\_STATE};
+754             \textcolor{keywordflow}{break};
+755         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a49813897cb3a2b4bbc9ebed5a188f0a2}{MRP\_AP\_STATE}:
+756         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_afb0d8653e24cbb603b35baee9a6e32f8}{MRP\_AA\_STATE}:
+757             \textcolor{comment}{/* send JOIN */}
+758             tx = 1;
+759             sndmsg = \hyperlink{mrp_8h_ad734c1e366b17f71f1649371499a26e1}{MRP\_SND\_JOIN};
+760             mrp\_state = \hyperlink{mrp_8h_a04744a9e26801a2b4aac8cf78c8d1419}{MRP\_QA\_STATE};
+761             \textcolor{keywordflow}{break};
+762         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a04744a9e26801a2b4aac8cf78c8d1419}{MRP\_QA\_STATE}:
+763             \textcolor{comment}{/* send JOIN only if it improves encoding */}
+764             tx = 1;
+765             optional = 1;
+766             sndmsg = \hyperlink{mrp_8h_ad734c1e366b17f71f1649371499a26e1}{MRP\_SND\_JOIN};
+767             \textcolor{keywordflow}{break};
+768         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a681610813a8f12a0fdb87b1e53260892}{MRP\_LA\_STATE}:
+769             \textcolor{comment}{/* send LV */}
+770             tx = 1;
+771             sndmsg = \hyperlink{mrp_8h_a207fd70a4515bca4573a21ce7b0677f3}{MRP\_SND\_LV};
+772             mrp\_state = \hyperlink{mrp_8h_a4179c286e5c5f6489dd0db7aa4f8fb84}{MRP\_VO\_STATE};
+773             \textcolor{keywordflow}{break};
+774         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a1ea8e5576e73ff786fe420fe1e51cfaf}{MRP\_AO\_STATE}:
+775         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_ae12a5764b75063959a5180538d5c3dec}{MRP\_QO\_STATE}:
+776         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_afeb250a47e52aed4d23eac79f707f26b}{MRP\_QP\_STATE}:
+777             \textcolor{comment}{/* send <NULL> only if it improves encoding */}
+778             tx = 1;
+779             optional = 1;
+780             sndmsg = \hyperlink{mrp_8h_a65de89abcee7799ad6d2bf93223d865b}{MRP\_SND\_IN};
+781             \textcolor{keywordflow}{break};
+782         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a53a446506a9c6007d03065db035a3100}{MRP\_LO\_STATE}:
+783             \textcolor{comment}{/* send <NULL> */}
+784             tx = 1;
+785             sndmsg = \hyperlink{mrp_8h_a65de89abcee7799ad6d2bf93223d865b}{MRP\_SND\_IN};
+786             mrp\_state = \hyperlink{mrp_8h_a4179c286e5c5f6489dd0db7aa4f8fb84}{MRP\_VO\_STATE};
+787             \textcolor{keywordflow}{break};
+788         \textcolor{keywordflow}{default}:
+789             \textcolor{keywordflow}{break};
+790         \}
+791         \textcolor{keywordflow}{break};
+792     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a51a47692a4f1690ea8a90c21a65a9722}{MRP\_EVENT\_RNEW}:
+793         \textcolor{comment}{/* do nothing */}
+794         \textcolor{keywordflow}{break};
+795 
+796     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_ae9248e2c4044367659e4c9cd81139edd}{MRP\_EVENT\_RJOININ}:
+797         \textcolor{keywordflow}{switch} (mrp\_state) \{
+798         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a4179c286e5c5f6489dd0db7aa4f8fb84}{MRP\_VO\_STATE}:
+799             \textcolor{keywordflow}{if} (0 == \hyperlink{mrp_8c_aecea009b9969a0c4c0a494c5bf79c789}{p2pmac})
+800                 mrp\_state = \hyperlink{mrp_8h_a1ea8e5576e73ff786fe420fe1e51cfaf}{MRP\_AO\_STATE};
+801             \textcolor{keywordflow}{break};
+802         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a116f3e0b8794140a434d385e034dd863}{MRP\_VP\_STATE}:
+803             \textcolor{keywordflow}{if} (0 == \hyperlink{mrp_8c_aecea009b9969a0c4c0a494c5bf79c789}{p2pmac}) \{
+804                 mrp\_state = \hyperlink{mrp_8h_a49813897cb3a2b4bbc9ebed5a188f0a2}{MRP\_AP\_STATE};
+805             \}
+806             \textcolor{keywordflow}{break};
+807         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_afb0d8653e24cbb603b35baee9a6e32f8}{MRP\_AA\_STATE}:
+808             mrp\_state = \hyperlink{mrp_8h_a04744a9e26801a2b4aac8cf78c8d1419}{MRP\_QA\_STATE};
+809             \textcolor{keywordflow}{break};
+810         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a1ea8e5576e73ff786fe420fe1e51cfaf}{MRP\_AO\_STATE}:
+811             mrp\_state = \hyperlink{mrp_8h_ae12a5764b75063959a5180538d5c3dec}{MRP\_QO\_STATE};
+812             \textcolor{keywordflow}{break};
+813         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a49813897cb3a2b4bbc9ebed5a188f0a2}{MRP\_AP\_STATE}:
+814             mrp\_state = \hyperlink{mrp_8h_afeb250a47e52aed4d23eac79f707f26b}{MRP\_QP\_STATE};
+815             \textcolor{keywordflow}{break};
+816         \textcolor{keywordflow}{default}:
+817             \textcolor{keywordflow}{break};
+818         \}
+819         \textcolor{keywordflow}{break};
+820     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_adbdd94c4053091feb476250e51ecf692}{MRP\_EVENT\_RIN}:
+821         \textcolor{keywordflow}{switch} (mrp\_state) \{
+822         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_afb0d8653e24cbb603b35baee9a6e32f8}{MRP\_AA\_STATE}:
+823             \textcolor{keywordflow}{if} (1 == \hyperlink{mrp_8c_aecea009b9969a0c4c0a494c5bf79c789}{p2pmac})
+824                 mrp\_state = \hyperlink{mrp_8h_a04744a9e26801a2b4aac8cf78c8d1419}{MRP\_QA\_STATE};
+825             \textcolor{keywordflow}{break};
+826         \textcolor{keywordflow}{default}:
+827             \textcolor{keywordflow}{break};
+828         \}
+829         \textcolor{keywordflow}{break};
+830     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a8fa98cc04b70afb2607ed4728a4308f7}{MRP\_EVENT\_RJOINMT}:
+831     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_aedd7001fbfb09da80432301a0095f686}{MRP\_EVENT\_RMT}:
+832         \textcolor{keywordflow}{switch} (mrp\_state) \{
+833         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a04744a9e26801a2b4aac8cf78c8d1419}{MRP\_QA\_STATE}:
+834             mrp\_state = \hyperlink{mrp_8h_afb0d8653e24cbb603b35baee9a6e32f8}{MRP\_AA\_STATE};
+835             \textcolor{keywordflow}{break};
+836         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_ae12a5764b75063959a5180538d5c3dec}{MRP\_QO\_STATE}:
+837             mrp\_state = \hyperlink{mrp_8h_a1ea8e5576e73ff786fe420fe1e51cfaf}{MRP\_AO\_STATE};
+838             \textcolor{keywordflow}{break};
+839         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_afeb250a47e52aed4d23eac79f707f26b}{MRP\_QP\_STATE}:
+840             mrp\_state = \hyperlink{mrp_8h_a49813897cb3a2b4bbc9ebed5a188f0a2}{MRP\_AP\_STATE};
+841             \textcolor{keywordflow}{break};
+842         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a53a446506a9c6007d03065db035a3100}{MRP\_LO\_STATE}:
+843             mrp\_state = \hyperlink{mrp_8h_a4179c286e5c5f6489dd0db7aa4f8fb84}{MRP\_VO\_STATE};
+844             \textcolor{keywordflow}{break};
+845         \textcolor{keywordflow}{default}:
+846             \textcolor{keywordflow}{break};
+847         \}
+848         \textcolor{keywordflow}{break};
+849 
+850     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a12ce2ba0758f249e0ceb872a9d3cdbc3}{MRP\_EVENT\_RLV}:
+851     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_ae839aa1da9bc287453cdbf7e6e574e57}{MRP\_EVENT\_RLA}:
+852     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a1e07569f58ec8e20dcfbe6cdac3af92d}{MRP\_EVENT\_REDECLARE}:
+853         \textcolor{keywordflow}{switch} (mrp\_state) \{
+854         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a4179c286e5c5f6489dd0db7aa4f8fb84}{MRP\_VO\_STATE}:
+855             mrp\_state = \hyperlink{mrp_8h_a53a446506a9c6007d03065db035a3100}{MRP\_LO\_STATE};
+856             \textcolor{keywordflow}{break};
+857         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a20b0991164cfe35299c418cfcf4801ca}{MRP\_AN\_STATE}:
+858             mrp\_state = \hyperlink{mrp_8h_ab8e5aa88c54282bf8c56929698a9d5f1}{MRP\_VN\_STATE};
+859             \textcolor{keywordflow}{break};
+860         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a04744a9e26801a2b4aac8cf78c8d1419}{MRP\_QA\_STATE}:
+861         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_afb0d8653e24cbb603b35baee9a6e32f8}{MRP\_AA\_STATE}:
+862             mrp\_state = \hyperlink{mrp_8h_a116f3e0b8794140a434d385e034dd863}{MRP\_VP\_STATE};
+863             \textcolor{keywordflow}{break};
+864         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a1ea8e5576e73ff786fe420fe1e51cfaf}{MRP\_AO\_STATE}:
+865         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_ae12a5764b75063959a5180538d5c3dec}{MRP\_QO\_STATE}:
+866             mrp\_state = \hyperlink{mrp_8h_a53a446506a9c6007d03065db035a3100}{MRP\_LO\_STATE};
+867             \textcolor{keywordflow}{break};
+868         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a49813897cb3a2b4bbc9ebed5a188f0a2}{MRP\_AP\_STATE}:
+869         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_afeb250a47e52aed4d23eac79f707f26b}{MRP\_QP\_STATE}:
+870             mrp\_state = \hyperlink{mrp_8h_a116f3e0b8794140a434d385e034dd863}{MRP\_VP\_STATE};
+871             \textcolor{keywordflow}{break};
+872         \textcolor{keywordflow}{default}:
+873             \textcolor{keywordflow}{break};
+874         \}
+875         \textcolor{keywordflow}{break};
+876     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_ae0ba8d40bfa479a2f4f9dc84732cd4d1}{MRP\_EVENT\_PERIODIC}:
+877         \textcolor{keywordflow}{switch} (mrp\_state) \{
+878         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a04744a9e26801a2b4aac8cf78c8d1419}{MRP\_QA\_STATE}:
+879             mrp\_state = \hyperlink{mrp_8h_afb0d8653e24cbb603b35baee9a6e32f8}{MRP\_AA\_STATE};
+880             \textcolor{keywordflow}{break};
+881         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_afeb250a47e52aed4d23eac79f707f26b}{MRP\_QP\_STATE}:
+882             mrp\_state = \hyperlink{mrp_8h_a49813897cb3a2b4bbc9ebed5a188f0a2}{MRP\_AP\_STATE};
+883             \textcolor{keywordflow}{break};
+884         \textcolor{keywordflow}{default}:
+885             \textcolor{keywordflow}{break};
+886         \}
+887         \textcolor{keywordflow}{break};
+888 
+889     \textcolor{keywordflow}{default}:
+890 \textcolor{preprocessor}{#if LOG\_MVRP || LOG\_MSRP || LOG\_MMRP || LOG\_MRP}
+891         printf(\textcolor{stringliteral}{"mrp\_applicant\_fsm:unexpected event %s (%d)\(\backslash\)n"},
+892                \hyperlink{mrp_8h_a8ad26350e490db2481e870532f2c2433}{mrp\_event\_string}(event), event);
+893 \textcolor{preprocessor}{#endif}
+894         \textcolor{keywordflow}{return} -1;
+895         \textcolor{keywordflow}{break};
+896     \}
+897 
+898     attrib->\hyperlink{structmrp__applicant__attribute_a36519f39fcb22bd3b6b05b51d2bb7fbf}{mrp\_previous\_state} = attrib->\hyperlink{structmrp__applicant__attribute_a81aba50506912ce81758c19f9859445e}{mrp\_state};
+899     attrib->\hyperlink{structmrp__applicant__attribute_a40590f55f82df430f8035df8dd4f03c2}{tx} = tx;
+900     attrib->\hyperlink{structmrp__applicant__attribute_a81aba50506912ce81758c19f9859445e}{mrp\_state} = mrp\_state;
+901     attrib->\hyperlink{structmrp__applicant__attribute_ab5da457547f90222856e97e186840f16}{sndmsg} = sndmsg;
+902     attrib->\hyperlink{structmrp__applicant__attribute_a29558c1e60f974924d00ebfe5daa02d2}{encode} = (optional ? \hyperlink{mrp_8h_a4090175ac72af181b331346403141efc}{MRP\_ENCODE\_OPTIONAL} : 
+      \hyperlink{mrp_8h_a6934c0529658efdf3f8dc69b94e14ac9}{MRP\_ENCODE\_YES});
+903     \textcolor{keywordflow}{return} 0;
+904 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=307pt]{mrp_8c_aa9b640b997e3a09bd1ee1dce72ecda12_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrp_8c_aa9b640b997e3a09bd1ee1dce72ecda12_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrp.\+c@{mrp.\+c}!mrp\+\_\+applicant\+\_\+state\+\_\+transition\+\_\+implies\+\_\+tx@{mrp\+\_\+applicant\+\_\+state\+\_\+transition\+\_\+implies\+\_\+tx}}
+\index{mrp\+\_\+applicant\+\_\+state\+\_\+transition\+\_\+implies\+\_\+tx@{mrp\+\_\+applicant\+\_\+state\+\_\+transition\+\_\+implies\+\_\+tx}!mrp.\+c@{mrp.\+c}}
+\subsubsection[{\texorpdfstring{mrp\+\_\+applicant\+\_\+state\+\_\+transition\+\_\+implies\+\_\+tx(mrp\+\_\+applicant\+\_\+attribute\+\_\+t $\ast$attrib)}{mrp_applicant_state_transition_implies_tx(mrp_applicant_attribute_t *attrib)}}]{\setlength{\rightskip}{0pt plus 5cm}int mrp\+\_\+applicant\+\_\+state\+\_\+transition\+\_\+implies\+\_\+tx (
+\begin{DoxyParamCaption}
+\item[{{\bf mrp\+\_\+applicant\+\_\+attribute\+\_\+t} $\ast$}]{attrib}
+\end{DoxyParamCaption}
+)}\hypertarget{mrp_8c_a992ae582a10aa753e05efad96e636920}{}\label{mrp_8c_a992ae582a10aa753e05efad96e636920}
+
+
+mrp.\+c 파일의 906 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+907 \{
+908     \textcolor{keywordflow}{if} (attrib->\hyperlink{structmrp__applicant__attribute_a36519f39fcb22bd3b6b05b51d2bb7fbf}{mrp\_previous\_state} == attrib->\hyperlink{structmrp__applicant__attribute_a81aba50506912ce81758c19f9859445e}{mrp\_state}) \{
+909         \textcolor{keywordflow}{return} 0;
+910     \}
+911 
+912     \textcolor{keywordflow}{switch} (attrib->\hyperlink{structmrp__applicant__attribute_a81aba50506912ce81758c19f9859445e}{mrp\_state}) \{
+913     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a116f3e0b8794140a434d385e034dd863}{MRP\_VP\_STATE}:
+914     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_ab8e5aa88c54282bf8c56929698a9d5f1}{MRP\_VN\_STATE}:
+915     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a20b0991164cfe35299c418cfcf4801ca}{MRP\_AN\_STATE}:
+916     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_afb0d8653e24cbb603b35baee9a6e32f8}{MRP\_AA\_STATE}:
+917     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a681610813a8f12a0fdb87b1e53260892}{MRP\_LA\_STATE}:
+918         \textcolor{keywordflow}{return} 1;
+919     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a4179c286e5c5f6489dd0db7aa4f8fb84}{MRP\_VO\_STATE}:
+920     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a04744a9e26801a2b4aac8cf78c8d1419}{MRP\_QA\_STATE}:
+921     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a1ea8e5576e73ff786fe420fe1e51cfaf}{MRP\_AO\_STATE}:
+922     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_ae12a5764b75063959a5180538d5c3dec}{MRP\_QO\_STATE}:
+923     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a49813897cb3a2b4bbc9ebed5a188f0a2}{MRP\_AP\_STATE}:
+924     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_afeb250a47e52aed4d23eac79f707f26b}{MRP\_QP\_STATE}:
+925     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a53a446506a9c6007d03065db035a3100}{MRP\_LO\_STATE}:
+926         \textcolor{keywordflow}{return} 0;
+927     \}
+928     
+929     \textcolor{keywordflow}{return} 0;
+930 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrp_8c_a992ae582a10aa753e05efad96e636920_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrp.\+c@{mrp.\+c}!mrp\+\_\+client\+\_\+add@{mrp\+\_\+client\+\_\+add}}
+\index{mrp\+\_\+client\+\_\+add@{mrp\+\_\+client\+\_\+add}!mrp.\+c@{mrp.\+c}}
+\subsubsection[{\texorpdfstring{mrp\+\_\+client\+\_\+add(client\+\_\+t $\ast$$\ast$list, struct sockaddr\+\_\+in $\ast$newclient)}{mrp_client_add(client_t **list, struct sockaddr_in *newclient)}}]{\setlength{\rightskip}{0pt plus 5cm}int mrp\+\_\+client\+\_\+add (
+\begin{DoxyParamCaption}
+\item[{{\bf client\+\_\+t} $\ast$$\ast$}]{list, }
+\item[{struct sockaddr\+\_\+in $\ast$}]{newclient}
+\end{DoxyParamCaption}
+)}\hypertarget{mrp_8c_ad342a9b9e146ac2b9027550e60958807}{}\label{mrp_8c_ad342a9b9e146ac2b9027550e60958807}
+
+
+mrp.\+c 파일의 264 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+265 \{
+266     \hyperlink{structclient__s}{client\_t} *client\_item;
+267 
+268     client\_item = *list;
+269 
+270     \textcolor{keywordflow}{if} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} == newclient)
+271         \textcolor{keywordflow}{return} -1;
+272 
+273     \textcolor{keywordflow}{if} (\hyperlink{mrp_8c_afd0e2fb03b69295a81167b4070e53cd6}{client\_lookup}(client\_item, newclient))
+274         \textcolor{keywordflow}{return} 0;   \textcolor{comment}{/* already present */}
+275 
+276     \textcolor{comment}{/* handle 1st entry into list */}
+277     \textcolor{keywordflow}{if} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} == client\_item) \{
+278         client\_item = (\hyperlink{structclient__s}{client\_t} *)\hyperlink{_memory_leak_detector_malloc_macros_8h_ab8b25cd8f16d4a6552afe4e65c4f082d}{malloc}(\textcolor{keyword}{sizeof}(\hyperlink{structclient__s}{client\_t}));
+279         \textcolor{keywordflow}{if} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} == client\_item)
+280             \textcolor{keywordflow}{return} -1;
+281         client\_item->\hyperlink{structclient__s_af3acd6523ace0fc96b77f04cf1b88d06}{next} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+282         client\_item->\hyperlink{structclient__s_abf7df3c8f5ff035f1843f41668a2168c}{client} = *newclient;
+283         *list = client\_item;
+284         \textcolor{keywordflow}{return} 0;
+285     \}
+286 
+287     \textcolor{keywordflow}{while} (client\_item) \{
+288         \textcolor{keywordflow}{if} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} == client\_item->\hyperlink{structclient__s_af3acd6523ace0fc96b77f04cf1b88d06}{next}) \{
+289             client\_item->\hyperlink{structclient__s_af3acd6523ace0fc96b77f04cf1b88d06}{next} = (\hyperlink{structclient__s}{client\_t} *)\hyperlink{_memory_leak_detector_malloc_macros_8h_ab8b25cd8f16d4a6552afe4e65c4f082d}{malloc}(\textcolor{keyword}{sizeof}(
+      \hyperlink{structclient__s}{client\_t}));
+290             \textcolor{keywordflow}{if} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} == client\_item->\hyperlink{structclient__s_af3acd6523ace0fc96b77f04cf1b88d06}{next})
+291                 \textcolor{keywordflow}{return} -1;
+292             client\_item = client\_item->\hyperlink{structclient__s_af3acd6523ace0fc96b77f04cf1b88d06}{next};
+293             client\_item->\hyperlink{structclient__s_af3acd6523ace0fc96b77f04cf1b88d06}{next} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+294             client\_item->\hyperlink{structclient__s_abf7df3c8f5ff035f1843f41668a2168c}{client} = *newclient;
+295             \textcolor{keywordflow}{return} 0;
+296         \}
+297         client\_item = client\_item->\hyperlink{structclient__s_af3acd6523ace0fc96b77f04cf1b88d06}{next};
+298     \}
+299     \textcolor{keywordflow}{return} -1;
+300 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=273pt]{mrp_8c_ad342a9b9e146ac2b9027550e60958807_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrp_8c_ad342a9b9e146ac2b9027550e60958807_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrp.\+c@{mrp.\+c}!mrp\+\_\+client\+\_\+count@{mrp\+\_\+client\+\_\+count}}
+\index{mrp\+\_\+client\+\_\+count@{mrp\+\_\+client\+\_\+count}!mrp.\+c@{mrp.\+c}}
+\subsubsection[{\texorpdfstring{mrp\+\_\+client\+\_\+count(client\+\_\+t $\ast$list)}{mrp_client_count(client_t *list)}}]{\setlength{\rightskip}{0pt plus 5cm}int mrp\+\_\+client\+\_\+count (
+\begin{DoxyParamCaption}
+\item[{{\bf client\+\_\+t} $\ast$}]{list}
+\end{DoxyParamCaption}
+)}\hypertarget{mrp_8c_a40096936f28d5366a5693ecd33e9ee51}{}\label{mrp_8c_a40096936f28d5366a5693ecd33e9ee51}
+Examine list of mrp clients and return count.
+
+
+\begin{DoxyParams}{매개변수}
+{\em list} & List of client sockets. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+The number of clients. 
+\end{DoxyReturn}
+
+
+mrp.\+c 파일의 250 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+251 \{
+252     \hyperlink{structclient__s}{client\_t} *client\_item;
+253     \textcolor{keywordtype}{int} count = 0;
+254 
+255     client\_item = list;
+256 
+257     \textcolor{keywordflow}{while} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} != client\_item) \{
+258         client\_item = client\_item->\hyperlink{structclient__s_af3acd6523ace0fc96b77f04cf1b88d06}{next};
+259         count++;
+260     \}
+261     \textcolor{keywordflow}{return} count;
+262 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrp_8c_a40096936f28d5366a5693ecd33e9ee51_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrp.\+c@{mrp.\+c}!mrp\+\_\+client\+\_\+delete@{mrp\+\_\+client\+\_\+delete}}
+\index{mrp\+\_\+client\+\_\+delete@{mrp\+\_\+client\+\_\+delete}!mrp.\+c@{mrp.\+c}}
+\subsubsection[{\texorpdfstring{mrp\+\_\+client\+\_\+delete(client\+\_\+t $\ast$$\ast$list, struct sockaddr\+\_\+in $\ast$newclient)}{mrp_client_delete(client_t **list, struct sockaddr_in *newclient)}}]{\setlength{\rightskip}{0pt plus 5cm}int mrp\+\_\+client\+\_\+delete (
+\begin{DoxyParamCaption}
+\item[{{\bf client\+\_\+t} $\ast$$\ast$}]{list, }
+\item[{struct sockaddr\+\_\+in $\ast$}]{newclient}
+\end{DoxyParamCaption}
+)}\hypertarget{mrp_8c_acb17ba76c88c8425d5daf5132bcaf623}{}\label{mrp_8c_acb17ba76c88c8425d5daf5132bcaf623}
+
+
+mrp.\+c 파일의 302 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+303 \{
+304     \hyperlink{structclient__s}{client\_t} *client\_item;
+305     \hyperlink{structclient__s}{client\_t} *client\_last;
+306 
+307     client\_item = *list;
+308     client\_last = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+309 
+310     \textcolor{keywordflow}{if} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} == newclient)
+311         \textcolor{keywordflow}{return} 0;
+312 
+313     \textcolor{keywordflow}{if} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} == client\_item)
+314         \textcolor{keywordflow}{return} 0;
+315 
+316     \textcolor{keywordflow}{while} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} != client\_item) \{
+317         \textcolor{keywordflow}{if} (0 == memcmp((\hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} *) newclient,
+318                 (\hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} *) & client\_item->\hyperlink{structclient__s_abf7df3c8f5ff035f1843f41668a2168c}{client},
+319                 \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} sockaddr\_in))) \{
+320 
+321             \textcolor{keywordflow}{if} (client\_last) \{
+322                 client\_last->\hyperlink{structclient__s_af3acd6523ace0fc96b77f04cf1b88d06}{next} = client\_item->\hyperlink{structclient__s_af3acd6523ace0fc96b77f04cf1b88d06}{next};
+323                 \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(client\_item);
+324             \} \textcolor{keywordflow}{else} \{
+325                 \textcolor{comment}{/* reset the head pointer */}
+326                 *list = client\_item->\hyperlink{structclient__s_af3acd6523ace0fc96b77f04cf1b88d06}{next};
+327                 \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(client\_item);
+328             \}
+329             \textcolor{keywordflow}{return} 0;
+330         \}
+331         client\_last = client\_item;
+332         client\_item = client\_item->\hyperlink{structclient__s_af3acd6523ace0fc96b77f04cf1b88d06}{next};
+333     \}
+334     \textcolor{comment}{/* not found ... no error */}
+335     \textcolor{keywordflow}{return} 0;
+336 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrp_8c_acb17ba76c88c8425d5daf5132bcaf623_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrp.\+c@{mrp.\+c}!mrp\+\_\+client\+\_\+remove\+\_\+all@{mrp\+\_\+client\+\_\+remove\+\_\+all}}
+\index{mrp\+\_\+client\+\_\+remove\+\_\+all@{mrp\+\_\+client\+\_\+remove\+\_\+all}!mrp.\+c@{mrp.\+c}}
+\subsubsection[{\texorpdfstring{mrp\+\_\+client\+\_\+remove\+\_\+all(client\+\_\+t $\ast$$\ast$list)}{mrp_client_remove_all(client_t **list)}}]{\setlength{\rightskip}{0pt plus 5cm}int mrp\+\_\+client\+\_\+remove\+\_\+all (
+\begin{DoxyParamCaption}
+\item[{{\bf client\+\_\+t} $\ast$$\ast$}]{list}
+\end{DoxyParamCaption}
+)}\hypertarget{mrp_8c_adde14a545c8c52173b54c3c39ae9bbb1}{}\label{mrp_8c_adde14a545c8c52173b54c3c39ae9bbb1}
+
+
+mrp.\+c 파일의 338 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+339 \{
+340     \hyperlink{structclient__s}{client\_t} *client\_item = *list;
+341     \hyperlink{structclient__s}{client\_t} *client\_next;
+342 
+343     \textcolor{keywordflow}{while} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} != client\_item) \{
+344         client\_next = client\_item->\hyperlink{structclient__s_af3acd6523ace0fc96b77f04cf1b88d06}{next};
+345         \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(client\_item);
+346         client\_item = client\_next;
+347     \}
+348     *list = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+349     \textcolor{keywordflow}{return} 0;
+350 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrp_8c_adde14a545c8c52173b54c3c39ae9bbb1_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrp.\+c@{mrp.\+c}!mrp\+\_\+decode\+\_\+state@{mrp\+\_\+decode\+\_\+state}}
+\index{mrp\+\_\+decode\+\_\+state@{mrp\+\_\+decode\+\_\+state}!mrp.\+c@{mrp.\+c}}
+\subsubsection[{\texorpdfstring{mrp\+\_\+decode\+\_\+state(mrp\+\_\+registrar\+\_\+attribute\+\_\+t $\ast$rattrib, mrp\+\_\+applicant\+\_\+attribute\+\_\+t $\ast$aattrib, char $\ast$str, int strlen)}{mrp_decode_state(mrp_registrar_attribute_t *rattrib, mrp_applicant_attribute_t *aattrib, char *str, int strlen)}}]{\setlength{\rightskip}{0pt plus 5cm}int mrp\+\_\+decode\+\_\+state (
+\begin{DoxyParamCaption}
+\item[{{\bf mrp\+\_\+registrar\+\_\+attribute\+\_\+t} $\ast$}]{rattrib, }
+\item[{{\bf mrp\+\_\+applicant\+\_\+attribute\+\_\+t} $\ast$}]{aattrib, }
+\item[{char $\ast$}]{str, }
+\item[{int}]{strlen}
+\end{DoxyParamCaption}
+)}\hypertarget{mrp_8c_a178c5a4ac1dbc4bb40064aaaae6ed84e}{}\label{mrp_8c_a178c5a4ac1dbc4bb40064aaaae6ed84e}
+
+
+mrp.\+c 파일의 1061 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+1063 \{
+1064     \textcolor{keywordtype}{char} reg\_stat[8];
+1065 
+1066     \textcolor{keywordflow}{switch} (rattrib->\hyperlink{structmrp__registrar__attribute_a81aba50506912ce81758c19f9859445e}{mrp\_state}) \{
+1067     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a9a4fdac17018dd611f332d89b4f642bc}{MRP\_IN\_STATE}:
+1068         snprintf(reg\_stat, \textcolor{keyword}{sizeof}(reg\_stat) - 1, \textcolor{stringliteral}{"IN"});
+1069         \textcolor{keywordflow}{break};
+1070     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a0f5c8d184b38de3dc1e554c3bb3451fc}{MRP\_LV\_STATE}:
+1071         snprintf(reg\_stat, \textcolor{keyword}{sizeof}(reg\_stat) - 1, \textcolor{stringliteral}{"LV"});
+1072         \textcolor{keywordflow}{break};
+1073     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_ae8dcb801cef8331bbef351220b9631d0}{MRP\_MT\_STATE}:
+1074         snprintf(reg\_stat, \textcolor{keyword}{sizeof}(reg\_stat) - 1, \textcolor{stringliteral}{"MT"});
+1075         \textcolor{keywordflow}{break};
+1076     \textcolor{keywordflow}{default}:
+1077         snprintf(reg\_stat, \textcolor{keyword}{sizeof}(reg\_stat) - 1, \textcolor{stringliteral}{"%d"},
+1078              rattrib->\hyperlink{structmrp__registrar__attribute_a81aba50506912ce81758c19f9859445e}{mrp\_state});
+1079         \textcolor{keywordflow}{break};
+1080     \}
+1081 
+1082     \textcolor{keywordflow}{switch} (aattrib->\hyperlink{structmrp__applicant__attribute_a81aba50506912ce81758c19f9859445e}{mrp\_state}) \{
+1083     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a4179c286e5c5f6489dd0db7aa4f8fb84}{MRP\_VO\_STATE}:
+1084         snprintf(str, strlen - 1, \textcolor{stringliteral}{"VO/%s"}, reg\_stat);
+1085         \textcolor{keywordflow}{break};
+1086     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a116f3e0b8794140a434d385e034dd863}{MRP\_VP\_STATE}:
+1087         snprintf(str, strlen - 1, \textcolor{stringliteral}{"VP/%s"}, reg\_stat);
+1088         \textcolor{keywordflow}{break};
+1089     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_ab8e5aa88c54282bf8c56929698a9d5f1}{MRP\_VN\_STATE}:
+1090         snprintf(str, strlen - 1, \textcolor{stringliteral}{"VN/%s"}, reg\_stat);
+1091         \textcolor{keywordflow}{break};
+1092     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a20b0991164cfe35299c418cfcf4801ca}{MRP\_AN\_STATE}:
+1093         snprintf(str, strlen - 1, \textcolor{stringliteral}{"AN/%s"}, reg\_stat);
+1094         \textcolor{keywordflow}{break};
+1095     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_afb0d8653e24cbb603b35baee9a6e32f8}{MRP\_AA\_STATE}:
+1096         snprintf(str, strlen - 1, \textcolor{stringliteral}{"AA/%s"}, reg\_stat);
+1097         \textcolor{keywordflow}{break};
+1098     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a04744a9e26801a2b4aac8cf78c8d1419}{MRP\_QA\_STATE}:
+1099         snprintf(str, strlen - 1, \textcolor{stringliteral}{"QA/%s"}, reg\_stat);
+1100         \textcolor{keywordflow}{break};
+1101     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a681610813a8f12a0fdb87b1e53260892}{MRP\_LA\_STATE}:
+1102         snprintf(str, strlen - 1, \textcolor{stringliteral}{"LA/%s"}, reg\_stat);
+1103         \textcolor{keywordflow}{break};
+1104     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a1ea8e5576e73ff786fe420fe1e51cfaf}{MRP\_AO\_STATE}:
+1105         snprintf(str, strlen - 1, \textcolor{stringliteral}{"AO/%s"}, reg\_stat);
+1106         \textcolor{keywordflow}{break};
+1107     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_ae12a5764b75063959a5180538d5c3dec}{MRP\_QO\_STATE}:
+1108         snprintf(str, strlen - 1, \textcolor{stringliteral}{"QO/%s"}, reg\_stat);
+1109         \textcolor{keywordflow}{break};
+1110     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a49813897cb3a2b4bbc9ebed5a188f0a2}{MRP\_AP\_STATE}:
+1111         snprintf(str, strlen - 1, \textcolor{stringliteral}{"AP/%s"}, reg\_stat);
+1112         \textcolor{keywordflow}{break};
+1113     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_afeb250a47e52aed4d23eac79f707f26b}{MRP\_QP\_STATE}:
+1114         snprintf(str, strlen - 1, \textcolor{stringliteral}{"QP/%s"}, reg\_stat);
+1115         \textcolor{keywordflow}{break};
+1116     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a53a446506a9c6007d03065db035a3100}{MRP\_LO\_STATE}:
+1117         snprintf(str, strlen - 1, \textcolor{stringliteral}{"LO/%s"}, reg\_stat);
+1118         \textcolor{keywordflow}{break};
+1119     \textcolor{keywordflow}{default}:
+1120         snprintf(str, strlen - 1, \textcolor{stringliteral}{"%d/%s"}, aattrib->\hyperlink{structmrp__applicant__attribute_a81aba50506912ce81758c19f9859445e}{mrp\_state},
+1121              reg\_stat);
+1122         \textcolor{keywordflow}{break};
+1123     \}
+1124     \textcolor{keywordflow}{return} 0;
+1125 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrp_8c_a178c5a4ac1dbc4bb40064aaaae6ed84e_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrp.\+c@{mrp.\+c}!mrp\+\_\+init@{mrp\+\_\+init}}
+\index{mrp\+\_\+init@{mrp\+\_\+init}!mrp.\+c@{mrp.\+c}}
+\subsubsection[{\texorpdfstring{mrp\+\_\+init(void)}{mrp_init(void)}}]{\setlength{\rightskip}{0pt plus 5cm}int mrp\+\_\+init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{mrp_8c_a5396c032a7efad48c8c58b20277c941f}{}\label{mrp_8c_a5396c032a7efad48c8c58b20277c941f}
+
+
+mrp.\+c 파일의 1127 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+1128 \{
+1129     \hyperlink{mrp_8c_aecea009b9969a0c4c0a494c5bf79c789}{p2pmac} = \hyperlink{mrp_8h_ab5d11304ada0ee4c5b7a3b9bfcff2e0f}{MRP\_DEFAULT\_POINT\_TO\_POINT\_MAC};    \textcolor{comment}{/* operPointToPointMAC 
+      */}
+1130     \hyperlink{mrp_8c_a7085c09d2609136fce8057e2322b87af}{lva\_next} = \hyperlink{mrp_8h_a53a531cd623e86fd5ab08a18dcae3bc2}{MRP\_LVATIMER\_VAL};    \textcolor{comment}{/* leaveall timeout in msec */}
+1131 
+1132     \textcolor{keywordflow}{return} 0;
+1133 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=345pt]{mrp_8c_a5396c032a7efad48c8c58b20277c941f_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrp.\+c@{mrp.\+c}!mrp\+\_\+jointimer\+\_\+start@{mrp\+\_\+jointimer\+\_\+start}}
+\index{mrp\+\_\+jointimer\+\_\+start@{mrp\+\_\+jointimer\+\_\+start}!mrp.\+c@{mrp.\+c}}
+\subsubsection[{\texorpdfstring{mrp\+\_\+jointimer\+\_\+start(struct mrp\+\_\+database $\ast$mrp\+\_\+db)}{mrp_jointimer_start(struct mrp_database *mrp_db)}}]{\setlength{\rightskip}{0pt plus 5cm}int mrp\+\_\+jointimer\+\_\+start (
+\begin{DoxyParamCaption}
+\item[{struct {\bf mrp\+\_\+database} $\ast$}]{mrp\+\_\+db}
+\end{DoxyParamCaption}
+)}\hypertarget{mrp_8c_a6dae5292c68e6e7d9f19c18c174219f2}{}\label{mrp_8c_a6dae5292c68e6e7d9f19c18c174219f2}
+
+
+mrp.\+c 파일의 353 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+354 \{
+355     \textcolor{keywordtype}{int} ret = 0;
+356     \textcolor{comment}{/* 10.7.4.1 - interval between transmit opportunities}
+357 \textcolor{comment}{     * for applicant state machine}
+358 \textcolor{comment}{     */}
+359 \textcolor{preprocessor}{#if LOG\_TIMERS}
+360     \textcolor{keywordflow}{if} (mrp\_db->\hyperlink{structmrp__database_a83c767737796901ce98b40bac61d3693}{join\_timer\_running})
+361         \hyperlink{mrpd_8c_a4297c4bc693f82e4cb9f04a56431840b}{mrpd\_log\_printf}(\textcolor{stringliteral}{"MRP join timer running\(\backslash\)n"});
+362     \textcolor{keywordflow}{else}
+363         \hyperlink{mrpd_8c_a4297c4bc693f82e4cb9f04a56431840b}{mrpd\_log\_printf}(\textcolor{stringliteral}{"MRP join timer start \(\backslash\)n"});
+364 \textcolor{preprocessor}{#endif}
+365     \textcolor{keywordflow}{if} (!mrp\_db->\hyperlink{structmrp__database_a83c767737796901ce98b40bac61d3693}{join\_timer\_running}) \{
+366         ret = \hyperlink{mrpd_8c_ab94f58744f6e225cff2be7a49336c59f}{mrpd\_timer\_start}(mrp\_db->\hyperlink{structmrp__database_a55eea88044cf545b4b60f7a851e2ca4e}{join\_timer}, 
+      \hyperlink{mrp_8h_afb30a6d7221a8068f81f0b9bb60d526c}{MRP\_JOINTIMER\_VAL});
+367     \}
+368     \textcolor{keywordflow}{if} (ret >= 0)
+369         mrp\_db->\hyperlink{structmrp__database_a83c767737796901ce98b40bac61d3693}{join\_timer\_running} = 1;
+370     \textcolor{keywordflow}{return} ret;
+371 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrp_8c_a6dae5292c68e6e7d9f19c18c174219f2_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrp_8c_a6dae5292c68e6e7d9f19c18c174219f2_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrp.\+c@{mrp.\+c}!mrp\+\_\+jointimer\+\_\+stop@{mrp\+\_\+jointimer\+\_\+stop}}
+\index{mrp\+\_\+jointimer\+\_\+stop@{mrp\+\_\+jointimer\+\_\+stop}!mrp.\+c@{mrp.\+c}}
+\subsubsection[{\texorpdfstring{mrp\+\_\+jointimer\+\_\+stop(struct mrp\+\_\+database $\ast$mrp\+\_\+db)}{mrp_jointimer_stop(struct mrp_database *mrp_db)}}]{\setlength{\rightskip}{0pt plus 5cm}int mrp\+\_\+jointimer\+\_\+stop (
+\begin{DoxyParamCaption}
+\item[{struct {\bf mrp\+\_\+database} $\ast$}]{mrp\+\_\+db}
+\end{DoxyParamCaption}
+)}\hypertarget{mrp_8c_a1a9cfb025f5995d622477c446a1e46d7}{}\label{mrp_8c_a1a9cfb025f5995d622477c446a1e46d7}
+
+
+mrp.\+c 파일의 373 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+374 \{
+375 \textcolor{preprocessor}{#if LOG\_TIMERS}
+376     \hyperlink{mrpd_8c_a4297c4bc693f82e4cb9f04a56431840b}{mrpd\_log\_printf}(\textcolor{stringliteral}{"MRP stop join timer\(\backslash\)n"});
+377 \textcolor{preprocessor}{#endif}
+378     mrp\_db->\hyperlink{structmrp__database_a83c767737796901ce98b40bac61d3693}{join\_timer\_running} = 0;
+379     \textcolor{keywordflow}{return} \hyperlink{mrpd_8c_a7ff45ba2688cbeb5f637af7b73114ac3}{mrpd\_timer\_stop}(mrp\_db->\hyperlink{structmrp__database_a55eea88044cf545b4b60f7a851e2ca4e}{join\_timer});
+380 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=304pt]{mrp_8c_a1a9cfb025f5995d622477c446a1e46d7_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrp_8c_a1a9cfb025f5995d622477c446a1e46d7_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrp.\+c@{mrp.\+c}!mrp\+\_\+lvatimer\+\_\+fsm@{mrp\+\_\+lvatimer\+\_\+fsm}}
+\index{mrp\+\_\+lvatimer\+\_\+fsm@{mrp\+\_\+lvatimer\+\_\+fsm}!mrp.\+c@{mrp.\+c}}
+\subsubsection[{\texorpdfstring{mrp\+\_\+lvatimer\+\_\+fsm(struct mrp\+\_\+database $\ast$mrp\+\_\+db, int event)}{mrp_lvatimer_fsm(struct mrp_database *mrp_db, int event)}}]{\setlength{\rightskip}{0pt plus 5cm}int mrp\+\_\+lvatimer\+\_\+fsm (
+\begin{DoxyParamCaption}
+\item[{struct {\bf mrp\+\_\+database} $\ast$}]{mrp\+\_\+db, }
+\item[{int}]{event}
+\end{DoxyParamCaption}
+)}\hypertarget{mrp_8c_ad0bb039d29737ed13eb012ec30a37ef9}{}\label{mrp_8c_ad0bb039d29737ed13eb012ec30a37ef9}
+
+
+mrp.\+c 파일의 446 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+447 \{
+448     \textcolor{keywordtype}{int} la\_state;
+449     \textcolor{keywordtype}{int} sndmsg = \hyperlink{mrp_8h_aa988a2033de457886dc923877722a9a1}{MRP\_SND\_NONE};
+450     \textcolor{keywordtype}{int} tx = 0;
+451 
+452     \textcolor{keywordflow}{if} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} == mrp\_db)
+453         \textcolor{keywordflow}{return} -1;
+454 
+455     la\_state = mrp\_db->\hyperlink{structmrp__database_aefeb3936cf0a8963a3e1646e35b291e9}{lva}.\hyperlink{structmrp__timer_a89f234133d3efe315836311cbf21c64b}{state};
+456 
+457     \textcolor{keywordflow}{switch} (event) \{
+458     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_ad926766e10d051bc1ad0d8c4dd1d8114}{MRP\_EVENT\_BEGIN}:
+459         la\_state = \hyperlink{mrp_8h_a987c86a5e93601744a17ef0fb6ea2af8}{MRP\_TIMER\_PASSIVE};
+460         \hyperlink{mrp_8c_a7ab8588a1c933bef5e941edebc32d55c}{mrp\_lvatimer\_start}(mrp\_db);
+461         \textcolor{keywordflow}{break};
+462     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_afc138ed41cc8e8ca7f7ccb9ec3347bf2}{MRP\_EVENT\_TX}:
+463         \textcolor{keywordflow}{if} (la\_state == \hyperlink{mrp_8h_a1f982cb5a3a9f1d7b187f067df26d733}{MRP\_TIMER\_ACTIVE}) \{
+464             tx = 1;
+465             sndmsg = \hyperlink{mrp_8h_acadfb6c364a7925e51f11aeba07a1f56}{MRP\_SND\_LVA};
+466             la\_state = \hyperlink{mrp_8h_a987c86a5e93601744a17ef0fb6ea2af8}{MRP\_TIMER\_PASSIVE};
+467         \}
+468         \textcolor{keywordflow}{break};
+469     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_ae839aa1da9bc287453cdbf7e6e574e57}{MRP\_EVENT\_RLA}:
+470         la\_state = \hyperlink{mrp_8h_a987c86a5e93601744a17ef0fb6ea2af8}{MRP\_TIMER\_PASSIVE};
+471         \hyperlink{mrp_8c_ad42384ab059d663e202e580d41a64c08}{mrp\_lvatimer\_stop}(mrp\_db);
+472         \hyperlink{mrp_8c_a7ab8588a1c933bef5e941edebc32d55c}{mrp\_lvatimer\_start}(mrp\_db);
+473         \textcolor{keywordflow}{break};
+474     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a8088f6bff6d11fdddbea73c3596356ca}{MRP\_EVENT\_LVATIMER}:
+475         la\_state = \hyperlink{mrp_8h_a1f982cb5a3a9f1d7b187f067df26d733}{MRP\_TIMER\_ACTIVE};
+476         \hyperlink{mrp_8c_ad42384ab059d663e202e580d41a64c08}{mrp\_lvatimer\_stop}(mrp\_db);
+477         \hyperlink{mrp_8c_a7ab8588a1c933bef5e941edebc32d55c}{mrp\_lvatimer\_start}(mrp\_db);
+478         \textcolor{keywordflow}{break};
+479     \textcolor{keywordflow}{default}:
+480 \textcolor{preprocessor}{#if LOG\_MVRP || LOG\_MSRP || LOG\_MMRP}
+481         printf(\textcolor{stringliteral}{"mrp\_lvatimer\_fsm:unexpected event (%d), state %s\(\backslash\)n"},
+482             event, mrp\_lvatimer\_state\_string(la\_state));
+483 \textcolor{preprocessor}{#endif}
+484         \textcolor{keywordflow}{return} -1;
+485         \textcolor{keywordflow}{break};
+486     \}
+487 \textcolor{preprocessor}{#if LOG\_MVRP || LOG\_MSRP || LOG\_MMRP}
+488     \textcolor{keywordflow}{if} (mrp\_db->\hyperlink{structmrp__database_aefeb3936cf0a8963a3e1646e35b291e9}{lva}.\hyperlink{structmrp__timer_a89f234133d3efe315836311cbf21c64b}{state} != la\_state) \{
+489         \hyperlink{mrpd_8c_a4297c4bc693f82e4cb9f04a56431840b}{mrpd\_log\_printf}(\textcolor{stringliteral}{"mrp\_lvatimer\_fsm event %s state %s -> %s\(\backslash\)n"},
+490                 \hyperlink{mrp_8h_a8ad26350e490db2481e870532f2c2433}{mrp\_event\_string}(event),
+491                 mrp\_lvatimer\_state\_string(mrp\_db->\hyperlink{structmrp__database_aefeb3936cf0a8963a3e1646e35b291e9}{lva}.\hyperlink{structmrp__timer_a89f234133d3efe315836311cbf21c64b}{state}),
+492                 mrp\_lvatimer\_state\_string(la\_state));
+493     \} \textcolor{keywordflow}{else} \{
+494         \hyperlink{mrpd_8c_a4297c4bc693f82e4cb9f04a56431840b}{mrpd\_log\_printf}(\textcolor{stringliteral}{"mrp\_lvatimer\_fsm event %s state %s\(\backslash\)n"},
+495                 \hyperlink{mrp_8h_a8ad26350e490db2481e870532f2c2433}{mrp\_event\_string}(event),
+496                 mrp\_lvatimer\_state\_string(la\_state));
+497     \}
+498 \textcolor{preprocessor}{#endif}
+499     mrp\_db->\hyperlink{structmrp__database_aefeb3936cf0a8963a3e1646e35b291e9}{lva}.\hyperlink{structmrp__timer_a89f234133d3efe315836311cbf21c64b}{state} = la\_state;
+500     mrp\_db->\hyperlink{structmrp__database_aefeb3936cf0a8963a3e1646e35b291e9}{lva}.\hyperlink{structmrp__timer_ab5da457547f90222856e97e186840f16}{sndmsg} = sndmsg;
+501     mrp\_db->\hyperlink{structmrp__database_aefeb3936cf0a8963a3e1646e35b291e9}{lva}.\hyperlink{structmrp__timer_a40590f55f82df430f8035df8dd4f03c2}{tx} = tx;
+502 
+503     \textcolor{keywordflow}{return} 0;
+504 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrp_8c_ad0bb039d29737ed13eb012ec30a37ef9_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrp_8c_ad0bb039d29737ed13eb012ec30a37ef9_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrp.\+c@{mrp.\+c}!mrp\+\_\+lvatimer\+\_\+start@{mrp\+\_\+lvatimer\+\_\+start}}
+\index{mrp\+\_\+lvatimer\+\_\+start@{mrp\+\_\+lvatimer\+\_\+start}!mrp.\+c@{mrp.\+c}}
+\subsubsection[{\texorpdfstring{mrp\+\_\+lvatimer\+\_\+start(struct mrp\+\_\+database $\ast$mrp\+\_\+db)}{mrp_lvatimer_start(struct mrp_database *mrp_db)}}]{\setlength{\rightskip}{0pt plus 5cm}int mrp\+\_\+lvatimer\+\_\+start (
+\begin{DoxyParamCaption}
+\item[{struct {\bf mrp\+\_\+database} $\ast$}]{mrp\+\_\+db}
+\end{DoxyParamCaption}
+)}\hypertarget{mrp_8c_a7ab8588a1c933bef5e941edebc32d55c}{}\label{mrp_8c_a7ab8588a1c933bef5e941edebc32d55c}
+
+
+mrp.\+c 파일의 412 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+413 \{
+414     \textcolor{keywordtype}{int} ret = 0;
+415     \textcolor{keywordtype}{int} \hyperlink{aaf-listener_8c_a869c60cb165af7b6177060c00c5c416c}{timeout} = 0;
+416     \textcolor{comment}{/* leavealltimer has expired. (10.7.5.22)}
+417 \textcolor{comment}{     * on expire, sends a LEAVEALL message}
+418 \textcolor{comment}{     * value is RANDOM in range (LeaveAllTime , 1.5xLeaveAllTime)}
+419 \textcolor{comment}{     * timer is for all attributes of a given application and port, but}
+420 \textcolor{comment}{     * expires each listed attribute individually (per application)}
+421 \textcolor{comment}{     */}
+422     timeout = \hyperlink{mrp_8h_a53a531cd623e86fd5ab08a18dcae3bc2}{MRP\_LVATIMER\_VAL} + (random() % (\hyperlink{mrp_8h_a53a531cd623e86fd5ab08a18dcae3bc2}{MRP\_LVATIMER\_VAL} / 2));
+423 \textcolor{preprocessor}{#if LOG\_TIMERS}
+424     \textcolor{keywordflow}{if} (mrp\_db->\hyperlink{structmrp__database_a80208a6b8c69dfec5b433adb2edfd471}{lva\_timer\_running})
+425         \hyperlink{mrpd_8c_a4297c4bc693f82e4cb9f04a56431840b}{mrpd\_log\_printf}(\textcolor{stringliteral}{"MRP leaveAll timer already running \(\backslash\)n"},
+426                 \hyperlink{aaf-listener_8c_a869c60cb165af7b6177060c00c5c416c}{timeout});
+427     \textcolor{keywordflow}{else}
+428         \hyperlink{mrpd_8c_a4297c4bc693f82e4cb9f04a56431840b}{mrpd\_log\_printf}(\textcolor{stringliteral}{"MRP start leaveAll timer (%d ms)\(\backslash\)n"}, 
+      \hyperlink{aaf-listener_8c_a869c60cb165af7b6177060c00c5c416c}{timeout});
+429 \textcolor{preprocessor}{#endif}
+430     \textcolor{keywordflow}{if} (!mrp\_db->\hyperlink{structmrp__database_a80208a6b8c69dfec5b433adb2edfd471}{lva\_timer\_running})
+431         ret = \hyperlink{mrpd_8c_ab94f58744f6e225cff2be7a49336c59f}{mrpd\_timer\_start}(mrp\_db->\hyperlink{structmrp__database_a63013eac35405517020e4681a260d06d}{lva\_timer}, 
+      \hyperlink{aaf-listener_8c_a869c60cb165af7b6177060c00c5c416c}{timeout});
+432     \textcolor{keywordflow}{if} (ret >= 0)
+433         mrp\_db->\hyperlink{structmrp__database_a80208a6b8c69dfec5b433adb2edfd471}{lva\_timer\_running} = 1;
+434     \textcolor{keywordflow}{return} ret;
+435 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrp_8c_a7ab8588a1c933bef5e941edebc32d55c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrp_8c_a7ab8588a1c933bef5e941edebc32d55c_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrp.\+c@{mrp.\+c}!mrp\+\_\+lvatimer\+\_\+stop@{mrp\+\_\+lvatimer\+\_\+stop}}
+\index{mrp\+\_\+lvatimer\+\_\+stop@{mrp\+\_\+lvatimer\+\_\+stop}!mrp.\+c@{mrp.\+c}}
+\subsubsection[{\texorpdfstring{mrp\+\_\+lvatimer\+\_\+stop(struct mrp\+\_\+database $\ast$mrp\+\_\+db)}{mrp_lvatimer_stop(struct mrp_database *mrp_db)}}]{\setlength{\rightskip}{0pt plus 5cm}int mrp\+\_\+lvatimer\+\_\+stop (
+\begin{DoxyParamCaption}
+\item[{struct {\bf mrp\+\_\+database} $\ast$}]{mrp\+\_\+db}
+\end{DoxyParamCaption}
+)}\hypertarget{mrp_8c_ad42384ab059d663e202e580d41a64c08}{}\label{mrp_8c_ad42384ab059d663e202e580d41a64c08}
+
+
+mrp.\+c 파일의 437 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+438 \{
+439 \textcolor{preprocessor}{#if LOG\_TIMERS}
+440     \hyperlink{mrpd_8c_a4297c4bc693f82e4cb9f04a56431840b}{mrpd\_log\_printf}(\textcolor{stringliteral}{"MRP stop leaveAll timer\(\backslash\)n"});
+441 \textcolor{preprocessor}{#endif}
+442     mrp\_db->\hyperlink{structmrp__database_a80208a6b8c69dfec5b433adb2edfd471}{lva\_timer\_running} = 0;
+443     \textcolor{keywordflow}{return} \hyperlink{mrpd_8c_a7ff45ba2688cbeb5f637af7b73114ac3}{mrpd\_timer\_stop}(mrp\_db->\hyperlink{structmrp__database_a63013eac35405517020e4681a260d06d}{lva\_timer});
+444 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=302pt]{mrp_8c_ad42384ab059d663e202e580d41a64c08_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrp_8c_ad42384ab059d663e202e580d41a64c08_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrp.\+c@{mrp.\+c}!mrp\+\_\+lvtimer\+\_\+start@{mrp\+\_\+lvtimer\+\_\+start}}
+\index{mrp\+\_\+lvtimer\+\_\+start@{mrp\+\_\+lvtimer\+\_\+start}!mrp.\+c@{mrp.\+c}}
+\subsubsection[{\texorpdfstring{mrp\+\_\+lvtimer\+\_\+start(struct mrp\+\_\+database $\ast$mrp\+\_\+db)}{mrp_lvtimer_start(struct mrp_database *mrp_db)}}]{\setlength{\rightskip}{0pt plus 5cm}int mrp\+\_\+lvtimer\+\_\+start (
+\begin{DoxyParamCaption}
+\item[{struct {\bf mrp\+\_\+database} $\ast$}]{mrp\+\_\+db}
+\end{DoxyParamCaption}
+)}\hypertarget{mrp_8c_a2587be1eaac7a82b4765d68fd556cc58}{}\label{mrp_8c_a2587be1eaac7a82b4765d68fd556cc58}
+
+
+mrp.\+c 파일의 382 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+383 \{
+384     \textcolor{keywordtype}{int} ret;
+385     \textcolor{comment}{/* leavetimer has expired (10.7.5.21)}
+386 \textcolor{comment}{     * controls how long the Registrar state machine stays in the}
+387 \textcolor{comment}{     * LV state before transitioning to the MT state.}
+388 \textcolor{comment}{     */}
+389 \textcolor{preprocessor}{#if LOG\_TIMERS}
+390     \textcolor{keywordflow}{if} (mrp\_db->\hyperlink{structmrp__database_a9b16e9e1e481156a56686fb632d06263}{lv\_timer\_running})
+391         \hyperlink{mrpd_8c_a4297c4bc693f82e4cb9f04a56431840b}{mrpd\_log\_printf}(\textcolor{stringliteral}{"MRP start leave timer *ALREADY RUNNING*\(\backslash\)n"});
+392     \textcolor{keywordflow}{else}
+393         \hyperlink{mrpd_8c_a4297c4bc693f82e4cb9f04a56431840b}{mrpd\_log\_printf}(\textcolor{stringliteral}{"MRP start leave timer\(\backslash\)n"});
+394 \textcolor{preprocessor}{#endif}
+395     ret = \hyperlink{mrpd_8c_ab94f58744f6e225cff2be7a49336c59f}{mrpd\_timer\_start}(mrp\_db->\hyperlink{structmrp__database_afb0e407756ab2688bbd60efbbdcc66d4}{lv\_timer}, 
+      \hyperlink{mrp_8h_a34e33c3b74247135be4372426a65c5b9}{MRP\_LVTIMER\_VAL});
+396     \textcolor{keywordflow}{if} (ret >= 0)
+397         mrp\_db->\hyperlink{structmrp__database_a9b16e9e1e481156a56686fb632d06263}{lv\_timer\_running} = 1;
+398     \textcolor{keywordflow}{return} ret;
+399 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrp_8c_a2587be1eaac7a82b4765d68fd556cc58_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrp_8c_a2587be1eaac7a82b4765d68fd556cc58_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrp.\+c@{mrp.\+c}!mrp\+\_\+lvtimer\+\_\+stop@{mrp\+\_\+lvtimer\+\_\+stop}}
+\index{mrp\+\_\+lvtimer\+\_\+stop@{mrp\+\_\+lvtimer\+\_\+stop}!mrp.\+c@{mrp.\+c}}
+\subsubsection[{\texorpdfstring{mrp\+\_\+lvtimer\+\_\+stop(struct mrp\+\_\+database $\ast$mrp\+\_\+db)}{mrp_lvtimer_stop(struct mrp_database *mrp_db)}}]{\setlength{\rightskip}{0pt plus 5cm}int mrp\+\_\+lvtimer\+\_\+stop (
+\begin{DoxyParamCaption}
+\item[{struct {\bf mrp\+\_\+database} $\ast$}]{mrp\+\_\+db}
+\end{DoxyParamCaption}
+)}\hypertarget{mrp_8c_ae9dc27744c17e2817ced68ab6409cc2f}{}\label{mrp_8c_ae9dc27744c17e2817ced68ab6409cc2f}
+
+
+mrp.\+c 파일의 401 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+402 \{
+403 \textcolor{preprocessor}{#if LOG\_TIMERS}
+404     \hyperlink{mrpd_8c_a4297c4bc693f82e4cb9f04a56431840b}{mrpd\_log\_printf}(\textcolor{stringliteral}{"MRP stop leave timer\(\backslash\)n"});
+405 \textcolor{preprocessor}{#endif}
+406     mrp\_db->\hyperlink{structmrp__database_a9b16e9e1e481156a56686fb632d06263}{lv\_timer\_running} = 0;
+407     \textcolor{keywordflow}{return} \hyperlink{mrpd_8c_a7ff45ba2688cbeb5f637af7b73114ac3}{mrpd\_timer\_stop}(mrp\_db->\hyperlink{structmrp__database_afb0e407756ab2688bbd60efbbdcc66d4}{lv\_timer});
+408 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=297pt]{mrp_8c_ae9dc27744c17e2817ced68ab6409cc2f_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrp_8c_ae9dc27744c17e2817ced68ab6409cc2f_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrp.\+c@{mrp.\+c}!mrp\+\_\+periodictimer\+\_\+fsm@{mrp\+\_\+periodictimer\+\_\+fsm}}
+\index{mrp\+\_\+periodictimer\+\_\+fsm@{mrp\+\_\+periodictimer\+\_\+fsm}!mrp.\+c@{mrp.\+c}}
+\subsubsection[{\texorpdfstring{mrp\+\_\+periodictimer\+\_\+fsm(struct mrp\+\_\+periodictimer\+\_\+state $\ast$periodic\+\_\+state, int event)}{mrp_periodictimer_fsm(struct mrp_periodictimer_state *periodic_state, int event)}}]{\setlength{\rightskip}{0pt plus 5cm}int mrp\+\_\+periodictimer\+\_\+fsm (
+\begin{DoxyParamCaption}
+\item[{struct {\bf mrp\+\_\+periodictimer\+\_\+state} $\ast$}]{periodic\+\_\+state, }
+\item[{int}]{event}
+\end{DoxyParamCaption}
+)}\hypertarget{mrp_8c_a7c21142533f2b1ceb222468d9eb691c4}{}\label{mrp_8c_a7c21142533f2b1ceb222468d9eb691c4}
+
+
+mrp.\+c 파일의 509 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+510 \{
+511     \textcolor{keywordtype}{int} p\_state;
+512 
+513     \textcolor{keywordflow}{if} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} == periodic\_state)
+514         \textcolor{keywordflow}{return} -1;
+515 
+516     p\_state = periodic\_state->\hyperlink{structmrp__periodictimer__state_a89f234133d3efe315836311cbf21c64b}{state};
+517 
+518     \textcolor{keywordflow}{switch} (event) \{
+519     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_ad926766e10d051bc1ad0d8c4dd1d8114}{MRP\_EVENT\_BEGIN}:
+520         p\_state = \hyperlink{mrp_8h_a1f982cb5a3a9f1d7b187f067df26d733}{MRP\_TIMER\_ACTIVE};
+521         \hyperlink{mrp_8h_ad9ff9ae98f1bb8d71f54348b56ca4fa4}{mrp\_periodictimer\_start}();
+522         \textcolor{keywordflow}{break};
+523     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_ae0ba8d40bfa479a2f4f9dc84732cd4d1}{MRP\_EVENT\_PERIODIC}:
+524         \textcolor{keywordflow}{if} (p\_state == \hyperlink{mrp_8h_a1f982cb5a3a9f1d7b187f067df26d733}{MRP\_TIMER\_ACTIVE}) \{
+525             \hyperlink{mrp_8h_ad9ff9ae98f1bb8d71f54348b56ca4fa4}{mrp\_periodictimer\_start}();
+526         \}
+527         \textcolor{keywordflow}{break};
+528     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a14b35e545d58158f2fc5dea9de2dda97}{MRP\_EVENT\_PERIODIC\_DISABLE}:
+529         p\_state = \hyperlink{mrp_8h_a987c86a5e93601744a17ef0fb6ea2af8}{MRP\_TIMER\_PASSIVE};
+530         \textcolor{comment}{/* this lets the timer expire without rescheduling */}
+531         \textcolor{keywordflow}{break};
+532     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_ab9dd27fdf0f1b7a730a287a185f55c24}{MRP\_EVENT\_PERIODIC\_ENABLE}:
+533         \textcolor{keywordflow}{if} (p\_state == \hyperlink{mrp_8h_a987c86a5e93601744a17ef0fb6ea2af8}{MRP\_TIMER\_PASSIVE}) \{
+534             p\_state = \hyperlink{mrp_8h_a1f982cb5a3a9f1d7b187f067df26d733}{MRP\_TIMER\_ACTIVE};
+535             \hyperlink{mrp_8h_ad9ff9ae98f1bb8d71f54348b56ca4fa4}{mrp\_periodictimer\_start}();
+536         \}
+537         \textcolor{keywordflow}{break};
+538     \textcolor{keywordflow}{default}:
+539         printf(\textcolor{stringliteral}{"mrp\_periodictimer\_fsm:unexpected event (%d), state %d\(\backslash\)n"},
+540             event, p\_state);
+541         \textcolor{keywordflow}{return} -1;
+542     \}
+543     periodic\_state->\hyperlink{structmrp__periodictimer__state_a89f234133d3efe315836311cbf21c64b}{state} = p\_state;
+544     \textcolor{keywordflow}{return} 0;
+545 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrp_8c_a7c21142533f2b1ceb222468d9eb691c4_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrp_8c_a7c21142533f2b1ceb222468d9eb691c4_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrp.\+c@{mrp.\+c}!mrp\+\_\+registrar\+\_\+fsm@{mrp\+\_\+registrar\+\_\+fsm}}
+\index{mrp\+\_\+registrar\+\_\+fsm@{mrp\+\_\+registrar\+\_\+fsm}!mrp.\+c@{mrp.\+c}}
+\subsubsection[{\texorpdfstring{mrp\+\_\+registrar\+\_\+fsm(mrp\+\_\+registrar\+\_\+attribute\+\_\+t $\ast$attrib, struct mrp\+\_\+database $\ast$mrp\+\_\+db, int event)}{mrp_registrar_fsm(mrp_registrar_attribute_t *attrib, struct mrp_database *mrp_db, int event)}}]{\setlength{\rightskip}{0pt plus 5cm}int mrp\+\_\+registrar\+\_\+fsm (
+\begin{DoxyParamCaption}
+\item[{{\bf mrp\+\_\+registrar\+\_\+attribute\+\_\+t} $\ast$}]{attrib, }
+\item[{struct {\bf mrp\+\_\+database} $\ast$}]{mrp\+\_\+db, }
+\item[{int}]{event}
+\end{DoxyParamCaption}
+)}\hypertarget{mrp_8c_acb9b03668d000bdc49c042f1b47d32f4}{}\label{mrp_8c_acb9b03668d000bdc49c042f1b47d32f4}
+
+
+mrp.\+c 파일의 933 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+935 \{
+936     \textcolor{keywordtype}{int} mrp\_state = attrib->\hyperlink{structmrp__registrar__attribute_a81aba50506912ce81758c19f9859445e}{mrp\_state};
+937     \textcolor{keywordtype}{int} notify = \hyperlink{mrp_8h_a5d20c6dacd68d2750d9bd89e028d2aeb}{MRP\_NOTIFY\_NONE};
+938 
+939     \textcolor{keywordflow}{switch} (event) \{
+940     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_ad926766e10d051bc1ad0d8c4dd1d8114}{MRP\_EVENT\_BEGIN}:
+941         mrp\_state = \hyperlink{mrp_8h_ae8dcb801cef8331bbef351220b9631d0}{MRP\_MT\_STATE};
+942         \textcolor{keywordflow}{break};
+943     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a12ce2ba0758f249e0ceb872a9d3cdbc3}{MRP\_EVENT\_RLV}:
+944         notify = \hyperlink{mrp_8h_a841700929a5cf0f5df937120c5f38105}{MRP\_NOTIFY\_LV};
+945         \textcolor{comment}{/* fall thru */}
+946     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a49db74ad792de9b57bc08c273a3dc684}{MRP\_EVENT\_TXLA}:
+947     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_ae839aa1da9bc287453cdbf7e6e574e57}{MRP\_EVENT\_RLA}:
+948     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a1e07569f58ec8e20dcfbe6cdac3af92d}{MRP\_EVENT\_REDECLARE}:
+949         \textcolor{comment}{/*}
+950 \textcolor{comment}{         * on link-status-change}
+951 \textcolor{comment}{         * trigger Applicant and Registrar state machines to re-declare}
+952 \textcolor{comment}{         * previously registered attributes.}
+953 \textcolor{comment}{         */}
+954         \textcolor{keywordflow}{switch} (mrp\_state) \{
+955         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a9a4fdac17018dd611f332d89b4f642bc}{MRP\_IN\_STATE}:
+956             \hyperlink{mrp_8c_a2587be1eaac7a82b4765d68fd556cc58}{mrp\_lvtimer\_start}(mrp\_db);
+957             mrp\_state = \hyperlink{mrp_8h_a0f5c8d184b38de3dc1e554c3bb3451fc}{MRP\_LV\_STATE};
+958         \textcolor{keywordflow}{default}:
+959             \textcolor{keywordflow}{break};
+960         \}
+961         \textcolor{keywordflow}{break};
+962     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a51a47692a4f1690ea8a90c21a65a9722}{MRP\_EVENT\_RNEW}:
+963         notify = \hyperlink{mrp_8h_a4f47669fbd02fd9dc10351e38bfeca61}{MRP\_NOTIFY\_NEW};
+964         \textcolor{keywordflow}{switch} (mrp\_state) \{
+965         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_ae8dcb801cef8331bbef351220b9631d0}{MRP\_MT\_STATE}:
+966         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a9a4fdac17018dd611f332d89b4f642bc}{MRP\_IN\_STATE}:
+967             mrp\_state = \hyperlink{mrp_8h_a9a4fdac17018dd611f332d89b4f642bc}{MRP\_IN\_STATE};
+968             \textcolor{keywordflow}{break};
+969         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a0f5c8d184b38de3dc1e554c3bb3451fc}{MRP\_LV\_STATE}:
+970             \textcolor{comment}{/* should stop leavetimer - but we have only 1 lvtimer}
+971 \textcolor{comment}{             * for all attributes, and recieving a LVTIMER event}
+972 \textcolor{comment}{             * is a don't-care if the attribute is in the IN state.}
+973 \textcolor{comment}{             */}
+974             mrp\_state = \hyperlink{mrp_8h_a9a4fdac17018dd611f332d89b4f642bc}{MRP\_IN\_STATE};
+975             \textcolor{keywordflow}{break};
+976         \textcolor{keywordflow}{default}:
+977             \textcolor{keywordflow}{break};
+978         \}
+979         \textcolor{keywordflow}{break};
+980     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_ae9248e2c4044367659e4c9cd81139edd}{MRP\_EVENT\_RJOININ}:
+981     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a8fa98cc04b70afb2607ed4728a4308f7}{MRP\_EVENT\_RJOINMT}:
+982         \textcolor{keywordflow}{switch} (mrp\_state) \{
+983         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_ae8dcb801cef8331bbef351220b9631d0}{MRP\_MT\_STATE}:
+984             notify = \hyperlink{mrp_8h_aa4e82a87fc11579ce97185e182ddfda4}{MRP\_NOTIFY\_JOIN};
+985             mrp\_state = \hyperlink{mrp_8h_a9a4fdac17018dd611f332d89b4f642bc}{MRP\_IN\_STATE};
+986             \textcolor{keywordflow}{break};
+987         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a9a4fdac17018dd611f332d89b4f642bc}{MRP\_IN\_STATE}:
+988             mrp\_state = \hyperlink{mrp_8h_a9a4fdac17018dd611f332d89b4f642bc}{MRP\_IN\_STATE};
+989             \textcolor{keywordflow}{break};
+990         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a0f5c8d184b38de3dc1e554c3bb3451fc}{MRP\_LV\_STATE}:
+991             \textcolor{comment}{/* should stop leavetimer - but we have only 1 lvtimer}
+992 \textcolor{comment}{             * for all attributes, and receiving a LVTIMER event}
+993 \textcolor{comment}{             * is a don't-care if the attribute is in the IN state.}
+994 \textcolor{comment}{             */}
+995             notify = \hyperlink{mrp_8h_aa4e82a87fc11579ce97185e182ddfda4}{MRP\_NOTIFY\_JOIN};
+996             mrp\_state = \hyperlink{mrp_8h_a9a4fdac17018dd611f332d89b4f642bc}{MRP\_IN\_STATE};
+997             \textcolor{keywordflow}{break};
+998         \textcolor{keywordflow}{default}:
+999             \textcolor{keywordflow}{break};
+1000         \}
+1001         \textcolor{keywordflow}{break};
+1002 
+1003     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_acf9a8791c6d90b6323ac11e00d79f626}{MRP\_EVENT\_LVTIMER}:
+1004         \textcolor{keywordflow}{switch} (mrp\_state) \{
+1005         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a0f5c8d184b38de3dc1e554c3bb3451fc}{MRP\_LV\_STATE}:
+1006             notify = \hyperlink{mrp_8h_a841700929a5cf0f5df937120c5f38105}{MRP\_NOTIFY\_LV};
+1007             mrp\_state = \hyperlink{mrp_8h_ae8dcb801cef8331bbef351220b9631d0}{MRP\_MT\_STATE};
+1008             \textcolor{keywordflow}{break};
+1009         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_ae8dcb801cef8331bbef351220b9631d0}{MRP\_MT\_STATE}:
+1010             mrp\_state = \hyperlink{mrp_8h_ae8dcb801cef8331bbef351220b9631d0}{MRP\_MT\_STATE};
+1011             \textcolor{keywordflow}{break};
+1012         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a9a4fdac17018dd611f332d89b4f642bc}{MRP\_IN\_STATE}:
+1013         \textcolor{keywordflow}{default}:
+1014             \textcolor{keywordflow}{break};
+1015         \}
+1016         \textcolor{keywordflow}{break};
+1017     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_afe7a6674f1fb20317e4fb00a87cc13e7}{MRP\_EVENT\_FLUSH}:
+1018         notify = \hyperlink{mrp_8h_a841700929a5cf0f5df937120c5f38105}{MRP\_NOTIFY\_LV};
+1019         \textcolor{keywordflow}{switch} (mrp\_state) \{
+1020         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a0f5c8d184b38de3dc1e554c3bb3451fc}{MRP\_LV\_STATE}:
+1021             mrp\_state = \hyperlink{mrp_8h_ae8dcb801cef8331bbef351220b9631d0}{MRP\_MT\_STATE};
+1022             \textcolor{keywordflow}{break};
+1023         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_ae8dcb801cef8331bbef351220b9631d0}{MRP\_MT\_STATE}:
+1024         \textcolor{keywordflow}{case} \hyperlink{mrp_8h_a9a4fdac17018dd611f332d89b4f642bc}{MRP\_IN\_STATE}:
+1025             mrp\_state = \hyperlink{mrp_8h_ae8dcb801cef8331bbef351220b9631d0}{MRP\_MT\_STATE};
+1026             \textcolor{keywordflow}{break};
+1027         \textcolor{keywordflow}{default}:
+1028             \textcolor{keywordflow}{break};
+1029         \}
+1030         \textcolor{keywordflow}{break};
+1031     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_aedd7001fbfb09da80432301a0095f686}{MRP\_EVENT\_RMT}:
+1032         \textcolor{comment}{/* ignore on soon to be deleted attributes */}
+1033         \textcolor{keywordflow}{break};
+1034     \textcolor{keywordflow}{case} \hyperlink{mrp_8h_adbdd94c4053091feb476250e51ecf692}{MRP\_EVENT\_RIN}:
+1035         \textcolor{comment}{/* rIn! event processing is not specified in section 10.7.8 of IEEE802.1Q-2011,}
+1036 \textcolor{comment}{         * table 10.4, so ignore it here.}
+1037 \textcolor{comment}{         */}
+1038         \textcolor{keywordflow}{break};
+1039     \textcolor{keywordflow}{default}:
+1040 \textcolor{preprocessor}{#if LOG\_MVRP || LOG\_MSRP || LOG\_MMRP || LOG\_MRP}
+1041         printf(\textcolor{stringliteral}{"mrp\_registrar\_fsm:unexpected event %s (%d), state %s\(\backslash\)n"},
+1042                \hyperlink{mrp_8h_a8ad26350e490db2481e870532f2c2433}{mrp\_event\_string}(event), event,
+1043                mrp\_state\_string(mrp\_state));
+1044 \textcolor{preprocessor}{#endif}
+1045         \textcolor{keywordflow}{return} -1;
+1046         \textcolor{keywordflow}{break};
+1047     \}
+1048 \textcolor{preprocessor}{#if LOG\_MRP}
+1049     attrib->\hyperlink{structmrp__registrar__attribute_a36519f39fcb22bd3b6b05b51d2bb7fbf}{mrp\_previous\_state} = attrib->\hyperlink{structmrp__registrar__attribute_a81aba50506912ce81758c19f9859445e}{mrp\_state};
+1050 \textcolor{preprocessor}{#endif}
+1051     attrib->\hyperlink{structmrp__registrar__attribute_a81aba50506912ce81758c19f9859445e}{mrp\_state} = mrp\_state;
+1052     attrib->\hyperlink{structmrp__registrar__attribute_a6c17ea8bcc28c91e490e1112d5348541}{notify} = notify;
+1053     \textcolor{keywordflow}{return} 0;
+1054 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrp_8c_acb9b03668d000bdc49c042f1b47d32f4_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrp_8c_acb9b03668d000bdc49c042f1b47d32f4_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrp.\+c@{mrp.\+c}!mrp\+\_\+registrar\+\_\+in@{mrp\+\_\+registrar\+\_\+in}}
+\index{mrp\+\_\+registrar\+\_\+in@{mrp\+\_\+registrar\+\_\+in}!mrp.\+c@{mrp.\+c}}
+\subsubsection[{\texorpdfstring{mrp\+\_\+registrar\+\_\+in(mrp\+\_\+registrar\+\_\+attribute\+\_\+t $\ast$attrib)}{mrp_registrar_in(mrp_registrar_attribute_t *attrib)}}]{\setlength{\rightskip}{0pt plus 5cm}int mrp\+\_\+registrar\+\_\+in (
+\begin{DoxyParamCaption}
+\item[{{\bf mrp\+\_\+registrar\+\_\+attribute\+\_\+t} $\ast$}]{attrib}
+\end{DoxyParamCaption}
+)}\hypertarget{mrp_8c_a974b1a782e68ccea082758b5ec0e288a}{}\label{mrp_8c_a974b1a782e68ccea082758b5ec0e288a}
+
+
+mrp.\+c 파일의 1056 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+1057 \{
+1058     \textcolor{keywordflow}{return} (\hyperlink{mrp_8h_a9a4fdac17018dd611f332d89b4f642bc}{MRP\_IN\_STATE} == attrib->\hyperlink{structmrp__registrar__attribute_a81aba50506912ce81758c19f9859445e}{mrp\_state});
+1059 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrp_8c_a974b1a782e68ccea082758b5ec0e288a_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{변수 문서화}
+\index{mrp.\+c@{mrp.\+c}!lva\+\_\+next@{lva\+\_\+next}}
+\index{lva\+\_\+next@{lva\+\_\+next}!mrp.\+c@{mrp.\+c}}
+\subsubsection[{\texorpdfstring{lva\+\_\+next}{lva_next}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long lva\+\_\+next\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{mrp_8c_a7085c09d2609136fce8057e2322b87af}{}\label{mrp_8c_a7085c09d2609136fce8057e2322b87af}
+
+
+mrp.\+c 파일의 410 번째 라인에서 정의되었습니다.
+
+\index{mrp.\+c@{mrp.\+c}!p2pmac@{p2pmac}}
+\index{p2pmac@{p2pmac}!mrp.\+c@{mrp.\+c}}
+\subsubsection[{\texorpdfstring{p2pmac}{p2pmac}}]{\setlength{\rightskip}{0pt plus 5cm}int p2pmac}\hypertarget{mrp_8c_aecea009b9969a0c4c0a494c5bf79c789}{}\label{mrp_8c_aecea009b9969a0c4c0a494c5bf79c789}
+
+
+mrp.\+c 파일의 45 번째 라인에서 정의되었습니다.
+

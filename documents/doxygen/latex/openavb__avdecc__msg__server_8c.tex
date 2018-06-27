@@ -1,0 +1,944 @@
+\hypertarget{openavb__avdecc__msg__server_8c}{}\section{lib/avtp\+\_\+pipeline/avdecc\+\_\+msg/openavb\+\_\+avdecc\+\_\+msg\+\_\+server.c 파일 참조}
+\label{openavb__avdecc__msg__server_8c}\index{lib/avtp\+\_\+pipeline/avdecc\+\_\+msg/openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c@{lib/avtp\+\_\+pipeline/avdecc\+\_\+msg/openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c}}
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+pub.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+log.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+avdecc\+\_\+pub.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+adp.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+acmp\+\_\+sm\+\_\+talker.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+acmp\+\_\+sm\+\_\+listener.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+trace.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+avdecc\+\_\+msg\+\_\+server\+\_\+osal.\+c\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+avdecc\+\_\+msg.\+c\char`\"{}}\\*
+openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__avdecc__msg__server_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{openavb__avdecc__msg__server_8c_abcfb21b6495585fe36058f57a9fe58fc}{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}~\char`\"{}A\+V\+D\+E\+CC Msg\char`\"{}
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__avdecc__msg__server_8c_adbc20004efea49678b52eca3b381e6d7}{openavb\+Avdecc\+Msg\+Srvr\+Receive\+From\+Client} (int avdecc\+Msg\+Handle, \hyperlink{structopenavb_avdecc_message__t}{openavb\+Avdecc\+Message\+\_\+t} $\ast$\hyperlink{openavb__log_8c_a0c7e58a50354c4a4d6dad428d0e47029}{msg})
+\item 
+void \hyperlink{openavb__avdecc__msg__server_8c_a95d3108ac8e2882898c92ba6ddfbffd5}{openavb\+Avdecc\+Msg\+Srvr\+Send\+Server\+Version\+To\+Client} (int avdecc\+Msg\+Handle, \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} A\+V\+B\+Version)
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__avdecc__msg__server_8c_af317a257cc9e267b8eb9f122cb2561c0}{openavb\+Avdecc\+Msg\+Srvr\+Hndl\+Ver\+Rqst\+From\+Client} (int avdecc\+Msg\+Handle)
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__avdecc__msg__server_8c_ac23e92150076b83495aebbe7c048d335}{openavb\+Avdecc\+Msg\+Srvr\+Hndl\+Init\+Identify\+From\+Client} (int avdecc\+Msg\+Handle, char $\ast$friendly\+\_\+name, \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} talker)
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__avdecc__msg__server_8c_a0f14a2c56d94ff2b0b57d434b7f3a66f}{openavb\+Avdecc\+Msg\+Srvr\+Hndl\+Talker\+Stream\+I\+D\+From\+Client} (int avdecc\+Msg\+Handle, \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} sr\+\_\+class, const \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} stream\+\_\+src\+\_\+mac\mbox{[}6\mbox{]}, \hyperlink{openavb__types__base__pub_8h_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16} stream\+\_\+uid, const \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} stream\+\_\+dest\+\_\+mac\mbox{[}6\mbox{]}, \hyperlink{openavb__types__base__pub_8h_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16} stream\+\_\+vlan\+\_\+id)
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__avdecc__msg__server_8c_a1467581d80d2d3326eeed7edbeba5e2e}{openavb\+Avdecc\+Msg\+Srvr\+Listener\+Stream\+ID} (int avdecc\+Msg\+Handle, \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} sr\+\_\+class, const \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} stream\+\_\+src\+\_\+mac\mbox{[}6\mbox{]}, \hyperlink{openavb__types__base__pub_8h_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16} stream\+\_\+uid, const \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} stream\+\_\+dest\+\_\+mac\mbox{[}6\mbox{]}, \hyperlink{openavb__types__base__pub_8h_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16} stream\+\_\+vlan\+\_\+id)
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__avdecc__msg__server_8c_aa4cbb5bd7782544a3082651feab74c67}{openavb\+Avdecc\+Msg\+Srvr\+Talker\+Stream\+ID} (int avdecc\+Msg\+Handle, \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} sr\+\_\+class, \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} stream\+\_\+id\+\_\+valid, const \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} stream\+\_\+src\+\_\+mac\mbox{[}6\mbox{]}, \hyperlink{openavb__types__base__pub_8h_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16} stream\+\_\+uid, \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} stream\+\_\+dest\+\_\+valid, const \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} stream\+\_\+dest\+\_\+mac\mbox{[}6\mbox{]}, \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} stream\+\_\+vlan\+\_\+id\+\_\+valid, \hyperlink{openavb__types__base__pub_8h_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16} stream\+\_\+vlan\+\_\+id)
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__avdecc__msg__server_8c_aa809f16bc156aa0da2fc317d6e3c7e3e}{openavb\+Avdecc\+Msg\+Srvr\+Change\+Request} (int avdecc\+Msg\+Handle, \hyperlink{openavb__avdecc__msg_8h_a6d563e9a9b24941adb933082f8609d76}{openavb\+Avdecc\+Msg\+State\+Type\+\_\+t} desired\+State)
+\item 
+static const char $\ast$ \hyperlink{openavb__avdecc__msg__server_8c_a4cf9ed9920f3aaa1cccd291bff2861fc}{Get\+State\+String} (\hyperlink{openavb__avdecc__msg_8h_a6d563e9a9b24941adb933082f8609d76}{openavb\+Avdecc\+Msg\+State\+Type\+\_\+t} state)
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__avdecc__msg__server_8c_af14db0c8056b4fb9fd56e2f1c32bd378}{openavb\+Avdecc\+Msg\+Srvr\+Hndl\+Change\+Notification\+From\+Client} (int avdecc\+Msg\+Handle, \hyperlink{openavb__avdecc__msg_8h_a6d563e9a9b24941adb933082f8609d76}{openavb\+Avdecc\+Msg\+State\+Type\+\_\+t} current\+State)
+\item 
+void \hyperlink{openavb__avdecc__msg__server_8c_a52e4100259b2b23af45ba4edef078a1e}{openavb\+Avdecc\+Msg\+Srvr\+Close\+Client\+Connection} (int avdecc\+Msg\+Handle)
+\end{DoxyCompactItemize}
+\subsection*{변수}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structopenavb__avdecc__cfg__t}{openavb\+\_\+avdecc\+\_\+cfg\+\_\+t} \hyperlink{openavb__avdecc__msg__server_8c_a142e959837c765cd9a1767b886421315}{g\+Avdecc\+Cfg}
+\item 
+\hyperlink{openavb__avdecc__read__ini__pub_8h_a2c6c3608b0b8c34af5fa95c11753cfc0}{openavb\+\_\+tl\+\_\+data\+\_\+cfg\+\_\+t} $\ast$ \hyperlink{openavb__avdecc__msg__server_8c_a05103147a57cffafe1b923c6e611bbb7}{stream\+List}
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c@{openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c}!A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT@{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}}
+\index{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT@{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}!openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c@{openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c}}
+\subsubsection[{\texorpdfstring{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}{AVB_LOG_COMPONENT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT~\char`\"{}A\+V\+D\+E\+CC Msg\char`\"{}}\hypertarget{openavb__avdecc__msg__server_8c_abcfb21b6495585fe36058f57a9fe58fc}{}\label{openavb__avdecc__msg__server_8c_abcfb21b6495585fe36058f57a9fe58fc}
+
+
+openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c 파일의 52 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{함수 문서화}
+\index{openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c@{openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c}!Get\+State\+String@{Get\+State\+String}}
+\index{Get\+State\+String@{Get\+State\+String}!openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c@{openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c}}
+\subsubsection[{\texorpdfstring{Get\+State\+String(openavb\+Avdecc\+Msg\+State\+Type\+\_\+t state)}{GetStateString(openavbAvdeccMsgStateType_t state)}}]{\setlength{\rightskip}{0pt plus 5cm}static const char$\ast$ Get\+State\+String (
+\begin{DoxyParamCaption}
+\item[{{\bf openavb\+Avdecc\+Msg\+State\+Type\+\_\+t}}]{state}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__avdecc__msg__server_8c_a4cf9ed9920f3aaa1cccd291bff2861fc}{}\label{openavb__avdecc__msg__server_8c_a4cf9ed9920f3aaa1cccd291bff2861fc}
+
+
+openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c 파일의 338 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+339 \{
+340     \textcolor{keywordflow}{switch} (state) \{
+341     \textcolor{keywordflow}{case} \hyperlink{openavb__avdecc__msg_8h_a6d563e9a9b24941adb933082f8609d76ad6b020650c7cb07978983ff138ee2759}{OPENAVB\_AVDECC\_MSG\_UNKNOWN}:
+342         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"Unknown"};
+343     \textcolor{keywordflow}{case} \hyperlink{openavb__avdecc__msg_8h_a6d563e9a9b24941adb933082f8609d76aa1bafd4307d4e58987477873770af7ac}{OPENAVB\_AVDECC\_MSG\_STOPPED}:
+344         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"Stopped"};
+345     \textcolor{keywordflow}{case} \hyperlink{openavb__avdecc__msg_8h_a6d563e9a9b24941adb933082f8609d76aabd200021bcc930889f0e99386edcf4b}{OPENAVB\_AVDECC\_MSG\_RUNNING}:
+346         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"Running"};
+347     \textcolor{keywordflow}{case} \hyperlink{openavb__avdecc__msg_8h_a6d563e9a9b24941adb933082f8609d76a45537e5c8940b75f113f50fa30164c13}{OPENAVB\_AVDECC\_MSG\_PAUSED}:
+348         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"Paused"};
+349     \textcolor{keywordflow}{case} \hyperlink{openavb__avdecc__msg_8h_a6d563e9a9b24941adb933082f8609d76aac721828c7363c034a5dacb5bcdd8a37}{OPENAVB\_AVDECC\_MSG\_STOPPED\_UNEXPECTEDLY}:
+350         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"Stopped\_Unexpectedly"};
+351     \textcolor{keywordflow}{default}:
+352         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"ERROR"};
+353     \}
+354 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__avdecc__msg__server_8c_a4cf9ed9920f3aaa1cccd291bff2861fc_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c@{openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c}!openavb\+Avdecc\+Msg\+Srvr\+Change\+Request@{openavb\+Avdecc\+Msg\+Srvr\+Change\+Request}}
+\index{openavb\+Avdecc\+Msg\+Srvr\+Change\+Request@{openavb\+Avdecc\+Msg\+Srvr\+Change\+Request}!openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c@{openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Avdecc\+Msg\+Srvr\+Change\+Request(int avdecc\+Msg\+Handle, openavb\+Avdecc\+Msg\+State\+Type\+\_\+t desired\+State)}{openavbAvdeccMsgSrvrChangeRequest(int avdeccMsgHandle, openavbAvdeccMsgStateType_t desiredState)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} openavb\+Avdecc\+Msg\+Srvr\+Change\+Request (
+\begin{DoxyParamCaption}
+\item[{int}]{avdecc\+Msg\+Handle, }
+\item[{{\bf openavb\+Avdecc\+Msg\+State\+Type\+\_\+t}}]{desired\+State}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__avdecc__msg__server_8c_aa809f16bc156aa0da2fc317d6e3c7e3e}{}\label{openavb__avdecc__msg__server_8c_aa809f16bc156aa0da2fc317d6e3c7e3e}
+
+
+openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c 파일의 311 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+312 \{
+313     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(AVB\_TRACE\_AVDECC\_MSG);
+314     \hyperlink{structopenavb_avdecc_message__t}{openavbAvdeccMessage\_t} msgBuf;
+315 
+316     \hyperlink{struct__avdecc__msg__state}{avdecc\_msg\_state\_t} *pState = \hyperlink{openavb__avdecc__msg_8c_abdf279cc6395304642dcc6634ee4de88}{AvdeccMsgStateListGet}(
+      avdeccMsgHandle);
+317     \textcolor{keywordflow}{if} (!pState) \{
+318         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"avdeccMsgHandle %d not valid"}, avdeccMsgHandle);
+319         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(AVB\_TRACE\_AVDECC\_MSG);
+320         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+321     \}
+322 
+323     memset(&msgBuf, 0, \hyperlink{openavb__avdecc__msg_8h_aa6e0748c980607a09d67eeff364fb6a8}{OPENAVB\_AVDECC\_MSG\_LEN});
+324     msgBuf.\hyperlink{structopenavb_avdecc_message__t_ae93b36f3af793c202d59cd2edf50835b}{type} = \hyperlink{openavb__avdecc__msg_8h_a6d378fbc94d29fb8273795ebf8600b6aa459e85f79fa9cf64e4de0d38fce010a2}{OPENAVB\_AVDECC\_MSG\_CLIENT\_CHANGE\_REQUEST};
+325     \hyperlink{structopenavb_avdecc_msg_params___client_change_request__t}{openavbAvdeccMsgParams\_ClientChangeRequest\_t} * pParams =
+326         &(msgBuf.\hyperlink{structopenavb_avdecc_message__t_ac4afd7e03fbcb40085aff2fc50dc6df6}{params}.\hyperlink{structopenavb_avdecc_message__t_adff547ff3c523035d6592584f0e5b3c6}{clientChangeRequest});
+327     pParams->\hyperlink{structopenavb_avdecc_msg_params___client_change_request__t_aee37f0f9bbbc6430abe622740f953405}{desired\_state} = (\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8}) desiredState;
+328     \textcolor{keywordtype}{bool} ret = \hyperlink{openavb__avdecc__msg__server__osal_8c_aec6546f6ca847a22ec306b96f9428d86}{openavbAvdeccMsgSrvrSendToClient}(avdeccMsgHandle, &msgBuf);
+329     \textcolor{keywordflow}{if} (ret) \{
+330         \textcolor{comment}{// Save the requested state for future reference.}
+331         pState->\hyperlink{struct__avdecc__msg__state_ab772ed066355c575afa9a27c1d654c36}{lastRequestedState} = desiredState;
+332     \}
+333 
+334     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(AVB\_TRACE\_AVDECC\_MSG);
+335     \textcolor{keywordflow}{return} ret;
+336 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__avdecc__msg__server_8c_aa809f16bc156aa0da2fc317d6e3c7e3e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__avdecc__msg__server_8c_aa809f16bc156aa0da2fc317d6e3c7e3e_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c@{openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c}!openavb\+Avdecc\+Msg\+Srvr\+Close\+Client\+Connection@{openavb\+Avdecc\+Msg\+Srvr\+Close\+Client\+Connection}}
+\index{openavb\+Avdecc\+Msg\+Srvr\+Close\+Client\+Connection@{openavb\+Avdecc\+Msg\+Srvr\+Close\+Client\+Connection}!openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c@{openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Avdecc\+Msg\+Srvr\+Close\+Client\+Connection(int avdecc\+Msg\+Handle)}{openavbAvdeccMsgSrvrCloseClientConnection(int avdeccMsgHandle)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Avdecc\+Msg\+Srvr\+Close\+Client\+Connection (
+\begin{DoxyParamCaption}
+\item[{int}]{avdecc\+Msg\+Handle}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__avdecc__msg__server_8c_a52e4100259b2b23af45ba4edef078a1e}{}\label{openavb__avdecc__msg__server_8c_a52e4100259b2b23af45ba4edef078a1e}
+
+
+openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c 파일의 449 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+450 \{
+451     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(AVB\_TRACE\_AVDECC\_MSG);
+452 
+453     \textcolor{comment}{// Free the state for this handle.}
+454     \hyperlink{struct__avdecc__msg__state}{avdecc\_msg\_state\_t} *pState = \hyperlink{openavb__avdecc__msg_8c_abdf279cc6395304642dcc6634ee4de88}{AvdeccMsgStateListGet}(
+      avdeccMsgHandle);
+455     \textcolor{keywordflow}{if} (pState) \{
+456         \hyperlink{openavb__avdecc__msg_8c_a53d4572937c3807ffaa821a576ff8e56}{AvdeccMsgStateListRemove}(pState);
+457         \textcolor{keywordflow}{if} (\hyperlink{openavb__avdecc__msg__server_8c_a05103147a57cffafe1b923c6e611bbb7}{streamList} && pState->\hyperlink{struct__avdecc__msg__state_a92c9ac28f244e59bcba3681be48f1c86}{stream}) \{
+458             \textcolor{comment}{// Clear the stream pointer to this object.}
+459             pState->\hyperlink{struct__avdecc__msg__state_a92c9ac28f244e59bcba3681be48f1c86}{stream} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+460         \}
+461         \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(pState);
+462 
+463         \textcolor{comment}{// If there are no more Talkers or Listeners, stop ADP.}
+464         \textcolor{keywordflow}{if} (\hyperlink{openavb__avdecc__msg_8c_a5b9b3a4f607ecd1b58486ed0133b1bf8}{AvdeccMsgStateListGetIndex}(0) == \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \{
+465             \hyperlink{openavb__adp_8c_a1f1d4402ee9ddb136ff6d4b7046d0a26}{openavbAdpHaveTL}(\textcolor{keyword}{false});
+466         \}
+467     \}
+468 
+469     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(AVB\_TRACE\_AVDECC\_MSG);
+470 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__avdecc__msg__server_8c_a52e4100259b2b23af45ba4edef078a1e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__avdecc__msg__server_8c_a52e4100259b2b23af45ba4edef078a1e_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c@{openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c}!openavb\+Avdecc\+Msg\+Srvr\+Hndl\+Change\+Notification\+From\+Client@{openavb\+Avdecc\+Msg\+Srvr\+Hndl\+Change\+Notification\+From\+Client}}
+\index{openavb\+Avdecc\+Msg\+Srvr\+Hndl\+Change\+Notification\+From\+Client@{openavb\+Avdecc\+Msg\+Srvr\+Hndl\+Change\+Notification\+From\+Client}!openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c@{openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Avdecc\+Msg\+Srvr\+Hndl\+Change\+Notification\+From\+Client(int avdecc\+Msg\+Handle, openavb\+Avdecc\+Msg\+State\+Type\+\_\+t current\+State)}{openavbAvdeccMsgSrvrHndlChangeNotificationFromClient(int avdeccMsgHandle, openavbAvdeccMsgStateType_t currentState)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} openavb\+Avdecc\+Msg\+Srvr\+Hndl\+Change\+Notification\+From\+Client (
+\begin{DoxyParamCaption}
+\item[{int}]{avdecc\+Msg\+Handle, }
+\item[{{\bf openavb\+Avdecc\+Msg\+State\+Type\+\_\+t}}]{current\+State}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__avdecc__msg__server_8c_af14db0c8056b4fb9fd56e2f1c32bd378}{}\label{openavb__avdecc__msg__server_8c_af14db0c8056b4fb9fd56e2f1c32bd378}
+
+
+openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c 파일의 356 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+357 \{
+358     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(AVB\_TRACE\_AVDECC\_MSG);
+359 
+360     \hyperlink{struct__avdecc__msg__state}{avdecc\_msg\_state\_t} *pState = \hyperlink{openavb__avdecc__msg_8c_abdf279cc6395304642dcc6634ee4de88}{AvdeccMsgStateListGet}(
+      avdeccMsgHandle);
+361     \textcolor{keywordflow}{if} (!pState) \{
+362         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"avdeccMsgHandle %d not valid"}, avdeccMsgHandle);
+363         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(AVB\_TRACE\_AVDECC\_MSG);
+364         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+365     \}
+366 
+367     \textcolor{comment}{// Save the updated state.}
+368     \textcolor{keywordflow}{if} (currentState != pState->\hyperlink{struct__avdecc__msg__state_a9e84fb07ee536b1bca410ee6c9eebea5}{lastReportedState}) \{
+369         \hyperlink{openavb__avdecc__msg_8h_a6d563e9a9b24941adb933082f8609d76}{openavbAvdeccMsgStateType\_t} previousState = pState->
+      \hyperlink{struct__avdecc__msg__state_a9e84fb07ee536b1bca410ee6c9eebea5}{lastReportedState};
+370         pState->\hyperlink{struct__avdecc__msg__state_a9e84fb07ee536b1bca410ee6c9eebea5}{lastReportedState} = currentState;
+371         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a2be7e90c7cb63f12b221ed1cd4999185}{AVB\_LOGF\_INFO}(\textcolor{stringliteral}{"Notified of client %d state change from %s to %s (Last requested:  %s)"}
+      ,
+372                 avdeccMsgHandle, \hyperlink{openavb__avdecc__msg__server_8c_a4cf9ed9920f3aaa1cccd291bff2861fc}{GetStateString}(previousState), 
+      \hyperlink{openavb__avdecc__msg__server_8c_a4cf9ed9920f3aaa1cccd291bff2861fc}{GetStateString}(currentState), \hyperlink{openavb__avdecc__msg__server_8c_a4cf9ed9920f3aaa1cccd291bff2861fc}{GetStateString}(pState->
+      \hyperlink{struct__avdecc__msg__state_ab772ed066355c575afa9a27c1d654c36}{lastRequestedState}));
+373 
+374         \textcolor{comment}{// If AVDECC did not yet set the client state, set the client state to the desired state.}
+375         \textcolor{keywordflow}{if} (pState->\hyperlink{struct__avdecc__msg__state_ab772ed066355c575afa9a27c1d654c36}{lastRequestedState} == 
+      \hyperlink{openavb__avdecc__msg_8h_a6d563e9a9b24941adb933082f8609d76ad6b020650c7cb07978983ff138ee2759}{OPENAVB\_AVDECC\_MSG\_UNKNOWN}) \{
+376             \textcolor{keywordflow}{if} (pState->\hyperlink{struct__avdecc__msg__state_a92c9ac28f244e59bcba3681be48f1c86}{stream}->\hyperlink{structopenavb__tl__data__cfg_af00cb7d534b8d163f482aacb7bf9661d}{initial\_state} == 
+      \hyperlink{build_2sdk__eavb_2openavb__tl__pub_8h_a3db837d528f98176f3e7225a53d0abaaae167656c605ae339d16f6d15c3567418}{TL\_INIT\_STATE\_RUNNING} && pState->\hyperlink{struct__avdecc__msg__state_a9e84fb07ee536b1bca410ee6c9eebea5}{lastReportedState} != 
+      \hyperlink{openavb__avdecc__msg_8h_a6d563e9a9b24941adb933082f8609d76aabd200021bcc930889f0e99386edcf4b}{OPENAVB\_AVDECC\_MSG\_RUNNING}) \{
+377                 \textcolor{comment}{// Have the client be running if the user explicitly requested it to be running.}
+378                 \hyperlink{openavb__avdecc__msg__server_8c_aa809f16bc156aa0da2fc317d6e3c7e3e}{openavbAvdeccMsgSrvrChangeRequest}(avdeccMsgHandle, 
+      \hyperlink{openavb__avdecc__msg_8h_a6d563e9a9b24941adb933082f8609d76aabd200021bcc930889f0e99386edcf4b}{OPENAVB\_AVDECC\_MSG\_RUNNING});
+379             \}
+380             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (pState->\hyperlink{struct__avdecc__msg__state_a92c9ac28f244e59bcba3681be48f1c86}{stream}->\hyperlink{structopenavb__tl__data__cfg_af00cb7d534b8d163f482aacb7bf9661d}{initial\_state} != 
+      \hyperlink{build_2sdk__eavb_2openavb__tl__pub_8h_a3db837d528f98176f3e7225a53d0abaaae167656c605ae339d16f6d15c3567418}{TL\_INIT\_STATE\_RUNNING} && pState->\hyperlink{struct__avdecc__msg__state_a9e84fb07ee536b1bca410ee6c9eebea5}{lastReportedState} == 
+      \hyperlink{openavb__avdecc__msg_8h_a6d563e9a9b24941adb933082f8609d76aabd200021bcc930889f0e99386edcf4b}{OPENAVB\_AVDECC\_MSG\_RUNNING}) \{
+381                 \textcolor{comment}{// Have the client not be running if the user didn't explicitly request it to be running.}
+382                 \hyperlink{openavb__avdecc__msg__server_8c_aa809f16bc156aa0da2fc317d6e3c7e3e}{openavbAvdeccMsgSrvrChangeRequest}(avdeccMsgHandle, 
+      \hyperlink{openavb__avdecc__msg_8h_a6d563e9a9b24941adb933082f8609d76aa1bafd4307d4e58987477873770af7ac}{OPENAVB\_AVDECC\_MSG\_STOPPED});
+383             \}
+384             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{openavb__avdecc__msg__server_8c_a142e959837c765cd9a1767b886421315}{gAvdeccCfg}.\hyperlink{structopenavb__avdecc__cfg__t_af2d13c6414749c36d13faf34d3bbbd40}{bFastConnectSupported} &&
+385                     !(pState->\hyperlink{struct__avdecc__msg__state_a0d87b8d47bb02e4d8e93b056d72f870c}{bTalker}) &&
+386                     pState->\hyperlink{struct__avdecc__msg__state_a9e84fb07ee536b1bca410ee6c9eebea5}{lastReportedState} == 
+      \hyperlink{openavb__avdecc__msg_8h_a6d563e9a9b24941adb933082f8609d76aa1bafd4307d4e58987477873770af7ac}{OPENAVB\_AVDECC\_MSG\_STOPPED}) \{
+387                 \textcolor{comment}{// Listener started as not running, and is not configured to start in the running state.}
+388                 \textcolor{comment}{// See if we should do a fast connect using the saved state.}
+389                 \hyperlink{structopenavb__tl__data__cfg}{openavb\_tl\_data\_cfg\_t} *pCfg = pState->
+      \hyperlink{struct__avdecc__msg__state_a92c9ac28f244e59bcba3681be48f1c86}{stream};
+390                 \textcolor{keywordflow}{if} (pCfg) \{
+391                     \hyperlink{openavb__types__base__pub_8h_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16} \hyperlink{namespaceavdecc__lib_ab6b306ef981f5e21bb41ea2c2dbe8cd9}{flags}, talker\_unique\_id;
+392                     \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} talker\_entity\_id[8], controller\_entity\_id[8];
+393                     \textcolor{keywordtype}{bool} bAvailable = \hyperlink{openavb__avdecc__read__ini__pub_8h_a3a59dfcc244d7c0644380666afedeb19}{openavbAvdeccGetSaveStateInfo}(pCfg, &
+      flags, &talker\_unique\_id, &talker\_entity\_id, &controller\_entity\_id);
+394                     \textcolor{keywordflow}{if} (bAvailable) \{
+395                         \hyperlink{openavb__acmp__sm__listener_8c_ab227c151117adba931092db0db07afba}{openavbAcmpSMListenerSet\_doFastConnect}(pCfg, 
+      flags, talker\_unique\_id, talker\_entity\_id, controller\_entity\_id);
+396                     \}
+397                 \}
+398             \}
+399         \}
+400         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (currentState == \hyperlink{openavb__avdecc__msg_8h_a6d563e9a9b24941adb933082f8609d76aac721828c7363c034a5dacb5bcdd8a37}{OPENAVB\_AVDECC\_MSG\_STOPPED\_UNEXPECTEDLY}
+      ) \{
+401             \textcolor{keywordflow}{if} (previousState != \hyperlink{openavb__avdecc__msg_8h_a6d563e9a9b24941adb933082f8609d76aac721828c7363c034a5dacb5bcdd8a37}{OPENAVB\_AVDECC\_MSG\_STOPPED\_UNEXPECTEDLY}
+       &&
+402                     pState->\hyperlink{struct__avdecc__msg__state_ab772ed066355c575afa9a27c1d654c36}{lastRequestedState} == 
+      \hyperlink{openavb__avdecc__msg_8h_a6d563e9a9b24941adb933082f8609d76aabd200021bcc930889f0e99386edcf4b}{OPENAVB\_AVDECC\_MSG\_RUNNING} &&
+403                     \hyperlink{openavb__avdecc__msg__server_8c_a142e959837c765cd9a1767b886421315}{gAvdeccCfg}.\hyperlink{structopenavb__avdecc__cfg__t_af2d13c6414749c36d13faf34d3bbbd40}{bFastConnectSupported}) \{
+404                 \textcolor{comment}{// The Talker disappeared.  Use fast connect to assist with reconnecting if it reappears.}
+405                 \hyperlink{structopenavb__tl__data__cfg}{openavb\_tl\_data\_cfg\_t} *pCfg = pState->
+      \hyperlink{struct__avdecc__msg__state_a92c9ac28f244e59bcba3681be48f1c86}{stream};
+406                 \textcolor{keywordflow}{if} (pCfg) \{
+407                     \hyperlink{openavb__types__base__pub_8h_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16} \hyperlink{namespaceavdecc__lib_ab6b306ef981f5e21bb41ea2c2dbe8cd9}{flags}, talker\_unique\_id;
+408                     \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} talker\_entity\_id[8], controller\_entity\_id[8];
+409                     \textcolor{keywordtype}{bool} bAvailable = \hyperlink{openavb__avdecc__read__ini__pub_8h_a3a59dfcc244d7c0644380666afedeb19}{openavbAvdeccGetSaveStateInfo}(pCfg, &
+      flags, &talker\_unique\_id, &talker\_entity\_id, &controller\_entity\_id);
+410                     \textcolor{keywordflow}{if} (bAvailable) \{
+411                         \textcolor{comment}{// Set the timed-out status for the Listener's descriptor.}
+412                         \textcolor{comment}{// The next time the Talker advertises itself,
+       openavbAcmpSMListenerSet\_talkerTestFastConnect() should try to reconnect.}
+413                         \hyperlink{structopenavb__aem__descriptor__stream__io__t}{openavb\_aem\_descriptor\_stream\_io\_t} *pDescriptor;
+414                         \hyperlink{openavb__types__base__pub_8h_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16} listenerUniqueId;
+415                         \textcolor{keywordflow}{for} (listenerUniqueId = 0; listenerUniqueId < 0xFFFF; ++listenerUniqueId) \{
+416                             pDescriptor = \hyperlink{openavb__aem_8c_a3a159070b7997da78614075d8a277485}{openavbAemGetDescriptor}(
+      \hyperlink{openavb__aem_8c_aee7700ec752480b25acd0a2c5d854169}{openavbAemGetConfigIdx}(), 
+      \hyperlink{openavb__aem__types__pub_8h_a5e3af66c16a6e4af6d5d3422f372be55}{OPENAVB\_AEM\_DESCRIPTOR\_STREAM\_INPUT}, listenerUniqueId);
+417                             \textcolor{keywordflow}{if} (pDescriptor && pDescriptor->\hyperlink{structopenavb__aem__descriptor__stream__io__t_a4dc1fffc055ad41dc931468c7916665f}{stream} &&
+418                                     strcmp(pDescriptor->\hyperlink{structopenavb__aem__descriptor__stream__io__t_a4dc1fffc055ad41dc931468c7916665f}{stream}->
+      \hyperlink{structopenavb__tl__data__cfg_a25c82ac188182d72242fb10f0285a2bd}{friendly\_name}, pCfg->\hyperlink{structopenavb__tl__data__cfg_a25c82ac188182d72242fb10f0285a2bd}{friendly\_name}) == 0) \{
+419                                 \textcolor{comment}{// We found a match.}
+420                                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a2be7e90c7cb63f12b221ed1cd4999185}{AVB\_LOGF\_INFO}(\textcolor{stringliteral}{"Listener %s waiting to fast connect to
+       flags=0x%04x, talker\_unique\_id=0x%04x, talker\_entity\_id="} \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a2a3dc3ce1982b3a859b968268f2945ef}{ENTITYID\_FORMAT} \textcolor{stringliteral}{", controller\_entity\_id="} 
+      \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a2a3dc3ce1982b3a859b968268f2945ef}{ENTITYID\_FORMAT},
+421                                         pCfg->\hyperlink{structopenavb__tl__data__cfg_a25c82ac188182d72242fb10f0285a2bd}{friendly\_name},
+422                                         flags,
+423                                         talker\_unique\_id,
+424                                         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_af361c6d79888b72d21c410bd60035121}{ENTITYID\_ARGS}(talker\_entity\_id),
+425                                         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_af361c6d79888b72d21c410bd60035121}{ENTITYID\_ARGS}(controller\_entity\_id));
+426                                 pDescriptor->\hyperlink{structopenavb__aem__descriptor__stream__io__t_a27979bafb0c8d81df88d4310ca08b94b}{fast\_connect\_status} = 
+      \hyperlink{openavb__descriptor__stream__io__pub_8h_ae6ea02b4f869c41577cfeba2d0c709b4a02c6aa2767d16de9c487e7d67499ac30}{OPENAVB\_FAST\_CONNECT\_STATUS\_TIMED\_OUT};
+427                                 memcpy(pDescriptor->
+      \hyperlink{structopenavb__aem__descriptor__stream__io__t_ab0faa2b4ba9b5db39237037c43093be0}{fast\_connect\_talker\_entity\_id}, talker\_entity\_id, \textcolor{keyword}{sizeof}(pDescriptor->
+      \hyperlink{structopenavb__aem__descriptor__stream__io__t_ab0faa2b4ba9b5db39237037c43093be0}{fast\_connect\_talker\_entity\_id}));
+428                                 \hyperlink{build_2sdk__eavb_2openavb__time__osal__pub_8h_adcbbf5c8513dfa6442d6669d5b190b7e}{CLOCK\_GETTIME}(
+      \hyperlink{build_2sdk__eavb_2openavb__time__osal__pub_8h_a8a087678c40dd3f078c5bce1297a62b8a94d9239257b8a212a60a5dcb7ae1b9bb}{OPENAVB\_CLOCK\_REALTIME}, &pDescriptor->
+      \hyperlink{structopenavb__aem__descriptor__stream__io__t_a2409d602e72d4f5a62ec6eaa7e68281b}{fast\_connect\_start\_time});
+429                                 pDescriptor->\hyperlink{structopenavb__aem__descriptor__stream__io__t_a2409d602e72d4f5a62ec6eaa7e68281b}{fast\_connect\_start\_time}.tv\_sec += 5;    \textcolor{comment}{
+      // Give the Talker some time to shutdown or stabilize}
+430                                 \textcolor{keywordflow}{break};
+431                             \}
+432                         \}
+433                     \}
+434                 \}
+435             \}
+436 
+437             \textcolor{comment}{// Now that we have handled this, treat this state as a normal stop.}
+438             pState->\hyperlink{struct__avdecc__msg__state_a9e84fb07ee536b1bca410ee6c9eebea5}{lastReportedState} = 
+      \hyperlink{openavb__avdecc__msg_8h_a6d563e9a9b24941adb933082f8609d76aa1bafd4307d4e58987477873770af7ac}{OPENAVB\_AVDECC\_MSG\_STOPPED};
+439         \}
+440     \}
+441 
+442     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(AVB\_TRACE\_AVDECC\_MSG);
+443     \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+444 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__avdecc__msg__server_8c_af14db0c8056b4fb9fd56e2f1c32bd378_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__avdecc__msg__server_8c_af14db0c8056b4fb9fd56e2f1c32bd378_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c@{openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c}!openavb\+Avdecc\+Msg\+Srvr\+Hndl\+Init\+Identify\+From\+Client@{openavb\+Avdecc\+Msg\+Srvr\+Hndl\+Init\+Identify\+From\+Client}}
+\index{openavb\+Avdecc\+Msg\+Srvr\+Hndl\+Init\+Identify\+From\+Client@{openavb\+Avdecc\+Msg\+Srvr\+Hndl\+Init\+Identify\+From\+Client}!openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c@{openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Avdecc\+Msg\+Srvr\+Hndl\+Init\+Identify\+From\+Client(int avdecc\+Msg\+Handle, char $\ast$friendly\+\_\+name, U8 talker)}{openavbAvdeccMsgSrvrHndlInitIdentifyFromClient(int avdeccMsgHandle, char *friendly_name, U8 talker)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} openavb\+Avdecc\+Msg\+Srvr\+Hndl\+Init\+Identify\+From\+Client (
+\begin{DoxyParamCaption}
+\item[{int}]{avdecc\+Msg\+Handle, }
+\item[{char $\ast$}]{friendly\+\_\+name, }
+\item[{{\bf U8}}]{talker}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__avdecc__msg__server_8c_ac23e92150076b83495aebbe7c048d335}{}\label{openavb__avdecc__msg__server_8c_ac23e92150076b83495aebbe7c048d335}
+
+
+openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c 파일의 147 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+148 \{
+149     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(AVB\_TRACE\_AVDECC\_MSG);
+150     \hyperlink{structopenavb__tl__data__cfg}{openavb\_tl\_data\_cfg\_t} * currentStream;
+151 
+152     \hyperlink{struct__avdecc__msg__state}{avdecc\_msg\_state\_t} *pState = \hyperlink{openavb__avdecc__msg_8c_abdf279cc6395304642dcc6634ee4de88}{AvdeccMsgStateListGet}(
+      avdeccMsgHandle);
+153     \textcolor{keywordflow}{if} (pState) \{
+154         \textcolor{comment}{// The handle was already specified.  Something has gone terribly wrong!}
+155         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"avdeccMsgHandle %d already used"}, avdeccMsgHandle);
+156         \hyperlink{openavb__avdecc__msg_8c_a53d4572937c3807ffaa821a576ff8e56}{AvdeccMsgStateListRemove}(pState);
+157         \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(pState);
+158         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(AVB\_TRACE\_AVDECC\_MSG);
+159         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+160     \}
+161 
+162     \textcolor{comment}{// Make sure the supplied string is nil-terminated.}
+163     friendly\_name[\hyperlink{openavb__avdecc__read__ini__pub_8h_a29d83e67ee30c78c6ed81c188a433c10}{FRIENDLY\_NAME\_SIZE} - 1] = \textcolor{charliteral}{'\(\backslash\)0'};
+164 
+165     \textcolor{comment}{// Create a structure to hold the client information.}
+166     pState = (\hyperlink{struct__avdecc__msg__state}{avdecc\_msg\_state\_t} *) \hyperlink{_memory_leak_detector_malloc_macros_8h_a7cbb7b79af9d539af55b59dfc3598390}{calloc}(1, \textcolor{keyword}{sizeof}(
+      \hyperlink{struct__avdecc__msg__state}{avdecc\_msg\_state\_t}));
+167     \textcolor{keywordflow}{if} (!pState) \{
+168         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(AVB\_TRACE\_AVDECC\_MSG);
+169         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+170     \}
+171     pState->\hyperlink{struct__avdecc__msg__state_a0ec8286c7813affa4fbe99bc5ce31f5a}{avdeccMsgHandle} = avdeccMsgHandle;
+172     pState->\hyperlink{struct__avdecc__msg__state_a0d87b8d47bb02e4d8e93b056d72f870c}{bTalker} = (talker != 0);
+173     pState->\hyperlink{struct__avdecc__msg__state_ab772ed066355c575afa9a27c1d654c36}{lastRequestedState} = pState->\hyperlink{struct__avdecc__msg__state_a9e84fb07ee536b1bca410ee6c9eebea5}{lastReportedState} = 
+      \hyperlink{openavb__avdecc__msg_8h_a6d563e9a9b24941adb933082f8609d76ad6b020650c7cb07978983ff138ee2759}{OPENAVB\_AVDECC\_MSG\_UNKNOWN};
+174 
+175     \textcolor{comment}{// Find the state information matching this item.}
+176     \textcolor{keywordflow}{for} (currentStream = \hyperlink{openavb__avdecc__msg__server_8c_a05103147a57cffafe1b923c6e611bbb7}{streamList}; currentStream != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}; currentStream = currentStream->
+      \hyperlink{structopenavb__tl__data__cfg_a46f524e45db4fe7e0158366e4e8e6b5a}{next}) \{
+177         \textcolor{keywordflow}{if} (strncmp(currentStream->\hyperlink{structopenavb__tl__data__cfg_a25c82ac188182d72242fb10f0285a2bd}{friendly\_name}, friendly\_name, 
+      \hyperlink{openavb__avdecc__read__ini__pub_8h_a29d83e67ee30c78c6ed81c188a433c10}{FRIENDLY\_NAME\_SIZE}) == 0)
+178         \{
+179             \textcolor{keywordflow}{break};
+180         \}
+181     \}
+182     \textcolor{keywordflow}{if} (!currentStream) \{
+183         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a6b02336e691e2e0579d2a5bb06367296}{AVB\_LOGF\_WARNING}(\textcolor{stringliteral}{"Ignoring unexpected client %d, friendly\_name:  %s"},
+184             avdeccMsgHandle, friendly\_name);
+185         \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(pState);
+186         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(AVB\_TRACE\_AVDECC\_MSG);
+187         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+188     \}
+189 
+190     \textcolor{comment}{// Keep track of this new state item.}
+191     \textcolor{keywordflow}{if} (!\hyperlink{openavb__avdecc__msg_8c_a1bfb6a8cb71011fd4e3c73cf29d660e8}{AvdeccMsgStateListAdd}(pState)) \{
+192         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Error saving client identity information %d"}, avdeccMsgHandle);
+193         \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(pState);
+194         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(AVB\_TRACE\_AVDECC\_MSG);
+195         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+196     \}
+197 
+198     \textcolor{comment}{// Associate this Listener instance with the stream information.}
+199     pState->\hyperlink{struct__avdecc__msg__state_a92c9ac28f244e59bcba3681be48f1c86}{stream} = currentStream;
+200     currentStream->\hyperlink{structopenavb__tl__data__cfg_ab98c74d1747db368639fb4a95a8546c5}{client} = pState;
+201 
+202     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a2be7e90c7cb63f12b221ed1cd4999185}{AVB\_LOGF\_INFO}(\textcolor{stringliteral}{"Client %d Detected, friendly\_name:  %s"},
+203         avdeccMsgHandle, friendly\_name);
+204 
+205     \textcolor{comment}{// Enable ADP support, now that we have at least one Talker/Listener.}
+206     \hyperlink{openavb__adp_8c_a1f1d4402ee9ddb136ff6d4b7046d0a26}{openavbAdpHaveTL}(\textcolor{keyword}{true});
+207 
+208     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(AVB\_TRACE\_AVDECC\_MSG);
+209     \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+210 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__avdecc__msg__server_8c_ac23e92150076b83495aebbe7c048d335_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__avdecc__msg__server_8c_ac23e92150076b83495aebbe7c048d335_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c@{openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c}!openavb\+Avdecc\+Msg\+Srvr\+Hndl\+Talker\+Stream\+I\+D\+From\+Client@{openavb\+Avdecc\+Msg\+Srvr\+Hndl\+Talker\+Stream\+I\+D\+From\+Client}}
+\index{openavb\+Avdecc\+Msg\+Srvr\+Hndl\+Talker\+Stream\+I\+D\+From\+Client@{openavb\+Avdecc\+Msg\+Srvr\+Hndl\+Talker\+Stream\+I\+D\+From\+Client}!openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c@{openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Avdecc\+Msg\+Srvr\+Hndl\+Talker\+Stream\+I\+D\+From\+Client(int avdecc\+Msg\+Handle, U8 sr\+\_\+class, const U8 stream\+\_\+src\+\_\+mac[6], U16 stream\+\_\+uid, const U8 stream\+\_\+dest\+\_\+mac[6], U16 stream\+\_\+vlan\+\_\+id)}{openavbAvdeccMsgSrvrHndlTalkerStreamIDFromClient(int avdeccMsgHandle, U8 sr_class, const U8 stream_src_mac[6], U16 stream_uid, const U8 stream_dest_mac[6], U16 stream_vlan_id)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} openavb\+Avdecc\+Msg\+Srvr\+Hndl\+Talker\+Stream\+I\+D\+From\+Client (
+\begin{DoxyParamCaption}
+\item[{int}]{avdecc\+Msg\+Handle, }
+\item[{{\bf U8}}]{sr\+\_\+class, }
+\item[{const {\bf U8}}]{stream\+\_\+src\+\_\+mac\mbox{[}6\mbox{]}, }
+\item[{{\bf U16}}]{stream\+\_\+uid, }
+\item[{const {\bf U8}}]{stream\+\_\+dest\+\_\+mac\mbox{[}6\mbox{]}, }
+\item[{{\bf U16}}]{stream\+\_\+vlan\+\_\+id}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__avdecc__msg__server_8c_a0f14a2c56d94ff2b0b57d434b7f3a66f}{}\label{openavb__avdecc__msg__server_8c_a0f14a2c56d94ff2b0b57d434b7f3a66f}
+
+
+openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c 파일의 212 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+213 \{
+214     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(AVB\_TRACE\_AVDECC\_MSG);
+215 
+216     \hyperlink{struct__avdecc__msg__state}{avdecc\_msg\_state\_t} *pState = \hyperlink{openavb__avdecc__msg_8c_abdf279cc6395304642dcc6634ee4de88}{AvdeccMsgStateListGet}(
+      avdeccMsgHandle);
+217     \textcolor{keywordflow}{if} (!pState) \{
+218         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"avdeccMsgHandle %d not valid"}, avdeccMsgHandle);
+219         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(AVB\_TRACE\_AVDECC\_MSG);
+220         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+221     \}
+222 
+223     \hyperlink{structopenavb__tl__data__cfg}{openavb\_tl\_data\_cfg\_t} *pCfg = pState->\hyperlink{struct__avdecc__msg__state_a92c9ac28f244e59bcba3681be48f1c86}{stream};
+224     \textcolor{keywordflow}{if} (!pCfg) \{
+225         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"avdeccMsgHandle %d stream not valid"}, avdeccMsgHandle);
+226         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(AVB\_TRACE\_AVDECC\_MSG);
+227         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+228     \}
+229 
+230     \textcolor{comment}{// Update the stream information supplied by the client.}
+231     pCfg->\hyperlink{structopenavb__tl__data__cfg_a39d4e73b306d801de38536c43ef7a5e8}{sr\_class} = sr\_class;
+232     memcpy(pCfg->\hyperlink{structopenavb__tl__data__cfg_aad445ea3a27a465a885b5d56648ad282}{stream\_addr}.\hyperlink{structcfg__mac__t_ab04370ca333258063d83080192e0265d}{buffer}.ether\_addr\_octet, stream\_src\_mac, 6);
+233     pCfg->\hyperlink{structopenavb__tl__data__cfg_aad445ea3a27a465a885b5d56648ad282}{stream\_addr}.\hyperlink{structcfg__mac__t_af2bc5d41ceefb37a387542f87c90ccb8}{mac} = &(pCfg->\hyperlink{structopenavb__tl__data__cfg_aad445ea3a27a465a885b5d56648ad282}{stream\_addr}.\hyperlink{structcfg__mac__t_ab04370ca333258063d83080192e0265d}{buffer}); \textcolor{comment}{// Indicate that
+       the MAC Address is valid.}
+234     pCfg->\hyperlink{structopenavb__tl__data__cfg_a511b2a26fe61b945ced1dd0bab9f2d1b}{stream\_uid} = stream\_uid;
+235     memcpy(pCfg->\hyperlink{structopenavb__tl__data__cfg_adafdd018fad617237267247e6680f87a}{dest\_addr}.\hyperlink{structcfg__mac__t_ab04370ca333258063d83080192e0265d}{buffer}.ether\_addr\_octet, stream\_dest\_mac, 6);
+236     pCfg->\hyperlink{structopenavb__tl__data__cfg_adafdd018fad617237267247e6680f87a}{dest\_addr}.\hyperlink{structcfg__mac__t_af2bc5d41ceefb37a387542f87c90ccb8}{mac} = &(pCfg->\hyperlink{structopenavb__tl__data__cfg_adafdd018fad617237267247e6680f87a}{dest\_addr}.\hyperlink{structcfg__mac__t_ab04370ca333258063d83080192e0265d}{buffer}); \textcolor{comment}{// Indicate that the MAC
+       Address is valid.}
+237     pCfg->\hyperlink{structopenavb__tl__data__cfg_a1b24465e054a200402c04340ccc56eae}{vlan\_id} = stream\_vlan\_id;
+238     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afcf1f0c1d10ae9efe3782eb6cae78355}{AVB\_LOGF\_DEBUG}(\textcolor{stringliteral}{"Talker-supplied sr\_class:  %u"}, pCfg->\hyperlink{structopenavb__tl__data__cfg_a39d4e73b306d801de38536c43ef7a5e8}{sr\_class});
+239     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afcf1f0c1d10ae9efe3782eb6cae78355}{AVB\_LOGF\_DEBUG}(\textcolor{stringliteral}{"Talker-supplied stream\_id:  "} \hyperlink{maap__log_8h_a8f7a60dc3466923fed2afcb3cab0cd3e}{ETH\_FORMAT} \textcolor{stringliteral}{"/%u"},
+240         \hyperlink{maap__log_8h_a5d3ceb6c3ad6d4c0821fcfc329957e6f}{ETH\_OCTETS}(pCfg->\hyperlink{structopenavb__tl__data__cfg_aad445ea3a27a465a885b5d56648ad282}{stream\_addr}.\hyperlink{structcfg__mac__t_ab04370ca333258063d83080192e0265d}{buffer}.ether\_addr\_octet), pCfg->
+      \hyperlink{structopenavb__tl__data__cfg_a511b2a26fe61b945ced1dd0bab9f2d1b}{stream\_uid});
+241     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afcf1f0c1d10ae9efe3782eb6cae78355}{AVB\_LOGF\_DEBUG}(\textcolor{stringliteral}{"Talker-supplied dest\_addr:  "} \hyperlink{maap__log_8h_a8f7a60dc3466923fed2afcb3cab0cd3e}{ETH\_FORMAT},
+242         \hyperlink{maap__log_8h_a5d3ceb6c3ad6d4c0821fcfc329957e6f}{ETH\_OCTETS}(pCfg->\hyperlink{structopenavb__tl__data__cfg_adafdd018fad617237267247e6680f87a}{dest\_addr}.\hyperlink{structcfg__mac__t_ab04370ca333258063d83080192e0265d}{buffer}.ether\_addr\_octet));
+243     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afcf1f0c1d10ae9efe3782eb6cae78355}{AVB\_LOGF\_DEBUG}(\textcolor{stringliteral}{"Talker-supplied vlan\_id:  %u"}, pCfg->\hyperlink{structopenavb__tl__data__cfg_a1b24465e054a200402c04340ccc56eae}{vlan\_id});
+244 
+245     \textcolor{comment}{// Notify the state machine that we received this information.}
+246     \hyperlink{openavb__acmp__sm__talker_8c_ab0b8dd32c39dd7130a44b67f95ce386e}{openavbAcmpSMTalker\_updateStreamInfo}(pCfg);
+247 
+248     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(AVB\_TRACE\_AVDECC\_MSG);
+249     \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+250 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__avdecc__msg__server_8c_a0f14a2c56d94ff2b0b57d434b7f3a66f_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__avdecc__msg__server_8c_a0f14a2c56d94ff2b0b57d434b7f3a66f_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c@{openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c}!openavb\+Avdecc\+Msg\+Srvr\+Hndl\+Ver\+Rqst\+From\+Client@{openavb\+Avdecc\+Msg\+Srvr\+Hndl\+Ver\+Rqst\+From\+Client}}
+\index{openavb\+Avdecc\+Msg\+Srvr\+Hndl\+Ver\+Rqst\+From\+Client@{openavb\+Avdecc\+Msg\+Srvr\+Hndl\+Ver\+Rqst\+From\+Client}!openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c@{openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Avdecc\+Msg\+Srvr\+Hndl\+Ver\+Rqst\+From\+Client(int avdecc\+Msg\+Handle)}{openavbAvdeccMsgSrvrHndlVerRqstFromClient(int avdeccMsgHandle)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} openavb\+Avdecc\+Msg\+Srvr\+Hndl\+Ver\+Rqst\+From\+Client (
+\begin{DoxyParamCaption}
+\item[{int}]{avdecc\+Msg\+Handle}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__avdecc__msg__server_8c_af317a257cc9e267b8eb9f122cb2561c0}{}\label{openavb__avdecc__msg__server_8c_af317a257cc9e267b8eb9f122cb2561c0}
+
+
+openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c 파일의 137 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+138 \{
+139     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(AVB\_TRACE\_AVDECC\_MSG);
+140 
+141     \hyperlink{openavb__avdecc__msg__server_8c_a95d3108ac8e2882898c92ba6ddfbffd5}{openavbAvdeccMsgSrvrSendServerVersionToClient}(
+      avdeccMsgHandle, \hyperlink{build_2sdk__eavb_2openavb__pub_8h_a6a3864d5243465709a043f35c310801b}{AVB\_CORE\_VER\_FULL});
+142 
+143     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(AVB\_TRACE\_AVDECC\_MSG);
+144     \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+145 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__avdecc__msg__server_8c_af317a257cc9e267b8eb9f122cb2561c0_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__avdecc__msg__server_8c_af317a257cc9e267b8eb9f122cb2561c0_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c@{openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c}!openavb\+Avdecc\+Msg\+Srvr\+Listener\+Stream\+ID@{openavb\+Avdecc\+Msg\+Srvr\+Listener\+Stream\+ID}}
+\index{openavb\+Avdecc\+Msg\+Srvr\+Listener\+Stream\+ID@{openavb\+Avdecc\+Msg\+Srvr\+Listener\+Stream\+ID}!openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c@{openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Avdecc\+Msg\+Srvr\+Listener\+Stream\+I\+D(int avdecc\+Msg\+Handle, U8 sr\+\_\+class, const U8 stream\+\_\+src\+\_\+mac[6], U16 stream\+\_\+uid, const U8 stream\+\_\+dest\+\_\+mac[6], U16 stream\+\_\+vlan\+\_\+id)}{openavbAvdeccMsgSrvrListenerStreamID(int avdeccMsgHandle, U8 sr_class, const U8 stream_src_mac[6], U16 stream_uid, const U8 stream_dest_mac[6], U16 stream_vlan_id)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} openavb\+Avdecc\+Msg\+Srvr\+Listener\+Stream\+ID (
+\begin{DoxyParamCaption}
+\item[{int}]{avdecc\+Msg\+Handle, }
+\item[{{\bf U8}}]{sr\+\_\+class, }
+\item[{const {\bf U8}}]{stream\+\_\+src\+\_\+mac\mbox{[}6\mbox{]}, }
+\item[{{\bf U16}}]{stream\+\_\+uid, }
+\item[{const {\bf U8}}]{stream\+\_\+dest\+\_\+mac\mbox{[}6\mbox{]}, }
+\item[{{\bf U16}}]{stream\+\_\+vlan\+\_\+id}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__avdecc__msg__server_8c_a1467581d80d2d3326eeed7edbeba5e2e}{}\label{openavb__avdecc__msg__server_8c_a1467581d80d2d3326eeed7edbeba5e2e}
+
+
+openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c 파일의 252 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+253 \{
+254     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(AVB\_TRACE\_AVDECC\_MSG);
+255     \hyperlink{structopenavb_avdecc_message__t}{openavbAvdeccMessage\_t} msgBuf;
+256 
+257     \hyperlink{struct__avdecc__msg__state}{avdecc\_msg\_state\_t} *pState = \hyperlink{openavb__avdecc__msg_8c_abdf279cc6395304642dcc6634ee4de88}{AvdeccMsgStateListGet}(
+      avdeccMsgHandle);
+258     \textcolor{keywordflow}{if} (!pState) \{
+259         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"avdeccMsgHandle %d not valid"}, avdeccMsgHandle);
+260         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(AVB\_TRACE\_AVDECC\_MSG);
+261         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+262     \}
+263 
+264     memset(&msgBuf, 0, \hyperlink{openavb__avdecc__msg_8h_aa6e0748c980607a09d67eeff364fb6a8}{OPENAVB\_AVDECC\_MSG\_LEN});
+265     msgBuf.\hyperlink{structopenavb_avdecc_message__t_ae93b36f3af793c202d59cd2edf50835b}{type} = \hyperlink{openavb__avdecc__msg_8h_a6d378fbc94d29fb8273795ebf8600b6aac3c8a58576f2db4aeefa031e789604c8}{OPENAVB\_AVDECC\_MSG\_LISTENER\_STREAM\_ID};
+266     \hyperlink{structopenavb_avdecc_msg_params___listener_stream_i_d__t}{openavbAvdeccMsgParams\_ListenerStreamID\_t} * pParams =
+267         &(msgBuf.\hyperlink{structopenavb_avdecc_message__t_ac4afd7e03fbcb40085aff2fc50dc6df6}{params}.\hyperlink{structopenavb_avdecc_message__t_a4d6e8a43085c7403645830b74c9b1c18}{listenerStreamID});
+268     pParams->\hyperlink{structopenavb_avdecc_msg_params___listener_stream_i_d__t_a39d4e73b306d801de38536c43ef7a5e8}{sr\_class} = sr\_class;
+269     memcpy(pParams->\hyperlink{structopenavb_avdecc_msg_params___listener_stream_i_d__t_ab9d3cf41d938e8795e395632cea06e77}{stream\_src\_mac}, stream\_src\_mac, 6);
+270     pParams->\hyperlink{structopenavb_avdecc_msg_params___listener_stream_i_d__t_a511b2a26fe61b945ced1dd0bab9f2d1b}{stream\_uid} = htons(stream\_uid);
+271     memcpy(pParams->\hyperlink{structopenavb_avdecc_msg_params___listener_stream_i_d__t_a26087f365a751a1415364bfb5e2b8a0e}{stream\_dest\_mac}, stream\_dest\_mac, 6);
+272     pParams->\hyperlink{structopenavb_avdecc_msg_params___listener_stream_i_d__t_a31db70d552fc6f5d35875430fca593e6}{stream\_vlan\_id} = htons(stream\_vlan\_id);
+273     \textcolor{keywordtype}{bool} ret = \hyperlink{openavb__avdecc__msg__server__osal_8c_aec6546f6ca847a22ec306b96f9428d86}{openavbAvdeccMsgSrvrSendToClient}(avdeccMsgHandle, &msgBuf);
+274 
+275     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(AVB\_TRACE\_AVDECC\_MSG);
+276     \textcolor{keywordflow}{return} ret;
+277 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__avdecc__msg__server_8c_a1467581d80d2d3326eeed7edbeba5e2e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__avdecc__msg__server_8c_a1467581d80d2d3326eeed7edbeba5e2e_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c@{openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c}!openavb\+Avdecc\+Msg\+Srvr\+Receive\+From\+Client@{openavb\+Avdecc\+Msg\+Srvr\+Receive\+From\+Client}}
+\index{openavb\+Avdecc\+Msg\+Srvr\+Receive\+From\+Client@{openavb\+Avdecc\+Msg\+Srvr\+Receive\+From\+Client}!openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c@{openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Avdecc\+Msg\+Srvr\+Receive\+From\+Client(int avdecc\+Msg\+Handle, openavb\+Avdecc\+Message\+\_\+t $\ast$msg)}{openavbAvdeccMsgSrvrReceiveFromClient(int avdeccMsgHandle, openavbAvdeccMessage_t *msg)}}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf bool} openavb\+Avdecc\+Msg\+Srvr\+Receive\+From\+Client (
+\begin{DoxyParamCaption}
+\item[{int}]{avdecc\+Msg\+Handle, }
+\item[{{\bf openavb\+Avdecc\+Message\+\_\+t} $\ast$}]{msg}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__avdecc__msg__server_8c_adbc20004efea49678b52eca3b381e6d7}{}\label{openavb__avdecc__msg__server_8c_adbc20004efea49678b52eca3b381e6d7}
+
+
+openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c 파일의 77 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+78 \{
+79     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(AVB\_TRACE\_AVDECC\_MSG);
+80 
+81     \textcolor{keywordflow}{if} (!msg) \{
+82         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Receiving message; invalid argument passed"});
+83         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(AVB\_TRACE\_AVDECC\_MSG);
+84         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+85     \}
+86 
+87     \textcolor{keywordtype}{bool} ret = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+88     \textcolor{keywordflow}{switch} (msg->\hyperlink{structopenavb_avdecc_message__t_ae93b36f3af793c202d59cd2edf50835b}{type}) \{
+89         \textcolor{keywordflow}{case} \hyperlink{openavb__avdecc__msg_8h_a6d378fbc94d29fb8273795ebf8600b6aa33d0ad4ae3759e799bbd6b7c3b70f5e2}{OPENAVB\_AVDECC\_MSG\_VERSION\_REQUEST}:
+90             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a28a4d0350d530ad95c95b8383c00cd9c}{AVB\_LOG\_DEBUG}(\textcolor{stringliteral}{"Message received:  OPENAVB\_AVDECC\_MSG\_VERSION\_REQUEST"});
+91             ret = \hyperlink{openavb__avdecc__msg__server_8c_af317a257cc9e267b8eb9f122cb2561c0}{openavbAvdeccMsgSrvrHndlVerRqstFromClient}(
+      avdeccMsgHandle);
+92             \textcolor{keywordflow}{break};
+93         \textcolor{keywordflow}{case} \hyperlink{openavb__avdecc__msg_8h_a6d378fbc94d29fb8273795ebf8600b6aa5593fa40720719ec34af5ddfd888e547}{OPENAVB\_AVDECC\_MSG\_CLIENT\_INIT\_IDENTIFY}:
+94             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a28a4d0350d530ad95c95b8383c00cd9c}{AVB\_LOG\_DEBUG}(\textcolor{stringliteral}{"Message received:  OPENAVB\_AVDECC\_MSG\_CLIENT\_INIT\_IDENTIFY"});
+95             ret = \hyperlink{openavb__avdecc__msg__server_8c_ac23e92150076b83495aebbe7c048d335}{openavbAvdeccMsgSrvrHndlInitIdentifyFromClient}
+      (avdeccMsgHandle,
+96                 msg->\hyperlink{structopenavb_avdecc_message__t_ac4afd7e03fbcb40085aff2fc50dc6df6}{params}.\hyperlink{structopenavb_avdecc_message__t_aa2bb7838c4022f9b5a50759d88f0391e}{clientInitIdentify}.
+      \hyperlink{structopenavb_avdecc_msg_params___client_init_identify__t_a25c82ac188182d72242fb10f0285a2bd}{friendly\_name},
+97                 msg->\hyperlink{structopenavb_avdecc_message__t_ac4afd7e03fbcb40085aff2fc50dc6df6}{params}.\hyperlink{structopenavb_avdecc_message__t_aa2bb7838c4022f9b5a50759d88f0391e}{clientInitIdentify}.\hyperlink{structopenavb_avdecc_msg_params___client_init_identify__t_a9ce269c206dfe8d01ff1711003b5c1b8}{talker});
+98             \textcolor{keywordflow}{break};
+99         \textcolor{keywordflow}{case} \hyperlink{openavb__avdecc__msg_8h_a6d378fbc94d29fb8273795ebf8600b6aaeddb4a097e7a933d037537a6af3ccd2d}{OPENAVB\_AVDECC\_MSG\_C2S\_TALKER\_STREAM\_ID}:
+100             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a28a4d0350d530ad95c95b8383c00cd9c}{AVB\_LOG\_DEBUG}(\textcolor{stringliteral}{"Message received:  OPENAVB\_AVDECC\_MSG\_C2S\_TALKER\_STREAM\_ID"});
+101             ret = \hyperlink{openavb__avdecc__msg__server_8c_a0f14a2c56d94ff2b0b57d434b7f3a66f}{openavbAvdeccMsgSrvrHndlTalkerStreamIDFromClient}
+      (avdeccMsgHandle,
+102                 msg->\hyperlink{structopenavb_avdecc_message__t_ac4afd7e03fbcb40085aff2fc50dc6df6}{params}.\hyperlink{structopenavb_avdecc_message__t_a3a0cd9f16b0fb7012ebfd5ac7efbc9e0}{c2sTalkerStreamID}.\hyperlink{structopenavb_avdecc_msg_params___c2_s___talker_stream_i_d__t_a39d4e73b306d801de38536c43ef7a5e8}{sr\_class},
+103                 msg->\hyperlink{structopenavb_avdecc_message__t_ac4afd7e03fbcb40085aff2fc50dc6df6}{params}.\hyperlink{structopenavb_avdecc_message__t_a3a0cd9f16b0fb7012ebfd5ac7efbc9e0}{c2sTalkerStreamID}.
+      \hyperlink{structopenavb_avdecc_msg_params___c2_s___talker_stream_i_d__t_ab9d3cf41d938e8795e395632cea06e77}{stream\_src\_mac},
+104                 ntohs(msg->\hyperlink{structopenavb_avdecc_message__t_ac4afd7e03fbcb40085aff2fc50dc6df6}{params}.\hyperlink{structopenavb_avdecc_message__t_a3a0cd9f16b0fb7012ebfd5ac7efbc9e0}{c2sTalkerStreamID}.
+      \hyperlink{structopenavb_avdecc_msg_params___c2_s___talker_stream_i_d__t_a511b2a26fe61b945ced1dd0bab9f2d1b}{stream\_uid}),
+105                 msg->\hyperlink{structopenavb_avdecc_message__t_ac4afd7e03fbcb40085aff2fc50dc6df6}{params}.\hyperlink{structopenavb_avdecc_message__t_a3a0cd9f16b0fb7012ebfd5ac7efbc9e0}{c2sTalkerStreamID}.
+      \hyperlink{structopenavb_avdecc_msg_params___c2_s___talker_stream_i_d__t_a26087f365a751a1415364bfb5e2b8a0e}{stream\_dest\_mac},
+106                 ntohs(msg->\hyperlink{structopenavb_avdecc_message__t_ac4afd7e03fbcb40085aff2fc50dc6df6}{params}.\hyperlink{structopenavb_avdecc_message__t_a3a0cd9f16b0fb7012ebfd5ac7efbc9e0}{c2sTalkerStreamID}.
+      \hyperlink{structopenavb_avdecc_msg_params___c2_s___talker_stream_i_d__t_a31db70d552fc6f5d35875430fca593e6}{stream\_vlan\_id}));
+107             \textcolor{keywordflow}{break};
+108         \textcolor{keywordflow}{case} \hyperlink{openavb__avdecc__msg_8h_a6d378fbc94d29fb8273795ebf8600b6aa9684fd7907aad7ba9eb1221d630c6eea}{OPENAVB\_AVDECC\_MSG\_CLIENT\_CHANGE\_NOTIFICATION}:
+109             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a28a4d0350d530ad95c95b8383c00cd9c}{AVB\_LOG\_DEBUG}(\textcolor{stringliteral}{"Message received:  OPENAVB\_AVDECC\_MSG\_CLIENT\_CHANGE\_NOTIFICATION"});
+110             ret = \hyperlink{openavb__avdecc__msg__server_8c_af14db0c8056b4fb9fd56e2f1c32bd378}{openavbAvdeccMsgSrvrHndlChangeNotificationFromClient}
+      (avdeccMsgHandle, (\hyperlink{openavb__avdecc__msg_8h_a6d563e9a9b24941adb933082f8609d76}{openavbAvdeccMsgStateType\_t}) msg->
+      \hyperlink{structopenavb_avdecc_message__t_ac4afd7e03fbcb40085aff2fc50dc6df6}{params}.\hyperlink{structopenavb_avdecc_message__t_a0798a35d19be00d1d4cbba796b7c81c0}{clientChangeNotification}.\hyperlink{structopenavb_avdecc_msg_params___client_change_notification__t_ac89386877910da849a824021b5a3ee3a}{current\_state});
+111             \textcolor{keywordflow}{break};
+112         \textcolor{keywordflow}{default}:
+113             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Unexpected message received at server"});
+114             \textcolor{keywordflow}{break};
+115     \}
+116 
+117     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a6a12c45e5eafd615acb82399ffff16c7}{AVB\_LOGF\_VERBOSE}(\textcolor{stringliteral}{"Message handled, ret=%d"}, ret);
+118     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(AVB\_TRACE\_AVDECC\_MSG);
+119     \textcolor{keywordflow}{return} ret;
+120 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__avdecc__msg__server_8c_adbc20004efea49678b52eca3b381e6d7_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__avdecc__msg__server_8c_adbc20004efea49678b52eca3b381e6d7_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c@{openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c}!openavb\+Avdecc\+Msg\+Srvr\+Send\+Server\+Version\+To\+Client@{openavb\+Avdecc\+Msg\+Srvr\+Send\+Server\+Version\+To\+Client}}
+\index{openavb\+Avdecc\+Msg\+Srvr\+Send\+Server\+Version\+To\+Client@{openavb\+Avdecc\+Msg\+Srvr\+Send\+Server\+Version\+To\+Client}!openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c@{openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Avdecc\+Msg\+Srvr\+Send\+Server\+Version\+To\+Client(int avdecc\+Msg\+Handle, U32 A\+V\+B\+Version)}{openavbAvdeccMsgSrvrSendServerVersionToClient(int avdeccMsgHandle, U32 AVBVersion)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Avdecc\+Msg\+Srvr\+Send\+Server\+Version\+To\+Client (
+\begin{DoxyParamCaption}
+\item[{int}]{avdecc\+Msg\+Handle, }
+\item[{{\bf U32}}]{A\+V\+B\+Version}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__avdecc__msg__server_8c_a95d3108ac8e2882898c92ba6ddfbffd5}{}\label{openavb__avdecc__msg__server_8c_a95d3108ac8e2882898c92ba6ddfbffd5}
+
+
+openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c 파일의 122 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+123 \{
+124     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(AVB\_TRACE\_AVDECC\_MSG);
+125 
+126     \hyperlink{structopenavb_avdecc_message__t}{openavbAvdeccMessage\_t}  msgBuf;
+127     memset(&msgBuf, 0, \hyperlink{openavb__avdecc__msg_8h_aa6e0748c980607a09d67eeff364fb6a8}{OPENAVB\_AVDECC\_MSG\_LEN});
+128     msgBuf.\hyperlink{structopenavb_avdecc_message__t_ae93b36f3af793c202d59cd2edf50835b}{type} = \hyperlink{openavb__avdecc__msg_8h_a6d378fbc94d29fb8273795ebf8600b6aa1f78a26e2270e35a8a4ba821b71010cc}{OPENAVB\_AVDECC\_MSG\_VERSION\_CALLBACK};
+129     msgBuf.\hyperlink{structopenavb_avdecc_message__t_ac4afd7e03fbcb40085aff2fc50dc6df6}{params}.\hyperlink{structopenavb_avdecc_message__t_a0ad469bdc533caff5f91bf43c15ed6bf}{versionCallback}.\hyperlink{structopenavb_avdecc_msg_params___version_callback__t_ae20e1375c7e5bfda67ee623a7ff192b4}{AVBVersion} = htonl(AVBVersion);
+130     \hyperlink{openavb__avdecc__msg__server__osal_8c_aec6546f6ca847a22ec306b96f9428d86}{openavbAvdeccMsgSrvrSendToClient}(avdeccMsgHandle, &msgBuf);
+131 
+132     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(AVB\_TRACE\_AVDECC\_MSG);
+133 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__avdecc__msg__server_8c_a95d3108ac8e2882898c92ba6ddfbffd5_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__avdecc__msg__server_8c_a95d3108ac8e2882898c92ba6ddfbffd5_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c@{openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c}!openavb\+Avdecc\+Msg\+Srvr\+Talker\+Stream\+ID@{openavb\+Avdecc\+Msg\+Srvr\+Talker\+Stream\+ID}}
+\index{openavb\+Avdecc\+Msg\+Srvr\+Talker\+Stream\+ID@{openavb\+Avdecc\+Msg\+Srvr\+Talker\+Stream\+ID}!openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c@{openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Avdecc\+Msg\+Srvr\+Talker\+Stream\+I\+D(int avdecc\+Msg\+Handle, U8 sr\+\_\+class, U8 stream\+\_\+id\+\_\+valid, const U8 stream\+\_\+src\+\_\+mac[6], U16 stream\+\_\+uid, U8 stream\+\_\+dest\+\_\+valid, const U8 stream\+\_\+dest\+\_\+mac[6], U8 stream\+\_\+vlan\+\_\+id\+\_\+valid, U16 stream\+\_\+vlan\+\_\+id)}{openavbAvdeccMsgSrvrTalkerStreamID(int avdeccMsgHandle, U8 sr_class, U8 stream_id_valid, const U8 stream_src_mac[6], U16 stream_uid, U8 stream_dest_valid, const U8 stream_dest_mac[6], U8 stream_vlan_id_valid, U16 stream_vlan_id)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} openavb\+Avdecc\+Msg\+Srvr\+Talker\+Stream\+ID (
+\begin{DoxyParamCaption}
+\item[{int}]{avdecc\+Msg\+Handle, }
+\item[{{\bf U8}}]{sr\+\_\+class, }
+\item[{{\bf U8}}]{stream\+\_\+id\+\_\+valid, }
+\item[{const {\bf U8}}]{stream\+\_\+src\+\_\+mac\mbox{[}6\mbox{]}, }
+\item[{{\bf U16}}]{stream\+\_\+uid, }
+\item[{{\bf U8}}]{stream\+\_\+dest\+\_\+valid, }
+\item[{const {\bf U8}}]{stream\+\_\+dest\+\_\+mac\mbox{[}6\mbox{]}, }
+\item[{{\bf U8}}]{stream\+\_\+vlan\+\_\+id\+\_\+valid, }
+\item[{{\bf U16}}]{stream\+\_\+vlan\+\_\+id}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__avdecc__msg__server_8c_aa4cbb5bd7782544a3082651feab74c67}{}\label{openavb__avdecc__msg__server_8c_aa4cbb5bd7782544a3082651feab74c67}
+
+
+openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c 파일의 279 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+281 \{
+282     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(AVB\_TRACE\_AVDECC\_MSG);
+283     \hyperlink{structopenavb_avdecc_message__t}{openavbAvdeccMessage\_t} msgBuf;
+284 
+285     \hyperlink{struct__avdecc__msg__state}{avdecc\_msg\_state\_t} *pState = \hyperlink{openavb__avdecc__msg_8c_abdf279cc6395304642dcc6634ee4de88}{AvdeccMsgStateListGet}(
+      avdeccMsgHandle);
+286     \textcolor{keywordflow}{if} (!pState) \{
+287         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"avdeccMsgHandle %d not valid"}, avdeccMsgHandle);
+288         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(AVB\_TRACE\_AVDECC\_MSG);
+289         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+290     \}
+291 
+292     \textcolor{comment}{// Send the stream information to the client.}
+293     memset(&msgBuf, 0, \hyperlink{openavb__avdecc__msg_8h_aa6e0748c980607a09d67eeff364fb6a8}{OPENAVB\_AVDECC\_MSG\_LEN});
+294     msgBuf.\hyperlink{structopenavb_avdecc_message__t_ae93b36f3af793c202d59cd2edf50835b}{type} = \hyperlink{openavb__avdecc__msg_8h_a6d378fbc94d29fb8273795ebf8600b6aa6aaea38aecdecafb41804a1b64acba9e}{OPENAVB\_AVDECC\_MSG\_S2C\_TALKER\_STREAM\_ID};
+295     \hyperlink{structopenavb_avdecc_msg_params___s2_c___talker_stream_i_d__t}{openavbAvdeccMsgParams\_S2C\_TalkerStreamID\_t} * pParams =
+296         &(msgBuf.\hyperlink{structopenavb_avdecc_message__t_ac4afd7e03fbcb40085aff2fc50dc6df6}{params}.\hyperlink{structopenavb_avdecc_message__t_a5a95678153298175f4f17004844025ca}{s2cTalkerStreamID});
+297     pParams->\hyperlink{structopenavb_avdecc_msg_params___s2_c___talker_stream_i_d__t_a39d4e73b306d801de38536c43ef7a5e8}{sr\_class} = sr\_class;
+298     pParams->\hyperlink{structopenavb_avdecc_msg_params___s2_c___talker_stream_i_d__t_a9e80f04fbbd9743179772b0e5f79267d}{stream\_id\_valid} = stream\_id\_valid;
+299     memcpy(pParams->\hyperlink{structopenavb_avdecc_msg_params___s2_c___talker_stream_i_d__t_ab9d3cf41d938e8795e395632cea06e77}{stream\_src\_mac}, stream\_src\_mac, 6);
+300     pParams->\hyperlink{structopenavb_avdecc_msg_params___s2_c___talker_stream_i_d__t_a511b2a26fe61b945ced1dd0bab9f2d1b}{stream\_uid} = htons(stream\_uid);
+301     pParams->\hyperlink{structopenavb_avdecc_msg_params___s2_c___talker_stream_i_d__t_a2e71626c02f0f6919bc48849e39a2bb8}{stream\_dest\_valid} = stream\_dest\_valid;
+302     memcpy(pParams->\hyperlink{structopenavb_avdecc_msg_params___s2_c___talker_stream_i_d__t_a26087f365a751a1415364bfb5e2b8a0e}{stream\_dest\_mac}, stream\_dest\_mac, 6);
+303     pParams->\hyperlink{structopenavb_avdecc_msg_params___s2_c___talker_stream_i_d__t_ac60cc4128b8b7d706dd7de98f1da5bd1}{stream\_vlan\_id\_valid} = stream\_vlan\_id\_valid;
+304     pParams->\hyperlink{structopenavb_avdecc_msg_params___s2_c___talker_stream_i_d__t_a31db70d552fc6f5d35875430fca593e6}{stream\_vlan\_id} = htons(stream\_vlan\_id);
+305     \textcolor{keywordtype}{bool} ret = \hyperlink{openavb__avdecc__msg__server__osal_8c_aec6546f6ca847a22ec306b96f9428d86}{openavbAvdeccMsgSrvrSendToClient}(avdeccMsgHandle, &msgBuf);
+306 
+307     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(AVB\_TRACE\_AVDECC\_MSG);
+308     \textcolor{keywordflow}{return} ret;
+309 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__avdecc__msg__server_8c_aa4cbb5bd7782544a3082651feab74c67_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__avdecc__msg__server_8c_aa4cbb5bd7782544a3082651feab74c67_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{변수 문서화}
+\index{openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c@{openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c}!g\+Avdecc\+Cfg@{g\+Avdecc\+Cfg}}
+\index{g\+Avdecc\+Cfg@{g\+Avdecc\+Cfg}!openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c@{openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c}}
+\subsubsection[{\texorpdfstring{g\+Avdecc\+Cfg}{gAvdeccCfg}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf openavb\+\_\+avdecc\+\_\+cfg\+\_\+t} g\+Avdecc\+Cfg}\hypertarget{openavb__avdecc__msg__server_8c_a142e959837c765cd9a1767b886421315}{}\label{openavb__avdecc__msg__server_8c_a142e959837c765cd9a1767b886421315}
+
+
+openavb\+\_\+avdecc.\+c 파일의 54 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c@{openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c}!stream\+List@{stream\+List}}
+\index{stream\+List@{stream\+List}!openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c@{openavb\+\_\+avdecc\+\_\+msg\+\_\+server.\+c}}
+\subsubsection[{\texorpdfstring{stream\+List}{streamList}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf openavb\+\_\+tl\+\_\+data\+\_\+cfg\+\_\+t}$\ast$ stream\+List}\hypertarget{openavb__avdecc__msg__server_8c_a05103147a57cffafe1b923c6e611bbb7}{}\label{openavb__avdecc__msg__server_8c_a05103147a57cffafe1b923c6e611bbb7}
+
+
+openavb\+\_\+avdecc.\+c 파일의 55 번째 라인에서 정의되었습니다.
+

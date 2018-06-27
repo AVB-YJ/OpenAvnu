@@ -1,0 +1,971 @@
+\hypertarget{openavb__acmp__message_8c}{}\section{lib/avtp\+\_\+pipeline/acmp/openavb\+\_\+acmp\+\_\+message.c 파일 참조}
+\label{openavb__acmp__message_8c}\index{lib/avtp\+\_\+pipeline/acmp/openavb\+\_\+acmp\+\_\+message.\+c@{lib/avtp\+\_\+pipeline/acmp/openavb\+\_\+acmp\+\_\+message.\+c}}
+{\ttfamily \#include \char`\"{}openavb\+\_\+platform.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$ctype.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+log.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+debug.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+rawsock.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+avtp.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+srp.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+acmp.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+acmp\+\_\+sm\+\_\+listener.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+acmp\+\_\+sm\+\_\+talker.\+h\char`\"{}}\\*
+openavb\+\_\+acmp\+\_\+message.\+c에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__acmp__message_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{openavb__acmp__message_8c_abcfb21b6495585fe36058f57a9fe58fc}{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}~\char`\"{}A\+C\+MP\char`\"{}
+\item 
+\#define \hyperlink{openavb__acmp__message_8c_a26769957ec1a2beaf223f33b66ee64ab}{I\+N\+V\+A\+L\+I\+D\+\_\+\+S\+O\+C\+K\+ET}~(-\/1)
+\item 
+\#define \hyperlink{openavb__acmp__message_8c_a12198289816b22a761bd410c5686e0dd}{A\+C\+M\+P\+\_\+\+P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+A\+D\+DR}~\char`\"{}91\+:E0\+:\+F0\+:01\+:00\+:00\char`\"{}
+\item 
+\#define \hyperlink{openavb__acmp__message_8c_af98fb8372f1f7bbd3f0456cad630770c}{A\+V\+T\+P\+\_\+\+H\+D\+R\+\_\+\+L\+EN}~12
+\item 
+\#define \hyperlink{openavb__acmp__message_8c_ae0b9facefd3514309c82cdc0f13bf31a}{A\+C\+M\+P\+\_\+\+D\+A\+T\+A\+\_\+\+L\+EN}~44
+\item 
+\#define \hyperlink{openavb__acmp__message_8c_a8395f6fcff3760be8d9e81a56b6882ab}{A\+C\+M\+P\+\_\+\+F\+R\+A\+M\+E\+\_\+\+L\+EN}~(\hyperlink{openavb__avtp_8h_a6fd5764cb5a23a3c8ece29f613e4a277}{E\+T\+H\+\_\+\+H\+D\+R\+\_\+\+L\+E\+N\+\_\+\+V\+L\+AN} + \hyperlink{openavb__aecp__message_8c_af98fb8372f1f7bbd3f0456cad630770c}{A\+V\+T\+P\+\_\+\+H\+D\+R\+\_\+\+L\+EN} + \hyperlink{openavb__acmp__message_8c_ae0b9facefd3514309c82cdc0f13bf31a}{A\+C\+M\+P\+\_\+\+D\+A\+T\+A\+\_\+\+L\+EN})
+\item 
+\#define \hyperlink{openavb__acmp__message_8c_aa76f37a10b69a6c684cdc541098e3519}{A\+C\+M\+P\+\_\+\+N\+U\+M\+\_\+\+T\+X\+\_\+\+B\+U\+F\+F\+E\+RS}~2
+\item 
+\#define \hyperlink{openavb__acmp__message_8c_a29f8f7d1eba9fa7c41504a789f20a6ad}{A\+C\+M\+P\+\_\+\+N\+U\+M\+\_\+\+R\+X\+\_\+\+B\+U\+F\+F\+E\+RS}~20
+\item 
+\#define \hyperlink{openavb__acmp__message_8c_ad937f94043c94bc430c2bb95753bdbcc}{A\+D\+D\+R\+\_\+\+P\+TR}(A)~(\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8}$\ast$)(\&((A)-\/$>$ether\+\_\+addr\+\_\+octet))
+\item 
+\#define \hyperlink{openavb__acmp__message_8c_a3ce1b398321de047eed27a2eb4a97e99}{A\+C\+M\+P\+\_\+\+L\+O\+CK}()~\hyperlink{openavb__os__services__osal__pub_8h_aee93da9d4ea28eeaa9c64bd938d5549b}{M\+U\+T\+E\+X\+\_\+\+C\+R\+E\+A\+T\+E\+\_\+\+E\+RR}(); \hyperlink{openavb__os__services__osal__pub_8h_aaa0e54e00ca1cc9cb5bf9ac824a5e4ef}{M\+U\+T\+E\+X\+\_\+\+L\+O\+CK}(openavb\+Acmp\+Mutex); \hyperlink{openavb__os__services__osal__pub_8h_a08d33bd2184e24e7676bda0efb5a3e5e}{M\+U\+T\+E\+X\+\_\+\+L\+O\+G\+\_\+\+E\+RR}(\char`\"{}Mutex lock failure\char`\"{});
+\item 
+\#define \hyperlink{openavb__acmp__message_8c_a9a166efed26b5de58c79dd21c739a23f}{A\+C\+M\+P\+\_\+\+U\+N\+L\+O\+CK}()~\hyperlink{openavb__os__services__osal__pub_8h_a0945f1588c967fbabfc91ddc7287cb32}{M\+U\+T\+E\+X\+\_\+\+U\+N\+L\+O\+CK}(openavb\+Acmp\+Mutex);
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{openavb__acmp__message_8c_a7ea9ed5f94ea271938dfd4091096cc9a}{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+LE} (openavb\+Acmp\+Mutex)
+\item 
+\hyperlink{openavb__acmp__message_8c_aa48ef97aac480427d70258691ef4fddc}{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE} (openavb\+Acmp\+Message\+Rx\+Thread)
+\item 
+\hyperlink{openavb__acmp__message_8c_a4543b8c73b0a4f3040b9ea05b1ee0011}{T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+ON} (openavb\+Acmp\+Message\+Rx\+Thread)
+\item 
+void \hyperlink{openavb__acmp__message_8c_aa41bc4e590699904cfddda6dd32043c7}{openavb\+Acmp\+Close\+Socket} ()
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__acmp__message_8c_a379fd62759214f9f984fdff41c6291e8}{openavb\+Acmp\+Open\+Socket} (const char $\ast$\hyperlink{aaf-talker_8c_ac7b430acaa92a7a26fbcdad47d2efc20}{ifname}, \hyperlink{openavb__types__base__pub_8h_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16} vlan\+ID, \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} vlan\+P\+CP)
+\item 
+static void \hyperlink{openavb__acmp__message_8c_aeda4b8868128b201f3299da43dddea43}{openavb\+Acmp\+Message\+Rx\+Frame\+Parse} (\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} $\ast$payload, int \hyperlink{gstavbsink_8c_afbbc2e77af6298f5550aec6087ba7d32}{payload\+\_\+len}, \hyperlink{structhdr__info__t}{hdr\+\_\+info\+\_\+t} $\ast$hdr)
+\item 
+static void \hyperlink{openavb__acmp__message_8c_a59898cca9282a2144c4e0711d39a844e}{openavb\+Acmp\+Message\+Rx\+Frame\+Receive} (\hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} timeout\+Usec)
+\item 
+void \hyperlink{openavb__acmp__message_8c_a56d3c796ff36a9053aeab3dcfc108be5}{openavb\+Acmp\+Message\+Tx\+Frame} (\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} message\+Type, \hyperlink{structopenavb__acmp___a_c_m_p_command_response__t}{openavb\+\_\+acmp\+\_\+\+A\+C\+M\+P\+Command\+Response\+\_\+t} $\ast$p\+A\+C\+M\+P\+Command\+Response, \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} status)
+\item 
+void $\ast$ \hyperlink{openavb__acmp__message_8c_ac2da65fbb1aeb9493d0756dc2aada205}{openavb\+Acmp\+Message\+Rx\+Thread\+Fn} (void $\ast$pv)
+\item 
+\hyperlink{openavb__result__codes_8h_a0cb594b7f047b8e4a76be68eca619be5}{openavb\+RC} \hyperlink{openavb__acmp__message_8c_a5fc3f4d297914162c201389853adae27}{openavb\+Acmp\+Message\+Handler\+Start} ()
+\item 
+void \hyperlink{openavb__acmp__message_8c_a24ea85f352a004eade46fb990430fb1f}{openavb\+Acmp\+Message\+Handler\+Stop} ()
+\item 
+\hyperlink{openavb__result__codes_8h_a0cb594b7f047b8e4a76be68eca619be5}{openavb\+RC} \hyperlink{openavb__acmp__message_8c_ab89a2783021019f53544b58d3fd9f715}{openavb\+Acmp\+Message\+Send} (\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} message\+Type, \hyperlink{structopenavb__acmp___a_c_m_p_command_response__t}{openavb\+\_\+acmp\+\_\+\+A\+C\+M\+P\+Command\+Response\+\_\+t} $\ast$p\+A\+C\+M\+P\+Command\+Response, \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} status)
+\end{DoxyCompactItemize}
+\subsection*{변수}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structopenavb__avdecc__cfg__t}{openavb\+\_\+avdecc\+\_\+cfg\+\_\+t} \hyperlink{openavb__acmp__message_8c_a142e959837c765cd9a1767b886421315}{g\+Avdecc\+Cfg}
+\item 
+static void $\ast$ \hyperlink{openavb__acmp__message_8c_a2d8cdd4e3e7124a63509a346ade26a4b}{rx\+Sock} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{N\+U\+LL}
+\item 
+static void $\ast$ \hyperlink{openavb__acmp__message_8c_acc3c897b6f4f88ddba59c97f3178e402}{tx\+Sock} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{N\+U\+LL}
+\item 
+static struct ether\+\_\+addr \hyperlink{openavb__acmp__message_8c_ab00d246f71209a6c53d44b0ec45542a8}{intf\+Addr}
+\item 
+static struct ether\+\_\+addr \hyperlink{openavb__acmp__message_8c_a4c559b0b8b7d5ad94655b0455fa6b970}{acmp\+Addr}
+\item 
+\hyperlink{structopenavb__acmp__sm__global__vars__t}{openavb\+\_\+acmp\+\_\+sm\+\_\+global\+\_\+vars\+\_\+t} \hyperlink{openavb__acmp__message_8c_a3b2bf4fc57f453d3c2c073f0b7637073}{openavb\+Acmp\+S\+M\+Global\+Vars}
+\item 
+static \hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__acmp__message_8c_acf182b7b2127314d5d00c6df827734b5}{b\+Running} = \hyperlink{lib_2igb_2e1000__osdep_8h_aa93f0eb578d23995850d61f7d61c55c1}{F\+A\+L\+SE}
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}!A\+C\+M\+P\+\_\+\+D\+A\+T\+A\+\_\+\+L\+EN@{A\+C\+M\+P\+\_\+\+D\+A\+T\+A\+\_\+\+L\+EN}}
+\index{A\+C\+M\+P\+\_\+\+D\+A\+T\+A\+\_\+\+L\+EN@{A\+C\+M\+P\+\_\+\+D\+A\+T\+A\+\_\+\+L\+EN}!openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{A\+C\+M\+P\+\_\+\+D\+A\+T\+A\+\_\+\+L\+EN}{ACMP_DATA_LEN}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+C\+M\+P\+\_\+\+D\+A\+T\+A\+\_\+\+L\+EN~44}\hypertarget{openavb__acmp__message_8c_ae0b9facefd3514309c82cdc0f13bf31a}{}\label{openavb__acmp__message_8c_ae0b9facefd3514309c82cdc0f13bf31a}
+
+
+openavb\+\_\+acmp\+\_\+message.\+c 파일의 64 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}!A\+C\+M\+P\+\_\+\+F\+R\+A\+M\+E\+\_\+\+L\+EN@{A\+C\+M\+P\+\_\+\+F\+R\+A\+M\+E\+\_\+\+L\+EN}}
+\index{A\+C\+M\+P\+\_\+\+F\+R\+A\+M\+E\+\_\+\+L\+EN@{A\+C\+M\+P\+\_\+\+F\+R\+A\+M\+E\+\_\+\+L\+EN}!openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{A\+C\+M\+P\+\_\+\+F\+R\+A\+M\+E\+\_\+\+L\+EN}{ACMP_FRAME_LEN}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+C\+M\+P\+\_\+\+F\+R\+A\+M\+E\+\_\+\+L\+EN~({\bf E\+T\+H\+\_\+\+H\+D\+R\+\_\+\+L\+E\+N\+\_\+\+V\+L\+AN} + {\bf A\+V\+T\+P\+\_\+\+H\+D\+R\+\_\+\+L\+EN} + {\bf A\+C\+M\+P\+\_\+\+D\+A\+T\+A\+\_\+\+L\+EN})}\hypertarget{openavb__acmp__message_8c_a8395f6fcff3760be8d9e81a56b6882ab}{}\label{openavb__acmp__message_8c_a8395f6fcff3760be8d9e81a56b6882ab}
+
+
+openavb\+\_\+acmp\+\_\+message.\+c 파일의 65 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}!A\+C\+M\+P\+\_\+\+L\+O\+CK@{A\+C\+M\+P\+\_\+\+L\+O\+CK}}
+\index{A\+C\+M\+P\+\_\+\+L\+O\+CK@{A\+C\+M\+P\+\_\+\+L\+O\+CK}!openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{A\+C\+M\+P\+\_\+\+L\+O\+CK}{ACMP_LOCK}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+C\+M\+P\+\_\+\+L\+O\+CK(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~{\bf M\+U\+T\+E\+X\+\_\+\+C\+R\+E\+A\+T\+E\+\_\+\+E\+RR}(); {\bf M\+U\+T\+E\+X\+\_\+\+L\+O\+CK}(openavb\+Acmp\+Mutex); {\bf M\+U\+T\+E\+X\+\_\+\+L\+O\+G\+\_\+\+E\+RR}(\char`\"{}Mutex lock failure\char`\"{});}\hypertarget{openavb__acmp__message_8c_a3ce1b398321de047eed27a2eb4a97e99}{}\label{openavb__acmp__message_8c_a3ce1b398321de047eed27a2eb4a97e99}
+
+
+openavb\+\_\+acmp\+\_\+message.\+c 파일의 77 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}!A\+C\+M\+P\+\_\+\+N\+U\+M\+\_\+\+R\+X\+\_\+\+B\+U\+F\+F\+E\+RS@{A\+C\+M\+P\+\_\+\+N\+U\+M\+\_\+\+R\+X\+\_\+\+B\+U\+F\+F\+E\+RS}}
+\index{A\+C\+M\+P\+\_\+\+N\+U\+M\+\_\+\+R\+X\+\_\+\+B\+U\+F\+F\+E\+RS@{A\+C\+M\+P\+\_\+\+N\+U\+M\+\_\+\+R\+X\+\_\+\+B\+U\+F\+F\+E\+RS}!openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{A\+C\+M\+P\+\_\+\+N\+U\+M\+\_\+\+R\+X\+\_\+\+B\+U\+F\+F\+E\+RS}{ACMP_NUM_RX_BUFFERS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+C\+M\+P\+\_\+\+N\+U\+M\+\_\+\+R\+X\+\_\+\+B\+U\+F\+F\+E\+RS~20}\hypertarget{openavb__acmp__message_8c_a29f8f7d1eba9fa7c41504a789f20a6ad}{}\label{openavb__acmp__message_8c_a29f8f7d1eba9fa7c41504a789f20a6ad}
+
+
+openavb\+\_\+acmp\+\_\+message.\+c 파일의 69 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}!A\+C\+M\+P\+\_\+\+N\+U\+M\+\_\+\+T\+X\+\_\+\+B\+U\+F\+F\+E\+RS@{A\+C\+M\+P\+\_\+\+N\+U\+M\+\_\+\+T\+X\+\_\+\+B\+U\+F\+F\+E\+RS}}
+\index{A\+C\+M\+P\+\_\+\+N\+U\+M\+\_\+\+T\+X\+\_\+\+B\+U\+F\+F\+E\+RS@{A\+C\+M\+P\+\_\+\+N\+U\+M\+\_\+\+T\+X\+\_\+\+B\+U\+F\+F\+E\+RS}!openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{A\+C\+M\+P\+\_\+\+N\+U\+M\+\_\+\+T\+X\+\_\+\+B\+U\+F\+F\+E\+RS}{ACMP_NUM_TX_BUFFERS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+C\+M\+P\+\_\+\+N\+U\+M\+\_\+\+T\+X\+\_\+\+B\+U\+F\+F\+E\+RS~2}\hypertarget{openavb__acmp__message_8c_aa76f37a10b69a6c684cdc541098e3519}{}\label{openavb__acmp__message_8c_aa76f37a10b69a6c684cdc541098e3519}
+
+
+openavb\+\_\+acmp\+\_\+message.\+c 파일의 68 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}!A\+C\+M\+P\+\_\+\+P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+A\+D\+DR@{A\+C\+M\+P\+\_\+\+P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+A\+D\+DR}}
+\index{A\+C\+M\+P\+\_\+\+P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+A\+D\+DR@{A\+C\+M\+P\+\_\+\+P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+A\+D\+DR}!openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{A\+C\+M\+P\+\_\+\+P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+A\+D\+DR}{ACMP_PROTOCOL_ADDR}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+C\+M\+P\+\_\+\+P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+A\+D\+DR~\char`\"{}91\+:E0\+:\+F0\+:01\+:00\+:00\char`\"{}}\hypertarget{openavb__acmp__message_8c_a12198289816b22a761bd410c5686e0dd}{}\label{openavb__acmp__message_8c_a12198289816b22a761bd410c5686e0dd}
+
+
+openavb\+\_\+acmp\+\_\+message.\+c 파일의 60 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}!A\+C\+M\+P\+\_\+\+U\+N\+L\+O\+CK@{A\+C\+M\+P\+\_\+\+U\+N\+L\+O\+CK}}
+\index{A\+C\+M\+P\+\_\+\+U\+N\+L\+O\+CK@{A\+C\+M\+P\+\_\+\+U\+N\+L\+O\+CK}!openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{A\+C\+M\+P\+\_\+\+U\+N\+L\+O\+CK}{ACMP_UNLOCK}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+C\+M\+P\+\_\+\+U\+N\+L\+O\+CK(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~{\bf M\+U\+T\+E\+X\+\_\+\+U\+N\+L\+O\+CK}(openavb\+Acmp\+Mutex);}\hypertarget{openavb__acmp__message_8c_a9a166efed26b5de58c79dd21c739a23f}{}\label{openavb__acmp__message_8c_a9a166efed26b5de58c79dd21c739a23f}
+
+
+openavb\+\_\+acmp\+\_\+message.\+c 파일의 78 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}!A\+D\+D\+R\+\_\+\+P\+TR@{A\+D\+D\+R\+\_\+\+P\+TR}}
+\index{A\+D\+D\+R\+\_\+\+P\+TR@{A\+D\+D\+R\+\_\+\+P\+TR}!openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{A\+D\+D\+R\+\_\+\+P\+TR}{ADDR_PTR}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+D\+D\+R\+\_\+\+P\+TR(
+\begin{DoxyParamCaption}
+\item[{}]{A}
+\end{DoxyParamCaption}
+)~({\bf U8}$\ast$)(\&((A)-\/$>$ether\+\_\+addr\+\_\+octet))}\hypertarget{openavb__acmp__message_8c_ad937f94043c94bc430c2bb95753bdbcc}{}\label{openavb__acmp__message_8c_ad937f94043c94bc430c2bb95753bdbcc}
+
+
+openavb\+\_\+acmp\+\_\+message.\+c 파일의 72 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}!A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT@{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}}
+\index{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT@{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}!openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}{AVB_LOG_COMPONENT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT~\char`\"{}A\+C\+MP\char`\"{}}\hypertarget{openavb__acmp__message_8c_abcfb21b6495585fe36058f57a9fe58fc}{}\label{openavb__acmp__message_8c_abcfb21b6495585fe36058f57a9fe58fc}
+
+
+openavb\+\_\+acmp\+\_\+message.\+c 파일의 45 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}!A\+V\+T\+P\+\_\+\+H\+D\+R\+\_\+\+L\+EN@{A\+V\+T\+P\+\_\+\+H\+D\+R\+\_\+\+L\+EN}}
+\index{A\+V\+T\+P\+\_\+\+H\+D\+R\+\_\+\+L\+EN@{A\+V\+T\+P\+\_\+\+H\+D\+R\+\_\+\+L\+EN}!openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{A\+V\+T\+P\+\_\+\+H\+D\+R\+\_\+\+L\+EN}{AVTP_HDR_LEN}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+V\+T\+P\+\_\+\+H\+D\+R\+\_\+\+L\+EN~12}\hypertarget{openavb__acmp__message_8c_af98fb8372f1f7bbd3f0456cad630770c}{}\label{openavb__acmp__message_8c_af98fb8372f1f7bbd3f0456cad630770c}
+
+
+openavb\+\_\+acmp\+\_\+message.\+c 파일의 63 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}!I\+N\+V\+A\+L\+I\+D\+\_\+\+S\+O\+C\+K\+ET@{I\+N\+V\+A\+L\+I\+D\+\_\+\+S\+O\+C\+K\+ET}}
+\index{I\+N\+V\+A\+L\+I\+D\+\_\+\+S\+O\+C\+K\+ET@{I\+N\+V\+A\+L\+I\+D\+\_\+\+S\+O\+C\+K\+ET}!openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{I\+N\+V\+A\+L\+I\+D\+\_\+\+S\+O\+C\+K\+ET}{INVALID_SOCKET}}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\+N\+V\+A\+L\+I\+D\+\_\+\+S\+O\+C\+K\+ET~(-\/1)}\hypertarget{openavb__acmp__message_8c_a26769957ec1a2beaf223f33b66ee64ab}{}\label{openavb__acmp__message_8c_a26769957ec1a2beaf223f33b66ee64ab}
+
+
+openavb\+\_\+acmp\+\_\+message.\+c 파일의 57 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{함수 문서화}
+\index{openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}!M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+LE@{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+LE}}
+\index{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+LE@{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+LE}!openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+L\+E(openavb\+Acmp\+Mutex)}{MUTEX_HANDLE(openavbAcmpMutex)}}]{\setlength{\rightskip}{0pt plus 5cm}M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+LE (
+\begin{DoxyParamCaption}
+\item[{openavb\+Acmp\+Mutex}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__acmp__message_8c_a7ea9ed5f94ea271938dfd4091096cc9a}{}\label{openavb__acmp__message_8c_a7ea9ed5f94ea271938dfd4091096cc9a}
+\index{openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}!openavb\+Acmp\+Close\+Socket@{openavb\+Acmp\+Close\+Socket}}
+\index{openavb\+Acmp\+Close\+Socket@{openavb\+Acmp\+Close\+Socket}!openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Acmp\+Close\+Socket()}{openavbAcmpCloseSocket()}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Acmp\+Close\+Socket (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__acmp__message_8c_aa41bc4e590699904cfddda6dd32043c7}{}\label{openavb__acmp__message_8c_aa41bc4e590699904cfddda6dd32043c7}
+
+
+openavb\+\_\+acmp\+\_\+message.\+c 파일의 92 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+93 \{
+94     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+95 
+96     \textcolor{keywordflow}{if} (\hyperlink{openavb__acmp__message_8c_a2d8cdd4e3e7124a63509a346ade26a4b}{rxSock}) \{
+97         \hyperlink{openavb__rawsock_8h_ae1e456bd2922c4ed8fc8263cc65d98d1}{openavbRawsockClose}(\hyperlink{openavb__acmp__message_8c_a2d8cdd4e3e7124a63509a346ade26a4b}{rxSock});
+98         \hyperlink{openavb__acmp__message_8c_a2d8cdd4e3e7124a63509a346ade26a4b}{rxSock} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+99     \}
+100     \textcolor{keywordflow}{if} (\hyperlink{openavb__acmp__message_8c_acc3c897b6f4f88ddba59c97f3178e402}{txSock}) \{
+101         \hyperlink{openavb__rawsock_8h_ae1e456bd2922c4ed8fc8263cc65d98d1}{openavbRawsockClose}(\hyperlink{openavb__acmp__message_8c_acc3c897b6f4f88ddba59c97f3178e402}{txSock});
+102         \hyperlink{openavb__acmp__message_8c_acc3c897b6f4f88ddba59c97f3178e402}{txSock} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+103     \}
+104 
+105     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+106 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__acmp__message_8c_aa41bc4e590699904cfddda6dd32043c7_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__acmp__message_8c_aa41bc4e590699904cfddda6dd32043c7_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}!openavb\+Acmp\+Message\+Handler\+Start@{openavb\+Acmp\+Message\+Handler\+Start}}
+\index{openavb\+Acmp\+Message\+Handler\+Start@{openavb\+Acmp\+Message\+Handler\+Start}!openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Acmp\+Message\+Handler\+Start()}{openavbAcmpMessageHandlerStart()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf openavb\+RC} openavb\+Acmp\+Message\+Handler\+Start (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__acmp__message_8c_a5fc3f4d297914162c201389853adae27}{}\label{openavb__acmp__message_8c_a5fc3f4d297914162c201389853adae27}
+
+
+openavb\+\_\+acmp\+\_\+message.\+c 파일의 380 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+381 \{
+382     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+383 
+384     \hyperlink{openavb__acmp__message_8c_acf182b7b2127314d5d00c6df827734b5}{bRunning} = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+385 
+386     \textcolor{keywordflow}{if} (\hyperlink{openavb__acmp__message_8c_a379fd62759214f9f984fdff41c6291e8}{openavbAcmpOpenSocket}((\textcolor{keyword}{const} \textcolor{keywordtype}{char} *)\hyperlink{openavb__acmp__message_8c_a142e959837c765cd9a1767b886421315}{gAvdeccCfg}.
+      \hyperlink{structopenavb__avdecc__cfg__t_a11d6071e5fa37b0c5776e17651485f11}{ifname}, \hyperlink{openavb__acmp__message_8c_a142e959837c765cd9a1767b886421315}{gAvdeccCfg}.\hyperlink{structopenavb__avdecc__cfg__t_a6f9e150f3345cb797072070d8972aec8}{vlanID}, \hyperlink{openavb__acmp__message_8c_a142e959837c765cd9a1767b886421315}{gAvdeccCfg}.\hyperlink{structopenavb__avdecc__cfg__t_aeceb46fe9886e43a65d96da0339c43fb}{vlanPCP})) \{
+387 
+388         \textcolor{comment}{// Start the RX thread}
+389         \textcolor{keywordtype}{bool} errResult;
+390         \hyperlink{maap__helper__linux_8h_a153e2ca1dd20bd23c619f8d2bafcc764}{THREAD\_CREATE}(openavbAcmpMessageRxThread, openavbAcmpMessageRxThread, 
+      \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{openavb__acmp__message_8c_ac2da65fbb1aeb9493d0756dc2aada205}{openavbAcmpMessageRxThreadFn}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+391         \hyperlink{maap__helper__linux_8h_a2d61dbf377bb5ab560d4b4bddf49c9c2}{THREAD\_CHECK\_ERROR}(openavbAcmpMessageRxThread, \textcolor{stringliteral}{"Thread / task creation failed"}, 
+      errResult);
+392         \textcolor{keywordflow}{if} (errResult) \{
+393             \hyperlink{openavb__acmp__message_8c_acf182b7b2127314d5d00c6df827734b5}{bRunning} = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+394             \hyperlink{openavb__acmp__message_8c_aa41bc4e590699904cfddda6dd32043c7}{openavbAcmpCloseSocket}();
+395             \hyperlink{openavb__result__codes_8h_a914b1a10e0333e834ea192298c7d9e26}{AVB\_RC\_TRACE\_RET}(\hyperlink{openavb__result__codes_8h_ae011b3feb6683a50e9a6a566b7bb679d}{OPENAVB\_AVDECC\_FAILURE}, 
+      \hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+396         \}
+397 
+398         \hyperlink{openavb__result__codes_8h_a914b1a10e0333e834ea192298c7d9e26}{AVB\_RC\_TRACE\_RET}(\hyperlink{openavb__result__codes_8h_a36a28b5430025e16249854e3e1e74f5e}{OPENAVB\_AVDECC\_SUCCESS}, 
+      \hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+399     \}
+400 
+401     \hyperlink{openavb__acmp__message_8c_acf182b7b2127314d5d00c6df827734b5}{bRunning} = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+402     \hyperlink{openavb__result__codes_8h_a914b1a10e0333e834ea192298c7d9e26}{AVB\_RC\_TRACE\_RET}(\hyperlink{openavb__result__codes_8h_ae011b3feb6683a50e9a6a566b7bb679d}{OPENAVB\_AVDECC\_FAILURE}, 
+      \hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+403 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__acmp__message_8c_a5fc3f4d297914162c201389853adae27_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__acmp__message_8c_a5fc3f4d297914162c201389853adae27_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}!openavb\+Acmp\+Message\+Handler\+Stop@{openavb\+Acmp\+Message\+Handler\+Stop}}
+\index{openavb\+Acmp\+Message\+Handler\+Stop@{openavb\+Acmp\+Message\+Handler\+Stop}!openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Acmp\+Message\+Handler\+Stop()}{openavbAcmpMessageHandlerStop()}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Acmp\+Message\+Handler\+Stop (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__acmp__message_8c_a24ea85f352a004eade46fb990430fb1f}{}\label{openavb__acmp__message_8c_a24ea85f352a004eade46fb990430fb1f}
+
+
+openavb\+\_\+acmp\+\_\+message.\+c 파일의 405 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+406 \{
+407     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+408 
+409     \textcolor{keywordflow}{if} (\hyperlink{openavb__acmp__message_8c_acf182b7b2127314d5d00c6df827734b5}{bRunning}) \{
+410         \hyperlink{openavb__acmp__message_8c_acf182b7b2127314d5d00c6df827734b5}{bRunning} = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+411         \hyperlink{maap__helper__linux_8h_ab2bcb74112112a2ed181d5784e0530f3}{THREAD\_JOIN}(openavbAcmpMessageRxThread, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+412         \hyperlink{openavb__acmp__message_8c_aa41bc4e590699904cfddda6dd32043c7}{openavbAcmpCloseSocket}();
+413     \}
+414 
+415     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+416 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__acmp__message_8c_a24ea85f352a004eade46fb990430fb1f_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__acmp__message_8c_a24ea85f352a004eade46fb990430fb1f_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}!openavb\+Acmp\+Message\+Rx\+Frame\+Parse@{openavb\+Acmp\+Message\+Rx\+Frame\+Parse}}
+\index{openavb\+Acmp\+Message\+Rx\+Frame\+Parse@{openavb\+Acmp\+Message\+Rx\+Frame\+Parse}!openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Acmp\+Message\+Rx\+Frame\+Parse(\+U8 $\ast$payload, int payload\+\_\+len, hdr\+\_\+info\+\_\+t $\ast$hdr)}{openavbAcmpMessageRxFrameParse(U8 *payload, int payload_len, hdr_info_t *hdr)}}]{\setlength{\rightskip}{0pt plus 5cm}static void openavb\+Acmp\+Message\+Rx\+Frame\+Parse (
+\begin{DoxyParamCaption}
+\item[{{\bf U8} $\ast$}]{payload, }
+\item[{int}]{payload\+\_\+len, }
+\item[{{\bf hdr\+\_\+info\+\_\+t} $\ast$}]{hdr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__acmp__message_8c_aeda4b8868128b201f3299da43dddea43}{}\label{openavb__acmp__message_8c_aeda4b8868128b201f3299da43dddea43}
+
+
+openavb\+\_\+acmp\+\_\+message.\+c 파일의 154 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+155 \{
+156     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+157 
+158     \hyperlink{structopenavb__acmp__control__header__t}{openavb\_acmp\_control\_header\_t} acmpHeader;
+159     \hyperlink{structopenavb__acmp___a_c_m_p_command_response__t}{openavb\_acmp\_ACMPCommandResponse\_t} acmpCommandResponse;
+160 
+161 \textcolor{preprocessor}{#if 0}
+162     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afcf1f0c1d10ae9efe3782eb6cae78355}{AVB\_LOGF\_DEBUG}(\textcolor{stringliteral}{"openavbAcmpMessageRxFrameParse packet data (length %d):"}, 
+      \hyperlink{gstavbsink_8c_afbbc2e77af6298f5550aec6087ba7d32}{payload\_len});
+163     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a8d4c50ca73e8a7fbca488128755e5e5c}{AVB\_LOG\_BUFFER}(\hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a35e326523cfad3b35b50459a9e6bf259}{AVB\_LOG\_LEVEL\_DEBUG}, payload, 
+      \hyperlink{gstavbsink_8c_afbbc2e77af6298f5550aec6087ba7d32}{payload\_len}, 16);
+164 \textcolor{preprocessor}{#endif}
+165 
+166     \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *pSrc = payload;
+167     \{
+168         \hyperlink{structopenavb__acmp__control__header__t}{openavb\_acmp\_control\_header\_t} *pDst1 = &acmpHeader;
+169         \hyperlink{structopenavb__acmp___a_c_m_p_command_response__t}{openavb\_acmp\_ACMPCommandResponse\_t} *pDst2 = &acmpCommandResponse;
+170 
+171         memset(&acmpHeader, 0, \textcolor{keyword}{sizeof}(acmpHeader));
+172         memset(&acmpCommandResponse, 0, \textcolor{keyword}{sizeof}(acmpCommandResponse));
+173 
+174         \textcolor{comment}{// AVTP Control Header}
+175         \hyperlink{openavb__avdecc_8h_a9b27d3f1018540fea565cdce94708cb4}{BIT\_B2DNTOHB}(pDst1->\hyperlink{structopenavb__acmp__control__header__t_ad2828a59ad0b95e77da38333c0a717de}{cd}, pSrc, 0x80, 7, 0);
+176         \hyperlink{openavb__avdecc_8h_a9b27d3f1018540fea565cdce94708cb4}{BIT\_B2DNTOHB}(pDst1->\hyperlink{structopenavb__acmp__control__header__t_ad61c2796f8f447c2ca8979f4aeccf351}{subtype}, pSrc, 0x7f, 0, 1);
+177         \hyperlink{openavb__avdecc_8h_a9b27d3f1018540fea565cdce94708cb4}{BIT\_B2DNTOHB}(pDst1->\hyperlink{structopenavb__acmp__control__header__t_adc62d14194c9ab3aff5b994caef8bcb0}{sv}, pSrc, 0x80, 7, 0);
+178         \hyperlink{openavb__avdecc_8h_a9b27d3f1018540fea565cdce94708cb4}{BIT\_B2DNTOHB}(pDst1->\hyperlink{structopenavb__acmp__control__header__t_ae5d1ca2d5099c6a5f760c897505cb11b}{version}, pSrc, 0x70, 4, 0);
+179         \hyperlink{openavb__avdecc_8h_a9b27d3f1018540fea565cdce94708cb4}{BIT\_B2DNTOHB}(pDst2->\hyperlink{structopenavb__acmp___a_c_m_p_command_response__t_a5e8953d77df4508aa07ed906c5b19beb}{message\_type}, pSrc, 0x0f, 0, 1);
+180         \hyperlink{openavb__avdecc_8h_a9b27d3f1018540fea565cdce94708cb4}{BIT\_B2DNTOHB}(pDst2->\hyperlink{structopenavb__acmp___a_c_m_p_command_response__t_aa2ef32d18f7a5a009b93a17834fe3828}{status}, pSrc, 0xf800, 11, 0);
+181         \hyperlink{openavb__avdecc_8h_ac640f4ad78fb76861555b256d3f8a649}{BIT\_B2DNTOHS}(pDst1->\hyperlink{structopenavb__acmp__control__header__t_a6a26fcf01946013b206d67551ef6eb84}{control\_data\_length}, pSrc, 0x07ff, 0, 2);
+182         \hyperlink{openavb__avdecc_8h_a89139086445bc0a41eaa2a0d463d20ee}{OCT\_B2DMEMCP}(pDst2->\hyperlink{structopenavb__acmp___a_c_m_p_command_response__t_a75d8c196686b96d97e0a271ac7b70da8}{stream\_id}, pSrc);
+183 
+184         \textcolor{comment}{// ACMP PDU}
+185         \hyperlink{openavb__avdecc_8h_a89139086445bc0a41eaa2a0d463d20ee}{OCT\_B2DMEMCP}(pDst2->\hyperlink{structopenavb__acmp___a_c_m_p_command_response__t_a8b74ba582b9c19e1f2e475925f7cfb2f}{controller\_entity\_id}, pSrc);
+186         \hyperlink{openavb__avdecc_8h_a89139086445bc0a41eaa2a0d463d20ee}{OCT\_B2DMEMCP}(pDst2->\hyperlink{structopenavb__acmp___a_c_m_p_command_response__t_a9a599b9c25c2171c3e76f269d9a04f51}{talker\_entity\_id}, pSrc);
+187         \hyperlink{openavb__avdecc_8h_a89139086445bc0a41eaa2a0d463d20ee}{OCT\_B2DMEMCP}(pDst2->\hyperlink{structopenavb__acmp___a_c_m_p_command_response__t_adc2799f499bfc317ee7d3a9182d1c71f}{listener\_entity\_id}, pSrc);
+188         \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst2->\hyperlink{structopenavb__acmp___a_c_m_p_command_response__t_a545e994bde6218210bb41265ac298837}{talker\_unique\_id}, pSrc);
+189         \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst2->\hyperlink{structopenavb__acmp___a_c_m_p_command_response__t_adf094f0d101f97a77306253aa7c650e6}{listener\_unique\_id}, pSrc);
+190         \hyperlink{openavb__avdecc_8h_a89139086445bc0a41eaa2a0d463d20ee}{OCT\_B2DMEMCP}(pDst2->\hyperlink{structopenavb__acmp___a_c_m_p_command_response__t_a26087f365a751a1415364bfb5e2b8a0e}{stream\_dest\_mac}, pSrc);
+191         \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst2->\hyperlink{structopenavb__acmp___a_c_m_p_command_response__t_ad1ff24268593562ac5896a238d895b81}{connection\_count}, pSrc);
+192         \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst2->\hyperlink{structopenavb__acmp___a_c_m_p_command_response__t_ada45e1a0fe13471280842df714983d95}{sequence\_id}, pSrc);
+193         \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst2->\hyperlink{structopenavb__acmp___a_c_m_p_command_response__t_a492b33861e809623846e5256d271bc78}{flags}, pSrc);
+194         \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst2->\hyperlink{structopenavb__acmp___a_c_m_p_command_response__t_a31db70d552fc6f5d35875430fca593e6}{stream\_vlan\_id}, pSrc);
+195     \}
+196 
+197     \textcolor{comment}{// Update the state machine}
+198     \textcolor{keywordflow}{switch} (acmpCommandResponse.\hyperlink{structopenavb__acmp___a_c_m_p_command_response__t_a5e8953d77df4508aa07ed906c5b19beb}{message\_type}) \{
+199         \textcolor{keywordflow}{case} \hyperlink{openavb__acmp_8h_aa278be622ce30f3d32f70c2ab1fd7429}{OPENAVB\_ACMP\_MESSAGE\_TYPE\_CONNECT\_TX\_COMMAND}:
+200             \hyperlink{openavb__acmp__sm__talker_8c_ad98d1057f830f2002a71b466025cf4cb}{openavbAcmpSMTalkerSet\_rcvdConnectTXCmd}(&
+      acmpCommandResponse);
+201             \textcolor{keywordflow}{break};
+202         \textcolor{keywordflow}{case} \hyperlink{openavb__acmp_8h_a8a257dbb31448551325edc9cd9874db2}{OPENAVB\_ACMP\_MESSAGE\_TYPE\_CONNECT\_TX\_RESPONSE}:
+203             \hyperlink{openavb__acmp__sm__listener_8c_a0428cc23c9e71e7c4f7e2c0581bda7ef}{openavbAcmpSMListenerSet\_rcvdConnectTXResp}(&
+      acmpCommandResponse);
+204             \textcolor{keywordflow}{break};
+205         \textcolor{keywordflow}{case} \hyperlink{openavb__acmp_8h_a26225fc25a497b12b33a2ac7fe55c0c3}{OPENAVB\_ACMP\_MESSAGE\_TYPE\_DISCONNECT\_TX\_COMMAND}
+      :
+206             \hyperlink{openavb__acmp__sm__talker_8c_aa69171e1feb3bd22446be14534e80018}{openavbAcmpSMTalkerSet\_rcvdDisconnectTXCmd}(&
+      acmpCommandResponse);
+207             \textcolor{keywordflow}{break};
+208         \textcolor{keywordflow}{case} \hyperlink{openavb__acmp_8h_ae2422caa1d0014fc5760aba71864f12c}{OPENAVB\_ACMP\_MESSAGE\_TYPE\_DISCONNECT\_TX\_RESPONSE}
+      :
+209             \hyperlink{openavb__acmp__sm__listener_8c_a67f2dcdb39975e2aa8fd0b9d24af55a4}{openavbAcmpSMListenerSet\_rcvdDisconnectTXResp}(&
+      acmpCommandResponse);
+210             \textcolor{keywordflow}{break};
+211         \textcolor{keywordflow}{case} \hyperlink{openavb__acmp_8h_ad2320009ed282819c1899a9722e2fd42}{OPENAVB\_ACMP\_MESSAGE\_TYPE\_GET\_TX\_STATE\_COMMAND}:
+212             \hyperlink{openavb__acmp__sm__talker_8c_af25a785b9123a5bfcbb7ec9ff5dd795f}{openavbAcmpSMTalkerSet\_rcvdGetTXState}(&acmpCommandResponse
+      );
+213             \textcolor{keywordflow}{break};
+214         \textcolor{keywordflow}{case} \hyperlink{openavb__acmp_8h_a62647690635195f1ecabca67686f25bb}{OPENAVB\_ACMP\_MESSAGE\_TYPE\_GET\_TX\_STATE\_RESPONSE}
+      :
+215             \hyperlink{openavb__acmp__sm__controller_8c_a36ef5af4765305a36cbdbf0f0cfdf8df}{openavbAcmpSMControllerSet\_rcvdResponse}(&
+      acmpCommandResponse);
+216             \textcolor{keywordflow}{break};
+217         \textcolor{keywordflow}{case} \hyperlink{openavb__acmp_8h_a1a159ad4b39dbc595007c10947387a38}{OPENAVB\_ACMP\_MESSAGE\_TYPE\_CONNECT\_RX\_COMMAND}:
+218             \hyperlink{openavb__acmp__sm__listener_8c_af9c7cba1359289d31c9e05b71d5e4812}{openavbAcmpSMListenerSet\_rcvdConnectRXCmd}(&
+      acmpCommandResponse);
+219             \textcolor{keywordflow}{break};
+220         \textcolor{keywordflow}{case} \hyperlink{openavb__acmp_8h_a1da47834356494c63eda0341d7c29719}{OPENAVB\_ACMP\_MESSAGE\_TYPE\_CONNECT\_RX\_RESPONSE}:
+221             \hyperlink{openavb__acmp__sm__controller_8c_a36ef5af4765305a36cbdbf0f0cfdf8df}{openavbAcmpSMControllerSet\_rcvdResponse}(&
+      acmpCommandResponse);
+222             \textcolor{keywordflow}{break};
+223         \textcolor{keywordflow}{case} \hyperlink{openavb__acmp_8h_a39cad7771d0bf0a4f21965d9cf9e9a39}{OPENAVB\_ACMP\_MESSAGE\_TYPE\_DISCONNECT\_RX\_COMMAND}
+      :
+224             \hyperlink{openavb__acmp__sm__listener_8c_aa82f5dd1adf9f98bb49483bcca375afe}{openavbAcmpSMListenerSet\_rcvdDisconnectRXCmd}(&
+      acmpCommandResponse);
+225             \textcolor{keywordflow}{break};
+226         \textcolor{keywordflow}{case} \hyperlink{openavb__acmp_8h_a4f0d3eb0d6eb9496d52dc7be2f3fdab2}{OPENAVB\_ACMP\_MESSAGE\_TYPE\_DISCONNECT\_RX\_RESPONSE}
+      :
+227             \hyperlink{openavb__acmp__sm__controller_8c_a36ef5af4765305a36cbdbf0f0cfdf8df}{openavbAcmpSMControllerSet\_rcvdResponse}(&
+      acmpCommandResponse);
+228             \textcolor{keywordflow}{break};
+229         \textcolor{keywordflow}{case} \hyperlink{openavb__acmp_8h_a18d21f750d76aaa8857b503c6e797441}{OPENAVB\_ACMP\_MESSAGE\_TYPE\_GET\_RX\_STATE\_COMMAND}:
+230             \hyperlink{openavb__acmp__sm__listener_8c_ad8ba3f08e4aa928a0c368ba2103f1bc1}{openavbAcmpSMListenerSet\_rcvdGetRXState}(&
+      acmpCommandResponse);
+231             \textcolor{keywordflow}{break};
+232         \textcolor{keywordflow}{case} \hyperlink{openavb__acmp_8h_ab69ccb09b348dbce42faeca9d6a32f0e}{OPENAVB\_ACMP\_MESSAGE\_TYPE\_GET\_RX\_STATE\_RESPONSE}
+      :
+233             \hyperlink{openavb__acmp__sm__controller_8c_a36ef5af4765305a36cbdbf0f0cfdf8df}{openavbAcmpSMControllerSet\_rcvdResponse}(&
+      acmpCommandResponse);
+234             \textcolor{keywordflow}{break};
+235         \textcolor{keywordflow}{case} \hyperlink{openavb__acmp_8h_af618aaa78fd9720d0caec11e035db83f}{OPENAVB\_ACMP\_MESSAGE\_TYPE\_GET\_TX\_CONNECTION\_COMMAND}
+      :
+236             \hyperlink{openavb__acmp__sm__talker_8c_ad13f06591dbf3d614508692fe612cf59}{openavbAcmpSMTalkerSet\_rcvdGetTXConnectionCmd}(&
+      acmpCommandResponse);
+237             \textcolor{keywordflow}{break};
+238         \textcolor{keywordflow}{case} \hyperlink{openavb__acmp_8h_ac2f907238a3ee0980211ac27cd6db125}{OPENAVB\_ACMP\_MESSAGE\_TYPE\_GET\_TX\_CONNECTION\_RESPONSE}
+      :
+239             \hyperlink{openavb__acmp__sm__controller_8c_a36ef5af4765305a36cbdbf0f0cfdf8df}{openavbAcmpSMControllerSet\_rcvdResponse}(&
+      acmpCommandResponse);
+240             \textcolor{keywordflow}{break};
+241     \}
+242 
+243     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+244 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__acmp__message_8c_aeda4b8868128b201f3299da43dddea43_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__acmp__message_8c_aeda4b8868128b201f3299da43dddea43_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}!openavb\+Acmp\+Message\+Rx\+Frame\+Receive@{openavb\+Acmp\+Message\+Rx\+Frame\+Receive}}
+\index{openavb\+Acmp\+Message\+Rx\+Frame\+Receive@{openavb\+Acmp\+Message\+Rx\+Frame\+Receive}!openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Acmp\+Message\+Rx\+Frame\+Receive(\+U32 timeout\+Usec)}{openavbAcmpMessageRxFrameReceive(U32 timeoutUsec)}}]{\setlength{\rightskip}{0pt plus 5cm}static void openavb\+Acmp\+Message\+Rx\+Frame\+Receive (
+\begin{DoxyParamCaption}
+\item[{{\bf U32}}]{timeout\+Usec}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__acmp__message_8c_a59898cca9282a2144c4e0711d39a844e}{}\label{openavb__acmp__message_8c_a59898cca9282a2144c4e0711d39a844e}
+
+
+openavb\+\_\+acmp\+\_\+message.\+c 파일의 246 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+247 \{
+248     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+249 
+250     \hyperlink{structhdr__info__t}{hdr\_info\_t} hdrInfo;
+251     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} offset, len;
+252     \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *pBuf, *pFrame;
+253 
+254     memset(&hdrInfo, 0, \textcolor{keyword}{sizeof}(\hyperlink{structhdr__info__t}{hdr\_info\_t}));
+255 
+256     pBuf = (\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *)\hyperlink{openavb__rawsock_8h_ab4beedf5fcac2ab0b3aaf41095a0dbc1}{openavbRawsockGetRxFrame}(\hyperlink{openavb__acmp__message_8c_a2d8cdd4e3e7124a63509a346ade26a4b}{rxSock}, timeoutUsec, &offset, &
+      len);
+257     \textcolor{keywordflow}{if} (pBuf) \{
+258         pFrame = pBuf + offset;
+259 
+260         offset = \hyperlink{openavb__rawsock_8h_a9e622aafeae5b3aacba4996de08b554a}{openavbRawsockRxParseHdr}(\hyperlink{openavb__acmp__message_8c_a2d8cdd4e3e7124a63509a346ade26a4b}{rxSock}, pBuf, &hdrInfo);
+261         \{
+262 \textcolor{preprocessor}{#ifndef UBUNTU}
+263             \textcolor{keywordflow}{if} (hdrInfo.\hyperlink{structhdr__info__t_a54283e441ba9b75fc494232121266e2c}{ethertype} == \hyperlink{openavb__avtp_8h_a07fb0f2498c8b8dd62cc44da13bb092a}{ETHERTYPE\_8021Q}) \{
+264                 \textcolor{comment}{// Oh!  Need to look past the VLAN tag}
+265                 \hyperlink{openavb__types__base__pub_8h_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16} vlan\_bits = ntohs(*(\hyperlink{openavb__types__base__pub_8h_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16} *)(pFrame + offset));
+266                 hdrInfo.\hyperlink{structhdr__info__t_aae65321fd27fc2507a499a3f00660a93}{vlan} = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+267                 hdrInfo.\hyperlink{structhdr__info__t_aed62b55d4664ac7c198517a01adc4f6b}{vlan\_vid} = vlan\_bits & 0x0FFF;
+268                 hdrInfo.\hyperlink{structhdr__info__t_a394deccdf47e8dd6b4e6329e6fe0f8fc}{vlan\_pcp} = (vlan\_bits >> 13) & 0x0007;
+269                 offset += 2;
+270                 hdrInfo.\hyperlink{structhdr__info__t_a54283e441ba9b75fc494232121266e2c}{ethertype} = ntohs(*(\hyperlink{openavb__types__base__pub_8h_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16} *)(pFrame + offset));
+271                 offset += 2;
+272             \}
+273 \textcolor{preprocessor}{#endif}
+274 
+275             \textcolor{comment}{// Make sure that this is an AVTP packet}
+276             \textcolor{comment}{// (Should always be AVTP if it's to our AVTP-specific multicast address)}
+277             \textcolor{keywordflow}{if} (hdrInfo.\hyperlink{structhdr__info__t_a54283e441ba9b75fc494232121266e2c}{ethertype} == \hyperlink{openavb__avtp_8h_a5e6dfe517d14f65222b866a550498e5f}{ETHERTYPE\_AVTP}) \{
+278                 \textcolor{comment}{// parse the PDU only for ACMP messages}
+279                 \textcolor{keywordflow}{if} (*(pFrame + offset) == (0x80 | \hyperlink{openavb__acmp_8h_abff4195a8335d6a394114d3dd827c265}{OPENAVB\_ACMP\_AVTP\_SUBTYPE})) \{
+280                     \hyperlink{openavb__acmp__message_8c_aeda4b8868128b201f3299da43dddea43}{openavbAcmpMessageRxFrameParse}(pFrame + offset, len - 
+      offset, &hdrInfo);
+281                 \}
+282             \}
+283             \textcolor{keywordflow}{else} \{
+284                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a6e7cd550837a0406e98b81a840d10ea9}{AVB\_LOG\_WARNING}(\textcolor{stringliteral}{"Received non-AVTP frame!"});
+285                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afcf1f0c1d10ae9efe3782eb6cae78355}{AVB\_LOGF\_DEBUG}(\textcolor{stringliteral}{"Unexpected packet data (length %d):"}, len);
+286                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a8d4c50ca73e8a7fbca488128755e5e5c}{AVB\_LOG\_BUFFER}(\hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a35e326523cfad3b35b50459a9e6bf259}{AVB\_LOG\_LEVEL\_DEBUG}, pFrame, len, 16);
+287             \}
+288         \}
+289 
+290         \textcolor{comment}{// Release the frame}
+291         \hyperlink{openavb__rawsock_8h_ab9af76bc21dc0112d657252bd61b1219}{openavbRawsockRelRxFrame}(\hyperlink{openavb__acmp__message_8c_a2d8cdd4e3e7124a63509a346ade26a4b}{rxSock}, pBuf);
+292     \}
+293 
+294     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+295 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__acmp__message_8c_a59898cca9282a2144c4e0711d39a844e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__acmp__message_8c_a59898cca9282a2144c4e0711d39a844e_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}!openavb\+Acmp\+Message\+Rx\+Thread\+Fn@{openavb\+Acmp\+Message\+Rx\+Thread\+Fn}}
+\index{openavb\+Acmp\+Message\+Rx\+Thread\+Fn@{openavb\+Acmp\+Message\+Rx\+Thread\+Fn}!openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Acmp\+Message\+Rx\+Thread\+Fn(void $\ast$pv)}{openavbAcmpMessageRxThreadFn(void *pv)}}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ openavb\+Acmp\+Message\+Rx\+Thread\+Fn (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{pv}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__acmp__message_8c_ac2da65fbb1aeb9493d0756dc2aada205}{}\label{openavb__acmp__message_8c_ac2da65fbb1aeb9493d0756dc2aada205}
+
+
+openavb\+\_\+acmp\+\_\+message.\+c 파일의 365 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+366 \{
+367     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+368 
+369     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a28a4d0350d530ad95c95b8383c00cd9c}{AVB\_LOG\_DEBUG}(\textcolor{stringliteral}{"ACMP Thread Started"});
+370     \textcolor{keywordflow}{while} (\hyperlink{openavb__acmp__message_8c_acf182b7b2127314d5d00c6df827734b5}{bRunning}) \{
+371         \textcolor{comment}{// Try to get and process an ACMP.}
+372         \hyperlink{openavb__acmp__message_8c_a59898cca9282a2144c4e0711d39a844e}{openavbAcmpMessageRxFrameReceive}(
+      \hyperlink{maap__helper__linux_8h_a8a708413d6171e7d86056793abe2cd1a}{MICROSECONDS\_PER\_SECOND});
+373     \}
+374     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a28a4d0350d530ad95c95b8383c00cd9c}{AVB\_LOG\_DEBUG}(\textcolor{stringliteral}{"ACMP Thread Done"});
+375 
+376     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+377     \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+378 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__acmp__message_8c_ac2da65fbb1aeb9493d0756dc2aada205_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__acmp__message_8c_ac2da65fbb1aeb9493d0756dc2aada205_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}!openavb\+Acmp\+Message\+Send@{openavb\+Acmp\+Message\+Send}}
+\index{openavb\+Acmp\+Message\+Send@{openavb\+Acmp\+Message\+Send}!openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Acmp\+Message\+Send(\+U8 message\+Type, openavb\+\_\+acmp\+\_\+\+A\+C\+M\+P\+Command\+Response\+\_\+t $\ast$p\+A\+C\+M\+P\+Command\+Response, U8 status)}{openavbAcmpMessageSend(U8 messageType, openavb_acmp_ACMPCommandResponse_t *pACMPCommandResponse, U8 status)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf openavb\+RC} openavb\+Acmp\+Message\+Send (
+\begin{DoxyParamCaption}
+\item[{{\bf U8}}]{message\+Type, }
+\item[{{\bf openavb\+\_\+acmp\+\_\+\+A\+C\+M\+P\+Command\+Response\+\_\+t} $\ast$}]{p\+A\+C\+M\+P\+Command\+Response, }
+\item[{{\bf U8}}]{status}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__acmp__message_8c_ab89a2783021019f53544b58d3fd9f715}{}\label{openavb__acmp__message_8c_ab89a2783021019f53544b58d3fd9f715}
+
+
+openavb\+\_\+acmp\+\_\+message.\+c 파일의 418 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+419 \{
+420     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+421     \hyperlink{openavb__acmp__message_8c_a56d3c796ff36a9053aeab3dcfc108be5}{openavbAcmpMessageTxFrame}(messageType, pACMPCommandResponse, status);
+422     \hyperlink{openavb__result__codes_8h_a914b1a10e0333e834ea192298c7d9e26}{AVB\_RC\_TRACE\_RET}(\hyperlink{openavb__result__codes_8h_a36a28b5430025e16249854e3e1e74f5e}{OPENAVB\_AVDECC\_SUCCESS}, 
+      \hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+423 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__acmp__message_8c_ab89a2783021019f53544b58d3fd9f715_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__acmp__message_8c_ab89a2783021019f53544b58d3fd9f715_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}!openavb\+Acmp\+Message\+Tx\+Frame@{openavb\+Acmp\+Message\+Tx\+Frame}}
+\index{openavb\+Acmp\+Message\+Tx\+Frame@{openavb\+Acmp\+Message\+Tx\+Frame}!openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Acmp\+Message\+Tx\+Frame(\+U8 message\+Type, openavb\+\_\+acmp\+\_\+\+A\+C\+M\+P\+Command\+Response\+\_\+t $\ast$p\+A\+C\+M\+P\+Command\+Response, U8 status)}{openavbAcmpMessageTxFrame(U8 messageType, openavb_acmp_ACMPCommandResponse_t *pACMPCommandResponse, U8 status)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Acmp\+Message\+Tx\+Frame (
+\begin{DoxyParamCaption}
+\item[{{\bf U8}}]{message\+Type, }
+\item[{{\bf openavb\+\_\+acmp\+\_\+\+A\+C\+M\+P\+Command\+Response\+\_\+t} $\ast$}]{p\+A\+C\+M\+P\+Command\+Response, }
+\item[{{\bf U8}}]{status}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__acmp__message_8c_a56d3c796ff36a9053aeab3dcfc108be5}{}\label{openavb__acmp__message_8c_a56d3c796ff36a9053aeab3dcfc108be5}
+
+
+openavb\+\_\+acmp\+\_\+message.\+c 파일의 297 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+298 \{
+299     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+300 
+301     \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *pBuf;
+302     \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} \hyperlink{gst__avb__playbin_8c_a439227feff9d7f55384e8780cfc2eb82}{size};
+303     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} hdrlen = 0;
+304 
+305     pBuf = \hyperlink{openavb__rawsock_8h_a121372984c2c72c3b5872783dbf3dbea}{openavbRawsockGetTxFrame}(\hyperlink{openavb__acmp__message_8c_acc3c897b6f4f88ddba59c97f3178e402}{txSock}, \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, &size);
+306 
+307     \textcolor{keywordflow}{if} (!pBuf) \{
+308         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"No TX buffer"});
+309         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+310         \textcolor{keywordflow}{return};     \textcolor{comment}{// AVDECC\_TODO - return error result}
+311     \}
+312 
+313     \textcolor{keywordflow}{if} (size < \hyperlink{openavb__acmp__message_8c_a8395f6fcff3760be8d9e81a56b6882ab}{ACMP\_FRAME\_LEN}) \{
+314         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"TX buffer too small"});
+315         \hyperlink{openavb__rawsock_8h_ad8a88781ff68572ec2b3e7605a99c653}{openavbRawsockRelTxFrame}(\hyperlink{openavb__acmp__message_8c_acc3c897b6f4f88ddba59c97f3178e402}{txSock}, pBuf);
+316         pBuf = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+317         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+318         \textcolor{keywordflow}{return};     \textcolor{comment}{// AVDECC\_TODO - return error result}
+319     \}
+320 
+321     memset(pBuf, 0, \hyperlink{openavb__acmp__message_8c_a8395f6fcff3760be8d9e81a56b6882ab}{ACMP\_FRAME\_LEN});
+322     \hyperlink{openavb__rawsock_8h_a64af44702b6f40bf8932eca5ece06d0c}{openavbRawsockTxFillHdr}(\hyperlink{openavb__acmp__message_8c_acc3c897b6f4f88ddba59c97f3178e402}{txSock}, pBuf, &hdrlen);
+323 
+324     \hyperlink{openavb__acmp__message_8c_a3ce1b398321de047eed27a2eb4a97e99}{ACMP\_LOCK}();
+325     \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *pDst = pBuf + hdrlen;
+326     \{
+327         \hyperlink{structopenavb__acmp__control__header__t}{openavb\_acmp\_control\_header\_t} *pSrc1 = &
+      \hyperlink{openavb__acmp__message_8c_a3b2bf4fc57f453d3c2c073f0b7637073}{openavbAcmpSMGlobalVars}.\hyperlink{structopenavb__acmp__sm__global__vars__t_ab8b927414a6fac6fb2c845292107825b}{controlHeader};
+328         \hyperlink{structopenavb__acmp___a_c_m_p_command_response__t}{openavb\_acmp\_ACMPCommandResponse\_t} *pSrc2 = pACMPCommandResponse;
+329 
+330         \textcolor{comment}{// AVTP Control Header}
+331         \hyperlink{ap__message_8cpp_a96729df4f440a649d696b081c6dfac8b}{BIT\_D2BHTONB}(pDst, pSrc1->\hyperlink{structopenavb__acmp__control__header__t_ad2828a59ad0b95e77da38333c0a717de}{cd}, 7, 0);
+332         \hyperlink{ap__message_8cpp_a96729df4f440a649d696b081c6dfac8b}{BIT\_D2BHTONB}(pDst, pSrc1->\hyperlink{structopenavb__acmp__control__header__t_ad61c2796f8f447c2ca8979f4aeccf351}{subtype}, 0, 1);
+333         \hyperlink{ap__message_8cpp_a96729df4f440a649d696b081c6dfac8b}{BIT\_D2BHTONB}(pDst, pSrc1->\hyperlink{structopenavb__acmp__control__header__t_adc62d14194c9ab3aff5b994caef8bcb0}{sv}, 7, 0);
+334         \hyperlink{ap__message_8cpp_a96729df4f440a649d696b081c6dfac8b}{BIT\_D2BHTONB}(pDst, pSrc1->\hyperlink{structopenavb__acmp__control__header__t_ae5d1ca2d5099c6a5f760c897505cb11b}{version}, 4, 0);
+335         \hyperlink{ap__message_8cpp_a96729df4f440a649d696b081c6dfac8b}{BIT\_D2BHTONB}(pDst, messageType, 0, 1);
+336         \hyperlink{ap__message_8cpp_a320aa3b496f6b0356f37f1f09edb0734}{BIT\_D2BHTONS}(pDst, status, 11, 0);
+337         \hyperlink{ap__message_8cpp_a320aa3b496f6b0356f37f1f09edb0734}{BIT\_D2BHTONS}(pDst, pSrc1->\hyperlink{structopenavb__acmp__control__header__t_a6a26fcf01946013b206d67551ef6eb84}{control\_data\_length}, 0, 2);
+338         \hyperlink{ap__message_8cpp_a84ff71482380e24df395988abd6c768f}{OCT\_D2BMEMCP}(pDst, pSrc2->\hyperlink{structopenavb__acmp___a_c_m_p_command_response__t_a75d8c196686b96d97e0a271ac7b70da8}{stream\_id});
+339 
+340         \textcolor{comment}{// ACMP PDU}
+341         \hyperlink{ap__message_8cpp_a84ff71482380e24df395988abd6c768f}{OCT\_D2BMEMCP}(pDst, pSrc2->\hyperlink{structopenavb__acmp___a_c_m_p_command_response__t_a8b74ba582b9c19e1f2e475925f7cfb2f}{controller\_entity\_id});
+342         \hyperlink{ap__message_8cpp_a84ff71482380e24df395988abd6c768f}{OCT\_D2BMEMCP}(pDst, pSrc2->\hyperlink{structopenavb__acmp___a_c_m_p_command_response__t_a9a599b9c25c2171c3e76f269d9a04f51}{talker\_entity\_id});
+343         \hyperlink{ap__message_8cpp_a84ff71482380e24df395988abd6c768f}{OCT\_D2BMEMCP}(pDst, pSrc2->\hyperlink{structopenavb__acmp___a_c_m_p_command_response__t_adc2799f499bfc317ee7d3a9182d1c71f}{listener\_entity\_id});
+344         \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc2->\hyperlink{structopenavb__acmp___a_c_m_p_command_response__t_a545e994bde6218210bb41265ac298837}{talker\_unique\_id});
+345         \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc2->\hyperlink{structopenavb__acmp___a_c_m_p_command_response__t_adf094f0d101f97a77306253aa7c650e6}{listener\_unique\_id});
+346         \hyperlink{ap__message_8cpp_a84ff71482380e24df395988abd6c768f}{OCT\_D2BMEMCP}(pDst, pSrc2->\hyperlink{structopenavb__acmp___a_c_m_p_command_response__t_a26087f365a751a1415364bfb5e2b8a0e}{stream\_dest\_mac});
+347         \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc2->\hyperlink{structopenavb__acmp___a_c_m_p_command_response__t_ad1ff24268593562ac5896a238d895b81}{connection\_count});
+348         \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc2->\hyperlink{structopenavb__acmp___a_c_m_p_command_response__t_ada45e1a0fe13471280842df714983d95}{sequence\_id});
+349         \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc2->\hyperlink{structopenavb__acmp___a_c_m_p_command_response__t_a492b33861e809623846e5256d271bc78}{flags});
+350         \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc2->\hyperlink{structopenavb__acmp___a_c_m_p_command_response__t_a31db70d552fc6f5d35875430fca593e6}{stream\_vlan\_id});
+351     \}
+352     \hyperlink{openavb__acmp__message_8c_a9a166efed26b5de58c79dd21c739a23f}{ACMP\_UNLOCK}();
+353 
+354 \textcolor{preprocessor}{#if 0}
+355     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afcf1f0c1d10ae9efe3782eb6cae78355}{AVB\_LOGF\_DEBUG}(\textcolor{stringliteral}{"openavbAcmpMessageTxFrame packet data (length %d):"}, hdrlen + 
+      \hyperlink{openavb__acmp__message_8c_af98fb8372f1f7bbd3f0456cad630770c}{AVTP\_HDR\_LEN} + \hyperlink{openavb__acmp__message_8c_ae0b9facefd3514309c82cdc0f13bf31a}{ACMP\_DATA\_LEN});
+356     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a8d4c50ca73e8a7fbca488128755e5e5c}{AVB\_LOG\_BUFFER}(\hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a35e326523cfad3b35b50459a9e6bf259}{AVB\_LOG\_LEVEL\_DEBUG}, pBuf, hdrlen + 
+      \hyperlink{openavb__acmp__message_8c_af98fb8372f1f7bbd3f0456cad630770c}{AVTP\_HDR\_LEN} + \hyperlink{openavb__acmp__message_8c_ae0b9facefd3514309c82cdc0f13bf31a}{ACMP\_DATA\_LEN}, 16);
+357 \textcolor{preprocessor}{#endif}
+358 
+359     \hyperlink{openavb__rawsock_8h_ac04c99d5bc5e7371260b21fc79e7d253}{openavbRawsockTxFrameReady}(\hyperlink{openavb__acmp__message_8c_acc3c897b6f4f88ddba59c97f3178e402}{txSock}, pBuf, hdrlen + 
+      \hyperlink{openavb__acmp__message_8c_af98fb8372f1f7bbd3f0456cad630770c}{AVTP\_HDR\_LEN} + \hyperlink{openavb__acmp__message_8c_ae0b9facefd3514309c82cdc0f13bf31a}{ACMP\_DATA\_LEN}, 0);
+360     \hyperlink{openavb__rawsock_8h_addc3b3ada9a2ba3695987ce93c571f76}{openavbRawsockSend}(\hyperlink{openavb__acmp__message_8c_acc3c897b6f4f88ddba59c97f3178e402}{txSock});
+361 
+362     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+363 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__acmp__message_8c_a56d3c796ff36a9053aeab3dcfc108be5_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__acmp__message_8c_a56d3c796ff36a9053aeab3dcfc108be5_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}!openavb\+Acmp\+Open\+Socket@{openavb\+Acmp\+Open\+Socket}}
+\index{openavb\+Acmp\+Open\+Socket@{openavb\+Acmp\+Open\+Socket}!openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Acmp\+Open\+Socket(const char $\ast$ifname, U16 vlan\+I\+D, U8 vlan\+P\+C\+P)}{openavbAcmpOpenSocket(const char *ifname, U16 vlanID, U8 vlanPCP)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} openavb\+Acmp\+Open\+Socket (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{ifname, }
+\item[{{\bf U16}}]{vlan\+ID, }
+\item[{{\bf U8}}]{vlan\+P\+CP}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__acmp__message_8c_a379fd62759214f9f984fdff41c6291e8}{}\label{openavb__acmp__message_8c_a379fd62759214f9f984fdff41c6291e8}
+
+
+openavb\+\_\+acmp\+\_\+message.\+c 파일의 108 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+109 \{
+110     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+111 
+112     \hyperlink{structhdr__info__t}{hdr\_info\_t} hdr;
+113 
+114     \hyperlink{openavb__acmp__message_8c_a2d8cdd4e3e7124a63509a346ade26a4b}{rxSock} = \hyperlink{openavb__rawsock_8c_a51a8d60253a8bab7c193b36bf743d12f}{openavbRawsockOpen}(\hyperlink{aaf-talker_8c_ac7b430acaa92a7a26fbcdad47d2efc20}{ifname}, \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 
+      \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{openavb__avtp_8h_a5e6dfe517d14f65222b866a550498e5f}{ETHERTYPE\_AVTP}, \hyperlink{openavb__acmp__message_8c_a8395f6fcff3760be8d9e81a56b6882ab}{ACMP\_FRAME\_LEN}, 
+      \hyperlink{openavb__acmp__message_8c_a29f8f7d1eba9fa7c41504a789f20a6ad}{ACMP\_NUM\_RX\_BUFFERS});
+115     \hyperlink{openavb__acmp__message_8c_acc3c897b6f4f88ddba59c97f3178e402}{txSock} = \hyperlink{openavb__rawsock_8c_a51a8d60253a8bab7c193b36bf743d12f}{openavbRawsockOpen}(\hyperlink{aaf-talker_8c_ac7b430acaa92a7a26fbcdad47d2efc20}{ifname}, \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, 
+      \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{openavb__avtp_8h_a5e6dfe517d14f65222b866a550498e5f}{ETHERTYPE\_AVTP}, \hyperlink{openavb__acmp__message_8c_a8395f6fcff3760be8d9e81a56b6882ab}{ACMP\_FRAME\_LEN}, 
+      \hyperlink{openavb__acmp__message_8c_aa76f37a10b69a6c684cdc541098e3519}{ACMP\_NUM\_TX\_BUFFERS});
+116 
+117     \textcolor{keywordflow}{if} (\hyperlink{openavb__acmp__message_8c_acc3c897b6f4f88ddba59c97f3178e402}{txSock} && \hyperlink{openavb__acmp__message_8c_a2d8cdd4e3e7124a63509a346ade26a4b}{rxSock}
+118         && \hyperlink{openavb__rawsock_8h_a099e2a46bd9edcba96f26f455fccbdf6}{openavbRawsockGetAddr}(\hyperlink{openavb__acmp__message_8c_acc3c897b6f4f88ddba59c97f3178e402}{txSock}, \hyperlink{openavb__acmp__message_8c_ad937f94043c94bc430c2bb95753bdbcc}{ADDR\_PTR}(&
+      \hyperlink{openavb__acmp__message_8c_ab00d246f71209a6c53d44b0ec45542a8}{intfAddr}))
+119         && ether\_aton\_r(\hyperlink{openavb__acmp__message_8c_a12198289816b22a761bd410c5686e0dd}{ACMP\_PROTOCOL\_ADDR}, &\hyperlink{openavb__acmp__message_8c_a4c559b0b8b7d5ad94655b0455fa6b970}{acmpAddr})
+120         && \hyperlink{openavb__rawsock_8h_abb439fef4018a616bbf4072cc2382276}{openavbRawsockRxMulticast}(\hyperlink{openavb__acmp__message_8c_a2d8cdd4e3e7124a63509a346ade26a4b}{rxSock}, \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 
+      \hyperlink{openavb__acmp__message_8c_ad937f94043c94bc430c2bb95753bdbcc}{ADDR\_PTR}(&\hyperlink{openavb__acmp__message_8c_a4c559b0b8b7d5ad94655b0455fa6b970}{acmpAddr})))
+121     \{
+122         \textcolor{keywordflow}{if} (!\hyperlink{openavb__rawsock_8h_a59cb802dece1927c5ea78e4a92b4e2be}{openavbRawsockRxAVTPSubtype}(\hyperlink{openavb__acmp__message_8c_a2d8cdd4e3e7124a63509a346ade26a4b}{rxSock}, 
+      \hyperlink{openavb__acmp_8h_abff4195a8335d6a394114d3dd827c265}{OPENAVB\_ACMP\_AVTP\_SUBTYPE} | 0x80)) \{
+123             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a28a4d0350d530ad95c95b8383c00cd9c}{AVB\_LOG\_DEBUG}(\textcolor{stringliteral}{"RX AVTP Subtype not supported"});
+124         \}
+125 
+126         memset(&hdr, 0, \textcolor{keyword}{sizeof}(\hyperlink{structhdr__info__t}{hdr\_info\_t}));
+127         hdr.\hyperlink{structhdr__info__t_a603b5aebe0d4619ae32b09cd6612535f}{shost} = \hyperlink{openavb__acmp__message_8c_ad937f94043c94bc430c2bb95753bdbcc}{ADDR\_PTR}(&\hyperlink{openavb__acmp__message_8c_ab00d246f71209a6c53d44b0ec45542a8}{intfAddr});
+128         hdr.\hyperlink{structhdr__info__t_a5a0b8fa2025e75a8db03f7a23cadc04e}{dhost} = \hyperlink{openavb__acmp__message_8c_ad937f94043c94bc430c2bb95753bdbcc}{ADDR\_PTR}(&\hyperlink{openavb__acmp__message_8c_a4c559b0b8b7d5ad94655b0455fa6b970}{acmpAddr});
+129         hdr.\hyperlink{structhdr__info__t_a54283e441ba9b75fc494232121266e2c}{ethertype} = \hyperlink{openavb__avtp_8h_a5e6dfe517d14f65222b866a550498e5f}{ETHERTYPE\_AVTP};
+130         \textcolor{keywordflow}{if} (vlanID != 0 || vlanPCP != 0) \{
+131             hdr.\hyperlink{structhdr__info__t_aae65321fd27fc2507a499a3f00660a93}{vlan} = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+132             hdr.\hyperlink{structhdr__info__t_a394deccdf47e8dd6b4e6329e6fe0f8fc}{vlan\_pcp} = vlanPCP;
+133             hdr.\hyperlink{structhdr__info__t_aed62b55d4664ac7c198517a01adc4f6b}{vlan\_vid} = vlanID;
+134             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afcf1f0c1d10ae9efe3782eb6cae78355}{AVB\_LOGF\_DEBUG}(\textcolor{stringliteral}{"VLAN pcp=%d vid=%d"}, hdr.\hyperlink{structhdr__info__t_a394deccdf47e8dd6b4e6329e6fe0f8fc}{vlan\_pcp}, hdr.
+      \hyperlink{structhdr__info__t_aed62b55d4664ac7c198517a01adc4f6b}{vlan\_vid});
+135         \}
+136         \textcolor{keywordflow}{if} (!\hyperlink{openavb__rawsock_8h_a533478c640918e91d858316a98f26176}{openavbRawsockTxSetHdr}(\hyperlink{openavb__acmp__message_8c_acc3c897b6f4f88ddba59c97f3178e402}{txSock}, &hdr)) \{
+137             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"TX socket Header Failure"});
+138             \hyperlink{openavb__acmp__message_8c_aa41bc4e590699904cfddda6dd32043c7}{openavbAcmpCloseSocket}();
+139             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+140             \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+141         \}
+142 
+143         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+144         \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+145     \}
+146 
+147     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Invalid socket"});
+148     \hyperlink{openavb__acmp__message_8c_aa41bc4e590699904cfddda6dd32043c7}{openavbAcmpCloseSocket}();
+149 
+150     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+151     \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+152 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__acmp__message_8c_a379fd62759214f9f984fdff41c6291e8_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__acmp__message_8c_a379fd62759214f9f984fdff41c6291e8_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}!T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+ON@{T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+ON}}
+\index{T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+ON@{T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+ON}!openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+O\+N(openavb\+Acmp\+Message\+Rx\+Thread)}{THREAD_DEFINITON(openavbAcmpMessageRxThread)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+ON (
+\begin{DoxyParamCaption}
+\item[{openavb\+Acmp\+Message\+Rx\+Thread}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__acmp__message_8c_a4543b8c73b0a4f3040b9ea05b1ee0011}{}\label{openavb__acmp__message_8c_a4543b8c73b0a4f3040b9ea05b1ee0011}
+\index{openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}!T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE@{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE}}
+\index{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE@{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE}!openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+P\+E(openavb\+Acmp\+Message\+Rx\+Thread)}{THREAD_TYPE(openavbAcmpMessageRxThread)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE (
+\begin{DoxyParamCaption}
+\item[{openavb\+Acmp\+Message\+Rx\+Thread}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__acmp__message_8c_aa48ef97aac480427d70258691ef4fddc}{}\label{openavb__acmp__message_8c_aa48ef97aac480427d70258691ef4fddc}
+
+
+\subsection{변수 문서화}
+\index{openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}!acmp\+Addr@{acmp\+Addr}}
+\index{acmp\+Addr@{acmp\+Addr}!openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{acmp\+Addr}{acmpAddr}}]{\setlength{\rightskip}{0pt plus 5cm}struct ether\+\_\+addr acmp\+Addr\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__acmp__message_8c_a4c559b0b8b7d5ad94655b0455fa6b970}{}\label{openavb__acmp__message_8c_a4c559b0b8b7d5ad94655b0455fa6b970}
+
+
+openavb\+\_\+acmp\+\_\+message.\+c 파일의 83 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}!b\+Running@{b\+Running}}
+\index{b\+Running@{b\+Running}!openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{b\+Running}{bRunning}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} b\+Running = {\bf F\+A\+L\+SE}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__acmp__message_8c_acf182b7b2127314d5d00c6df827734b5}{}\label{openavb__acmp__message_8c_acf182b7b2127314d5d00c6df827734b5}
+
+
+openavb\+\_\+acmp\+\_\+message.\+c 파일의 90 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}!g\+Avdecc\+Cfg@{g\+Avdecc\+Cfg}}
+\index{g\+Avdecc\+Cfg@{g\+Avdecc\+Cfg}!openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{g\+Avdecc\+Cfg}{gAvdeccCfg}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf openavb\+\_\+avdecc\+\_\+cfg\+\_\+t} g\+Avdecc\+Cfg}\hypertarget{openavb__acmp__message_8c_a142e959837c765cd9a1767b886421315}{}\label{openavb__acmp__message_8c_a142e959837c765cd9a1767b886421315}
+
+
+openavb\+\_\+avdecc.\+c 파일의 54 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}!intf\+Addr@{intf\+Addr}}
+\index{intf\+Addr@{intf\+Addr}!openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{intf\+Addr}{intfAddr}}]{\setlength{\rightskip}{0pt plus 5cm}struct ether\+\_\+addr intf\+Addr\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__acmp__message_8c_ab00d246f71209a6c53d44b0ec45542a8}{}\label{openavb__acmp__message_8c_ab00d246f71209a6c53d44b0ec45542a8}
+
+
+openavb\+\_\+acmp\+\_\+message.\+c 파일의 82 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}!openavb\+Acmp\+S\+M\+Global\+Vars@{openavb\+Acmp\+S\+M\+Global\+Vars}}
+\index{openavb\+Acmp\+S\+M\+Global\+Vars@{openavb\+Acmp\+S\+M\+Global\+Vars}!openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Acmp\+S\+M\+Global\+Vars}{openavbAcmpSMGlobalVars}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf openavb\+\_\+acmp\+\_\+sm\+\_\+global\+\_\+vars\+\_\+t} openavb\+Acmp\+S\+M\+Global\+Vars}\hypertarget{openavb__acmp__message_8c_a3b2bf4fc57f453d3c2c073f0b7637073}{}\label{openavb__acmp__message_8c_a3b2bf4fc57f453d3c2c073f0b7637073}
+
+
+openavb\+\_\+acmp.\+c 파일의 54 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}!rx\+Sock@{rx\+Sock}}
+\index{rx\+Sock@{rx\+Sock}!openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{rx\+Sock}{rxSock}}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ rx\+Sock = {\bf N\+U\+LL}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__acmp__message_8c_a2d8cdd4e3e7124a63509a346ade26a4b}{}\label{openavb__acmp__message_8c_a2d8cdd4e3e7124a63509a346ade26a4b}
+
+
+openavb\+\_\+acmp\+\_\+message.\+c 파일의 80 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}!tx\+Sock@{tx\+Sock}}
+\index{tx\+Sock@{tx\+Sock}!openavb\+\_\+acmp\+\_\+message.\+c@{openavb\+\_\+acmp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{tx\+Sock}{txSock}}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ tx\+Sock = {\bf N\+U\+LL}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__acmp__message_8c_acc3c897b6f4f88ddba59c97f3178e402}{}\label{openavb__acmp__message_8c_acc3c897b6f4f88ddba59c97f3178e402}
+
+
+openavb\+\_\+acmp\+\_\+message.\+c 파일의 81 번째 라인에서 정의되었습니다.
+

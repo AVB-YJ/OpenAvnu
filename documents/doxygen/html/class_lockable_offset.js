@@ -1,0 +1,27 @@
+var class_lockable_offset =
+[
+    [ "LockableOffset", "class_lockable_offset.html#a3fd4ada02667f15fde646fa8b32aaf1d", null ],
+    [ "get", "class_lockable_offset.html#a5a8046fd4b22dbe2b30ef4d18c5ac64e", null ],
+    [ "isReady", "class_lockable_offset.html#acbed040576a7a18e2d9c46b2f15e0162", null ],
+    [ "put", "class_lockable_offset.html#a760567729cc565fd13d414937a558a89", null ],
+    [ "setReady", "class_lockable_offset.html#afc31074bae05a5b224593091da17e149", null ],
+    [ "clock_accuracy", "class_lockable_offset.html#a708d6d971b6be997cf8d3e683951ceb0", null ],
+    [ "clock_class", "class_lockable_offset.html#aafe98ca785cdce0ce5eaa26f2930d2fe", null ],
+    [ "clock_identity", "class_lockable_offset.html#a9efbd85d909d77f7fd70f9f8391c49fa", null ],
+    [ "domain_number", "class_lockable_offset.html#a96702548f5b9222af26319c695764b29", null ],
+    [ "gptp_domain_number", "class_lockable_offset.html#ac53b4e61c0f960e16c86cfe678ca256d", null ],
+    [ "gptp_grandmaster_id", "class_lockable_offset.html#a3545e41943aa3080a0817fb8a49fd34c", null ],
+    [ "local_time", "class_lockable_offset.html#a77a3c33b68032d5db3c0c556a80ef651", null ],
+    [ "log_announce_interval", "class_lockable_offset.html#a15bb50a04ecd3ec11563012afc7e24a7", null ],
+    [ "log_pdelay_interval", "class_lockable_offset.html#a26544b553c0b251da8e632533f260a5d", null ],
+    [ "log_sync_interval", "class_lockable_offset.html#a2d4950b4c6da4dfa67688dcaf6139c9d", null ],
+    [ "ls_freqoffset", "class_lockable_offset.html#a396f365f5e7c66610f076359c5d99c6e", null ],
+    [ "ls_phoffset", "class_lockable_offset.html#a092b9f356daa2757877b51e4084366be", null ],
+    [ "ml_freqoffset", "class_lockable_offset.html#aafeb4d0fa7d3cb53ee3686b804e47617", null ],
+    [ "ml_phoffset", "class_lockable_offset.html#a707b32410dd96584191405fcc6b1b10d", null ],
+    [ "offset_scaled_log_variance", "class_lockable_offset.html#a022841cfc4d83dc906f116eec53f1d9a", null ],
+    [ "port_number", "class_lockable_offset.html#af0afa7bb85d49ac5ff873fad86a48ec5", null ],
+    [ "priority1", "class_lockable_offset.html#af98f08e3d1b016cd549310197ba8673c", null ],
+    [ "priority2", "class_lockable_offset.html#ac04b889463a96b43985cb82020e3c39b", null ],
+    [ "ready", "class_lockable_offset.html#a65cf7d7f8e531611b245355ab91fd749", null ]
+];

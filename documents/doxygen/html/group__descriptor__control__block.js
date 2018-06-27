@@ -1,0 +1,36 @@
+var group__descriptor__control__block =
+[
+    [ "jdksavdecc_descriptor_control_block", "structjdksavdecc__descriptor__control__block.html", [
+      [ "base_control", "structjdksavdecc__descriptor__control__block.html#af06eac7dd98377a85258308e8a25e7f2", null ],
+      [ "descriptor_index", "structjdksavdecc__descriptor__control__block.html#a042bbc76d835b82d27c1932431ee38d4", null ],
+      [ "descriptor_type", "structjdksavdecc__descriptor__control__block.html#ab7c32b6c7131c13d4ea3b7ee2f09b78d", null ],
+      [ "final_control_index", "structjdksavdecc__descriptor__control__block.html#a6853bf58b4f94780a8c4b05bbaad059a", null ],
+      [ "localized_description", "structjdksavdecc__descriptor__control__block.html#a0926f846ca65a83ad5bb06b4aff8f408", null ],
+      [ "number_of_controls", "structjdksavdecc__descriptor__control__block.html#a0104bea638bdadf1a547c2b93813e22f", null ],
+      [ "object_name", "structjdksavdecc__descriptor__control__block.html#a7d1f5945a13863b1762fc6db74fa8f80", null ]
+    ] ],
+    [ "JDKSAVDECC_DESCRIPTOR_CONTROL_BLOCK_LEN", "group__descriptor__control__block.html#gaff7f491436a268217f239cfe713a71c4", null ],
+    [ "JDKSAVDECC_DESCRIPTOR_CONTROL_BLOCK_OFFSET_BASE_CONTROL", "group__descriptor__control__block.html#gab2953043860b016448ef33b396c9e528", null ],
+    [ "JDKSAVDECC_DESCRIPTOR_CONTROL_BLOCK_OFFSET_DESCRIPTOR_INDEX", "group__descriptor__control__block.html#gaf019aebb8212d11727cca9ab7ba97fee", null ],
+    [ "JDKSAVDECC_DESCRIPTOR_CONTROL_BLOCK_OFFSET_DESCRIPTOR_TYPE", "group__descriptor__control__block.html#gac2f9214cae285eb7d5e5a52d6ac52161", null ],
+    [ "JDKSAVDECC_DESCRIPTOR_CONTROL_BLOCK_OFFSET_FINAL_CONTROL_INDEX", "group__descriptor__control__block.html#gaec0d897187168a8fb117d9dac11ad3e5", null ],
+    [ "JDKSAVDECC_DESCRIPTOR_CONTROL_BLOCK_OFFSET_LOCALIZED_DESCRIPTION", "group__descriptor__control__block.html#gacdbc28935fb5a09c58368b4bff827a04", null ],
+    [ "JDKSAVDECC_DESCRIPTOR_CONTROL_BLOCK_OFFSET_NUMBER_OF_CONTROLS", "group__descriptor__control__block.html#ga03012c995b2ed5b34d05b22a3990f802", null ],
+    [ "JDKSAVDECC_DESCRIPTOR_CONTROL_BLOCK_OFFSET_OBJECT_NAME", "group__descriptor__control__block.html#gaebcea2353f454de51260f008a1ffb659", null ],
+    [ "jdksavdecc_descriptor_control_block_get_base_control", "group__descriptor__control__block.html#ga23503e36956db5a06a001820db961730", null ],
+    [ "jdksavdecc_descriptor_control_block_get_descriptor_index", "group__descriptor__control__block.html#ga5f83c5755ec74b7051fe847c5fd2b467", null ],
+    [ "jdksavdecc_descriptor_control_block_get_descriptor_type", "group__descriptor__control__block.html#ga6c0f9bca7a62b58b7a94a89e8d703807", null ],
+    [ "jdksavdecc_descriptor_control_block_get_final_control_index", "group__descriptor__control__block.html#ga316f0911236c7d313a1055e6f3e5c297", null ],
+    [ "jdksavdecc_descriptor_control_block_get_localized_description", "group__descriptor__control__block.html#gaf65a5fef222d0937b4eb892cbb498e4f", null ],
+    [ "jdksavdecc_descriptor_control_block_get_number_of_controls", "group__descriptor__control__block.html#ga13a5b79837792669beafeb159f90bd35", null ],
+    [ "jdksavdecc_descriptor_control_block_get_object_name", "group__descriptor__control__block.html#ga55448f6f51919698a8711c3c8dc5016e", null ],
+    [ "jdksavdecc_descriptor_control_block_read", "group__descriptor__control__block.html#ga6e6851ac2bbbd94b7a23e9a791f125f1", null ],
+    [ "jdksavdecc_descriptor_control_block_set_base_control", "group__descriptor__control__block.html#gaf35ea9253fe8d648f8ffc888af5cacfb", null ],
+    [ "jdksavdecc_descriptor_control_block_set_descriptor_index", "group__descriptor__control__block.html#ga670094cb2f68cc54d49d04c395bfd89b", null ],
+    [ "jdksavdecc_descriptor_control_block_set_descriptor_type", "group__descriptor__control__block.html#ga633ee6de1d02835338736f2e6b8ee5dd", null ],
+    [ "jdksavdecc_descriptor_control_block_set_final_control_index", "group__descriptor__control__block.html#ga53eb39132c43c4d04a4a4a991ae67448", null ],
+    [ "jdksavdecc_descriptor_control_block_set_localized_description", "group__descriptor__control__block.html#ga95b9325d1e7addfc52709f622e01cb07", null ],
+    [ "jdksavdecc_descriptor_control_block_set_number_of_controls", "group__descriptor__control__block.html#ga711539be574408e567d2c1a8e4eb8c68", null ],
+    [ "jdksavdecc_descriptor_control_block_set_object_name", "group__descriptor__control__block.html#ga50d7c283c90b9225662e51b255c8e94a", null ],
+    [ "jdksavdecc_descriptor_control_block_write", "group__descriptor__control__block.html#ga905ece8f424fe220cc58d70b32814937", null ]
+];

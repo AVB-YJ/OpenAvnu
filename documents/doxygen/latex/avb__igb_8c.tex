@@ -1,0 +1,106 @@
+\hypertarget{avb__igb_8c}{}\section{lib/common/avb\+\_\+igb.c 파일 참조}
+\label{avb__igb_8c}\index{lib/common/avb\+\_\+igb.\+c@{lib/common/avb\+\_\+igb.\+c}}
+{\ttfamily \#include \char`\"{}avb\+\_\+igb.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$errno.\+h$>$}\\*
+{\ttfamily \#include $<$pci/pci.\+h$>$}\\*
+avb\+\_\+igb.\+c에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{avb__igb_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{avb__igb_8c_acadec0d477461e535aeea46cc1b193ab}{pci\+\_\+connect} (\hyperlink{lib_2igb_2igb_8h_ae819c345449e1c44d253068a0a3ab5e5}{device\+\_\+t} $\ast$\hyperlink{openavb__igb_8c_a7b2a35a4e18e65c05ba807260a72444a}{igb\+\_\+dev})
+\begin{DoxyCompactList}\small\item\em Connect to the network card. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{함수 문서화}
+\index{avb\+\_\+igb.\+c@{avb\+\_\+igb.\+c}!pci\+\_\+connect@{pci\+\_\+connect}}
+\index{pci\+\_\+connect@{pci\+\_\+connect}!avb\+\_\+igb.\+c@{avb\+\_\+igb.\+c}}
+\subsubsection[{\texorpdfstring{pci\+\_\+connect(device\+\_\+t $\ast$igb\+\_\+dev)}{pci_connect(device_t *igb_dev)}}]{\setlength{\rightskip}{0pt plus 5cm}int pci\+\_\+connect (
+\begin{DoxyParamCaption}
+\item[{{\bf device\+\_\+t} $\ast$}]{igb\+\_\+dev}
+\end{DoxyParamCaption}
+)}\hypertarget{avb__igb_8c_acadec0d477461e535aeea46cc1b193ab}{}\label{avb__igb_8c_acadec0d477461e535aeea46cc1b193ab}
+
+
+Connect to the network card. 
+
+
+\begin{DoxyParams}{매개변수}
+{\em igb\+\_\+dev} & \mbox{[}inout\mbox{]} Device handle \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+0 for success, E\+N\+X\+IO for failure 
+\end{DoxyReturn}
+
+
+avb\+\_\+igb.\+c 파일의 32 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+33 \{
+34     \textcolor{keywordtype}{char} devpath[\hyperlink{linux__hal__i210_8cpp_a3d5e72fee0b5b7de1b68e1152bc7a87d}{IGB\_BIND\_NAMESZ}];
+35     \textcolor{keyword}{struct }pci\_access *pacc;
+36     \textcolor{keyword}{struct }pci\_dev *dev;
+37     \textcolor{keywordtype}{int} \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err};
+38 
+39     memset(igb\_dev, 0, \textcolor{keyword}{sizeof}(\hyperlink{struct__device__t}{device\_t}));
+40     pacc = pci\_alloc();
+41     pci\_init(pacc);
+42     pci\_scan\_bus(pacc);
+43 
+44     \textcolor{keywordflow}{for} (dev = pacc->devices; dev; dev = dev->next) \{
+45         pci\_fill\_info(dev, PCI\_FILL\_IDENT | PCI\_FILL\_BASES | PCI\_FILL\_CLASS);
+46         igb\_dev->\hyperlink{struct__device__t_acf35ed7d091ed0ee4ff208efe53a64bf}{pci\_vendor\_id} = dev->vendor\_id;
+47         igb\_dev->\hyperlink{struct__device__t_a779b4e4fce4f634938e41a308e6a7a19}{pci\_device\_id} = dev->device\_id;
+48         igb\_dev->\hyperlink{struct__device__t_a6ba724378c23b9f5636bbbe97d36d24c}{domain} = dev->domain;
+49         igb\_dev->\hyperlink{struct__device__t_a844e4a2d44ca994486697edd16c389a4}{bus} = dev->bus;
+50         igb\_dev->\hyperlink{struct__device__t_ac1d9fe5dde44191d33a738f2c7c30538}{dev} = dev->dev;
+51         igb\_dev->\hyperlink{struct__device__t_ab8989866a7c8f056e7d5bf6a24d80c57}{func} = dev->func;
+52         snprintf(devpath, \hyperlink{linux__hal__i210_8cpp_a3d5e72fee0b5b7de1b68e1152bc7a87d}{IGB\_BIND\_NAMESZ}, \textcolor{stringliteral}{"%04x:%02x:%02x.%d"},
+53                 dev->domain, dev->bus, dev->dev, dev->func);
+54         err = \hyperlink{igb__main_8c_a3dc01fffcfed5bb0e37638d7eb52b14f}{igb\_probe}(igb\_dev);
+55         \textcolor{keywordflow}{if} (err) \{
+56             \textcolor{keywordflow}{continue};
+57         \}
+58         printf(\textcolor{stringliteral}{"attaching to %s\(\backslash\)n"}, devpath);
+59         err = \hyperlink{igb_8c_a8c1d26054ca159adda99c2ad1f1c54d7}{igb\_attach}(devpath, igb\_dev);
+60         \textcolor{keywordflow}{if} (err) \{
+61             printf(\textcolor{stringliteral}{"attach failed! (%s)\(\backslash\)n"}, strerror(err));
+62             \textcolor{keywordflow}{continue};
+63         \}
+64         err = \hyperlink{igb_8c_a1165811ba4373e6d86067dca098df2ef}{igb\_attach\_tx}(igb\_dev);
+65         \textcolor{keywordflow}{if} (err) \{
+66             printf(\textcolor{stringliteral}{"attach\_tx failed! (%s)\(\backslash\)n"}, strerror(err));
+67             \hyperlink{igb_8c_a234eba39e755b10f3ad1652c95072a77}{igb\_detach}(igb\_dev);
+68             \textcolor{keywordflow}{continue};
+69         \}
+70         \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+71     \}
+72     pci\_cleanup(pacc);
+73     \textcolor{keywordflow}{return} ENXIO;
+74 \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out}:
+75     pci\_cleanup(pacc);
+76     \textcolor{keywordflow}{return} 0;
+77 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{avb__igb_8c_acadec0d477461e535aeea46cc1b193ab_cgraph}
+\end{center}
+\end{figure}
+
+

@@ -1,0 +1,66 @@
+\hypertarget{work__queue_8cpp}{}\section{daemons/gptp/windows/daemon\+\_\+cl/work\+\_\+queue.cpp 파일 참조}
+\label{work__queue_8cpp}\index{daemons/gptp/windows/daemon\+\_\+cl/work\+\_\+queue.\+cpp@{daemons/gptp/windows/daemon\+\_\+cl/work\+\_\+queue.\+cpp}}
+{\ttfamily \#include $<$work\+\_\+queue.\+hpp$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+work\+\_\+queue.\+cpp에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=237pt]{work__queue_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{데이타 구조}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct_w_w_queue_thread_state}{W\+W\+Queue\+Thread\+State}
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+D\+W\+O\+RD W\+I\+N\+A\+PI \hyperlink{work__queue_8cpp_a91887314afd42010577adec059187e90}{Windows\+Work\+Queue\+Loop} (L\+P\+V\+O\+ID arg)
+\end{DoxyCompactItemize}
+
+
+\subsection{함수 문서화}
+\index{work\+\_\+queue.\+cpp@{work\+\_\+queue.\+cpp}!Windows\+Work\+Queue\+Loop@{Windows\+Work\+Queue\+Loop}}
+\index{Windows\+Work\+Queue\+Loop@{Windows\+Work\+Queue\+Loop}!work\+\_\+queue.\+cpp@{work\+\_\+queue.\+cpp}}
+\subsubsection[{\texorpdfstring{Windows\+Work\+Queue\+Loop(\+L\+P\+V\+O\+I\+D arg)}{WindowsWorkQueueLoop(LPVOID arg)}}]{\setlength{\rightskip}{0pt plus 5cm}D\+W\+O\+RD W\+I\+N\+A\+PI Windows\+Work\+Queue\+Loop (
+\begin{DoxyParamCaption}
+\item[{L\+P\+V\+O\+ID}]{arg}
+\end{DoxyParamCaption}
+)}\hypertarget{work__queue_8cpp_a91887314afd42010577adec059187e90}{}\label{work__queue_8cpp_a91887314afd42010577adec059187e90}
+
+
+work\+\_\+queue.\+cpp 파일의 45 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+45                                               \{
+46     \hyperlink{struct_w_w_queue_thread_state}{WWQueueThreadState} *state = (\hyperlink{struct_w_w_queue_thread_state}{WWQueueThreadState} *)arg;
+47     state->\hyperlink{struct_w_w_queue_thread_state_a36f7b6be7108281af77939ceaec42fd6}{running} = \textcolor{keyword}{true};
+48     \textcolor{keywordflow}{while} (!state->\hyperlink{struct_w_w_queue_thread_state_a53a2d16dac430353052f49aaa0cce34a}{stop}) \{
+49         \textcolor{keywordflow}{if} (state->\hyperlink{struct_w_w_queue_thread_state_a1252d1bbdec76fb559cd091bd145ed91}{task} != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \{
+50             state->\hyperlink{struct_w_w_queue_thread_state_a1252d1bbdec76fb559cd091bd145ed91}{task}(state->\hyperlink{struct_w_w_queue_thread_state_ad688f8fe19987dce997535b44605a118}{arg});
+51             \textcolor{keyword}{delete} state->\hyperlink{struct_w_w_queue_thread_state_ad688f8fe19987dce997535b44605a118}{arg};
+52             state->\hyperlink{struct_w_w_queue_thread_state_a1252d1bbdec76fb559cd091bd145ed91}{task} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+53         \}
+54         Sleep(1);
+55     \}
+56     state->\hyperlink{struct_w_w_queue_thread_state_a36f7b6be7108281af77939ceaec42fd6}{running} = \textcolor{keyword}{false};
+57 
+58     \textcolor{keywordflow}{return} 0;
+59 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{work__queue_8cpp_a91887314afd42010577adec059187e90_icgraph}
+\end{center}
+\end{figure}
+
+

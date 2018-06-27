@@ -1,0 +1,868 @@
+\hypertarget{openavb__tl__osal_8c}{}\section{lib/avtp\+\_\+pipeline/platform/\+Linux/tl/openavb\+\_\+tl\+\_\+osal.c 파일 참조}
+\label{openavb__tl__osal_8c}\index{lib/avtp\+\_\+pipeline/platform/\+Linux/tl/openavb\+\_\+tl\+\_\+osal.\+c@{lib/avtp\+\_\+pipeline/platform/\+Linux/tl/openavb\+\_\+tl\+\_\+osal.\+c}}
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$errno.\+h$>$}\\*
+{\ttfamily \#include $<$ctype.\+h$>$}\\*
+{\ttfamily \#include $<$unistd.\+h$>$}\\*
+{\ttfamily \#include $<$pthread.\+h$>$}\\*
+{\ttfamily \#include $<$signal.\+h$>$}\\*
+{\ttfamily \#include $<$dlfcn.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}ini.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+platform.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+osal.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+intf\+\_\+pub.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+map\+\_\+pub.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+trace.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+rawsock.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+mediaq.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+tl.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+avtp.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+log.\+h\char`\"{}}\\*
+openavb\+\_\+tl\+\_\+osal.\+c에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__tl__osal_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{데이타 구조}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structparse__ini__data__t}{parse\+\_\+ini\+\_\+data\+\_\+t}
+\end{DoxyCompactItemize}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{openavb__tl__osal_8c_abcfb21b6495585fe36058f57a9fe58fc}{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}~\char`\"{}Talker / Listener\char`\"{}
+\item 
+\#define \hyperlink{openavb__tl__osal_8c_a1509bff9cb2638f93f9f127d9d5b081e}{M\+A\+T\+CH}(A,  B)~(strcasecmp((A), (B)) == 0)
+\item 
+\#define \hyperlink{openavb__tl__osal_8c_ab20e0d743bc06c165ba9d2541978d624}{M\+A\+T\+C\+H\+\_\+\+L\+E\+FT}(A,  B,  C)~(strncasecmp((A), (B), (C)) == 0)
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__tl__osal_8c_a8d55b286a84c406d891adea5fa2af056}{parse\+\_\+mac} (const char $\ast$str, \hyperlink{structcfg__mac__t}{cfg\+\_\+mac\+\_\+t} $\ast$mac)
+\item 
+static \hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__tl__osal_8c_af4331c677a956aa4a94c1c712e2b38d2}{open\+Map\+Lib} (\hyperlink{structtl__state__t}{tl\+\_\+state\+\_\+t} $\ast$p\+T\+L\+State)
+\item 
+static \hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__tl__osal_8c_a6edd9a8e8b75a770eab00173eb7d9ffa}{open\+Intf\+Lib} (\hyperlink{structtl__state__t}{tl\+\_\+state\+\_\+t} $\ast$p\+T\+L\+State)
+\item 
+static int \hyperlink{openavb__tl__osal_8c_acaefe41c866b3facc6faf91fb5e32b07}{openavb\+T\+L\+Cfg\+Callback} (void $\ast$user, const char $\ast$tl\+Section, const char $\ast$name, const char $\ast$value)
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__tl__osal_8c_ad62b8315beb90e7a2ad20afaa852a678}{openavb\+T\+L\+Thread\+Fn\+Osal} (\hyperlink{structtl__state__t}{tl\+\_\+state\+\_\+t} $\ast$p\+T\+L\+State)
+\item 
+\hyperlink{openavb__os__services__osal_8h_a6623223a0fdc15097aef480765cd3e5d}{E\+X\+T\+E\+R\+N\+\_\+\+D\+L\+L\+\_\+\+E\+X\+P\+O\+RT} \hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__tl__osal_8c_a3ce1ad93037e2f0990500086fe132673}{openavb\+T\+L\+Read\+Ini\+File\+Osal} (\hyperlink{build_2sdk__eavb_2openavb__tl__pub_8h_af231d6531d24afcf31511425dd4869d2}{tl\+\_\+handle\+\_\+t} T\+Lhandle, const char $\ast$file\+Name, \hyperlink{structopenavb__tl__cfg__t}{openavb\+\_\+tl\+\_\+cfg\+\_\+t} $\ast$p\+Cfg, \hyperlink{structopenavb__tl__cfg__name__value__t}{openavb\+\_\+tl\+\_\+cfg\+\_\+name\+\_\+value\+\_\+t} $\ast$p\+N\+V\+Cfg)
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__tl__osal_8c_ad950ce035ff690c69bbcb292400cbb12}{openavb\+T\+L\+Open\+Link\+Libs\+Osal} (\hyperlink{structtl__state__t}{tl\+\_\+state\+\_\+t} $\ast$p\+T\+L\+State)
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__tl__osal_8c_aa53d4e29f75ed17d81e45c21e4eb0580}{openavb\+T\+L\+Close\+Link\+Libs\+Osal} (\hyperlink{structtl__state__t}{tl\+\_\+state\+\_\+t} $\ast$p\+T\+L\+State)
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{openavb\+\_\+tl\+\_\+osal.\+c@{openavb\+\_\+tl\+\_\+osal.\+c}!A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT@{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}}
+\index{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT@{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}!openavb\+\_\+tl\+\_\+osal.\+c@{openavb\+\_\+tl\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}{AVB_LOG_COMPONENT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT~\char`\"{}Talker / Listener\char`\"{}}\hypertarget{openavb__tl__osal_8c_abcfb21b6495585fe36058f57a9fe58fc}{}\label{openavb__tl__osal_8c_abcfb21b6495585fe36058f57a9fe58fc}
+
+
+openavb\+\_\+tl\+\_\+osal.\+c 파일의 54 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+tl\+\_\+osal.\+c@{openavb\+\_\+tl\+\_\+osal.\+c}!M\+A\+T\+CH@{M\+A\+T\+CH}}
+\index{M\+A\+T\+CH@{M\+A\+T\+CH}!openavb\+\_\+tl\+\_\+osal.\+c@{openavb\+\_\+tl\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{M\+A\+T\+CH}{MATCH}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+T\+CH(
+\begin{DoxyParamCaption}
+\item[{}]{A, }
+\item[{}]{B}
+\end{DoxyParamCaption}
+)~(strcasecmp((A), (B)) == 0)}\hypertarget{openavb__tl__osal_8c_a1509bff9cb2638f93f9f127d9d5b081e}{}\label{openavb__tl__osal_8c_a1509bff9cb2638f93f9f127d9d5b081e}
+
+
+openavb\+\_\+tl\+\_\+osal.\+c 파일의 57 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+tl\+\_\+osal.\+c@{openavb\+\_\+tl\+\_\+osal.\+c}!M\+A\+T\+C\+H\+\_\+\+L\+E\+FT@{M\+A\+T\+C\+H\+\_\+\+L\+E\+FT}}
+\index{M\+A\+T\+C\+H\+\_\+\+L\+E\+FT@{M\+A\+T\+C\+H\+\_\+\+L\+E\+FT}!openavb\+\_\+tl\+\_\+osal.\+c@{openavb\+\_\+tl\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{M\+A\+T\+C\+H\+\_\+\+L\+E\+FT}{MATCH_LEFT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+T\+C\+H\+\_\+\+L\+E\+FT(
+\begin{DoxyParamCaption}
+\item[{}]{A, }
+\item[{}]{B, }
+\item[{}]{C}
+\end{DoxyParamCaption}
+)~(strncasecmp((A), (B), (C)) == 0)}\hypertarget{openavb__tl__osal_8c_ab20e0d743bc06c165ba9d2541978d624}{}\label{openavb__tl__osal_8c_ab20e0d743bc06c165ba9d2541978d624}
+
+
+openavb\+\_\+tl\+\_\+osal.\+c 파일의 58 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{함수 문서화}
+\index{openavb\+\_\+tl\+\_\+osal.\+c@{openavb\+\_\+tl\+\_\+osal.\+c}!openavb\+T\+L\+Cfg\+Callback@{openavb\+T\+L\+Cfg\+Callback}}
+\index{openavb\+T\+L\+Cfg\+Callback@{openavb\+T\+L\+Cfg\+Callback}!openavb\+\_\+tl\+\_\+osal.\+c@{openavb\+\_\+tl\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+T\+L\+Cfg\+Callback(void $\ast$user, const char $\ast$tl\+Section, const char $\ast$name, const char $\ast$value)}{openavbTLCfgCallback(void *user, const char *tlSection, const char *name, const char *value)}}]{\setlength{\rightskip}{0pt plus 5cm}static int openavb\+T\+L\+Cfg\+Callback (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{user, }
+\item[{const char $\ast$}]{tl\+Section, }
+\item[{const char $\ast$}]{name, }
+\item[{const char $\ast$}]{value}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__tl__osal_8c_acaefe41c866b3facc6faf91fb5e32b07}{}\label{openavb__tl__osal_8c_acaefe41c866b3facc6faf91fb5e32b07}
+
+
+openavb\+\_\+tl\+\_\+osal.\+c 파일의 153 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+154 \{
+155     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_ae679116a5251aad926d752e57edbb7d3}{AVB\_TRACE\_TL});
+156 
+157     \hyperlink{structparse__ini__data__t}{parse\_ini\_data\_t} *pParseIniData = (\hyperlink{structparse__ini__data__t}{parse\_ini\_data\_t} *)user;
+158     \hyperlink{structopenavb__tl__cfg__t}{openavb\_tl\_cfg\_t} *pCfg = pParseIniData->\hyperlink{structparse__ini__data__t_ab09df5e0b48b75d02fb95aa34ce8425d}{pCfg};
+159     \hyperlink{structopenavb__tl__cfg__name__value__t}{openavb\_tl\_cfg\_name\_value\_t} *pNVCfg = pParseIniData->
+      \hyperlink{structparse__ini__data__t_a90d24217d9f037a36dd3c844f1229231}{pNVCfg};
+160     \hyperlink{structtl__state__t}{tl\_state\_t} *pTLState = pParseIniData->\hyperlink{structparse__ini__data__t_a442eb370b9ed2c74607fcaaecc9fef2a}{pTLState};
+161 
+162     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afcf1f0c1d10ae9efe3782eb6cae78355}{AVB\_LOGF\_DEBUG}(\textcolor{stringliteral}{"name=[%s] value=[%s]"}, name, value);
+163 
+164     \textcolor{keywordtype}{bool} valOK = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+165     \textcolor{keywordtype}{char} *pEnd;
+166     \textcolor{keywordtype}{int} i;
+167 
+168     \textcolor{keywordflow}{if} (\hyperlink{openavb__tl__osal_8c_a1509bff9cb2638f93f9f127d9d5b081e}{MATCH}(name, \textcolor{stringliteral}{"role"})) \{
+169         \textcolor{keywordflow}{if} (\hyperlink{openavb__tl__osal_8c_a1509bff9cb2638f93f9f127d9d5b081e}{MATCH}(value, \textcolor{stringliteral}{"talker"})) \{
+170             pCfg->\hyperlink{structopenavb__tl__cfg__t_a172ec388c6d270261a61a789b78dff45}{role} = \hyperlink{openavb__types__base__pub_8h_a590fdc081b8544206aabd58e32a6f6a2ad24b3afc356fd635f96a32dd89a1b6a2}{AVB\_ROLE\_TALKER};
+171             valOK = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+172         \}
+173         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{openavb__tl__osal_8c_a1509bff9cb2638f93f9f127d9d5b081e}{MATCH}(value, \textcolor{stringliteral}{"listener"})) \{
+174             pCfg->\hyperlink{structopenavb__tl__cfg__t_a172ec388c6d270261a61a789b78dff45}{role} = \hyperlink{openavb__types__base__pub_8h_a590fdc081b8544206aabd58e32a6f6a2a66078a0266082040a678882346455c4e}{AVB\_ROLE\_LISTENER};
+175             valOK = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+176         \}
+177     \}
+178     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{openavb__tl__osal_8c_a1509bff9cb2638f93f9f127d9d5b081e}{MATCH}(name, \textcolor{stringliteral}{"initial\_state"})) \{
+179         \textcolor{keywordflow}{if} (\hyperlink{openavb__tl__osal_8c_a1509bff9cb2638f93f9f127d9d5b081e}{MATCH}(value, \textcolor{stringliteral}{"running"})) \{
+180             pCfg->\hyperlink{structopenavb__tl__cfg__t_af00cb7d534b8d163f482aacb7bf9661d}{initial\_state} = \hyperlink{build_2sdk__eavb_2openavb__tl__pub_8h_a3db837d528f98176f3e7225a53d0abaaae167656c605ae339d16f6d15c3567418}{TL\_INIT\_STATE\_RUNNING};
+181             valOK = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+182         \}
+183         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{openavb__tl__osal_8c_a1509bff9cb2638f93f9f127d9d5b081e}{MATCH}(value, \textcolor{stringliteral}{"stopped"})) \{
+184             pCfg->\hyperlink{structopenavb__tl__cfg__t_af00cb7d534b8d163f482aacb7bf9661d}{initial\_state} = \hyperlink{build_2sdk__eavb_2openavb__tl__pub_8h_a3db837d528f98176f3e7225a53d0abaaa373169be7c358d1d3d4fe4550b223d88}{TL\_INIT\_STATE\_STOPPED};
+185             valOK = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+186         \}
+187     \}
+188     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{openavb__tl__osal_8c_a1509bff9cb2638f93f9f127d9d5b081e}{MATCH}(name, \textcolor{stringliteral}{"dest\_addr"})) \{
+189         valOK = \hyperlink{openavb__tl__osal_8c_a8d55b286a84c406d891adea5fa2af056}{parse\_mac}(value, &pCfg->\hyperlink{structopenavb__tl__cfg__t_adafdd018fad617237267247e6680f87a}{dest\_addr});
+190     \}
+191     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{openavb__tl__osal_8c_a1509bff9cb2638f93f9f127d9d5b081e}{MATCH}(name, \textcolor{stringliteral}{"stream\_addr"})) \{
+192         valOK = \hyperlink{openavb__tl__osal_8c_a8d55b286a84c406d891adea5fa2af056}{parse\_mac}(value, &pCfg->\hyperlink{structopenavb__tl__cfg__t_aad445ea3a27a465a885b5d56648ad282}{stream\_addr});
+193     \}
+194     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{openavb__tl__osal_8c_a1509bff9cb2638f93f9f127d9d5b081e}{MATCH}(name, \textcolor{stringliteral}{"stream\_uid"})) \{
+195         errno = 0;
+196         pCfg->\hyperlink{structopenavb__tl__cfg__t_a511b2a26fe61b945ced1dd0bab9f2d1b}{stream\_uid} = strtol(value, &pEnd, 10);
+197         \textcolor{keywordflow}{if} (*pEnd == \textcolor{charliteral}{'\(\backslash\)0'} && errno == 0
+198             && pCfg->\hyperlink{structopenavb__tl__cfg__t_a511b2a26fe61b945ced1dd0bab9f2d1b}{stream\_uid} <= UINT16\_MAX)
+199             valOK = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+200     \}
+201     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{openavb__tl__osal_8c_a1509bff9cb2638f93f9f127d9d5b081e}{MATCH}(name, \textcolor{stringliteral}{"max\_interval\_frames"})) \{
+202         errno = 0;
+203         pCfg->\hyperlink{structopenavb__tl__cfg__t_abf63c5094d06b48eb2da41a9cf3e1d00}{max\_interval\_frames} = strtol(value, &pEnd, 10);
+204         \textcolor{keywordflow}{if} (*pEnd == \textcolor{charliteral}{'\(\backslash\)0'} && errno == 0
+205             && pCfg->\hyperlink{structopenavb__tl__cfg__t_abf63c5094d06b48eb2da41a9cf3e1d00}{max\_interval\_frames} <= UINT16\_MAX)
+206             valOK = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+207     \}
+208     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{openavb__tl__osal_8c_a1509bff9cb2638f93f9f127d9d5b081e}{MATCH}(name, \textcolor{stringliteral}{"max\_frame\_size"})) \{
+209         errno = 0;
+210         pCfg->\hyperlink{structopenavb__tl__cfg__t_ac2af862bb15aba31178c61c260f5c54b}{max\_frame\_size} = strtol(value, &pEnd, 10);
+211         \textcolor{keywordflow}{if} (*pEnd == \textcolor{charliteral}{'\(\backslash\)0'} && errno == 0
+212             && pCfg->\hyperlink{structopenavb__tl__cfg__t_abf63c5094d06b48eb2da41a9cf3e1d00}{max\_interval\_frames} <= UINT16\_MAX)
+213             valOK = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+214     \}
+215     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{openavb__tl__osal_8c_a1509bff9cb2638f93f9f127d9d5b081e}{MATCH}(name, \textcolor{stringliteral}{"sr\_class"})) \{
+216         \textcolor{keywordflow}{if} (strlen(value) == 1) \{
+217             \textcolor{keywordflow}{if} (tolower(value[0]) == \textcolor{charliteral}{'a'}) \{
+218                 pCfg->\hyperlink{structopenavb__tl__cfg__t_a39d4e73b306d801de38536c43ef7a5e8}{sr\_class} = \hyperlink{openavb__types__base__pub_8h_a4d8ccbeaf8ad040d8880e8971fc62752a015950a62a4a997ead901490a42654aa}{SR\_CLASS\_A};
+219                 valOK = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+220             \}
+221             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (tolower(value[0]) == \textcolor{charliteral}{'b'}) \{
+222                 pCfg->\hyperlink{structopenavb__tl__cfg__t_a39d4e73b306d801de38536c43ef7a5e8}{sr\_class} = \hyperlink{openavb__types__base__pub_8h_a4d8ccbeaf8ad040d8880e8971fc62752af7551cb7a50c430e663d601c2536ef30}{SR\_CLASS\_B};
+223                 valOK = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+224             \}
+225         \}
+226     \}
+227     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{openavb__tl__osal_8c_a1509bff9cb2638f93f9f127d9d5b081e}{MATCH}(name, \textcolor{stringliteral}{"sr\_rank"})) \{
+228         \textcolor{keywordflow}{if} (strlen(value) == 1) \{
+229             \textcolor{keywordflow}{if} (value[0] == \textcolor{charliteral}{'1'}) \{
+230                 pCfg->\hyperlink{structopenavb__tl__cfg__t_aec168f739a62e7d1167959b587d0a50b}{sr\_rank} = \hyperlink{openavb__types__base__pub_8h_ae2247245210ff7d9b305530e79921b04}{SR\_RANK\_REGULAR};
+231                 valOK = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+232             \}
+233             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (value[0] == \textcolor{charliteral}{'0'}) \{
+234                 pCfg->\hyperlink{structopenavb__tl__cfg__t_aec168f739a62e7d1167959b587d0a50b}{sr\_rank} = \hyperlink{openavb__types__base__pub_8h_afc788727fb40393561024641cee8f6c8}{SR\_RANK\_EMERGENCY};
+235                 valOK = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+236             \}
+237         \}
+238     \}
+239     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{openavb__tl__osal_8c_a1509bff9cb2638f93f9f127d9d5b081e}{MATCH}(name, \textcolor{stringliteral}{"max\_transit\_usec"})) \{
+240         errno = 0;
+241         pCfg->\hyperlink{structopenavb__tl__cfg__t_a0980bddad549fb206164677f8095d44b}{max\_transit\_usec} = strtol(value, &pEnd, 10);
+242         \textcolor{keywordflow}{if} (*pEnd == \textcolor{charliteral}{'\(\backslash\)0'} && errno == 0
+243             && pCfg->\hyperlink{structopenavb__tl__cfg__t_a0980bddad549fb206164677f8095d44b}{max\_transit\_usec} <= UINT32\_MAX)
+244             valOK = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+245     \}
+246     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{openavb__tl__osal_8c_a1509bff9cb2638f93f9f127d9d5b081e}{MATCH}(name, \textcolor{stringliteral}{"max\_transmit\_deficit\_usec"})) \{
+247         errno = 0;
+248         pCfg->\hyperlink{structopenavb__tl__cfg__t_adca8d3921ed9e2b689df1e37ffaf1a3d}{max\_transmit\_deficit\_usec} = strtol(value, &pEnd, 10);
+249         \textcolor{keywordflow}{if} (*pEnd == \textcolor{charliteral}{'\(\backslash\)0'} && errno == 0
+250             && pCfg->\hyperlink{structopenavb__tl__cfg__t_adca8d3921ed9e2b689df1e37ffaf1a3d}{max\_transmit\_deficit\_usec} <= UINT32\_MAX)
+251             valOK = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+252     \}
+253     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{openavb__tl__osal_8c_a1509bff9cb2638f93f9f127d9d5b081e}{MATCH}(name, \textcolor{stringliteral}{"internal\_latency"})) \{
+254         errno = 0;
+255         pCfg->\hyperlink{structopenavb__tl__cfg__t_a770b9a7e3ef496ca3269c2005f12fa81}{internal\_latency} = strtol(value, &pEnd, 10);
+256         \textcolor{keywordflow}{if} (*pEnd == \textcolor{charliteral}{'\(\backslash\)0'} && errno == 0
+257             && pCfg->\hyperlink{structopenavb__tl__cfg__t_a770b9a7e3ef496ca3269c2005f12fa81}{internal\_latency} <= UINT32\_MAX)
+258             valOK = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+259     \}
+260     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{openavb__tl__osal_8c_a1509bff9cb2638f93f9f127d9d5b081e}{MATCH}(name, \textcolor{stringliteral}{"batch\_factor"})) \{
+261         errno = 0;
+262         pCfg->\hyperlink{structopenavb__tl__cfg__t_a9db3c945c8e429a9ca8e13db38447d3c}{batch\_factor} = strtol(value, &pEnd, 10);
+263         \textcolor{keywordflow}{if} (*pEnd == \textcolor{charliteral}{'\(\backslash\)0'} && errno == 0
+264             && pCfg->\hyperlink{structopenavb__tl__cfg__t_a9db3c945c8e429a9ca8e13db38447d3c}{batch\_factor} > 0
+265             && pCfg->\hyperlink{structopenavb__tl__cfg__t_a9db3c945c8e429a9ca8e13db38447d3c}{batch\_factor} <= INT32\_MAX)
+266             valOK = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+267     \}
+268     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{openavb__tl__osal_8c_a1509bff9cb2638f93f9f127d9d5b081e}{MATCH}(name, \textcolor{stringliteral}{"max\_stale"})) \{
+269         errno = 0;
+270         pCfg->\hyperlink{structopenavb__tl__cfg__t_aea5235cb82456b3c3285f5f6910dd4dc}{max\_stale} = strtol(value, &pEnd, 10);
+271         \textcolor{keywordflow}{if} (*pEnd == \textcolor{charliteral}{'\(\backslash\)0'} && errno == 0
+272             && pCfg->\hyperlink{structopenavb__tl__cfg__t_aea5235cb82456b3c3285f5f6910dd4dc}{max\_stale} >= 0
+273             && pCfg->\hyperlink{structopenavb__tl__cfg__t_aea5235cb82456b3c3285f5f6910dd4dc}{max\_stale} <= INT32\_MAX)
+274             valOK = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+275     \}
+276     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{openavb__tl__osal_8c_a1509bff9cb2638f93f9f127d9d5b081e}{MATCH}(name, \textcolor{stringliteral}{"raw\_tx\_buffers"})) \{
+277         errno = 0;
+278         pCfg->\hyperlink{structopenavb__tl__cfg__t_add91cb46547dd8e10a83b4807314b515}{raw\_tx\_buffers} = strtol(value, &pEnd, 10);
+279         \textcolor{keywordflow}{if} (*pEnd == \textcolor{charliteral}{'\(\backslash\)0'} && errno == 0
+280             && pCfg->\hyperlink{structopenavb__tl__cfg__t_add91cb46547dd8e10a83b4807314b515}{raw\_tx\_buffers} <= UINT32\_MAX)
+281             valOK = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+282     \}
+283     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{openavb__tl__osal_8c_a1509bff9cb2638f93f9f127d9d5b081e}{MATCH}(name, \textcolor{stringliteral}{"raw\_rx\_buffers"})) \{
+284         errno = 0;
+285         pCfg->\hyperlink{structopenavb__tl__cfg__t_a878cfe34b25df40f0858bff76cbfd4e6}{raw\_rx\_buffers} = strtol(value, &pEnd, 10);
+286         \textcolor{keywordflow}{if} (*pEnd == \textcolor{charliteral}{'\(\backslash\)0'} && errno == 0
+287             && pCfg->\hyperlink{structopenavb__tl__cfg__t_a878cfe34b25df40f0858bff76cbfd4e6}{raw\_rx\_buffers} <= UINT32\_MAX)
+288             valOK = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+289     \}
+290     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{openavb__tl__osal_8c_a1509bff9cb2638f93f9f127d9d5b081e}{MATCH}(name, \textcolor{stringliteral}{"report\_seconds"})) \{
+291         errno = 0;
+292         pCfg->\hyperlink{structopenavb__tl__cfg__t_aa421113dd03391cac7220cd7dd7ee59b}{report\_seconds} = strtol(value, &pEnd, 10);
+293         \textcolor{keywordflow}{if} (*pEnd == \textcolor{charliteral}{'\(\backslash\)0'} && errno == 0
+294             && (\textcolor{keywordtype}{int})pCfg->\hyperlink{structopenavb__tl__cfg__t_aa421113dd03391cac7220cd7dd7ee59b}{report\_seconds} >= 0
+295             && pCfg->\hyperlink{structopenavb__tl__cfg__t_aa421113dd03391cac7220cd7dd7ee59b}{report\_seconds} <= INT32\_MAX)
+296             valOK = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+297     \}
+298     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{openavb__tl__osal_8c_a1509bff9cb2638f93f9f127d9d5b081e}{MATCH}(name, \textcolor{stringliteral}{"report\_frames"})) \{
+299         errno = 0;
+300         pCfg->\hyperlink{structopenavb__tl__cfg__t_a7b201beeb969583c11c16d83be758959}{report\_frames} = strtol(value, &pEnd, 10);
+301         \textcolor{keywordflow}{if} (*pEnd == \textcolor{charliteral}{'\(\backslash\)0'} && errno == 0
+302             && (\textcolor{keywordtype}{int})pCfg->\hyperlink{structopenavb__tl__cfg__t_a7b201beeb969583c11c16d83be758959}{report\_frames} >= 0
+303             && pCfg->\hyperlink{structopenavb__tl__cfg__t_a7b201beeb969583c11c16d83be758959}{report\_frames} <= INT32\_MAX)
+304             valOK = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+305     \}
+306     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{openavb__tl__osal_8c_a1509bff9cb2638f93f9f127d9d5b081e}{MATCH}(name, \textcolor{stringliteral}{"start\_paused"})) \{
+307         \textcolor{comment}{// ignore this item - tl\_host doesn't use it because}
+308         \textcolor{comment}{// it pauses before reading any of its streams.}
+309         errno = 0;
+310         \textcolor{keywordtype}{long} tmp;
+311         tmp = strtol(value, &pEnd, 10);
+312         \textcolor{keywordflow}{if} (*pEnd == \textcolor{charliteral}{'\(\backslash\)0'} && errno == 0
+313             && tmp >= 0
+314             && tmp <= 1) \{
+315             pCfg->\hyperlink{structopenavb__tl__cfg__t_a0983af523b1f3fd4392c902ccf862905}{start\_paused} = (tmp == 1);
+316             valOK = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+317         \}
+318     \}
+319     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{openavb__tl__osal_8c_a1509bff9cb2638f93f9f127d9d5b081e}{MATCH}(name, \textcolor{stringliteral}{"ifname"})) \{
+320         strncpy(pCfg->\hyperlink{structopenavb__tl__cfg__t_a6a7c2523839aee5440af6ea2c11d8c02}{ifname}, value, \textcolor{keyword}{sizeof}(pCfg->\hyperlink{structopenavb__tl__cfg__t_a6a7c2523839aee5440af6ea2c11d8c02}{ifname}) - 1);
+321         valOK = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+322     \}
+323     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{openavb__tl__osal_8c_a1509bff9cb2638f93f9f127d9d5b081e}{MATCH}(name, \textcolor{stringliteral}{"vlan\_id"})) \{
+324         errno = 0;
+325         \textcolor{keywordtype}{long} tmp;
+326         tmp = strtol(value, &pEnd, 0);
+327         \textcolor{comment}{// vlanID is 12 bit field}
+328         \textcolor{keywordflow}{if} (*pEnd == \textcolor{charliteral}{'\(\backslash\)0'} && errno == 0
+329             && tmp >= 0x0
+330             && tmp <= 0xFFF) \{
+331             pCfg->\hyperlink{structopenavb__tl__cfg__t_a1b24465e054a200402c04340ccc56eae}{vlan\_id} = tmp;
+332             valOK = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+333         \}
+334     \}
+335     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{openavb__tl__osal_8c_a1509bff9cb2638f93f9f127d9d5b081e}{MATCH}(name, \textcolor{stringliteral}{"fixed\_timestamp"})) \{
+336         errno = 0;
+337         \textcolor{keywordtype}{long} tmp;
+338         tmp = strtol(value, &pEnd, 0);
+339         \textcolor{keywordflow}{if} (*pEnd == \textcolor{charliteral}{'\(\backslash\)0'} && errno == 0) \{
+340             pCfg->\hyperlink{structopenavb__tl__cfg__t_a441ba8abc0d757aaefdb2680e09f19ac}{fixed\_timestamp} = tmp;
+341             valOK = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+342         \}
+343     \}
+344     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{openavb__tl__osal_8c_a1509bff9cb2638f93f9f127d9d5b081e}{MATCH}(name, \textcolor{stringliteral}{"spin\_wait"})) \{
+345         errno = 0;
+346         \textcolor{keywordtype}{long} tmp;
+347         tmp = strtol(value, &pEnd, 0);
+348         \textcolor{keywordflow}{if} (*pEnd == \textcolor{charliteral}{'\(\backslash\)0'} && errno == 0) \{
+349             pCfg->\hyperlink{structopenavb__tl__cfg__t_a5e39677fff9263d5891c77729b718142}{spin\_wait} = (tmp == 1);
+350             valOK = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+351         \}
+352     \}
+353     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{openavb__tl__osal_8c_a1509bff9cb2638f93f9f127d9d5b081e}{MATCH}(name, \textcolor{stringliteral}{"tx\_blocking\_in\_intf"})) \{
+354         errno = 0;
+355         \textcolor{keywordtype}{long} tmp;
+356         tmp = strtol(value, &pEnd, 0);
+357         \textcolor{keywordflow}{if} (*pEnd == \textcolor{charliteral}{'\(\backslash\)0'} && errno == 0) \{
+358             pCfg->\hyperlink{structopenavb__tl__cfg__t_aeb3581dc6183af28e4c61830959f6c86}{tx\_blocking\_in\_intf} = tmp;
+359             valOK = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+360         \}
+361     \}
+362     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{openavb__tl__osal_8c_a1509bff9cb2638f93f9f127d9d5b081e}{MATCH}(name, \textcolor{stringliteral}{"thread\_rt\_priority"})) \{
+363         errno = 0;
+364         \textcolor{keywordtype}{long} tmp;
+365         tmp = strtol(value, &pEnd, 0);
+366         \textcolor{keywordflow}{if} (*pEnd == \textcolor{charliteral}{'\(\backslash\)0'} && errno == 0) \{
+367             pCfg->\hyperlink{structopenavb__tl__cfg__t_a55a9e2a7773c0ac79fecc40b5623a9b8}{thread\_rt\_priority} = tmp;
+368             valOK = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+369         \}
+370     \}
+371     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{openavb__tl__osal_8c_a1509bff9cb2638f93f9f127d9d5b081e}{MATCH}(name, \textcolor{stringliteral}{"thread\_affinity"})) \{
+372         errno = 0;
+373         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} tmp;
+374         tmp = strtoul(value, &pEnd, 0);
+375         \textcolor{keywordflow}{if} (*pEnd == \textcolor{charliteral}{'\(\backslash\)0'} && errno == 0) \{
+376             pCfg->\hyperlink{structopenavb__tl__cfg__t_a1e5d04c7780ba1521971899952932c78}{thread\_affinity} = tmp;
+377             valOK = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+378         \}
+379     \}
+380 
+381     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{openavb__tl__osal_8c_a1509bff9cb2638f93f9f127d9d5b081e}{MATCH}(name, \textcolor{stringliteral}{"friendly\_name"})) \{
+382         strncpy(pCfg->\hyperlink{structopenavb__tl__cfg__t_a0cd8a3733a3e1a077982c80482e5aeb5}{friendly\_name}, value, \hyperlink{openavb__avdecc__read__ini__pub_8h_a29d83e67ee30c78c6ed81c188a433c10}{FRIENDLY\_NAME\_SIZE} - 1);
+383         valOK = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+384     \}
+385 
+386     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{openavb__tl__osal_8c_a1509bff9cb2638f93f9f127d9d5b081e}{MATCH}(name, \textcolor{stringliteral}{"map\_lib"})) \{
+387         \textcolor{keywordflow}{if} (pTLState->mapLib.libName)
+388             \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(pTLState->mapLib.libName);
+389         pTLState->mapLib.libName = strdup(value);
+390         valOK = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+391     \}
+392     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{openavb__tl__osal_8c_a1509bff9cb2638f93f9f127d9d5b081e}{MATCH}(name, \textcolor{stringliteral}{"map\_fn"})) \{
+393         \textcolor{keywordflow}{if} (pTLState->mapLib.funcName)
+394             \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(pTLState->mapLib.funcName);
+395         pTLState->mapLib.funcName = strdup(value);
+396         valOK = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+397     \}
+398 
+399     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{openavb__tl__osal_8c_a1509bff9cb2638f93f9f127d9d5b081e}{MATCH}(name, \textcolor{stringliteral}{"intf\_lib"})) \{
+400         \textcolor{keywordflow}{if} (pTLState->intfLib.libName)
+401             \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(pTLState->intfLib.libName);
+402         pTLState->intfLib.libName = strdup(value);
+403         valOK = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+404     \}
+405     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{openavb__tl__osal_8c_a1509bff9cb2638f93f9f127d9d5b081e}{MATCH}(name, \textcolor{stringliteral}{"intf\_fn"})) \{
+406         \textcolor{keywordflow}{if} (pTLState->intfLib.funcName)
+407             \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(pTLState->intfLib.funcName);
+408         pTLState->intfLib.funcName = strdup(value);
+409         valOK = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+410     \}
+411 
+412     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{openavb__tl__osal_8c_ab20e0d743bc06c165ba9d2541978d624}{MATCH\_LEFT}(name, \textcolor{stringliteral}{"intf\_nv\_"}, 8)
+413         || \hyperlink{openavb__tl__osal_8c_ab20e0d743bc06c165ba9d2541978d624}{MATCH\_LEFT}(name, \textcolor{stringliteral}{"map\_nv\_"}, 7)) \{
+414         \textcolor{comment}{// Need to save the interface and mapping module configuration}
+415         \textcolor{comment}{// until later (after those libraries are loaded.)}
+416 
+417         \textcolor{comment}{// check if this setting replaces an earlier one}
+418         \textcolor{keywordflow}{for} (i = 0; i < pNVCfg->\hyperlink{structopenavb__tl__cfg__name__value__t_ae7093f79d1305efd2444e40c505e74bc}{nLibCfgItems}; i++) \{
+419             \textcolor{keywordflow}{if} (\hyperlink{openavb__tl__osal_8c_a1509bff9cb2638f93f9f127d9d5b081e}{MATCH}(name, pNVCfg->\hyperlink{structopenavb__tl__cfg__name__value__t_a6b520d18dfa6f6e0db32a7aaab48c507}{libCfgNames}[i])) \{
+420                 \textcolor{keywordflow}{if} (pNVCfg->\hyperlink{structopenavb__tl__cfg__name__value__t_a411ec7f07600718814c00ea5d84cecaf}{libCfgValues}[i])
+421                     \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(pNVCfg->\hyperlink{structopenavb__tl__cfg__name__value__t_a411ec7f07600718814c00ea5d84cecaf}{libCfgValues}[i]);
+422                 pNVCfg->\hyperlink{structopenavb__tl__cfg__name__value__t_a411ec7f07600718814c00ea5d84cecaf}{libCfgValues}[i] = strdup(value);
+423                 valOK = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+424             \}
+425         \}
+426         \textcolor{keywordflow}{if} (i >= pNVCfg->\hyperlink{structopenavb__tl__cfg__name__value__t_ae7093f79d1305efd2444e40c505e74bc}{nLibCfgItems}) \{
+427             \textcolor{comment}{// is a new name/value}
+428             \textcolor{keywordflow}{if} (i >= \hyperlink{build_2sdk__eavb_2openavb__tl__pub_8h_a43e337ad1ee671bfec5aadd8ea0a62f0}{MAX\_LIB\_CFG\_ITEMS}) \{
+429                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Too many INI settings for interface/mapping modules"});
+430             \}
+431             \textcolor{keywordflow}{else} \{
+432                 pNVCfg->\hyperlink{structopenavb__tl__cfg__name__value__t_a6b520d18dfa6f6e0db32a7aaab48c507}{libCfgNames}[i] = strdup(name);
+433                 pNVCfg->\hyperlink{structopenavb__tl__cfg__name__value__t_a411ec7f07600718814c00ea5d84cecaf}{libCfgValues}[i] = strdup(value);
+434                 pNVCfg->\hyperlink{structopenavb__tl__cfg__name__value__t_ae7093f79d1305efd2444e40c505e74bc}{nLibCfgItems}++;
+435                 valOK = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+436             \}
+437         \}
+438     \}
+439     \textcolor{keywordflow}{else} \{
+440         \textcolor{comment}{// unmatched item, fail}
+441         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Unrecognized configuration item: name=%s"}, name);
+442         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_ae679116a5251aad926d752e57edbb7d3}{AVB\_TRACE\_TL});
+443         \textcolor{keywordflow}{return} 0;
+444     \}
+445 
+446     \textcolor{keywordflow}{if} (!valOK) \{
+447         \textcolor{comment}{// bad value}
+448         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Invalid value: name=%s, value=%s"}, name, value);
+449         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_ae679116a5251aad926d752e57edbb7d3}{AVB\_TRACE\_TL});
+450         \textcolor{keywordflow}{return} 0;
+451     \}
+452 
+453     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_ae679116a5251aad926d752e57edbb7d3}{AVB\_TRACE\_TL});
+454 
+455     \textcolor{keywordflow}{return} 1; \textcolor{comment}{// OK}
+456 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=300pt]{openavb__tl__osal_8c_acaefe41c866b3facc6faf91fb5e32b07_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__tl__osal_8c_acaefe41c866b3facc6faf91fb5e32b07_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+tl\+\_\+osal.\+c@{openavb\+\_\+tl\+\_\+osal.\+c}!openavb\+T\+L\+Close\+Link\+Libs\+Osal@{openavb\+T\+L\+Close\+Link\+Libs\+Osal}}
+\index{openavb\+T\+L\+Close\+Link\+Libs\+Osal@{openavb\+T\+L\+Close\+Link\+Libs\+Osal}!openavb\+\_\+tl\+\_\+osal.\+c@{openavb\+\_\+tl\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+T\+L\+Close\+Link\+Libs\+Osal(tl\+\_\+state\+\_\+t $\ast$p\+T\+L\+State)}{openavbTLCloseLinkLibsOsal(tl_state_t *pTLState)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} openavb\+T\+L\+Close\+Link\+Libs\+Osal (
+\begin{DoxyParamCaption}
+\item[{{\bf tl\+\_\+state\+\_\+t} $\ast$}]{p\+T\+L\+State}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__tl__osal_8c_aa53d4e29f75ed17d81e45c21e4eb0580}{}\label{openavb__tl__osal_8c_aa53d4e29f75ed17d81e45c21e4eb0580}
+
+
+openavb\+\_\+tl\+\_\+osal.\+c 파일의 556 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+557 \{
+558     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_ae679116a5251aad926d752e57edbb7d3}{AVB\_TRACE\_TL});
+559 
+560     \textcolor{keywordflow}{if} (pTLState->mapLib.libHandle)
+561         dlclose(pTLState->mapLib.libHandle);
+562     \textcolor{keywordflow}{if} (pTLState->intfLib.libHandle)
+563         dlclose(pTLState->intfLib.libHandle);
+564 
+565     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_ae679116a5251aad926d752e57edbb7d3}{AVB\_TRACE\_TL});
+566     \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+567 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__tl__osal_8c_aa53d4e29f75ed17d81e45c21e4eb0580_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+tl\+\_\+osal.\+c@{openavb\+\_\+tl\+\_\+osal.\+c}!openavb\+T\+L\+Open\+Link\+Libs\+Osal@{openavb\+T\+L\+Open\+Link\+Libs\+Osal}}
+\index{openavb\+T\+L\+Open\+Link\+Libs\+Osal@{openavb\+T\+L\+Open\+Link\+Libs\+Osal}!openavb\+\_\+tl\+\_\+osal.\+c@{openavb\+\_\+tl\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+T\+L\+Open\+Link\+Libs\+Osal(tl\+\_\+state\+\_\+t $\ast$p\+T\+L\+State)}{openavbTLOpenLinkLibsOsal(tl_state_t *pTLState)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} openavb\+T\+L\+Open\+Link\+Libs\+Osal (
+\begin{DoxyParamCaption}
+\item[{{\bf tl\+\_\+state\+\_\+t} $\ast$}]{p\+T\+L\+State}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__tl__osal_8c_ad950ce035ff690c69bbcb292400cbb12}{}\label{openavb__tl__osal_8c_ad950ce035ff690c69bbcb292400cbb12}
+
+
+openavb\+\_\+tl\+\_\+osal.\+c 파일의 534 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+535 \{
+536     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_ae679116a5251aad926d752e57edbb7d3}{AVB\_TRACE\_TL});
+537 
+538     \textcolor{keywordflow}{if} (!pTLState->\hyperlink{structtl__state__t_a7b8161c0e9a273c59fbc1dfda943953e}{cfg}.\hyperlink{structopenavb__tl__cfg__t_a87d7ea4a63a493fb0c5ca7f8a1494a94}{pMapInitFn}) \{
+539         \textcolor{keywordflow}{if} (!\hyperlink{openavb__tl__osal_8c_af4331c677a956aa4a94c1c712e2b38d2}{openMapLib}(pTLState)) \{
+540             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_ae679116a5251aad926d752e57edbb7d3}{AVB\_TRACE\_TL});
+541             \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+542         \}
+543     \}
+544 
+545     \textcolor{keywordflow}{if} (!pTLState->\hyperlink{structtl__state__t_a7b8161c0e9a273c59fbc1dfda943953e}{cfg}.\hyperlink{structopenavb__tl__cfg__t_a1e93bc0d2fd6ea831a182dae7b7db6ac}{pIntfInitFn}) \{
+546         \textcolor{keywordflow}{if} (!\hyperlink{openavb__tl__osal_8c_a6edd9a8e8b75a770eab00173eb7d9ffa}{openIntfLib}(pTLState)) \{
+547             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_ae679116a5251aad926d752e57edbb7d3}{AVB\_TRACE\_TL});
+548             \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+549         \}
+550     \}
+551 
+552     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_ae679116a5251aad926d752e57edbb7d3}{AVB\_TRACE\_TL});
+553     \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+554 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=329pt]{openavb__tl__osal_8c_ad950ce035ff690c69bbcb292400cbb12_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__tl__osal_8c_ad950ce035ff690c69bbcb292400cbb12_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+tl\+\_\+osal.\+c@{openavb\+\_\+tl\+\_\+osal.\+c}!openavb\+T\+L\+Read\+Ini\+File\+Osal@{openavb\+T\+L\+Read\+Ini\+File\+Osal}}
+\index{openavb\+T\+L\+Read\+Ini\+File\+Osal@{openavb\+T\+L\+Read\+Ini\+File\+Osal}!openavb\+\_\+tl\+\_\+osal.\+c@{openavb\+\_\+tl\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+T\+L\+Read\+Ini\+File\+Osal(tl\+\_\+handle\+\_\+t T\+Lhandle, const char $\ast$file\+Name, openavb\+\_\+tl\+\_\+cfg\+\_\+t $\ast$p\+Cfg, openavb\+\_\+tl\+\_\+cfg\+\_\+name\+\_\+value\+\_\+t $\ast$p\+N\+V\+Cfg)}{openavbTLReadIniFileOsal(tl_handle_t TLhandle, const char *fileName, openavb_tl_cfg_t *pCfg, openavb_tl_cfg_name_value_t *pNVCfg)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf E\+X\+T\+E\+R\+N\+\_\+\+D\+L\+L\+\_\+\+E\+X\+P\+O\+RT} {\bf bool} openavb\+T\+L\+Read\+Ini\+File\+Osal (
+\begin{DoxyParamCaption}
+\item[{{\bf tl\+\_\+handle\+\_\+t}}]{T\+Lhandle, }
+\item[{const char $\ast$}]{file\+Name, }
+\item[{{\bf openavb\+\_\+tl\+\_\+cfg\+\_\+t} $\ast$}]{p\+Cfg, }
+\item[{{\bf openavb\+\_\+tl\+\_\+cfg\+\_\+name\+\_\+value\+\_\+t} $\ast$}]{p\+N\+V\+Cfg}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__tl__osal_8c_a3ce1ad93037e2f0990500086fe132673}{}\label{openavb__tl__osal_8c_a3ce1ad93037e2f0990500086fe132673}
+Read an ini file.
+
+Parses an input configuration file tp populate configuration structures, and name value pairs. Only used in Operating Systems that have a file system
+
+
+\begin{DoxyParams}{매개변수}
+{\em T\+Lhandle} & Pointer to handle of talker/listener \\
+\hline
+{\em file\+Name} & Pointer to configuration file name \\
+\hline
+{\em p\+Cfg} & Pointer to configuration structure \\
+\hline
+{\em p\+N\+V\+Cfg} & Pointer to name value pair configuration structure \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+T\+R\+UE on success or F\+A\+L\+SE on failure
+\end{DoxyReturn}
+\begin{DoxyWarning}{경고}
+Not available on all platforms 
+\end{DoxyWarning}
+
+
+openavb\+\_\+tl\+\_\+osal.\+c 파일의 464 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+465 \{
+466     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_ae679116a5251aad926d752e57edbb7d3}{AVB\_TRACE\_TL});
+467 
+468     \hyperlink{structparse__ini__data__t}{parse\_ini\_data\_t} parseIniData;
+469     parseIniData.\hyperlink{structparse__ini__data__t_a442eb370b9ed2c74607fcaaecc9fef2a}{pTLState} = (\hyperlink{structtl__state__t}{tl\_state\_t} *)TLhandle;
+470     parseIniData.\hyperlink{structparse__ini__data__t_ab09df5e0b48b75d02fb95aa34ce8425d}{pCfg} = pCfg;
+471     parseIniData.\hyperlink{structparse__ini__data__t_a90d24217d9f037a36dd3c844f1229231}{pNVCfg} = pNVCfg;
+472 
+473     \textcolor{comment}{// Use the .INI file name as the default friendly name.}
+474     strncpy(parseIniData.\hyperlink{structparse__ini__data__t_ab09df5e0b48b75d02fb95aa34ce8425d}{pCfg}->\hyperlink{structopenavb__tl__cfg__t_a0cd8a3733a3e1a077982c80482e5aeb5}{friendly\_name}, fileName, 
+      \hyperlink{openavb__avdecc__read__ini__pub_8h_a29d83e67ee30c78c6ed81c188a433c10}{FRIENDLY\_NAME\_SIZE} - 1);
+475     \textcolor{keywordtype}{char} * pszComma = strchr(parseIniData.\hyperlink{structparse__ini__data__t_ab09df5e0b48b75d02fb95aa34ce8425d}{pCfg}->\hyperlink{structopenavb__tl__cfg__t_a0cd8a3733a3e1a077982c80482e5aeb5}{friendly\_name}, \textcolor{charliteral}{','});
+476     \textcolor{keywordflow}{if} (pszComma) \{
+477         \textcolor{comment}{// Get rid of anything following the file name.}
+478         *pszComma = \textcolor{charliteral}{'\(\backslash\)0'};
+479     \}
+480     \textcolor{keywordtype}{char} * pszExtension = strrchr(parseIniData.\hyperlink{structparse__ini__data__t_ab09df5e0b48b75d02fb95aa34ce8425d}{pCfg}->\hyperlink{structopenavb__tl__cfg__t_a0cd8a3733a3e1a077982c80482e5aeb5}{friendly\_name}, \textcolor{charliteral}{'.'});
+481     \textcolor{keywordflow}{if} (pszExtension && strcasecmp(pszExtension, \textcolor{stringliteral}{".ini"}) == 0) \{
+482         \textcolor{comment}{// Get rid of the .INI file extension.}
+483         *pszExtension = \textcolor{charliteral}{'\(\backslash\)0'};
+484     \}
+485 
+486     \textcolor{keywordtype}{int} result = \hyperlink{daemons_2gptp_2common_2ini_8c_ad285e522c65745f50f01ba650b563dd7}{ini\_parse}(fileName, \hyperlink{openavb__tl__osal_8c_acaefe41c866b3facc6faf91fb5e32b07}{openavbTLCfgCallback}, &parseIniData);
+487     \textcolor{keywordflow}{if} (result == 0) \{
+488         \hyperlink{structif__info__t}{if\_info\_t} ifinfo;
+489         \textcolor{keywordflow}{if} (pCfg->\hyperlink{structopenavb__tl__cfg__t_a6a7c2523839aee5440af6ea2c11d8c02}{ifname}[0] && !\hyperlink{openavb__rawsock_8c_a6f18910848a4522f50c59b32a8fc3213}{openavbCheckInterface}(parseIniData.
+      \hyperlink{structparse__ini__data__t_ab09df5e0b48b75d02fb95aa34ce8425d}{pCfg}->\hyperlink{structopenavb__tl__cfg__t_a6a7c2523839aee5440af6ea2c11d8c02}{ifname}, &ifinfo)) \{
+490             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Invalid value: name=%s, value=%s"}, \textcolor{stringliteral}{"ifname"}, parseIniData.
+      \hyperlink{structparse__ini__data__t_ab09df5e0b48b75d02fb95aa34ce8425d}{pCfg}->\hyperlink{structopenavb__tl__cfg__t_a6a7c2523839aee5440af6ea2c11d8c02}{ifname});
+491             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_ae679116a5251aad926d752e57edbb7d3}{AVB\_TRACE\_TL});
+492             \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+493         \}
+494     \}
+495     \textcolor{keywordflow}{if} (result < 0) \{
+496         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Couldn't parse INI file: %s"}, fileName);
+497         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_ae679116a5251aad926d752e57edbb7d3}{AVB\_TRACE\_TL});
+498         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+499     \}
+500     \textcolor{keywordflow}{if} (result > 0) \{
+501         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Error in INI file: %s, line %d"}, fileName, result);
+502         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_ae679116a5251aad926d752e57edbb7d3}{AVB\_TRACE\_TL});
+503         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+504     \}
+505 
+506     \textcolor{comment}{// For a Talker, use the adapter MAC Address as the stream address when one was not supplied.}
+507     \textcolor{keywordflow}{if} (parseIniData.\hyperlink{structparse__ini__data__t_ab09df5e0b48b75d02fb95aa34ce8425d}{pCfg}->\hyperlink{structopenavb__tl__cfg__t_a172ec388c6d270261a61a789b78dff45}{role} == \hyperlink{openavb__types__base__pub_8h_a590fdc081b8544206aabd58e32a6f6a2ad24b3afc356fd635f96a32dd89a1b6a2}{AVB\_ROLE\_TALKER} &&
+508         (!parseIniData.\hyperlink{structparse__ini__data__t_ab09df5e0b48b75d02fb95aa34ce8425d}{pCfg}->\hyperlink{structopenavb__tl__cfg__t_aad445ea3a27a465a885b5d56648ad282}{stream\_addr}.\hyperlink{structcfg__mac__t_af2bc5d41ceefb37a387542f87c90ccb8}{mac} || memcmp(parseIniData.
+      \hyperlink{structparse__ini__data__t_ab09df5e0b48b75d02fb95aa34ce8425d}{pCfg}->\hyperlink{structopenavb__tl__cfg__t_aad445ea3a27a465a885b5d56648ad282}{stream\_addr}.\hyperlink{structcfg__mac__t_af2bc5d41ceefb37a387542f87c90ccb8}{mac}, \textcolor{stringliteral}{"\(\backslash\)x00\(\backslash\)x00\(\backslash\)x00\(\backslash\)x00\(\backslash\)x00\(\backslash\)x00"}, 6) == 0))
+509     \{
+510         \textcolor{comment}{// Open a rawsock may be the easiest cross platform way to get the MAC address.}
+511         \textcolor{keywordtype}{void} *\hyperlink{openavb__acmp__message_8c_acc3c897b6f4f88ddba59c97f3178e402}{txSock} = \hyperlink{openavb__rawsock_8c_a51a8d60253a8bab7c193b36bf743d12f}{openavbRawsockOpen}(parseIniData.
+      \hyperlink{structparse__ini__data__t_ab09df5e0b48b75d02fb95aa34ce8425d}{pCfg}->\hyperlink{structopenavb__tl__cfg__t_a6a7c2523839aee5440af6ea2c11d8c02}{ifname}, \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{openavb__avtp_8h_a5e6dfe517d14f65222b866a550498e5f}{ETHERTYPE\_AVTP}, 100, 1);
+512         \textcolor{keywordflow}{if} (txSock) \{
+513             \textcolor{keywordflow}{if} (\hyperlink{openavb__rawsock_8h_a099e2a46bd9edcba96f26f455fccbdf6}{openavbRawsockGetAddr}(txSock, parseIniData.
+      \hyperlink{structparse__ini__data__t_ab09df5e0b48b75d02fb95aa34ce8425d}{pCfg}->\hyperlink{structopenavb__tl__cfg__t_aad445ea3a27a465a885b5d56648ad282}{stream\_addr}.\hyperlink{structcfg__mac__t_ab04370ca333258063d83080192e0265d}{buffer}.ether\_addr\_octet)) \{
+514                 parseIniData.\hyperlink{structparse__ini__data__t_ab09df5e0b48b75d02fb95aa34ce8425d}{pCfg}->\hyperlink{structopenavb__tl__cfg__t_aad445ea3a27a465a885b5d56648ad282}{stream\_addr}.\hyperlink{structcfg__mac__t_af2bc5d41ceefb37a387542f87c90ccb8}{mac} = &(parseIniData.
+      \hyperlink{structparse__ini__data__t_ab09df5e0b48b75d02fb95aa34ce8425d}{pCfg}->\hyperlink{structopenavb__tl__cfg__t_aad445ea3a27a465a885b5d56648ad282}{stream\_addr}.\hyperlink{structcfg__mac__t_ab04370ca333258063d83080192e0265d}{buffer}); \textcolor{comment}{// Indicate that the MAC Address is valid.}
+515             \}
+516             \hyperlink{openavb__rawsock_8h_ae1e456bd2922c4ed8fc8263cc65d98d1}{openavbRawsockClose}(txSock);
+517             txSock = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+518         \}
+519 
+520         \textcolor{keywordflow}{if} (!parseIniData.\hyperlink{structparse__ini__data__t_ab09df5e0b48b75d02fb95aa34ce8425d}{pCfg}->\hyperlink{structopenavb__tl__cfg__t_aad445ea3a27a465a885b5d56648ad282}{stream\_addr}.\hyperlink{structcfg__mac__t_af2bc5d41ceefb37a387542f87c90ccb8}{mac} || memcmp(parseIniData.
+      \hyperlink{structparse__ini__data__t_ab09df5e0b48b75d02fb95aa34ce8425d}{pCfg}->\hyperlink{structopenavb__tl__cfg__t_aad445ea3a27a465a885b5d56648ad282}{stream\_addr}.\hyperlink{structcfg__mac__t_af2bc5d41ceefb37a387542f87c90ccb8}{mac}, \textcolor{stringliteral}{"\(\backslash\)x00\(\backslash\)x00\(\backslash\)x00\(\backslash\)x00\(\backslash\)x00\(\backslash\)x00"}, 6) == 0) \{
+521             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"stream\_addr required, but not specified."});
+522             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_ae679116a5251aad926d752e57edbb7d3}{AVB\_TRACE\_TL});
+523             \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+524         \}
+525         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afcf1f0c1d10ae9efe3782eb6cae78355}{AVB\_LOGF\_DEBUG}(\textcolor{stringliteral}{"Detected stream\_addr:  "} \hyperlink{maap__log_8h_a8f7a60dc3466923fed2afcb3cab0cd3e}{ETH\_FORMAT},
+526             \hyperlink{maap__log_8h_a5d3ceb6c3ad6d4c0821fcfc329957e6f}{ETH\_OCTETS}(parseIniData.\hyperlink{structparse__ini__data__t_ab09df5e0b48b75d02fb95aa34ce8425d}{pCfg}->\hyperlink{structopenavb__tl__cfg__t_aad445ea3a27a465a885b5d56648ad282}{stream\_addr}.
+      \hyperlink{structcfg__mac__t_ab04370ca333258063d83080192e0265d}{buffer}.ether\_addr\_octet));
+527     \}
+528 
+529     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_ae679116a5251aad926d752e57edbb7d3}{AVB\_TRACE\_TL});
+530     \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+531 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__tl__osal_8c_a3ce1ad93037e2f0990500086fe132673_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=288pt]{openavb__tl__osal_8c_a3ce1ad93037e2f0990500086fe132673_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+tl\+\_\+osal.\+c@{openavb\+\_\+tl\+\_\+osal.\+c}!openavb\+T\+L\+Thread\+Fn\+Osal@{openavb\+T\+L\+Thread\+Fn\+Osal}}
+\index{openavb\+T\+L\+Thread\+Fn\+Osal@{openavb\+T\+L\+Thread\+Fn\+Osal}!openavb\+\_\+tl\+\_\+osal.\+c@{openavb\+\_\+tl\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+T\+L\+Thread\+Fn\+Osal(tl\+\_\+state\+\_\+t $\ast$p\+T\+L\+State)}{openavbTLThreadFnOsal(tl_state_t *pTLState)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} openavb\+T\+L\+Thread\+Fn\+Osal (
+\begin{DoxyParamCaption}
+\item[{{\bf tl\+\_\+state\+\_\+t} $\ast$}]{p\+T\+L\+State}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__tl__osal_8c_ad62b8315beb90e7a2ad20afaa852a678}{}\label{openavb__tl__osal_8c_ad62b8315beb90e7a2ad20afaa852a678}
+
+
+openavb\+\_\+tl\+\_\+osal.\+c 파일의 458 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+459 \{
+460     \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+461 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=348pt]{openavb__tl__osal_8c_ad62b8315beb90e7a2ad20afaa852a678_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+tl\+\_\+osal.\+c@{openavb\+\_\+tl\+\_\+osal.\+c}!open\+Intf\+Lib@{open\+Intf\+Lib}}
+\index{open\+Intf\+Lib@{open\+Intf\+Lib}!openavb\+\_\+tl\+\_\+osal.\+c@{openavb\+\_\+tl\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{open\+Intf\+Lib(tl\+\_\+state\+\_\+t $\ast$p\+T\+L\+State)}{openIntfLib(tl_state_t *pTLState)}}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf bool} open\+Intf\+Lib (
+\begin{DoxyParamCaption}
+\item[{{\bf tl\+\_\+state\+\_\+t} $\ast$}]{p\+T\+L\+State}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__tl__osal_8c_a6edd9a8e8b75a770eab00173eb7d9ffa}{}\label{openavb__tl__osal_8c_a6edd9a8e8b75a770eab00173eb7d9ffa}
+
+
+openavb\+\_\+tl\+\_\+osal.\+c 파일의 115 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+116 \{
+117 \textcolor{comment}{// OpenAVB using static interface plugins therefore don't attempt to open a library}
+118 \textcolor{preprocessor}{#if 0}
+119     \textcolor{comment}{// Opening library}
+120     \textcolor{keywordflow}{if} (pTLState->intfLib.libName) \{
+121         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a2be7e90c7cb63f12b221ed1cd4999185}{AVB\_LOGF\_INFO}(\textcolor{stringliteral}{"Attempting to open library: %s"}, pTLState->intfLib.libName);
+122         pTLState->intfLib.libHandle = dlopen(pTLState->intfLib.libName, RTLD\_LAZY);
+123         \textcolor{keywordflow}{if} (!pTLState->intfLib.libHandle) \{
+124             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Unable to open the interface library."});
+125             \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+126         \}
+127     \}
+128 \textcolor{preprocessor}{#endif}
+129 
+130     \textcolor{comment}{// Looking up function entry}
+131     \textcolor{keywordflow}{if} (!pTLState->intfLib.funcName) \{
+132         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Interface initialize function not set."});
+133         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+134     \}
+135 
+136     \textcolor{keywordtype}{char} *error;
+137     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a2be7e90c7cb63f12b221ed1cd4999185}{AVB\_LOGF\_INFO}(\textcolor{stringliteral}{"Looking up symbol for function: %s"}, pTLState->intfLib.funcName);
+138     \textcolor{keywordflow}{if} (pTLState->intfLib.libHandle) \{
+139         pTLState->\hyperlink{structtl__state__t_a7b8161c0e9a273c59fbc1dfda943953e}{cfg}.\hyperlink{structopenavb__tl__cfg__t_a1e93bc0d2fd6ea831a182dae7b7db6ac}{pIntfInitFn} = dlsym(pTLState->intfLib.libHandle, pTLState->intfLib.
+      funcName);
+140     \}
+141     \textcolor{keywordflow}{else} \{
+142         pTLState->\hyperlink{structtl__state__t_a7b8161c0e9a273c59fbc1dfda943953e}{cfg}.\hyperlink{structopenavb__tl__cfg__t_a1e93bc0d2fd6ea831a182dae7b7db6ac}{pIntfInitFn} = dlsym(RTLD\_DEFAULT, pTLState->intfLib.funcName);
+143     \}
+144     \textcolor{keywordflow}{if} ((error = dlerror()) != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL})  \{
+145         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Interface initialize function lookup error: %s."}, error);
+146         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+147     \}
+148 
+149     \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+150 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__tl__osal_8c_a6edd9a8e8b75a770eab00173eb7d9ffa_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+tl\+\_\+osal.\+c@{openavb\+\_\+tl\+\_\+osal.\+c}!open\+Map\+Lib@{open\+Map\+Lib}}
+\index{open\+Map\+Lib@{open\+Map\+Lib}!openavb\+\_\+tl\+\_\+osal.\+c@{openavb\+\_\+tl\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{open\+Map\+Lib(tl\+\_\+state\+\_\+t $\ast$p\+T\+L\+State)}{openMapLib(tl_state_t *pTLState)}}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf bool} open\+Map\+Lib (
+\begin{DoxyParamCaption}
+\item[{{\bf tl\+\_\+state\+\_\+t} $\ast$}]{p\+T\+L\+State}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__tl__osal_8c_af4331c677a956aa4a94c1c712e2b38d2}{}\label{openavb__tl__osal_8c_af4331c677a956aa4a94c1c712e2b38d2}
+
+
+openavb\+\_\+tl\+\_\+osal.\+c 파일의 78 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+79 \{
+80 \textcolor{comment}{// OpenAVB using static mapping plugins therefore don't attempt to open a library}
+81 \textcolor{preprocessor}{#if 0}
+82     \textcolor{comment}{// Opening library}
+83     \textcolor{keywordflow}{if} (pTLState->mapLib.libName) \{
+84         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a2be7e90c7cb63f12b221ed1cd4999185}{AVB\_LOGF\_INFO}(\textcolor{stringliteral}{"Attempting to open library: %s"}, pTLState->mapLib.libName);
+85         pTLState->mapLib.libHandle = dlopen(pTLState->mapLib.libName, RTLD\_LAZY);
+86         \textcolor{keywordflow}{if} (!pTLState->mapLib.libHandle) \{
+87             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Unable to open the mapping library."});
+88             \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+89         \}
+90     \}
+91 \textcolor{preprocessor}{#endif}
+92 
+93     \textcolor{comment}{// Looking up function entry}
+94     \textcolor{keywordflow}{if} (!pTLState->mapLib.funcName) \{
+95         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Mapping initialize function not set."});
+96         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+97     \}
+98 
+99     \textcolor{keywordtype}{char} *error;
+100     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a2be7e90c7cb63f12b221ed1cd4999185}{AVB\_LOGF\_INFO}(\textcolor{stringliteral}{"Looking up symbol for function: %s"}, pTLState->mapLib.funcName);
+101     \textcolor{keywordflow}{if} (pTLState->mapLib.libHandle) \{
+102         pTLState->\hyperlink{structtl__state__t_a7b8161c0e9a273c59fbc1dfda943953e}{cfg}.\hyperlink{structopenavb__tl__cfg__t_a87d7ea4a63a493fb0c5ca7f8a1494a94}{pMapInitFn} = dlsym(pTLState->mapLib.libHandle, pTLState->mapLib.funcName
+      );
+103     \}
+104     \textcolor{keywordflow}{else} \{
+105         pTLState->\hyperlink{structtl__state__t_a7b8161c0e9a273c59fbc1dfda943953e}{cfg}.\hyperlink{structopenavb__tl__cfg__t_a87d7ea4a63a493fb0c5ca7f8a1494a94}{pMapInitFn} = dlsym(RTLD\_DEFAULT, pTLState->mapLib.funcName);
+106     \}
+107     \textcolor{keywordflow}{if} ((error = dlerror()) != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL})  \{
+108         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Mapping initialize function lookup error: %s."}, error);
+109         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+110     \}
+111 
+112     \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+113 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__tl__osal_8c_af4331c677a956aa4a94c1c712e2b38d2_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+tl\+\_\+osal.\+c@{openavb\+\_\+tl\+\_\+osal.\+c}!parse\+\_\+mac@{parse\+\_\+mac}}
+\index{parse\+\_\+mac@{parse\+\_\+mac}!openavb\+\_\+tl\+\_\+osal.\+c@{openavb\+\_\+tl\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{parse\+\_\+mac(const char $\ast$str, cfg\+\_\+mac\+\_\+t $\ast$mac)}{parse_mac(const char *str, cfg_mac_t *mac)}}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf bool} parse\+\_\+mac (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{str, }
+\item[{{\bf cfg\+\_\+mac\+\_\+t} $\ast$}]{mac}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__tl__osal_8c_a8d55b286a84c406d891adea5fa2af056}{}\label{openavb__tl__osal_8c_a8d55b286a84c406d891adea5fa2af056}
+
+
+openavb\+\_\+tl\+\_\+osal.\+c 파일의 66 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+67 \{
+68     memset(&mac->\hyperlink{structcfg__mac__t_ab04370ca333258063d83080192e0265d}{buffer}, 0, \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} ether\_addr));
+69 
+70     mac->\hyperlink{structcfg__mac__t_af2bc5d41ceefb37a387542f87c90ccb8}{mac} = ether\_aton\_r(str, &mac->\hyperlink{structcfg__mac__t_ab04370ca333258063d83080192e0265d}{buffer});
+71     \textcolor{keywordflow}{if} (mac->\hyperlink{structcfg__mac__t_af2bc5d41ceefb37a387542f87c90ccb8}{mac})
+72         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+73 
+74     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Failed to parse addr: %s"}, str);
+75     \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+76 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__tl__osal_8c_a8d55b286a84c406d891adea5fa2af056_icgraph}
+\end{center}
+\end{figure}
+
+

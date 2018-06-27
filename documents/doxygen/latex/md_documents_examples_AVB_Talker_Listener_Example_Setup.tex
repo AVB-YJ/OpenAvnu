@@ -1,0 +1,75 @@
+{\itshape Note\+:} this tutorial targets a Linux OS.
+
+\subsection*{Preparation}
+
+Fetch the Open-\/\+A\+VB repository. To ease the further steps, enter your local copy and export its path and A\+VB interfaces via 
+\begin{DoxyCode}
+1 export AVB\_PATH=$(pwd)
+2 export AVB\_PC1\_IF="eth0"
+3 export AVB\_PC2\_IF="eth2"
+\end{DoxyCode}
+ Then, you can use a terminal multiplexer like {\itshape byobu} to start all needed A\+VB tools in different windows.
+
+We assume the following PC setup\+:
+\begin{DoxyItemize}
+\item P\+C1\+: ethernet eth0 for A\+VB connection
+\item P\+C2\+: ethernet eth2 for A\+VB connection
+\item Both ethernet cards are using the {\ttfamily igb\+\_\+avb} driver.
+\begin{DoxyItemize}
+\item Check via {\ttfamily ethtool -\/i eth0}.
+\item If not, launch {\ttfamily sudo ./startup.sh eth0} in {\ttfamily kmod/igb} to load the required driver for the A\+VB interface.
+\end{DoxyItemize}
+\item Both P\+Cs can ping each other through the A\+VB network cards.
+\end{DoxyItemize}
+
+\subsection*{PC 1\+: start A\+VB environment + talker application}
+
+Start A\+VB environment\+:
+
+
+\begin{DoxyCode}
+1 # GPTP time synchronization daemon
+2 cd "$\{AVB\_PATH\}/daemons/gptp/linux/build/obj"
+3 sudo ./daemon\_cl $AVB\_PC1\_IF -R 1
+4 
+5 # Stream reservation daemon (m: MMRP, v: MVRP, s: MSRP)
+6 cd "$\{AVB\_PATH\}/daemons/mrpd"
+7 sudo ./mrpd -mvs -i $AVB\_PC1\_IF
+\end{DoxyCode}
+
+
+Start A\+VB talker example\+:
+
+
+\begin{DoxyCode}
+1 cd "$\{AVB\_PATH\}/examples/simple\_talker"
+2 sudo ./simple\_talker -i $AVB\_PC1\_IF -t 2
+\end{DoxyCode}
+
+
+\subsection*{PC 2\+: start A\+VB environment + listener application}
+
+Start A\+VB environment similar to PC 1\+:
+
+
+\begin{DoxyCode}
+1 # GPTP time synchronization daemon (will synchronize on PC 1)
+2 cd "$\{AVB\_PATH\}/daemons/gptp/linux/build/obj"
+3 sudo ./daemon\_cl $AVB\_PC2\_IF
+4 
+5 # Stream reservation daemon (m: MMRP, v: MVRP, s: MSRP)
+6 cd "$\{AVB\_PATH\}/daemons/mrpd"
+7 sudo ./mrpd -mvs -i $AVB\_PC2\_IF
+\end{DoxyCode}
+
+
+Start A\+VB listener example\+:
+
+
+\begin{DoxyCode}
+1 cd "$\{AVB\_PATH\}/examples/simple\_listener"
+2 sudo ./simple\_listener -i $AVB\_PC2\_IF -f out.wav
+\end{DoxyCode}
+
+
+\+:tada\+: 

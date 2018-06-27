@@ -1,0 +1,10 @@
+var openavb__avdecc__cfg_8c =
+[
+    [ "AVB_LOG_COMPONENT", "openavb__avdecc__cfg_8c.html#abcfb21b6495585fe36058f57a9fe58fc", null ],
+    [ "MATCH", "openavb__avdecc__cfg_8c.html#a1509bff9cb2638f93f9f127d9d5b081e", null ],
+    [ "MATCH_FIRST", "openavb__avdecc__cfg_8c.html#a69d3e7ba0ce4035567417599d8f5b7f8", null ],
+    [ "cfgCallback", "openavb__avdecc__cfg_8c.html#a613fc3aef2d9957bd245a27f6ff409d0", null ],
+    [ "cfgValErr", "openavb__avdecc__cfg_8c.html#af5bf35992f76ddc4e15f9a7bd123247c", null ],
+    [ "openavbAvdeccUnconfigure", "openavb__avdecc__cfg_8c.html#ab19bf61d2f614645aeae597211cf23ba", null ],
+    [ "openavbReadAvdeccConfig", "openavb__avdecc__cfg_8c.html#a0afc3b8b0d4416fdf573dc2f6b24c636", null ]
+];

@@ -1,0 +1,1055 @@
+\hypertarget{openavb__endpoint__osal__maap_8c}{}\section{lib/avtp\+\_\+pipeline/platform/\+Linux/endpoint/openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.c 파일 참조}
+\label{openavb__endpoint__osal__maap_8c}\index{lib/avtp\+\_\+pipeline/platform/\+Linux/endpoint/openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{lib/avtp\+\_\+pipeline/platform/\+Linux/endpoint/openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}}
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$sys/types.\+h$>$}\\*
+{\ttfamily \#include $<$sys/socket.\+h$>$}\\*
+{\ttfamily \#include $<$netdb.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+platform.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+trace.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+maap.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}maap\+\_\+iface.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+list.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+rawsock.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+endpoint\+\_\+cfg.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+pub.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+log.\+h\char`\"{}}\\*
+openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__endpoint__osal__maap_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{데이타 구조}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structmaap_alloc__t}{maap\+Alloc\+\_\+t}
+\end{DoxyCompactItemize}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{openavb__endpoint__osal__maap_8c_abcfb21b6495585fe36058f57a9fe58fc}{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}~\char`\"{}Endpoint M\+A\+AP\char`\"{}
+\item 
+\#define \hyperlink{openavb__endpoint__osal__maap_8c_ae6263079f02d6fcdb18350e93b5e8fd9}{M\+A\+A\+P\+\_\+\+D\+Y\+N\+A\+M\+I\+C\+\_\+\+P\+O\+O\+L\+\_\+\+B\+A\+SE}~0x91\+E0\+F0000000\+LL
+\item 
+\#define \hyperlink{openavb__endpoint__osal__maap_8c_a27db04878ffebe92dbbcbae7e7c5d447}{M\+A\+A\+P\+\_\+\+D\+Y\+N\+A\+M\+I\+C\+\_\+\+P\+O\+O\+L\+\_\+\+S\+I\+ZE}~0x\+F\+E00
+\item 
+\#define \hyperlink{openavb__endpoint__osal__maap_8c_a7f5fac18a4b8526e8460ba65032dee92}{M\+A\+A\+P\+\_\+\+L\+O\+CK}()~\{ \hyperlink{openavb__os__services__osal__pub_8h_aee93da9d4ea28eeaa9c64bd938d5549b}{M\+U\+T\+E\+X\+\_\+\+C\+R\+E\+A\+T\+E\+\_\+\+E\+RR}(); \hyperlink{openavb__os__services__osal__pub_8h_aaa0e54e00ca1cc9cb5bf9ac824a5e4ef}{M\+U\+T\+E\+X\+\_\+\+L\+O\+CK}(maap\+Mutex); \hyperlink{openavb__os__services__osal__pub_8h_a08d33bd2184e24e7676bda0efb5a3e5e}{M\+U\+T\+E\+X\+\_\+\+L\+O\+G\+\_\+\+E\+RR}(\char`\"{}Mutex lock failure\char`\"{}); \}
+\item 
+\#define \hyperlink{openavb__endpoint__osal__maap_8c_a486eaef2252b47725e829cdc6e19579b}{M\+A\+A\+P\+\_\+\+U\+N\+L\+O\+CK}()~\{ \hyperlink{openavb__os__services__osal__pub_8h_aee93da9d4ea28eeaa9c64bd938d5549b}{M\+U\+T\+E\+X\+\_\+\+C\+R\+E\+A\+T\+E\+\_\+\+E\+RR}(); \hyperlink{openavb__os__services__osal__pub_8h_a0945f1588c967fbabfc91ddc7287cb32}{M\+U\+T\+E\+X\+\_\+\+U\+N\+L\+O\+CK}(maap\+Mutex); \hyperlink{openavb__os__services__osal__pub_8h_a08d33bd2184e24e7676bda0efb5a3e5e}{M\+U\+T\+E\+X\+\_\+\+L\+O\+G\+\_\+\+E\+RR}(\char`\"{}Mutex unlock failure\char`\"{}); \}
+\end{DoxyCompactItemize}
+\subsection*{열거형 타입}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924ed}{maap\+State\+\_\+t} \{ \\*
+\hyperlink{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924edad6c0c119ab337b3251ce5d101753eddf}{M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+U\+N\+K\+N\+O\+WN}, 
+\hyperlink{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924edac0ddd08f37bff8c10ccc830c97578d24}{M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+I\+N\+I\+T\+I\+A\+L\+I\+Z\+I\+NG}, 
+\hyperlink{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924edaa3834e941cc09543c703500c1c693970}{M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+I\+NG}, 
+\hyperlink{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924eda0fd4a497ad1b4710bcd143e3d0b0fcbe}{M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+C\+O\+N\+N\+E\+C\+T\+ED}, 
+\\*
+\hyperlink{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924edaa53521d3dd48d837847a959de33ba0ce}{M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+R\+E\+L\+E\+A\+S\+I\+NG}, 
+\hyperlink{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924eda57a8bbf4f3a9d5742d3cb4f547386ecd}{M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+R\+E\+L\+E\+A\+S\+ED}, 
+\hyperlink{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924edadd317db2e56d06a4da228735e050ab1f}{M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+N\+O\+T\+\_\+\+A\+V\+A\+I\+L\+A\+B\+LE}, 
+\hyperlink{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924edaad660ca790041e5ce5b8d88139b68b3b}{M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+E\+R\+R\+OR}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+static void $\ast$ \hyperlink{openavb__endpoint__osal__maap_8c_a7fd76b584e92d8d6a5ae00409ed9e869}{maap\+Thread} (void $\ast$arg)
+\item 
+static \hyperlink{openavb__endpoint__osal__maap_8c_a441a6abded229a08b46e1d99fe857e3c}{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+LE} (maap\+Mutex)
+\item 
+static unsigned long long \hyperlink{openavb__endpoint__osal__maap_8c_a5b57873230df690acfdc54463efac8ad}{Maap\+Mac\+Addr\+To\+Long\+Long} (const struct ether\+\_\+addr $\ast$addr)
+\item 
+static void \hyperlink{openavb__endpoint__osal__maap_8c_aca8e1deb8e98fb7cba70497638d8253d}{Maap\+Result\+To\+Mac\+Addr} (unsigned long long n\+Address, struct ether\+\_\+addr $\ast$dest\+Addr)
+\item 
+static void \hyperlink{openavb__endpoint__osal__maap_8c_af8667226736d447bd9d753c8616aa465}{process\+\_\+maap\+\_\+notify} (\hyperlink{struct_maap___notify}{Maap\+\_\+\+Notify} $\ast$mn, int \hyperlink{openavb__endpoint__osal__shaper_8c_a16ece46816348fa6d2c5d0e8b47c0098}{socketfd})
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__endpoint__osal__maap_8c_a7429a4092721658587474d37f4b5ed44}{openavb\+Maap\+Initialize} (const char $\ast$\hyperlink{aaf-talker_8c_ac7b430acaa92a7a26fbcdad47d2efc20}{ifname}, unsigned int maap\+Port, struct ether\+\_\+addr $\ast$maap\+Pref\+Addr, \hyperlink{openavb__maap_8h_af0d99da102a3750516e13b6a3b12d864}{openavb\+Maap\+Restart\+Cb\+\_\+t} $\ast$cbfn)
+\item 
+void \hyperlink{openavb__endpoint__osal__maap_8c_af5604488b41ef394a9c89a74f54d1aa1}{openavb\+Maap\+Finalize} ()
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__endpoint__osal__maap_8c_a371ed11c4bbadfcba4ecaebcdd5d6947}{openavb\+Maap\+Daemon\+Available} (void)
+\item 
+void $\ast$ \hyperlink{openavb__endpoint__osal__maap_8c_a1539ba5ab1efcb5927c49b0b4cad1799}{openavb\+Maap\+Allocate} (int count, struct ether\+\_\+addr $\ast$addr)
+\item 
+void \hyperlink{openavb__endpoint__osal__maap_8c_a480dddbcfaf33f16aa9375e4a81f3616}{openavb\+Maap\+Release} (void $\ast$\hyperlink{jack__listener_8c_a6c138155d7b3442efd19d0aa3f93e548}{handle})
+\end{DoxyCompactItemize}
+\subsection*{변수}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structopenavb__endpoint__cfg__t}{openavb\+\_\+endpoint\+\_\+cfg\+\_\+t} \hyperlink{openavb__endpoint__osal__maap_8c_a4bc033da01bf5e6046affe353ccbde0d}{x\+\_\+cfg}
+\item 
+static \hyperlink{structmaap_alloc__t}{maap\+Alloc\+\_\+t} \hyperlink{openavb__endpoint__osal__maap_8c_a58c1ab01960413365f2b88f3d3919fe6}{maap\+Alloc\+List} \mbox{[}\hyperlink{openavb__types__base_8h_a7e205a82b56683e5fc7c05d37160bf02}{M\+A\+X\+\_\+\+A\+V\+B\+\_\+\+S\+T\+R\+E\+A\+MS}\mbox{]}
+\item 
+static \hyperlink{openavb__maap_8h_af0d99da102a3750516e13b6a3b12d864}{openavb\+Maap\+Restart\+Cb\+\_\+t} $\ast$ \hyperlink{openavb__endpoint__osal__maap_8c_a83b5499277019fe3b9fcb7fc3d3fd954}{maap\+Restart\+Callback} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{N\+U\+LL}
+\item 
+static struct ether\+\_\+addr $\ast$ \hyperlink{openavb__endpoint__osal__maap_8c_af896fa64326bbdb4f7b862fed927dc03}{maap\+Preferred\+Address} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{N\+U\+LL}
+\item 
+static \hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__endpoint__osal__maap_8c_ad69848d6e85d6a57d404d3e7b3b9d3aa}{maap\+Running} = \hyperlink{lib_2igb_2e1000__osdep_8h_aa93f0eb578d23995850d61f7d61c55c1}{F\+A\+L\+SE}
+\item 
+static pthread\+\_\+t \hyperlink{openavb__endpoint__osal__maap_8c_a78853e9dc07d72242f40c621f9617198}{maap\+Thread\+Handle}
+\item 
+static enum \hyperlink{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924ed}{maap\+State\+\_\+t} \hyperlink{openavb__endpoint__osal__maap_8c_a00afa7c0f95b30bda6c1640f7a804612}{maap\+State} = \hyperlink{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924edad6c0c119ab337b3251ce5d101753eddf}{M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+U\+N\+K\+N\+O\+WN}
+\item 
+static int \hyperlink{openavb__endpoint__osal__maap_8c_a4419b358d76d727bb4a6821fadb2d105}{maap\+Reservation\+Id} = 0
+\item 
+static char \hyperlink{openavb__endpoint__osal__maap_8c_a212916f0988e06837e698366dba068c0}{maap\+Daemon\+Port} \mbox{[}6\mbox{]} = \{0\}
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}!A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT@{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}}
+\index{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT@{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}!openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}}
+\subsubsection[{\texorpdfstring{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}{AVB_LOG_COMPONENT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT~\char`\"{}Endpoint M\+A\+AP\char`\"{}}\hypertarget{openavb__endpoint__osal__maap_8c_abcfb21b6495585fe36058f57a9fe58fc}{}\label{openavb__endpoint__osal__maap_8c_abcfb21b6495585fe36058f57a9fe58fc}
+
+
+openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c 파일의 50 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}!M\+A\+A\+P\+\_\+\+D\+Y\+N\+A\+M\+I\+C\+\_\+\+P\+O\+O\+L\+\_\+\+B\+A\+SE@{M\+A\+A\+P\+\_\+\+D\+Y\+N\+A\+M\+I\+C\+\_\+\+P\+O\+O\+L\+\_\+\+B\+A\+SE}}
+\index{M\+A\+A\+P\+\_\+\+D\+Y\+N\+A\+M\+I\+C\+\_\+\+P\+O\+O\+L\+\_\+\+B\+A\+SE@{M\+A\+A\+P\+\_\+\+D\+Y\+N\+A\+M\+I\+C\+\_\+\+P\+O\+O\+L\+\_\+\+B\+A\+SE}!openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}}
+\subsubsection[{\texorpdfstring{M\+A\+A\+P\+\_\+\+D\+Y\+N\+A\+M\+I\+C\+\_\+\+P\+O\+O\+L\+\_\+\+B\+A\+SE}{MAAP_DYNAMIC_POOL_BASE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+A\+P\+\_\+\+D\+Y\+N\+A\+M\+I\+C\+\_\+\+P\+O\+O\+L\+\_\+\+B\+A\+SE~0x91\+E0\+F0000000\+LL}\hypertarget{openavb__endpoint__osal__maap_8c_ae6263079f02d6fcdb18350e93b5e8fd9}{}\label{openavb__endpoint__osal__maap_8c_ae6263079f02d6fcdb18350e93b5e8fd9}
+M\+A\+AP dynamic allocation pool base address -\/ Defined in I\+E\+EE 1722-\/2016 Table B.\+9 
+
+openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c 파일의 55 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}!M\+A\+A\+P\+\_\+\+D\+Y\+N\+A\+M\+I\+C\+\_\+\+P\+O\+O\+L\+\_\+\+S\+I\+ZE@{M\+A\+A\+P\+\_\+\+D\+Y\+N\+A\+M\+I\+C\+\_\+\+P\+O\+O\+L\+\_\+\+S\+I\+ZE}}
+\index{M\+A\+A\+P\+\_\+\+D\+Y\+N\+A\+M\+I\+C\+\_\+\+P\+O\+O\+L\+\_\+\+S\+I\+ZE@{M\+A\+A\+P\+\_\+\+D\+Y\+N\+A\+M\+I\+C\+\_\+\+P\+O\+O\+L\+\_\+\+S\+I\+ZE}!openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}}
+\subsubsection[{\texorpdfstring{M\+A\+A\+P\+\_\+\+D\+Y\+N\+A\+M\+I\+C\+\_\+\+P\+O\+O\+L\+\_\+\+S\+I\+ZE}{MAAP_DYNAMIC_POOL_SIZE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+A\+P\+\_\+\+D\+Y\+N\+A\+M\+I\+C\+\_\+\+P\+O\+O\+L\+\_\+\+S\+I\+ZE~0x\+F\+E00}\hypertarget{openavb__endpoint__osal__maap_8c_a27db04878ffebe92dbbcbae7e7c5d447}{}\label{openavb__endpoint__osal__maap_8c_a27db04878ffebe92dbbcbae7e7c5d447}
+M\+A\+AP dynamic allocation pool size -\/ Defined in I\+E\+EE 1722-\/2016 Table B.\+9 
+
+openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c 파일의 56 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}!M\+A\+A\+P\+\_\+\+L\+O\+CK@{M\+A\+A\+P\+\_\+\+L\+O\+CK}}
+\index{M\+A\+A\+P\+\_\+\+L\+O\+CK@{M\+A\+A\+P\+\_\+\+L\+O\+CK}!openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}}
+\subsubsection[{\texorpdfstring{M\+A\+A\+P\+\_\+\+L\+O\+CK}{MAAP_LOCK}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+A\+P\+\_\+\+L\+O\+CK(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~\{ {\bf M\+U\+T\+E\+X\+\_\+\+C\+R\+E\+A\+T\+E\+\_\+\+E\+RR}(); {\bf M\+U\+T\+E\+X\+\_\+\+L\+O\+CK}(maap\+Mutex); {\bf M\+U\+T\+E\+X\+\_\+\+L\+O\+G\+\_\+\+E\+RR}(\char`\"{}Mutex lock failure\char`\"{}); \}}\hypertarget{openavb__endpoint__osal__maap_8c_a7f5fac18a4b8526e8460ba65032dee92}{}\label{openavb__endpoint__osal__maap_8c_a7f5fac18a4b8526e8460ba65032dee92}
+
+
+openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c 파일의 92 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}!M\+A\+A\+P\+\_\+\+U\+N\+L\+O\+CK@{M\+A\+A\+P\+\_\+\+U\+N\+L\+O\+CK}}
+\index{M\+A\+A\+P\+\_\+\+U\+N\+L\+O\+CK@{M\+A\+A\+P\+\_\+\+U\+N\+L\+O\+CK}!openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}}
+\subsubsection[{\texorpdfstring{M\+A\+A\+P\+\_\+\+U\+N\+L\+O\+CK}{MAAP_UNLOCK}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+A\+P\+\_\+\+U\+N\+L\+O\+CK(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~\{ {\bf M\+U\+T\+E\+X\+\_\+\+C\+R\+E\+A\+T\+E\+\_\+\+E\+RR}(); {\bf M\+U\+T\+E\+X\+\_\+\+U\+N\+L\+O\+CK}(maap\+Mutex); {\bf M\+U\+T\+E\+X\+\_\+\+L\+O\+G\+\_\+\+E\+RR}(\char`\"{}Mutex unlock failure\char`\"{}); \}}\hypertarget{openavb__endpoint__osal__maap_8c_a486eaef2252b47725e829cdc6e19579b}{}\label{openavb__endpoint__osal__maap_8c_a486eaef2252b47725e829cdc6e19579b}
+
+
+openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c 파일의 93 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{열거형 타입 문서화}
+\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}!maap\+State\+\_\+t@{maap\+State\+\_\+t}}
+\index{maap\+State\+\_\+t@{maap\+State\+\_\+t}!openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}}
+\subsubsection[{\texorpdfstring{maap\+State\+\_\+t}{maapState_t}}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf maap\+State\+\_\+t}}\hypertarget{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924ed}{}\label{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924ed}
+\begin{Desc}
+\item[열거형 멤버]\par
+\begin{description}
+\index{M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+U\+N\+K\+N\+O\+WN@{M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+U\+N\+K\+N\+O\+WN}!openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}}\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}!M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+U\+N\+K\+N\+O\+WN@{M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+U\+N\+K\+N\+O\+WN}}\item[{\em 
+M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+U\+N\+K\+N\+O\+WN\hypertarget{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924edad6c0c119ab337b3251ce5d101753eddf}{}\label{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924edad6c0c119ab337b3251ce5d101753eddf}
+}]\index{M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+I\+N\+I\+T\+I\+A\+L\+I\+Z\+I\+NG@{M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+I\+N\+I\+T\+I\+A\+L\+I\+Z\+I\+NG}!openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}}\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}!M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+I\+N\+I\+T\+I\+A\+L\+I\+Z\+I\+NG@{M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+I\+N\+I\+T\+I\+A\+L\+I\+Z\+I\+NG}}\item[{\em 
+M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+I\+N\+I\+T\+I\+A\+L\+I\+Z\+I\+NG\hypertarget{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924edac0ddd08f37bff8c10ccc830c97578d24}{}\label{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924edac0ddd08f37bff8c10ccc830c97578d24}
+}]\index{M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+I\+NG@{M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+I\+NG}!openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}}\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}!M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+I\+NG@{M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+I\+NG}}\item[{\em 
+M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+I\+NG\hypertarget{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924edaa3834e941cc09543c703500c1c693970}{}\label{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924edaa3834e941cc09543c703500c1c693970}
+}]\index{M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+C\+O\+N\+N\+E\+C\+T\+ED@{M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+C\+O\+N\+N\+E\+C\+T\+ED}!openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}}\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}!M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+C\+O\+N\+N\+E\+C\+T\+ED@{M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+C\+O\+N\+N\+E\+C\+T\+ED}}\item[{\em 
+M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+C\+O\+N\+N\+E\+C\+T\+ED\hypertarget{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924eda0fd4a497ad1b4710bcd143e3d0b0fcbe}{}\label{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924eda0fd4a497ad1b4710bcd143e3d0b0fcbe}
+}]\index{M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+R\+E\+L\+E\+A\+S\+I\+NG@{M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+R\+E\+L\+E\+A\+S\+I\+NG}!openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}}\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}!M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+R\+E\+L\+E\+A\+S\+I\+NG@{M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+R\+E\+L\+E\+A\+S\+I\+NG}}\item[{\em 
+M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+R\+E\+L\+E\+A\+S\+I\+NG\hypertarget{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924edaa53521d3dd48d837847a959de33ba0ce}{}\label{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924edaa53521d3dd48d837847a959de33ba0ce}
+}]\index{M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+R\+E\+L\+E\+A\+S\+ED@{M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+R\+E\+L\+E\+A\+S\+ED}!openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}}\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}!M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+R\+E\+L\+E\+A\+S\+ED@{M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+R\+E\+L\+E\+A\+S\+ED}}\item[{\em 
+M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+R\+E\+L\+E\+A\+S\+ED\hypertarget{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924eda57a8bbf4f3a9d5742d3cb4f547386ecd}{}\label{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924eda57a8bbf4f3a9d5742d3cb4f547386ecd}
+}]\index{M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+N\+O\+T\+\_\+\+A\+V\+A\+I\+L\+A\+B\+LE@{M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+N\+O\+T\+\_\+\+A\+V\+A\+I\+L\+A\+B\+LE}!openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}}\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}!M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+N\+O\+T\+\_\+\+A\+V\+A\+I\+L\+A\+B\+LE@{M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+N\+O\+T\+\_\+\+A\+V\+A\+I\+L\+A\+B\+LE}}\item[{\em 
+M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+N\+O\+T\+\_\+\+A\+V\+A\+I\+L\+A\+B\+LE\hypertarget{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924edadd317db2e56d06a4da228735e050ab1f}{}\label{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924edadd317db2e56d06a4da228735e050ab1f}
+}]\index{M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+E\+R\+R\+OR@{M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+E\+R\+R\+OR}!openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}}\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}!M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+E\+R\+R\+OR@{M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+E\+R\+R\+OR}}\item[{\em 
+M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+E\+R\+R\+OR\hypertarget{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924edaad660ca790041e5ce5b8d88139b68b3b}{}\label{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924edaad660ca790041e5ce5b8d88139b68b3b}
+}]\end{description}
+\end{Desc}
+
+
+openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c 파일의 76 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+76                  \{
+77     \hyperlink{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924edad6c0c119ab337b3251ce5d101753eddf}{MAAP\_STATE\_UNKNOWN},
+78     \hyperlink{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924edac0ddd08f37bff8c10ccc830c97578d24}{MAAP\_STATE\_INITIALIZING}, \textcolor{comment}{// Waiting for initialization}
+79     \hyperlink{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924edaa3834e941cc09543c703500c1c693970}{MAAP\_STATE\_REQUESTING}, \textcolor{comment}{// Waiting address block request}
+80     \hyperlink{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924eda0fd4a497ad1b4710bcd143e3d0b0fcbe}{MAAP\_STATE\_CONNECTED}, \textcolor{comment}{// Have block of addresses}
+81     \hyperlink{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924edaa53521d3dd48d837847a959de33ba0ce}{MAAP\_STATE\_RELEASING}, \textcolor{comment}{// Releasing the block of addresses}
+82     \hyperlink{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924eda57a8bbf4f3a9d5742d3cb4f547386ecd}{MAAP\_STATE\_RELEASED}, \textcolor{comment}{// Released the block of addresses}
+83     \hyperlink{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924edadd317db2e56d06a4da228735e050ab1f}{MAAP\_STATE\_NOT\_AVAILABLE}, \textcolor{comment}{// MAAP not configured, or freed}
+84     \hyperlink{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924edaad660ca790041e5ce5b8d88139b68b3b}{MAAP\_STATE\_ERROR}
+85 \};
+\end{DoxyCode}
+
+
+\subsection{함수 문서화}
+\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}!Maap\+Mac\+Addr\+To\+Long\+Long@{Maap\+Mac\+Addr\+To\+Long\+Long}}
+\index{Maap\+Mac\+Addr\+To\+Long\+Long@{Maap\+Mac\+Addr\+To\+Long\+Long}!openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}}
+\subsubsection[{\texorpdfstring{Maap\+Mac\+Addr\+To\+Long\+Long(const struct ether\+\_\+addr $\ast$addr)}{MaapMacAddrToLongLong(const struct ether_addr *addr)}}]{\setlength{\rightskip}{0pt plus 5cm}static unsigned long long Maap\+Mac\+Addr\+To\+Long\+Long (
+\begin{DoxyParamCaption}
+\item[{const struct ether\+\_\+addr $\ast$}]{addr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__endpoint__osal__maap_8c_a5b57873230df690acfdc54463efac8ad}{}\label{openavb__endpoint__osal__maap_8c_a5b57873230df690acfdc54463efac8ad}
+
+
+openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c 파일의 95 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+96 \{
+97     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long} nAddress = 0ull;
+98     \textcolor{keywordtype}{int} i;
+99     \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{openavb__avdecc__pub_8h_a9822d89774e0d6ddaa06503950130423}{ETH\_ALEN}; ++i) \{
+100         nAddress = (nAddress << 8) | addr->ether\_addr\_octet[i];
+101     \}
+102     \textcolor{keywordflow}{return} nAddress;
+103 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__endpoint__osal__maap_8c_a5b57873230df690acfdc54463efac8ad_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}!Maap\+Result\+To\+Mac\+Addr@{Maap\+Result\+To\+Mac\+Addr}}
+\index{Maap\+Result\+To\+Mac\+Addr@{Maap\+Result\+To\+Mac\+Addr}!openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}}
+\subsubsection[{\texorpdfstring{Maap\+Result\+To\+Mac\+Addr(unsigned long long n\+Address, struct ether\+\_\+addr $\ast$dest\+Addr)}{MaapResultToMacAddr(unsigned long long nAddress, struct ether_addr *destAddr)}}]{\setlength{\rightskip}{0pt plus 5cm}static void Maap\+Result\+To\+Mac\+Addr (
+\begin{DoxyParamCaption}
+\item[{unsigned long long}]{n\+Address, }
+\item[{struct ether\+\_\+addr $\ast$}]{dest\+Addr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__endpoint__osal__maap_8c_aca8e1deb8e98fb7cba70497638d8253d}{}\label{openavb__endpoint__osal__maap_8c_aca8e1deb8e98fb7cba70497638d8253d}
+
+
+openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c 파일의 105 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+106 \{
+107     \textcolor{keywordtype}{int} i;
+108     \textcolor{keywordflow}{for} (i = \hyperlink{openavb__avdecc__pub_8h_a9822d89774e0d6ddaa06503950130423}{ETH\_ALEN} - 1; i >= 0; --i) \{
+109         destAddr->ether\_addr\_octet[i] = (\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8})(nAddress & 0xFF);
+110         nAddress >>= 8;
+111     \}
+112 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__endpoint__osal__maap_8c_aca8e1deb8e98fb7cba70497638d8253d_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}!maap\+Thread@{maap\+Thread}}
+\index{maap\+Thread@{maap\+Thread}!openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}}
+\subsubsection[{\texorpdfstring{maap\+Thread(void $\ast$arg)}{maapThread(void *arg)}}]{\setlength{\rightskip}{0pt plus 5cm}static void $\ast$ maap\+Thread (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{arg}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__endpoint__osal__maap_8c_a7fd76b584e92d8d6a5ae00409ed9e869}{}\label{openavb__endpoint__osal__maap_8c_a7fd76b584e92d8d6a5ae00409ed9e869}
+
+
+openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c 파일의 295 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+296 \{
+297     \textcolor{keywordtype}{int} \hyperlink{openavb__endpoint__osal__shaper_8c_a16ece46816348fa6d2c5d0e8b47c0098}{socketfd};
+298     \textcolor{keyword}{struct }addrinfo hints, *ai, *p;
+299     \textcolor{keywordtype}{int} ret;
+300 
+301     fd\_set master, read\_fds;
+302     \textcolor{keywordtype}{int} fdmax;
+303 
+304     \textcolor{keywordtype}{char} recvbuffer[200];
+305     \textcolor{keywordtype}{int} recvbytes;
+306     \hyperlink{struct_maap___cmd}{Maap\_Cmd} maapcmd;
+307 
+308     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a28a4d0350d530ad95c95b8383c00cd9c}{AVB\_LOG\_DEBUG}(\textcolor{stringliteral}{"MAAP Thread Starting"});
+309 
+310     \textcolor{comment}{/* Create a localhost socket. */}
+311     memset(&hints, 0, \textcolor{keyword}{sizeof} hints);
+312     hints.ai\_family = AF\_UNSPEC;
+313     hints.ai\_socktype = SOCK\_STREAM;
+314     hints.ai\_flags = 0;
+315     \textcolor{keywordflow}{if} ((ret = getaddrinfo(\textcolor{stringliteral}{"localhost"}, \hyperlink{openavb__endpoint__osal__maap_8c_a212916f0988e06837e698366dba068c0}{maapDaemonPort}, &hints, &ai)) != 0) \{
+316         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"getaddrinfo failure %s"}, gai\_strerror(ret));
+317         \hyperlink{openavb__endpoint__osal__maap_8c_a00afa7c0f95b30bda6c1640f7a804612}{maapState} = \hyperlink{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924edaad660ca790041e5ce5b8d88139b68b3b}{MAAP\_STATE\_ERROR};
+318         \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+319     \}
+320 
+321     \textcolor{keywordflow}{for}(p = ai; p != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}; p = p->ai\_next) \{
+322         socketfd = socket(p->ai\_family, p->ai\_socktype, p->ai\_protocol);
+323         \textcolor{keywordflow}{if} (socketfd == -1) \{
+324             \textcolor{keywordflow}{continue};
+325         \}
+326         ret = connect(socketfd, p->ai\_addr, p->ai\_addrlen);
+327         \textcolor{keywordflow}{if} (ret == -1) \{
+328             close(socketfd);
+329             \textcolor{keywordflow}{continue};
+330         \} \textcolor{keywordflow}{else} \{
+331             \textcolor{keywordflow}{break};
+332         \}
+333     \}
+334 
+335     freeaddrinfo(ai);
+336 
+337     \textcolor{keywordflow}{if} (p == \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \{
+338         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"MAAP:  Unable to connect to the daemon, error %d (%s)"}, errno, 
+      strerror(errno));
+339         \hyperlink{openavb__endpoint__osal__maap_8c_a00afa7c0f95b30bda6c1640f7a804612}{maapState} = \hyperlink{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924edaad660ca790041e5ce5b8d88139b68b3b}{MAAP\_STATE\_ERROR};
+340         \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+341     \}
+342 
+343     \textcolor{keywordflow}{if} (fcntl(socketfd, F\_SETFL, O\_NONBLOCK) < 0)
+344     \{
+345         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"MAAP:  Could not set the socket to non-blocking"});
+346         close(socketfd);
+347         \hyperlink{openavb__endpoint__osal__maap_8c_a00afa7c0f95b30bda6c1640f7a804612}{maapState} = \hyperlink{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924edaad660ca790041e5ce5b8d88139b68b3b}{MAAP\_STATE\_ERROR};
+348         \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+349     \}
+350 
+351     FD\_ZERO(&read\_fds);
+352     FD\_ZERO(&master);
+353     FD\_SET(STDIN\_FILENO, &master);
+354     FD\_SET(socketfd, &master);
+355     fdmax = \hyperlink{openavb__endpoint__osal__shaper_8c_a16ece46816348fa6d2c5d0e8b47c0098}{socketfd};
+356 
+357     \textcolor{comment}{// Initialize the MAAP daemon.}
+358     \textcolor{comment}{// We will request a block of addresses when we get a response to the initialization.}
+359     \hyperlink{openavb__endpoint__osal__maap_8c_a00afa7c0f95b30bda6c1640f7a804612}{maapState} = \hyperlink{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924edac0ddd08f37bff8c10ccc830c97578d24}{MAAP\_STATE\_INITIALIZING};
+360     memset(&maapcmd, 0, \textcolor{keyword}{sizeof}(\hyperlink{struct_maap___cmd}{Maap\_Cmd}));
+361     maapcmd.\hyperlink{struct_maap___cmd_adf329e36449de220d4316603214476d4}{kind} = \hyperlink{maap__iface_8h_aaf90b1858e10440f7628ac5030e09a5ca25d975d65a26a7a6c06aeadc2b050851}{MAAP\_CMD\_INIT};
+362     maapcmd.\hyperlink{struct_maap___cmd_a6a51e9baeec9b06ae477cf6475efc71d}{start} = \hyperlink{openavb__endpoint__osal__maap_8c_ae6263079f02d6fcdb18350e93b5e8fd9}{MAAP\_DYNAMIC\_POOL\_BASE};
+363     maapcmd.\hyperlink{struct_maap___cmd_a86988a65e0d3ece7990c032c159786d6}{count} = \hyperlink{openavb__endpoint__osal__maap_8c_a27db04878ffebe92dbbcbae7e7c5d447}{MAAP\_DYNAMIC\_POOL\_SIZE};
+364     \textcolor{keywordflow}{if} (send(socketfd, (\textcolor{keywordtype}{char} *) &maapcmd, \textcolor{keyword}{sizeof}(\hyperlink{struct_maap___cmd}{Maap\_Cmd}), 0) < 0)
+365     \{
+366         \textcolor{comment}{/* Something went wrong.  Abort! */}
+367         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"MAAP:  Error %d writing to network socket (%s)"}, errno, strerror(
+      errno));
+368         \hyperlink{openavb__endpoint__osal__maap_8c_a00afa7c0f95b30bda6c1640f7a804612}{maapState} = \hyperlink{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924edaad660ca790041e5ce5b8d88139b68b3b}{MAAP\_STATE\_ERROR};
+369         \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+370     \}
+371 
+372 
+373     \textcolor{comment}{/*}
+374 \textcolor{comment}{     * Main event loop}
+375 \textcolor{comment}{     */}
+376 
+377     \textcolor{keywordflow}{while} (\hyperlink{openavb__endpoint__osal__maap_8c_ad69848d6e85d6a57d404d3e7b3b9d3aa}{maapRunning} || \hyperlink{openavb__endpoint__osal__maap_8c_a00afa7c0f95b30bda6c1640f7a804612}{maapState} <= \hyperlink{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924eda0fd4a497ad1b4710bcd143e3d0b0fcbe}{MAAP\_STATE\_CONNECTED})
+378     \{
+379         \textcolor{keywordflow}{if} (!\hyperlink{openavb__endpoint__osal__maap_8c_ad69848d6e85d6a57d404d3e7b3b9d3aa}{maapRunning} && \hyperlink{openavb__endpoint__osal__maap_8c_a00afa7c0f95b30bda6c1640f7a804612}{maapState} == 
+      \hyperlink{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924eda0fd4a497ad1b4710bcd143e3d0b0fcbe}{MAAP\_STATE\_CONNECTED})
+380         \{
+381             \textcolor{comment}{// Tell the MAAP daemon to release the addresses.}
+382             memset(&maapcmd, 0, \textcolor{keyword}{sizeof}(\hyperlink{struct_maap___cmd}{Maap\_Cmd}));
+383             maapcmd.\hyperlink{struct_maap___cmd_adf329e36449de220d4316603214476d4}{kind} = \hyperlink{maap__iface_8h_aaf90b1858e10440f7628ac5030e09a5caac5c384d911979e439c75cdf53619b5b}{MAAP\_CMD\_RELEASE};
+384             maapcmd.\hyperlink{struct_maap___cmd_a2708c0bbb6f926149707c2c61fe43c3e}{id} = \hyperlink{openavb__endpoint__osal__maap_8c_a4419b358d76d727bb4a6821fadb2d105}{maapReservationId};
+385             \textcolor{keywordflow}{if} (send(socketfd, (\textcolor{keywordtype}{char} *) &maapcmd, \textcolor{keyword}{sizeof}(\hyperlink{struct_maap___cmd}{Maap\_Cmd}), 0) > 0)
+386             \{
+387                 \hyperlink{openavb__endpoint__osal__maap_8c_a00afa7c0f95b30bda6c1640f7a804612}{maapState} = \hyperlink{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924edaa53521d3dd48d837847a959de33ba0ce}{MAAP\_STATE\_RELEASING};
+388                 \textcolor{comment}{// Use the wait below to give the daemon time to respond.}
+389             \}
+390             \textcolor{keywordflow}{else}
+391             \{
+392                 \hyperlink{openavb__endpoint__osal__maap_8c_a00afa7c0f95b30bda6c1640f7a804612}{maapState} = \hyperlink{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924edadd317db2e56d06a4da228735e050ab1f}{MAAP\_STATE\_NOT\_AVAILABLE};
+393                 \textcolor{keywordflow}{break};
+394             \}
+395         \}
+396 
+397         \textcolor{comment}{/* Wait for something to happen. */}
+398         \textcolor{keyword}{struct }timeval tv\_timeout = \{ 1, 0 \};
+399         read\_fds = master;
+400         ret = select(fdmax+1, &read\_fds, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, &tv\_timeout);
+401         \textcolor{keywordflow}{if} (ret < 0)
+402         \{
+403             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"MAAP:  select() error %d (%s)"}, errno, strerror(errno));
+404             \hyperlink{openavb__endpoint__osal__maap_8c_a00afa7c0f95b30bda6c1640f7a804612}{maapState} = \hyperlink{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924edaad660ca790041e5ce5b8d88139b68b3b}{MAAP\_STATE\_ERROR};
+405             \textcolor{keywordflow}{break};
+406         \}
+407 
+408         \textcolor{comment}{/* Handle any responses received. */}
+409         \textcolor{keywordflow}{if} (FD\_ISSET(socketfd, &read\_fds))
+410         \{
+411             \textcolor{keywordflow}{while} ((recvbytes = recv(socketfd, recvbuffer, \textcolor{keyword}{sizeof}(\hyperlink{struct_maap___notify}{Maap\_Notify}), 0)) > 0)
+412             \{
+413                 recvbuffer[recvbytes] = \textcolor{charliteral}{'\(\backslash\)0'};
+414 
+415                 \textcolor{comment}{/* Process the response data (will be binary). */}
+416                 \textcolor{keywordflow}{if} (recvbytes == \textcolor{keyword}{sizeof}(\hyperlink{struct_maap___notify}{Maap\_Notify}))
+417                 \{
+418                     \hyperlink{openavb__endpoint__osal__maap_8c_af8667226736d447bd9d753c8616aa465}{process\_maap\_notify}((\hyperlink{struct_maap___notify}{Maap\_Notify} *) recvbuffer, socketfd)
+      ;
+419                 \}
+420                 \textcolor{keywordflow}{else}
+421                 \{
+422                     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a6b02336e691e2e0579d2a5bb06367296}{AVB\_LOGF\_WARNING}(\textcolor{stringliteral}{"MAAP:  Received unexpected response of size %d"}, 
+      recvbytes);
+423                 \}
+424             \}
+425             \textcolor{keywordflow}{if} (recvbytes == 0)
+426             \{
+427                 \textcolor{comment}{/* The MAAP daemon closed the connection.  Assume it shut down, and we should too. */}
+428                 \textcolor{comment}{// AVDECC\_TODO:  Should we try to reconnect?}
+429                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"MAAP daemon exited."});
+430                 \hyperlink{openavb__endpoint__osal__maap_8c_a00afa7c0f95b30bda6c1640f7a804612}{maapState} = \hyperlink{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924edaad660ca790041e5ce5b8d88139b68b3b}{MAAP\_STATE\_ERROR};
+431                 \textcolor{keywordflow}{break};
+432             \}
+433             \textcolor{keywordflow}{if} (recvbytes < 0 && errno != EWOULDBLOCK)
+434             \{
+435                 \textcolor{comment}{/* Something went wrong.  Abort! */}
+436                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"MAAP:  Error %d reading from network socket (%s)"}, errno, 
+      strerror(errno));
+437                 \hyperlink{openavb__endpoint__osal__maap_8c_a00afa7c0f95b30bda6c1640f7a804612}{maapState} = \hyperlink{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924edaad660ca790041e5ce5b8d88139b68b3b}{MAAP\_STATE\_ERROR};
+438                 \textcolor{keywordflow}{break};
+439             \}
+440         \}
+441     \}
+442 
+443     \textcolor{keywordflow}{if} (\hyperlink{openavb__endpoint__osal__maap_8c_a00afa7c0f95b30bda6c1640f7a804612}{maapState} < \hyperlink{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924edadd317db2e56d06a4da228735e050ab1f}{MAAP\_STATE\_NOT\_AVAILABLE}) \{
+444         \hyperlink{openavb__endpoint__osal__maap_8c_a00afa7c0f95b30bda6c1640f7a804612}{maapState} = \hyperlink{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924edadd317db2e56d06a4da228735e050ab1f}{MAAP\_STATE\_NOT\_AVAILABLE};
+445     \}
+446 
+447     close(socketfd);
+448 
+449     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a28a4d0350d530ad95c95b8383c00cd9c}{AVB\_LOG\_DEBUG}(\textcolor{stringliteral}{"MAAP Thread Done"});
+450     \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+451 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__endpoint__osal__maap_8c_a7fd76b584e92d8d6a5ae00409ed9e869_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__endpoint__osal__maap_8c_a7fd76b584e92d8d6a5ae00409ed9e869_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}!M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+LE@{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+LE}}
+\index{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+LE@{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+LE}!openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}}
+\subsubsection[{\texorpdfstring{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+L\+E(maap\+Mutex)}{MUTEX_HANDLE(maapMutex)}}]{\setlength{\rightskip}{0pt plus 5cm}static M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+LE (
+\begin{DoxyParamCaption}
+\item[{maap\+Mutex}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__endpoint__osal__maap_8c_a441a6abded229a08b46e1d99fe857e3c}{}\label{openavb__endpoint__osal__maap_8c_a441a6abded229a08b46e1d99fe857e3c}
+\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}!openavb\+Maap\+Allocate@{openavb\+Maap\+Allocate}}
+\index{openavb\+Maap\+Allocate@{openavb\+Maap\+Allocate}!openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Maap\+Allocate(int count, struct ether\+\_\+addr $\ast$addr)}{openavbMaapAllocate(int count, struct ether_addr *addr)}}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ openavb\+Maap\+Allocate (
+\begin{DoxyParamCaption}
+\item[{int}]{count, }
+\item[{struct ether\+\_\+addr $\ast$}]{addr}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__endpoint__osal__maap_8c_a1539ba5ab1efcb5927c49b0b4cad1799}{}\label{openavb__endpoint__osal__maap_8c_a1539ba5ab1efcb5927c49b0b4cad1799}
+
+
+openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c 파일의 546 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+547 \{
+548     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a532ba30c4777d3184e9dd7580626b7ed}{AVB\_TRACE\_MAAP});
+549     assert(count == 1);
+550 
+551     \textcolor{comment}{// Wait up to 10 seconds for the daemon to give us a block of addresses.}
+552     \textcolor{keywordtype}{int} j;
+553     \textcolor{keywordflow}{for} (j = 0; j < 10 * 1000 / 50 && \hyperlink{openavb__endpoint__osal__maap_8c_a00afa7c0f95b30bda6c1640f7a804612}{maapState} < \hyperlink{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924eda0fd4a497ad1b4710bcd143e3d0b0fcbe}{MAAP\_STATE\_CONNECTED}; ++j) \{
+554         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a28a4d0350d530ad95c95b8383c00cd9c}{AVB\_LOG\_DEBUG}(\textcolor{stringliteral}{"Waiting for MAAP Daemon status"});
+555         \hyperlink{maap__helper__linux_8h_a63121b744a6265fe4bae4963b032ac02}{SLEEP\_MSEC}(50);
+556     \}
+557 
+558     \hyperlink{openavb__endpoint__osal__maap_8c_a7f5fac18a4b8526e8460ba65032dee92}{MAAP\_LOCK}();
+559 
+560     \textcolor{comment}{// Find the next non-allocated address.}
+561     \textcolor{keywordtype}{int} i = 0;
+562     \textcolor{keywordflow}{while} (i < \hyperlink{openavb__types__base_8h_a7e205a82b56683e5fc7c05d37160bf02}{MAX\_AVB\_STREAMS} && \hyperlink{openavb__endpoint__osal__maap_8c_a58c1ab01960413365f2b88f3d3919fe6}{maapAllocList}[i].taken) \{
+563         i++;
+564     \}
+565 
+566     \textcolor{comment}{// Allocate an address from the pool.}
+567     \textcolor{keywordflow}{if} (i < \hyperlink{openavb__types__base_8h_a7e205a82b56683e5fc7c05d37160bf02}{MAX\_AVB\_STREAMS}) \{
+568         \hyperlink{openavb__endpoint__osal__maap_8c_a58c1ab01960413365f2b88f3d3919fe6}{maapAllocList}[i].\hyperlink{structmaap_alloc__t_a2f82d1d1293c3de8527c67be4b2880f9}{taken} = \textcolor{keyword}{true};
+569         memcpy(addr, \hyperlink{openavb__endpoint__osal__maap_8c_a58c1ab01960413365f2b88f3d3919fe6}{maapAllocList}[i].destAddr.ether\_addr\_octet, \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} ether\_addr));
+570         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a2be7e90c7cb63f12b221ed1cd4999185}{AVB\_LOGF\_INFO}(\textcolor{stringliteral}{"Allocated MAAP address "} \hyperlink{maap__log_8h_a8f7a60dc3466923fed2afcb3cab0cd3e}{ETH\_FORMAT}, 
+      \hyperlink{maap__log_8h_a5d3ceb6c3ad6d4c0821fcfc329957e6f}{ETH\_OCTETS}(addr->ether\_addr\_octet));
+571 
+572         \hyperlink{openavb__endpoint__osal__maap_8c_a486eaef2252b47725e829cdc6e19579b}{MAAP\_UNLOCK}();
+573 
+574         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a532ba30c4777d3184e9dd7580626b7ed}{AVB\_TRACE\_MAAP});
+575         \textcolor{keywordflow}{return} &\hyperlink{openavb__endpoint__osal__maap_8c_a58c1ab01960413365f2b88f3d3919fe6}{maapAllocList}[i];
+576     \}
+577 
+578     \hyperlink{openavb__endpoint__osal__maap_8c_a486eaef2252b47725e829cdc6e19579b}{MAAP\_UNLOCK}();
+579 
+580     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"All MAAP addresses already allocated"});
+581     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a532ba30c4777d3184e9dd7580626b7ed}{AVB\_TRACE\_MAAP});
+582     \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+583 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__endpoint__osal__maap_8c_a1539ba5ab1efcb5927c49b0b4cad1799_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}!openavb\+Maap\+Daemon\+Available@{openavb\+Maap\+Daemon\+Available}}
+\index{openavb\+Maap\+Daemon\+Available@{openavb\+Maap\+Daemon\+Available}!openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Maap\+Daemon\+Available(void)}{openavbMaapDaemonAvailable(void)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} openavb\+Maap\+Daemon\+Available (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__endpoint__osal__maap_8c_a371ed11c4bbadfcba4ecaebcdd5d6947}{}\label{openavb__endpoint__osal__maap_8c_a371ed11c4bbadfcba4ecaebcdd5d6947}
+
+
+openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c 파일의 518 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+519 \{
+520     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a532ba30c4777d3184e9dd7580626b7ed}{AVB\_TRACE\_MAAP});
+521 
+522     \textcolor{keywordflow}{if} (!\hyperlink{openavb__endpoint__osal__maap_8c_ad69848d6e85d6a57d404d3e7b3b9d3aa}{maapRunning}) \{
+523         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a532ba30c4777d3184e9dd7580626b7ed}{AVB\_TRACE\_MAAP});
+524         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+525     \}
+526 
+527     \textcolor{comment}{// Wait up to 10 seconds for the daemon to give us a block of addresses.}
+528     \textcolor{keywordtype}{int} j;
+529     \textcolor{keywordflow}{for} (j = 0; j < 10 * 1000 / 50 && \hyperlink{openavb__endpoint__osal__maap_8c_a00afa7c0f95b30bda6c1640f7a804612}{maapState} < \hyperlink{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924eda0fd4a497ad1b4710bcd143e3d0b0fcbe}{MAAP\_STATE\_CONNECTED}; ++j) \{
+530         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a28a4d0350d530ad95c95b8383c00cd9c}{AVB\_LOG\_DEBUG}(\textcolor{stringliteral}{"Waiting for MAAP Daemon status"});
+531         \hyperlink{maap__helper__linux_8h_a63121b744a6265fe4bae4963b032ac02}{SLEEP\_MSEC}(50);
+532     \}
+533 
+534     \textcolor{keywordflow}{if} (\hyperlink{openavb__endpoint__osal__maap_8c_a00afa7c0f95b30bda6c1640f7a804612}{maapState} != MAAP\_STATE\_CONNECTED) \{
+535         \textcolor{keywordflow}{if} (\hyperlink{openavb__endpoint__osal__maap_8c_a00afa7c0f95b30bda6c1640f7a804612}{maapState} != \hyperlink{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924edadd317db2e56d06a4da228735e050ab1f}{MAAP\_STATE\_NOT\_AVAILABLE}) \{
+536             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a6e7cd550837a0406e98b81a840d10ea9}{AVB\_LOG\_WARNING}(\textcolor{stringliteral}{"MAAP Daemon not available.  Fallback multicast address
+       allocation will be used."});
+537         \}
+538         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a532ba30c4777d3184e9dd7580626b7ed}{AVB\_TRACE\_MAAP});
+539         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+540     \}
+541 
+542     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a532ba30c4777d3184e9dd7580626b7ed}{AVB\_TRACE\_MAAP});
+543     \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+544 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__endpoint__osal__maap_8c_a371ed11c4bbadfcba4ecaebcdd5d6947_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}!openavb\+Maap\+Finalize@{openavb\+Maap\+Finalize}}
+\index{openavb\+Maap\+Finalize@{openavb\+Maap\+Finalize}!openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Maap\+Finalize()}{openavbMaapFinalize()}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Maap\+Finalize (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__endpoint__osal__maap_8c_af5604488b41ef394a9c89a74f54d1aa1}{}\label{openavb__endpoint__osal__maap_8c_af5604488b41ef394a9c89a74f54d1aa1}
+
+
+openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c 파일의 498 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+499 \{
+500     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a532ba30c4777d3184e9dd7580626b7ed}{AVB\_TRACE\_MAAP});
+501 
+502     \hyperlink{openavb__endpoint__osal__maap_8c_a83b5499277019fe3b9fcb7fc3d3fd954}{maapRestartCallback} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+503     \hyperlink{openavb__endpoint__osal__maap_8c_af896fa64326bbdb4f7b862fed927dc03}{maapPreferredAddress} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+504 
+505     \textcolor{keywordflow}{if} (\hyperlink{openavb__endpoint__osal__maap_8c_ad69848d6e85d6a57d404d3e7b3b9d3aa}{maapRunning}) \{
+506         \textcolor{comment}{// Stop the MAAP thread.}
+507         \hyperlink{openavb__endpoint__osal__maap_8c_ad69848d6e85d6a57d404d3e7b3b9d3aa}{maapRunning} = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+508         pthread\_join(\hyperlink{openavb__endpoint__osal__maap_8c_a78853e9dc07d72242f40c621f9617198}{maapThreadHandle}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+509     \}
+510 
+511     \hyperlink{maap__helper__linux_8h_aee93da9d4ea28eeaa9c64bd938d5549b}{MUTEX\_CREATE\_ERR}();
+512     \hyperlink{maap__helper__linux_8h_afd8d054f881b4a58d1b3b8942b37f04c}{MUTEX\_DESTROY}(maapMutex);
+513     \hyperlink{maap__helper__linux_8h_a08d33bd2184e24e7676bda0efb5a3e5e}{MUTEX\_LOG\_ERR}(\textcolor{stringliteral}{"Error destroying mutex"});
+514 
+515     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a532ba30c4777d3184e9dd7580626b7ed}{AVB\_TRACE\_MAAP});
+516 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__endpoint__osal__maap_8c_af5604488b41ef394a9c89a74f54d1aa1_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}!openavb\+Maap\+Initialize@{openavb\+Maap\+Initialize}}
+\index{openavb\+Maap\+Initialize@{openavb\+Maap\+Initialize}!openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Maap\+Initialize(const char $\ast$ifname, unsigned int maap\+Port, struct ether\+\_\+addr $\ast$maap\+Pref\+Addr, openavb\+Maap\+Restart\+Cb\+\_\+t $\ast$cbfn)}{openavbMaapInitialize(const char *ifname, unsigned int maapPort, struct ether_addr *maapPrefAddr, openavbMaapRestartCb_t *cbfn)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} openavb\+Maap\+Initialize (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{ifname, }
+\item[{unsigned int}]{maap\+Port, }
+\item[{struct ether\+\_\+addr $\ast$}]{maap\+Pref\+Addr, }
+\item[{{\bf openavb\+Maap\+Restart\+Cb\+\_\+t} $\ast$}]{cbfn}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__endpoint__osal__maap_8c_a7429a4092721658587474d37f4b5ed44}{}\label{openavb__endpoint__osal__maap_8c_a7429a4092721658587474d37f4b5ed44}
+
+
+openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c 파일의 453 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+454 \{
+455     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a532ba30c4777d3184e9dd7580626b7ed}{AVB\_TRACE\_MAAP});
+456 
+457     \textcolor{comment}{// Save the supplied callback function.}
+458     \hyperlink{openavb__endpoint__osal__maap_8c_a83b5499277019fe3b9fcb7fc3d3fd954}{maapRestartCallback} = cbfn;
+459     \hyperlink{openavb__endpoint__osal__maap_8c_af896fa64326bbdb4f7b862fed927dc03}{maapPreferredAddress} = maapPrefAddr;
+460 
+461     \hyperlink{maap__helper__linux_8h_aa4357bf132bbe882647e5390b6e4c6fd}{MUTEX\_ATTR\_HANDLE}(mta);
+462     \hyperlink{maap__helper__linux_8h_a92469004d3cad1f5c2fc61c27377b960}{MUTEX\_ATTR\_INIT}(mta);
+463     \hyperlink{maap__helper__linux_8h_aa049f137bcdd27b92f47387f3cb8e800}{MUTEX\_ATTR\_SET\_TYPE}(mta, \hyperlink{maap__helper__linux_8h_ac374e7f6cc426fc8b6b85bbf230232e2}{MUTEX\_ATTR\_TYPE\_DEFAULT});
+464     \hyperlink{maap__helper__linux_8h_a910032bc83a960383ec87492342e322b}{MUTEX\_ATTR\_SET\_NAME}(mta, \textcolor{stringliteral}{"maapMutex"});
+465     \hyperlink{maap__helper__linux_8h_aee93da9d4ea28eeaa9c64bd938d5549b}{MUTEX\_CREATE\_ERR}();
+466     \hyperlink{maap__helper__linux_8h_a3419f7f7cdfd641b4a638bf2eb4e935c}{MUTEX\_CREATE}(maapMutex, mta);
+467     \hyperlink{maap__helper__linux_8h_a08d33bd2184e24e7676bda0efb5a3e5e}{MUTEX\_LOG\_ERR}(\textcolor{stringliteral}{"Could not create/initialize 'maapMutex' mutex"});
+468 
+469     \textcolor{comment}{// Default to using addresses from the MAAP locally administered Pool.}
+470     \textcolor{keywordtype}{int} i = 0;
+471     \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} destAddr[\hyperlink{openavb__avdecc__pub_8h_a9822d89774e0d6ddaa06503950130423}{ETH\_ALEN}] = \{0x91, 0xe0, 0xf0, 0x00, 0xfe, 0x80\};
+472     \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{openavb__types__base_8h_a7e205a82b56683e5fc7c05d37160bf02}{MAX\_AVB\_STREAMS}; i++) \{
+473         memcpy(\hyperlink{openavb__endpoint__osal__maap_8c_a58c1ab01960413365f2b88f3d3919fe6}{maapAllocList}[i].destAddr.ether\_addr\_octet, destAddr, 
+      \hyperlink{openavb__avdecc__pub_8h_a9822d89774e0d6ddaa06503950130423}{ETH\_ALEN});
+474         \hyperlink{openavb__endpoint__osal__maap_8c_a58c1ab01960413365f2b88f3d3919fe6}{maapAllocList}[i].\hyperlink{structmaap_alloc__t_a2f82d1d1293c3de8527c67be4b2880f9}{taken} = \textcolor{keyword}{false};
+475         destAddr[5] += 1;
+476     \}
+477 
+478     \textcolor{keywordflow}{if} (maapPort == 0) \{
+479         \hyperlink{openavb__endpoint__osal__maap_8c_a00afa7c0f95b30bda6c1640f7a804612}{maapState} = \hyperlink{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924edadd317db2e56d06a4da228735e050ab1f}{MAAP\_STATE\_NOT\_AVAILABLE};
+480     \}
+481     \textcolor{keywordflow}{else} \{
+482         \hyperlink{openavb__endpoint__osal__maap_8c_a00afa7c0f95b30bda6c1640f7a804612}{maapState} = \hyperlink{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924edad6c0c119ab337b3251ce5d101753eddf}{MAAP\_STATE\_UNKNOWN};
+483         sprintf(\hyperlink{openavb__endpoint__osal__maap_8c_a212916f0988e06837e698366dba068c0}{maapDaemonPort}, \textcolor{stringliteral}{"%u"}, maapPort);
+484 
+485         \hyperlink{openavb__endpoint__osal__maap_8c_ad69848d6e85d6a57d404d3e7b3b9d3aa}{maapRunning} = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+486         \textcolor{keywordtype}{int} \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err} = pthread\_create(&\hyperlink{openavb__endpoint__osal__maap_8c_a78853e9dc07d72242f40c621f9617198}{maapThreadHandle}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, 
+      \hyperlink{openavb__endpoint__osal__maap_8c_a7fd76b584e92d8d6a5ae00409ed9e869}{maapThread}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+487         \textcolor{keywordflow}{if} (err) \{
+488             \hyperlink{openavb__endpoint__osal__maap_8c_ad69848d6e85d6a57d404d3e7b3b9d3aa}{maapRunning} = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+489             \hyperlink{openavb__endpoint__osal__maap_8c_a00afa7c0f95b30bda6c1640f7a804612}{maapState} = \hyperlink{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924edaad660ca790041e5ce5b8d88139b68b3b}{MAAP\_STATE\_ERROR};
+490             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Failed to start MAAP thread: %s"}, strerror(err));
+491         \}
+492     \}
+493 
+494     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a532ba30c4777d3184e9dd7580626b7ed}{AVB\_TRACE\_MAAP});
+495     \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+496 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__endpoint__osal__maap_8c_a7429a4092721658587474d37f4b5ed44_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__endpoint__osal__maap_8c_a7429a4092721658587474d37f4b5ed44_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}!openavb\+Maap\+Release@{openavb\+Maap\+Release}}
+\index{openavb\+Maap\+Release@{openavb\+Maap\+Release}!openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Maap\+Release(void $\ast$handle)}{openavbMaapRelease(void *handle)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Maap\+Release (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{handle}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__endpoint__osal__maap_8c_a480dddbcfaf33f16aa9375e4a81f3616}{}\label{openavb__endpoint__osal__maap_8c_a480dddbcfaf33f16aa9375e4a81f3616}
+
+
+openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c 파일의 585 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+586 \{
+587     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a532ba30c4777d3184e9dd7580626b7ed}{AVB\_TRACE\_MAAP});
+588 
+589     \hyperlink{openavb__endpoint__osal__maap_8c_a7f5fac18a4b8526e8460ba65032dee92}{MAAP\_LOCK}();
+590     \hyperlink{structmaap_alloc__t}{maapAlloc\_t} *elem = \hyperlink{jack__listener_8c_a6c138155d7b3442efd19d0aa3f93e548}{handle};
+591     elem->\hyperlink{structmaap_alloc__t_a2f82d1d1293c3de8527c67be4b2880f9}{taken} = \textcolor{keyword}{false};
+592     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afcf1f0c1d10ae9efe3782eb6cae78355}{AVB\_LOGF\_DEBUG}(\textcolor{stringliteral}{"Freed MAAP address "} \hyperlink{maap__log_8h_a8f7a60dc3466923fed2afcb3cab0cd3e}{ETH\_FORMAT}, 
+      \hyperlink{maap__log_8h_a5d3ceb6c3ad6d4c0821fcfc329957e6f}{ETH\_OCTETS}(elem->\hyperlink{structmaap_alloc__t_ae93ae3d7d2964e3559e9b0df6f477238}{destAddr}.ether\_addr\_octet));
+593     \hyperlink{openavb__endpoint__osal__maap_8c_a486eaef2252b47725e829cdc6e19579b}{MAAP\_UNLOCK}();
+594 
+595     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a532ba30c4777d3184e9dd7580626b7ed}{AVB\_TRACE\_MAAP});
+596 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__endpoint__osal__maap_8c_a480dddbcfaf33f16aa9375e4a81f3616_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}!process\+\_\+maap\+\_\+notify@{process\+\_\+maap\+\_\+notify}}
+\index{process\+\_\+maap\+\_\+notify@{process\+\_\+maap\+\_\+notify}!openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}}
+\subsubsection[{\texorpdfstring{process\+\_\+maap\+\_\+notify(\+Maap\+\_\+\+Notify $\ast$mn, int socketfd)}{process_maap_notify(Maap_Notify *mn, int socketfd)}}]{\setlength{\rightskip}{0pt plus 5cm}static void process\+\_\+maap\+\_\+notify (
+\begin{DoxyParamCaption}
+\item[{{\bf Maap\+\_\+\+Notify} $\ast$}]{mn, }
+\item[{int}]{socketfd}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__endpoint__osal__maap_8c_af8667226736d447bd9d753c8616aa465}{}\label{openavb__endpoint__osal__maap_8c_af8667226736d447bd9d753c8616aa465}
+
+
+openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c 파일의 114 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+115 \{
+116     assert(mn);
+117 
+118     \textcolor{keywordflow}{switch} (mn->\hyperlink{struct_maap___notify_a9d66bc8bbfd0a30a80edda69603ea9ba}{result})
+119     \{
+120     \textcolor{keywordflow}{case} \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808ddaf7eb8886cefe2e917296e22c19bbebd0}{MAAP\_NOTIFY\_ERROR\_NONE}:
+121         \textcolor{comment}{/* No error.  Don't display anything. */}
+122         \textcolor{keywordflow}{break};
+123     \textcolor{keywordflow}{case} \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808ddaf7026afb657e0c00f45b8b2d077103ac}{MAAP\_NOTIFY\_ERROR\_REQUIRES\_INITIALIZATION}:
+124         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"MAAP is not initialized, so the command cannot be performed."});
+125         \textcolor{keywordflow}{break};
+126     \textcolor{keywordflow}{case} \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808ddab6456efeda22d33ab1fb2766f533d019}{MAAP\_NOTIFY\_ERROR\_ALREADY\_INITIALIZED}:
+127         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"MAAP is already initialized, so the values cannot be changed."});
+128         \textcolor{keywordflow}{break};
+129     \textcolor{keywordflow}{case} \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808dda24b41710d2d55527893f60cb2115eb48}{MAAP\_NOTIFY\_ERROR\_RESERVE\_NOT\_AVAILABLE}:
+130         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"The MAAP reservation is not available, or yield cannot allocate a
+       replacement block. "}
+131             \textcolor{stringliteral}{"Try again with a smaller address block size."});
+132         \textcolor{keywordflow}{break};
+133     \textcolor{keywordflow}{case} \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808dda6e7e01cfe2e813ec310a2ad52a8a1a41}{MAAP\_NOTIFY\_ERROR\_RELEASE\_INVALID\_ID}:
+134         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"The MAAP reservation ID is not valid, so cannot be released or report
+       its status."});
+135         \textcolor{keywordflow}{break};
+136     \textcolor{keywordflow}{case} \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808ddac832ecff02b8d3cd9136eb499440562b}{MAAP\_NOTIFY\_ERROR\_OUT\_OF\_MEMORY}:
+137         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"The MAAP application is out of memory."});
+138         \textcolor{keywordflow}{break};
+139     \textcolor{keywordflow}{case} \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808dda7aef1926e7d6b988cedae62744b0e4b5}{MAAP\_NOTIFY\_ERROR\_INTERNAL}:
+140         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"The MAAP application experienced an internal error."});
+141         \textcolor{keywordflow}{break};
+142     \textcolor{keywordflow}{default}:
+143         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"The MAAP application returned an unknown error %d."}, mn->
+      \hyperlink{struct_maap___notify_a9d66bc8bbfd0a30a80edda69603ea9ba}{result});
+144         \textcolor{keywordflow}{break};
+145     \}
+146 
+147     \textcolor{keywordflow}{switch} (mn->\hyperlink{struct_maap___notify_a28725ddb5295895b12a48456f73a5665}{kind})
+148     \{
+149     \textcolor{keywordflow}{case} \hyperlink{maap__iface_8h_a0d45e125fb876b383321d96bc510285ea1933d7302204862df14f845d2566183c}{MAAP\_NOTIFY\_INITIALIZED}:
+150         \textcolor{keywordflow}{if} (mn->\hyperlink{struct_maap___notify_a9d66bc8bbfd0a30a80edda69603ea9ba}{result} == \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808ddaf7eb8886cefe2e917296e22c19bbebd0}{MAAP\_NOTIFY\_ERROR\_NONE}) \{
+151             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afcf1f0c1d10ae9efe3782eb6cae78355}{AVB\_LOGF\_DEBUG}(\textcolor{stringliteral}{"MAAP initialized:  0x%012llx-0x%012llx (Size: %d)"},
+152                 (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long}) mn->\hyperlink{struct_maap___notify_a6a51e9baeec9b06ae477cf6475efc71d}{start},
+153                 (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long}) mn->\hyperlink{struct_maap___notify_a6a51e9baeec9b06ae477cf6475efc71d}{start} + mn->\hyperlink{struct_maap___notify_a86988a65e0d3ece7990c032c159786d6}{count} - 1,
+154                 (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int}) mn->\hyperlink{struct_maap___notify_a86988a65e0d3ece7990c032c159786d6}{count});
+155 
+156             \textcolor{comment}{// We successfully initialized.  Reserve a block of addresses.}
+157             \hyperlink{struct_maap___cmd}{Maap\_Cmd} maapcmd;
+158             memset(&maapcmd, 0, \textcolor{keyword}{sizeof}(\hyperlink{struct_maap___cmd}{Maap\_Cmd}));
+159             maapcmd.\hyperlink{struct_maap___cmd_adf329e36449de220d4316603214476d4}{kind} = \hyperlink{maap__iface_8h_aaf90b1858e10440f7628ac5030e09a5cae8b22bb1ae2c72da6c6dc8f687012a3b}{MAAP\_CMD\_RESERVE};
+160             maapcmd.\hyperlink{struct_maap___cmd_a6a51e9baeec9b06ae477cf6475efc71d}{start} = 0; \textcolor{comment}{// No preferred address}
+161             maapcmd.\hyperlink{struct_maap___cmd_a86988a65e0d3ece7990c032c159786d6}{count} = \hyperlink{openavb__types__base_8h_a7e205a82b56683e5fc7c05d37160bf02}{MAX\_AVB\_STREAMS};
+162             \textcolor{keywordflow}{if} (\hyperlink{openavb__endpoint__osal__maap_8c_af896fa64326bbdb4f7b862fed927dc03}{maapPreferredAddress} != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \{
+163                 \textcolor{comment}{// Suggest the addresses from the previous time this application was run.}
+164                 maapcmd.\hyperlink{struct_maap___cmd_a6a51e9baeec9b06ae477cf6475efc71d}{start} = \hyperlink{openavb__endpoint__osal__maap_8c_a5b57873230df690acfdc54463efac8ad}{MaapMacAddrToLongLong}(
+      \hyperlink{openavb__endpoint__osal__maap_8c_af896fa64326bbdb4f7b862fed927dc03}{maapPreferredAddress});
+165                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afcf1f0c1d10ae9efe3782eb6cae78355}{AVB\_LOGF\_DEBUG}(\textcolor{stringliteral}{"MAAP Preferred Address:  0x%012llx"}, maapcmd.
+      \hyperlink{struct_maap___cmd_a6a51e9baeec9b06ae477cf6475efc71d}{start});
+166             \}
+167             \textcolor{keywordflow}{if} (send(\hyperlink{openavb__endpoint__osal__shaper_8c_a16ece46816348fa6d2c5d0e8b47c0098}{socketfd}, (\textcolor{keywordtype}{char} *) &maapcmd, \textcolor{keyword}{sizeof}(\hyperlink{struct_maap___cmd}{Maap\_Cmd}), 0) < 0)
+168             \{
+169                 \textcolor{comment}{/* Something went wrong.  Abort! */}
+170                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"MAAP:  Error %d writing to network socket (%s)"}, errno, 
+      strerror(errno));
+171                 \hyperlink{openavb__endpoint__osal__maap_8c_a00afa7c0f95b30bda6c1640f7a804612}{maapState} = \hyperlink{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924edaad660ca790041e5ce5b8d88139b68b3b}{MAAP\_STATE\_ERROR};
+172             \} \textcolor{keywordflow}{else} \{
+173                 \hyperlink{openavb__endpoint__osal__maap_8c_a00afa7c0f95b30bda6c1640f7a804612}{maapState} = \hyperlink{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924edaa3834e941cc09543c703500c1c693970}{MAAP\_STATE\_REQUESTING};
+174             \}
+175         \} \textcolor{keywordflow}{else} \{
+176             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"MAAP previously initialized to 0x%012llx-0x%012llx (Size: %d)"},
+177                 (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long}) mn->\hyperlink{struct_maap___notify_a6a51e9baeec9b06ae477cf6475efc71d}{start},
+178                 (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long}) mn->\hyperlink{struct_maap___notify_a6a51e9baeec9b06ae477cf6475efc71d}{start} + mn->\hyperlink{struct_maap___notify_a86988a65e0d3ece7990c032c159786d6}{count} - 1,
+179                 (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int}) mn->\hyperlink{struct_maap___notify_a86988a65e0d3ece7990c032c159786d6}{count});
+180             \hyperlink{openavb__endpoint__osal__maap_8c_a00afa7c0f95b30bda6c1640f7a804612}{maapState} = \hyperlink{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924edaad660ca790041e5ce5b8d88139b68b3b}{MAAP\_STATE\_ERROR};
+181         \}
+182         \textcolor{keywordflow}{break};
+183     \textcolor{keywordflow}{case} \hyperlink{maap__iface_8h_a0d45e125fb876b383321d96bc510285ea0f5d99d0f124fe7233cacefd53f26127}{MAAP\_NOTIFY\_ACQUIRING}:
+184         \textcolor{keywordflow}{if} (mn->\hyperlink{struct_maap___notify_a9d66bc8bbfd0a30a80edda69603ea9ba}{result} == \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808ddaf7eb8886cefe2e917296e22c19bbebd0}{MAAP\_NOTIFY\_ERROR\_NONE}) \{
+185             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afcf1f0c1d10ae9efe3782eb6cae78355}{AVB\_LOGF\_DEBUG}(\textcolor{stringliteral}{"MAAP address range %d querying:  0x%012llx-0x%012llx (Size %d)"},
+186                 mn->\hyperlink{struct_maap___notify_a2708c0bbb6f926149707c2c61fe43c3e}{id},
+187                 (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long}) mn->\hyperlink{struct_maap___notify_a6a51e9baeec9b06ae477cf6475efc71d}{start},
+188                 (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long}) mn->\hyperlink{struct_maap___notify_a6a51e9baeec9b06ae477cf6475efc71d}{start} + mn->\hyperlink{struct_maap___notify_a86988a65e0d3ece7990c032c159786d6}{count} - 1,
+189                 mn->\hyperlink{struct_maap___notify_a86988a65e0d3ece7990c032c159786d6}{count});
+190         \} \textcolor{keywordflow}{else} \{
+191             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"MAAP unknown address range %d acquisition error"}, mn->
+      \hyperlink{struct_maap___notify_a2708c0bbb6f926149707c2c61fe43c3e}{id});
+192             \hyperlink{openavb__endpoint__osal__maap_8c_a00afa7c0f95b30bda6c1640f7a804612}{maapState} = \hyperlink{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924edaad660ca790041e5ce5b8d88139b68b3b}{MAAP\_STATE\_ERROR};
+193         \}
+194         \textcolor{keywordflow}{break};
+195     \textcolor{keywordflow}{case} \hyperlink{maap__iface_8h_a0d45e125fb876b383321d96bc510285ea37a35b37b6f804ebc82248ae3ed110c6}{MAAP\_NOTIFY\_ACQUIRED}:
+196         \textcolor{keywordflow}{if} (mn->\hyperlink{struct_maap___notify_a9d66bc8bbfd0a30a80edda69603ea9ba}{result} == \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808ddaf7eb8886cefe2e917296e22c19bbebd0}{MAAP\_NOTIFY\_ERROR\_NONE}) \{
+197             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a2be7e90c7cb63f12b221ed1cd4999185}{AVB\_LOGF\_INFO}(\textcolor{stringliteral}{"MAAP address range %d acquired:  0x%012llx-0x%012llx (Size %d)"},
+198                 mn->\hyperlink{struct_maap___notify_a2708c0bbb6f926149707c2c61fe43c3e}{id},
+199                 (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long}) mn->\hyperlink{struct_maap___notify_a6a51e9baeec9b06ae477cf6475efc71d}{start},
+200                 (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long}) mn->\hyperlink{struct_maap___notify_a6a51e9baeec9b06ae477cf6475efc71d}{start} + mn->\hyperlink{struct_maap___notify_a86988a65e0d3ece7990c032c159786d6}{count} - 1,
+201                 mn->\hyperlink{struct_maap___notify_a86988a65e0d3ece7990c032c159786d6}{count});
+202 
+203             \textcolor{comment}{// Update the stored addresses.}
+204             \hyperlink{openavb__endpoint__osal__maap_8c_a7f5fac18a4b8526e8460ba65032dee92}{MAAP\_LOCK}();
+205             \textcolor{keywordtype}{int} i = 0;
+206             \textcolor{keywordflow}{for} (i = 0; i < mn->\hyperlink{struct_maap___notify_a86988a65e0d3ece7990c032c159786d6}{count} && i < \hyperlink{openavb__types__base_8h_a7e205a82b56683e5fc7c05d37160bf02}{MAX\_AVB\_STREAMS}; i++) \{
+207                 \hyperlink{openavb__endpoint__osal__maap_8c_aca8e1deb8e98fb7cba70497638d8253d}{MaapResultToMacAddr}(mn->\hyperlink{struct_maap___notify_a6a51e9baeec9b06ae477cf6475efc71d}{start} + i, &(
+      \hyperlink{openavb__endpoint__osal__maap_8c_a58c1ab01960413365f2b88f3d3919fe6}{maapAllocList}[i].\hyperlink{structmaap_alloc__t_ae93ae3d7d2964e3559e9b0df6f477238}{destAddr}));
+208                 \textcolor{keywordflow}{if} (\hyperlink{openavb__endpoint__osal__maap_8c_a58c1ab01960413365f2b88f3d3919fe6}{maapAllocList}[i].taken && \hyperlink{openavb__endpoint__osal__maap_8c_a83b5499277019fe3b9fcb7fc3d3fd954}{maapRestartCallback}) \{
+209                     \textcolor{comment}{// Use the callback to notify that a change has occurred.}
+210                     \hyperlink{openavb__endpoint__osal__maap_8c_a486eaef2252b47725e829cdc6e19579b}{MAAP\_UNLOCK}();
+211                     \hyperlink{openavb__endpoint__osal__maap_8c_a83b5499277019fe3b9fcb7fc3d3fd954}{maapRestartCallback}(&(\hyperlink{openavb__endpoint__osal__maap_8c_a58c1ab01960413365f2b88f3d3919fe6}{maapAllocList}[i]), &(
+      \hyperlink{openavb__endpoint__osal__maap_8c_a58c1ab01960413365f2b88f3d3919fe6}{maapAllocList}[i].destAddr));
+212                     \hyperlink{openavb__endpoint__osal__maap_8c_a7f5fac18a4b8526e8460ba65032dee92}{MAAP\_LOCK}();
+213                 \}
+214             \}
+215             \hyperlink{openavb__endpoint__osal__maap_8c_a486eaef2252b47725e829cdc6e19579b}{MAAP\_UNLOCK}();
+216 
+217             \textcolor{comment}{// Save the address so we can request it in the future.}
+218             \textcolor{keywordflow}{if} (\hyperlink{openavb__endpoint__osal__maap_8c_af896fa64326bbdb4f7b862fed927dc03}{maapPreferredAddress} != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \{
+219                 \textcolor{keyword}{struct }ether\_addr assignedAddress;
+220                 \hyperlink{openavb__endpoint__osal__maap_8c_aca8e1deb8e98fb7cba70497638d8253d}{MaapResultToMacAddr}((\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long}) mn->
+      \hyperlink{struct_maap___notify_a6a51e9baeec9b06ae477cf6475efc71d}{start}, &assignedAddress);
+221                 \textcolor{keywordflow}{if} (memcmp(\hyperlink{openavb__endpoint__osal__maap_8c_af896fa64326bbdb4f7b862fed927dc03}{maapPreferredAddress}, &assignedAddress, \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} 
+      ether\_addr)) != 0) \{
+222                     \textcolor{comment}{// Save the updated settings.  Done immediately, so they won't get lost on device
+       reboot.}
+223                     memcpy(\hyperlink{openavb__endpoint__osal__maap_8c_af896fa64326bbdb4f7b862fed927dc03}{maapPreferredAddress}, &assignedAddress, \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} 
+      ether\_addr));
+224                     \hyperlink{openavb__endpoint__cfg_8c_a065dd783c02fe8a8edfa190ed51da9d7}{openavbSaveConfig}(\hyperlink{openavb__endpoint__cfg_8h_aac0c0a0990dab323559c758cabccbb07}{DEFAULT\_SAVE\_INI\_FILE}, &
+      \hyperlink{openavb__endpoint__osal__maap_8c_a4bc033da01bf5e6046affe353ccbde0d}{x\_cfg});
+225                 \}
+226             \}
+227 
+228             \textcolor{comment}{// We now have addresses we can use.}
+229             \hyperlink{openavb__endpoint__osal__maap_8c_a4419b358d76d727bb4a6821fadb2d105}{maapReservationId} = mn->\hyperlink{struct_maap___notify_a2708c0bbb6f926149707c2c61fe43c3e}{id};
+230             \hyperlink{openavb__endpoint__osal__maap_8c_a00afa7c0f95b30bda6c1640f7a804612}{maapState} = \hyperlink{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924eda0fd4a497ad1b4710bcd143e3d0b0fcbe}{MAAP\_STATE\_CONNECTED};
+231         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (mn->\hyperlink{struct_maap___notify_a2708c0bbb6f926149707c2c61fe43c3e}{id} != -1) \{
+232             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"MAAP address range %d of size %d not acquired"},
+233                 mn->\hyperlink{struct_maap___notify_a2708c0bbb6f926149707c2c61fe43c3e}{id}, mn->\hyperlink{struct_maap___notify_a86988a65e0d3ece7990c032c159786d6}{count});
+234             \hyperlink{openavb__endpoint__osal__maap_8c_a00afa7c0f95b30bda6c1640f7a804612}{maapState} = \hyperlink{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924edaad660ca790041e5ce5b8d88139b68b3b}{MAAP\_STATE\_ERROR};
+235         \} \textcolor{keywordflow}{else} \{
+236             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"MAAP address range of size %d not acquired"},
+237                 mn->\hyperlink{struct_maap___notify_a86988a65e0d3ece7990c032c159786d6}{count});
+238             \hyperlink{openavb__endpoint__osal__maap_8c_a00afa7c0f95b30bda6c1640f7a804612}{maapState} = \hyperlink{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924edaad660ca790041e5ce5b8d88139b68b3b}{MAAP\_STATE\_ERROR};
+239         \}
+240         \textcolor{keywordflow}{break};
+241     \textcolor{keywordflow}{case} \hyperlink{maap__iface_8h_a0d45e125fb876b383321d96bc510285eadcdf0612242dddc5976bc7eb80ae8813}{MAAP\_NOTIFY\_RELEASED}:
+242         \textcolor{keywordflow}{if} (mn->\hyperlink{struct_maap___notify_a9d66bc8bbfd0a30a80edda69603ea9ba}{result} == \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808ddaf7eb8886cefe2e917296e22c19bbebd0}{MAAP\_NOTIFY\_ERROR\_NONE}) \{
+243             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afcf1f0c1d10ae9efe3782eb6cae78355}{AVB\_LOGF\_DEBUG}(\textcolor{stringliteral}{"MAAP address range %d released:  0x%012llx-0x%012llx (Size %d)"},
+244                 mn->\hyperlink{struct_maap___notify_a2708c0bbb6f926149707c2c61fe43c3e}{id},
+245                 (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long}) mn->\hyperlink{struct_maap___notify_a6a51e9baeec9b06ae477cf6475efc71d}{start},
+246                 (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long}) mn->\hyperlink{struct_maap___notify_a6a51e9baeec9b06ae477cf6475efc71d}{start} + mn->\hyperlink{struct_maap___notify_a86988a65e0d3ece7990c032c159786d6}{count} - 1,
+247                 mn->\hyperlink{struct_maap___notify_a86988a65e0d3ece7990c032c159786d6}{count});
+248             \hyperlink{openavb__endpoint__osal__maap_8c_a00afa7c0f95b30bda6c1640f7a804612}{maapState} = \hyperlink{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924eda57a8bbf4f3a9d5742d3cb4f547386ecd}{MAAP\_STATE\_RELEASED};
+249         \} \textcolor{keywordflow}{else} \{
+250             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a6b02336e691e2e0579d2a5bb06367296}{AVB\_LOGF\_WARNING}(\textcolor{stringliteral}{"MAAP address range %d not released"},
+251                 mn->\hyperlink{struct_maap___notify_a2708c0bbb6f926149707c2c61fe43c3e}{id});
+252         \}
+253         \textcolor{keywordflow}{break};
+254     \textcolor{keywordflow}{case} \hyperlink{maap__iface_8h_a0d45e125fb876b383321d96bc510285ea993b057f5516f007248e70006319c846}{MAAP\_NOTIFY\_STATUS}:
+255         \textcolor{keywordflow}{if} (mn->\hyperlink{struct_maap___notify_a9d66bc8bbfd0a30a80edda69603ea9ba}{result} == \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808ddaf7eb8886cefe2e917296e22c19bbebd0}{MAAP\_NOTIFY\_ERROR\_NONE}) \{
+256             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afcf1f0c1d10ae9efe3782eb6cae78355}{AVB\_LOGF\_DEBUG}(\textcolor{stringliteral}{"MAAP ID %d is address range 0x%012llx-0x%012llx (Size %d)"},
+257                 mn->\hyperlink{struct_maap___notify_a2708c0bbb6f926149707c2c61fe43c3e}{id},
+258                 (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long}) mn->\hyperlink{struct_maap___notify_a6a51e9baeec9b06ae477cf6475efc71d}{start},
+259                 (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long}) mn->\hyperlink{struct_maap___notify_a6a51e9baeec9b06ae477cf6475efc71d}{start} + mn->\hyperlink{struct_maap___notify_a86988a65e0d3ece7990c032c159786d6}{count} - 1,
+260                 mn->\hyperlink{struct_maap___notify_a86988a65e0d3ece7990c032c159786d6}{count});
+261         \} \textcolor{keywordflow}{else} \{
+262             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afcf1f0c1d10ae9efe3782eb6cae78355}{AVB\_LOGF\_DEBUG}(\textcolor{stringliteral}{"MAAP ID %d is not valid"},
+263                 mn->\hyperlink{struct_maap___notify_a2708c0bbb6f926149707c2c61fe43c3e}{id});
+264         \}
+265         \textcolor{keywordflow}{break};
+266     \textcolor{keywordflow}{case} \hyperlink{maap__iface_8h_a0d45e125fb876b383321d96bc510285ea438f0d11e6e3a74550cab4c378f9aeba}{MAAP\_NOTIFY\_YIELDED}:
+267         \textcolor{keywordflow}{if} (mn->\hyperlink{struct_maap___notify_a9d66bc8bbfd0a30a80edda69603ea9ba}{result} != \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808ddaf7026afb657e0c00f45b8b2d077103ac}{MAAP\_NOTIFY\_ERROR\_REQUIRES\_INITIALIZATION}
+       && mn->\hyperlink{struct_maap___notify_a9d66bc8bbfd0a30a80edda69603ea9ba}{result} != \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808dda6e7e01cfe2e813ec310a2ad52a8a1a41}{MAAP\_NOTIFY\_ERROR\_RELEASE\_INVALID\_ID}) \{
+268             \textcolor{keywordflow}{if} (mn->\hyperlink{struct_maap___notify_a9d66bc8bbfd0a30a80edda69603ea9ba}{result} != \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808ddaf7eb8886cefe2e917296e22c19bbebd0}{MAAP\_NOTIFY\_ERROR\_NONE}) \{
+269                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"MAAP Address range %d yielded:  0x%012llx-0x%012llx (Size
+       %d).  A new address range will not be allocated."},
+270                     mn->\hyperlink{struct_maap___notify_a2708c0bbb6f926149707c2c61fe43c3e}{id},
+271                     (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long}) mn->\hyperlink{struct_maap___notify_a6a51e9baeec9b06ae477cf6475efc71d}{start},
+272                     (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long}) mn->\hyperlink{struct_maap___notify_a6a51e9baeec9b06ae477cf6475efc71d}{start} + mn->\hyperlink{struct_maap___notify_a86988a65e0d3ece7990c032c159786d6}{count} - 1,
+273                     mn->\hyperlink{struct_maap___notify_a86988a65e0d3ece7990c032c159786d6}{count});
+274                 \hyperlink{openavb__endpoint__osal__maap_8c_a00afa7c0f95b30bda6c1640f7a804612}{maapState} = \hyperlink{openavb__endpoint__osal__maap_8c_aaf4832657a3cdfc7fbfd5339570924edaad660ca790041e5ce5b8d88139b68b3b}{MAAP\_STATE\_ERROR};
+275             \}
+276             \textcolor{keywordflow}{else} \{
+277                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a6b02336e691e2e0579d2a5bb06367296}{AVB\_LOGF\_WARNING}(\textcolor{stringliteral}{"MAAP Address range %d yielded:  0x%012llx-0x%012llx (Size
+       %d)"},
+278                     mn->\hyperlink{struct_maap___notify_a2708c0bbb6f926149707c2c61fe43c3e}{id},
+279                     (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long}) mn->\hyperlink{struct_maap___notify_a6a51e9baeec9b06ae477cf6475efc71d}{start},
+280                     (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long}) mn->\hyperlink{struct_maap___notify_a6a51e9baeec9b06ae477cf6475efc71d}{start} + mn->\hyperlink{struct_maap___notify_a86988a65e0d3ece7990c032c159786d6}{count} - 1,
+281                     mn->\hyperlink{struct_maap___notify_a86988a65e0d3ece7990c032c159786d6}{count});
+282             \}
+283         \} \textcolor{keywordflow}{else} \{
+284             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"ID %d is not valid"}, mn->\hyperlink{struct_maap___notify_a2708c0bbb6f926149707c2c61fe43c3e}{id});
+285         \}
+286         \textcolor{keywordflow}{break};
+287     \textcolor{keywordflow}{default}:
+288         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"MAAP notification type %d not recognized"}, mn->
+      \hyperlink{struct_maap___notify_a28725ddb5295895b12a48456f73a5665}{kind});
+289         \textcolor{keywordflow}{break};
+290     \}
+291 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__endpoint__osal__maap_8c_af8667226736d447bd9d753c8616aa465_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__endpoint__osal__maap_8c_af8667226736d447bd9d753c8616aa465_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{변수 문서화}
+\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}!maap\+Alloc\+List@{maap\+Alloc\+List}}
+\index{maap\+Alloc\+List@{maap\+Alloc\+List}!openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}}
+\subsubsection[{\texorpdfstring{maap\+Alloc\+List}{maapAllocList}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf maap\+Alloc\+\_\+t} maap\+Alloc\+List\mbox{[}{\bf M\+A\+X\+\_\+\+A\+V\+B\+\_\+\+S\+T\+R\+E\+A\+MS}\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__endpoint__osal__maap_8c_a58c1ab01960413365f2b88f3d3919fe6}{}\label{openavb__endpoint__osal__maap_8c_a58c1ab01960413365f2b88f3d3919fe6}
+
+
+openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c 파일의 68 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}!maap\+Daemon\+Port@{maap\+Daemon\+Port}}
+\index{maap\+Daemon\+Port@{maap\+Daemon\+Port}!openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}}
+\subsubsection[{\texorpdfstring{maap\+Daemon\+Port}{maapDaemonPort}}]{\setlength{\rightskip}{0pt plus 5cm}char maap\+Daemon\+Port\mbox{[}6\mbox{]} = \{0\}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__endpoint__osal__maap_8c_a212916f0988e06837e698366dba068c0}{}\label{openavb__endpoint__osal__maap_8c_a212916f0988e06837e698366dba068c0}
+
+
+openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c 파일의 89 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}!maap\+Preferred\+Address@{maap\+Preferred\+Address}}
+\index{maap\+Preferred\+Address@{maap\+Preferred\+Address}!openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}}
+\subsubsection[{\texorpdfstring{maap\+Preferred\+Address}{maapPreferredAddress}}]{\setlength{\rightskip}{0pt plus 5cm}struct ether\+\_\+addr$\ast$ maap\+Preferred\+Address = {\bf N\+U\+LL}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__endpoint__osal__maap_8c_af896fa64326bbdb4f7b862fed927dc03}{}\label{openavb__endpoint__osal__maap_8c_af896fa64326bbdb4f7b862fed927dc03}
+
+
+openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c 파일의 70 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}!maap\+Reservation\+Id@{maap\+Reservation\+Id}}
+\index{maap\+Reservation\+Id@{maap\+Reservation\+Id}!openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}}
+\subsubsection[{\texorpdfstring{maap\+Reservation\+Id}{maapReservationId}}]{\setlength{\rightskip}{0pt plus 5cm}int maap\+Reservation\+Id = 0\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__endpoint__osal__maap_8c_a4419b358d76d727bb4a6821fadb2d105}{}\label{openavb__endpoint__osal__maap_8c_a4419b358d76d727bb4a6821fadb2d105}
+
+
+openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c 파일의 87 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}!maap\+Restart\+Callback@{maap\+Restart\+Callback}}
+\index{maap\+Restart\+Callback@{maap\+Restart\+Callback}!openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}}
+\subsubsection[{\texorpdfstring{maap\+Restart\+Callback}{maapRestartCallback}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf openavb\+Maap\+Restart\+Cb\+\_\+t}$\ast$ maap\+Restart\+Callback = {\bf N\+U\+LL}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__endpoint__osal__maap_8c_a83b5499277019fe3b9fcb7fc3d3fd954}{}\label{openavb__endpoint__osal__maap_8c_a83b5499277019fe3b9fcb7fc3d3fd954}
+
+
+openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c 파일의 69 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}!maap\+Running@{maap\+Running}}
+\index{maap\+Running@{maap\+Running}!openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}}
+\subsubsection[{\texorpdfstring{maap\+Running}{maapRunning}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} maap\+Running = {\bf F\+A\+L\+SE}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__endpoint__osal__maap_8c_ad69848d6e85d6a57d404d3e7b3b9d3aa}{}\label{openavb__endpoint__osal__maap_8c_ad69848d6e85d6a57d404d3e7b3b9d3aa}
+
+
+openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c 파일의 72 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}!maap\+State@{maap\+State}}
+\index{maap\+State@{maap\+State}!openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}}
+\subsubsection[{\texorpdfstring{maap\+State}{maapState}}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf maap\+State\+\_\+t} maap\+State = {\bf M\+A\+A\+P\+\_\+\+S\+T\+A\+T\+E\+\_\+\+U\+N\+K\+N\+O\+WN}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__endpoint__osal__maap_8c_a00afa7c0f95b30bda6c1640f7a804612}{}\label{openavb__endpoint__osal__maap_8c_a00afa7c0f95b30bda6c1640f7a804612}
+
+
+openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c 파일의 86 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}!maap\+Thread\+Handle@{maap\+Thread\+Handle}}
+\index{maap\+Thread\+Handle@{maap\+Thread\+Handle}!openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}}
+\subsubsection[{\texorpdfstring{maap\+Thread\+Handle}{maapThreadHandle}}]{\setlength{\rightskip}{0pt plus 5cm}pthread\+\_\+t maap\+Thread\+Handle\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__endpoint__osal__maap_8c_a78853e9dc07d72242f40c621f9617198}{}\label{openavb__endpoint__osal__maap_8c_a78853e9dc07d72242f40c621f9617198}
+
+
+openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c 파일의 73 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}!x\+\_\+cfg@{x\+\_\+cfg}}
+\index{x\+\_\+cfg@{x\+\_\+cfg}!openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+maap.\+c}}
+\subsubsection[{\texorpdfstring{x\+\_\+cfg}{x_cfg}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf openavb\+\_\+endpoint\+\_\+cfg\+\_\+t} x\+\_\+cfg}\hypertarget{openavb__endpoint__osal__maap_8c_a4bc033da01bf5e6046affe353ccbde0d}{}\label{openavb__endpoint__osal__maap_8c_a4bc033da01bf5e6046affe353ccbde0d}
+
+
+openavb\+\_\+endpoint.\+c 파일의 78 번째 라인에서 정의되었습니다.
+

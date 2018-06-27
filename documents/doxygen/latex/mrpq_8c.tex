@@ -1,0 +1,203 @@
+\hypertarget{mrpq_8c}{}\section{examples/mrp\+\_\+client/mrpq.c 파일 참조}
+\label{mrpq_8c}\index{examples/mrp\+\_\+client/mrpq.\+c@{examples/mrp\+\_\+client/mrpq.\+c}}
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}mrpd.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}mrpdclient.\+h\char`\"{}}\\*
+mrpq.\+c에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrpq_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{mrpq_8c_acfc1668731750cb1ee8974b8a7c133ef}{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR}~\char`\"{}0.\+0\char`\"{}
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{mrpq_8c_ab633e3764b94c7df226459c01c7d4b2c}{process\+\_\+ctl\+\_\+msg} (char $\ast$buf, int buflen)
+\item 
+int \hyperlink{mrpq_8c_a0ddf1224851353fc92bfbff6f499fa97}{main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\subsection*{변수}
+\begin{DoxyCompactItemize}
+\item 
+static const char $\ast$ \hyperlink{mrpq_8c_ae724265d048ace6b96a1e977ea11c1c7}{version\+\_\+str}
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{mrpq.\+c@{mrpq.\+c}!V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR@{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR}}
+\index{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR@{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR}!mrpq.\+c@{mrpq.\+c}}
+\subsubsection[{\texorpdfstring{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR}{VERSION_STR}}]{\setlength{\rightskip}{0pt plus 5cm}\#define V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR~\char`\"{}0.\+0\char`\"{}}\hypertarget{mrpq_8c_acfc1668731750cb1ee8974b8a7c133ef}{}\label{mrpq_8c_acfc1668731750cb1ee8974b8a7c133ef}
+
+
+mrpq.\+c 파일의 47 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{함수 문서화}
+\index{mrpq.\+c@{mrpq.\+c}!main@{main}}
+\index{main@{main}!mrpq.\+c@{mrpq.\+c}}
+\subsubsection[{\texorpdfstring{main(int argc, char $\ast$argv[])}{main(int argc, char *argv[])}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{mrpq_8c_a0ddf1224851353fc92bfbff6f499fa97}{}\label{mrpq_8c_a0ddf1224851353fc92bfbff6f499fa97}
+
+
+mrpq.\+c 파일의 73 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+74 \{
+75     SOCKET \hyperlink{mrp_validate_8c_a7c6126ba8f26829f864321a56ba52389}{mrpd\_sock} = SOCKET\_ERROR;
+76     \textcolor{keywordtype}{int} rc = 0;
+77     \textcolor{keywordtype}{char} *\hyperlink{mrp_validate_8c_a3820841c4bbf28f04505bea65d6b84f7}{msgbuf};
+78 \textcolor{preprocessor}{#if defined WIN32}
+79     WSADATA wsa\_data;
+80 \textcolor{preprocessor}{#endif}
+81     (void)argc;
+82     (void)argv;
+83 
+84 \textcolor{preprocessor}{#if defined WIN32}
+85     WSAStartup(MAKEWORD(1, 1), &wsa\_data);
+86 \textcolor{preprocessor}{#endif}
+87 
+88     printf(\textcolor{stringliteral}{"%s\(\backslash\)n"}, \hyperlink{mrpq_8c_ae724265d048ace6b96a1e977ea11c1c7}{version\_str});
+89 
+90     mrpd\_sock = \hyperlink{mrpdclient_8c_a86398ff28353622452f6cb48917cc6ef}{mrpdclient\_init}();
+91     \textcolor{keywordflow}{if} (mrpd\_sock == SOCKET\_ERROR) \{
+92         printf(\textcolor{stringliteral}{"mrpdclient\_init failed\(\backslash\)n"});
+93         \textcolor{keywordflow}{return} EXIT\_FAILURE;
+94     \}
+95 
+96     msgbuf = (\textcolor{keywordtype}{char} *)\hyperlink{_memory_leak_detector_malloc_macros_8h_ab8b25cd8f16d4a6552afe4e65c4f082d}{malloc}(\hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+97     \textcolor{keywordflow}{if} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} == msgbuf) \{
+98         printf(\textcolor{stringliteral}{"malloc failed\(\backslash\)n"});
+99         \textcolor{keywordflow}{return} EXIT\_FAILURE;
+100     \}
+101 
+102     \textcolor{comment}{/* query MMRP Registrar MAC Address database */}
+103     memset(msgbuf, 0, \hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+104     sprintf(msgbuf, \textcolor{stringliteral}{"M??"});
+105     printf(\textcolor{stringliteral}{">M??\(\backslash\)n"});
+106     rc = \hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(mrpd\_sock, msgbuf, 
+      \hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+107     rc = \hyperlink{mrpdclient_8c_aa06f3394689317153319bfcfc7a0b768}{mrpdclient\_recv}(mrpd\_sock, \hyperlink{mrpq_8c_ab633e3764b94c7df226459c01c7d4b2c}{process\_ctl\_msg});
+108     \textcolor{keywordflow}{if} (rc <= SOCKET\_ERROR)
+109         printf(\textcolor{stringliteral}{"recv error\(\backslash\)n"});
+110 
+111     \textcolor{comment}{/* query MVRP Registrar VID database */}
+112     memset(msgbuf, 0, \hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+113     sprintf(msgbuf, \textcolor{stringliteral}{"V??"});
+114     printf(\textcolor{stringliteral}{">V??\(\backslash\)n"});
+115     rc = \hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(mrpd\_sock, msgbuf, 
+      \hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+116     rc = \hyperlink{mrpdclient_8c_aa06f3394689317153319bfcfc7a0b768}{mrpdclient\_recv}(mrpd\_sock, \hyperlink{mrpq_8c_ab633e3764b94c7df226459c01c7d4b2c}{process\_ctl\_msg});
+117     \textcolor{keywordflow}{if} (rc <= SOCKET\_ERROR)
+118         printf(\textcolor{stringliteral}{"recv error\(\backslash\)n"});
+119 
+120     \textcolor{comment}{/* query MSRP Registrar database */}
+121     memset(msgbuf, 0, \hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+122     sprintf(msgbuf, \textcolor{stringliteral}{"S??"});
+123     printf(\textcolor{stringliteral}{">S??\(\backslash\)n"});
+124     rc = \hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(mrpd\_sock, msgbuf, 
+      \hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+125     rc = \hyperlink{mrpdclient_8c_aa06f3394689317153319bfcfc7a0b768}{mrpdclient\_recv}(mrpd\_sock, \hyperlink{mrpq_8c_ab633e3764b94c7df226459c01c7d4b2c}{process\_ctl\_msg});
+126     \textcolor{keywordflow}{if} (rc <= SOCKET\_ERROR)
+127         printf(\textcolor{stringliteral}{"recv error\(\backslash\)n"});
+128     \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(msgbuf);
+129 
+130     rc = \hyperlink{mrpdclient_8c_aa4b8e8554b0dd71a41dab7280373d736}{mrpdclient\_close}(&mrpd\_sock);
+131 
+132 \textcolor{preprocessor}{#if defined WIN32}
+133     WSACleanup();
+134 \textcolor{preprocessor}{#endif}
+135 
+136     \textcolor{keywordflow}{if} (-1 == rc)
+137         \textcolor{keywordflow}{return} EXIT\_FAILURE;
+138     \textcolor{keywordflow}{else}
+139         \textcolor{keywordflow}{return} EXIT\_SUCCESS;
+140 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrpq_8c_a0ddf1224851353fc92bfbff6f499fa97_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrpq.\+c@{mrpq.\+c}!process\+\_\+ctl\+\_\+msg@{process\+\_\+ctl\+\_\+msg}}
+\index{process\+\_\+ctl\+\_\+msg@{process\+\_\+ctl\+\_\+msg}!mrpq.\+c@{mrpq.\+c}}
+\subsubsection[{\texorpdfstring{process\+\_\+ctl\+\_\+msg(char $\ast$buf, int buflen)}{process_ctl_msg(char *buf, int buflen)}}]{\setlength{\rightskip}{0pt plus 5cm}int process\+\_\+ctl\+\_\+msg (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{buf, }
+\item[{int}]{buflen}
+\end{DoxyParamCaption}
+)}\hypertarget{mrpq_8c_ab633e3764b94c7df226459c01c7d4b2c}{}\label{mrpq_8c_ab633e3764b94c7df226459c01c7d4b2c}
+
+
+mrpq.\+c 파일의 52 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+53 \{
+54     (void)buflen;
+55 
+56     \textcolor{comment}{/*}
+57 \textcolor{comment}{     * M?? - query MMRP Registrar MAC Address database}
+58 \textcolor{comment}{     * M+? - JOIN\_MT a MAC address}
+59 \textcolor{comment}{     * -- note M++ doesn't exist apparently- MMRP doesn't use 'New' --}
+60 \textcolor{comment}{     * M-- - LV a MAC address}
+61 \textcolor{comment}{     * V?? - query MVRP Registrar VID database}
+62 \textcolor{comment}{     * V++ - JOIN\_IN a VID (VLAN ID)}
+63 \textcolor{comment}{     * V+? - JOIN\_MT a VID (VLAN ID)}
+64 \textcolor{comment}{     * V-- - LV a VID (VLAN ID)}
+65 \textcolor{comment}{     */}
+66 
+67     printf(\textcolor{stringliteral}{"<%s\(\backslash\)n"}, buf);
+68     fflush(stdout);
+69     \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(buf);
+70     \textcolor{keywordflow}{return} (0);
+71 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=245pt]{mrpq_8c_ab633e3764b94c7df226459c01c7d4b2c_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{변수 문서화}
+\index{mrpq.\+c@{mrpq.\+c}!version\+\_\+str@{version\+\_\+str}}
+\index{version\+\_\+str@{version\+\_\+str}!mrpq.\+c@{mrpq.\+c}}
+\subsubsection[{\texorpdfstring{version\+\_\+str}{version_str}}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ version\+\_\+str\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{mrpq_8c_ae724265d048ace6b96a1e977ea11c1c7}{}\label{mrpq_8c_ae724265d048ace6b96a1e977ea11c1c7}
+{\bfseries 초기값\+:}
+\begin{DoxyCode}
+=
+    \textcolor{stringliteral}{"mrpq v"} \hyperlink{mrpq_8c_acfc1668731750cb1ee8974b8a7c133ef}{VERSION\_STR} \textcolor{stringliteral}{"\(\backslash\)n"} \textcolor{stringliteral}{"Copyright (c) 2012, Intel Corporation\(\backslash\)n"}
+\end{DoxyCode}
+
+
+mrpq.\+c 파일의 49 번째 라인에서 정의되었습니다.
+

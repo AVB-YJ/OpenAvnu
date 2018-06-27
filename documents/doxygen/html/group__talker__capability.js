@@ -1,0 +1,27 @@
+var group__talker__capability =
+[
+    [ "JDKSAVDECC_ADP_TALKER_CAPABILITY_AUDIO_SOURCE", "group__talker__capability.html#gabc242a5defdecf66f8d1a2967d0b635a", null ],
+    [ "JDKSAVDECC_ADP_TALKER_CAPABILITY_AUDIO_SOURCE_BIT", "group__talker__capability.html#ga3443b6354d608d955d0e755f2b9b90e1", null ],
+    [ "JDKSAVDECC_ADP_TALKER_CAPABILITY_AUDIO_SOURCE_MASK", "group__talker__capability.html#gae0681f2ac50e08a3163ee52d9dcbf576", null ],
+    [ "JDKSAVDECC_ADP_TALKER_CAPABILITY_CONTROL_SOURCE", "group__talker__capability.html#gacd3c6b996d5c09cc188881595585a8d8", null ],
+    [ "JDKSAVDECC_ADP_TALKER_CAPABILITY_CONTROL_SOURCE_BIT", "group__talker__capability.html#ga0992dbb733e6fa05eeceaa48421ae754", null ],
+    [ "JDKSAVDECC_ADP_TALKER_CAPABILITY_CONTROL_SOURCE_MASK", "group__talker__capability.html#gafde611d00067fb60aa4e7be72131bcf6", null ],
+    [ "JDKSAVDECC_ADP_TALKER_CAPABILITY_IMPLEMENTED", "group__talker__capability.html#ga9776f9e7ce43fb45783afc9ffcb620a4", null ],
+    [ "JDKSAVDECC_ADP_TALKER_CAPABILITY_IMPLEMENTED_BIT", "group__talker__capability.html#ga219c549c02b5480e19d1e7875762a820", null ],
+    [ "JDKSAVDECC_ADP_TALKER_CAPABILITY_IMPLEMENTED_MASK", "group__talker__capability.html#ga618b91689854bb9e3d0938ca62a945a1", null ],
+    [ "JDKSAVDECC_ADP_TALKER_CAPABILITY_MEDIA_CLOCK_SOURCE", "group__talker__capability.html#ga36588c23eb312aae8e9762b4c936aa40", null ],
+    [ "JDKSAVDECC_ADP_TALKER_CAPABILITY_MEDIA_CLOCK_SOURCE_BIT", "group__talker__capability.html#gaa89f2638cc4f0263cd1923ffa391aa0f", null ],
+    [ "JDKSAVDECC_ADP_TALKER_CAPABILITY_MEDIA_CLOCK_SOURCE_MASK", "group__talker__capability.html#ga2acef4bc04f728ebfe4e705a1f7cf38f", null ],
+    [ "JDKSAVDECC_ADP_TALKER_CAPABILITY_MIDI_SOURCE", "group__talker__capability.html#ga6821d8ee1c90b49e3c01af21104021c9", null ],
+    [ "JDKSAVDECC_ADP_TALKER_CAPABILITY_MIDI_SOURCE_BIT", "group__talker__capability.html#gaebbf4ef0d49a70690cc21bc291ccbb5d", null ],
+    [ "JDKSAVDECC_ADP_TALKER_CAPABILITY_MIDI_SOURCE_MASK", "group__talker__capability.html#ga5792972e4715949f1c29b7d65ea08873", null ],
+    [ "JDKSAVDECC_ADP_TALKER_CAPABILITY_OTHER_SOURCE", "group__talker__capability.html#ga849b7ed9c584a6500cc7f46fe2e7ba30", null ],
+    [ "JDKSAVDECC_ADP_TALKER_CAPABILITY_OTHER_SOURCE_BIT", "group__talker__capability.html#gab18af5e384f758ddd94aa60b1035a518", null ],
+    [ "JDKSAVDECC_ADP_TALKER_CAPABILITY_OTHER_SOURCE_MASK", "group__talker__capability.html#ga8fc20d2fd8109b54081645f630663898", null ],
+    [ "JDKSAVDECC_ADP_TALKER_CAPABILITY_SMPTE_SOURCE", "group__talker__capability.html#ga5e5ce0b1c2006e81740e3abfbb112356", null ],
+    [ "JDKSAVDECC_ADP_TALKER_CAPABILITY_SMPTE_SOURCE_BIT", "group__talker__capability.html#ga2d5a9d355c986d4f542e0b278c7acfa5", null ],
+    [ "JDKSAVDECC_ADP_TALKER_CAPABILITY_SMPTE_SOURCE_MASK", "group__talker__capability.html#gab5852431d286188b382a9967a6fdb006", null ],
+    [ "JDKSAVDECC_ADP_TALKER_CAPABILITY_VIDEO_SOURCE", "group__talker__capability.html#ga3669038bf65af52d19aff5059304b004", null ],
+    [ "JDKSAVDECC_ADP_TALKER_CAPABILITY_VIDEO_SOURCE_BIT", "group__talker__capability.html#gaaee55f53d319e706b044dd62e0fa1f6e", null ],
+    [ "JDKSAVDECC_ADP_TALKER_CAPABILITY_VIDEO_SOURCE_MASK", "group__talker__capability.html#ga153f9d5041c2da38790b811899e84172", null ]
+];

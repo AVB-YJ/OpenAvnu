@@ -1,0 +1,607 @@
+\hypertarget{gst__app__src_8c}{}\section{examples/gstreamer-\/avb-\/plugins/gst-\/plugin/src/gst\+\_\+app\+\_\+src.c 파일 참조}
+\label{gst__app__src_8c}\index{examples/gstreamer-\/avb-\/plugins/gst-\/plugin/src/gst\+\_\+app\+\_\+src.\+c@{examples/gstreamer-\/avb-\/plugins/gst-\/plugin/src/gst\+\_\+app\+\_\+src.\+c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$gst/gst.\+h$>$}\\*
+{\ttfamily \#include $<$gst/app/gstappsrc.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$unistd.\+h$>$}\\*
+gst\+\_\+app\+\_\+src.\+c에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gst__app__src_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{데이타 구조}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structgst__app__t}{gst\+\_\+app\+\_\+t}
+\end{DoxyCompactItemize}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{gst__app__src_8c_a6c7cd32e1bac137f05e4a752b4ad10af}{B\+U\+F\+F\+\_\+\+S\+I\+ZE}~1024
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{gst__app__src_8c_a7a022f94d86cfbb64e5e13355387216e}{read\+\_\+data\+\_\+from\+\_\+queue} (void $\ast$ptr)
+\item 
+int \hyperlink{gst__app__src_8c_abc5eea88dcfdbddb2377901d51abb363}{send\+\_\+data\+\_\+status} (int)
+\item 
+void \hyperlink{gst__app__src_8c_a88ac0c8b2709458da7cab8aca06a2367}{flag\+\_\+exit\+\_\+app} (int)
+\item 
+static gboolean \hyperlink{gst__app__src_8c_aa81e7ab64e0c841695026f78ce7a8b97}{read\+\_\+data} (\hyperlink{structgst__app__t}{gst\+\_\+app\+\_\+t} $\ast$app)
+\item 
+static void \hyperlink{gst__app__src_8c_a5324835f5f0d6181d0c0169036aaade9}{start\+\_\+feed} (Gst\+Element $\ast$pipeline, guint \hyperlink{gst__avb__playbin_8c_a439227feff9d7f55384e8780cfc2eb82}{size}, \hyperlink{structgst__app__t}{gst\+\_\+app\+\_\+t} $\ast$app)
+\item 
+static void \hyperlink{gst__app__src_8c_ad7b84e66b39ab423b57c06979f3dea21}{stop\+\_\+feed} (Gst\+Element $\ast$pipeline, \hyperlink{structgst__app__t}{gst\+\_\+app\+\_\+t} $\ast$app)
+\item 
+static gboolean \hyperlink{gst__app__src_8c_a3b71e2677833e6985521a3d1252cf591}{bus\+\_\+callback} (Gst\+Bus $\ast$bus, Gst\+Message $\ast$message, gpointer $\ast$ptr)
+\item 
+static void \hyperlink{gst__app__src_8c_a147d4348b0b77729921259ec59d81381}{found\+\_\+source} (G\+Object $\ast$object, G\+Object $\ast$orig, G\+Param\+Spec $\ast$pspec, \hyperlink{structgst__app__t}{gst\+\_\+app\+\_\+t} $\ast$app)
+\item 
+int \hyperlink{gst__app__src_8c_a359c5269f277c3ff9ea86542ffe9d435}{gstreamer\+\_\+main} (void)
+\end{DoxyCompactItemize}
+\subsection*{변수}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{structgst__app__t}{gst\+\_\+app\+\_\+t} \hyperlink{gst__app__src_8c_a25f31066229c91660759d0f329e15e00}{gst\+\_\+app}
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{gst\+\_\+app\+\_\+src.\+c@{gst\+\_\+app\+\_\+src.\+c}!B\+U\+F\+F\+\_\+\+S\+I\+ZE@{B\+U\+F\+F\+\_\+\+S\+I\+ZE}}
+\index{B\+U\+F\+F\+\_\+\+S\+I\+ZE@{B\+U\+F\+F\+\_\+\+S\+I\+ZE}!gst\+\_\+app\+\_\+src.\+c@{gst\+\_\+app\+\_\+src.\+c}}
+\subsubsection[{\texorpdfstring{B\+U\+F\+F\+\_\+\+S\+I\+ZE}{BUFF_SIZE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define B\+U\+F\+F\+\_\+\+S\+I\+ZE~1024}\hypertarget{gst__app__src_8c_a6c7cd32e1bac137f05e4a752b4ad10af}{}\label{gst__app__src_8c_a6c7cd32e1bac137f05e4a752b4ad10af}
+
+
+gst\+\_\+app\+\_\+src.\+c 파일의 27 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{함수 문서화}
+\index{gst\+\_\+app\+\_\+src.\+c@{gst\+\_\+app\+\_\+src.\+c}!bus\+\_\+callback@{bus\+\_\+callback}}
+\index{bus\+\_\+callback@{bus\+\_\+callback}!gst\+\_\+app\+\_\+src.\+c@{gst\+\_\+app\+\_\+src.\+c}}
+\subsubsection[{\texorpdfstring{bus\+\_\+callback(\+Gst\+Bus $\ast$bus, Gst\+Message $\ast$message, gpointer $\ast$ptr)}{bus_callback(GstBus *bus, GstMessage *message, gpointer *ptr)}}]{\setlength{\rightskip}{0pt plus 5cm}static gboolean bus\+\_\+callback (
+\begin{DoxyParamCaption}
+\item[{Gst\+Bus $\ast$}]{bus, }
+\item[{Gst\+Message $\ast$}]{message, }
+\item[{gpointer $\ast$}]{ptr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{gst__app__src_8c_a3b71e2677833e6985521a3d1252cf591}{}\label{gst__app__src_8c_a3b71e2677833e6985521a3d1252cf591}
+
+
+gst\+\_\+app\+\_\+src.\+c 파일의 108 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+109 \{
+110     \hyperlink{structgst__app__t}{gst\_app\_t} *app = (\hyperlink{structgst__app__t}{gst\_app\_t}*)ptr;
+111     
+112     \textcolor{keywordflow}{switch}(GST\_MESSAGE\_TYPE(message))
+113     \{
+114         \textcolor{keywordflow}{case} GST\_MESSAGE\_ERROR:
+115         \{
+116             gchar *\hyperlink{igb__main_8c_ac3e1795766a80ec63b157951b4b9a7d4}{debug};
+117             GError *\hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err};
+118             
+119             gst\_message\_parse\_error(message, &err, &debug);
+120             g\_print(\textcolor{stringliteral}{"Error %s\(\backslash\)n"}, err->message);
+121             g\_error\_free(err);
+122             g\_free(debug);
+123             g\_main\_loop\_quit(app->\hyperlink{structgst__app__t_a35126dd286141bc2cc1f045de5e1f81a}{loop});
+124         \}
+125         \textcolor{keywordflow}{break};
+126 
+127         \textcolor{keywordflow}{case} GST\_MESSAGE\_WARNING:
+128         \{
+129             gchar *\hyperlink{igb__main_8c_ac3e1795766a80ec63b157951b4b9a7d4}{debug};
+130             GError *\hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err};
+131             gchar *name;
+132 
+133             gst\_message\_parse\_warning(message, &err, &debug);
+134             g\_print(\textcolor{stringliteral}{"Warning %s\(\backslash\)nDebug %s\(\backslash\)n"}, err->message, debug);
+135             
+136             name = GST\_MESSAGE\_SRC\_NAME(message);
+137             
+138             g\_print(\textcolor{stringliteral}{"Name of src %s\(\backslash\)n"}, name ? name : \textcolor{stringliteral}{"nil"});
+139             g\_error\_free(err);
+140             g\_free(debug);
+141         \}
+142         \textcolor{keywordflow}{break};
+143 
+144         \textcolor{keywordflow}{case} GST\_MESSAGE\_EOS:
+145             g\_print(\textcolor{stringliteral}{"End of stream\(\backslash\)n"});
+146             g\_main\_loop\_quit(app->\hyperlink{structgst__app__t_a35126dd286141bc2cc1f045de5e1f81a}{loop});
+147             \hyperlink{gst__app__src_8c_a88ac0c8b2709458da7cab8aca06a2367}{flag\_exit\_app}(1);
+148         \textcolor{keywordflow}{break};
+149 
+150         \textcolor{keywordflow}{case} GST\_MESSAGE\_STATE\_CHANGED:
+151         \textcolor{keywordflow}{break};
+152 
+153         \textcolor{keywordflow}{default}:
+154             GST\_DEBUG(\textcolor{stringliteral}{"got message %s\(\backslash\)n"}, \(\backslash\)
+155             gst\_message\_type\_get\_name (GST\_MESSAGE\_TYPE (message)));
+156         \textcolor{keywordflow}{break};
+157     \}
+158 
+159     \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+160 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=264pt]{gst__app__src_8c_a3b71e2677833e6985521a3d1252cf591_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gst__app__src_8c_a3b71e2677833e6985521a3d1252cf591_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{gst\+\_\+app\+\_\+src.\+c@{gst\+\_\+app\+\_\+src.\+c}!flag\+\_\+exit\+\_\+app@{flag\+\_\+exit\+\_\+app}}
+\index{flag\+\_\+exit\+\_\+app@{flag\+\_\+exit\+\_\+app}!gst\+\_\+app\+\_\+src.\+c@{gst\+\_\+app\+\_\+src.\+c}}
+\subsubsection[{\texorpdfstring{flag\+\_\+exit\+\_\+app(int)}{flag_exit_app(int)}}]{\setlength{\rightskip}{0pt plus 5cm}void flag\+\_\+exit\+\_\+app (
+\begin{DoxyParamCaption}
+\item[{int}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gst__app__src_8c_a88ac0c8b2709458da7cab8aca06a2367}{}\label{gst__app__src_8c_a88ac0c8b2709458da7cab8aca06a2367}
+
+
+gst\+\_\+avb\+\_\+playbin.\+c 파일의 324 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+325 \{
+326     \hyperlink{gst__avb__playbin_8c_a9c4ab3423a1ecf317e93be5c61377612}{g\_exit\_app} = flag;
+327 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gst__app__src_8c_a88ac0c8b2709458da7cab8aca06a2367_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{gst\+\_\+app\+\_\+src.\+c@{gst\+\_\+app\+\_\+src.\+c}!found\+\_\+source@{found\+\_\+source}}
+\index{found\+\_\+source@{found\+\_\+source}!gst\+\_\+app\+\_\+src.\+c@{gst\+\_\+app\+\_\+src.\+c}}
+\subsubsection[{\texorpdfstring{found\+\_\+source(\+G\+Object $\ast$object, G\+Object $\ast$orig, G\+Param\+Spec $\ast$pspec, gst\+\_\+app\+\_\+t $\ast$app)}{found_source(GObject *object, GObject *orig, GParamSpec *pspec, gst_app_t *app)}}]{\setlength{\rightskip}{0pt plus 5cm}static void found\+\_\+source (
+\begin{DoxyParamCaption}
+\item[{G\+Object $\ast$}]{object, }
+\item[{G\+Object $\ast$}]{orig, }
+\item[{G\+Param\+Spec $\ast$}]{pspec, }
+\item[{{\bf gst\+\_\+app\+\_\+t} $\ast$}]{app}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{gst__app__src_8c_a147d4348b0b77729921259ec59d81381}{}\label{gst__app__src_8c_a147d4348b0b77729921259ec59d81381}
+
+
+gst\+\_\+app\+\_\+src.\+c 파일의 163 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+164 \{
+165     \textcolor{comment}{/* get a handle to the appsrc */}
+166     g\_object\_get (orig, pspec->name, &app->\hyperlink{structgst__app__t_a8cb2c1cd92ad959bd105b3bd2ed0c45d}{src}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+167 
+168     GST\_DEBUG (\textcolor{stringliteral}{"got appsrc %p"}, app->\hyperlink{structgst__app__t_a8cb2c1cd92ad959bd105b3bd2ed0c45d}{src});
+169 
+170     \textcolor{comment}{/* configure the appsrc, we will push a buffer to appsrc when it needs more data */}
+171     g\_signal\_connect (app->\hyperlink{structgst__app__t_a8cb2c1cd92ad959bd105b3bd2ed0c45d}{src}, \textcolor{stringliteral}{"need-data"}, G\_CALLBACK (\hyperlink{gst__app__src_8c_a5324835f5f0d6181d0c0169036aaade9}{start\_feed}), app);
+172     g\_signal\_connect (app->\hyperlink{structgst__app__t_a8cb2c1cd92ad959bd105b3bd2ed0c45d}{src}, \textcolor{stringliteral}{"enough-data"}, G\_CALLBACK (\hyperlink{gst__app__src_8c_ad7b84e66b39ab423b57c06979f3dea21}{stop\_feed}), app);
+173 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gst__app__src_8c_a147d4348b0b77729921259ec59d81381_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gst__app__src_8c_a147d4348b0b77729921259ec59d81381_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{gst\+\_\+app\+\_\+src.\+c@{gst\+\_\+app\+\_\+src.\+c}!gstreamer\+\_\+main@{gstreamer\+\_\+main}}
+\index{gstreamer\+\_\+main@{gstreamer\+\_\+main}!gst\+\_\+app\+\_\+src.\+c@{gst\+\_\+app\+\_\+src.\+c}}
+\subsubsection[{\texorpdfstring{gstreamer\+\_\+main(void)}{gstreamer_main(void)}}]{\setlength{\rightskip}{0pt plus 5cm}int gstreamer\+\_\+main (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gst__app__src_8c_a359c5269f277c3ff9ea86542ffe9d435}{}\label{gst__app__src_8c_a359c5269f277c3ff9ea86542ffe9d435}
+
+
+gst\+\_\+app\+\_\+src.\+c 파일의 175 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+176 \{
+177     \hyperlink{structgst__app__t}{gst\_app\_t} *app = &\hyperlink{gst__app__src_8c_a25f31066229c91660759d0f329e15e00}{gst\_app};
+178     GstBus *bus;
+179     GstStateChangeReturn state\_ret;
+180     
+181     \textcolor{comment}{/* GStreamer Initialization */}
+182     gst\_init(\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+183 
+184     \textcolor{comment}{/* Create The Elements */}
+185     app->\hyperlink{structgst__app__t_a8cb2c1cd92ad959bd105b3bd2ed0c45d}{src} = (GstAppSrc*)gst\_element\_factory\_make(\textcolor{stringliteral}{"appsrc"}, \textcolor{stringliteral}{"mysrc"});
+186     app->\hyperlink{structgst__app__t_aa5d064c9e5e4066bfce7b7f40ba31f5d}{playbin} = gst\_element\_factory\_make(\textcolor{stringliteral}{"playbin"}, \textcolor{stringliteral}{"myplaybin"});
+187 
+188     \textcolor{comment}{/* Assert if Element Creation failed */}
+189     g\_assert(app->\hyperlink{structgst__app__t_a8cb2c1cd92ad959bd105b3bd2ed0c45d}{src});
+190     g\_assert(app->\hyperlink{structgst__app__t_aa5d064c9e5e4066bfce7b7f40ba31f5d}{playbin});
+191 
+192     \textcolor{comment}{/* Add the bus Handler */}
+193     bus = gst\_pipeline\_get\_bus(GST\_PIPELINE (app->\hyperlink{structgst__app__t_aa5d064c9e5e4066bfce7b7f40ba31f5d}{playbin}));
+194     gst\_bus\_add\_watch(bus, (GstBusFunc)\hyperlink{gst__app__src_8c_a3b71e2677833e6985521a3d1252cf591}{bus\_callback}, app);
+195 
+196     \textcolor{comment}{/* Set uri property of playbin */}
+197     g\_object\_set (app->\hyperlink{structgst__app__t_aa5d064c9e5e4066bfce7b7f40ba31f5d}{playbin}, \textcolor{stringliteral}{"uri"}, \textcolor{stringliteral}{"appsrc://"},\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+198 
+199     \textcolor{comment}{/* Connect the source to playbin when notification is arrived */}
+200     g\_signal\_connect (app->\hyperlink{structgst__app__t_aa5d064c9e5e4066bfce7b7f40ba31f5d}{playbin}, \textcolor{stringliteral}{"deep-notify::source"},(GCallback) 
+      \hyperlink{gst__app__src_8c_a147d4348b0b77729921259ec59d81381}{found\_source}, app);
+201 
+202     \textcolor{comment}{/* Set GStreamer Pipeline for Playing */}
+203     state\_ret = gst\_element\_set\_state((GstElement*)app->\hyperlink{structgst__app__t_aa5d064c9e5e4066bfce7b7f40ba31f5d}{playbin}, GST\_STATE\_PLAYING);
+204     g\_print(\textcolor{stringliteral}{"set state returned %d\(\backslash\)n"}, state\_ret);
+205 
+206     app->\hyperlink{structgst__app__t_a35126dd286141bc2cc1f045de5e1f81a}{loop} = g\_main\_loop\_new(\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+207         gst\_app\_src\_set\_max\_bytes(app->\hyperlink{structgst__app__t_a8cb2c1cd92ad959bd105b3bd2ed0c45d}{src}, 1024 * 1024 * 120);
+208     g\_main\_loop\_run(app->\hyperlink{structgst__app__t_a35126dd286141bc2cc1f045de5e1f81a}{loop});
+209     
+210     \textcolor{comment}{/* Set GStreamer Pipeline to NULL */}
+211     state\_ret = gst\_element\_set\_state((GstElement*)app->\hyperlink{structgst__app__t_aa5d064c9e5e4066bfce7b7f40ba31f5d}{playbin}, GST\_STATE\_NULL);
+212     gst\_object\_unref (bus);
+213     g\_main\_loop\_unref (app->\hyperlink{structgst__app__t_a35126dd286141bc2cc1f045de5e1f81a}{loop});
+214 
+215     \textcolor{keywordflow}{return} 0;
+216 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gst__app__src_8c_a359c5269f277c3ff9ea86542ffe9d435_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gst__app__src_8c_a359c5269f277c3ff9ea86542ffe9d435_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{gst\+\_\+app\+\_\+src.\+c@{gst\+\_\+app\+\_\+src.\+c}!read\+\_\+data@{read\+\_\+data}}
+\index{read\+\_\+data@{read\+\_\+data}!gst\+\_\+app\+\_\+src.\+c@{gst\+\_\+app\+\_\+src.\+c}}
+\subsubsection[{\texorpdfstring{read\+\_\+data(gst\+\_\+app\+\_\+t $\ast$app)}{read_data(gst_app_t *app)}}]{\setlength{\rightskip}{0pt plus 5cm}static gboolean read\+\_\+data (
+\begin{DoxyParamCaption}
+\item[{{\bf gst\+\_\+app\+\_\+t} $\ast$}]{app}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{gst__app__src_8c_aa81e7ab64e0c841695026f78ce7a8b97}{}\label{gst__app__src_8c_aa81e7ab64e0c841695026f78ce7a8b97}
+
+
+gst\+\_\+app\+\_\+src.\+c 파일의 47 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+48 \{
+49     GstBuffer *\hyperlink{_hello_test_8cpp_a8be6d469a7cd1c8d66cc6d2d1e10c65b}{buffer};
+50     guint8 *ptr;
+51     gint \hyperlink{gst__avb__playbin_8c_a439227feff9d7f55384e8780cfc2eb82}{size};
+52     GstFlowReturn ret;
+53 
+54     ptr = g\_malloc(\hyperlink{gst__app__src_8c_a6c7cd32e1bac137f05e4a752b4ad10af}{BUFF\_SIZE});
+55     g\_assert(ptr);
+56 
+57     size = \hyperlink{gst__app__src_8c_a7a022f94d86cfbb64e5e13355387216e}{read\_data\_from\_queue}(ptr);
+58     \textcolor{keywordflow}{if}(size == 0) \{
+59         ret = gst\_app\_src\_end\_of\_stream(app->\hyperlink{structgst__app__t_a8cb2c1cd92ad959bd105b3bd2ed0c45d}{src});
+60         g\_debug(\textcolor{stringliteral}{"eos returned %d at %d\(\backslash\)n"}, ret, \_\_LINE\_\_);
+61         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+62     \}
+63     buffer = gst\_buffer\_new();
+64     buffer = gst\_buffer\_new\_wrapped(ptr, size);
+65     ret = gst\_app\_src\_push\_buffer(app->\hyperlink{structgst__app__t_a8cb2c1cd92ad959bd105b3bd2ed0c45d}{src}, buffer);
+66 
+67     \textcolor{keywordflow}{if}(ret !=  GST\_FLOW\_OK) \{
+68         g\_debug(\textcolor{stringliteral}{"push buffer returned %d for %d bytes \(\backslash\)n"}, ret, size);
+69         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+70     \}
+71 
+72     \textcolor{keywordflow}{if}(size != \hyperlink{gst__app__src_8c_a6c7cd32e1bac137f05e4a752b4ad10af}{BUFF\_SIZE}) \{
+73         ret = gst\_app\_src\_end\_of\_stream(app->\hyperlink{structgst__app__t_a8cb2c1cd92ad959bd105b3bd2ed0c45d}{src});
+74         g\_debug(\textcolor{stringliteral}{"eos returned %d at %d\(\backslash\)n"}, ret, \_\_LINE\_\_);
+75         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+76     \}
+77     
+78     \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+79 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=291pt]{gst__app__src_8c_aa81e7ab64e0c841695026f78ce7a8b97_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gst__app__src_8c_aa81e7ab64e0c841695026f78ce7a8b97_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{gst\+\_\+app\+\_\+src.\+c@{gst\+\_\+app\+\_\+src.\+c}!read\+\_\+data\+\_\+from\+\_\+queue@{read\+\_\+data\+\_\+from\+\_\+queue}}
+\index{read\+\_\+data\+\_\+from\+\_\+queue@{read\+\_\+data\+\_\+from\+\_\+queue}!gst\+\_\+app\+\_\+src.\+c@{gst\+\_\+app\+\_\+src.\+c}}
+\subsubsection[{\texorpdfstring{read\+\_\+data\+\_\+from\+\_\+queue(void $\ast$ptr)}{read_data_from_queue(void *ptr)}}]{\setlength{\rightskip}{0pt plus 5cm}int read\+\_\+data\+\_\+from\+\_\+queue (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{ptr}
+\end{DoxyParamCaption}
+)}\hypertarget{gst__app__src_8c_a7a022f94d86cfbb64e5e13355387216e}{}\label{gst__app__src_8c_a7a022f94d86cfbb64e5e13355387216e}
+\hyperlink{gst__avb__playbin_8c_a7a022f94d86cfbb64e5e13355387216e}{read\+\_\+data\+\_\+from\+\_\+queue()} -\/ Gstreamer Callback to feed in data to appsource whenever the need-\/data signal is occured on the bus 
+
+gst\+\_\+avb\+\_\+playbin.\+c 파일의 382 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+383 \{
+384     \textcolor{keyword}{struct }\hyperlink{structtailq__entry}{tailq\_entry} *q = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+385     \textcolor{keywordtype}{int} i = 0;
+386 
+387         \textcolor{keywordflow}{if}( ptr != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \{
+388         \textcolor{keywordflow}{while} (!buffer\_queue.tqh\_first) \{
+389             usleep(1);
+390         \}
+391 
+392         pthread\_mutex\_lock(&(buffer\_queue\_lock));
+393         q = buffer\_queue.tqh\_first;
+394         TAILQ\_REMOVE(&buffer\_queue, q, \hyperlink{avtp__rx_8c_a76565232f25302e8cb99c60a629034cc}{entries});
+395         pthread\_mutex\_unlock(&(buffer\_queue\_lock));
+396         memcpy(ptr, q->payload\_data, q->payload\_length);
+397     
+398         i = q->payload\_length;
+399 
+400         pthread\_mutex\_lock(&(free\_queue\_lock));
+401         q->payload\_length = 0;
+402         TAILQ\_INSERT\_TAIL(&free\_queue, q, \hyperlink{avtp__rx_8c_a76565232f25302e8cb99c60a629034cc}{entries});
+403         pthread\_mutex\_unlock(&(free\_queue\_lock));
+404     \}
+405     \textcolor{keywordflow}{return} i;
+406 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gst__app__src_8c_a7a022f94d86cfbb64e5e13355387216e_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{gst\+\_\+app\+\_\+src.\+c@{gst\+\_\+app\+\_\+src.\+c}!send\+\_\+data\+\_\+status@{send\+\_\+data\+\_\+status}}
+\index{send\+\_\+data\+\_\+status@{send\+\_\+data\+\_\+status}!gst\+\_\+app\+\_\+src.\+c@{gst\+\_\+app\+\_\+src.\+c}}
+\subsubsection[{\texorpdfstring{send\+\_\+data\+\_\+status(int)}{send_data_status(int)}}]{\setlength{\rightskip}{0pt plus 5cm}int send\+\_\+data\+\_\+status (
+\begin{DoxyParamCaption}
+\item[{int}]{status}
+\end{DoxyParamCaption}
+)}\hypertarget{gst__app__src_8c_abc5eea88dcfdbddb2377901d51abb363}{}\label{gst__app__src_8c_abc5eea88dcfdbddb2377901d51abb363}
+\hyperlink{gst__avb__playbin_8c_ac66dca1351a51ed0cf663c8f1801f8a8}{send\+\_\+data\+\_\+status()} -\/ Send the status to transmitter \+: 0/1 for stop and start respectively
+
+This function sends 0 to transmitter to stop transmitting the data for a while, there is enough of data available with gstreamer to handle. sends 1 to transmitter to start back again with the data transmission.
+
+Returns 0 
+
+gst\+\_\+avb\+\_\+playbin.\+c 파일의 287 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+288 \{
+289     \textcolor{keyword}{struct }sockaddr\_in server;
+290     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} length;
+291     \textcolor{keywordtype}{char} \hyperlink{_hello_test_8cpp_a8be6d469a7cd1c8d66cc6d2d1e10c65b}{buffer}[5];
+292     \textcolor{keywordtype}{int} n;
+293     \textcolor{keywordtype}{int} i;
+294 
+295     bzero(buffer, strlen(buffer));
+296     \textcolor{keywordflow}{if} (status == 0)
+297         \textcolor{comment}{/* send the transmitter a msg to stop sending */}
+298         strcpy(buffer, \textcolor{stringliteral}{"0"});
+299     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (status == 1)
+300         \textcolor{comment}{/* send the transmitter a msg to start sending */}
+301         strcpy(buffer, \textcolor{stringliteral}{"1"});
+302     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (status == 2)
+303         \textcolor{comment}{/* send the transmitter a msg to exit */}
+304         strcpy(buffer, \textcolor{stringliteral}{"2"});
+305 
+306     server.sin\_family = AF\_INET;
+307     inet\_aton(\hyperlink{gst__avb__playbin_8c_af8926b86eaa34341eaed3677cda9d228}{talker\_ip}, &server.sin\_addr);
+308     server.sin\_port = htons(\hyperlink{gst__avb__playbin_8c_a63c89c04d1feae07ca35558055155ffb}{port});
+309     length = \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct }sockaddr\_in);
+310 
+311     \textcolor{keywordflow}{for}(i = 0; i < 10; i++) \{
+312         n = sendto(\hyperlink{gst__avb__playbin_8c_a7f7979edeff06f0ba851f7a3d4866090}{g\_start\_feed\_socket}, buffer, strlen(buffer), 0, 
+313            (\textcolor{keyword}{const} \textcolor{keyword}{struct} sockaddr *)&server,length);
+314         \textcolor{keywordflow}{if} (n >= 0)
+315             \textcolor{keywordflow}{break};
+316     \}
+317     \textcolor{keywordflow}{if} (i == 10) \{
+318         printf(\textcolor{stringliteral}{"Sendto Failed to \(\backslash\)n"});
+319     \}
+320 
+321     \textcolor{keywordflow}{return} 0;
+322 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gst__app__src_8c_abc5eea88dcfdbddb2377901d51abb363_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{gst\+\_\+app\+\_\+src.\+c@{gst\+\_\+app\+\_\+src.\+c}!start\+\_\+feed@{start\+\_\+feed}}
+\index{start\+\_\+feed@{start\+\_\+feed}!gst\+\_\+app\+\_\+src.\+c@{gst\+\_\+app\+\_\+src.\+c}}
+\subsubsection[{\texorpdfstring{start\+\_\+feed(\+Gst\+Element $\ast$pipeline, guint size, gst\+\_\+app\+\_\+t $\ast$app)}{start_feed(GstElement *pipeline, guint size, gst_app_t *app)}}]{\setlength{\rightskip}{0pt plus 5cm}static void start\+\_\+feed (
+\begin{DoxyParamCaption}
+\item[{Gst\+Element $\ast$}]{pipeline, }
+\item[{guint}]{size, }
+\item[{{\bf gst\+\_\+app\+\_\+t} $\ast$}]{app}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{gst__app__src_8c_a5324835f5f0d6181d0c0169036aaade9}{}\label{gst__app__src_8c_a5324835f5f0d6181d0c0169036aaade9}
+
+
+gst\+\_\+app\+\_\+src.\+c 파일의 84 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+85 \{
+86     \textcolor{keywordflow}{if} (app->\hyperlink{structgst__app__t_af1aa180762d2e3eab179a2ac3b90be79}{sourceid} == 0) \{
+87         GST\_DEBUG(\textcolor{stringliteral}{"\(\backslash\)nGSTREAMER CALLBACK : 1\(\backslash\)n"});
+88         \hyperlink{gst__app__src_8c_abc5eea88dcfdbddb2377901d51abb363}{send\_data\_status}(1);
+89         GST\_DEBUG (\textcolor{stringliteral}{"start feeding"});
+90         app->\hyperlink{structgst__app__t_af1aa180762d2e3eab179a2ac3b90be79}{sourceid} = g\_idle\_add ((GSourceFunc) \hyperlink{gst__app__src_8c_aa81e7ab64e0c841695026f78ce7a8b97}{read\_data}, app);
+91     \}
+92 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gst__app__src_8c_a5324835f5f0d6181d0c0169036aaade9_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gst__app__src_8c_a5324835f5f0d6181d0c0169036aaade9_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{gst\+\_\+app\+\_\+src.\+c@{gst\+\_\+app\+\_\+src.\+c}!stop\+\_\+feed@{stop\+\_\+feed}}
+\index{stop\+\_\+feed@{stop\+\_\+feed}!gst\+\_\+app\+\_\+src.\+c@{gst\+\_\+app\+\_\+src.\+c}}
+\subsubsection[{\texorpdfstring{stop\+\_\+feed(\+Gst\+Element $\ast$pipeline, gst\+\_\+app\+\_\+t $\ast$app)}{stop_feed(GstElement *pipeline, gst_app_t *app)}}]{\setlength{\rightskip}{0pt plus 5cm}static void stop\+\_\+feed (
+\begin{DoxyParamCaption}
+\item[{Gst\+Element $\ast$}]{pipeline, }
+\item[{{\bf gst\+\_\+app\+\_\+t} $\ast$}]{app}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{gst__app__src_8c_ad7b84e66b39ab423b57c06979f3dea21}{}\label{gst__app__src_8c_ad7b84e66b39ab423b57c06979f3dea21}
+
+
+gst\+\_\+app\+\_\+src.\+c 파일의 96 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+97 \{
+98     \textcolor{keywordflow}{if} (app->\hyperlink{structgst__app__t_af1aa180762d2e3eab179a2ac3b90be79}{sourceid} != 0) \{
+99         \hyperlink{gst__app__src_8c_abc5eea88dcfdbddb2377901d51abb363}{send\_data\_status}(0);
+100         GST\_DEBUG(\textcolor{stringliteral}{"\(\backslash\)nGSTREAMER CALLBACK : 0\(\backslash\)n"});
+101         GST\_DEBUG (\textcolor{stringliteral}{"stop feeding"});
+102         g\_source\_remove (app->\hyperlink{structgst__app__t_af1aa180762d2e3eab179a2ac3b90be79}{sourceid});
+103         app->\hyperlink{structgst__app__t_af1aa180762d2e3eab179a2ac3b90be79}{sourceid} = 0;
+104     \}
+105 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=269pt]{gst__app__src_8c_ad7b84e66b39ab423b57c06979f3dea21_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gst__app__src_8c_ad7b84e66b39ab423b57c06979f3dea21_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{변수 문서화}
+\index{gst\+\_\+app\+\_\+src.\+c@{gst\+\_\+app\+\_\+src.\+c}!gst\+\_\+app@{gst\+\_\+app}}
+\index{gst\+\_\+app@{gst\+\_\+app}!gst\+\_\+app\+\_\+src.\+c@{gst\+\_\+app\+\_\+src.\+c}}
+\subsubsection[{\texorpdfstring{gst\+\_\+app}{gst_app}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gst\+\_\+app\+\_\+t} gst\+\_\+app\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{gst__app__src_8c_a25f31066229c91660759d0f329e15e00}{}\label{gst__app__src_8c_a25f31066229c91660759d0f329e15e00}
+
+
+gst\+\_\+app\+\_\+src.\+c 파일의 44 번째 라인에서 정의되었습니다.
+

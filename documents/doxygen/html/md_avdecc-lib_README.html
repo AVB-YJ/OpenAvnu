@@ -1,0 +1,443 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.11"/>
+<title>OpenAvnu: README</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">OpenAvnu
+   &#160;<span id="projectnumber">0.1</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 다음에 의해 생성됨 :  Doxygen 1.8.11 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'검색');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>메인&#160;페이지</span></a></li>
+      <li class="current"><a href="pages.html"><span>관련된&#160;페이지</span></a></li>
+      <li><a href="modules.html"><span>모듈</span></a></li>
+      <li><a href="namespaces.html"><span>네임스페이스</span></a></li>
+      <li><a href="annotated.html"><span>데이타&#160;구조</span></a></li>
+      <li><a href="files.html"><span>파일들</span></a></li>
+      <li><a href="examples.html"><span>예제</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="검색" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('md_avdecc-lib_README.html','');});
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">README </div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><p>Build status</p>
+<p><a href="https://travis-ci.org/audioscience/avdecc-lib"></a></p>
+<h1>avdecc-lib </h1>
+<p>Simple C++ library for implementing IEEE1722.1 (AVB Device Enumeration, Discovery and Control).</p>
+<h2>Introduction </h2>
+<p>This library aims to simplify development of an AVDECC Controller based on the IEEE1722.1 specification. It provides a simple C++ object interface to 1722.1 objects and implements device discovery and enumeration as a background process.</p>
+<p>The repository contains source to build a Windows DLL or a Linux library and a command line application for exercising the library.</p>
+<p>The overall philosophy of AVDECC LIB is to implement a thin layer of commands that allow an application to discover and control AVDECC capable End Stations. The internal operations of the library are designed to be single threaded, although multiple threads are used to queue operations to be performed by the single threaded "engine" portion of the library. The library supports notification events (callbacks) that are triggered on the success (or failure) of a command. It is up to the application to process the notifications in a useful manner. Asynchronous descriptor updates from an End Station are also supported. A descriptor notification does not have data about the updated descriptor values embedded in it. Instead the AVDECC application should query the descriptor class to obtain the updated values.</p>
+<p>Operations that "fetch" details or status of an End Station store the response for later readback by the controller application. An example of this would be the AEM send_get_stream_info_cmd() operation whose response is stored in the appropriate stream input object in avdecc-lib. Functions get_stream_info_msrp_accumulated_latency(), get_stream_info_msrp_failure_code() and others can then be used to readback fields of the response.</p>
+<p>Users developing 1722.1 end stations and controllers are encouraged to add new descriptors to this library as required. The library provides an easy entry point for adding and testing a completely new 1722.1 descriptor without having to develop a complete controller side 1722.1 software stack.</p>
+<h2>Dependencies </h2>
+<p>Uses Jeff Koftinoff's packet processing library, see <a href="https://github.com/jdkoftinoff/jdksavdecc-c.git">https://github.com/jdkoftinoff/jdksavdecc-c.git</a> This is a submodule that can be cloned using: </p><pre class="fragment">cd avdecc-lib
+git submodule init
+git submodule update
+</pre><p>As of March 2014, avdecc-lib is following the master branch of jdksavdecc-c (from github).</p>
+<h2>Acknowledgements </h2>
+<p>Special thanks are owed to Jeff Koftinoff for creating and releasing public source for 1722.1 packet processing in the jdksavdecc-c library and for comments and advice freely given during the development of this library. This C++ library is a rather thin wrapper around functions already present in the jdksavdecc-c library.</p>
+<h2>Community </h2>
+<p>Please join Google Group "avdecc-lib" if you wish to comment on avdecc-lib, or keep track of discussions.</p>
+<h2>Directory layout </h2>
+<pre class="fragment">controller\ 
+    lib\
+        bin\
+        doc\
+        binding\
+            python\
+        include\ (contains public header files)
+        src\ (contains private header files and C++ source code)
+            linux\ (linux specific files)
+            msvc\ (Microsoft Visual Studio specific files)
+
+    app\
+        bin\
+        doc\
+        cmdline\
+            src\
+        test\
+            strings\
+            adp\
+            logging\ 
+            notify\     
+</pre><h2>Object hierarchy </h2>
+<pre class="fragment">System
+Controller
+    End Station[1..N]
+        Entity[1..N]
+            Configuration[1..N]
+                Audio Unit[1..N]
+                        Stream Port Input[0..N]
+                                    Audio Cluster[0..N]
+                                    Audio Map[0..N]
+                                    Control[0..N]
+                        Stream Port Output[0..N]
+                                    Audio Cluster[0..N]
+                                    Audio Map[0..N]
+                                    Control[0..N]
+                        External Port Input[0..N]
+                        External Port Output[0..N]
+                        Internal Port Input[0..N]
+                        Internal Port Output[0..N]
+                        Control[0..N]
+                        Signal Selector[0..N]
+                        Mixer[0..N]
+                        Matrices[0..N]
+                        Splitter[0..N]
+                        Combiner[0..N]
+                        Demultiplexer[0..N]
+                        Transcoder[0..N]
+                        Control Block[0..N]
+                Stream Input[1..N]
+                Stream Output[1..N]
+                Jack Input[1..N]
+                Jack Output[1..N]
+                AVB Interface[1..N]
+                Clock Source[1..N]
+                Clock Domain[1..N]
+</pre><h2>Building </h2>
+<p>All build environments require</p>
+<ol type="1">
+<li>cmake v2.8</li>
+</ol>
+<p>Run cmake to create the build dirctories for your environment. </p><pre class="fragment">cd avdecc-lib
+cmake .
+</pre><h3>Windows</h3>
+<p>Prerequisites</p>
+<ol type="1">
+<li>MSVC 2013 or later</li>
+<li>winpcap development package from <a href="http://www.winpcap.org/devel.htm">http://www.winpcap.org/devel.htm</a></li>
+</ol>
+<p>The following environment variables must be defined:</p><ul>
+<li>WPCAP_DIR the directory where WinPcap is installed</li>
+</ul>
+<p>Get the lib from github:</p><ul>
+<li>Make and enter the project directory</li>
+<li>git clone git://github.com/audioscience/avdecc-lib</li>
+<li>cd avdecc-lib</li>
+<li>git submodule init</li>
+<li>Edit in .git/config, change url = <a href="#" onclick="location.href='mai'+'lto:'+'git'+'@g'+'ith'+'ub'+'.co'+'m'; return false;">git@g<span style="display: none;">.nosp@m.</span>ithu<span style="display: none;">.nosp@m.</span>b.com</a>:jdkoftinoff/jdksavdecc-c.git to url = git ://github.com/jdkoftinoff/jdksavdecc-c.git</li>
+<li>git submodule update</li>
+</ul>
+<p>Compile</p><ul>
+<li>Open command window to "project folder" AVDECC-Lib</li>
+<li>Initialize compiler environment : "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat" x86</li>
+<li>cmake .</li>
+<li>msbuild ALL_BUILD.vcxproj</li>
+<li>cd controller</li>
+<li>cmake .</li>
+<li>msbuild ALL_BUILD.vcxproj</li>
+</ul>
+<p>Run</p><ul>
+<li>controller.dll located in : AVDECC-Lib-lib</li>
+<li>command line app located in : AVDECC-Lib-lib</li>
+<li>Copy controller.dll to app folder</li>
+<li>Run application</li>
+</ul>
+<h3>Linux</h3>
+<p>Prerequisites</p>
+<ol type="1">
+<li>gcc development environment (v4.8 or later)</li>
+<li>libedit</li>
+<li>readline library, may need to go "sudo apt-get install libreadline5-dev"</li>
+</ol>
+<h3>OSX</h3>
+<p>Prerequisites: cmake installed (<a href="http://www.cmake.org/">http://www.cmake.org/</a>):</p>
+<p>Get the lib from github:</p><ul>
+<li>Make and enter the project directory</li>
+<li>git clone git://github.com/audioscience/avdecc-lib &ndash;recursive</li>
+</ul>
+<p>Compile</p><ul>
+<li>cd avdecc-lib</li>
+<li>cmake .</li>
+<li>make</li>
+</ul>
+<h1>Operations </h1>
+<h2>AVDECC Controller version </h2>
+<p>The AVDECC Controller version number can be updated inside the version header file.</p>
+<h2>AVDECC End Station Discovery </h2>
+<p>When the AVDECC system receives an AVDECC advertise message from an End Station, it proceeds to enumerate the End Station's complete object model, if it has not done so already. Upon completion of the enumeration process, a notification message is sent to the application.</p>
+<h2>AVDECC AEM descriptor reads </h2>
+<p>A descriptor read by referencing the object the object of interest. Since the AVDECC system has already read all descriptors, the read operation is completed without producing any network traffic.</p>
+<p>To read the name of the first input jack, one would go: </p><pre class="fragment">controller-&gt;end_station(0)-&gt;entity(0)-&gt;configuration(0)-&gt;input_stream(0)-&gt;get_name(name)
+</pre><p>Release 0.6 update:</p>
+<p>To avoid the possible issue of an asynchronous response thread updating a descriptor value while it is being read in the cmdline, a new AEM descriptor read process has been implemented. All the methods required to read each descriptor are separated into response classes, which read the descriptor values from a stored response frame.</p>
+<p>To read the current sampling rate from an audio unit descriptor: </p><pre class="fragment">avdecc_lib::audio_unit_descriptor_response *audio_unit_resp_ref = audio_unit_desc_ref-&gt;get_audio_unit_response();
+audio_unit_resp_ref-&gt;current_sampling_rate();
+delete audio_unit_resp_ref;
+</pre><h2>AVDECC AEM commands </h2>
+<p>An AVDECC command is sent to the target object, ie: </p><pre class="fragment">istream = controller-&gt;end_station(0)-&gt;entity(0)-&gt;configuration(0)-&gt;input_stream(0);
+id = (void *)notify_id;
+// put the notify_id value in a list somewhere
+istream-&gt;set_format(id, format,...);
+notify_id++;
+</pre><p>Completion results in a notification message of success or failure via the callback mechanism. An alternative calling sequence is to wait for the callback to complete in-line, ie: </p><pre class="fragment">id = (void *)notify_id;
+avdecc_system-&gt;set_wait_for_next_cmd(id);
+istream = controller-&gt;end_station(0)-&gt;entity(0)-&gt;configuration(0)-&gt;input_stream(0);
+istream-&gt;set_format(id, format,...);
+status = avdecc_system-&gt;get_last_resp_status();
+notify_id++;
+</pre><p>The above examples place an uint32_t notify_id in a "void *" container. If the application writer is careful about object creation and destruction, they may choose to place a C++ (or other language) object in the notify_id field.</p>
+<p>Release 0.6 update:</p>
+<p>Similar to descriptors, AVDECC command response processing has been altered to account for the possibility of an asynchronous response writing to a memory location while it is being read in the cmdline. So far, GET_ commands that return a value (e.g. get_counters) have been updated to return their response in a response class.</p>
+<p>To read the locked counter from clock domain counters: </p><pre class="fragment">avdecc_lib::clock_domain_counters_response *clock_domain_counters_resp = clock_domain_desc_ref-&gt;get_clock_domain_counters_response();
+if(clock_domain_counters_resp-&gt;get_counter_valid(avdecc_lib::CLOCK_DOMAIN_LOCKED))
+    atomic_cout &lt;&lt; "Locked Counter: " &lt;&lt; clock_domain_counters_resp-&gt;get_counter_by_name(avdecc_lib::CLOCK_DOMAIN_LOCKED) &lt;&lt; std::endl;
+delete clock_domain_counters_resp;
+</pre><h2>Callbacks </h2>
+<p>The following callback functions should be supplied. If NULL is passed in for the callback function, no callback will be invoked. </p><pre class="fragment">void log_callback(void *log_user_obj, int32_t log_level, const char *log_msg, int32_t time_stamp_ms);
+void notification_callback(void *notification_user_obj, int32_t notification_type, uint64_t guid, uint16_t cmd_type, uint16_t desc_type, uint16_t desc_index, void *notification_id);
+</pre><p>When a controller internal thread calls the log_callback function that was invoked at controller create time, the log_user_obj pointer that was passed in at that time is returned in the callback. The calling application code use this void pointer to store a C++ class if that was helpful to the structure of the calling application. The log_callback is called with log_level values of:</p><ul>
+<li>ERROR</li>
+<li>WARNING</li>
+<li>NOTICE</li>
+<li>INFO</li>
+<li>DEBUG</li>
+<li>VERBOSE</li>
+</ul>
+<p>Like the log_callback function the notification callback returns a void "user" pointers as the first field in the callback. The notification_callback is called with notification_type values of:</p><ul>
+<li>NO MATCH FOUND</li>
+<li>END STATION CONNECTED</li>
+<li>END STATION DISCONNECTED,</li>
+<li>COMMAND TIMEOUT</li>
+<li>RESPONSE RECEIVED</li>
+<li>END_STATION_READ_COMPLETED</li>
+</ul>
+<h2>Source code style </h2>
+<p>Source code is auto-formatted using the astyle formatting tool. All submitted pull requests should be passed through astyle before the pull request is issued. The format to use is specified in the astyle_code_format option file in this directory. asytle is run from the command line using the following command sequence: </p><pre class="fragment">AStyle --options=..\avdecc-lib\astyle_code_style.txt ..\avdecc-lib\controller\lib\include\*.h
+         ..\avdecc-lib\controller\lib\src\*.h ..\avdecc-lib\controller\lib\src\*.cpp
+         ..\avdecc-lib\controller\lib\src\msvc\*.h ..\avdecc-lib\controller\lib\src\msvc\*.cpp
+</pre><h2>Source documentation </h2>
+<p>A standard tool, Doxygen, is used for generating documentation from the AVDECC Controller Lib source code. A link to the online version of the AVDECC Controller Lib documentation can be found at: <a href="http://www.audioscience.com/internet/download/sdk/avdecclib_usermanual_html/html/index.html">http://www.audioscience.com/internet/download/sdk/avdecclib_usermanual_html/html/index.html</a></p>
+<h1>Development Conventions </h1>
+<p>Developers should add new features to the <em>staging</em> git branch. Periodically the <em>staging</em> git branch will be merged to the <em>master</em> branch.</p>
+<div class="image">
+<img src="git_dev_seq_uml.png" />
+</div>
+<h1>Roadmap </h1>
+<p>Working towards release version 1.0.0.</p>
+<p>Release 1.0.0 supports:</p><ul>
+<li>all of the P1 Command/responses listed below.</li>
+<li>Windows, linux and OSX builds.</li>
+</ul>
+<p>Future features include:</p><ul>
+<li>security key passing</li>
+<li>Layer 3 (IP) interface</li>
+<li>other descriptors as required</li>
+</ul>
+<h1>Status </h1>
+<table class="doxtable">
+<tr>
+<th>Command/Response </th><th>Priority </th><th>Implemented </th><th>Tested  </th></tr>
+<tr>
+<td>ACQUIRE_ENTITY </td><td>P1 </td><td>Y </td><td>Y </td></tr>
+<tr>
+<td>LOCK_ENTITY </td><td>P1 </td><td>Y </td><td>Y </td></tr>
+<tr>
+<td>ENTITY_AVAILABLE </td><td>P1 </td><td>Y </td><td>Y </td></tr>
+<tr>
+<td>CONTROLLER_AVAILABLE </td><td>P1 </td><td>Y </td><td>Y </td></tr>
+<tr>
+<td>READ_DESCRIPTOR </td><td>P1 </td><td>Y </td><td>Y </td></tr>
+<tr>
+<td>SET_STREAM_FORMAT </td><td>P1 </td><td>Y </td><td>Y </td></tr>
+<tr>
+<td>GET_STREAM_FORMAT </td><td>P1 </td><td>Y </td><td>Y </td></tr>
+<tr>
+<td>SET_STREAM_INFO </td><td>P1 </td><td></td><td></td></tr>
+<tr>
+<td>GET_STREAM_INFO </td><td>P1 </td><td>Y </td><td>Y </td></tr>
+<tr>
+<td>SET_SAMPLING_RATE </td><td>P1 </td><td>Y </td><td>Y </td></tr>
+<tr>
+<td>GET_SAMPLING_RATE </td><td>P1 </td><td>Y </td><td>Y </td></tr>
+<tr>
+<td>SET_CLOCK_SOURCE </td><td>P1 </td><td>Y </td><td>Y </td></tr>
+<tr>
+<td>GET_CLOCK_SOURCE </td><td>P1 </td><td>Y </td><td>Y </td></tr>
+<tr>
+<td>START_STREAMING </td><td>P1 </td><td>Y </td><td>Y </td></tr>
+<tr>
+<td>STOP_STREAMING </td><td>P1 </td><td>Y </td><td>Y </td></tr>
+<tr>
+<td>SET_CONFIGURATION </td><td>P2 </td><td></td><td></td></tr>
+<tr>
+<td>GET_CONFIGURATION </td><td>P2 </td><td></td><td></td></tr>
+<tr>
+<td>SET_CONTROL </td><td>P2 </td><td></td><td></td></tr>
+<tr>
+<td>GET_CONTROL </td><td>P2 </td><td></td><td></td></tr>
+<tr>
+<td>SET_NAME </td><td>P2 </td><td>Y </td><td>Y </td></tr>
+<tr>
+<td>GET_NAME </td><td>P2 </td><td>Y </td><td>Y </td></tr>
+<tr>
+<td>SET_MIXER </td><td>P2 </td><td></td><td></td></tr>
+<tr>
+<td>GET_MIXER </td><td>P2 </td><td></td><td></td></tr>
+<tr>
+<td>REGISTER_UNSOLICITED_NOTIFICATION </td><td>P2 </td><td>Y </td><td>Y </td></tr>
+<tr>
+<td>DEREGISTER_UNSOLICITED_NOTIFICATION </td><td>P2 </td><td>Y </td><td>Y </td></tr>
+<tr>
+<td>IDENTIFY_NOTIFICATION </td><td>P2 </td><td></td><td></td></tr>
+<tr>
+<td>GET_AVB_INFO </td><td>P2 </td><td></td><td></td></tr>
+<tr>
+<td>GET_AS_PATH </td><td>P2 </td><td></td><td></td></tr>
+<tr>
+<td>REBOOT </td><td>P2 </td><td></td><td></td></tr>
+<tr>
+<td>WRITE_DESCRIPTOR </td><td>P3 </td><td></td><td></td></tr>
+<tr>
+<td>SET_ASSOCIATION_ID </td><td>P3 </td><td></td><td></td></tr>
+<tr>
+<td>GET_ASSOCIATION_ID </td><td>P3 </td><td></td><td></td></tr>
+<tr>
+<td>INCREMENT_CONTROL </td><td>P3 </td><td></td><td></td></tr>
+<tr>
+<td>DECREMENT_CONTROL </td><td>P3 </td><td></td><td></td></tr>
+<tr>
+<td>SET_SIGNAL_SELECTOR </td><td>P3 </td><td></td><td></td></tr>
+<tr>
+<td>GET_SIGNAL_SELECTOR </td><td>P3 </td><td></td><td></td></tr>
+<tr>
+<td>SET_MATRIX </td><td>P3 </td><td></td><td></td></tr>
+<tr>
+<td>GET_MATRIX </td><td>P3 </td><td></td><td></td></tr>
+<tr>
+<td>GET_COUNTERS </td><td>P3 </td><td>Y </td><td>Y </td></tr>
+<tr>
+<td>GET_AUDIO_MAP </td><td>P3 </td><td>Y </td><td>Y </td></tr>
+<tr>
+<td>ADD_AUDIO_MAPPINGS </td><td>P3 </td><td>Y </td><td>Y </td></tr>
+<tr>
+<td>REMOVE_AUDIO_MAPPINGS </td><td>P3 </td><td>Y </td><td>Y </td></tr>
+<tr>
+<td>START_OPERATION </td><td>P3 </td><td></td><td></td></tr>
+<tr>
+<td>ABORT_OPERATION </td><td>P3 </td><td></td><td></td></tr>
+<tr>
+<td>OPERATION_STATUS </td><td>P3 </td><td></td><td></td></tr>
+<tr>
+<td>SET_VIDEO_FORMAT </td><td>P4 </td><td></td><td></td></tr>
+<tr>
+<td>GET_VIDEO_FORMAT </td><td>P4 </td><td></td><td></td></tr>
+<tr>
+<td>SET_SENSOR_FORMAT </td><td>P4 </td><td></td><td></td></tr>
+<tr>
+<td>GET_SENSOR_FORMAT </td><td>P4 </td><td></td><td></td></tr>
+<tr>
+<td>GET_VIDEO_MAP </td><td>P4 </td><td></td><td></td></tr>
+<tr>
+<td>ADD_VIDEO_MAPPINGS </td><td>P4 </td><td></td><td></td></tr>
+<tr>
+<td>REMOVE_VIDEO_MAPPINGS </td><td>P4 </td><td></td><td></td></tr>
+<tr>
+<td>GET_SENSOR_MAP </td><td>P4 </td><td></td><td></td></tr>
+<tr>
+<td>ADD_SENSOR_MAPPINGS </td><td>P4 </td><td></td><td></td></tr>
+<tr>
+<td>REMOVE_SENSOR_MAPPINGS </td><td>P4 </td><td></td><td></td></tr>
+</table>
+<h4>ToDo</h4>
+<h1>Release Notes </h1>
+<p>None so far. </p>
+</div></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">다음에 의해 생성됨 : 
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.11 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+var group__descriptor__clock__domain =
+[
+    [ "jdksavdecc_descriptor_clock_domain", "structjdksavdecc__descriptor__clock__domain.html", [
+      [ "clock_source_index", "structjdksavdecc__descriptor__clock__domain.html#ae6d3717453951addecc331540f572e30", null ],
+      [ "clock_sources_count", "structjdksavdecc__descriptor__clock__domain.html#a7315787fca5771d39a38a39caa81a89e", null ],
+      [ "clock_sources_offset", "structjdksavdecc__descriptor__clock__domain.html#a1f5c318297b1398ad46408ad6308245d", null ],
+      [ "descriptor_index", "structjdksavdecc__descriptor__clock__domain.html#a042bbc76d835b82d27c1932431ee38d4", null ],
+      [ "descriptor_type", "structjdksavdecc__descriptor__clock__domain.html#ab7c32b6c7131c13d4ea3b7ee2f09b78d", null ],
+      [ "localized_description", "structjdksavdecc__descriptor__clock__domain.html#a0926f846ca65a83ad5bb06b4aff8f408", null ],
+      [ "object_name", "structjdksavdecc__descriptor__clock__domain.html#a7d1f5945a13863b1762fc6db74fa8f80", null ]
+    ] ],
+    [ "JDKSAVDECC_DESCRIPTOR_CLOCK_DOMAIN_LEN", "group__descriptor__clock__domain.html#gab5413d6a262da98f3cc096cac6d47590", null ],
+    [ "JDKSAVDECC_DESCRIPTOR_CLOCK_DOMAIN_OFFSET_CLOCK_SOURCE_INDEX", "group__descriptor__clock__domain.html#ga87ccb2a813c16fd3fd527f0ad1005611", null ],
+    [ "JDKSAVDECC_DESCRIPTOR_CLOCK_DOMAIN_OFFSET_CLOCK_SOURCES", "group__descriptor__clock__domain.html#gab0430add395d79eb343270cb8720be11", null ],
+    [ "JDKSAVDECC_DESCRIPTOR_CLOCK_DOMAIN_OFFSET_CLOCK_SOURCES_COUNT", "group__descriptor__clock__domain.html#ga0f71f1949f2f971bfd6957e334ff5bee", null ],
+    [ "JDKSAVDECC_DESCRIPTOR_CLOCK_DOMAIN_OFFSET_CLOCK_SOURCES_OFFSET", "group__descriptor__clock__domain.html#ga81aba69bbcec4b92f3676b2f873db3ba", null ],
+    [ "JDKSAVDECC_DESCRIPTOR_CLOCK_DOMAIN_OFFSET_DESCRIPTOR_INDEX", "group__descriptor__clock__domain.html#ga2462ebc1af068c9c064e539586ae6bc5", null ],
+    [ "JDKSAVDECC_DESCRIPTOR_CLOCK_DOMAIN_OFFSET_DESCRIPTOR_TYPE", "group__descriptor__clock__domain.html#ga410c66011a9dc08e604939bcb6c61fdf", null ],
+    [ "JDKSAVDECC_DESCRIPTOR_CLOCK_DOMAIN_OFFSET_LOCALIZED_DESCRIPTION", "group__descriptor__clock__domain.html#gaa4ace80caba01e00229d4cfb3fd54952", null ],
+    [ "JDKSAVDECC_DESCRIPTOR_CLOCK_DOMAIN_OFFSET_OBJECT_NAME", "group__descriptor__clock__domain.html#ga0c326f6fe29857934351c5170063b60c", null ],
+    [ "jdksavdecc_descriptor_clock_domain_get_clock_source_index", "group__descriptor__clock__domain.html#ga6a4c7b063da71aff1fe21915bd739d5e", null ],
+    [ "jdksavdecc_descriptor_clock_domain_get_clock_sources_count", "group__descriptor__clock__domain.html#gab452e3985705f9a639b2557a752186f8", null ],
+    [ "jdksavdecc_descriptor_clock_domain_get_clock_sources_offset", "group__descriptor__clock__domain.html#ga94e7b9934982cdf00b93bb6ad8942920", null ],
+    [ "jdksavdecc_descriptor_clock_domain_get_descriptor_index", "group__descriptor__clock__domain.html#ga8de4e3c350af50630aa21b69890ea87e", null ],
+    [ "jdksavdecc_descriptor_clock_domain_get_descriptor_type", "group__descriptor__clock__domain.html#gab5660321110c3f80925fbb8cf3a686c9", null ],
+    [ "jdksavdecc_descriptor_clock_domain_get_localized_description", "group__descriptor__clock__domain.html#gab5efd01d176fcf2fa9ce3d28d18da8e6", null ],
+    [ "jdksavdecc_descriptor_clock_domain_get_object_name", "group__descriptor__clock__domain.html#gaf64ca84e3bbb2c9f4592d07b0f4d817e", null ],
+    [ "jdksavdecc_descriptor_clock_domain_read", "group__descriptor__clock__domain.html#ga0b62395015f26229fdcbb96fc7552a5a", null ],
+    [ "jdksavdecc_descriptor_clock_domain_set_clock_source_index", "group__descriptor__clock__domain.html#ga9779a3f76622d37697677fdfc988dfe9", null ],
+    [ "jdksavdecc_descriptor_clock_domain_set_clock_sources_count", "group__descriptor__clock__domain.html#gac516bc5b6467d0f8583def073988e2ad", null ],
+    [ "jdksavdecc_descriptor_clock_domain_set_clock_sources_offset", "group__descriptor__clock__domain.html#gab5b725c7078ed415455913e312694136", null ],
+    [ "jdksavdecc_descriptor_clock_domain_set_descriptor_index", "group__descriptor__clock__domain.html#ga3867eb3d325993605e4081467f9c7c36", null ],
+    [ "jdksavdecc_descriptor_clock_domain_set_descriptor_type", "group__descriptor__clock__domain.html#ga383281f4f9c0b0835132e69a7a48eb55", null ],
+    [ "jdksavdecc_descriptor_clock_domain_set_localized_description", "group__descriptor__clock__domain.html#ga5994a25475af83356f0aacfde38bee4c", null ],
+    [ "jdksavdecc_descriptor_clock_domain_set_object_name", "group__descriptor__clock__domain.html#gaaeb3b6b3d510700bb2a322b856241a04", null ],
+    [ "jdksavdecc_descriptor_clock_domain_write", "group__descriptor__clock__domain.html#gaea18c7c09a894ddadbb40d2402205b40", null ]
+];

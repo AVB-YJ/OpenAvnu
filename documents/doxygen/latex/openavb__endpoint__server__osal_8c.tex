@@ -1,0 +1,485 @@
+\hypertarget{openavb__endpoint__server__osal_8c}{}\section{lib/avtp\+\_\+pipeline/platform/\+Linux/endpoint/openavb\+\_\+endpoint\+\_\+server\+\_\+osal.c 파일 참조}
+\label{openavb__endpoint__server__osal_8c}\index{lib/avtp\+\_\+pipeline/platform/\+Linux/endpoint/openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c@{lib/avtp\+\_\+pipeline/platform/\+Linux/endpoint/openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c}}
+이 그래프는 이 파일을 직/간접적으로 include 하는 파일들을 보여줍니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=219pt]{openavb__endpoint__server__osal_8c__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{openavb__endpoint__server__osal_8c_aafa38dfaa4cf759dd65c1345dd0d758b}{O\+P\+E\+N\+A\+V\+B\+\_\+\+E\+N\+D\+P\+O\+I\+N\+T\+\_\+\+S\+E\+R\+V\+E\+R\+\_\+\+O\+S\+A\+L\+\_\+C}
+\item 
+\#define \hyperlink{openavb__endpoint__server__osal_8c_a66f6de5c0d7fa41ae8ad27464dc9f76b}{A\+V\+B\+\_\+\+E\+N\+D\+P\+O\+I\+N\+T\+\_\+\+L\+I\+S\+T\+E\+N\+\_\+\+F\+DS}~0
+\item 
+\#define \hyperlink{openavb__endpoint__server__osal_8c_a5ae6965a8252c65a4826c7eb51cd5f7b}{S\+O\+C\+K\+\_\+\+I\+N\+V\+A\+L\+ID}~(-\/1)
+\item 
+\#define \hyperlink{openavb__endpoint__server__osal_8c_a02840e07dbcd34a4aa31c5a8209f25d3}{P\+O\+L\+L\+\_\+\+F\+D\+\_\+\+C\+O\+U\+NT}~((\hyperlink{openavb__types__base_8h_a7e205a82b56683e5fc7c05d37160bf02}{M\+A\+X\+\_\+\+A\+V\+B\+\_\+\+S\+T\+R\+E\+A\+MS}) + 1)
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{openavb__endpoint__server__osal_8c_a997118c3d9b394cb957b442f0b021114}{socket\+Close} (int h)
+\item 
+static \hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__endpoint__server__osal_8c_a8b77be524f44a25eba014389b08b22a4}{openavb\+Ept\+Srvr\+Send\+To\+Client} (int h, \hyperlink{structopenavb_endpoint_message__t}{openavb\+Endpoint\+Message\+\_\+t} $\ast$\hyperlink{openavb__log_8c_a0c7e58a50354c4a4d6dad428d0e47029}{msg})
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__endpoint__server__osal_8c_a358def9acbb122aa05acb142c31ed74d}{openavb\+Endpoint\+Server\+Open} (void)
+\item 
+void \hyperlink{openavb__endpoint__server__osal_8c_a4dd088ed44493a66a3bbf1bfe9c564bd}{openavb\+Ept\+Srvr\+Service} (void)
+\item 
+void \hyperlink{openavb__endpoint__server__osal_8c_a25067ccb327b79816a731aa15a4069e3}{openavb\+Endpoint\+Server\+Close} (void)
+\end{DoxyCompactItemize}
+\subsection*{변수}
+\begin{DoxyCompactItemize}
+\item 
+static int \hyperlink{openavb__endpoint__server__osal_8c_a5fd2838acec3b3db522def9bdb11fba7}{lsock} = \hyperlink{openavb__endpoint__server__osal_8c_a5ae6965a8252c65a4826c7eb51cd5f7b}{S\+O\+C\+K\+\_\+\+I\+N\+V\+A\+L\+ID}
+\item 
+static struct pollfd \hyperlink{openavb__endpoint__server__osal_8c_ae18b289099c8c9be5f76acee6311699a}{fds} \mbox{[}\hyperlink{openavb__endpoint__server__osal_8c_a02840e07dbcd34a4aa31c5a8209f25d3}{P\+O\+L\+L\+\_\+\+F\+D\+\_\+\+C\+O\+U\+NT}\mbox{]}
+\item 
+static struct sockaddr\+\_\+un \hyperlink{openavb__endpoint__server__osal_8c_a3e8f07b6d12927585de7d37d85d5e53c}{server\+Addr}
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c@{openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c}!A\+V\+B\+\_\+\+E\+N\+D\+P\+O\+I\+N\+T\+\_\+\+L\+I\+S\+T\+E\+N\+\_\+\+F\+DS@{A\+V\+B\+\_\+\+E\+N\+D\+P\+O\+I\+N\+T\+\_\+\+L\+I\+S\+T\+E\+N\+\_\+\+F\+DS}}
+\index{A\+V\+B\+\_\+\+E\+N\+D\+P\+O\+I\+N\+T\+\_\+\+L\+I\+S\+T\+E\+N\+\_\+\+F\+DS@{A\+V\+B\+\_\+\+E\+N\+D\+P\+O\+I\+N\+T\+\_\+\+L\+I\+S\+T\+E\+N\+\_\+\+F\+DS}!openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c@{openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{A\+V\+B\+\_\+\+E\+N\+D\+P\+O\+I\+N\+T\+\_\+\+L\+I\+S\+T\+E\+N\+\_\+\+F\+DS}{AVB_ENDPOINT_LISTEN_FDS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+V\+B\+\_\+\+E\+N\+D\+P\+O\+I\+N\+T\+\_\+\+L\+I\+S\+T\+E\+N\+\_\+\+F\+DS~0}\hypertarget{openavb__endpoint__server__osal_8c_a66f6de5c0d7fa41ae8ad27464dc9f76b}{}\label{openavb__endpoint__server__osal_8c_a66f6de5c0d7fa41ae8ad27464dc9f76b}
+
+
+openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c 파일의 35 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c@{openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c}!O\+P\+E\+N\+A\+V\+B\+\_\+\+E\+N\+D\+P\+O\+I\+N\+T\+\_\+\+S\+E\+R\+V\+E\+R\+\_\+\+O\+S\+A\+L\+\_\+C@{O\+P\+E\+N\+A\+V\+B\+\_\+\+E\+N\+D\+P\+O\+I\+N\+T\+\_\+\+S\+E\+R\+V\+E\+R\+\_\+\+O\+S\+A\+L\+\_\+C}}
+\index{O\+P\+E\+N\+A\+V\+B\+\_\+\+E\+N\+D\+P\+O\+I\+N\+T\+\_\+\+S\+E\+R\+V\+E\+R\+\_\+\+O\+S\+A\+L\+\_\+C@{O\+P\+E\+N\+A\+V\+B\+\_\+\+E\+N\+D\+P\+O\+I\+N\+T\+\_\+\+S\+E\+R\+V\+E\+R\+\_\+\+O\+S\+A\+L\+\_\+C}!openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c@{openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{O\+P\+E\+N\+A\+V\+B\+\_\+\+E\+N\+D\+P\+O\+I\+N\+T\+\_\+\+S\+E\+R\+V\+E\+R\+\_\+\+O\+S\+A\+L\+\_\+C}{OPENAVB_ENDPOINT_SERVER_OSAL_C}}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+P\+E\+N\+A\+V\+B\+\_\+\+E\+N\+D\+P\+O\+I\+N\+T\+\_\+\+S\+E\+R\+V\+E\+R\+\_\+\+O\+S\+A\+L\+\_\+C}\hypertarget{openavb__endpoint__server__osal_8c_aafa38dfaa4cf759dd65c1345dd0d758b}{}\label{openavb__endpoint__server__osal_8c_aafa38dfaa4cf759dd65c1345dd0d758b}
+
+
+openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c 파일의 33 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c@{openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c}!P\+O\+L\+L\+\_\+\+F\+D\+\_\+\+C\+O\+U\+NT@{P\+O\+L\+L\+\_\+\+F\+D\+\_\+\+C\+O\+U\+NT}}
+\index{P\+O\+L\+L\+\_\+\+F\+D\+\_\+\+C\+O\+U\+NT@{P\+O\+L\+L\+\_\+\+F\+D\+\_\+\+C\+O\+U\+NT}!openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c@{openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{P\+O\+L\+L\+\_\+\+F\+D\+\_\+\+C\+O\+U\+NT}{POLL_FD_COUNT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+O\+L\+L\+\_\+\+F\+D\+\_\+\+C\+O\+U\+NT~(({\bf M\+A\+X\+\_\+\+A\+V\+B\+\_\+\+S\+T\+R\+E\+A\+MS}) + 1)}\hypertarget{openavb__endpoint__server__osal_8c_a02840e07dbcd34a4aa31c5a8209f25d3}{}\label{openavb__endpoint__server__osal_8c_a02840e07dbcd34a4aa31c5a8209f25d3}
+
+
+openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c 파일의 37 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c@{openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c}!S\+O\+C\+K\+\_\+\+I\+N\+V\+A\+L\+ID@{S\+O\+C\+K\+\_\+\+I\+N\+V\+A\+L\+ID}}
+\index{S\+O\+C\+K\+\_\+\+I\+N\+V\+A\+L\+ID@{S\+O\+C\+K\+\_\+\+I\+N\+V\+A\+L\+ID}!openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c@{openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{S\+O\+C\+K\+\_\+\+I\+N\+V\+A\+L\+ID}{SOCK_INVALID}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+O\+C\+K\+\_\+\+I\+N\+V\+A\+L\+ID~(-\/1)}\hypertarget{openavb__endpoint__server__osal_8c_a5ae6965a8252c65a4826c7eb51cd5f7b}{}\label{openavb__endpoint__server__osal_8c_a5ae6965a8252c65a4826c7eb51cd5f7b}
+
+
+openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c 파일의 36 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{함수 문서화}
+\index{openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c@{openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c}!openavb\+Endpoint\+Server\+Close@{openavb\+Endpoint\+Server\+Close}}
+\index{openavb\+Endpoint\+Server\+Close@{openavb\+Endpoint\+Server\+Close}!openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c@{openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Endpoint\+Server\+Close(void)}{openavbEndpointServerClose(void)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Endpoint\+Server\+Close (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__endpoint__server__osal_8c_a25067ccb327b79816a731aa15a4069e3}{}\label{openavb__endpoint__server__osal_8c_a25067ccb327b79816a731aa15a4069e3}
+
+
+openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c 파일의 241 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+242 \{
+243     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_ae556b1548b3dcb1b8d51811611bcd57e}{AVB\_TRACE\_ENDPOINT});
+244     \textcolor{keywordtype}{int} i;
+245     \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{openavb__endpoint__server__osal_8c_a02840e07dbcd34a4aa31c5a8209f25d3}{POLL\_FD\_COUNT}; i++) \{
+246         \textcolor{keywordflow}{if} (\hyperlink{openavb__endpoint__server__osal_8c_ae18b289099c8c9be5f76acee6311699a}{fds}[i].fd != \hyperlink{openavb__endpoint__server__osal_8c_a5ae6965a8252c65a4826c7eb51cd5f7b}{SOCK\_INVALID}) \{
+247             close(\hyperlink{openavb__endpoint__server__osal_8c_ae18b289099c8c9be5f76acee6311699a}{fds}[i].fd);
+248             \hyperlink{openavb__endpoint__server__osal_8c_ae18b289099c8c9be5f76acee6311699a}{fds}[i].fd = \hyperlink{openavb__endpoint__server__osal_8c_a5ae6965a8252c65a4826c7eb51cd5f7b}{SOCK\_INVALID};
+249         \}
+250     \}
+251     \textcolor{keywordflow}{if} (\hyperlink{openavb__endpoint__server__osal_8c_a5fd2838acec3b3db522def9bdb11fba7}{lsock} != \hyperlink{openavb__endpoint__server__osal_8c_a5ae6965a8252c65a4826c7eb51cd5f7b}{SOCK\_INVALID}) \{
+252         close(\hyperlink{openavb__endpoint__server__osal_8c_a5fd2838acec3b3db522def9bdb11fba7}{lsock});
+253         \hyperlink{openavb__endpoint__server__osal_8c_a5fd2838acec3b3db522def9bdb11fba7}{lsock} = \hyperlink{openavb__endpoint__server__osal_8c_a5ae6965a8252c65a4826c7eb51cd5f7b}{SOCK\_INVALID};
+254     \}
+255 
+256     \textcolor{keywordflow}{if} (unlink(\hyperlink{openavb__endpoint__server__osal_8c_a3e8f07b6d12927585de7d37d85d5e53c}{serverAddr}.sun\_path) != 0) \{
+257         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Failed to unlink %s: %s"}, \hyperlink{openavb__endpoint__server__osal_8c_a3e8f07b6d12927585de7d37d85d5e53c}{serverAddr}.sun\_path, strerror(
+      errno));
+258     \}
+259     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_ae556b1548b3dcb1b8d51811611bcd57e}{AVB\_TRACE\_ENDPOINT});
+260 \} 
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__endpoint__server__osal_8c_a25067ccb327b79816a731aa15a4069e3_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c@{openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c}!openavb\+Endpoint\+Server\+Open@{openavb\+Endpoint\+Server\+Open}}
+\index{openavb\+Endpoint\+Server\+Open@{openavb\+Endpoint\+Server\+Open}!openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c@{openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Endpoint\+Server\+Open(void)}{openavbEndpointServerOpen(void)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} openavb\+Endpoint\+Server\+Open (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__endpoint__server__osal_8c_a358def9acbb122aa05acb142c31ed74d}{}\label{openavb__endpoint__server__osal_8c_a358def9acbb122aa05acb142c31ed74d}
+
+
+openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c 파일의 102 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+103 \{
+104     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_ae556b1548b3dcb1b8d51811611bcd57e}{AVB\_TRACE\_ENDPOINT});
+105     \textcolor{keywordtype}{int} i;
+106 
+107     \textcolor{keywordflow}{for} (i=0; i < \hyperlink{openavb__endpoint__server__osal_8c_a02840e07dbcd34a4aa31c5a8209f25d3}{POLL\_FD\_COUNT}; i++) \{
+108         \hyperlink{openavb__endpoint__server__osal_8c_ae18b289099c8c9be5f76acee6311699a}{fds}[i].fd = \hyperlink{openavb__endpoint__server__osal_8c_a5ae6965a8252c65a4826c7eb51cd5f7b}{SOCK\_INVALID};
+109         \hyperlink{openavb__endpoint__server__osal_8c_ae18b289099c8c9be5f76acee6311699a}{fds}[i].events = 0;
+110     \}
+111 
+112     \hyperlink{openavb__endpoint__server__osal_8c_a5fd2838acec3b3db522def9bdb11fba7}{lsock} = socket(AF\_UNIX, SOCK\_STREAM, 0);
+113     \textcolor{keywordflow}{if} (\hyperlink{openavb__endpoint__server__osal_8c_a5fd2838acec3b3db522def9bdb11fba7}{lsock} < 0) \{
+114         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Failed to open socket: %s"}, strerror(errno));
+115         \textcolor{keywordflow}{goto} error;
+116     \}
+117     \textcolor{comment}{// serverAddr is file static}
+118     \hyperlink{openavb__endpoint__server__osal_8c_a3e8f07b6d12927585de7d37d85d5e53c}{serverAddr}.sun\_family = AF\_UNIX;
+119     snprintf(\hyperlink{openavb__endpoint__server__osal_8c_a3e8f07b6d12927585de7d37d85d5e53c}{serverAddr}.sun\_path, UNIX\_PATH\_MAX, 
+      \hyperlink{openavb__endpoint_8h_ab48bf88bc30656f89729aad0993c692e}{AVB\_ENDPOINT\_UNIX\_PATH});
+120 
+121     \textcolor{comment}{// try remove old socket}
+122     \textcolor{keywordflow}{if} (unlink(\hyperlink{openavb__endpoint__server__osal_8c_a3e8f07b6d12927585de7d37d85d5e53c}{serverAddr}.sun\_path) < 0 && errno != ENOENT) \{
+123         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Failed to remove %s: %s"}, \hyperlink{openavb__endpoint__server__osal_8c_a3e8f07b6d12927585de7d37d85d5e53c}{serverAddr}.sun\_path, strerror(
+      errno));
+124     \}
+125 
+126     \textcolor{keywordtype}{int} rslt = bind(\hyperlink{openavb__endpoint__server__osal_8c_a5fd2838acec3b3db522def9bdb11fba7}{lsock}, (\textcolor{keyword}{struct} sockaddr*)&\hyperlink{openavb__endpoint__server__osal_8c_a3e8f07b6d12927585de7d37d85d5e53c}{serverAddr}, \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} sockaddr\_un));
+127     \textcolor{keywordflow}{if} (rslt != 0) \{
+128         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Failed to create %s: %s"}, \hyperlink{openavb__endpoint__server__osal_8c_a3e8f07b6d12927585de7d37d85d5e53c}{serverAddr}.sun\_path, strerror(
+      errno));
+129         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a6e7cd550837a0406e98b81a840d10ea9}{AVB\_LOG\_WARNING}(\textcolor{stringliteral}{"** If endpoint process crashed, run the cleanup script **"});
+130         \textcolor{keywordflow}{goto} error;
+131     \}
+132 
+133     rslt = listen(\hyperlink{openavb__endpoint__server__osal_8c_a5fd2838acec3b3db522def9bdb11fba7}{lsock}, 5);
+134     \textcolor{keywordflow}{if} (rslt != 0) \{
+135         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Failed to listen on socket: %s"}, strerror(errno));
+136         \textcolor{keywordflow}{goto} error;
+137     \}
+138     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afcf1f0c1d10ae9efe3782eb6cae78355}{AVB\_LOGF\_DEBUG}(\textcolor{stringliteral}{"Listening on socket: %s"}, \hyperlink{openavb__endpoint__server__osal_8c_a3e8f07b6d12927585de7d37d85d5e53c}{serverAddr}.sun\_path);
+139 
+140     \hyperlink{openavb__endpoint__server__osal_8c_ae18b289099c8c9be5f76acee6311699a}{fds}[\hyperlink{openavb__endpoint__server__osal_8c_a66f6de5c0d7fa41ae8ad27464dc9f76b}{AVB\_ENDPOINT\_LISTEN\_FDS}].fd = \hyperlink{openavb__endpoint__server__osal_8c_a5fd2838acec3b3db522def9bdb11fba7}{lsock};
+141     \hyperlink{openavb__endpoint__server__osal_8c_ae18b289099c8c9be5f76acee6311699a}{fds}[\hyperlink{openavb__endpoint__server__osal_8c_a66f6de5c0d7fa41ae8ad27464dc9f76b}{AVB\_ENDPOINT\_LISTEN\_FDS}].events = POLLIN;
+142 
+143     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_ae556b1548b3dcb1b8d51811611bcd57e}{AVB\_TRACE\_ENDPOINT});
+144     \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+145 
+146   error:
+147     \textcolor{keywordflow}{if} (\hyperlink{openavb__endpoint__server__osal_8c_a5fd2838acec3b3db522def9bdb11fba7}{lsock} >= 0) \{
+148         close(\hyperlink{openavb__endpoint__server__osal_8c_a5fd2838acec3b3db522def9bdb11fba7}{lsock});
+149         \hyperlink{openavb__endpoint__server__osal_8c_a5fd2838acec3b3db522def9bdb11fba7}{lsock} = \hyperlink{openavb__endpoint__server__osal_8c_a5ae6965a8252c65a4826c7eb51cd5f7b}{SOCK\_INVALID};
+150     \}
+151     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_ae556b1548b3dcb1b8d51811611bcd57e}{AVB\_TRACE\_ENDPOINT});
+152     \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+153 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__endpoint__server__osal_8c_a358def9acbb122aa05acb142c31ed74d_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c@{openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c}!openavb\+Ept\+Srvr\+Send\+To\+Client@{openavb\+Ept\+Srvr\+Send\+To\+Client}}
+\index{openavb\+Ept\+Srvr\+Send\+To\+Client@{openavb\+Ept\+Srvr\+Send\+To\+Client}!openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c@{openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Ept\+Srvr\+Send\+To\+Client(int h, openavb\+Endpoint\+Message\+\_\+t $\ast$msg)}{openavbEptSrvrSendToClient(int h, openavbEndpointMessage_t *msg)}}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf bool} openavb\+Ept\+Srvr\+Send\+To\+Client (
+\begin{DoxyParamCaption}
+\item[{int}]{h, }
+\item[{{\bf openavb\+Endpoint\+Message\+\_\+t} $\ast$}]{msg}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__endpoint__server__osal_8c_a8b77be524f44a25eba014389b08b22a4}{}\label{openavb__endpoint__server__osal_8c_a8b77be524f44a25eba014389b08b22a4}
+
+
+openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c 파일의 60 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+61 \{
+62     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_ae556b1548b3dcb1b8d51811611bcd57e}{AVB\_TRACE\_ENDPOINT});
+63 
+64     \textcolor{keywordflow}{if} (h < 0 || h >= \hyperlink{openavb__endpoint__server__osal_8c_a02840e07dbcd34a4aa31c5a8209f25d3}{POLL\_FD\_COUNT}) \{
+65         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Sending message; invalid handle"});
+66         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_ae556b1548b3dcb1b8d51811611bcd57e}{AVB\_TRACE\_ENDPOINT});
+67         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+68     \}
+69     \textcolor{keywordflow}{if} (!msg) \{
+70         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Sending message; invalid argument passed"});
+71         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_ae556b1548b3dcb1b8d51811611bcd57e}{AVB\_TRACE\_ENDPOINT});
+72         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+73     \}
+74 
+75     \textcolor{keywordtype}{int} csock = \hyperlink{openavb__endpoint__server__osal_8c_ae18b289099c8c9be5f76acee6311699a}{fds}[h].fd;
+76     \textcolor{keywordflow}{if} (csock == \hyperlink{openavb__endpoint__server__osal_8c_a5ae6965a8252c65a4826c7eb51cd5f7b}{SOCK\_INVALID}) \{
+77         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Socket closed unexpectedly"});
+78         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+79     \}
+80 
+81     ssize\_t nWrite = write(csock, msg, \hyperlink{openavb__endpoint_8h_a9b0d07d9793de5e3bb74858c5067306a}{OPENAVB\_ENDPOINT\_MSG\_LEN});
+82     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a6a12c45e5eafd615acb82399ffff16c7}{AVB\_LOGF\_VERBOSE}(\textcolor{stringliteral}{"Sent message, len=%zu, nWrite=%zu"}, 
+      \hyperlink{openavb__endpoint_8h_a9b0d07d9793de5e3bb74858c5067306a}{OPENAVB\_ENDPOINT\_MSG\_LEN}, nWrite);
+83     \textcolor{keywordflow}{if} (nWrite < \hyperlink{openavb__endpoint_8h_a9b0d07d9793de5e3bb74858c5067306a}{OPENAVB\_ENDPOINT\_MSG\_LEN}) \{
+84         \textcolor{keywordflow}{if} (nWrite < 0) \{
+85             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Failed to write socket: %s"}, strerror(errno));
+86         \}
+87         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (nWrite == 0) \{
+88             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Socket closed unexpectedly"});
+89         \}
+90         \textcolor{keywordflow}{else} \{
+91             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Socket write too short"});
+92         \}
+93         \hyperlink{openavb__endpoint__server__osal_8c_a997118c3d9b394cb957b442f0b021114}{socketClose}(h);
+94         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_ae556b1548b3dcb1b8d51811611bcd57e}{AVB\_TRACE\_ENDPOINT});
+95         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+96     \}
+97 
+98     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_ae556b1548b3dcb1b8d51811611bcd57e}{AVB\_TRACE\_ENDPOINT});
+99     \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+100 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__endpoint__server__osal_8c_a8b77be524f44a25eba014389b08b22a4_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__endpoint__server__osal_8c_a8b77be524f44a25eba014389b08b22a4_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c@{openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c}!openavb\+Ept\+Srvr\+Service@{openavb\+Ept\+Srvr\+Service}}
+\index{openavb\+Ept\+Srvr\+Service@{openavb\+Ept\+Srvr\+Service}!openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c@{openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Ept\+Srvr\+Service(void)}{openavbEptSrvrService(void)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Ept\+Srvr\+Service (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__endpoint__server__osal_8c_a4dd088ed44493a66a3bbf1bfe9c564bd}{}\label{openavb__endpoint__server__osal_8c_a4dd088ed44493a66a3bbf1bfe9c564bd}
+
+
+openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c 파일의 155 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+156 \{
+157     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_ae556b1548b3dcb1b8d51811611bcd57e}{AVB\_TRACE\_ENDPOINT});
+158     \textcolor{keyword}{struct }sockaddr\_un addrClient;
+159     socklen\_t lenAddr;
+160     \textcolor{keywordtype}{int} i, j;
+161     \textcolor{keywordtype}{int}  csock;
+162 
+163     \textcolor{keywordtype}{int} nfds = \hyperlink{openavb__endpoint__server__osal_8c_a02840e07dbcd34a4aa31c5a8209f25d3}{POLL\_FD\_COUNT};
+164     \textcolor{keywordtype}{int} pRet;
+165 
+166     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a5579be334577e5c29b8794e8f2831ce5}{AVB\_LOG\_VERBOSE}(\textcolor{stringliteral}{"Waiting for event..."});
+167     pRet = poll(\hyperlink{openavb__endpoint__server__osal_8c_ae18b289099c8c9be5f76acee6311699a}{fds}, nfds, 1000);
+168 
+169     \textcolor{keywordflow}{if} (pRet == 0) \{
+170         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a5579be334577e5c29b8794e8f2831ce5}{AVB\_LOG\_VERBOSE}(\textcolor{stringliteral}{"poll timeout"});
+171     \}
+172     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (pRet < 0) \{
+173         \textcolor{keywordflow}{if} (errno == EINTR) \{
+174             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a5579be334577e5c29b8794e8f2831ce5}{AVB\_LOG\_VERBOSE}(\textcolor{stringliteral}{"Poll interrupted"});
+175         \}
+176         \textcolor{keywordflow}{else} \{
+177             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Poll error: %s"}, strerror(errno));
+178         \}
+179     \}
+180     \textcolor{keywordflow}{else} \{
+181         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a6a12c45e5eafd615acb82399ffff16c7}{AVB\_LOGF\_VERBOSE}(\textcolor{stringliteral}{"Poll returned %d events"}, pRet);
+182         \textcolor{keywordflow}{for} (i=0; i<nfds; i++) \{
+183             \textcolor{keywordflow}{if} (\hyperlink{openavb__endpoint__server__osal_8c_ae18b289099c8c9be5f76acee6311699a}{fds}[i].revents != 0) \{
+184                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a6a12c45e5eafd615acb82399ffff16c7}{AVB\_LOGF\_VERBOSE}(\textcolor{stringliteral}{"%d sock=%d, event=0x%x, revent=0x%x"}, i, 
+      \hyperlink{openavb__endpoint__server__osal_8c_ae18b289099c8c9be5f76acee6311699a}{fds}[i].fd, \hyperlink{openavb__endpoint__server__osal_8c_ae18b289099c8c9be5f76acee6311699a}{fds}[i].events, \hyperlink{openavb__endpoint__server__osal_8c_ae18b289099c8c9be5f76acee6311699a}{fds}[i].revents);
+185 
+186                 \textcolor{keywordflow}{if} (i == \hyperlink{openavb__endpoint__server__osal_8c_a66f6de5c0d7fa41ae8ad27464dc9f76b}{AVB\_ENDPOINT\_LISTEN\_FDS}) \{
+187                     \textcolor{comment}{// listen sock - indicates new connection from client}
+188                     lenAddr = \textcolor{keyword}{sizeof}(addrClient);
+189                     csock = accept(\hyperlink{openavb__endpoint__server__osal_8c_a5fd2838acec3b3db522def9bdb11fba7}{lsock}, (\textcolor{keyword}{struct} sockaddr*)&addrClient, &lenAddr);
+190                     \textcolor{keywordflow}{if} (csock < 0) \{
+191                         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Failed to accept connection: %s"}, strerror(errno));
+192                     \}
+193                     \textcolor{keywordflow}{else} \{
+194                         \textcolor{keywordflow}{for} (j = 0; j < \hyperlink{openavb__endpoint__server__osal_8c_a02840e07dbcd34a4aa31c5a8209f25d3}{POLL\_FD\_COUNT}; j++) \{
+195                             \textcolor{keywordflow}{if} (\hyperlink{openavb__endpoint__server__osal_8c_ae18b289099c8c9be5f76acee6311699a}{fds}[j].fd == \hyperlink{openavb__endpoint__server__osal_8c_a5ae6965a8252c65a4826c7eb51cd5f7b}{SOCK\_INVALID}) \{
+196                                 \hyperlink{openavb__endpoint__server__osal_8c_ae18b289099c8c9be5f76acee6311699a}{fds}[j].fd = csock;
+197                                 \hyperlink{openavb__endpoint__server__osal_8c_ae18b289099c8c9be5f76acee6311699a}{fds}[j].events = POLLIN;
+198                                 \textcolor{keywordflow}{break};
+199                             \}
+200                         \}
+201                         \textcolor{keywordflow}{if} (j >= POLL\_FD\_COUNT) \{
+202                             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Too many client connections"});
+203                             close(csock);
+204                         \}
+205                     \}
+206                 \}
+207                 \textcolor{keywordflow}{else} \{
+208                     csock = \hyperlink{openavb__endpoint__server__osal_8c_ae18b289099c8c9be5f76acee6311699a}{fds}[i].fd;
+209                     \hyperlink{structopenavb_endpoint_message__t}{openavbEndpointMessage\_t}  msgBuf;
+210                     memset(&msgBuf, 0, \hyperlink{openavb__endpoint_8h_a9b0d07d9793de5e3bb74858c5067306a}{OPENAVB\_ENDPOINT\_MSG\_LEN});
+211                     ssize\_t nRead = read(csock, &msgBuf, 
+      \hyperlink{openavb__endpoint_8h_a9b0d07d9793de5e3bb74858c5067306a}{OPENAVB\_ENDPOINT\_MSG\_LEN});
+212                     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a6a12c45e5eafd615acb82399ffff16c7}{AVB\_LOGF\_VERBOSE}(\textcolor{stringliteral}{"Socket read h=%d,fd=%d: read=%zu, expect=%zu"}, i, 
+      csock, nRead, \hyperlink{openavb__endpoint_8h_a9b0d07d9793de5e3bb74858c5067306a}{OPENAVB\_ENDPOINT\_MSG\_LEN});
+213                     
+214                     \textcolor{keywordflow}{if} (nRead < \hyperlink{openavb__endpoint_8h_a9b0d07d9793de5e3bb74858c5067306a}{OPENAVB\_ENDPOINT\_MSG\_LEN}) \{
+215                         \textcolor{comment}{// sock closed}
+216                         \textcolor{keywordflow}{if} (nRead == 0) \{
+217                             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afcf1f0c1d10ae9efe3782eb6cae78355}{AVB\_LOGF\_DEBUG}(\textcolor{stringliteral}{"Socket closed, h=%d"}, i);
+218                         \}
+219                         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (nRead < 0) \{
+220                             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Socket read, h=%d: %s"}, i, strerror(errno));
+221                         \}
+222                         \textcolor{keywordflow}{else} \{
+223                             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Short read, h=%d"}, i);
+224                         \}
+225                         \hyperlink{openavb__endpoint__server__osal_8c_a997118c3d9b394cb957b442f0b021114}{socketClose}(i);
+226                     \}
+227                     \textcolor{keywordflow}{else} \{
+228                         \textcolor{comment}{// got a message}
+229                         \textcolor{keywordflow}{if} (!\hyperlink{openavb__endpoint__server_8c_a670b77cb8d8b9687e2bcb6333beff354}{openavbEptSrvrReceiveFromClient}(i, &msgBuf)) \{
+230                             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Failed to handle message"});
+231                             \hyperlink{openavb__endpoint__server__osal_8c_a997118c3d9b394cb957b442f0b021114}{socketClose}(i);
+232                         \}
+233                     \}
+234                 \}
+235             \}
+236         \}
+237     \}
+238     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_ae556b1548b3dcb1b8d51811611bcd57e}{AVB\_TRACE\_ENDPOINT});
+239 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__endpoint__server__osal_8c_a4dd088ed44493a66a3bbf1bfe9c564bd_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__endpoint__server__osal_8c_a4dd088ed44493a66a3bbf1bfe9c564bd_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c@{openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c}!socket\+Close@{socket\+Close}}
+\index{socket\+Close@{socket\+Close}!openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c@{openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{socket\+Close(int h)}{socketClose(int h)}}]{\setlength{\rightskip}{0pt plus 5cm}static void socket\+Close (
+\begin{DoxyParamCaption}
+\item[{int}]{h}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__endpoint__server__osal_8c_a997118c3d9b394cb957b442f0b021114}{}\label{openavb__endpoint__server__osal_8c_a997118c3d9b394cb957b442f0b021114}
+
+
+openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c 파일의 43 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+44 \{
+45     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_ae556b1548b3dcb1b8d51811611bcd57e}{AVB\_TRACE\_ENDPOINT});
+46 
+47     \textcolor{keywordflow}{if} (h < 0 || h >= \hyperlink{openavb__endpoint__server__osal_8c_a02840e07dbcd34a4aa31c5a8209f25d3}{POLL\_FD\_COUNT}) \{
+48         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Closing socket; invalid handle"});
+49     \}
+50     \textcolor{keywordflow}{else} \{
+51         \hyperlink{openavb__endpoint_8h_ad4b109678a82314384376f55ba3f7efc}{openavbEptSrvrCloseClientConnection}(h);
+52         close(\hyperlink{openavb__endpoint__server__osal_8c_ae18b289099c8c9be5f76acee6311699a}{fds}[h].fd);
+53         \hyperlink{openavb__endpoint__server__osal_8c_ae18b289099c8c9be5f76acee6311699a}{fds}[h].fd = \hyperlink{openavb__endpoint__server__osal_8c_a5ae6965a8252c65a4826c7eb51cd5f7b}{SOCK\_INVALID};
+54         \hyperlink{openavb__endpoint__server__osal_8c_ae18b289099c8c9be5f76acee6311699a}{fds}[h].events = 0;
+55     \}
+56     
+57     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_ae556b1548b3dcb1b8d51811611bcd57e}{AVB\_TRACE\_ENDPOINT});
+58 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__endpoint__server__osal_8c_a997118c3d9b394cb957b442f0b021114_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__endpoint__server__osal_8c_a997118c3d9b394cb957b442f0b021114_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{변수 문서화}
+\index{openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c@{openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c}!fds@{fds}}
+\index{fds@{fds}!openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c@{openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{fds}{fds}}]{\setlength{\rightskip}{0pt plus 5cm}struct pollfd fds\mbox{[}{\bf P\+O\+L\+L\+\_\+\+F\+D\+\_\+\+C\+O\+U\+NT}\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__endpoint__server__osal_8c_ae18b289099c8c9be5f76acee6311699a}{}\label{openavb__endpoint__server__osal_8c_ae18b289099c8c9be5f76acee6311699a}
+
+
+openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c 파일의 40 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c@{openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c}!lsock@{lsock}}
+\index{lsock@{lsock}!openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c@{openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{lsock}{lsock}}]{\setlength{\rightskip}{0pt plus 5cm}int lsock = {\bf S\+O\+C\+K\+\_\+\+I\+N\+V\+A\+L\+ID}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__endpoint__server__osal_8c_a5fd2838acec3b3db522def9bdb11fba7}{}\label{openavb__endpoint__server__osal_8c_a5fd2838acec3b3db522def9bdb11fba7}
+
+
+openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c 파일의 39 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c@{openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c}!server\+Addr@{server\+Addr}}
+\index{server\+Addr@{server\+Addr}!openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c@{openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{server\+Addr}{serverAddr}}]{\setlength{\rightskip}{0pt plus 5cm}struct sockaddr\+\_\+un server\+Addr\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__endpoint__server__osal_8c_a3e8f07b6d12927585de7d37d85d5e53c}{}\label{openavb__endpoint__server__osal_8c_a3e8f07b6d12927585de7d37d85d5e53c}
+
+
+openavb\+\_\+endpoint\+\_\+server\+\_\+osal.\+c 파일의 41 번째 라인에서 정의되었습니다.
+

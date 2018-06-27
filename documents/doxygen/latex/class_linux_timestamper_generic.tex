@@ -1,0 +1,1319 @@
+\hypertarget{class_linux_timestamper_generic}{}\section{Linux\+Timestamper\+Generic 클래스 참조}
+\label{class_linux_timestamper_generic}\index{Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}}
+
+
+Linux timestamper generic interface.  
+
+
+
+
+{\ttfamily \#include $<$linux\+\_\+hal\+\_\+generic.\+hpp$>$}
+
+
+
+Linux\+Timestamper\+Generic에 대한 상속 다이어그램 \+: 
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{class_linux_timestamper_generic__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Linux\+Timestamper\+Generic에 대한 협력 다이어그램\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_linux_timestamper_generic__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public 멤버 함수}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_linux_timestamper_generic_acfc48b4379f1b8fd4c1c30e06190aaff}{Linux\+Timestamper\+Generic} ()
+\begin{DoxyCompactList}\small\item\em Default constructor. Initializes internal variables. \end{DoxyCompactList}\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{class_linux_timestamper_generic_a0db03755529ffca07f6d4a46d26a60c8}{reset\+Frequency\+Adjustment} ()
+\begin{DoxyCompactList}\small\item\em Resets frequency adjustment value to zero and calls linux system calls for frequency adjustment. \end{DoxyCompactList}\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{class_linux_timestamper_generic_a1d52a5a84b74222b880522cee01475e1}{Adjust} (void $\ast$tmx) const 
+\begin{DoxyCompactList}\small\item\em Calls linux system call for adjusting frequency or phase. \end{DoxyCompactList}\item 
+virtual \hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{class_linux_timestamper_generic_a7a098484ed16d09074217e92eb22d03d}{H\+W\+Timestamper\+\_\+init} (\hyperlink{class_interface_label}{Interface\+Label} $\ast$iface\+\_\+label, \hyperlink{class_o_s_network_interface}{O\+S\+Network\+Interface} $\ast$iface)
+\begin{DoxyCompactList}\small\item\em Initializes the Hardware timestamp interface. \end{DoxyCompactList}\item 
+virtual void \hyperlink{class_linux_timestamper_generic_a4ad3a40de8c6141b2d26b9df5cc3cd97}{H\+W\+Timestamper\+\_\+reset} ()
+\begin{DoxyCompactList}\small\item\em Reset the Hardware timestamp interface. \end{DoxyCompactList}\item 
+void \hyperlink{class_linux_timestamper_generic_a502ddb4d27b9cf57a9612fe74def2404}{push\+R\+X\+Timestamp} (\hyperlink{class_timestamp}{Timestamp} $\ast$tstamp)
+\begin{DoxyCompactList}\small\item\em Inserts a new timestamp to the beginning of the RX timestamp list. \end{DoxyCompactList}\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{class_linux_timestamper_generic_aeada5965d363813719d4b3e0c6ba209e}{post\+\_\+init} (int ifindex, int \hyperlink{class_linux_timestamper_generic_a06b0afe769d54ae94259d8532bc878b0}{sd}, \hyperlink{class_ticketing_lock}{Ticketing\+Lock} $\ast$lock)
+\begin{DoxyCompactList}\small\item\em Post initialization procedure. \end{DoxyCompactList}\item 
+virtual \hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{class_linux_timestamper_generic_ab8370a996dbc05b111b5d8f888a87648}{H\+W\+Timestamper\+\_\+gettime} (\hyperlink{class_timestamp}{Timestamp} $\ast$system\+\_\+time, \hyperlink{class_timestamp}{Timestamp} $\ast$device\+\_\+time, \hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\+\_\+t} $\ast$local\+\_\+clock, \hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\+\_\+t} $\ast$nominal\+\_\+clock\+\_\+rate) const 
+\begin{DoxyCompactList}\small\item\em Gets the ptp clock time information. \end{DoxyCompactList}\item 
+virtual int \hyperlink{class_linux_timestamper_generic_a8ca092c3a907618eebf1d512de28db18}{H\+W\+Timestamper\+\_\+txtimestamp} (\hyperlink{class_port_identity}{Port\+Identity} $\ast$identity, \hyperlink{class_p_t_p_message_id}{P\+T\+P\+Message\+Id} message\+Id, \hyperlink{class_timestamp}{Timestamp} \&timestamp, unsigned \&clock\+\_\+value, \hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} last)
+\begin{DoxyCompactList}\small\item\em Gets the TX timestamp from hardware interface. \end{DoxyCompactList}\item 
+virtual int \hyperlink{class_linux_timestamper_generic_a9dc0ab7dd51322bf334ba8fe1d4e77a9}{H\+W\+Timestamper\+\_\+rxtimestamp} (\hyperlink{class_port_identity}{Port\+Identity} $\ast$identity, \hyperlink{class_p_t_p_message_id}{P\+T\+P\+Message\+Id} message\+Id, \hyperlink{class_timestamp}{Timestamp} \&timestamp, unsigned \&clock\+\_\+value, \hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} last)
+\begin{DoxyCompactList}\small\item\em Gets the RX timestamp from the hardware interface. This Currently the RX timestamp is retrieved at \hyperlink{class_linux_network_interface_acb980fe584d47a71be88f12808edd91c}{Linux\+Network\+Interface\+::nrecv} method. \end{DoxyCompactList}\item 
+virtual \hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{class_linux_timestamper_generic_abf6eb9134a918a1e218402f7d9b15468}{H\+W\+Timestamper\+\_\+adjclockphase} (\hyperlink{parse_8c_a67a9885ef4908cb72ce26d75b694386c}{int64\+\_\+t} phase\+\_\+adjust)
+\begin{DoxyCompactList}\small\item\em Adjusts the clock phase. \end{DoxyCompactList}\item 
+virtual \hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{class_linux_timestamper_generic_a40688d4900827bb422a3a172614878f8}{H\+W\+Timestamper\+\_\+adjclockrate} (float freq\+\_\+offset) const 
+\begin{DoxyCompactList}\small\item\em Adjusts the frequency. \end{DoxyCompactList}\item 
+virtual \hyperlink{class_linux_timestamper_generic_a1fd86742c8cd4f9ada339cd6987fde90}{$\sim$\+Linux\+Timestamper\+Generic} ()
+\begin{DoxyCompactList}\small\item\em deletes \hyperlink{class_linux_timestamper_generic}{Linux\+Timestamper\+Generic} object \end{DoxyCompactList}\item 
+virtual void \hyperlink{class_common_timestamper_a866fc2519a7b2a696e350ed05df53f90}{H\+W\+Timestamper\+\_\+final} (void)
+\begin{DoxyCompactList}\small\item\em This method is called before the object is de-\/allocated. \end{DoxyCompactList}\item 
+virtual void \hyperlink{class_common_timestamper_a3b26113436dec73775d2cbc523a6e074}{H\+W\+Timestamper\+\_\+get\+\_\+extderror} (char $\ast$\hyperlink{openavb__log_8c_a0c7e58a50354c4a4d6dad428d0e47029}{msg}) const 
+\begin{DoxyCompactList}\small\item\em Gets a string with the error from the hardware timestamp block. \end{DoxyCompactList}\item 
+virtual \hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{class_common_timestamper_a2cbaeb84807ca61af0bc56bcc475468d}{H\+W\+Timestamper\+\_\+\+P\+P\+S\+\_\+start} ()
+\begin{DoxyCompactList}\small\item\em Starts the P\+PS (pulse per second) interface. \end{DoxyCompactList}\item 
+virtual \hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{class_common_timestamper_ac5d9f1e5eb402dffaa8897367e9fd7d3}{H\+W\+Timestamper\+\_\+\+P\+P\+S\+\_\+stop} ()
+\begin{DoxyCompactList}\small\item\em Stops the P\+PS (pulse per second) interface. \end{DoxyCompactList}\item 
+int \hyperlink{class_common_timestamper_a4d1414f8d9ed8d83c91769b148106307}{get\+Version} () const 
+\begin{DoxyCompactList}\small\item\em Gets the H\+W\+Timestamper version. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected 속성}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\+\_\+t} \hyperlink{class_common_timestamper_ab22abc2906422da61885ac6c8e6a1a59}{version}
+\begin{DoxyCompactList}\small\item\em H\+W\+Timestamper version. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private 속성}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{class_linux_timestamper_generic_a06b0afe769d54ae94259d8532bc878b0}{sd}
+\item 
+int \hyperlink{class_linux_timestamper_generic_ac4500de48048f43e4cfd225a42c8bd56}{phc\+\_\+fd}
+\item 
+\hyperlink{class_timestamp}{Timestamp} \hyperlink{class_linux_timestamper_generic_a885b6a10ac960ef4f2028df1c19c3022}{crstamp\+\_\+system}
+\item 
+\hyperlink{class_timestamp}{Timestamp} \hyperlink{class_linux_timestamper_generic_a64ea949cc4e9e1d47f6e27a68add3888}{crstamp\+\_\+device}
+\item 
+\hyperlink{linux__hal__generic_8hpp_a2fb0f94dd96c52ad8f39f8585babaa35}{Linux\+Timestamper\+Generic\+Private\+\_\+t} \hyperlink{class_linux_timestamper_generic_a5522acc6ce53752665fa393702058a7b}{\+\_\+private}
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{class_linux_timestamper_generic_a44ccbbc368595932d5247f158b0c902e}{cross\+\_\+stamp\+\_\+good}
+\item 
+std\+::list$<$ \hyperlink{class_timestamp}{Timestamp} $>$ \hyperlink{class_linux_timestamper_generic_a3ab5f699ce3a90c21782087bdae99de9}{rx\+Timestamp\+List}
+\item 
+\hyperlink{linux__hal__common_8hpp_abe97282bb5495e1b6f0db75e51cde87e}{Linux\+Network\+Interface\+List} \hyperlink{class_linux_timestamper_generic_a71c6eb5a2c243c3e622503aa7c0eff67}{iface\+\_\+list}
+\item 
+\hyperlink{class_ticketing_lock}{Ticketing\+Lock} $\ast$ \hyperlink{class_linux_timestamper_generic_a9a02854f530a2e2f70741e2970ea1fd5}{net\+\_\+lock}
+\end{DoxyCompactItemize}
+
+
+\subsection{상세한 설명}
+Linux timestamper generic interface. 
+
+linux\+\_\+hal\+\_\+generic.\+hpp 파일의 55 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{생성자 \& 소멸자 문서화}
+\index{Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}!Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}}
+\index{Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}!Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}}
+\subsubsection[{\texorpdfstring{Linux\+Timestamper\+Generic()}{LinuxTimestamperGeneric()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Linux\+Timestamper\+Generic} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{class_linux_timestamper_generic_acfc48b4379f1b8fd4c1c30e06190aaff}{}\label{class_linux_timestamper_generic_acfc48b4379f1b8fd4c1c30e06190aaff}
+
+
+Default constructor. Initializes internal variables. 
+
+
+
+linux\+\_\+hal\+\_\+generic.\+cpp 파일의 204 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+204                                                  \{
+205     \hyperlink{class_linux_timestamper_generic_a5522acc6ce53752665fa393702058a7b}{\_private} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+206 \textcolor{preprocessor}{#ifdef WITH\_IGBLIB}
+207     igb\_private = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+208 \textcolor{preprocessor}{#endif}
+209     \hyperlink{class_linux_timestamper_generic_a06b0afe769d54ae94259d8532bc878b0}{sd} = -1;
+210 \}
+\end{DoxyCode}
+\index{Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}!````~Linux\+Timestamper\+Generic@{$\sim$\+Linux\+Timestamper\+Generic}}
+\index{````~Linux\+Timestamper\+Generic@{$\sim$\+Linux\+Timestamper\+Generic}!Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}}
+\subsubsection[{\texorpdfstring{$\sim$\+Linux\+Timestamper\+Generic()}{~LinuxTimestamperGeneric()}}]{\setlength{\rightskip}{0pt plus 5cm}$\sim${\bf Linux\+Timestamper\+Generic} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\hypertarget{class_linux_timestamper_generic_a1fd86742c8cd4f9ada339cd6987fde90}{}\label{class_linux_timestamper_generic_a1fd86742c8cd4f9ada339cd6987fde90}
+
+
+deletes \hyperlink{class_linux_timestamper_generic}{Linux\+Timestamper\+Generic} object 
+
+
+
+linux\+\_\+hal\+\_\+generic.\+cpp 파일의 197 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+197                                                   \{
+198     \textcolor{keywordflow}{if}( \hyperlink{class_linux_timestamper_generic_a5522acc6ce53752665fa393702058a7b}{\_private} != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} ) \textcolor{keyword}{delete} \hyperlink{class_linux_timestamper_generic_a5522acc6ce53752665fa393702058a7b}{\_private};
+199 \textcolor{preprocessor}{#ifdef WITH\_IGBLIB}
+200     \textcolor{keywordflow}{if}( igb\_private != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} ) \textcolor{keyword}{delete} igb\_private;
+201 \textcolor{preprocessor}{#endif}
+202 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_linux_timestamper_generic_a1fd86742c8cd4f9ada339cd6987fde90_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{멤버 함수 문서화}
+\index{Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}!Adjust@{Adjust}}
+\index{Adjust@{Adjust}!Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}}
+\subsubsection[{\texorpdfstring{Adjust(void $\ast$tmx) const }{Adjust(void *tmx) const }}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} Adjust (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{tmx}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_linux_timestamper_generic_a1d52a5a84b74222b880522cee01475e1}{}\label{class_linux_timestamper_generic_a1d52a5a84b74222b880522cee01475e1}
+
+
+Calls linux system call for adjusting frequency or phase. 
+
+
+\begin{DoxyParams}{매개변수}
+{\em tmx} & \mbox{[}in\mbox{]} Void pointer that must be cast (and filled in correctly) to the struct timex \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+T\+R\+UE if ok, F\+A\+L\+SE if error. 
+\end{DoxyReturn}
+
+
+linux\+\_\+hal\+\_\+generic.\+cpp 파일의 212 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+212                                                       \{
+213     \textcolor{keywordflow}{if}( syscall(\_\_NR\_clock\_adjtime, \hyperlink{class_linux_timestamper_generic_a5522acc6ce53752665fa393702058a7b}{\_private}->\hyperlink{struct_linux_timestamper_generic_private_a4f74a0f0dc6605cf35e80f22e678c831}{clockid}, tmx ) != 0 ) \{
+214         \hyperlink{gptp__log_8hpp_afefbb1009717c128012bfeed94842987}{GPTP\_LOG\_ERROR}(\textcolor{stringliteral}{"Failed to adjust PTP clock rate"});
+215         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+216     \}
+217     \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+218 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_linux_timestamper_generic_a1d52a5a84b74222b880522cee01475e1_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_linux_timestamper_generic_a1d52a5a84b74222b880522cee01475e1_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}!get\+Version@{get\+Version}}
+\index{get\+Version@{get\+Version}!Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}}
+\subsubsection[{\texorpdfstring{get\+Version() const }{getVersion() const }}]{\setlength{\rightskip}{0pt plus 5cm}int get\+Version (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}\hypertarget{class_common_timestamper_a4d1414f8d9ed8d83c91769b148106307}{}\label{class_common_timestamper_a4d1414f8d9ed8d83c91769b148106307}
+
+
+Gets the H\+W\+Timestamper version. 
+
+\begin{DoxyReturn}{반환값}
+version (signed integer) 
+\end{DoxyReturn}
+
+
+common\+\_\+tstamper.\+hpp 파일의 137 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+138     \{
+139         \textcolor{keywordflow}{return} \hyperlink{class_common_timestamper_ab22abc2906422da61885ac6c8e6a1a59}{version};
+140     \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_common_timestamper_a4d1414f8d9ed8d83c91769b148106307_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}!H\+W\+Timestamper\+\_\+adjclockphase@{H\+W\+Timestamper\+\_\+adjclockphase}}
+\index{H\+W\+Timestamper\+\_\+adjclockphase@{H\+W\+Timestamper\+\_\+adjclockphase}!Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}}
+\subsubsection[{\texorpdfstring{H\+W\+Timestamper\+\_\+adjclockphase(int64\+\_\+t phase\+\_\+adjust)}{HWTimestamper_adjclockphase(int64_t phase_adjust)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} H\+W\+Timestamper\+\_\+adjclockphase (
+\begin{DoxyParamCaption}
+\item[{{\bf int64\+\_\+t}}]{phase\+\_\+adjust}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\hypertarget{class_linux_timestamper_generic_abf6eb9134a918a1e218402f7d9b15468}{}\label{class_linux_timestamper_generic_abf6eb9134a918a1e218402f7d9b15468}
+
+
+Adjusts the clock phase. 
+
+
+\begin{DoxyParams}{매개변수}
+{\em phase\+\_\+adjust} & Phase adjustment \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+T\+R\+UE if success, F\+A\+L\+SE if error. 
+\end{DoxyReturn}
+
+
+\hyperlink{class_common_timestamper_aa9470ea1623c3718913fbff1c55e3115}{Common\+Timestamper}(으)로부터 재구현되었습니다.
+
+
+
+linux\+\_\+hal\+\_\+generic\+\_\+adj.\+cpp 파일의 48 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+48                                                                                 \{
+49     \textcolor{keyword}{struct }timex tx;
+50     LinuxNetworkInterfaceList::iterator iface\_iter;
+51     \textcolor{keywordtype}{bool} ret = \textcolor{keyword}{true};
+52     \hyperlink{class_linux_timer_factory}{LinuxTimerFactory} factory;
+53     \hyperlink{class_o_s_timer}{OSTimer} *timer = factory.\hyperlink{class_linux_timer_factory_aa860b8a3f499753959b9148bf48cda4d}{createTimer}();
+54         
+55     \textcolor{comment}{/* Walk list of interfaces disabling them all */}
+56     iface\_iter = \hyperlink{class_linux_timestamper_generic_a71c6eb5a2c243c3e622503aa7c0eff67}{iface\_list}.begin();
+57     \textcolor{keywordflow}{for}
+58         ( iface\_iter = \hyperlink{class_linux_timestamper_generic_a71c6eb5a2c243c3e622503aa7c0eff67}{iface\_list}.begin(); iface\_iter != \hyperlink{class_linux_timestamper_generic_a71c6eb5a2c243c3e622503aa7c0eff67}{iface\_list}.end();
+59           ++iface\_iter ) \{
+60         (*iface\_iter)->disable\_rx\_queue();
+61     \}
+62         
+63     \hyperlink{class_linux_timestamper_generic_a3ab5f699ce3a90c21782087bdae99de9}{rxTimestampList}.clear();
+64         
+65     \textcolor{comment}{/* Wait 180 ms - This is plenty of time for any time sync frames}
+66 \textcolor{comment}{       to clear the queue */}
+67     timer->\hyperlink{class_o_s_timer_a1f92d99fa856da853c92acd11302b9cb}{sleep}(180000);
+68         
+69     ++\hyperlink{class_common_timestamper_ab22abc2906422da61885ac6c8e6a1a59}{version};
+70         
+71     tx.modes = \hyperlink{linux__hal__generic__adj_8cpp_a536e4ee365f962750ea39d0479d61bba}{ADJ\_SETOFFSET} | ADJ\_NANO;
+72     \textcolor{keywordflow}{if}( phase\_adjust >= 0 ) \{
+73         tx.time.tv\_sec  = phase\_adjust / 1000000000LL;
+74         tx.time.tv\_usec = phase\_adjust % 1000000000LL;
+75     \} \textcolor{keywordflow}{else} \{
+76         tx.time.tv\_sec  = (phase\_adjust / 1000000000LL)-1;
+77         tx.time.tv\_usec = (phase\_adjust % 1000000000LL)+1000000000;
+78     \}
+79 
+80     \textcolor{keywordflow}{if}( !\hyperlink{class_linux_timestamper_generic_a1d52a5a84b74222b880522cee01475e1}{Adjust}( &tx )) \{
+81         ret = \textcolor{keyword}{false};
+82     \}
+83         
+84     \textcolor{comment}{// Walk list of interfaces re-enabling them}
+85     iface\_iter = \hyperlink{class_linux_timestamper_generic_a71c6eb5a2c243c3e622503aa7c0eff67}{iface\_list}.begin();
+86     \textcolor{keywordflow}{for}( iface\_iter = \hyperlink{class_linux_timestamper_generic_a71c6eb5a2c243c3e622503aa7c0eff67}{iface\_list}.begin(); iface\_iter != \hyperlink{class_linux_timestamper_generic_a71c6eb5a2c243c3e622503aa7c0eff67}{iface\_list}.end();
+87          ++iface\_iter ) \{
+88         (*iface\_iter)->clear\_reenable\_rx\_queue();
+89     \}
+90       
+91     \textcolor{keyword}{delete} timer;
+92     \textcolor{keywordflow}{return} ret;
+93 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_linux_timestamper_generic_abf6eb9134a918a1e218402f7d9b15468_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_linux_timestamper_generic_abf6eb9134a918a1e218402f7d9b15468_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}!H\+W\+Timestamper\+\_\+adjclockrate@{H\+W\+Timestamper\+\_\+adjclockrate}}
+\index{H\+W\+Timestamper\+\_\+adjclockrate@{H\+W\+Timestamper\+\_\+adjclockrate}!Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}}
+\subsubsection[{\texorpdfstring{H\+W\+Timestamper\+\_\+adjclockrate(float freq\+\_\+offset) const }{HWTimestamper_adjclockrate(float freq_offset) const }}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} H\+W\+Timestamper\+\_\+adjclockrate (
+\begin{DoxyParamCaption}
+\item[{float}]{freq\+\_\+offset}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [virtual]}}\hypertarget{class_linux_timestamper_generic_a40688d4900827bb422a3a172614878f8}{}\label{class_linux_timestamper_generic_a40688d4900827bb422a3a172614878f8}
+
+
+Adjusts the frequency. 
+
+
+\begin{DoxyParams}{매개변수}
+{\em freq\+\_\+offset} & Frequency adjustment \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+T\+R\+UE in case of sucess, F\+A\+L\+SE if error. 
+\end{DoxyReturn}
+
+
+\hyperlink{class_common_timestamper_a557b905a4f8bb20481c28c8dd33cfb21}{Common\+Timestamper}(으)로부터 재구현되었습니다.
+
+
+
+linux\+\_\+hal\+\_\+generic\+\_\+adj.\+cpp 파일의 95 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+95                                                                                   \{
+96     \textcolor{keyword}{struct }timex tx;
+97     tx.modes = ADJ\_FREQUENCY;
+98     tx.freq  = long(freq\_offset) << 16;
+99     tx.freq += long(fmodf( freq\_offset, 1.0 )*65536.0);
+100 
+101     \textcolor{keywordflow}{return} \hyperlink{class_linux_timestamper_generic_a1d52a5a84b74222b880522cee01475e1}{Adjust}(&tx);
+102 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_linux_timestamper_generic_a40688d4900827bb422a3a172614878f8_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_linux_timestamper_generic_a40688d4900827bb422a3a172614878f8_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}!H\+W\+Timestamper\+\_\+final@{H\+W\+Timestamper\+\_\+final}}
+\index{H\+W\+Timestamper\+\_\+final@{H\+W\+Timestamper\+\_\+final}!Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}}
+\subsubsection[{\texorpdfstring{H\+W\+Timestamper\+\_\+final(void)}{HWTimestamper_final(void)}}]{\setlength{\rightskip}{0pt plus 5cm}virtual void H\+W\+Timestamper\+\_\+final (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}, {\ttfamily [inherited]}}\hypertarget{class_common_timestamper_a866fc2519a7b2a696e350ed05df53f90}{}\label{class_common_timestamper_a866fc2519a7b2a696e350ed05df53f90}
+
+
+This method is called before the object is de-\/allocated. 
+
+\begin{DoxyReturn}{반환값}
+void 
+\end{DoxyReturn}
+
+
+common\+\_\+tstamper.\+hpp 파일의 72 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+72                                            \{
+73     \}
+\end{DoxyCode}
+\index{Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}!H\+W\+Timestamper\+\_\+get\+\_\+extderror@{H\+W\+Timestamper\+\_\+get\+\_\+extderror}}
+\index{H\+W\+Timestamper\+\_\+get\+\_\+extderror@{H\+W\+Timestamper\+\_\+get\+\_\+extderror}!Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}}
+\subsubsection[{\texorpdfstring{H\+W\+Timestamper\+\_\+get\+\_\+extderror(char $\ast$msg) const }{HWTimestamper_get_extderror(char *msg) const }}]{\setlength{\rightskip}{0pt plus 5cm}virtual void H\+W\+Timestamper\+\_\+get\+\_\+extderror (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{msg}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}, {\ttfamily [inherited]}}\hypertarget{class_common_timestamper_a3b26113436dec73775d2cbc523a6e074}{}\label{class_common_timestamper_a3b26113436dec73775d2cbc523a6e074}
+
+
+Gets a string with the error from the hardware timestamp block. 
+
+
+\begin{DoxyParams}{매개변수}
+{\em msg} & \mbox{[}out\mbox{]} String error \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+void 
+\end{DoxyReturn}
+\begin{DoxyRefDesc}{할일}
+\item[\hyperlink{todo__todo000020}{할일}]There is no current implementation for this method. \end{DoxyRefDesc}
+
+
+common\+\_\+tstamper.\+hpp 파일의 116 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+117     \{
+118         *\hyperlink{maap__log__linux_8c_a0c7e58a50354c4a4d6dad428d0e47029}{msg} = \textcolor{charliteral}{'\(\backslash\)0'};
+119     \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_common_timestamper_a3b26113436dec73775d2cbc523a6e074_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}!H\+W\+Timestamper\+\_\+gettime@{H\+W\+Timestamper\+\_\+gettime}}
+\index{H\+W\+Timestamper\+\_\+gettime@{H\+W\+Timestamper\+\_\+gettime}!Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}}
+\subsubsection[{\texorpdfstring{H\+W\+Timestamper\+\_\+gettime(\+Timestamp $\ast$system\+\_\+time, Timestamp $\ast$device\+\_\+time, uint32\+\_\+t $\ast$local\+\_\+clock, uint32\+\_\+t $\ast$nominal\+\_\+clock\+\_\+rate) const }{HWTimestamper_gettime(Timestamp *system_time, Timestamp *device_time, uint32_t *local_clock, uint32_t *nominal_clock_rate) const }}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} H\+W\+Timestamper\+\_\+gettime (
+\begin{DoxyParamCaption}
+\item[{{\bf Timestamp} $\ast$}]{system\+\_\+time, }
+\item[{{\bf Timestamp} $\ast$}]{device\+\_\+time, }
+\item[{{\bf uint32\+\_\+t} $\ast$}]{local\+\_\+clock, }
+\item[{{\bf uint32\+\_\+t} $\ast$}]{nominal\+\_\+clock\+\_\+rate}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [virtual]}}\hypertarget{class_linux_timestamper_generic_ab8370a996dbc05b111b5d8f888a87648}{}\label{class_linux_timestamper_generic_ab8370a996dbc05b111b5d8f888a87648}
+
+
+Gets the ptp clock time information. 
+
+
+\begin{DoxyParams}{매개변수}
+{\em system\+\_\+time} & \mbox{[}out\mbox{]} System time \\
+\hline
+{\em device\+\_\+time} & \mbox{[}out\mbox{]} Device time \\
+\hline
+{\em local\+\_\+clock} & Not Used \\
+\hline
+{\em nominal\+\_\+clock\+\_\+rate} & Not Used \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+T\+R\+UE if got the time successfully, F\+A\+L\+SE otherwise 
+\end{DoxyReturn}
+
+
+\hyperlink{class_common_timestamper_a10b54d66a60067c0084748f955164073}{Common\+Timestamper}를 구현.
+
+
+
+linux\+\_\+hal\+\_\+generic.\+cpp 파일의 446 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+448 \{
+449     \textcolor{keywordflow}{if}( \hyperlink{class_linux_timestamper_generic_ac4500de48048f43e4cfd225a42c8bd56}{phc\_fd} == -1 )
+450         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+451 
+452 \textcolor{preprocessor}{#ifdef PTP\_HW\_CROSSTSTAMP}
+453     \textcolor{keywordflow}{if}( precise\_timestamp\_enabled )
+454     \{
+455         \textcolor{keyword}{struct }ptp\_sys\_offset\_precise offset;
+456         memset( &offset, 0, \textcolor{keyword}{sizeof}(offset));
+457         \textcolor{keywordflow}{if}( ioctl( \hyperlink{class_linux_timestamper_generic_ac4500de48048f43e4cfd225a42c8bd56}{phc\_fd}, PTP\_SYS\_OFFSET\_PRECISE, &offset ) == 0 )
+458         \{
+459             *device\_time = \hyperlink{linux__hal__generic_8cpp_a3943f78a47990dfd984f029f52c4eb9a}{pctTimestamp}( &offset.device );
+460             *system\_time = \hyperlink{linux__hal__generic_8cpp_a3943f78a47990dfd984f029f52c4eb9a}{pctTimestamp}( &offset.sys\_realtime );
+461 
+462             \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+463         \}
+464     \}
+465 \textcolor{preprocessor}{#endif}
+466 
+467     \{
+468         \textcolor{keywordtype}{unsigned} i;
+469         \textcolor{keyword}{struct }ptp\_clock\_time *pct;
+470         \textcolor{keyword}{struct }ptp\_clock\_time *system\_time\_l = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, *device\_time\_l = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+471         \hyperlink{parse_8c_a67a9885ef4908cb72ce26d75b694386c}{int64\_t} interval = LLONG\_MAX;
+472         \textcolor{keyword}{struct }ptp\_sys\_offset offset;
+473 
+474         memset( &offset, 0, \textcolor{keyword}{sizeof}(offset));
+475         offset.n\_samples = PTP\_MAX\_SAMPLES;
+476         \textcolor{keywordflow}{if}( ioctl( \hyperlink{class_linux_timestamper_generic_ac4500de48048f43e4cfd225a42c8bd56}{phc\_fd}, PTP\_SYS\_OFFSET, &offset ) == -1 )
+477             \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+478 
+479         pct = &offset.ts[0];
+480         \textcolor{keywordflow}{for}( i = 0; i < offset.n\_samples; ++i ) \{
+481             \hyperlink{parse_8c_a67a9885ef4908cb72ce26d75b694386c}{int64\_t} interval\_t;
+482             interval\_t = \hyperlink{linux__hal__generic_8cpp_a238d4b54a31c7b7887c421112e7feb24}{pctns}(\hyperlink{linux__hal__generic_8cpp_a2759ffc89a68098d5e5550dc48e4d1eb}{pct\_diff}( pct+2*i+2, pct+2*i ));
+483             \textcolor{keywordflow}{if}( interval\_t < interval ) \{
+484                 system\_time\_l = pct+2*i;
+485                 device\_time\_l = pct+2*i+1;
+486                 interval = interval\_t;
+487             \}
+488         \}
+489 
+490         \textcolor{keywordflow}{if} (device\_time\_l)
+491             *device\_time = \hyperlink{linux__hal__generic_8cpp_a3943f78a47990dfd984f029f52c4eb9a}{pctTimestamp}( device\_time\_l );
+492         \textcolor{keywordflow}{if} (system\_time\_l)
+493             *system\_time = \hyperlink{linux__hal__generic_8cpp_a3943f78a47990dfd984f029f52c4eb9a}{pctTimestamp}( system\_time\_l );
+494     \}
+495 
+496     \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+497 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=323pt]{class_linux_timestamper_generic_ab8370a996dbc05b111b5d8f888a87648_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_linux_timestamper_generic_ab8370a996dbc05b111b5d8f888a87648_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}!H\+W\+Timestamper\+\_\+init@{H\+W\+Timestamper\+\_\+init}}
+\index{H\+W\+Timestamper\+\_\+init@{H\+W\+Timestamper\+\_\+init}!Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}}
+\subsubsection[{\texorpdfstring{H\+W\+Timestamper\+\_\+init(\+Interface\+Label $\ast$iface\+\_\+label, O\+S\+Network\+Interface $\ast$iface)}{HWTimestamper_init(InterfaceLabel *iface_label, OSNetworkInterface *iface)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} H\+W\+Timestamper\+\_\+init (
+\begin{DoxyParamCaption}
+\item[{{\bf Interface\+Label} $\ast$}]{iface\+\_\+label, }
+\item[{{\bf O\+S\+Network\+Interface} $\ast$}]{iface}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\hypertarget{class_linux_timestamper_generic_a7a098484ed16d09074217e92eb22d03d}{}\label{class_linux_timestamper_generic_a7a098484ed16d09074217e92eb22d03d}
+
+
+Initializes the Hardware timestamp interface. 
+
+
+\begin{DoxyParams}{매개변수}
+{\em iface\+\_\+label} & \mbox{[}in\mbox{]} Network interface label (used to find the phc index) \\
+\hline
+{\em iface} & \mbox{[}in\mbox{]} Network interface \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+F\+A\+L\+SE in case of error, T\+R\+UE if success. 
+\end{DoxyReturn}
+
+
+\hyperlink{class_common_timestamper_abde0de8253fd960807f7f2816c0c5225}{Common\+Timestamper}(으)로부터 재구현되었습니다.
+
+
+
+linux\+\_\+hal\+\_\+generic.\+cpp 파일의 221 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+221                                                            \{
+222     \hyperlink{class_linux_timestamper_generic_a44ccbbc368595932d5247f158b0c902e}{cross\_stamp\_good} = \textcolor{keyword}{false};
+223     \textcolor{keywordtype}{int} phc\_index;
+224     \textcolor{keywordtype}{char} ptp\_device[] = \hyperlink{linux__hal__common_8hpp_a9b1e7f9349e1ec00fda261e19712cc3b}{PTP\_DEVICE};
+225 \textcolor{preprocessor}{#ifdef PTP\_HW\_CROSSTSTAMP}
+226     \textcolor{keyword}{struct }ptp\_clock\_caps ptp\_capability;
+227 \textcolor{preprocessor}{#endif}
+228     \hyperlink{class_linux_timestamper_generic_a5522acc6ce53752665fa393702058a7b}{\_private} = \textcolor{keyword}{new} \hyperlink{struct_linux_timestamper_generic_private}{LinuxTimestamperGenericPrivate};
+229 
+230     pthread\_mutex\_init( &\_private->cross\_stamp\_lock, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} );
+231 
+232     \textcolor{comment}{// Determine the correct PTP clock interface}
+233     phc\_index = \hyperlink{linux__hal__generic_8cpp_a58e1e630fe6789d224a9e75d84c85b53}{findPhcIndex}( iface\_label );
+234     \textcolor{keywordflow}{if}( phc\_index < 0 ) \{
+235         \hyperlink{gptp__log_8hpp_afefbb1009717c128012bfeed94842987}{GPTP\_LOG\_ERROR}(\textcolor{stringliteral}{"Failed to find PTP device index"});
+236         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+237     \}
+238 
+239     snprintf
+240         ( ptp\_device+\hyperlink{linux__hal__common_8hpp_a1e0fb7a4341f2bb3018c116a3ad7e574}{PTP\_DEVICE\_IDX\_OFFS},
+241           \textcolor{keyword}{sizeof}(ptp\_device)-\hyperlink{linux__hal__common_8hpp_a1e0fb7a4341f2bb3018c116a3ad7e574}{PTP\_DEVICE\_IDX\_OFFS}, \textcolor{stringliteral}{"%d"}, phc\_index );
+242     \hyperlink{gptp__log_8hpp_afefbb1009717c128012bfeed94842987}{GPTP\_LOG\_ERROR}(\textcolor{stringliteral}{"Using clock device: %s"}, ptp\_device);
+243     \hyperlink{class_linux_timestamper_generic_ac4500de48048f43e4cfd225a42c8bd56}{phc\_fd} = open( ptp\_device, O\_RDWR );
+244     \textcolor{keywordflow}{if}( \hyperlink{class_linux_timestamper_generic_ac4500de48048f43e4cfd225a42c8bd56}{phc\_fd} == -1 || (\_private->clockid = \hyperlink{linux__hal__common_8hpp_adbd346029ff3eefd4a09ea5c63b82449}{FD\_TO\_CLOCKID}(
+      \hyperlink{class_linux_timestamper_generic_ac4500de48048f43e4cfd225a42c8bd56}{phc\_fd})) == -1 ) \{
+245         \hyperlink{gptp__log_8hpp_afefbb1009717c128012bfeed94842987}{GPTP\_LOG\_ERROR}(\textcolor{stringliteral}{"Failed to open PTP clock device"});
+246         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+247     \}
+248 
+249 \textcolor{preprocessor}{#ifdef PTP\_HW\_CROSSTSTAMP}
+250     \textcolor{comment}{// Query PTP stack for availability of HW cross-timestamp}
+251     \textcolor{keywordflow}{if}( ioctl( \hyperlink{class_linux_timestamper_generic_ac4500de48048f43e4cfd225a42c8bd56}{phc\_fd}, PTP\_CLOCK\_GETCAPS, &ptp\_capability ) == -1 )
+252     \{
+253         \hyperlink{gptp__log_8hpp_afefbb1009717c128012bfeed94842987}{GPTP\_LOG\_ERROR}(\textcolor{stringliteral}{"Failed to query PTP clock capabilities"});
+254         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+255     \}
+256     precise\_timestamp\_enabled = ptp\_capability.cross\_timestamping;
+257 \textcolor{preprocessor}{#endif}
+258 
+259     \textcolor{keywordflow}{if}( !\hyperlink{class_linux_timestamper_generic_a0db03755529ffca07f6d4a46d26a60c8}{resetFrequencyAdjustment}() ) \{
+260         \hyperlink{gptp__log_8hpp_afefbb1009717c128012bfeed94842987}{GPTP\_LOG\_ERROR}(\textcolor{stringliteral}{"Failed to reset (zero) frequency adjustment"});
+261         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+262     \}
+263 
+264     \textcolor{keywordflow}{if}( dynamic\_cast<LinuxNetworkInterface *>(iface) != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} ) \{
+265         \hyperlink{class_linux_timestamper_generic_a71c6eb5a2c243c3e622503aa7c0eff67}{iface\_list}.push\_front
+266             ( (dynamic\_cast<LinuxNetworkInterface *>(iface)) );
+267     \}
+268 
+269     \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+270 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_linux_timestamper_generic_a7a098484ed16d09074217e92eb22d03d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_linux_timestamper_generic_a7a098484ed16d09074217e92eb22d03d_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}!H\+W\+Timestamper\+\_\+\+P\+P\+S\+\_\+start@{H\+W\+Timestamper\+\_\+\+P\+P\+S\+\_\+start}}
+\index{H\+W\+Timestamper\+\_\+\+P\+P\+S\+\_\+start@{H\+W\+Timestamper\+\_\+\+P\+P\+S\+\_\+start}!Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}}
+\subsubsection[{\texorpdfstring{H\+W\+Timestamper\+\_\+\+P\+P\+S\+\_\+start()}{HWTimestamper_PPS_start()}}]{\setlength{\rightskip}{0pt plus 5cm}virtual {\bf bool} H\+W\+Timestamper\+\_\+\+P\+P\+S\+\_\+start (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}, {\ttfamily [inherited]}}\hypertarget{class_common_timestamper_a2cbaeb84807ca61af0bc56bcc475468d}{}\label{class_common_timestamper_a2cbaeb84807ca61af0bc56bcc475468d}
+
+
+Starts the P\+PS (pulse per second) interface. 
+
+\begin{DoxyReturn}{반환값}
+false 
+\end{DoxyReturn}
+
+
+common\+\_\+tstamper.\+hpp 파일의 125 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+125 \{ \textcolor{keywordflow}{return} \textcolor{keyword}{false}; \};
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_common_timestamper_a2cbaeb84807ca61af0bc56bcc475468d_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}!H\+W\+Timestamper\+\_\+\+P\+P\+S\+\_\+stop@{H\+W\+Timestamper\+\_\+\+P\+P\+S\+\_\+stop}}
+\index{H\+W\+Timestamper\+\_\+\+P\+P\+S\+\_\+stop@{H\+W\+Timestamper\+\_\+\+P\+P\+S\+\_\+stop}!Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}}
+\subsubsection[{\texorpdfstring{H\+W\+Timestamper\+\_\+\+P\+P\+S\+\_\+stop()}{HWTimestamper_PPS_stop()}}]{\setlength{\rightskip}{0pt plus 5cm}virtual {\bf bool} H\+W\+Timestamper\+\_\+\+P\+P\+S\+\_\+stop (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}, {\ttfamily [inherited]}}\hypertarget{class_common_timestamper_ac5d9f1e5eb402dffaa8897367e9fd7d3}{}\label{class_common_timestamper_ac5d9f1e5eb402dffaa8897367e9fd7d3}
+
+
+Stops the P\+PS (pulse per second) interface. 
+
+\begin{DoxyReturn}{반환값}
+true 
+\end{DoxyReturn}
+
+
+common\+\_\+tstamper.\+hpp 파일의 131 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+131 \{ \textcolor{keywordflow}{return} \textcolor{keyword}{true}; \};
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_common_timestamper_ac5d9f1e5eb402dffaa8897367e9fd7d3_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}!H\+W\+Timestamper\+\_\+reset@{H\+W\+Timestamper\+\_\+reset}}
+\index{H\+W\+Timestamper\+\_\+reset@{H\+W\+Timestamper\+\_\+reset}!Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}}
+\subsubsection[{\texorpdfstring{H\+W\+Timestamper\+\_\+reset()}{HWTimestamper_reset()}}]{\setlength{\rightskip}{0pt plus 5cm}void H\+W\+Timestamper\+\_\+reset (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\hypertarget{class_linux_timestamper_generic_a4ad3a40de8c6141b2d26b9df5cc3cd97}{}\label{class_linux_timestamper_generic_a4ad3a40de8c6141b2d26b9df5cc3cd97}
+
+
+Reset the Hardware timestamp interface. 
+
+\begin{DoxyReturn}{반환값}
+void 
+\end{DoxyReturn}
+
+
+\hyperlink{class_common_timestamper_a1ee6bfcaf63bef07bbed1306e52e7203}{Common\+Timestamper}(으)로부터 재구현되었습니다.
+
+
+
+linux\+\_\+hal\+\_\+generic.\+cpp 파일의 272 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+273 \{
+274     \textcolor{keywordflow}{if}( !\hyperlink{class_linux_timestamper_generic_a0db03755529ffca07f6d4a46d26a60c8}{resetFrequencyAdjustment}() ) \{
+275         \hyperlink{gptp__log_8hpp_afefbb1009717c128012bfeed94842987}{GPTP\_LOG\_ERROR}(\textcolor{stringliteral}{"Failed to reset (zero) frequency adjustment"});
+276     \}
+277 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_linux_timestamper_generic_a4ad3a40de8c6141b2d26b9df5cc3cd97_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}!H\+W\+Timestamper\+\_\+rxtimestamp@{H\+W\+Timestamper\+\_\+rxtimestamp}}
+\index{H\+W\+Timestamper\+\_\+rxtimestamp@{H\+W\+Timestamper\+\_\+rxtimestamp}!Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}}
+\subsubsection[{\texorpdfstring{H\+W\+Timestamper\+\_\+rxtimestamp(\+Port\+Identity $\ast$identity, P\+T\+P\+Message\+Id message\+Id, Timestamp \&timestamp, unsigned \&clock\+\_\+value, bool last)}{HWTimestamper_rxtimestamp(PortIdentity *identity, PTPMessageId messageId, Timestamp &timestamp, unsigned &clock_value, bool last)}}]{\setlength{\rightskip}{0pt plus 5cm}virtual int H\+W\+Timestamper\+\_\+rxtimestamp (
+\begin{DoxyParamCaption}
+\item[{{\bf Port\+Identity} $\ast$}]{identity, }
+\item[{{\bf P\+T\+P\+Message\+Id}}]{message\+Id, }
+\item[{{\bf Timestamp} \&}]{timestamp, }
+\item[{unsigned \&}]{clock\+\_\+value, }
+\item[{{\bf bool}}]{last}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}\hypertarget{class_linux_timestamper_generic_a9dc0ab7dd51322bf334ba8fe1d4e77a9}{}\label{class_linux_timestamper_generic_a9dc0ab7dd51322bf334ba8fe1d4e77a9}
+
+
+Gets the RX timestamp from the hardware interface. This Currently the RX timestamp is retrieved at \hyperlink{class_linux_network_interface_acb980fe584d47a71be88f12808edd91c}{Linux\+Network\+Interface\+::nrecv} method. 
+
+
+\begin{DoxyParams}{매개변수}
+{\em identity} & P\+TP port identity \\
+\hline
+{\em \hyperlink{class_p_t_p_message_id}{P\+T\+P\+Message\+Id}} & Message ID \\
+\hline
+{\em timestamp} & \mbox{[}out\mbox{]} \hyperlink{class_timestamp}{Timestamp} value \\
+\hline
+{\em clock\+\_\+value} & \mbox{[}out\mbox{]} Clock value \\
+\hline
+{\em last} & Signalizes that it is the last timestamp to get. When T\+R\+UE, releases the lock when its done. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+G\+P\+T\+P\+\_\+\+E\+C\+\_\+\+S\+U\+C\+C\+E\+SS if no error, G\+P\+T\+P\+\_\+\+E\+C\+\_\+\+F\+A\+I\+L\+U\+RE if error and G\+P\+T\+P\+\_\+\+E\+C\+\_\+\+E\+A\+G\+A\+IN to try again. 
+\end{DoxyReturn}
+
+
+\hyperlink{class_ether_timestamper_afcc61feb25861ff20edbb657170a3c9e}{Ether\+Timestamper}를 구현.
+
+
+
+linux\+\_\+hal\+\_\+generic.\+hpp 파일의 167 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+168                                          \{
+169         \textcolor{comment}{/* This shouldn't happen. Ever. */}
+170         \textcolor{keywordflow}{if}( \hyperlink{class_linux_timestamper_generic_a3ab5f699ce3a90c21782087bdae99de9}{rxTimestampList}.empty() ) \textcolor{keywordflow}{return} \hyperlink{ieee1588_8hpp_aee74e806e4f7deb78c6adee61f5dac87}{GPTP\_EC\_EAGAIN};
+171         timestamp = \hyperlink{class_linux_timestamper_generic_a3ab5f699ce3a90c21782087bdae99de9}{rxTimestampList}.back();
+172         \hyperlink{class_linux_timestamper_generic_a3ab5f699ce3a90c21782087bdae99de9}{rxTimestampList}.pop\_back();
+173 
+174         \textcolor{keywordflow}{return} \hyperlink{ieee1588_8hpp_a57ed3a54df25c6db88b00f685f517920}{GPTP\_EC\_SUCCESS};
+175     \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_linux_timestamper_generic_a9dc0ab7dd51322bf334ba8fe1d4e77a9_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_linux_timestamper_generic_a9dc0ab7dd51322bf334ba8fe1d4e77a9_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}!H\+W\+Timestamper\+\_\+txtimestamp@{H\+W\+Timestamper\+\_\+txtimestamp}}
+\index{H\+W\+Timestamper\+\_\+txtimestamp@{H\+W\+Timestamper\+\_\+txtimestamp}!Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}}
+\subsubsection[{\texorpdfstring{H\+W\+Timestamper\+\_\+txtimestamp(\+Port\+Identity $\ast$identity, P\+T\+P\+Message\+Id message\+Id, Timestamp \&timestamp, unsigned \&clock\+\_\+value, bool last)}{HWTimestamper_txtimestamp(PortIdentity *identity, PTPMessageId messageId, Timestamp &timestamp, unsigned &clock_value, bool last)}}]{\setlength{\rightskip}{0pt plus 5cm}int H\+W\+Timestamper\+\_\+txtimestamp (
+\begin{DoxyParamCaption}
+\item[{{\bf Port\+Identity} $\ast$}]{identity, }
+\item[{{\bf P\+T\+P\+Message\+Id}}]{message\+Id, }
+\item[{{\bf Timestamp} \&}]{timestamp, }
+\item[{unsigned \&}]{clock\+\_\+value, }
+\item[{{\bf bool}}]{last}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\hypertarget{class_linux_timestamper_generic_a8ca092c3a907618eebf1d512de28db18}{}\label{class_linux_timestamper_generic_a8ca092c3a907618eebf1d512de28db18}
+
+
+Gets the TX timestamp from hardware interface. 
+
+
+\begin{DoxyParams}{매개변수}
+{\em identity} & P\+TP port identity \\
+\hline
+{\em \hyperlink{class_p_t_p_message_id}{P\+T\+P\+Message\+Id}} & Message ID \\
+\hline
+{\em timestamp} & \mbox{[}out\mbox{]} \hyperlink{class_timestamp}{Timestamp} value \\
+\hline
+{\em clock\+\_\+value} & \mbox{[}out\mbox{]} Clock value \\
+\hline
+{\em last} & Signalizes that it is the last timestamp to get. When T\+R\+UE, releases the lock when its done. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+G\+P\+T\+P\+\_\+\+E\+C\+\_\+\+S\+U\+C\+C\+E\+SS if no error, G\+P\+T\+P\+\_\+\+E\+C\+\_\+\+F\+A\+I\+L\+U\+RE if error and G\+P\+T\+P\+\_\+\+E\+C\+\_\+\+E\+A\+G\+A\+IN to try again. 
+\end{DoxyReturn}
+
+
+\hyperlink{class_ether_timestamper_a82619058d136ce4314189f1c9db91914}{Ether\+Timestamper}를 구현.
+
+
+
+linux\+\_\+hal\+\_\+generic.\+cpp 파일의 280 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+282 \{
+283     \textcolor{keywordtype}{int} \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err};
+284     \textcolor{keywordtype}{int} ret = \hyperlink{ieee1588_8hpp_aee74e806e4f7deb78c6adee61f5dac87}{GPTP\_EC\_EAGAIN};
+285     \textcolor{keyword}{struct }msghdr \hyperlink{maap__log__linux_8c_a0c7e58a50354c4a4d6dad428d0e47029}{msg};
+286     \textcolor{keyword}{struct }cmsghdr *cmsg;
+287     \textcolor{keyword}{struct }sockaddr\_ll remote;
+288     \textcolor{keyword}{struct }iovec sgentry;
+289     \hyperlink{class_p_t_p_message_id}{PTPMessageId} reflectedMessageId;
+290     \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} reflected\_bytes[\hyperlink{ptptypes_8hpp_a4e7484afbe095e65767c43feb3a106cf}{ETHER\_HDR\_LEN} + 
+      \hyperlink{avbts__message_8hpp_a8ec4d965b7b1e83844f1c17f12e9b8e4}{PTP\_COMMON\_HDR\_LENGTH}];
+291     \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} *gptpCommonHeader;
+292     uint16\_t sequenceId;
+293     \textcolor{keyword}{struct }\{
+294         \textcolor{keyword}{struct }cmsghdr cm;
+295         \textcolor{keywordtype}{char} control[256];
+296     \} control;
+297 
+298     \textcolor{keywordflow}{if}( \hyperlink{class_linux_timestamper_generic_a06b0afe769d54ae94259d8532bc878b0}{sd} == -1 ) \textcolor{keywordflow}{return} -1;
+299     memset( &\hyperlink{maap__log__linux_8c_a0c7e58a50354c4a4d6dad428d0e47029}{msg}, 0, \textcolor{keyword}{sizeof}( \hyperlink{maap__log__linux_8c_a0c7e58a50354c4a4d6dad428d0e47029}{msg} ));
+300 
+301     \hyperlink{maap__log__linux_8c_a0c7e58a50354c4a4d6dad428d0e47029}{msg}.msg\_iov = &sgentry;
+302     \hyperlink{maap__log__linux_8c_a0c7e58a50354c4a4d6dad428d0e47029}{msg}.msg\_iovlen = 1;
+303 
+304     sgentry.iov\_base = reflected\_bytes;
+305     sgentry.iov\_len = \textcolor{keyword}{sizeof}(reflected\_bytes);
+306 
+307     gptpCommonHeader = reflected\_bytes + \hyperlink{ptptypes_8hpp_a4e7484afbe095e65767c43feb3a106cf}{ETHER\_HDR\_LEN};
+308 
+309     memset( &remote, 0, \textcolor{keyword}{sizeof}(remote));
+310     \hyperlink{maap__log__linux_8c_a0c7e58a50354c4a4d6dad428d0e47029}{msg}.msg\_name = (caddr\_t) &remote;
+311     \hyperlink{maap__log__linux_8c_a0c7e58a50354c4a4d6dad428d0e47029}{msg}.msg\_namelen = \textcolor{keyword}{sizeof}( remote );
+312     \hyperlink{maap__log__linux_8c_a0c7e58a50354c4a4d6dad428d0e47029}{msg}.msg\_control = &control;
+313     \hyperlink{maap__log__linux_8c_a0c7e58a50354c4a4d6dad428d0e47029}{msg}.msg\_controllen = \textcolor{keyword}{sizeof}(control);
+314 
+315     err = recvmsg( \hyperlink{class_linux_timestamper_generic_a06b0afe769d54ae94259d8532bc878b0}{sd}, &\hyperlink{maap__log__linux_8c_a0c7e58a50354c4a4d6dad428d0e47029}{msg}, MSG\_ERRQUEUE );
+316     \textcolor{keywordflow}{if}( err == -1 ) \{
+317         \textcolor{keywordflow}{if}( errno == EAGAIN ) \{
+318             ret = \hyperlink{ieee1588_8hpp_aee74e806e4f7deb78c6adee61f5dac87}{GPTP\_EC\_EAGAIN};
+319             \textcolor{keywordflow}{goto} \hyperlink{mrp_validate_8c_a5992b274cfdcacdbc1fa8347fd01ebde}{done};
+320         \}
+321         \textcolor{keywordflow}{else} \{
+322             ret = \hyperlink{ieee1588_8hpp_ab75a746f471bd4537a099d86b38d78c1}{GPTP\_EC\_FAILURE};
+323             \textcolor{keywordflow}{goto} \hyperlink{mrp_validate_8c_a5992b274cfdcacdbc1fa8347fd01ebde}{done};
+324         \}
+325     \}
+326     sequenceId = \hyperlink{linux_2src_2platform_8cpp_a6b8f3e7b87b66fa774a07ddc67f883a7}{PLAT\_ntohs}(*((uint16\_t*)(\hyperlink{avbts__message_8hpp_af717ee08477f9388e66fc5451971e6af}{PTP\_COMMON\_HDR\_SEQUENCE\_ID}(
+      gptpCommonHeader))));
+327     reflectedMessageId.setSequenceId(sequenceId);
+328     reflectedMessageId.setMessageType((\hyperlink{avbts__message_8hpp_ac6606ebe91c8ac66a2c314c79f5ab013}{MessageType})(*
+      \hyperlink{avbts__message_8hpp_a102fc939e55e08eadb9bf42508fb65d2}{PTP\_COMMON\_HDR\_TRANSSPEC\_MSGTYPE}(gptpCommonHeader) & 0xF));
+329     \textcolor{keywordflow}{if} (messageId != reflectedMessageId) \{
+330         \hyperlink{gptp__log_8hpp_af167ce4fe92c399b212449dfb071a3f5}{GPTP\_LOG\_WARNING}(\textcolor{stringliteral}{"Timestamp discarded due to wrong message id"});
+331         ret = \hyperlink{ieee1588_8hpp_aee74e806e4f7deb78c6adee61f5dac87}{GPTP\_EC\_EAGAIN};
+332         \textcolor{keywordflow}{goto} \hyperlink{mrp_validate_8c_a5992b274cfdcacdbc1fa8347fd01ebde}{done};
+333     \}
+334 
+335     \textcolor{comment}{// Retrieve the timestamp}
+336     cmsg = CMSG\_FIRSTHDR(&\hyperlink{maap__log__linux_8c_a0c7e58a50354c4a4d6dad428d0e47029}{msg});
+337     \textcolor{keywordflow}{while}( cmsg != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} ) \{
+338         \textcolor{keywordflow}{if}( cmsg->cmsg\_level == SOL\_SOCKET &&
+339             cmsg->cmsg\_type == SO\_TIMESTAMPING ) \{
+340             \textcolor{keyword}{struct }timespec *ts\_device, *ts\_system;
+341             \hyperlink{class_timestamp}{Timestamp} device, system;
+342             ts\_system = ((\textcolor{keyword}{struct }timespec *) CMSG\_DATA(cmsg)) + 1;
+343             system = \hyperlink{linux__hal__common_8cpp_aca59dd57dc39771609459e65457e0740}{tsToTimestamp}( ts\_system );
+344             ts\_device = ts\_system + 1; device = \hyperlink{linux__hal__common_8cpp_aca59dd57dc39771609459e65457e0740}{tsToTimestamp}( ts\_device );
+345             system.\hyperlink{class_timestamp_a8fab72cfd922b5757580642c2309e9bd}{\_version} = \hyperlink{class_common_timestamper_ab22abc2906422da61885ac6c8e6a1a59}{version};
+346             device.\hyperlink{class_timestamp_a8fab72cfd922b5757580642c2309e9bd}{\_version} = \hyperlink{class_common_timestamper_ab22abc2906422da61885ac6c8e6a1a59}{version};
+347             timestamp = device;
+348             ret = 0;
+349             \textcolor{keywordflow}{break};
+350         \}
+351         cmsg = CMSG\_NXTHDR(&\hyperlink{maap__log__linux_8c_a0c7e58a50354c4a4d6dad428d0e47029}{msg},cmsg);
+352     \}
+353 
+354     \textcolor{keywordflow}{if}( ret != 0 ) \{
+355         \hyperlink{gptp__log_8hpp_afefbb1009717c128012bfeed94842987}{GPTP\_LOG\_ERROR}(\textcolor{stringliteral}{"Received a error message, but didn't find a valid timestamp"});
+356     \}
+357 
+358  \hyperlink{mrp_validate_8c_a5992b274cfdcacdbc1fa8347fd01ebde}{done}:
+359     \textcolor{keywordflow}{if}( ret == 0 || last ) \{
+360         \hyperlink{class_linux_timestamper_generic_a9a02854f530a2e2f70741e2970ea1fd5}{net\_lock}->\hyperlink{class_ticketing_lock_ae399421ee39cae4df5ea44bd21e31254}{unlock}();
+361     \}
+362 
+363     \textcolor{keywordflow}{return} ret;
+364 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_linux_timestamper_generic_a8ca092c3a907618eebf1d512de28db18_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_linux_timestamper_generic_a8ca092c3a907618eebf1d512de28db18_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}!post\+\_\+init@{post\+\_\+init}}
+\index{post\+\_\+init@{post\+\_\+init}!Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}}
+\subsubsection[{\texorpdfstring{post\+\_\+init(int ifindex, int sd, Ticketing\+Lock $\ast$lock)}{post_init(int ifindex, int sd, TicketingLock *lock)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} post\+\_\+init (
+\begin{DoxyParamCaption}
+\item[{int}]{ifindex, }
+\item[{int}]{sd, }
+\item[{{\bf Ticketing\+Lock} $\ast$}]{lock}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\hypertarget{class_linux_timestamper_generic_aeada5965d363813719d4b3e0c6ba209e}{}\label{class_linux_timestamper_generic_aeada5965d363813719d4b3e0c6ba209e}
+
+
+Post initialization procedure. 
+
+
+\begin{DoxyParams}{매개변수}
+{\em ifindex} & struct ifreq.\+ifr\+\_\+ifindex value \\
+\hline
+{\em sd} & Socket file descriptor \\
+\hline
+{\em lock} & \mbox{[}in\mbox{]} Instance of \hyperlink{class_ticketing_lock}{Ticketing\+Lock} object \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+T\+R\+UE if ok. F\+A\+L\+SE if error. 
+\end{DoxyReturn}
+
+
+\hyperlink{class_linux_timestamper_ac2055edb1eebef8381ef57e01f55d3e0}{Linux\+Timestamper}를 구현.
+
+
+
+linux\+\_\+hal\+\_\+generic.\+cpp 파일의 366 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+366                                                                                   \{
+367     \textcolor{keywordtype}{int} timestamp\_flags = 0;
+368     \textcolor{keyword}{struct }ifreq device;
+369     \textcolor{keyword}{struct }hwtstamp\_config hwconfig;
+370     \textcolor{keywordtype}{int} \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err};
+371 
+372     this->\hyperlink{class_linux_timestamper_generic_a06b0afe769d54ae94259d8532bc878b0}{sd} = \hyperlink{class_linux_timestamper_generic_a06b0afe769d54ae94259d8532bc878b0}{sd};
+373     this->\hyperlink{class_linux_timestamper_generic_a9a02854f530a2e2f70741e2970ea1fd5}{net\_lock} = lock;
+374 
+375     memset( &device, 0, \textcolor{keyword}{sizeof}(device));
+376     device.ifr\_ifindex = ifindex;
+377     err = ioctl( \hyperlink{class_linux_timestamper_generic_a06b0afe769d54ae94259d8532bc878b0}{sd}, SIOCGIFNAME, &device );
+378     \textcolor{keywordflow}{if}( err == -1 ) \{
+379         \hyperlink{gptp__log_8hpp_afefbb1009717c128012bfeed94842987}{GPTP\_LOG\_ERROR}
+380             (\textcolor{stringliteral}{"Failed to get interface name: %s"}, strerror(errno));
+381         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+382     \}
+383 
+384     device.ifr\_data = (\textcolor{keywordtype}{char} *) &hwconfig;
+385     memset( &hwconfig, 0, \textcolor{keyword}{sizeof}( hwconfig ));
+386     hwconfig.rx\_filter = HWTSTAMP\_FILTER\_PTP\_V2\_EVENT;
+387     hwconfig.tx\_type = HWTSTAMP\_TX\_ON;
+388     err = ioctl( \hyperlink{class_linux_timestamper_generic_a06b0afe769d54ae94259d8532bc878b0}{sd}, SIOCSHWTSTAMP, &device );
+389     \textcolor{keywordflow}{if}( err == -1 ) \{
+390         \hyperlink{gptp__log_8hpp_afefbb1009717c128012bfeed94842987}{GPTP\_LOG\_ERROR}
+391             (\textcolor{stringliteral}{"Failed to configure timestamping: %s"}, strerror(errno));
+392         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+393     \}
+394 
+395     timestamp\_flags |= SOF\_TIMESTAMPING\_TX\_HARDWARE;
+396     timestamp\_flags |= SOF\_TIMESTAMPING\_RX\_HARDWARE;
+397     timestamp\_flags |= SOF\_TIMESTAMPING\_SYS\_HARDWARE;
+398     timestamp\_flags |= SOF\_TIMESTAMPING\_RAW\_HARDWARE;
+399     err = setsockopt
+400         ( \hyperlink{class_linux_timestamper_generic_a06b0afe769d54ae94259d8532bc878b0}{sd}, SOL\_SOCKET, SO\_TIMESTAMPING, &timestamp\_flags,
+401           \textcolor{keyword}{sizeof}(timestamp\_flags) );
+402     \textcolor{keywordflow}{if}( err == -1 ) \{
+403         \hyperlink{gptp__log_8hpp_afefbb1009717c128012bfeed94842987}{GPTP\_LOG\_ERROR}
+404             (\textcolor{stringliteral}{"Failed to configure timestamping on socket: %s"},
+405               strerror(errno));
+406         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+407     \}
+408 
+409     \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+410 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_linux_timestamper_generic_aeada5965d363813719d4b3e0c6ba209e_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}!push\+R\+X\+Timestamp@{push\+R\+X\+Timestamp}}
+\index{push\+R\+X\+Timestamp@{push\+R\+X\+Timestamp}!Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}}
+\subsubsection[{\texorpdfstring{push\+R\+X\+Timestamp(\+Timestamp $\ast$tstamp)}{pushRXTimestamp(Timestamp *tstamp)}}]{\setlength{\rightskip}{0pt plus 5cm}void push\+R\+X\+Timestamp (
+\begin{DoxyParamCaption}
+\item[{{\bf Timestamp} $\ast$}]{tstamp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{class_linux_timestamper_generic_a502ddb4d27b9cf57a9612fe74def2404}{}\label{class_linux_timestamper_generic_a502ddb4d27b9cf57a9612fe74def2404}
+
+
+Inserts a new timestamp to the beginning of the RX timestamp list. 
+
+
+\begin{DoxyParams}{매개변수}
+{\em tstamp} & \mbox{[}in\mbox{]} RX timestamp \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+void 
+\end{DoxyReturn}
+
+
+linux\+\_\+hal\+\_\+generic.\+hpp 파일의 117 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+117                                               \{
+118         tstamp->\hyperlink{class_timestamp_a8fab72cfd922b5757580642c2309e9bd}{\_version} = \hyperlink{class_common_timestamper_ab22abc2906422da61885ac6c8e6a1a59}{version};
+119         \hyperlink{class_linux_timestamper_generic_a3ab5f699ce3a90c21782087bdae99de9}{rxTimestampList}.push\_front(*tstamp);
+120     \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_linux_timestamper_generic_a502ddb4d27b9cf57a9612fe74def2404_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_linux_timestamper_generic_a502ddb4d27b9cf57a9612fe74def2404_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}!reset\+Frequency\+Adjustment@{reset\+Frequency\+Adjustment}}
+\index{reset\+Frequency\+Adjustment@{reset\+Frequency\+Adjustment}!Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}}
+\subsubsection[{\texorpdfstring{reset\+Frequency\+Adjustment()}{resetFrequencyAdjustment()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} reset\+Frequency\+Adjustment (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{class_linux_timestamper_generic_a0db03755529ffca07f6d4a46d26a60c8}{}\label{class_linux_timestamper_generic_a0db03755529ffca07f6d4a46d26a60c8}
+
+
+Resets frequency adjustment value to zero and calls linux system calls for frequency adjustment. 
+
+\begin{DoxyReturn}{반환값}
+T\+R\+UE if success, F\+A\+L\+SE if error. 
+\end{DoxyReturn}
+
+
+linux\+\_\+hal\+\_\+generic\+\_\+adj.\+cpp 파일의 40 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+40                                                        \{
+41     \textcolor{keyword}{struct }timex tx;
+42     tx.modes = ADJ\_FREQUENCY;
+43     tx.freq = 0;
+44 
+45     \textcolor{keywordflow}{return} \hyperlink{class_linux_timestamper_generic_a1d52a5a84b74222b880522cee01475e1}{Adjust}(&tx);
+46 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_linux_timestamper_generic_a0db03755529ffca07f6d4a46d26a60c8_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{필드 문서화}
+\index{Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}!\+\_\+private@{\+\_\+private}}
+\index{\+\_\+private@{\+\_\+private}!Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}}
+\subsubsection[{\texorpdfstring{\+\_\+private}{_private}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Linux\+Timestamper\+Generic\+Private\+\_\+t} \+\_\+private\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{class_linux_timestamper_generic_a5522acc6ce53752665fa393702058a7b}{}\label{class_linux_timestamper_generic_a5522acc6ce53752665fa393702058a7b}
+
+
+linux\+\_\+hal\+\_\+generic.\+hpp 파일의 61 번째 라인에서 정의되었습니다.
+
+\index{Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}!cross\+\_\+stamp\+\_\+good@{cross\+\_\+stamp\+\_\+good}}
+\index{cross\+\_\+stamp\+\_\+good@{cross\+\_\+stamp\+\_\+good}!Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}}
+\subsubsection[{\texorpdfstring{cross\+\_\+stamp\+\_\+good}{cross_stamp_good}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} cross\+\_\+stamp\+\_\+good\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{class_linux_timestamper_generic_a44ccbbc368595932d5247f158b0c902e}{}\label{class_linux_timestamper_generic_a44ccbbc368595932d5247f158b0c902e}
+
+
+linux\+\_\+hal\+\_\+generic.\+hpp 파일의 62 번째 라인에서 정의되었습니다.
+
+\index{Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}!crstamp\+\_\+device@{crstamp\+\_\+device}}
+\index{crstamp\+\_\+device@{crstamp\+\_\+device}!Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}}
+\subsubsection[{\texorpdfstring{crstamp\+\_\+device}{crstamp_device}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Timestamp} crstamp\+\_\+device\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{class_linux_timestamper_generic_a64ea949cc4e9e1d47f6e27a68add3888}{}\label{class_linux_timestamper_generic_a64ea949cc4e9e1d47f6e27a68add3888}
+
+
+linux\+\_\+hal\+\_\+generic.\+hpp 파일의 60 번째 라인에서 정의되었습니다.
+
+\index{Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}!crstamp\+\_\+system@{crstamp\+\_\+system}}
+\index{crstamp\+\_\+system@{crstamp\+\_\+system}!Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}}
+\subsubsection[{\texorpdfstring{crstamp\+\_\+system}{crstamp_system}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Timestamp} crstamp\+\_\+system\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{class_linux_timestamper_generic_a885b6a10ac960ef4f2028df1c19c3022}{}\label{class_linux_timestamper_generic_a885b6a10ac960ef4f2028df1c19c3022}
+
+
+linux\+\_\+hal\+\_\+generic.\+hpp 파일의 59 번째 라인에서 정의되었습니다.
+
+\index{Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}!iface\+\_\+list@{iface\+\_\+list}}
+\index{iface\+\_\+list@{iface\+\_\+list}!Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}}
+\subsubsection[{\texorpdfstring{iface\+\_\+list}{iface_list}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Linux\+Network\+Interface\+List} iface\+\_\+list\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{class_linux_timestamper_generic_a71c6eb5a2c243c3e622503aa7c0eff67}{}\label{class_linux_timestamper_generic_a71c6eb5a2c243c3e622503aa7c0eff67}
+
+
+linux\+\_\+hal\+\_\+generic.\+hpp 파일의 64 번째 라인에서 정의되었습니다.
+
+\index{Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}!net\+\_\+lock@{net\+\_\+lock}}
+\index{net\+\_\+lock@{net\+\_\+lock}!Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}}
+\subsubsection[{\texorpdfstring{net\+\_\+lock}{net_lock}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Ticketing\+Lock}$\ast$ net\+\_\+lock\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{class_linux_timestamper_generic_a9a02854f530a2e2f70741e2970ea1fd5}{}\label{class_linux_timestamper_generic_a9a02854f530a2e2f70741e2970ea1fd5}
+
+
+linux\+\_\+hal\+\_\+generic.\+hpp 파일의 69 번째 라인에서 정의되었습니다.
+
+\index{Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}!phc\+\_\+fd@{phc\+\_\+fd}}
+\index{phc\+\_\+fd@{phc\+\_\+fd}!Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}}
+\subsubsection[{\texorpdfstring{phc\+\_\+fd}{phc_fd}}]{\setlength{\rightskip}{0pt plus 5cm}int phc\+\_\+fd\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{class_linux_timestamper_generic_ac4500de48048f43e4cfd225a42c8bd56}{}\label{class_linux_timestamper_generic_ac4500de48048f43e4cfd225a42c8bd56}
+
+
+linux\+\_\+hal\+\_\+generic.\+hpp 파일의 58 번째 라인에서 정의되었습니다.
+
+\index{Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}!rx\+Timestamp\+List@{rx\+Timestamp\+List}}
+\index{rx\+Timestamp\+List@{rx\+Timestamp\+List}!Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}}
+\subsubsection[{\texorpdfstring{rx\+Timestamp\+List}{rxTimestampList}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::list$<${\bf Timestamp}$>$ rx\+Timestamp\+List\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{class_linux_timestamper_generic_a3ab5f699ce3a90c21782087bdae99de9}{}\label{class_linux_timestamper_generic_a3ab5f699ce3a90c21782087bdae99de9}
+
+
+linux\+\_\+hal\+\_\+generic.\+hpp 파일의 63 번째 라인에서 정의되었습니다.
+
+\index{Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}!sd@{sd}}
+\index{sd@{sd}!Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}}
+\subsubsection[{\texorpdfstring{sd}{sd}}]{\setlength{\rightskip}{0pt plus 5cm}int sd\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{class_linux_timestamper_generic_a06b0afe769d54ae94259d8532bc878b0}{}\label{class_linux_timestamper_generic_a06b0afe769d54ae94259d8532bc878b0}
+
+
+linux\+\_\+hal\+\_\+generic.\+hpp 파일의 57 번째 라인에서 정의되었습니다.
+
+\index{Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}!version@{version}}
+\index{version@{version}!Linux\+Timestamper\+Generic@{Linux\+Timestamper\+Generic}}
+\subsubsection[{\texorpdfstring{version}{version}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint8\+\_\+t} version\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}\hypertarget{class_common_timestamper_ab22abc2906422da61885ac6c8e6a1a59}{}\label{class_common_timestamper_ab22abc2906422da61885ac6c8e6a1a59}
+
+
+H\+W\+Timestamper version. 
+
+
+
+common\+\_\+tstamper.\+hpp 파일의 48 번째 라인에서 정의되었습니다.
+
+
+
+이 클래스에 대한 문서화 페이지는 다음의 파일들로부터 생성되었습니다.\+:\begin{DoxyCompactItemize}
+\item 
+daemons/gptp/linux/src/\hyperlink{linux__hal__generic_8hpp}{linux\+\_\+hal\+\_\+generic.\+hpp}\item 
+daemons/gptp/linux/src/\hyperlink{linux__hal__generic_8cpp}{linux\+\_\+hal\+\_\+generic.\+cpp}\item 
+daemons/gptp/linux/src/\hyperlink{linux__hal__generic__adj_8cpp}{linux\+\_\+hal\+\_\+generic\+\_\+adj.\+cpp}\end{DoxyCompactItemize}

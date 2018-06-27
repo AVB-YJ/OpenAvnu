@@ -1,0 +1,227 @@
+Simple C++ library for implementing I\+E\+E\+E1722.\+1 (A\+VB Device Enumeration, Discovery and Control)
+
+\subsection*{Introduction }
+
+This library aims to simplify development of an A\+V\+D\+E\+CC controller based on the I\+E\+E\+E1722.\+1 specification. It provides a simple c++ object interface to 1722.\+1 objects and implements device discovery and enumeration as a background process.
+
+The repository contains source to build a Windows D\+LL or a Linux library and a command line application for exercising the library.
+
+The overall philosophy of A\+V\+D\+E\+CC L\+IB is to implement a thin layer of commands that allow an application to discover and and control A\+V\+D\+E\+CC capable endpoints. The internal operations of the library are designed to be single threaded, although multiple threads are used to queue operations to be performed by the single threaded \char`\"{}engine\char`\"{} portion of the library. The library supports notification events (callbacks) that are triggered on the success (or failure) of a command. It is up to the application to process the notifications in a useful manner. Asynchronously control updates from an endpoint are also supported. A control notification does not have data about the updated descriptor values embedded in it. Instead the A\+V\+D\+E\+CC application should query the control class to obtain the updated values.
+
+\subsection*{Directory layout }
+
+\begin{DoxyVerb}lib\
+  bin\
+  doc\
+  binding\
+    python\
+  build\
+    linux\
+    msvc\
+  binding\
+  include\ (contains public header files)
+  src\ (contains private header files and c++ source code)
+  linux\ (linux specific files)
+    msvc\ (Microsoft Visual Studio specific files)
+app\
+  bin\
+  doc\
+  build\
+    linux\
+    msvc\
+  cmdline\
+    src\
+  test\
+    strings\
+    adp\
+    logging\ 
+    notify\
+\end{DoxyVerb}
+
+
+\subsection*{Object hierarchy }
+
+\begin{DoxyVerb}AVDECC System
+  Endpoint[1..N]
+    Entity[1..N]
+        Configuration[1..N]
+            Audio Unit[0..N]
+            Stream Input[0..N]
+            Stream Output[0..N]
+            AVB Interface[0..N]
+            Clock Source[0..N]
+            Jack Input[0..N]
+            Jack Output[0..N]
+            Clock Domain[0..N]
+\end{DoxyVerb}
+
+
+{\bfseries association\+\_\+id}
+
+If A\+S\+S\+O\+C\+I\+A\+T\+I\+O\+N\+\_\+\+I\+D\+\_\+\+S\+U\+P\+P\+O\+R\+T\+ED and A\+S\+S\+O\+C\+I\+A\+T\+I\+O\+N\+\_\+\+I\+D\+\_\+\+V\+A\+L\+ID flags are set in the A\+DP entity\+\_\+capabilities field, then multiple entites will be represented as a single logical entity in the hierarchy. {\itshape AL\+: How closely do we want to stick to 1722.\+1 terminology here e.\+g. The term for endpoint in the standard is \textquotesingle{}end station\textquotesingle{}. Should this be reflected here?} {\itshape A\+GE\+: will change to use endstation terminology}
+
+\subsection*{Building }
+
+{\bfseries Windows}
+
+Prerequisites
+
+
+\begin{DoxyEnumerate}
+\item M\+S\+VC 2010 or later
+\end{DoxyEnumerate}
+\begin{DoxyEnumerate}
+\item jdksavdecc-\/c git repository from \href{https://github.com/jdkoftinoff/jdksavdecc-c}{\tt https\+://github.\+com/jdkoftinoff/jdksavdecc-\/c}
+\end{DoxyEnumerate}
+\begin{DoxyEnumerate}
+\item winpcap from \href{http://www.winpcap.org/}{\tt http\+://www.\+winpcap.\+org/}
+\end{DoxyEnumerate}
+
+The following environment variables must be defined\+:
+\begin{DoxyItemize}
+\item W\+I\+N\+P\+C\+A\+P\+\_\+\+D\+IR the directory where Win\+Pcap is installed
+\item J\+D\+K\+A\+V\+D\+E\+C\+C\+\_\+\+D\+IR the directory where J\+D\+K\+S\+A\+V\+D\+E\+C\+C-\/C git 1722.\+1 C library is installed
+\end{DoxyItemize}
+
+{\bfseries Linux}
+
+To\+Do
+
+\section*{Operations }
+
+\subsection*{A\+V\+D\+E\+CC Endpoint Discovery }
+
+When the A\+V\+D\+E\+CC system receives a A\+V\+D\+E\+CC advertise message from an endpoint, it proceeds to enumerate the endpoint\textquotesingle{}s complete object model if it hasn\textquotesingle{}t done so already and the following hold true\+:
+
+
+\begin{DoxyItemize}
+\item The A\+E\+M\+\_\+\+S\+U\+P\+P\+O\+R\+T\+ED flag in the A\+DP entity\+\_\+capabilities field is set
+\item The G\+E\+N\+E\+R\+A\+L\+\_\+\+C\+O\+N\+T\+R\+O\+L\+L\+E\+R\+\_\+\+I\+G\+N\+O\+RE flag in the A\+DP entity\+\_\+capabilities field is not set
+\item The E\+N\+T\+I\+T\+Y\+\_\+\+N\+O\+T\+\_\+\+R\+E\+A\+DY flag in the A\+DP entity\+\_\+capabilities field is not set
+\end{DoxyItemize}
+
+When an end station is discovered, a notification message is sent to the application. Additionally, upon completion of the enumeration process, a second notification message is sent to the application.
+
+{\itshape AL\+: Is there a case for separating the discovery and enumeration notifications? The user may want to connect entities that do not support A\+EM} {\itshape A\+GE\+: changed -\/ see above}
+
+\subsection*{A\+V\+D\+E\+CC descriptor reads }
+
+A descriptor read by referencing the object the object of interest. Since the A\+V\+D\+E\+CC system has already read all descriptors, the read operation is completed without producing any network traffic.
+
+To read the name of the first input jack, one would go\+:\+: \begin{DoxyVerb}avdeccsys->endpoint(0)->entity(0)->configuration(0)->stream_input(0)->get_name(name) 
+\end{DoxyVerb}
+
+
+{\itshape AL\+: This example might be a bit confusing, as there is also a G\+E\+T\+\_\+\+N\+A\+ME command. I\textquotesingle{}d expect the above to issue an A\+E\+CP G\+E\+T\+\_\+\+N\+A\+ME command rather than just read the string from the descriptor. I presume the fields in the descriptor could just be accessed like\+:}
+
+{\itshape A\+GE\+: agreed -\/ I\textquotesingle{}ll change it} \begin{DoxyVerb}avdeccsys->endpoint(0)->entity(0)->configuration(0)->stream_input(0)->object_name
+\end{DoxyVerb}
+
+
+{\itshape However, should the following return the actual contents of the descriptor, or return the correct string from the S\+T\+R\+I\+NG descriptor?} \begin{DoxyVerb}avdeccsys->endpoint(0)->entity(0)->configuration(0)->stream_input(0)->localized_description
+\end{DoxyVerb}
+
+
+A thought\+: \begin{DoxyVerb}avdeccsys->get_entity(0x0022970102030000)->configuration(0)->stream_input(0)->localized_description
+\end{DoxyVerb}
+
+
+{\itshape A\+GE we are having internal discussions about \char`\"{}flattening\char`\"{} the A\+PI.} {\itshape The controller would have a method something like} {\itshape root-\/$>$in\+\_\+stream\+\_\+set\+\_\+format(end station G\+U\+I\+D, entity index, config index, in\+\_\+stream\+\_\+index, parameters)}
+
+\subsection*{A\+V\+D\+E\+CC commands }
+
+An A\+V\+D\+E\+CC command is sent to the target object, ie \begin{DoxyVerb}istream = avdeccsys->endpoint(0)->entity(0)->configuration(0)->stream_input(0);
+if (istream) {
+    istream->set_format(unsigned int *id,format,...);
+}
+\end{DoxyVerb}
+
+
+Completion results in a notification message of success or failure via the callback mechanism.
+
+{\bfseries Relative Implementation Priorities}
+
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*2{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}{\bf Command/\+Response }&{\bf Priority  }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}{\bf Command/\+Response }&{\bf Priority  }\\\cline{1-2}
+\endhead
+A\+C\+Q\+U\+I\+R\+E\+\_\+\+E\+N\+T\+I\+TY &P1 \\\cline{1-2}
+L\+O\+C\+K\+\_\+\+E\+N\+T\+I\+TY &P1 \\\cline{1-2}
+E\+N\+T\+I\+T\+Y\+\_\+\+A\+V\+A\+I\+L\+A\+B\+LE &P1 \\\cline{1-2}
+C\+O\+N\+T\+R\+O\+L\+L\+E\+R\+\_\+\+A\+V\+A\+I\+L\+A\+B\+LE &P1 \\\cline{1-2}
+R\+E\+A\+D\+\_\+\+D\+E\+S\+C\+R\+I\+P\+T\+OR &P1 \\\cline{1-2}
+W\+R\+I\+T\+E\+\_\+\+D\+E\+S\+C\+R\+I\+P\+T\+OR &P3 \\\cline{1-2}
+S\+E\+T\+\_\+\+C\+O\+N\+F\+I\+G\+U\+R\+A\+T\+I\+ON &P2 \\\cline{1-2}
+G\+E\+T\+\_\+\+C\+O\+N\+F\+I\+G\+U\+R\+A\+T\+I\+ON &P2 \\\cline{1-2}
+S\+E\+T\+\_\+\+S\+T\+R\+E\+A\+M\+\_\+\+F\+O\+R\+M\+AT &P1 \\\cline{1-2}
+G\+E\+T\+\_\+\+S\+T\+R\+E\+A\+M\+\_\+\+F\+O\+R\+M\+AT &P1 \\\cline{1-2}
+S\+E\+T\+\_\+\+V\+I\+D\+E\+O\+\_\+\+F\+O\+R\+M\+AT &P4 \\\cline{1-2}
+G\+E\+T\+\_\+\+V\+I\+D\+E\+O\+\_\+\+F\+O\+R\+M\+AT &P4 \\\cline{1-2}
+S\+E\+T\+\_\+\+S\+E\+N\+S\+O\+R\+\_\+\+F\+O\+R\+M\+AT &P4 \\\cline{1-2}
+G\+E\+T\+\_\+\+S\+E\+N\+S\+O\+R\+\_\+\+F\+O\+R\+M\+AT &P4 \\\cline{1-2}
+S\+E\+T\+\_\+\+S\+T\+R\+E\+A\+M\+\_\+\+I\+N\+FO &P1 \\\cline{1-2}
+G\+E\+T\+\_\+\+S\+T\+R\+E\+A\+M\+\_\+\+I\+N\+FO &P1 \\\cline{1-2}
+S\+E\+T\+\_\+\+N\+A\+ME &P2 \\\cline{1-2}
+G\+E\+T\+\_\+\+N\+A\+ME &P2 \\\cline{1-2}
+S\+E\+T\+\_\+\+A\+S\+S\+O\+C\+I\+A\+T\+I\+O\+N\+\_\+\+ID &P3 \\\cline{1-2}
+G\+E\+T\+\_\+\+A\+S\+S\+O\+C\+I\+A\+T\+I\+O\+N\+\_\+\+ID &P3 \\\cline{1-2}
+S\+E\+T\+\_\+\+S\+A\+M\+P\+L\+I\+N\+G\+\_\+\+R\+A\+TE &P1 \\\cline{1-2}
+G\+E\+T\+\_\+\+S\+A\+M\+P\+L\+I\+N\+G\+\_\+\+R\+A\+TE &P1 \\\cline{1-2}
+S\+E\+T\+\_\+\+C\+L\+O\+C\+K\+\_\+\+S\+O\+U\+R\+CE &P1 \\\cline{1-2}
+G\+E\+T\+\_\+\+C\+L\+O\+C\+K\+\_\+\+S\+O\+U\+R\+CE &P1 \\\cline{1-2}
+S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+OL &P2 \\\cline{1-2}
+G\+E\+T\+\_\+\+C\+O\+N\+T\+R\+OL &P2 \\\cline{1-2}
+I\+N\+C\+R\+E\+M\+E\+N\+T\+\_\+\+C\+O\+N\+T\+R\+OL &P3 \\\cline{1-2}
+D\+E\+C\+R\+E\+M\+E\+N\+T\+\_\+\+C\+O\+N\+T\+R\+OL &P3 \\\cline{1-2}
+S\+E\+T\+\_\+\+S\+I\+G\+N\+A\+L\+\_\+\+S\+E\+L\+E\+C\+T\+OR &P3 \\\cline{1-2}
+G\+E\+T\+\_\+\+S\+I\+G\+N\+A\+L\+\_\+\+S\+E\+L\+E\+C\+T\+OR &P3 \\\cline{1-2}
+S\+E\+T\+\_\+\+M\+I\+X\+ER &P2 \\\cline{1-2}
+G\+E\+T\+\_\+\+M\+I\+X\+ER &P2 \\\cline{1-2}
+S\+E\+T\+\_\+\+M\+A\+T\+R\+IX &P3 \\\cline{1-2}
+G\+E\+T\+\_\+\+M\+A\+T\+R\+IX &P3 \\\cline{1-2}
+S\+T\+A\+R\+T\+\_\+\+S\+T\+R\+E\+A\+M\+I\+NG &P1 \\\cline{1-2}
+S\+T\+O\+P\+\_\+\+S\+T\+R\+E\+A\+M\+I\+NG &P1 \\\cline{1-2}
+R\+E\+G\+I\+S\+T\+E\+R\+\_\+\+U\+N\+S\+O\+L\+I\+C\+I\+T\+E\+D\+\_\+\+N\+O\+T\+I\+F\+I\+C\+A\+T\+I\+ON &P2 \\\cline{1-2}
+D\+E\+R\+E\+G\+I\+S\+T\+E\+R\+\_\+\+U\+N\+S\+O\+L\+I\+C\+I\+T\+E\+D\+\_\+\+N\+O\+T\+I\+F\+I\+C\+A\+T\+I\+ON &P2 \\\cline{1-2}
+I\+D\+E\+N\+T\+I\+F\+Y\+\_\+\+N\+O\+T\+I\+F\+I\+C\+A\+T\+I\+ON&P2 \\\cline{1-2}
+G\+E\+T\+\_\+\+A\+V\+B\+\_\+\+I\+N\+FO &P2 \\\cline{1-2}
+G\+E\+T\+\_\+\+A\+S\+\_\+\+P\+A\+TH &P2 \\\cline{1-2}
+G\+E\+T\+\_\+\+C\+O\+U\+N\+T\+E\+RS &P3 \\\cline{1-2}
+R\+E\+B\+O\+OT &P2 \\\cline{1-2}
+G\+E\+T\+\_\+\+A\+U\+D\+I\+O\+\_\+\+M\+AP &P3 \\\cline{1-2}
+A\+D\+D\+\_\+\+A\+U\+D\+I\+O\+\_\+\+M\+A\+P\+P\+I\+N\+GS &P3 \\\cline{1-2}
+R\+E\+M\+O\+V\+E\+\_\+\+A\+U\+D\+I\+O\+\_\+\+M\+A\+P\+P\+I\+N\+GS &P3 \\\cline{1-2}
+G\+E\+T\+\_\+\+V\+I\+D\+E\+O\+\_\+\+M\+AP &P4 \\\cline{1-2}
+A\+D\+D\+\_\+\+V\+I\+D\+E\+O\+\_\+\+M\+A\+P\+P\+I\+N\+GS &P4 \\\cline{1-2}
+R\+E\+M\+O\+V\+E\+\_\+\+V\+I\+D\+E\+O\+\_\+\+M\+A\+P\+P\+I\+N\+GS &P4 \\\cline{1-2}
+G\+E\+T\+\_\+\+S\+E\+N\+S\+O\+R\+\_\+\+M\+AP &P4 \\\cline{1-2}
+A\+D\+D\+\_\+\+S\+E\+N\+S\+O\+R\+\_\+\+M\+A\+P\+P\+I\+N\+GS &P4 \\\cline{1-2}
+R\+E\+M\+O\+V\+E\+\_\+\+S\+E\+N\+S\+O\+R\+\_\+\+M\+A\+P\+P\+I\+N\+GS &P4 \\\cline{1-2}
+S\+T\+A\+R\+T\+\_\+\+O\+P\+E\+R\+A\+T\+I\+ON &P3 \\\cline{1-2}
+A\+B\+O\+R\+T\+\_\+\+O\+P\+E\+R\+A\+T\+I\+ON &P3 \\\cline{1-2}
+O\+P\+E\+R\+A\+T\+I\+O\+N\+\_\+\+S\+T\+A\+T\+US &P3 \\\cline{1-2}
+\end{longtabu}
+\subsection*{Callbacks }
+
+The following callback functions should be supplied. \begin{DoxyVerb}void avdecc_log_fn(void *user_obj, int32_t log_level, char msg[256], uint32_t time_stamp_ms);
+void avdecc_notify(void *user_obj, int32_t notification, int32_t endpoint_index, int32_t obj, int32_t index, int32_t cmd, int32_t id); 
+\end{DoxyVerb}
+
+
+With notifications of\+:
+\begin{DoxyItemize}
+\item No Match Found
+\item Endpoint Discovered
+\item Endpoint Connected
+\item Endpoint Disconnected
+\item Invalid Command
+\item Command Timeout
+\item Command Resent
+\item Command Success 
+\end{DoxyItemize}

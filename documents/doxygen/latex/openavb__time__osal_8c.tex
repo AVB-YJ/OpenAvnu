@@ -1,0 +1,477 @@
+\hypertarget{openavb__time__osal_8c}{}\section{lib/avtp\+\_\+pipeline/platform/\+Linux/openavb\+\_\+time\+\_\+osal.c 파일 참조}
+\label{openavb__time__osal_8c}\index{lib/avtp\+\_\+pipeline/platform/\+Linux/openavb\+\_\+time\+\_\+osal.\+c@{lib/avtp\+\_\+pipeline/platform/\+Linux/openavb\+\_\+time\+\_\+osal.\+c}}
+{\ttfamily \#include $<$inttypes.\+h$>$}\\*
+{\ttfamily \#include $<$linux/ptp\+\_\+clock.\+h$>$}\\*
+{\ttfamily \#include $<$sys/mman.\+h$>$}\\*
+{\ttfamily \#include $<$sys/ioctl.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}avb\+\_\+gptp.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+platform.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+time\+\_\+osal.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+trace.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+pub.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+log.\+h\char`\"{}}\\*
+openavb\+\_\+time\+\_\+osal.\+c에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__time__osal_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{openavb__time__osal_8c_abcfb21b6495585fe36058f57a9fe58fc}{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}~\char`\"{}osal\+Time\char`\"{}
+\item 
+\#define \hyperlink{openavb__time__osal_8c_aefb7db7456a848e7cefe90816a5aaa88}{L\+O\+CK}()~pthread\+\_\+mutex\+\_\+lock(\&\hyperlink{openavb__time__osal_8c_a31f18454c8619c89f51e3b2b6ffc0ee2}{g\+O\+S\+A\+L\+Time\+Init\+Mutex})
+\item 
+\#define \hyperlink{openavb__time__osal_8c_a19b1665d85404627bdc076a60e21d926}{U\+N\+L\+O\+CK}()~pthread\+\_\+mutex\+\_\+unlock(\&\hyperlink{openavb__time__osal_8c_a31f18454c8619c89f51e3b2b6ffc0ee2}{g\+O\+S\+A\+L\+Time\+Init\+Mutex})
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__time__osal_8c_aafdd300a43e74436c88aea81daeed98c}{x\+\_\+time\+Init} (void)
+\item 
+static \hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__time__osal_8c_a351b73db0ed86c5f01e18a5e05cee4e1}{x\+\_\+get\+P\+T\+P\+Time} (\hyperlink{openavb__types__base__pub_8h_a25809e0734a149248fcf5831efa4e33d}{U64} $\ast$time\+Nsec)
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__time__osal_8c_a5d587e5347b9e4e23b18846c192f13d7}{osal\+A\+V\+B\+Time\+Init} (void)
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__time__osal_8c_a54782b699c190b13b2eada2c157f98ff}{osal\+A\+V\+B\+Time\+Close} (void)
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__time__osal_8c_a4f8bd7740c4aff56d99d179b788d8471}{osal\+Clock\+Gettime} (\hyperlink{build_2sdk__eavb_2openavb__time__osal__pub_8h_a8a087678c40dd3f078c5bce1297a62b8}{openavb\+\_\+clock\+Id\+\_\+t} openavb\+Clock\+Id, struct timespec $\ast$get\+Time)
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__time__osal_8c_a2235d99cdf57d3d19d39a0b88b647ee4}{osal\+Clock\+Gettime64} (\hyperlink{build_2sdk__eavb_2openavb__time__osal__pub_8h_a8a087678c40dd3f078c5bce1297a62b8}{openavb\+\_\+clock\+Id\+\_\+t} openavb\+Clock\+Id, \hyperlink{openavb__types__base__pub_8h_a25809e0734a149248fcf5831efa4e33d}{U64} $\ast$time\+Nsec)
+\end{DoxyCompactItemize}
+\subsection*{변수}
+\begin{DoxyCompactItemize}
+\item 
+static pthread\+\_\+mutex\+\_\+t \hyperlink{openavb__time__osal_8c_a31f18454c8619c89f51e3b2b6ffc0ee2}{g\+O\+S\+A\+L\+Time\+Init\+Mutex} = P\+T\+H\+R\+E\+A\+D\+\_\+\+M\+U\+T\+E\+X\+\_\+\+I\+N\+I\+T\+I\+A\+L\+I\+Z\+ER
+\item 
+static \hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__time__osal_8c_a92fb290e0a0f0b329bccab2b2622ab94}{b\+Initialized} = \hyperlink{lib_2igb_2e1000__osdep_8h_aa93f0eb578d23995850d61f7d61c55c1}{F\+A\+L\+SE}
+\item 
+static int \hyperlink{openavb__time__osal_8c_ac7bb67633adadfe70b3dd9863125bf12}{g\+Ptp\+Shm\+Fd} = -\/1
+\item 
+static char $\ast$ \hyperlink{openavb__time__osal_8c_a5f56c581aac0d56c46f7e5b33752f308}{g\+Ptp\+Mmap} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{N\+U\+LL}
+\item 
+\hyperlink{structg_ptp_time_data}{g\+Ptp\+Time\+Data} \hyperlink{openavb__time__osal_8c_ae3364a243b46072b387b802771184fdc}{g\+Ptp\+TD}
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{openavb\+\_\+time\+\_\+osal.\+c@{openavb\+\_\+time\+\_\+osal.\+c}!A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT@{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}}
+\index{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT@{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}!openavb\+\_\+time\+\_\+osal.\+c@{openavb\+\_\+time\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}{AVB_LOG_COMPONENT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT~\char`\"{}osal\+Time\char`\"{}}\hypertarget{openavb__time__osal_8c_abcfb21b6495585fe36058f57a9fe58fc}{}\label{openavb__time__osal_8c_abcfb21b6495585fe36058f57a9fe58fc}
+
+
+openavb\+\_\+time\+\_\+osal.\+c 파일의 43 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+time\+\_\+osal.\+c@{openavb\+\_\+time\+\_\+osal.\+c}!L\+O\+CK@{L\+O\+CK}}
+\index{L\+O\+CK@{L\+O\+CK}!openavb\+\_\+time\+\_\+osal.\+c@{openavb\+\_\+time\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{L\+O\+CK}{LOCK}}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\+O\+CK(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~pthread\+\_\+mutex\+\_\+lock(\&{\bf g\+O\+S\+A\+L\+Time\+Init\+Mutex})}\hypertarget{openavb__time__osal_8c_aefb7db7456a848e7cefe90816a5aaa88}{}\label{openavb__time__osal_8c_aefb7db7456a848e7cefe90816a5aaa88}
+
+
+openavb\+\_\+time\+\_\+osal.\+c 파일의 48 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+time\+\_\+osal.\+c@{openavb\+\_\+time\+\_\+osal.\+c}!U\+N\+L\+O\+CK@{U\+N\+L\+O\+CK}}
+\index{U\+N\+L\+O\+CK@{U\+N\+L\+O\+CK}!openavb\+\_\+time\+\_\+osal.\+c@{openavb\+\_\+time\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{U\+N\+L\+O\+CK}{UNLOCK}}]{\setlength{\rightskip}{0pt plus 5cm}\#define U\+N\+L\+O\+CK(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~pthread\+\_\+mutex\+\_\+unlock(\&{\bf g\+O\+S\+A\+L\+Time\+Init\+Mutex})}\hypertarget{openavb__time__osal_8c_a19b1665d85404627bdc076a60e21d926}{}\label{openavb__time__osal_8c_a19b1665d85404627bdc076a60e21d926}
+
+
+openavb\+\_\+time\+\_\+osal.\+c 파일의 49 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{함수 문서화}
+\index{openavb\+\_\+time\+\_\+osal.\+c@{openavb\+\_\+time\+\_\+osal.\+c}!osal\+A\+V\+B\+Time\+Close@{osal\+A\+V\+B\+Time\+Close}}
+\index{osal\+A\+V\+B\+Time\+Close@{osal\+A\+V\+B\+Time\+Close}!openavb\+\_\+time\+\_\+osal.\+c@{openavb\+\_\+time\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{osal\+A\+V\+B\+Time\+Close(void)}{osalAVBTimeClose(void)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} osal\+A\+V\+B\+Time\+Close (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__time__osal_8c_a54782b699c190b13b2eada2c157f98ff}{}\label{openavb__time__osal_8c_a54782b699c190b13b2eada2c157f98ff}
+
+
+openavb\+\_\+time\+\_\+osal.\+c 파일의 121 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+121                             \{
+122     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a1b4287ce3f8a848371f8d5cf837d8035}{AVB\_TRACE\_TIME});
+123 
+124     \hyperlink{avb__gptp_8c_ae4b9f53a01f896212e0c982fd10ce4c5}{gptpdeinit}(&\hyperlink{openavb__time__osal_8c_ac7bb67633adadfe70b3dd9863125bf12}{gPtpShmFd}, &\hyperlink{openavb__time__osal_8c_a5f56c581aac0d56c46f7e5b33752f308}{gPtpMmap});
+125 
+126     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a1b4287ce3f8a848371f8d5cf837d8035}{AVB\_TRACE\_TIME});
+127     \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+128 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=277pt]{openavb__time__osal_8c_a54782b699c190b13b2eada2c157f98ff_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=319pt]{openavb__time__osal_8c_a54782b699c190b13b2eada2c157f98ff_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+time\+\_\+osal.\+c@{openavb\+\_\+time\+\_\+osal.\+c}!osal\+A\+V\+B\+Time\+Init@{osal\+A\+V\+B\+Time\+Init}}
+\index{osal\+A\+V\+B\+Time\+Init@{osal\+A\+V\+B\+Time\+Init}!openavb\+\_\+time\+\_\+osal.\+c@{openavb\+\_\+time\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{osal\+A\+V\+B\+Time\+Init(void)}{osalAVBTimeInit(void)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} osal\+A\+V\+B\+Time\+Init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__time__osal_8c_a5d587e5347b9e4e23b18846c192f13d7}{}\label{openavb__time__osal_8c_a5d587e5347b9e4e23b18846c192f13d7}
+
+
+openavb\+\_\+time\+\_\+osal.\+c 파일의 107 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+107                            \{
+108     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a1b4287ce3f8a848371f8d5cf837d8035}{AVB\_TRACE\_TIME});
+109 
+110     \hyperlink{openavb__time__osal_8c_aefb7db7456a848e7cefe90816a5aaa88}{LOCK}();
+111     \textcolor{keywordflow}{if} (!\hyperlink{openavb__time__osal_8c_a92fb290e0a0f0b329bccab2b2622ab94}{bInitialized}) \{
+112         \textcolor{keywordflow}{if} (\hyperlink{openavb__time__osal_8c_aafdd300a43e74436c88aea81daeed98c}{x\_timeInit}())
+113             \hyperlink{openavb__time__osal_8c_a92fb290e0a0f0b329bccab2b2622ab94}{bInitialized} = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+114     \}
+115     \hyperlink{openavb__time__osal_8c_a19b1665d85404627bdc076a60e21d926}{UNLOCK}();
+116 
+117     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a1b4287ce3f8a848371f8d5cf837d8035}{AVB\_TRACE\_TIME});
+118     \textcolor{keywordflow}{return} \hyperlink{openavb__time__osal_8c_a92fb290e0a0f0b329bccab2b2622ab94}{bInitialized};
+119 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__time__osal_8c_a5d587e5347b9e4e23b18846c192f13d7_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=310pt]{openavb__time__osal_8c_a5d587e5347b9e4e23b18846c192f13d7_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+time\+\_\+osal.\+c@{openavb\+\_\+time\+\_\+osal.\+c}!osal\+Clock\+Gettime@{osal\+Clock\+Gettime}}
+\index{osal\+Clock\+Gettime@{osal\+Clock\+Gettime}!openavb\+\_\+time\+\_\+osal.\+c@{openavb\+\_\+time\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{osal\+Clock\+Gettime(openavb\+\_\+clock\+Id\+\_\+t openavb\+Clock\+Id, struct timespec $\ast$get\+Time)}{osalClockGettime(openavb_clockId_t openavbClockId, struct timespec *getTime)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} osal\+Clock\+Gettime (
+\begin{DoxyParamCaption}
+\item[{{\bf openavb\+\_\+clock\+Id\+\_\+t}}]{openavb\+Clock\+Id, }
+\item[{struct timespec $\ast$}]{get\+Time}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__time__osal_8c_a4f8bd7740c4aff56d99d179b788d8471}{}\label{openavb__time__osal_8c_a4f8bd7740c4aff56d99d179b788d8471}
+
+
+openavb\+\_\+time\+\_\+osal.\+c 파일의 130 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+130                                                                                   \{
+131     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a1b4287ce3f8a848371f8d5cf837d8035}{AVB\_TRACE\_TIME});
+132 
+133     \textcolor{keywordflow}{if} (openavbClockId < \hyperlink{build_2sdk__eavb_2openavb__time__osal__pub_8h_a8a087678c40dd3f078c5bce1297a62b8ae71d321a7408e8d6a69b10dd9a94f360}{OPENAVB\_CLOCK\_WALLTIME})
+134     \{
+135         clockid\_t clockId = CLOCK\_MONOTONIC;
+136         \textcolor{keywordflow}{switch} (openavbClockId) \{
+137         \textcolor{keywordflow}{case} \hyperlink{build_2sdk__eavb_2openavb__time__osal__pub_8h_a8a087678c40dd3f078c5bce1297a62b8a94d9239257b8a212a60a5dcb7ae1b9bb}{OPENAVB\_CLOCK\_REALTIME}:
+138             clockId = CLOCK\_REALTIME;
+139             \textcolor{keywordflow}{break};
+140         \textcolor{keywordflow}{case} \hyperlink{build_2sdk__eavb_2openavb__time__osal__pub_8h_a8a087678c40dd3f078c5bce1297a62b8a512527217179adf0c8f71e7b5adbcd4b}{OPENAVB\_CLOCK\_MONOTONIC}:
+141             clockId = CLOCK\_MONOTONIC;
+142             \textcolor{keywordflow}{break};
+143         \textcolor{keywordflow}{case} \hyperlink{build_2sdk__eavb_2openavb__time__osal__pub_8h_a8a087678c40dd3f078c5bce1297a62b8a96480d62ec1121f74a16ea3e8779c804}{OPENAVB\_TIMER\_CLOCK}:
+144             clockId = CLOCK\_MONOTONIC;
+145             \textcolor{keywordflow}{break};
+146         \textcolor{keywordflow}{case} \hyperlink{build_2sdk__eavb_2openavb__time__osal__pub_8h_a8a087678c40dd3f078c5bce1297a62b8ae71d321a7408e8d6a69b10dd9a94f360}{OPENAVB\_CLOCK\_WALLTIME}:
+147             \textcolor{keywordflow}{break};
+148         \}
+149         \textcolor{keywordflow}{if} (!clock\_gettime(clockId, getTime)) \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+150     \}
+151     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (openavbClockId == \hyperlink{build_2sdk__eavb_2openavb__time__osal__pub_8h_a8a087678c40dd3f078c5bce1297a62b8ae71d321a7408e8d6a69b10dd9a94f360}{OPENAVB\_CLOCK\_WALLTIME}) \{
+152         \hyperlink{openavb__types__base__pub_8h_a25809e0734a149248fcf5831efa4e33d}{U64} timeNsec;
+153         \textcolor{keywordflow}{if} (!\hyperlink{openavb__time__osal_8c_a351b73db0ed86c5f01e18a5e05cee4e1}{x\_getPTPTime}(&timeNsec)) \{
+154             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a1b4287ce3f8a848371f8d5cf837d8035}{AVB\_TRACE\_TIME});
+155             \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+156         \}
+157         getTime->tv\_sec = timeNsec / \hyperlink{maap__helper__linux_8h_a5df38c677104658963501aa1e2a88e60}{NANOSECONDS\_PER\_SECOND};
+158         getTime->tv\_nsec = timeNsec % \hyperlink{maap__helper__linux_8h_a5df38c677104658963501aa1e2a88e60}{NANOSECONDS\_PER\_SECOND};
+159         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a1b4287ce3f8a848371f8d5cf837d8035}{AVB\_TRACE\_TIME});
+160         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+161     \}
+162     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a1b4287ce3f8a848371f8d5cf837d8035}{AVB\_TRACE\_TIME});
+163     \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+164 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__time__osal_8c_a4f8bd7740c4aff56d99d179b788d8471_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+time\+\_\+osal.\+c@{openavb\+\_\+time\+\_\+osal.\+c}!osal\+Clock\+Gettime64@{osal\+Clock\+Gettime64}}
+\index{osal\+Clock\+Gettime64@{osal\+Clock\+Gettime64}!openavb\+\_\+time\+\_\+osal.\+c@{openavb\+\_\+time\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{osal\+Clock\+Gettime64(openavb\+\_\+clock\+Id\+\_\+t openavb\+Clock\+Id, U64 $\ast$time\+Nsec)}{osalClockGettime64(openavb_clockId_t openavbClockId, U64 *timeNsec)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} osal\+Clock\+Gettime64 (
+\begin{DoxyParamCaption}
+\item[{{\bf openavb\+\_\+clock\+Id\+\_\+t}}]{openavb\+Clock\+Id, }
+\item[{{\bf U64} $\ast$}]{time\+Nsec}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__time__osal_8c_a2235d99cdf57d3d19d39a0b88b647ee4}{}\label{openavb__time__osal_8c_a2235d99cdf57d3d19d39a0b88b647ee4}
+
+
+openavb\+\_\+time\+\_\+osal.\+c 파일의 166 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+166                                                                          \{
+167     \textcolor{keywordflow}{if} (openavbClockId < \hyperlink{build_2sdk__eavb_2openavb__time__osal__pub_8h_a8a087678c40dd3f078c5bce1297a62b8ae71d321a7408e8d6a69b10dd9a94f360}{OPENAVB\_CLOCK\_WALLTIME})
+168     \{
+169         clockid\_t clockId = CLOCK\_MONOTONIC;
+170         \textcolor{keywordflow}{switch} (openavbClockId) \{
+171         \textcolor{keywordflow}{case} \hyperlink{build_2sdk__eavb_2openavb__time__osal__pub_8h_a8a087678c40dd3f078c5bce1297a62b8a94d9239257b8a212a60a5dcb7ae1b9bb}{OPENAVB\_CLOCK\_REALTIME}:
+172             clockId = CLOCK\_REALTIME;
+173             \textcolor{keywordflow}{break};
+174         \textcolor{keywordflow}{case} \hyperlink{build_2sdk__eavb_2openavb__time__osal__pub_8h_a8a087678c40dd3f078c5bce1297a62b8a512527217179adf0c8f71e7b5adbcd4b}{OPENAVB\_CLOCK\_MONOTONIC}:
+175             clockId = CLOCK\_MONOTONIC;
+176             \textcolor{keywordflow}{break};
+177         \textcolor{keywordflow}{case} \hyperlink{build_2sdk__eavb_2openavb__time__osal__pub_8h_a8a087678c40dd3f078c5bce1297a62b8a96480d62ec1121f74a16ea3e8779c804}{OPENAVB\_TIMER\_CLOCK}:
+178             clockId = CLOCK\_MONOTONIC;
+179             \textcolor{keywordflow}{break};
+180         \textcolor{keywordflow}{case} \hyperlink{build_2sdk__eavb_2openavb__time__osal__pub_8h_a8a087678c40dd3f078c5bce1297a62b8ae71d321a7408e8d6a69b10dd9a94f360}{OPENAVB\_CLOCK\_WALLTIME}:
+181             \textcolor{keywordflow}{break};
+182         \}
+183         \textcolor{keyword}{struct }timespec getTime;
+184         \textcolor{keywordflow}{if} (!clock\_gettime(clockId, &getTime)) \{
+185             *timeNsec = ((\hyperlink{openavb__types__base__pub_8h_a25809e0734a149248fcf5831efa4e33d}{U64})getTime.tv\_sec * (\hyperlink{openavb__types__base__pub_8h_a25809e0734a149248fcf5831efa4e33d}{U64})\hyperlink{maap__helper__linux_8h_a5df38c677104658963501aa1e2a88e60}{NANOSECONDS\_PER\_SECOND}) + (
+      \hyperlink{openavb__types__base__pub_8h_a25809e0734a149248fcf5831efa4e33d}{U64})getTime.tv\_nsec;
+186             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a1b4287ce3f8a848371f8d5cf837d8035}{AVB\_TRACE\_TIME});
+187             \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+188         \}
+189     \}
+190     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (openavbClockId == \hyperlink{build_2sdk__eavb_2openavb__time__osal__pub_8h_a8a087678c40dd3f078c5bce1297a62b8ae71d321a7408e8d6a69b10dd9a94f360}{OPENAVB\_CLOCK\_WALLTIME}) \{
+191         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a1b4287ce3f8a848371f8d5cf837d8035}{AVB\_TRACE\_TIME});
+192         \textcolor{keywordflow}{return} \hyperlink{openavb__time__osal_8c_a351b73db0ed86c5f01e18a5e05cee4e1}{x\_getPTPTime}(timeNsec);
+193     \}
+194     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a1b4287ce3f8a848371f8d5cf837d8035}{AVB\_TRACE\_TIME});
+195     \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+196 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__time__osal_8c_a2235d99cdf57d3d19d39a0b88b647ee4_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+time\+\_\+osal.\+c@{openavb\+\_\+time\+\_\+osal.\+c}!x\+\_\+get\+P\+T\+P\+Time@{x\+\_\+get\+P\+T\+P\+Time}}
+\index{x\+\_\+get\+P\+T\+P\+Time@{x\+\_\+get\+P\+T\+P\+Time}!openavb\+\_\+time\+\_\+osal.\+c@{openavb\+\_\+time\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{x\+\_\+get\+P\+T\+P\+Time(\+U64 $\ast$time\+Nsec)}{x_getPTPTime(U64 *timeNsec)}}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf bool} x\+\_\+get\+P\+T\+P\+Time (
+\begin{DoxyParamCaption}
+\item[{{\bf U64} $\ast$}]{time\+Nsec}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__time__osal_8c_a351b73db0ed86c5f01e18a5e05cee4e1}{}\label{openavb__time__osal_8c_a351b73db0ed86c5f01e18a5e05cee4e1}
+
+
+openavb\+\_\+time\+\_\+osal.\+c 파일의 79 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+79                                         \{
+80     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a1b4287ce3f8a848371f8d5cf837d8035}{AVB\_TRACE\_TIME});
+81 
+82     \textcolor{keywordflow}{if} (\hyperlink{avb__gptp_8c_a8296f89653e0277070dcff8b6ae0d445}{gptpgetdata}(\hyperlink{openavb__time__osal_8c_a5f56c581aac0d56c46f7e5b33752f308}{gPtpMmap}, &\hyperlink{openavb__time__osal_8c_ae3364a243b46072b387b802771184fdc}{gPtpTD}) < 0) \{
+83         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"GPTP data fetch failed"});
+84         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a1b4287ce3f8a848371f8d5cf837d8035}{AVB\_TRACE\_TIME});
+85         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+86     \}
+87 
+88     \hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\_t} now\_local;
+89     \hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\_t} update\_8021as;
+90     \hyperlink{parse_8c_a67a9885ef4908cb72ce26d75b694386c}{int64\_t} delta\_8021as;
+91     \hyperlink{parse_8c_a67a9885ef4908cb72ce26d75b694386c}{int64\_t} delta\_local;
+92 
+93     \textcolor{keywordflow}{if} (\hyperlink{avb__gptp_8c_acfc56170109c580d06e8b84658cfcee1}{gptplocaltime}(&\hyperlink{openavb__time__osal_8c_ae3364a243b46072b387b802771184fdc}{gPtpTD}, &now\_local)) \{
+94         update\_8021as = \hyperlink{openavb__time__osal_8c_ae3364a243b46072b387b802771184fdc}{gPtpTD}.\hyperlink{structg_ptp_time_data_a77a3c33b68032d5db3c0c556a80ef651}{local\_time} - \hyperlink{openavb__time__osal_8c_ae3364a243b46072b387b802771184fdc}{gPtpTD}.
+      \hyperlink{structg_ptp_time_data_a707b32410dd96584191405fcc6b1b10d}{ml\_phoffset};
+95         delta\_local = now\_local - \hyperlink{openavb__time__osal_8c_ae3364a243b46072b387b802771184fdc}{gPtpTD}.\hyperlink{structg_ptp_time_data_a77a3c33b68032d5db3c0c556a80ef651}{local\_time};
+96         delta\_8021as = \hyperlink{openavb__time__osal_8c_ae3364a243b46072b387b802771184fdc}{gPtpTD}.\hyperlink{structg_ptp_time_data_aafeb4d0fa7d3cb53ee3686b804e47617}{ml\_freqoffset} * delta\_local;
+97         *timeNsec = update\_8021as + delta\_8021as;
+98 
+99         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a1b4287ce3f8a848371f8d5cf837d8035}{AVB\_TRACE\_TIME});
+100         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+101     \}
+102 
+103     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a1b4287ce3f8a848371f8d5cf837d8035}{AVB\_TRACE\_TIME});
+104     \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+105 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=272pt]{openavb__time__osal_8c_a351b73db0ed86c5f01e18a5e05cee4e1_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=303pt]{openavb__time__osal_8c_a351b73db0ed86c5f01e18a5e05cee4e1_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+time\+\_\+osal.\+c@{openavb\+\_\+time\+\_\+osal.\+c}!x\+\_\+time\+Init@{x\+\_\+time\+Init}}
+\index{x\+\_\+time\+Init@{x\+\_\+time\+Init}!openavb\+\_\+time\+\_\+osal.\+c@{openavb\+\_\+time\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{x\+\_\+time\+Init(void)}{x_timeInit(void)}}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf bool} x\+\_\+time\+Init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__time__osal_8c_aafdd300a43e74436c88aea81daeed98c}{}\label{openavb__time__osal_8c_aafdd300a43e74436c88aea81daeed98c}
+
+
+openavb\+\_\+time\+\_\+osal.\+c 파일의 56 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+56                              \{
+57     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a1b4287ce3f8a848371f8d5cf837d8035}{AVB\_TRACE\_TIME});
+58 
+59     \textcolor{keywordflow}{if} (\hyperlink{avb__gptp_8c_a05ec877d6b574ac18e0d773f37958865}{gptpinit}(&\hyperlink{openavb__time__osal_8c_ac7bb67633adadfe70b3dd9863125bf12}{gPtpShmFd}, &\hyperlink{openavb__time__osal_8c_a5f56c581aac0d56c46f7e5b33752f308}{gPtpMmap}) < 0) \{
+60         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"GPTP init failed"});
+61         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a1b4287ce3f8a848371f8d5cf837d8035}{AVB\_TRACE\_TIME});
+62         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+63     \}
+64 
+65     \textcolor{keywordflow}{if} (\hyperlink{avb__gptp_8c_a8296f89653e0277070dcff8b6ae0d445}{gptpgetdata}(\hyperlink{openavb__time__osal_8c_a5f56c581aac0d56c46f7e5b33752f308}{gPtpMmap}, &\hyperlink{openavb__time__osal_8c_ae3364a243b46072b387b802771184fdc}{gPtpTD}) < 0) \{
+66         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"GPTP data fetch failed"});
+67         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a1b4287ce3f8a848371f8d5cf837d8035}{AVB\_TRACE\_TIME});
+68         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+69     \}
+70 
+71     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a2be7e90c7cb63f12b221ed1cd4999185}{AVB\_LOGF\_INFO}(\textcolor{stringliteral}{"local\_time = %"} \hyperlink{mmrp__tests_8cpp_ac582131d7a7c8ee57e73180d1714f9d5}{PRIu64}, \hyperlink{openavb__time__osal_8c_ae3364a243b46072b387b802771184fdc}{gPtpTD}.
+      \hyperlink{structg_ptp_time_data_a77a3c33b68032d5db3c0c556a80ef651}{local\_time});
+72     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a2be7e90c7cb63f12b221ed1cd4999185}{AVB\_LOGF\_INFO}(\textcolor{stringliteral}{"ml\_phoffset = %"} PRId64 \textcolor{stringliteral}{", ls\_phoffset = %"} PRId64, 
+      \hyperlink{openavb__time__osal_8c_ae3364a243b46072b387b802771184fdc}{gPtpTD}.\hyperlink{structg_ptp_time_data_a707b32410dd96584191405fcc6b1b10d}{ml\_phoffset}, \hyperlink{openavb__time__osal_8c_ae3364a243b46072b387b802771184fdc}{gPtpTD}.\hyperlink{structg_ptp_time_data_a092b9f356daa2757877b51e4084366be}{ls\_phoffset});
+73     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a2be7e90c7cb63f12b221ed1cd4999185}{AVB\_LOGF\_INFO}(\textcolor{stringliteral}{"ml\_freqffset = %Lf, ls\_freqoffset = %Lf"}, \hyperlink{openavb__time__osal_8c_ae3364a243b46072b387b802771184fdc}{gPtpTD}.
+      \hyperlink{structg_ptp_time_data_aafeb4d0fa7d3cb53ee3686b804e47617}{ml\_freqoffset}, \hyperlink{openavb__time__osal_8c_ae3364a243b46072b387b802771184fdc}{gPtpTD}.\hyperlink{structg_ptp_time_data_a396f365f5e7c66610f076359c5d99c6e}{ls\_freqoffset});
+74 
+75     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a1b4287ce3f8a848371f8d5cf837d8035}{AVB\_TRACE\_TIME});
+76     \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+77 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=243pt]{openavb__time__osal_8c_aafdd300a43e74436c88aea81daeed98c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=265pt]{openavb__time__osal_8c_aafdd300a43e74436c88aea81daeed98c_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{변수 문서화}
+\index{openavb\+\_\+time\+\_\+osal.\+c@{openavb\+\_\+time\+\_\+osal.\+c}!b\+Initialized@{b\+Initialized}}
+\index{b\+Initialized@{b\+Initialized}!openavb\+\_\+time\+\_\+osal.\+c@{openavb\+\_\+time\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{b\+Initialized}{bInitialized}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} b\+Initialized = {\bf F\+A\+L\+SE}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__time__osal_8c_a92fb290e0a0f0b329bccab2b2622ab94}{}\label{openavb__time__osal_8c_a92fb290e0a0f0b329bccab2b2622ab94}
+
+
+openavb\+\_\+time\+\_\+osal.\+c 파일의 51 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+time\+\_\+osal.\+c@{openavb\+\_\+time\+\_\+osal.\+c}!g\+O\+S\+A\+L\+Time\+Init\+Mutex@{g\+O\+S\+A\+L\+Time\+Init\+Mutex}}
+\index{g\+O\+S\+A\+L\+Time\+Init\+Mutex@{g\+O\+S\+A\+L\+Time\+Init\+Mutex}!openavb\+\_\+time\+\_\+osal.\+c@{openavb\+\_\+time\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{g\+O\+S\+A\+L\+Time\+Init\+Mutex}{gOSALTimeInitMutex}}]{\setlength{\rightskip}{0pt plus 5cm}pthread\+\_\+mutex\+\_\+t g\+O\+S\+A\+L\+Time\+Init\+Mutex = P\+T\+H\+R\+E\+A\+D\+\_\+\+M\+U\+T\+E\+X\+\_\+\+I\+N\+I\+T\+I\+A\+L\+I\+Z\+ER\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__time__osal_8c_a31f18454c8619c89f51e3b2b6ffc0ee2}{}\label{openavb__time__osal_8c_a31f18454c8619c89f51e3b2b6ffc0ee2}
+
+
+openavb\+\_\+time\+\_\+osal.\+c 파일의 47 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+time\+\_\+osal.\+c@{openavb\+\_\+time\+\_\+osal.\+c}!g\+Ptp\+Mmap@{g\+Ptp\+Mmap}}
+\index{g\+Ptp\+Mmap@{g\+Ptp\+Mmap}!openavb\+\_\+time\+\_\+osal.\+c@{openavb\+\_\+time\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{g\+Ptp\+Mmap}{gPtpMmap}}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ g\+Ptp\+Mmap = {\bf N\+U\+LL}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__time__osal_8c_a5f56c581aac0d56c46f7e5b33752f308}{}\label{openavb__time__osal_8c_a5f56c581aac0d56c46f7e5b33752f308}
+
+
+openavb\+\_\+time\+\_\+osal.\+c 파일의 53 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+time\+\_\+osal.\+c@{openavb\+\_\+time\+\_\+osal.\+c}!g\+Ptp\+Shm\+Fd@{g\+Ptp\+Shm\+Fd}}
+\index{g\+Ptp\+Shm\+Fd@{g\+Ptp\+Shm\+Fd}!openavb\+\_\+time\+\_\+osal.\+c@{openavb\+\_\+time\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{g\+Ptp\+Shm\+Fd}{gPtpShmFd}}]{\setlength{\rightskip}{0pt plus 5cm}int g\+Ptp\+Shm\+Fd = -\/1\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__time__osal_8c_ac7bb67633adadfe70b3dd9863125bf12}{}\label{openavb__time__osal_8c_ac7bb67633adadfe70b3dd9863125bf12}
+
+
+openavb\+\_\+time\+\_\+osal.\+c 파일의 52 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+time\+\_\+osal.\+c@{openavb\+\_\+time\+\_\+osal.\+c}!g\+Ptp\+TD@{g\+Ptp\+TD}}
+\index{g\+Ptp\+TD@{g\+Ptp\+TD}!openavb\+\_\+time\+\_\+osal.\+c@{openavb\+\_\+time\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{g\+Ptp\+TD}{gPtpTD}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf g\+Ptp\+Time\+Data} g\+Ptp\+TD}\hypertarget{openavb__time__osal_8c_ae3364a243b46072b387b802771184fdc}{}\label{openavb__time__osal_8c_ae3364a243b46072b387b802771184fdc}
+
+
+openavb\+\_\+time\+\_\+osal.\+c 파일의 54 번째 라인에서 정의되었습니다.
+

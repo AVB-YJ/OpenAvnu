@@ -1,0 +1,35 @@
+var group__command__add__sensor__mappings =
+[
+    [ "jdksavdecc_aem_command_add_sensor_mappings", "structjdksavdecc__aem__command__add__sensor__mappings.html", [
+      [ "aem_header", "structjdksavdecc__aem__command__add__sensor__mappings.html#ae1e77ccb75ff5021ad923221eab38294", null ],
+      [ "descriptor_index", "structjdksavdecc__aem__command__add__sensor__mappings.html#a042bbc76d835b82d27c1932431ee38d4", null ],
+      [ "descriptor_type", "structjdksavdecc__aem__command__add__sensor__mappings.html#ab7c32b6c7131c13d4ea3b7ee2f09b78d", null ],
+      [ "number_of_mappings", "structjdksavdecc__aem__command__add__sensor__mappings.html#ac7db472c5622ef473d5d0a5c416d5531", null ],
+      [ "reserved", "structjdksavdecc__aem__command__add__sensor__mappings.html#a5a6ed8c04a3db86066924b1a1bf4dad3", null ]
+    ] ],
+    [ "JDKSAVDECC_AEM_COMMAND_ADD_SENSOR_MAPPINGS_COMMAND_LEN", "group__command__add__sensor__mappings.html#ga5a37f5aa537b720fede13329f6c07d58", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_ADD_SENSOR_MAPPINGS_COMMAND_OFFSET_COMMAND_TYPE", "group__command__add__sensor__mappings.html#gaa86eb8c343b8413f5fc358ad371a5aec", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_ADD_SENSOR_MAPPINGS_COMMAND_OFFSET_CONTROLLER_ENTITY_ID", "group__command__add__sensor__mappings.html#ga82aadc30a2138461a6cc36408f20c06b", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_ADD_SENSOR_MAPPINGS_COMMAND_OFFSET_DESCRIPTOR_INDEX", "group__command__add__sensor__mappings.html#ga4896a96445748bbd150f394b9ba660c3", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_ADD_SENSOR_MAPPINGS_COMMAND_OFFSET_DESCRIPTOR_TYPE", "group__command__add__sensor__mappings.html#ga14bc603f9eb0a6055b75c102bdfadd3d", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_ADD_SENSOR_MAPPINGS_COMMAND_OFFSET_MAPPINGS", "group__command__add__sensor__mappings.html#ga75cd6d75b86e8b8b83d70bff04f40f15", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_ADD_SENSOR_MAPPINGS_COMMAND_OFFSET_NUMBER_OF_MAPPINGS", "group__command__add__sensor__mappings.html#gaa46f9d135718b41fdfcdb2705f2a4b39", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_ADD_SENSOR_MAPPINGS_COMMAND_OFFSET_RESERVED", "group__command__add__sensor__mappings.html#gaba15b06f79d3cb2bf49c20385e0d4544", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_ADD_SENSOR_MAPPINGS_COMMAND_OFFSET_SEQUENCE_ID", "group__command__add__sensor__mappings.html#ga1b19cd5e3c8a9441ade90d77e6c9b6fc", null ],
+    [ "jdksavdecc_aem_command_add_sensor_mappings_get_command_type", "group__command__add__sensor__mappings.html#gaa16862526e5df08b4718e16b0caf78a6", null ],
+    [ "jdksavdecc_aem_command_add_sensor_mappings_get_controller_entity_id", "group__command__add__sensor__mappings.html#ga82799df0bfdd6741a4cc692f2474c74a", null ],
+    [ "jdksavdecc_aem_command_add_sensor_mappings_get_descriptor_index", "group__command__add__sensor__mappings.html#ga36111be8af514db701a7f7c52899eb7c", null ],
+    [ "jdksavdecc_aem_command_add_sensor_mappings_get_descriptor_type", "group__command__add__sensor__mappings.html#ga8410075024ae127094c18ebbbf35748b", null ],
+    [ "jdksavdecc_aem_command_add_sensor_mappings_get_number_of_mappings", "group__command__add__sensor__mappings.html#gac15b22f3940df5c4e43b26c93ab79101", null ],
+    [ "jdksavdecc_aem_command_add_sensor_mappings_get_reserved", "group__command__add__sensor__mappings.html#ga8a34174b011a3b9cc80069e8065f57c4", null ],
+    [ "jdksavdecc_aem_command_add_sensor_mappings_get_sequence_id", "group__command__add__sensor__mappings.html#ga23e05212aaffa3e90331c9d8ce95a590", null ],
+    [ "jdksavdecc_aem_command_add_sensor_mappings_read", "group__command__add__sensor__mappings.html#ga9f7007e8743c01d802b15efbf00810a7", null ],
+    [ "jdksavdecc_aem_command_add_sensor_mappings_set_command_type", "group__command__add__sensor__mappings.html#ga210ac2ef22d366a3b6e5bc2a883fcf9c", null ],
+    [ "jdksavdecc_aem_command_add_sensor_mappings_set_controller_entity_id", "group__command__add__sensor__mappings.html#gac1e81a6b7f2c5188dc2fe2e8679f5e2c", null ],
+    [ "jdksavdecc_aem_command_add_sensor_mappings_set_descriptor_index", "group__command__add__sensor__mappings.html#ga14f2ea4e640384bace918d33b3d43654", null ],
+    [ "jdksavdecc_aem_command_add_sensor_mappings_set_descriptor_type", "group__command__add__sensor__mappings.html#gaf60ec191c32be65a7dcbc286ec48cc77", null ],
+    [ "jdksavdecc_aem_command_add_sensor_mappings_set_number_of_mappings", "group__command__add__sensor__mappings.html#ga035fbadd331f24946064e348cc58d2ba", null ],
+    [ "jdksavdecc_aem_command_add_sensor_mappings_set_reserved", "group__command__add__sensor__mappings.html#gaf27ce7609310c21cf400f3d234df405f", null ],
+    [ "jdksavdecc_aem_command_add_sensor_mappings_set_sequence_id", "group__command__add__sensor__mappings.html#gaf15d198c567195cf703775b1f24493eb", null ],
+    [ "jdksavdecc_aem_command_add_sensor_mappings_write", "group__command__add__sensor__mappings.html#ga54f5af8188b8fbf9ab5b981efa7051db", null ]
+];

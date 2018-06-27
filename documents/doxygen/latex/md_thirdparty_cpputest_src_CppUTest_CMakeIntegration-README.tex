@@ -1,0 +1,22 @@
+It is possible to integrate Cpp\+U\+Test as a sub-\/module of an enclosing C\+Make project. This may be useful if Cpp\+U\+Test is being built for a target platform other than that of the development host. The following is an example how an external project can refer to this C\+Make\+Lists.\+txt to build Cpp\+U\+Test as a library and include it as a target dependency.
+
+
+\begin{DoxyCode}
+1 cmake\_minimum\_required(VERSION 3.7)
+2 project(trying\_CppUtest)
+3 
+4 SET(CppUTestRootDirectory /path/to/cpputest)
+5 
+6 # Either set CPP\_PLATFORM to one of the provided platforms under
+7 # $\{CppUTestRootDirectory\}/src/Platforms/, or provide a project-specific
+8 # platform.cpp (as shown below)
+9 add\_subdirectory($\{CppUTestRootDirectory\}/src/CppUTest CppUTest)
+10 target\_sources(CppUTest
+11     PRIVATE
+12         $\{PROJECT\_SOURCE\_DIR\}/UtestPlatform.cpp
+13 )
+14 
+15 add\_executable(trying\_CppUtest main.cpp)
+16 target\_link\_libraries(trying\_CppUtest CppUTest)
+\end{DoxyCode}
+ 

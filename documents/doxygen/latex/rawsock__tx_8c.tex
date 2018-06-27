@@ -1,0 +1,462 @@
+\hypertarget{rawsock__tx_8c}{}\section{lib/avtp\+\_\+pipeline/platform/\+Linux/rawsock/rawsock\+\_\+tx.c 파일 참조}
+\label{rawsock__tx_8c}\index{lib/avtp\+\_\+pipeline/platform/\+Linux/rawsock/rawsock\+\_\+tx.\+c@{lib/avtp\+\_\+pipeline/platform/\+Linux/rawsock/rawsock\+\_\+tx.\+c}}
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$ctype.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$glib.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}./openavb\+\_\+rawsock.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+log.\+h\char`\"{}}\\*
+rawsock\+\_\+tx.\+c에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{rawsock__tx_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{rawsock__tx_8c_a4c04f59831e0bea1d495e08237bb816b}{M\+A\+X\+\_\+\+N\+U\+M\+\_\+\+F\+R\+A\+M\+ES}~100
+\item 
+\#define \hyperlink{rawsock__tx_8c_a5df38c677104658963501aa1e2a88e60}{N\+A\+N\+O\+S\+E\+C\+O\+N\+D\+S\+\_\+\+P\+E\+R\+\_\+\+S\+E\+C\+O\+ND}~(1000000000\+U\+L\+L)
+\item 
+\#define \hyperlink{rawsock__tx_8c_aa3a25f9a257090b6ade97aa494459211}{T\+I\+M\+E\+S\+P\+E\+C\+\_\+\+T\+O\+\_\+\+N\+S\+EC}(ts)~(((\hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\+\_\+t})ts.\+tv\+\_\+sec $\ast$ (\hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\+\_\+t})\hyperlink{rawsock__tx_8c_a5df38c677104658963501aa1e2a88e60}{N\+A\+N\+O\+S\+E\+C\+O\+N\+D\+S\+\_\+\+P\+E\+R\+\_\+\+S\+E\+C\+O\+ND}) + (\hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\+\_\+t})ts.\+tv\+\_\+nsec)
+\item 
+\#define \hyperlink{rawsock__tx_8c_ae473d6db2794fca9ceb400d5a4bf4ac1}{R\+A\+W\+S\+O\+C\+K\+\_\+\+T\+X\+\_\+\+M\+O\+D\+E\+\_\+\+F\+I\+LL}~(0)
+\item 
+\#define \hyperlink{rawsock__tx_8c_a2c0cb427a23d8f86571cd5598729253d}{R\+A\+W\+S\+O\+C\+K\+\_\+\+T\+X\+\_\+\+M\+O\+D\+E\+\_\+\+S\+EQ}~(1)
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{rawsock__tx_8c_a1fef2c2f282fced8ca994f549332d361}{dump\+Ascii} (\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} $\ast$p\+Frame, int i, int $\ast$j)
+\item 
+void \hyperlink{rawsock__tx_8c_a0313c4c55e50cead2ef49d50f4fbe8ec}{dump\+Frame\+Content} (\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} $\ast$p\+Frame, \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} len)
+\item 
+void \hyperlink{rawsock__tx_8c_a93d6cb62eaeaf41d16b18a13e0386f03}{dump\+Frame} (\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} $\ast$p\+Frame, \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} len, \hyperlink{structhdr__info__t}{hdr\+\_\+info\+\_\+t} $\ast$hdr)
+\item 
+int \hyperlink{rawsock__tx_8c_a0ddf1224851353fc92bfbff6f499fa97}{main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\subsection*{변수}
+\begin{DoxyCompactItemize}
+\item 
+static char $\ast$ \hyperlink{rawsock__tx_8c_af663a7576d2f8f288bb3996381484cd3}{interface} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{N\+U\+LL}
+\item 
+static int \hyperlink{rawsock__tx_8c_af3d6d4ec5b93edfddc9de51233ae9f7e}{ethertype} = -\/1
+\item 
+static int \hyperlink{rawsock__tx_8c_aefa5ed1edafa3b4dc622ef46aa9cfb30}{txlen} = 64
+\item 
+static int \hyperlink{rawsock__tx_8c_a76d45721f99d199cefaccdf7ce420cf5}{tx\+Rate} = 8000
+\item 
+static int \hyperlink{rawsock__tx_8c_a3ff79c439d7a64caed833c65520c974a}{chunk\+Size} = 1
+\item 
+static int \hyperlink{rawsock__tx_8c_a864249e8d3ab6e923f792e590dbad0bc}{report\+Sec} = 1
+\item 
+static int \hyperlink{rawsock__tx_8c_a1ea5d0cb93f22f7d0fdf804bd68c3326}{mode} = \hyperlink{rawsock__tx_8c_ae473d6db2794fca9ceb400d5a4bf4ac1}{R\+A\+W\+S\+O\+C\+K\+\_\+\+T\+X\+\_\+\+M\+O\+D\+E\+\_\+\+F\+I\+LL}
+\item 
+static G\+Option\+Entry \hyperlink{rawsock__tx_8c_a76565232f25302e8cb99c60a629034cc}{entries} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{rawsock\+\_\+tx.\+c@{rawsock\+\_\+tx.\+c}!M\+A\+X\+\_\+\+N\+U\+M\+\_\+\+F\+R\+A\+M\+ES@{M\+A\+X\+\_\+\+N\+U\+M\+\_\+\+F\+R\+A\+M\+ES}}
+\index{M\+A\+X\+\_\+\+N\+U\+M\+\_\+\+F\+R\+A\+M\+ES@{M\+A\+X\+\_\+\+N\+U\+M\+\_\+\+F\+R\+A\+M\+ES}!rawsock\+\_\+tx.\+c@{rawsock\+\_\+tx.\+c}}
+\subsubsection[{\texorpdfstring{M\+A\+X\+\_\+\+N\+U\+M\+\_\+\+F\+R\+A\+M\+ES}{MAX_NUM_FRAMES}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+X\+\_\+\+N\+U\+M\+\_\+\+F\+R\+A\+M\+ES~100}\hypertarget{rawsock__tx_8c_a4c04f59831e0bea1d495e08237bb816b}{}\label{rawsock__tx_8c_a4c04f59831e0bea1d495e08237bb816b}
+
+
+rawsock\+\_\+tx.\+c 파일의 42 번째 라인에서 정의되었습니다.
+
+\index{rawsock\+\_\+tx.\+c@{rawsock\+\_\+tx.\+c}!N\+A\+N\+O\+S\+E\+C\+O\+N\+D\+S\+\_\+\+P\+E\+R\+\_\+\+S\+E\+C\+O\+ND@{N\+A\+N\+O\+S\+E\+C\+O\+N\+D\+S\+\_\+\+P\+E\+R\+\_\+\+S\+E\+C\+O\+ND}}
+\index{N\+A\+N\+O\+S\+E\+C\+O\+N\+D\+S\+\_\+\+P\+E\+R\+\_\+\+S\+E\+C\+O\+ND@{N\+A\+N\+O\+S\+E\+C\+O\+N\+D\+S\+\_\+\+P\+E\+R\+\_\+\+S\+E\+C\+O\+ND}!rawsock\+\_\+tx.\+c@{rawsock\+\_\+tx.\+c}}
+\subsubsection[{\texorpdfstring{N\+A\+N\+O\+S\+E\+C\+O\+N\+D\+S\+\_\+\+P\+E\+R\+\_\+\+S\+E\+C\+O\+ND}{NANOSECONDS_PER_SECOND}}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+A\+N\+O\+S\+E\+C\+O\+N\+D\+S\+\_\+\+P\+E\+R\+\_\+\+S\+E\+C\+O\+ND~(1000000000\+U\+L\+L)}\hypertarget{rawsock__tx_8c_a5df38c677104658963501aa1e2a88e60}{}\label{rawsock__tx_8c_a5df38c677104658963501aa1e2a88e60}
+
+
+rawsock\+\_\+tx.\+c 파일의 43 번째 라인에서 정의되었습니다.
+
+\index{rawsock\+\_\+tx.\+c@{rawsock\+\_\+tx.\+c}!R\+A\+W\+S\+O\+C\+K\+\_\+\+T\+X\+\_\+\+M\+O\+D\+E\+\_\+\+F\+I\+LL@{R\+A\+W\+S\+O\+C\+K\+\_\+\+T\+X\+\_\+\+M\+O\+D\+E\+\_\+\+F\+I\+LL}}
+\index{R\+A\+W\+S\+O\+C\+K\+\_\+\+T\+X\+\_\+\+M\+O\+D\+E\+\_\+\+F\+I\+LL@{R\+A\+W\+S\+O\+C\+K\+\_\+\+T\+X\+\_\+\+M\+O\+D\+E\+\_\+\+F\+I\+LL}!rawsock\+\_\+tx.\+c@{rawsock\+\_\+tx.\+c}}
+\subsubsection[{\texorpdfstring{R\+A\+W\+S\+O\+C\+K\+\_\+\+T\+X\+\_\+\+M\+O\+D\+E\+\_\+\+F\+I\+LL}{RAWSOCK_TX_MODE_FILL}}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+A\+W\+S\+O\+C\+K\+\_\+\+T\+X\+\_\+\+M\+O\+D\+E\+\_\+\+F\+I\+LL~(0)}\hypertarget{rawsock__tx_8c_ae473d6db2794fca9ceb400d5a4bf4ac1}{}\label{rawsock__tx_8c_ae473d6db2794fca9ceb400d5a4bf4ac1}
+
+
+rawsock\+\_\+tx.\+c 파일의 46 번째 라인에서 정의되었습니다.
+
+\index{rawsock\+\_\+tx.\+c@{rawsock\+\_\+tx.\+c}!R\+A\+W\+S\+O\+C\+K\+\_\+\+T\+X\+\_\+\+M\+O\+D\+E\+\_\+\+S\+EQ@{R\+A\+W\+S\+O\+C\+K\+\_\+\+T\+X\+\_\+\+M\+O\+D\+E\+\_\+\+S\+EQ}}
+\index{R\+A\+W\+S\+O\+C\+K\+\_\+\+T\+X\+\_\+\+M\+O\+D\+E\+\_\+\+S\+EQ@{R\+A\+W\+S\+O\+C\+K\+\_\+\+T\+X\+\_\+\+M\+O\+D\+E\+\_\+\+S\+EQ}!rawsock\+\_\+tx.\+c@{rawsock\+\_\+tx.\+c}}
+\subsubsection[{\texorpdfstring{R\+A\+W\+S\+O\+C\+K\+\_\+\+T\+X\+\_\+\+M\+O\+D\+E\+\_\+\+S\+EQ}{RAWSOCK_TX_MODE_SEQ}}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+A\+W\+S\+O\+C\+K\+\_\+\+T\+X\+\_\+\+M\+O\+D\+E\+\_\+\+S\+EQ~(1)}\hypertarget{rawsock__tx_8c_a2c0cb427a23d8f86571cd5598729253d}{}\label{rawsock__tx_8c_a2c0cb427a23d8f86571cd5598729253d}
+
+
+rawsock\+\_\+tx.\+c 파일의 47 번째 라인에서 정의되었습니다.
+
+\index{rawsock\+\_\+tx.\+c@{rawsock\+\_\+tx.\+c}!T\+I\+M\+E\+S\+P\+E\+C\+\_\+\+T\+O\+\_\+\+N\+S\+EC@{T\+I\+M\+E\+S\+P\+E\+C\+\_\+\+T\+O\+\_\+\+N\+S\+EC}}
+\index{T\+I\+M\+E\+S\+P\+E\+C\+\_\+\+T\+O\+\_\+\+N\+S\+EC@{T\+I\+M\+E\+S\+P\+E\+C\+\_\+\+T\+O\+\_\+\+N\+S\+EC}!rawsock\+\_\+tx.\+c@{rawsock\+\_\+tx.\+c}}
+\subsubsection[{\texorpdfstring{T\+I\+M\+E\+S\+P\+E\+C\+\_\+\+T\+O\+\_\+\+N\+S\+EC}{TIMESPEC_TO_NSEC}}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+I\+M\+E\+S\+P\+E\+C\+\_\+\+T\+O\+\_\+\+N\+S\+EC(
+\begin{DoxyParamCaption}
+\item[{}]{ts}
+\end{DoxyParamCaption}
+)~((({\bf uint64\+\_\+t})ts.\+tv\+\_\+sec $\ast$ ({\bf uint64\+\_\+t}){\bf N\+A\+N\+O\+S\+E\+C\+O\+N\+D\+S\+\_\+\+P\+E\+R\+\_\+\+S\+E\+C\+O\+ND}) + ({\bf uint64\+\_\+t})ts.\+tv\+\_\+nsec)}\hypertarget{rawsock__tx_8c_aa3a25f9a257090b6ade97aa494459211}{}\label{rawsock__tx_8c_aa3a25f9a257090b6ade97aa494459211}
+
+
+rawsock\+\_\+tx.\+c 파일의 44 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{함수 문서화}
+\index{rawsock\+\_\+tx.\+c@{rawsock\+\_\+tx.\+c}!dump\+Ascii@{dump\+Ascii}}
+\index{dump\+Ascii@{dump\+Ascii}!rawsock\+\_\+tx.\+c@{rawsock\+\_\+tx.\+c}}
+\subsubsection[{\texorpdfstring{dump\+Ascii(\+U8 $\ast$p\+Frame, int i, int $\ast$j)}{dumpAscii(U8 *pFrame, int i, int *j)}}]{\setlength{\rightskip}{0pt plus 5cm}void dump\+Ascii (
+\begin{DoxyParamCaption}
+\item[{{\bf U8} $\ast$}]{p\+Frame, }
+\item[{int}]{i, }
+\item[{int $\ast$}]{j}
+\end{DoxyParamCaption}
+)}\hypertarget{rawsock__tx_8c_a1fef2c2f282fced8ca994f549332d361}{}\label{rawsock__tx_8c_a1fef2c2f282fced8ca994f549332d361}
+
+
+rawsock\+\_\+tx.\+c 파일의 69 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+70 \{
+71     \textcolor{keywordtype}{char} \hyperlink{shaper__daemon_8c_a4e1e0e72dd773439e333c84dd762a9c3}{c};
+72 
+73     printf(\textcolor{stringliteral}{"  "});
+74     
+75     \textcolor{keywordflow}{while} (*j <= i) \{
+76         c = pFrame[*j];
+77         *j += 1;
+78         \textcolor{keywordflow}{if} (!isprint(c) || isspace(c))
+79             c = \textcolor{charliteral}{'.'};
+80         printf(\textcolor{stringliteral}{"%c"}, c);
+81     \}
+82 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{rawsock__tx_8c_a1fef2c2f282fced8ca994f549332d361_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{rawsock\+\_\+tx.\+c@{rawsock\+\_\+tx.\+c}!dump\+Frame@{dump\+Frame}}
+\index{dump\+Frame@{dump\+Frame}!rawsock\+\_\+tx.\+c@{rawsock\+\_\+tx.\+c}}
+\subsubsection[{\texorpdfstring{dump\+Frame(\+U8 $\ast$p\+Frame, U32 len, hdr\+\_\+info\+\_\+t $\ast$hdr)}{dumpFrame(U8 *pFrame, U32 len, hdr_info_t *hdr)}}]{\setlength{\rightskip}{0pt plus 5cm}void dump\+Frame (
+\begin{DoxyParamCaption}
+\item[{{\bf U8} $\ast$}]{p\+Frame, }
+\item[{{\bf U32}}]{len, }
+\item[{{\bf hdr\+\_\+info\+\_\+t} $\ast$}]{hdr}
+\end{DoxyParamCaption}
+)}\hypertarget{rawsock__tx_8c_a93d6cb62eaeaf41d16b18a13e0386f03}{}\label{rawsock__tx_8c_a93d6cb62eaeaf41d16b18a13e0386f03}
+
+
+rawsock\+\_\+tx.\+c 파일의 115 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+116 \{
+117     printf(\textcolor{stringliteral}{"Frame received, ethertype=0x%x len=%u\(\backslash\)n"}, hdr->\hyperlink{structhdr__info__t_a54283e441ba9b75fc494232121266e2c}{ethertype}, len);
+118     printf(\textcolor{stringliteral}{"src: %s\(\backslash\)n"}, ether\_ntoa((\textcolor{keyword}{const} \textcolor{keyword}{struct} ether\_addr*)hdr->\hyperlink{structhdr__info__t_a603b5aebe0d4619ae32b09cd6612535f}{shost}));
+119     printf(\textcolor{stringliteral}{"dst: %s\(\backslash\)n"}, ether\_ntoa((\textcolor{keyword}{const} \textcolor{keyword}{struct} ether\_addr*)hdr->\hyperlink{structhdr__info__t_a5a0b8fa2025e75a8db03f7a23cadc04e}{dhost}));
+120     \textcolor{keywordflow}{if} (hdr->\hyperlink{structhdr__info__t_aae65321fd27fc2507a499a3f00660a93}{vlan}) \{
+121         printf(\textcolor{stringliteral}{"VLAN pcp=%u, vid=%u\(\backslash\)n"}, (\textcolor{keywordtype}{unsigned})hdr->\hyperlink{structhdr__info__t_a394deccdf47e8dd6b4e6329e6fe0f8fc}{vlan\_pcp}, hdr->
+      \hyperlink{structhdr__info__t_aed62b55d4664ac7c198517a01adc4f6b}{vlan\_vid}); 
+122     \}
+123     \hyperlink{rawsock__tx_8c_a0313c4c55e50cead2ef49d50f4fbe8ec}{dumpFrameContent}(pFrame, len);
+124     printf(\textcolor{stringliteral}{"\(\backslash\)n"});
+125 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{rawsock__tx_8c_a93d6cb62eaeaf41d16b18a13e0386f03_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{rawsock\+\_\+tx.\+c@{rawsock\+\_\+tx.\+c}!dump\+Frame\+Content@{dump\+Frame\+Content}}
+\index{dump\+Frame\+Content@{dump\+Frame\+Content}!rawsock\+\_\+tx.\+c@{rawsock\+\_\+tx.\+c}}
+\subsubsection[{\texorpdfstring{dump\+Frame\+Content(\+U8 $\ast$p\+Frame, U32 len)}{dumpFrameContent(U8 *pFrame, U32 len)}}]{\setlength{\rightskip}{0pt plus 5cm}void dump\+Frame\+Content (
+\begin{DoxyParamCaption}
+\item[{{\bf U8} $\ast$}]{p\+Frame, }
+\item[{{\bf U32}}]{len}
+\end{DoxyParamCaption}
+)}\hypertarget{rawsock__tx_8c_a0313c4c55e50cead2ef49d50f4fbe8ec}{}\label{rawsock__tx_8c_a0313c4c55e50cead2ef49d50f4fbe8ec}
+
+
+rawsock\+\_\+tx.\+c 파일의 84 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+85 \{
+86     \textcolor{keywordtype}{int} i = 0, j = 0;
+87     \textcolor{keywordflow}{while} (\hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}) \{
+88         \textcolor{keywordflow}{if} (i % 16 == 0) \{
+89             \textcolor{keywordflow}{if} (i != 0 ) \{
+90                 \textcolor{comment}{// end of line stuff}
+91                 \hyperlink{rawsock__tx_8c_a1fef2c2f282fced8ca994f549332d361}{dumpAscii}(pFrame, (i < len ? i : len), &j);
+92                 printf(\textcolor{stringliteral}{"\(\backslash\)n"});
+93 
+94                 \textcolor{keywordflow}{if} (i >= len)
+95                     \textcolor{keywordflow}{break};
+96             \}
+97             \textcolor{keywordflow}{if} (i+1 < len) \{
+98                 \textcolor{comment}{// start of line stuff}
+99                 printf(\textcolor{stringliteral}{"0x%4.4d:  "}, i);
+100             \}
+101         \}
+102         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (i % 2 == 0) \{
+103             printf(\textcolor{stringliteral}{"  "});
+104         \}
+105 
+106         \textcolor{keywordflow}{if} (i >= len)
+107             printf(\textcolor{stringliteral}{"  "});
+108         \textcolor{keywordflow}{else}
+109             printf(\textcolor{stringliteral}{"%2.2x"}, pFrame[i]);
+110 
+111         i += 1;
+112     \}
+113 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=281pt]{rawsock__tx_8c_a0313c4c55e50cead2ef49d50f4fbe8ec_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=287pt]{rawsock__tx_8c_a0313c4c55e50cead2ef49d50f4fbe8ec_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{rawsock\+\_\+tx.\+c@{rawsock\+\_\+tx.\+c}!main@{main}}
+\index{main@{main}!rawsock\+\_\+tx.\+c@{rawsock\+\_\+tx.\+c}}
+\subsubsection[{\texorpdfstring{main(int argc, char $\ast$argv[])}{main(int argc, char *argv[])}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{rawsock__tx_8c_a0ddf1224851353fc92bfbff6f499fa97}{}\label{rawsock__tx_8c_a0ddf1224851353fc92bfbff6f499fa97}
+
+
+rawsock\+\_\+tx.\+c 파일의 127 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+128 \{
+129     GError *error = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+130     GOptionContext *context;
+131 
+132     context = g\_option\_context\_new(\textcolor{stringliteral}{"- rawsock listenr"});
+133     g\_option\_context\_add\_main\_entries(context, \hyperlink{rawsock__tx_8c_a76565232f25302e8cb99c60a629034cc}{entries}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+134     \textcolor{keywordflow}{if} (!g\_option\_context\_parse(context, &argc, &argv, &error))
+135     \{
+136         printf(\textcolor{stringliteral}{"error: %s\(\backslash\)n"}, error->message);
+137         exit(1);
+138     \}
+139 
+140     \textcolor{keywordflow}{if} (\hyperlink{rawsock__tx_8c_af663a7576d2f8f288bb3996381484cd3}{interface} == \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} || \hyperlink{rawsock__tx_8c_af3d6d4ec5b93edfddc9de51233ae9f7e}{ethertype} < 0) \{
+141         printf(\textcolor{stringliteral}{"error: must specify network interface and ethertype\(\backslash\)n"});
+142         exit(2);
+143     \}
+144 
+145     \textcolor{keywordtype}{void}* rs = \hyperlink{openavb__rawsock_8c_a51a8d60253a8bab7c193b36bf743d12f}{openavbRawsockOpen}(\hyperlink{rawsock__tx_8c_af663a7576d2f8f288bb3996381484cd3}{interface}, \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, 
+      \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{rawsock__tx_8c_af3d6d4ec5b93edfddc9de51233ae9f7e}{ethertype}, 0, \hyperlink{rawsock__tx_8c_a4c04f59831e0bea1d495e08237bb816b}{MAX\_NUM\_FRAMES});
+146     \textcolor{keywordflow}{if} (!rs) \{
+147         printf(\textcolor{stringliteral}{"error: failed to open raw socket (are you root?)\(\backslash\)n"});
+148         exit(3);
+149     \}
+150 
+151     \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *pBuf, *pData;
+152     \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} buflen, hdrlen, datalen;
+153     \hyperlink{structhdr__info__t}{hdr\_info\_t} hdr;
+154 
+155     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a9b429604e6a4ca986ddb935320db5b56}{avbLogInit}();
+156 
+157     memset(&hdr, 0, \textcolor{keyword}{sizeof}(\hyperlink{structhdr__info__t}{hdr\_info\_t}));
+158     \hyperlink{openavb__rawsock_8h_a533478c640918e91d858316a98f26176}{openavbRawsockTxSetHdr}(rs, &hdr);
+159 
+160     \textcolor{keyword}{struct }timespec now;
+161     \textcolor{keyword}{static} \hyperlink{openavb__types__base__pub_8h_a25809e0734a149248fcf5831efa4e33d}{U64} packetIntervalNSec = 0;
+162     \textcolor{keyword}{static} \hyperlink{openavb__types__base__pub_8h_a25809e0734a149248fcf5831efa4e33d}{U64} nextCycleNSec = 0;
+163     \textcolor{keyword}{static} \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} packetCnt = 0;
+164     \textcolor{keyword}{static} \hyperlink{openavb__types__base__pub_8h_a25809e0734a149248fcf5831efa4e33d}{U64} nextReportInterval = 0;
+165 
+166     packetIntervalNSec = \hyperlink{rawsock__tx_8c_a5df38c677104658963501aa1e2a88e60}{NANOSECONDS\_PER\_SECOND} / \hyperlink{rawsock__tx_8c_a76d45721f99d199cefaccdf7ce420cf5}{txRate};
+167     clock\_gettime(CLOCK\_MONOTONIC, &now);
+168     nextCycleNSec = \hyperlink{rawsock__tx_8c_aa3a25f9a257090b6ade97aa494459211}{TIMESPEC\_TO\_NSEC}(now);
+169     nextReportInterval = \hyperlink{rawsock__tx_8c_aa3a25f9a257090b6ade97aa494459211}{TIMESPEC\_TO\_NSEC}(now) + (
+      \hyperlink{rawsock__tx_8c_a5df38c677104658963501aa1e2a88e60}{NANOSECONDS\_PER\_SECOND} * \hyperlink{rawsock__tx_8c_a864249e8d3ab6e923f792e590dbad0bc}{reportSec});
+170 
+171     \textcolor{keywordflow}{while} (1) \{
+172         \textcolor{keywordtype}{int} remainder = 0;
+173         pBuf = (\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8}*)\hyperlink{openavb__rawsock_8h_a121372984c2c72c3b5872783dbf3dbea}{openavbRawsockGetTxFrame}(rs, \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, &buflen);
+174         \textcolor{keywordflow}{if} (!pBuf) \{
+175             printf(\textcolor{stringliteral}{"failed to get TX frame buffer\(\backslash\)n"});
+176             exit(4);
+177         \}
+178 
+179         \textcolor{keywordflow}{if} (buflen < \hyperlink{rawsock__tx_8c_aefa5ed1edafa3b4dc622ef46aa9cfb30}{txlen} || \hyperlink{rawsock__tx_8c_aefa5ed1edafa3b4dc622ef46aa9cfb30}{txlen} == -1)
+180             \hyperlink{rawsock__tx_8c_aefa5ed1edafa3b4dc622ef46aa9cfb30}{txlen} = buflen;
+181 
+182         \hyperlink{openavb__rawsock_8h_a64af44702b6f40bf8932eca5ece06d0c}{openavbRawsockTxFillHdr}(rs, pBuf, &hdrlen);
+183         pData = pBuf + hdrlen;
+184         datalen = \hyperlink{rawsock__tx_8c_aefa5ed1edafa3b4dc622ef46aa9cfb30}{txlen} - hdrlen;
+185 
+186         \textcolor{keywordflow}{if} (\hyperlink{rawsock__tx_8c_a1ea5d0cb93f22f7d0fdf804bd68c3326}{mode} == \hyperlink{rawsock__tx_8c_ae473d6db2794fca9ceb400d5a4bf4ac1}{RAWSOCK\_TX\_MODE\_FILL}) \{
+187             \textcolor{keywordtype}{int} i;
+188             \textcolor{keywordflow}{for} (i=0; i<datalen; i++)
+189                 pData[i] = (i & 0xff);
+190         \}
+191         \textcolor{keywordflow}{else} \{  \textcolor{comment}{// RAWSOCK\_TX\_MODE\_sEQ}
+192             \textcolor{keyword}{static} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} seq = 0;
+193             pData[0] = 0x7F;        \textcolor{comment}{// Experimental subtype}
+194             pData[1] = 0x00;
+195             pData[2] = seq++;
+196             \hyperlink{rawsock__tx_8c_aefa5ed1edafa3b4dc622ef46aa9cfb30}{txlen} = hdrlen + 3;
+197         \}
+198 
+199         \hyperlink{openavb__rawsock_8h_ac04c99d5bc5e7371260b21fc79e7d253}{openavbRawsockTxFrameReady}(rs, pBuf, \hyperlink{rawsock__tx_8c_aefa5ed1edafa3b4dc622ef46aa9cfb30}{txlen}, 0);
+200 
+201         packetCnt++;
+202 
+203         \textcolor{keywordflow}{if} ((packetCnt % \hyperlink{rawsock__tx_8c_a3ff79c439d7a64caed833c65520c974a}{chunkSize}) == 0) \{
+204             \hyperlink{openavb__rawsock_8h_addc3b3ada9a2ba3695987ce93c571f76}{openavbRawsockSend}(rs);
+205         \}
+206 
+207         nextCycleNSec += packetIntervalNSec;
+208         clock\_gettime(CLOCK\_MONOTONIC, &now);
+209         \hyperlink{openavb__types__base__pub_8h_a25809e0734a149248fcf5831efa4e33d}{U64} nowNSec = \hyperlink{rawsock__tx_8c_aa3a25f9a257090b6ade97aa494459211}{TIMESPEC\_TO\_NSEC}(now);;
+210 
+211         \textcolor{keywordflow}{if} (nowNSec > nextReportInterval) \{
+212             printf(\textcolor{stringliteral}{"TX Packets: %d\(\backslash\)n"}, packetCnt-remainder);
+213             packetCnt %= \hyperlink{rawsock__tx_8c_a3ff79c439d7a64caed833c65520c974a}{chunkSize};
+214             remainder = packetCnt;
+215             nextReportInterval = nowNSec + (\hyperlink{rawsock__tx_8c_a5df38c677104658963501aa1e2a88e60}{NANOSECONDS\_PER\_SECOND} * 
+      \hyperlink{rawsock__tx_8c_a864249e8d3ab6e923f792e590dbad0bc}{reportSec});
+216         \}
+217 
+218         \textcolor{keywordflow}{if} (nowNSec < nextCycleNSec) \{
+219             usleep((nextCycleNSec - nowNSec) / 1000);
+220         \}
+221     \}
+222 
+223     \hyperlink{openavb__rawsock_8h_ae1e456bd2922c4ed8fc8263cc65d98d1}{openavbRawsockClose}(rs);
+224     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a98eebd5e32e7bd777c0a09911ce8abe6}{avbLogExit}();
+225     \textcolor{keywordflow}{return} 0;
+226 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{rawsock__tx_8c_a0ddf1224851353fc92bfbff6f499fa97_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{변수 문서화}
+\index{rawsock\+\_\+tx.\+c@{rawsock\+\_\+tx.\+c}!chunk\+Size@{chunk\+Size}}
+\index{chunk\+Size@{chunk\+Size}!rawsock\+\_\+tx.\+c@{rawsock\+\_\+tx.\+c}}
+\subsubsection[{\texorpdfstring{chunk\+Size}{chunkSize}}]{\setlength{\rightskip}{0pt plus 5cm}int chunk\+Size = 1\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{rawsock__tx_8c_a3ff79c439d7a64caed833c65520c974a}{}\label{rawsock__tx_8c_a3ff79c439d7a64caed833c65520c974a}
+
+
+rawsock\+\_\+tx.\+c 파일의 53 번째 라인에서 정의되었습니다.
+
+\index{rawsock\+\_\+tx.\+c@{rawsock\+\_\+tx.\+c}!entries@{entries}}
+\index{entries@{entries}!rawsock\+\_\+tx.\+c@{rawsock\+\_\+tx.\+c}}
+\subsubsection[{\texorpdfstring{entries}{entries}}]{\setlength{\rightskip}{0pt plus 5cm}G\+Option\+Entry entries\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{rawsock__tx_8c_a76565232f25302e8cb99c60a629034cc}{}\label{rawsock__tx_8c_a76565232f25302e8cb99c60a629034cc}
+{\bfseries 초기값\+:}
+\begin{DoxyCode}
+=
+\{
+  \{ \textcolor{stringliteral}{"interface"}, \textcolor{charliteral}{'i'}, 0, G\_OPTION\_ARG\_STRING, &\hyperlink{rawsock__tx_8c_af663a7576d2f8f288bb3996381484cd3}{interface}, \textcolor{stringliteral}{"network interface"},                    
+          \textcolor{stringliteral}{"NAME"} \},
+  \{ \textcolor{stringliteral}{"ethertype"}, \textcolor{charliteral}{'t'}, 0, G\_OPTION\_ARG\_INT,    &\hyperlink{rawsock__tx_8c_af3d6d4ec5b93edfddc9de51233ae9f7e}{ethertype}, \textcolor{stringliteral}{"ethernet protocol"},                    
+          \textcolor{stringliteral}{"NUM"} \},
+  \{ \textcolor{stringliteral}{"length"},    \textcolor{charliteral}{'l'}, 0, G\_OPTION\_ARG\_INT,    &\hyperlink{rawsock__tx_8c_aefa5ed1edafa3b4dc622ef46aa9cfb30}{txlen},     \textcolor{stringliteral}{"frame length"},                             \textcolor{stringliteral}{
+      "LEN"} \},
+  \{ \textcolor{stringliteral}{"rate"},      \textcolor{charliteral}{'r'}, 0, G\_OPTION\_ARG\_INT,    &\hyperlink{rawsock__tx_8c_a76d45721f99d199cefaccdf7ce420cf5}{txRate},    \textcolor{stringliteral}{"tx rate"},                                 
+       \textcolor{stringliteral}{"RATE"} \},
+  \{ \textcolor{stringliteral}{"chunk"},     \textcolor{charliteral}{'c'}, 0, G\_OPTION\_ARG\_INT,    &\hyperlink{rawsock__tx_8c_a3ff79c439d7a64caed833c65520c974a}{chunkSize}, \textcolor{stringliteral}{"Chunk size"},                           
+          \textcolor{stringliteral}{"CHUNKSIZE"} \},
+  \{ \textcolor{stringliteral}{"rptsec"},    \textcolor{charliteral}{'s'}, 0, G\_OPTION\_ARG\_INT,    &\hyperlink{rawsock__tx_8c_a864249e8d3ab6e923f792e590dbad0bc}{reportSec}, \textcolor{stringliteral}{"report interval in seconds"},           
+          \textcolor{stringliteral}{"RPTSEC"} \},
+  \{ \textcolor{stringliteral}{"mode"},      \textcolor{charliteral}{'m'}, 0, G\_OPTION\_ARG\_INT,    &\hyperlink{rawsock__tx_8c_a1ea5d0cb93f22f7d0fdf804bd68c3326}{mode},      \textcolor{stringliteral}{"mode: 0 = fill, 1 = sequence number"},      \textcolor{stringliteral}{"
+      MODE"} \},
+  \{ \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} \}
+\}
+\end{DoxyCode}
+
+
+rawsock\+\_\+tx.\+c 파일의 57 번째 라인에서 정의되었습니다.
+
+\index{rawsock\+\_\+tx.\+c@{rawsock\+\_\+tx.\+c}!ethertype@{ethertype}}
+\index{ethertype@{ethertype}!rawsock\+\_\+tx.\+c@{rawsock\+\_\+tx.\+c}}
+\subsubsection[{\texorpdfstring{ethertype}{ethertype}}]{\setlength{\rightskip}{0pt plus 5cm}int ethertype = -\/1\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{rawsock__tx_8c_af3d6d4ec5b93edfddc9de51233ae9f7e}{}\label{rawsock__tx_8c_af3d6d4ec5b93edfddc9de51233ae9f7e}
+
+
+rawsock\+\_\+tx.\+c 파일의 50 번째 라인에서 정의되었습니다.
+
+\index{rawsock\+\_\+tx.\+c@{rawsock\+\_\+tx.\+c}!interface@{interface}}
+\index{interface@{interface}!rawsock\+\_\+tx.\+c@{rawsock\+\_\+tx.\+c}}
+\subsubsection[{\texorpdfstring{interface}{interface}}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ interface = {\bf N\+U\+LL}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{rawsock__tx_8c_af663a7576d2f8f288bb3996381484cd3}{}\label{rawsock__tx_8c_af663a7576d2f8f288bb3996381484cd3}
+
+
+rawsock\+\_\+tx.\+c 파일의 49 번째 라인에서 정의되었습니다.
+
+\index{rawsock\+\_\+tx.\+c@{rawsock\+\_\+tx.\+c}!mode@{mode}}
+\index{mode@{mode}!rawsock\+\_\+tx.\+c@{rawsock\+\_\+tx.\+c}}
+\subsubsection[{\texorpdfstring{mode}{mode}}]{\setlength{\rightskip}{0pt plus 5cm}int mode = {\bf R\+A\+W\+S\+O\+C\+K\+\_\+\+T\+X\+\_\+\+M\+O\+D\+E\+\_\+\+F\+I\+LL}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{rawsock__tx_8c_a1ea5d0cb93f22f7d0fdf804bd68c3326}{}\label{rawsock__tx_8c_a1ea5d0cb93f22f7d0fdf804bd68c3326}
+
+
+rawsock\+\_\+tx.\+c 파일의 55 번째 라인에서 정의되었습니다.
+
+\index{rawsock\+\_\+tx.\+c@{rawsock\+\_\+tx.\+c}!report\+Sec@{report\+Sec}}
+\index{report\+Sec@{report\+Sec}!rawsock\+\_\+tx.\+c@{rawsock\+\_\+tx.\+c}}
+\subsubsection[{\texorpdfstring{report\+Sec}{reportSec}}]{\setlength{\rightskip}{0pt plus 5cm}int report\+Sec = 1\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{rawsock__tx_8c_a864249e8d3ab6e923f792e590dbad0bc}{}\label{rawsock__tx_8c_a864249e8d3ab6e923f792e590dbad0bc}
+
+
+rawsock\+\_\+tx.\+c 파일의 54 번째 라인에서 정의되었습니다.
+
+\index{rawsock\+\_\+tx.\+c@{rawsock\+\_\+tx.\+c}!txlen@{txlen}}
+\index{txlen@{txlen}!rawsock\+\_\+tx.\+c@{rawsock\+\_\+tx.\+c}}
+\subsubsection[{\texorpdfstring{txlen}{txlen}}]{\setlength{\rightskip}{0pt plus 5cm}int txlen = 64\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{rawsock__tx_8c_aefa5ed1edafa3b4dc622ef46aa9cfb30}{}\label{rawsock__tx_8c_aefa5ed1edafa3b4dc622ef46aa9cfb30}
+
+
+rawsock\+\_\+tx.\+c 파일의 51 번째 라인에서 정의되었습니다.
+
+\index{rawsock\+\_\+tx.\+c@{rawsock\+\_\+tx.\+c}!tx\+Rate@{tx\+Rate}}
+\index{tx\+Rate@{tx\+Rate}!rawsock\+\_\+tx.\+c@{rawsock\+\_\+tx.\+c}}
+\subsubsection[{\texorpdfstring{tx\+Rate}{txRate}}]{\setlength{\rightskip}{0pt plus 5cm}int tx\+Rate = 8000\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{rawsock__tx_8c_a76d45721f99d199cefaccdf7ce420cf5}{}\label{rawsock__tx_8c_a76d45721f99d199cefaccdf7ce420cf5}
+
+
+rawsock\+\_\+tx.\+c 파일의 52 번째 라인에서 정의되었습니다.
+

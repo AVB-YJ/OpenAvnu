@@ -1,0 +1,922 @@
+\hypertarget{openavb__map__h264_8c}{}\section{lib/avtp\+\_\+pipeline/map\+\_\+h264/openavb\+\_\+map\+\_\+h264.c 파일 참조}
+\label{openavb__map__h264_8c}\index{lib/avtp\+\_\+pipeline/map\+\_\+h264/openavb\+\_\+map\+\_\+h264.\+c@{lib/avtp\+\_\+pipeline/map\+\_\+h264/openavb\+\_\+map\+\_\+h264.\+c}}
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$arpa/inet.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+types\+\_\+pub.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+trace\+\_\+pub.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+avtp\+\_\+time\+\_\+pub.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+mediaq\+\_\+pub.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+map\+\_\+pub.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+map\+\_\+h264\+\_\+pub.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+log\+\_\+pub.\+h\char`\"{}}\\*
+openavb\+\_\+map\+\_\+h264.\+c에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__map__h264_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{데이타 구조}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structpvt__data__t}{pvt\+\_\+data\+\_\+t}
+\end{DoxyCompactItemize}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{openavb__map__h264_8c_abcfb21b6495585fe36058f57a9fe58fc}{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}~\char`\"{}H.\+264 Mapping\char`\"{}
+\item 
+\#define \hyperlink{openavb__map__h264_8c_a60dcf69231f49285a63a22e7c5b7a27d}{A\+V\+T\+P\+\_\+\+V0\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}~12
+\item 
+\#define \hyperlink{openavb__map__h264_8c_ac2c2b2e4a24272e6be4fe526a0011539}{M\+A\+P\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}~16
+\item 
+\#define \hyperlink{openavb__map__h264_8c_aa51d9d7f77b3245e88384185cf288da9}{T\+O\+T\+A\+L\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}~(\hyperlink{openavb__map__uncmp__audio_8c_a60dcf69231f49285a63a22e7c5b7a27d}{A\+V\+T\+P\+\_\+\+V0\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE} + \hyperlink{openavb__map__uncmp__audio_8c_ac2c2b2e4a24272e6be4fe526a0011539}{M\+A\+P\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE})
+\item 
+\#define \hyperlink{openavb__map__h264_8c_a6303f7392a2d06be5a121c54278d561b}{M\+A\+X\+\_\+\+P\+A\+Y\+L\+O\+A\+D\+\_\+\+S\+I\+ZE}~1416
+\item 
+\#define \hyperlink{openavb__map__h264_8c_a1987e05c59aa30b6235ac6fdf7084dc8}{H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+V\+E\+R\+Z\+E\+R\+O96}~0
+\item 
+\#define \hyperlink{openavb__map__h264_8c_aa912ad4f984243f81c8fadf4c7d8a2a8}{H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+H\+I\+D\+E7\+\_\+\+T\+V1}~1
+\item 
+\#define \hyperlink{openavb__map__h264_8c_a74d586288021d96098aa71fc3d883fa9}{H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+H\+I\+D\+E7\+\_\+\+T\+U1}~3
+\item 
+\#define \hyperlink{openavb__map__h264_8c_a9d86e1cc24fdb882ab67e7bf0e1788a1}{H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+T\+I\+M\+E\+S\+T\+A\+M\+P32}~12
+\item 
+\#define \hyperlink{openavb__map__h264_8c_a7f2f2a532b30a1dc2927240642c156ad}{H\+I\+D\+X\+\_\+\+F\+O\+R\+M\+A\+T8}~16
+\item 
+\#define \hyperlink{openavb__map__h264_8c_a719ea6e56cc68685e785149d907c4f35}{H\+I\+D\+X\+\_\+\+F\+O\+R\+M\+A\+T\+\_\+\+S\+U\+B\+T\+Y\+P\+E8}~17
+\item 
+\#define \hyperlink{openavb__map__h264_8c_ad2e24666200bd8587d3677a904221f86}{H\+I\+D\+X\+\_\+\+R\+E\+S\+V16}~18
+\item 
+\#define \hyperlink{openavb__map__h264_8c_a5d769cbea4518f2646bc9d74255e885a}{H\+I\+D\+X\+\_\+\+S\+T\+R\+E\+A\+M\+\_\+\+D\+A\+T\+A\+\_\+\+L\+E\+N16}~20
+\item 
+\#define \hyperlink{openavb__map__h264_8c_a09702c1739a4f1981ff45f7914d20a42}{H\+I\+D\+X\+\_\+\+M31\+\_\+\+M21\+\_\+\+M11\+\_\+\+M01\+\_\+\+E\+V\+T2\+\_\+\+R\+E\+S\+V2}~22
+\item 
+\#define \hyperlink{openavb__map__h264_8c_a51dd7836266cc19ef1f24ac1c1093d95}{H\+I\+D\+X\+\_\+\+R\+E\+S\+V8}~23
+\item 
+\#define \hyperlink{openavb__map__h264_8c_a88209552bf43920f41ad017a823e3cf7}{H\+I\+D\+X\+\_\+\+H264\+\_\+\+T\+I\+M\+E\+S\+T\+A\+M\+P32}~24
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{openavb__map__h264_8c_ab2d001986fe943555f3f39647a7dbc26}{openavb\+Map\+H264\+Cfg\+CB} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ, const char $\ast$name, const char $\ast$value)
+\item 
+\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} \hyperlink{openavb__map__h264_8c_ab2a2b0dfab1d27cb80e58a7cdc0cded4}{openavb\+Map\+H264\+Subtype\+CB} ()
+\item 
+\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} \hyperlink{openavb__map__h264_8c_aeb541e234fd38496b8dba043e8c356e6}{openavb\+Map\+H264\+Avtp\+Version\+CB} ()
+\item 
+\hyperlink{openavb__types__base__pub_8h_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16} \hyperlink{openavb__map__h264_8c_a4a2dd48b35d0ffb85803c79131e50620}{openavb\+Map\+H264\+Max\+Data\+Size\+CB} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ)
+\item 
+\hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} \hyperlink{openavb__map__h264_8c_a7ecec53fc8d58a2d0c05984932c34f30}{openavb\+Map\+H264\+Transmit\+Interval\+CB} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ)
+\item 
+void \hyperlink{openavb__map__h264_8c_a6435897ab2d7f33bfd8cf503300b6da3}{openavb\+Map\+H264\+Gen\+Init\+CB} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ)
+\item 
+void \hyperlink{openavb__map__h264_8c_aeeec09f7e49d44819a0c0720c6c8b13f}{openavb\+Map\+H264\+Tx\+Init\+CB} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ)
+\item 
+\hyperlink{build_2sdk__eavb_2openavb__map__pub_8h_adbd7b5e94070d12e84c8740e2027a843}{tx\+\_\+cb\+\_\+ret\+\_\+t} \hyperlink{openavb__map__h264_8c_ae87aef0fce1299a29c7c677b574b07c5}{openavb\+Map\+H264\+Tx\+CB} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ, \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} $\ast$p\+Data, \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} $\ast$data\+Len)
+\item 
+void \hyperlink{openavb__map__h264_8c_a881826c5eed2c3e0e82ac8dea94aa5fb}{openavb\+Map\+H264\+Rx\+Init\+CB} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ)
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__map__h264_8c_a034ca823227c3efb3321955c01273c08}{openavb\+Map\+H264\+Rx\+CB} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ, \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} $\ast$p\+Data, \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} data\+Len)
+\item 
+void \hyperlink{openavb__map__h264_8c_a78be38d792371694036d738fc7d9bfce}{openavb\+Map\+H264\+End\+CB} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ)
+\item 
+void \hyperlink{openavb__map__h264_8c_ae970485deab317e3329ccfa94b794fb4}{openavb\+Map\+H264\+Gen\+End\+CB} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ)
+\item 
+\hyperlink{include_2openavb__types__pub_8h_a1ca888bd091694c05472e1b91df1a97b}{D\+L\+L\+\_\+\+E\+X\+P\+O\+RT} \hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__map__h264_8c_a4c78e0cd66327cf7e16ba1ba4832ab31}{openavb\+Map\+H264\+Initialize} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ, \hyperlink{structopenavb__map__cb__t}{openavb\+\_\+map\+\_\+cb\+\_\+t} $\ast$p\+Map\+CB, \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} in\+Max\+Transit\+Usec)
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}!A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT@{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}}
+\index{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT@{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}!openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}}
+\subsubsection[{\texorpdfstring{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}{AVB_LOG_COMPONENT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT~\char`\"{}H.\+264 Mapping\char`\"{}}\hypertarget{openavb__map__h264_8c_abcfb21b6495585fe36058f57a9fe58fc}{}\label{openavb__map__h264_8c_abcfb21b6495585fe36058f57a9fe58fc}
+
+
+openavb\+\_\+map\+\_\+h264.\+c 파일의 57 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}!A\+V\+T\+P\+\_\+\+V0\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE@{A\+V\+T\+P\+\_\+\+V0\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}}
+\index{A\+V\+T\+P\+\_\+\+V0\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE@{A\+V\+T\+P\+\_\+\+V0\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}!openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}}
+\subsubsection[{\texorpdfstring{A\+V\+T\+P\+\_\+\+V0\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}{AVTP_V0_HEADER_SIZE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+V\+T\+P\+\_\+\+V0\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE~12}\hypertarget{openavb__map__h264_8c_a60dcf69231f49285a63a22e7c5b7a27d}{}\label{openavb__map__h264_8c_a60dcf69231f49285a63a22e7c5b7a27d}
+
+
+openavb\+\_\+map\+\_\+h264.\+c 파일의 61 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}!H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+H\+I\+D\+E7\+\_\+\+T\+U1@{H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+H\+I\+D\+E7\+\_\+\+T\+U1}}
+\index{H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+H\+I\+D\+E7\+\_\+\+T\+U1@{H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+H\+I\+D\+E7\+\_\+\+T\+U1}!openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}}
+\subsubsection[{\texorpdfstring{H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+H\+I\+D\+E7\+\_\+\+T\+U1}{HIDX_AVTP_HIDE7_TU1}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+H\+I\+D\+E7\+\_\+\+T\+U1~3}\hypertarget{openavb__map__h264_8c_a74d586288021d96098aa71fc3d883fa9}{}\label{openavb__map__h264_8c_a74d586288021d96098aa71fc3d883fa9}
+
+
+openavb\+\_\+map\+\_\+h264.\+c 파일의 79 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}!H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+H\+I\+D\+E7\+\_\+\+T\+V1@{H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+H\+I\+D\+E7\+\_\+\+T\+V1}}
+\index{H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+H\+I\+D\+E7\+\_\+\+T\+V1@{H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+H\+I\+D\+E7\+\_\+\+T\+V1}!openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}}
+\subsubsection[{\texorpdfstring{H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+H\+I\+D\+E7\+\_\+\+T\+V1}{HIDX_AVTP_HIDE7_TV1}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+H\+I\+D\+E7\+\_\+\+T\+V1~1}\hypertarget{openavb__map__h264_8c_aa912ad4f984243f81c8fadf4c7d8a2a8}{}\label{openavb__map__h264_8c_aa912ad4f984243f81c8fadf4c7d8a2a8}
+
+
+openavb\+\_\+map\+\_\+h264.\+c 파일의 76 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}!H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+T\+I\+M\+E\+S\+T\+A\+M\+P32@{H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+T\+I\+M\+E\+S\+T\+A\+M\+P32}}
+\index{H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+T\+I\+M\+E\+S\+T\+A\+M\+P32@{H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+T\+I\+M\+E\+S\+T\+A\+M\+P32}!openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}}
+\subsubsection[{\texorpdfstring{H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+T\+I\+M\+E\+S\+T\+A\+M\+P32}{HIDX_AVTP_TIMESTAMP32}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+T\+I\+M\+E\+S\+T\+A\+M\+P32~12}\hypertarget{openavb__map__h264_8c_a9d86e1cc24fdb882ab67e7bf0e1788a1}{}\label{openavb__map__h264_8c_a9d86e1cc24fdb882ab67e7bf0e1788a1}
+
+
+openavb\+\_\+map\+\_\+h264.\+c 파일의 87 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}!H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+V\+E\+R\+Z\+E\+R\+O96@{H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+V\+E\+R\+Z\+E\+R\+O96}}
+\index{H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+V\+E\+R\+Z\+E\+R\+O96@{H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+V\+E\+R\+Z\+E\+R\+O96}!openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}}
+\subsubsection[{\texorpdfstring{H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+V\+E\+R\+Z\+E\+R\+O96}{HIDX_AVTP_VERZERO96}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+V\+E\+R\+Z\+E\+R\+O96~0}\hypertarget{openavb__map__h264_8c_a1987e05c59aa30b6235ac6fdf7084dc8}{}\label{openavb__map__h264_8c_a1987e05c59aa30b6235ac6fdf7084dc8}
+
+
+openavb\+\_\+map\+\_\+h264.\+c 파일의 73 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}!H\+I\+D\+X\+\_\+\+F\+O\+R\+M\+A\+T8@{H\+I\+D\+X\+\_\+\+F\+O\+R\+M\+A\+T8}}
+\index{H\+I\+D\+X\+\_\+\+F\+O\+R\+M\+A\+T8@{H\+I\+D\+X\+\_\+\+F\+O\+R\+M\+A\+T8}!openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}}
+\subsubsection[{\texorpdfstring{H\+I\+D\+X\+\_\+\+F\+O\+R\+M\+A\+T8}{HIDX_FORMAT8}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+I\+D\+X\+\_\+\+F\+O\+R\+M\+A\+T8~16}\hypertarget{openavb__map__h264_8c_a7f2f2a532b30a1dc2927240642c156ad}{}\label{openavb__map__h264_8c_a7f2f2a532b30a1dc2927240642c156ad}
+
+
+openavb\+\_\+map\+\_\+h264.\+c 파일의 90 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}!H\+I\+D\+X\+\_\+\+F\+O\+R\+M\+A\+T\+\_\+\+S\+U\+B\+T\+Y\+P\+E8@{H\+I\+D\+X\+\_\+\+F\+O\+R\+M\+A\+T\+\_\+\+S\+U\+B\+T\+Y\+P\+E8}}
+\index{H\+I\+D\+X\+\_\+\+F\+O\+R\+M\+A\+T\+\_\+\+S\+U\+B\+T\+Y\+P\+E8@{H\+I\+D\+X\+\_\+\+F\+O\+R\+M\+A\+T\+\_\+\+S\+U\+B\+T\+Y\+P\+E8}!openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}}
+\subsubsection[{\texorpdfstring{H\+I\+D\+X\+\_\+\+F\+O\+R\+M\+A\+T\+\_\+\+S\+U\+B\+T\+Y\+P\+E8}{HIDX_FORMAT_SUBTYPE8}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+I\+D\+X\+\_\+\+F\+O\+R\+M\+A\+T\+\_\+\+S\+U\+B\+T\+Y\+P\+E8~17}\hypertarget{openavb__map__h264_8c_a719ea6e56cc68685e785149d907c4f35}{}\label{openavb__map__h264_8c_a719ea6e56cc68685e785149d907c4f35}
+
+
+openavb\+\_\+map\+\_\+h264.\+c 파일의 93 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}!H\+I\+D\+X\+\_\+\+H264\+\_\+\+T\+I\+M\+E\+S\+T\+A\+M\+P32@{H\+I\+D\+X\+\_\+\+H264\+\_\+\+T\+I\+M\+E\+S\+T\+A\+M\+P32}}
+\index{H\+I\+D\+X\+\_\+\+H264\+\_\+\+T\+I\+M\+E\+S\+T\+A\+M\+P32@{H\+I\+D\+X\+\_\+\+H264\+\_\+\+T\+I\+M\+E\+S\+T\+A\+M\+P32}!openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}}
+\subsubsection[{\texorpdfstring{H\+I\+D\+X\+\_\+\+H264\+\_\+\+T\+I\+M\+E\+S\+T\+A\+M\+P32}{HIDX_H264_TIMESTAMP32}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+I\+D\+X\+\_\+\+H264\+\_\+\+T\+I\+M\+E\+S\+T\+A\+M\+P32~24}\hypertarget{openavb__map__h264_8c_a88209552bf43920f41ad017a823e3cf7}{}\label{openavb__map__h264_8c_a88209552bf43920f41ad017a823e3cf7}
+
+
+openavb\+\_\+map\+\_\+h264.\+c 파일의 113 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}!H\+I\+D\+X\+\_\+\+M31\+\_\+\+M21\+\_\+\+M11\+\_\+\+M01\+\_\+\+E\+V\+T2\+\_\+\+R\+E\+S\+V2@{H\+I\+D\+X\+\_\+\+M31\+\_\+\+M21\+\_\+\+M11\+\_\+\+M01\+\_\+\+E\+V\+T2\+\_\+\+R\+E\+S\+V2}}
+\index{H\+I\+D\+X\+\_\+\+M31\+\_\+\+M21\+\_\+\+M11\+\_\+\+M01\+\_\+\+E\+V\+T2\+\_\+\+R\+E\+S\+V2@{H\+I\+D\+X\+\_\+\+M31\+\_\+\+M21\+\_\+\+M11\+\_\+\+M01\+\_\+\+E\+V\+T2\+\_\+\+R\+E\+S\+V2}!openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}}
+\subsubsection[{\texorpdfstring{H\+I\+D\+X\+\_\+\+M31\+\_\+\+M21\+\_\+\+M11\+\_\+\+M01\+\_\+\+E\+V\+T2\+\_\+\+R\+E\+S\+V2}{HIDX_M31_M21_M11_M01_EVT2_RESV2}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+I\+D\+X\+\_\+\+M31\+\_\+\+M21\+\_\+\+M11\+\_\+\+M01\+\_\+\+E\+V\+T2\+\_\+\+R\+E\+S\+V2~22}\hypertarget{openavb__map__h264_8c_a09702c1739a4f1981ff45f7914d20a42}{}\label{openavb__map__h264_8c_a09702c1739a4f1981ff45f7914d20a42}
+
+
+openavb\+\_\+map\+\_\+h264.\+c 파일의 107 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}!H\+I\+D\+X\+\_\+\+R\+E\+S\+V16@{H\+I\+D\+X\+\_\+\+R\+E\+S\+V16}}
+\index{H\+I\+D\+X\+\_\+\+R\+E\+S\+V16@{H\+I\+D\+X\+\_\+\+R\+E\+S\+V16}!openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}}
+\subsubsection[{\texorpdfstring{H\+I\+D\+X\+\_\+\+R\+E\+S\+V16}{HIDX_RESV16}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+I\+D\+X\+\_\+\+R\+E\+S\+V16~18}\hypertarget{openavb__map__h264_8c_ad2e24666200bd8587d3677a904221f86}{}\label{openavb__map__h264_8c_ad2e24666200bd8587d3677a904221f86}
+
+
+openavb\+\_\+map\+\_\+h264.\+c 파일의 96 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}!H\+I\+D\+X\+\_\+\+R\+E\+S\+V8@{H\+I\+D\+X\+\_\+\+R\+E\+S\+V8}}
+\index{H\+I\+D\+X\+\_\+\+R\+E\+S\+V8@{H\+I\+D\+X\+\_\+\+R\+E\+S\+V8}!openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}}
+\subsubsection[{\texorpdfstring{H\+I\+D\+X\+\_\+\+R\+E\+S\+V8}{HIDX_RESV8}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+I\+D\+X\+\_\+\+R\+E\+S\+V8~23}\hypertarget{openavb__map__h264_8c_a51dd7836266cc19ef1f24ac1c1093d95}{}\label{openavb__map__h264_8c_a51dd7836266cc19ef1f24ac1c1093d95}
+
+
+openavb\+\_\+map\+\_\+h264.\+c 파일의 110 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}!H\+I\+D\+X\+\_\+\+S\+T\+R\+E\+A\+M\+\_\+\+D\+A\+T\+A\+\_\+\+L\+E\+N16@{H\+I\+D\+X\+\_\+\+S\+T\+R\+E\+A\+M\+\_\+\+D\+A\+T\+A\+\_\+\+L\+E\+N16}}
+\index{H\+I\+D\+X\+\_\+\+S\+T\+R\+E\+A\+M\+\_\+\+D\+A\+T\+A\+\_\+\+L\+E\+N16@{H\+I\+D\+X\+\_\+\+S\+T\+R\+E\+A\+M\+\_\+\+D\+A\+T\+A\+\_\+\+L\+E\+N16}!openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}}
+\subsubsection[{\texorpdfstring{H\+I\+D\+X\+\_\+\+S\+T\+R\+E\+A\+M\+\_\+\+D\+A\+T\+A\+\_\+\+L\+E\+N16}{HIDX_STREAM_DATA_LEN16}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+I\+D\+X\+\_\+\+S\+T\+R\+E\+A\+M\+\_\+\+D\+A\+T\+A\+\_\+\+L\+E\+N16~20}\hypertarget{openavb__map__h264_8c_a5d769cbea4518f2646bc9d74255e885a}{}\label{openavb__map__h264_8c_a5d769cbea4518f2646bc9d74255e885a}
+
+
+openavb\+\_\+map\+\_\+h264.\+c 파일의 99 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}!M\+A\+P\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE@{M\+A\+P\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}}
+\index{M\+A\+P\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE@{M\+A\+P\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}!openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}}
+\subsubsection[{\texorpdfstring{M\+A\+P\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}{MAP_HEADER_SIZE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+P\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE~16}\hypertarget{openavb__map__h264_8c_ac2c2b2e4a24272e6be4fe526a0011539}{}\label{openavb__map__h264_8c_ac2c2b2e4a24272e6be4fe526a0011539}
+
+
+openavb\+\_\+map\+\_\+h264.\+c 파일의 62 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}!M\+A\+X\+\_\+\+P\+A\+Y\+L\+O\+A\+D\+\_\+\+S\+I\+ZE@{M\+A\+X\+\_\+\+P\+A\+Y\+L\+O\+A\+D\+\_\+\+S\+I\+ZE}}
+\index{M\+A\+X\+\_\+\+P\+A\+Y\+L\+O\+A\+D\+\_\+\+S\+I\+ZE@{M\+A\+X\+\_\+\+P\+A\+Y\+L\+O\+A\+D\+\_\+\+S\+I\+ZE}!openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}}
+\subsubsection[{\texorpdfstring{M\+A\+X\+\_\+\+P\+A\+Y\+L\+O\+A\+D\+\_\+\+S\+I\+ZE}{MAX_PAYLOAD_SIZE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+X\+\_\+\+P\+A\+Y\+L\+O\+A\+D\+\_\+\+S\+I\+ZE~1416}\hypertarget{openavb__map__h264_8c_a6303f7392a2d06be5a121c54278d561b}{}\label{openavb__map__h264_8c_a6303f7392a2d06be5a121c54278d561b}
+
+
+openavb\+\_\+map\+\_\+h264.\+c 파일의 66 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}!T\+O\+T\+A\+L\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE@{T\+O\+T\+A\+L\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}}
+\index{T\+O\+T\+A\+L\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE@{T\+O\+T\+A\+L\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}!openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}}
+\subsubsection[{\texorpdfstring{T\+O\+T\+A\+L\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}{TOTAL_HEADER_SIZE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+O\+T\+A\+L\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE~({\bf A\+V\+T\+P\+\_\+\+V0\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE} + {\bf M\+A\+P\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE})}\hypertarget{openavb__map__h264_8c_aa51d9d7f77b3245e88384185cf288da9}{}\label{openavb__map__h264_8c_aa51d9d7f77b3245e88384185cf288da9}
+
+
+openavb\+\_\+map\+\_\+h264.\+c 파일의 64 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{함수 문서화}
+\index{openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}!openavb\+Map\+H264\+Avtp\+Version\+CB@{openavb\+Map\+H264\+Avtp\+Version\+CB}}
+\index{openavb\+Map\+H264\+Avtp\+Version\+CB@{openavb\+Map\+H264\+Avtp\+Version\+CB}!openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Map\+H264\+Avtp\+Version\+C\+B()}{openavbMapH264AvtpVersionCB()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf U8} openavb\+Map\+H264\+Avtp\+Version\+CB (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__map__h264_8c_aeb541e234fd38496b8dba043e8c356e6}{}\label{openavb__map__h264_8c_aeb541e234fd38496b8dba043e8c356e6}
+
+
+openavb\+\_\+map\+\_\+h264.\+c 파일의 188 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+189 \{
+190     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a24b34150800528a0ebd52daf61465b3c}{AVB\_TRACE\_MAP\_DETAIL});
+191     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a24b34150800528a0ebd52daf61465b3c}{AVB\_TRACE\_MAP\_DETAIL});
+192     \textcolor{keywordflow}{return} 0x00;        \textcolor{comment}{// Version 0}
+193 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__map__h264_8c_aeb541e234fd38496b8dba043e8c356e6_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}!openavb\+Map\+H264\+Cfg\+CB@{openavb\+Map\+H264\+Cfg\+CB}}
+\index{openavb\+Map\+H264\+Cfg\+CB@{openavb\+Map\+H264\+Cfg\+CB}!openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Map\+H264\+Cfg\+C\+B(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q, const char $\ast$name, const char $\ast$value)}{openavbMapH264CfgCB(media_q_t *pMediaQ, const char *name, const char *value)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Map\+H264\+Cfg\+CB (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ, }
+\item[{const char $\ast$}]{name, }
+\item[{const char $\ast$}]{value}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__map__h264_8c_ab2d001986fe943555f3f39647a7dbc26}{}\label{openavb__map__h264_8c_ab2d001986fe943555f3f39647a7dbc26}
+
+
+openavb\+\_\+map\+\_\+h264.\+c 파일의 145 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+146 \{
+147     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a5401b6427c6e720ca9352115eb88d39f}{AVB\_TRACE\_MAP});
+148 
+149     \textcolor{keywordflow}{if} (pMediaQ) \{
+150         \hyperlink{structpvt__data__t}{pvt\_data\_t} *pPvtData = pMediaQ->\hyperlink{structmedia__q__t_aee939b53d02a9217a5307ada087f3c50}{pPvtMapInfo};
+151         \textcolor{keywordflow}{if} (!pPvtData) \{
+152             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Private mapping module data not allocated."});
+153             \textcolor{keywordflow}{return};
+154         \}
+155 
+156         \textcolor{keywordtype}{char} *pEnd;
+157 
+158         \textcolor{keywordflow}{if} (strcmp(name, \textcolor{stringliteral}{"map\_nv\_item\_count"}) == 0) \{
+159             pPvtData->\hyperlink{structpvt__data__t_ad3640734bb9fadb7e6a9e529417638f7}{itemCount} = strtol(value, &pEnd, 10);
+160         \}
+161         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strcmp(name, \textcolor{stringliteral}{"map\_nv\_tx\_rate"}) == 0
+162             || strcmp(name, \textcolor{stringliteral}{"map\_nv\_tx\_interval"}) == 0) \{
+163             pPvtData->\hyperlink{structpvt__data__t_abb67a593d59c479e632685a33c092a32}{txInterval} = strtol(value, &pEnd, 10);
+164         \}
+165         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strcmp(name, \textcolor{stringliteral}{"map\_nv\_max\_payload\_size"}) == 0) \{
+166             \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} \hyperlink{gst__avb__playbin_8c_a439227feff9d7f55384e8780cfc2eb82}{size} = strtol(value, &pEnd, 10);
+167             \textcolor{keywordflow}{if} (size > \hyperlink{openavb__map__h264_8c_a6303f7392a2d06be5a121c54278d561b}{MAX\_PAYLOAD\_SIZE}) \{
+168                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a6b02336e691e2e0579d2a5bb06367296}{AVB\_LOGF\_WARNING}(\textcolor{stringliteral}{"map\_nv\_max\_payload\_size too large. Parameter set to
+       default: %d"}, \hyperlink{openavb__map__h264_8c_a6303f7392a2d06be5a121c54278d561b}{MAX\_PAYLOAD\_SIZE});
+169                 size = \hyperlink{openavb__map__h264_8c_a6303f7392a2d06be5a121c54278d561b}{MAX\_PAYLOAD\_SIZE};
+170             \}
+171             pPvtData->\hyperlink{structpvt__data__t_a41116ea77bd2a5f8dc80bbe814719ee1}{maxPayloadSize} = \hyperlink{gst__avb__playbin_8c_a439227feff9d7f55384e8780cfc2eb82}{size};
+172             pPvtData->\hyperlink{structpvt__data__t_a2fe8c370399accee1fc69c230b84564a}{maxDataSize} = (pPvtData->\hyperlink{structpvt__data__t_a41116ea77bd2a5f8dc80bbe814719ee1}{maxPayloadSize} + 
+      \hyperlink{openavb__map__h264_8c_aa51d9d7f77b3245e88384185cf288da9}{TOTAL\_HEADER\_SIZE});
+173             pPvtData->\hyperlink{structpvt__data__t_a91e248b2730fbe7951ac5d9d3aae1752}{itemSize} =    pPvtData->\hyperlink{structpvt__data__t_a41116ea77bd2a5f8dc80bbe814719ee1}{maxPayloadSize};
+174         \}
+175     \}
+176 
+177     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a5401b6427c6e720ca9352115eb88d39f}{AVB\_TRACE\_MAP});
+178 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__map__h264_8c_ab2d001986fe943555f3f39647a7dbc26_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}!openavb\+Map\+H264\+End\+CB@{openavb\+Map\+H264\+End\+CB}}
+\index{openavb\+Map\+H264\+End\+CB@{openavb\+Map\+H264\+End\+CB}!openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Map\+H264\+End\+C\+B(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q)}{openavbMapH264EndCB(media_q_t *pMediaQ)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Map\+H264\+End\+CB (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__map__h264_8c_a78be38d792371694036d738fc7d9bfce}{}\label{openavb__map__h264_8c_a78be38d792371694036d738fc7d9bfce}
+
+
+openavb\+\_\+map\+\_\+h264.\+c 파일의 418 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+419 \{
+420     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a5401b6427c6e720ca9352115eb88d39f}{AVB\_TRACE\_MAP});
+421     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a5401b6427c6e720ca9352115eb88d39f}{AVB\_TRACE\_MAP});
+422 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__map__h264_8c_a78be38d792371694036d738fc7d9bfce_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}!openavb\+Map\+H264\+Gen\+End\+CB@{openavb\+Map\+H264\+Gen\+End\+CB}}
+\index{openavb\+Map\+H264\+Gen\+End\+CB@{openavb\+Map\+H264\+Gen\+End\+CB}!openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Map\+H264\+Gen\+End\+C\+B(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q)}{openavbMapH264GenEndCB(media_q_t *pMediaQ)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Map\+H264\+Gen\+End\+CB (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__map__h264_8c_ae970485deab317e3329ccfa94b794fb4}{}\label{openavb__map__h264_8c_ae970485deab317e3329ccfa94b794fb4}
+
+
+openavb\+\_\+map\+\_\+h264.\+c 파일의 424 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+425 \{
+426     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+427     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+428 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__map__h264_8c_ae970485deab317e3329ccfa94b794fb4_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}!openavb\+Map\+H264\+Gen\+Init\+CB@{openavb\+Map\+H264\+Gen\+Init\+CB}}
+\index{openavb\+Map\+H264\+Gen\+Init\+CB@{openavb\+Map\+H264\+Gen\+Init\+CB}!openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Map\+H264\+Gen\+Init\+C\+B(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q)}{openavbMapH264GenInitCB(media_q_t *pMediaQ)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Map\+H264\+Gen\+Init\+CB (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__map__h264_8c_a6435897ab2d7f33bfd8cf503300b6da3}{}\label{openavb__map__h264_8c_a6435897ab2d7f33bfd8cf503300b6da3}
+
+
+openavb\+\_\+map\+\_\+h264.\+c 파일의 230 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+231 \{
+232     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a5401b6427c6e720ca9352115eb88d39f}{AVB\_TRACE\_MAP});
+233     \textcolor{keywordflow}{if} (pMediaQ) \{
+234         \hyperlink{structpvt__data__t}{pvt\_data\_t} *pPvtData = pMediaQ->\hyperlink{structmedia__q__t_aee939b53d02a9217a5307ada087f3c50}{pPvtMapInfo};
+235         \textcolor{keywordflow}{if} (!pPvtData) \{
+236             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Private mapping module data not allocated."});
+237             \textcolor{keywordflow}{return};
+238         \}
+239 
+240         \hyperlink{build_2sdk__eavb_2openavb__mediaq__pub_8h_a392a15d51328fab65d754685450834de}{openavbMediaQSetSize}(pMediaQ, pPvtData->\hyperlink{structpvt__data__t_ad3640734bb9fadb7e6a9e529417638f7}{itemCount}, pPvtData->
+      \hyperlink{structpvt__data__t_a91e248b2730fbe7951ac5d9d3aae1752}{itemSize});
+241         \hyperlink{build_2sdk__eavb_2openavb__mediaq__pub_8h_a3bc14a2759175d30dbf0663f937fe592}{openavbMediaQAllocItemMapData}(pMediaQ, \textcolor{keyword}{sizeof}(
+      \hyperlink{structmedia__q__item__map__h264__pub__data__t}{media\_q\_item\_map\_h264\_pub\_data\_t}), 0);
+242     \}
+243     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a5401b6427c6e720ca9352115eb88d39f}{AVB\_TRACE\_MAP});
+244 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__map__h264_8c_a6435897ab2d7f33bfd8cf503300b6da3_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__map__h264_8c_a6435897ab2d7f33bfd8cf503300b6da3_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}!openavb\+Map\+H264\+Initialize@{openavb\+Map\+H264\+Initialize}}
+\index{openavb\+Map\+H264\+Initialize@{openavb\+Map\+H264\+Initialize}!openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Map\+H264\+Initialize(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q, openavb\+\_\+map\+\_\+cb\+\_\+t $\ast$p\+Map\+C\+B, U32 in\+Max\+Transit\+Usec)}{openavbMapH264Initialize(media_q_t *pMediaQ, openavb_map_cb_t *pMapCB, U32 inMaxTransitUsec)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf D\+L\+L\+\_\+\+E\+X\+P\+O\+RT} {\bf bool} openavb\+Map\+H264\+Initialize (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ, }
+\item[{{\bf openavb\+\_\+map\+\_\+cb\+\_\+t} $\ast$}]{p\+Map\+CB, }
+\item[{{\bf U32}}]{in\+Max\+Transit\+Usec}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__map__h264_8c_a4c78e0cd66327cf7e16ba1ba4832ab31}{}\label{openavb__map__h264_8c_a4c78e0cd66327cf7e16ba1ba4832ab31}
+
+
+openavb\+\_\+map\+\_\+h264.\+c 파일의 431 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+432 \{
+433     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a5401b6427c6e720ca9352115eb88d39f}{AVB\_TRACE\_MAP});
+434 
+435     \textcolor{keywordflow}{if} (pMediaQ) \{
+436         pMediaQ->\hyperlink{structmedia__q__t_a3f16216bd90b1b04cca7fbb4766cb5ff}{pMediaQDataFormat} = strdup(
+      \hyperlink{openavb__map__h264__pub_8h_a5989ea18dfc553ff0682d2d21b6ad0d0}{MapH264MediaQDataFormat});
+437         pMediaQ->\hyperlink{structmedia__q__t_aee939b53d02a9217a5307ada087f3c50}{pPvtMapInfo} = \hyperlink{_memory_leak_detector_malloc_macros_8h_a7cbb7b79af9d539af55b59dfc3598390}{calloc}(1, \textcolor{keyword}{sizeof}(\hyperlink{structpvt__data__t}{pvt\_data\_t}));       \textcolor{comment}{// Memory
+       freed by the media queue when the media queue is destroyed.}
+438 
+439         \textcolor{keywordflow}{if} (!pMediaQ->\hyperlink{structmedia__q__t_a3f16216bd90b1b04cca7fbb4766cb5ff}{pMediaQDataFormat} || !pMediaQ->
+      \hyperlink{structmedia__q__t_aee939b53d02a9217a5307ada087f3c50}{pPvtMapInfo}) \{
+440             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Unable to allocate memory for mapping module."});
+441             \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+442         \}
+443 
+444         \hyperlink{structpvt__data__t}{pvt\_data\_t} *pPvtData = pMediaQ->\hyperlink{structmedia__q__t_aee939b53d02a9217a5307ada087f3c50}{pPvtMapInfo};
+445 
+446         pMapCB->\hyperlink{structopenavb__map__cb__t_aa88869f419f2830bcbfe2646b0efb2fc}{map\_cfg\_cb} = \hyperlink{openavb__map__h264_8c_ab2d001986fe943555f3f39647a7dbc26}{openavbMapH264CfgCB};
+447         pMapCB->\hyperlink{structopenavb__map__cb__t_aa3fdb0836d9178ec32d124b7c3d614e9}{map\_subtype\_cb} = \hyperlink{openavb__map__h264_8c_ab2a2b0dfab1d27cb80e58a7cdc0cded4}{openavbMapH264SubtypeCB};
+448         pMapCB->\hyperlink{structopenavb__map__cb__t_a185e195210352d990db73d5ed37b5533}{map\_avtp\_version\_cb} = 
+      \hyperlink{openavb__map__h264_8c_aeb541e234fd38496b8dba043e8c356e6}{openavbMapH264AvtpVersionCB};
+449         pMapCB->\hyperlink{structopenavb__map__cb__t_ac87069ceed64005bb4a3c8fbb3da8357}{map\_max\_data\_size\_cb} = 
+      \hyperlink{openavb__map__h264_8c_a4a2dd48b35d0ffb85803c79131e50620}{openavbMapH264MaxDataSizeCB};
+450         pMapCB->\hyperlink{structopenavb__map__cb__t_a9928a7e0cddbaebed6cb1333e270acf3}{map\_transmit\_interval\_cb} = 
+      \hyperlink{openavb__map__h264_8c_a7ecec53fc8d58a2d0c05984932c34f30}{openavbMapH264TransmitIntervalCB};
+451         pMapCB->\hyperlink{structopenavb__map__cb__t_ae2e9b66edaa11de03638bbcc5f8414bf}{map\_gen\_init\_cb} = \hyperlink{openavb__map__h264_8c_a6435897ab2d7f33bfd8cf503300b6da3}{openavbMapH264GenInitCB};
+452         pMapCB->\hyperlink{structopenavb__map__cb__t_a187e10e5170f1fc6d1162148f9edf2d9}{map\_tx\_init\_cb} = \hyperlink{openavb__map__h264_8c_aeeec09f7e49d44819a0c0720c6c8b13f}{openavbMapH264TxInitCB};
+453         pMapCB->\hyperlink{structopenavb__map__cb__t_a4a157fb8eb778c17724d3121c42bc9c7}{map\_tx\_cb} = \hyperlink{openavb__map__h264_8c_ae87aef0fce1299a29c7c677b574b07c5}{openavbMapH264TxCB};
+454         pMapCB->\hyperlink{structopenavb__map__cb__t_abb274346a258817c73be3d4860cd8c03}{map\_rx\_init\_cb} = \hyperlink{openavb__map__h264_8c_a881826c5eed2c3e0e82ac8dea94aa5fb}{openavbMapH264RxInitCB};
+455         pMapCB->\hyperlink{structopenavb__map__cb__t_a354eb0e412d873e04ed0618f600f8fb1}{map\_rx\_cb} = \hyperlink{openavb__map__h264_8c_a034ca823227c3efb3321955c01273c08}{openavbMapH264RxCB};
+456         pMapCB->\hyperlink{structopenavb__map__cb__t_ace0872ff88cbd5e79bdc4cf223f68421}{map\_end\_cb} = \hyperlink{openavb__map__h264_8c_a78be38d792371694036d738fc7d9bfce}{openavbMapH264EndCB};
+457         pMapCB->\hyperlink{structopenavb__map__cb__t_aefd70fa9d3e6cd61a4b7f1272a1eedcd}{map\_gen\_end\_cb} = \hyperlink{openavb__map__h264_8c_ae970485deab317e3329ccfa94b794fb4}{openavbMapH264GenEndCB};
+458 
+459         pPvtData->\hyperlink{structpvt__data__t_ad3640734bb9fadb7e6a9e529417638f7}{itemCount} = 20;
+460         pPvtData->\hyperlink{structpvt__data__t_abb67a593d59c479e632685a33c092a32}{txInterval} = 0;
+461         pPvtData->\hyperlink{structpvt__data__t_a3838a4b3ace56e06dc76c5b13f1df3ff}{maxTransitUsec} = inMaxTransitUsec;
+462 
+463         pPvtData->\hyperlink{structpvt__data__t_a41116ea77bd2a5f8dc80bbe814719ee1}{maxPayloadSize} = \hyperlink{openavb__map__h264_8c_a6303f7392a2d06be5a121c54278d561b}{MAX\_PAYLOAD\_SIZE};
+464         pPvtData->\hyperlink{structpvt__data__t_a2fe8c370399accee1fc69c230b84564a}{maxDataSize} = (pPvtData->\hyperlink{structpvt__data__t_a41116ea77bd2a5f8dc80bbe814719ee1}{maxPayloadSize} + 
+      \hyperlink{openavb__map__h264_8c_aa51d9d7f77b3245e88384185cf288da9}{TOTAL\_HEADER\_SIZE});
+465         pPvtData->\hyperlink{structpvt__data__t_a91e248b2730fbe7951ac5d9d3aae1752}{itemSize} = pPvtData->\hyperlink{structpvt__data__t_a41116ea77bd2a5f8dc80bbe814719ee1}{maxPayloadSize};
+466 
+467         \hyperlink{build_2sdk__eavb_2openavb__mediaq__pub_8h_afb76a6274ad6626ee51a50174d7b9389}{openavbMediaQSetMaxLatency}(pMediaQ, inMaxTransitUsec);
+468     \}
+469 
+470     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a5401b6427c6e720ca9352115eb88d39f}{AVB\_TRACE\_MAP});
+471     \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+472 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__map__h264_8c_a4c78e0cd66327cf7e16ba1ba4832ab31_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=285pt]{openavb__map__h264_8c_a4c78e0cd66327cf7e16ba1ba4832ab31_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}!openavb\+Map\+H264\+Max\+Data\+Size\+CB@{openavb\+Map\+H264\+Max\+Data\+Size\+CB}}
+\index{openavb\+Map\+H264\+Max\+Data\+Size\+CB@{openavb\+Map\+H264\+Max\+Data\+Size\+CB}!openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Map\+H264\+Max\+Data\+Size\+C\+B(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q)}{openavbMapH264MaxDataSizeCB(media_q_t *pMediaQ)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf U16} openavb\+Map\+H264\+Max\+Data\+Size\+CB (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__map__h264_8c_a4a2dd48b35d0ffb85803c79131e50620}{}\label{openavb__map__h264_8c_a4a2dd48b35d0ffb85803c79131e50620}
+
+
+openavb\+\_\+map\+\_\+h264.\+c 파일의 195 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+196 \{
+197     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a5401b6427c6e720ca9352115eb88d39f}{AVB\_TRACE\_MAP});
+198     \textcolor{keywordflow}{if} (pMediaQ) \{
+199         \hyperlink{structpvt__data__t}{pvt\_data\_t} *pPvtData = pMediaQ->\hyperlink{structmedia__q__t_aee939b53d02a9217a5307ada087f3c50}{pPvtMapInfo};
+200         \textcolor{keywordflow}{if} (!pPvtData) \{
+201             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Private mapping module data not allocated."});
+202             \textcolor{keywordflow}{return} 0;
+203         \}
+204 
+205         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a5401b6427c6e720ca9352115eb88d39f}{AVB\_TRACE\_MAP});
+206         \textcolor{keywordflow}{return} pPvtData->\hyperlink{structpvt__data__t_a2fe8c370399accee1fc69c230b84564a}{maxDataSize};
+207     \}
+208     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a5401b6427c6e720ca9352115eb88d39f}{AVB\_TRACE\_MAP});
+209     \textcolor{keywordflow}{return} 0;
+210 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__map__h264_8c_a4a2dd48b35d0ffb85803c79131e50620_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}!openavb\+Map\+H264\+Rx\+CB@{openavb\+Map\+H264\+Rx\+CB}}
+\index{openavb\+Map\+H264\+Rx\+CB@{openavb\+Map\+H264\+Rx\+CB}!openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Map\+H264\+Rx\+C\+B(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q, U8 $\ast$p\+Data, U32 data\+Len)}{openavbMapH264RxCB(media_q_t *pMediaQ, U8 *pData, U32 dataLen)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} openavb\+Map\+H264\+Rx\+CB (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ, }
+\item[{{\bf U8} $\ast$}]{p\+Data, }
+\item[{{\bf U32}}]{data\+Len}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__map__h264_8c_a034ca823227c3efb3321955c01273c08}{}\label{openavb__map__h264_8c_a034ca823227c3efb3321955c01273c08}
+
+
+openavb\+\_\+map\+\_\+h264.\+c 파일의 349 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+350 \{
+351     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a24b34150800528a0ebd52daf61465b3c}{AVB\_TRACE\_MAP\_DETAIL});
+352     \textcolor{keywordflow}{if} (pMediaQ && pData) \{
+353         \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *pHdr = pData;
+354         \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *pPayload = pData + \hyperlink{openavb__map__h264_8c_aa51d9d7f77b3245e88384185cf288da9}{TOTAL\_HEADER\_SIZE};
+355 
+356 
+357         \textcolor{comment}{//pHdr[HIDX\_AVTP\_TIMESTAMP32]}
+358         \textcolor{comment}{//pHdr[HIDX\_FORMAT8]}
+359         \textcolor{comment}{//pHdr[HIDX\_FORMAT\_SUBTYPE8]}
+360         \textcolor{comment}{//pHdr[HIDX\_RESV16]}
+361         \textcolor{comment}{//pHdr[HIDX\_STREAM\_DATA\_LEN16]}
+362         \hyperlink{openavb__types__base__pub_8h_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16} payloadLen = ntohs(*(\hyperlink{openavb__types__base__pub_8h_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16} *)(&pHdr[\hyperlink{openavb__map__h264_8c_a5d769cbea4518f2646bc9d74255e885a}{HIDX\_STREAM\_DATA\_LEN16}]));
+363         \textcolor{comment}{//pHdr[HIDX\_M31\_M21\_M11\_M01\_EVT2\_RESV2]}
+364         \textcolor{comment}{//pHdr[HIDX\_RESV8]}
+365 
+366         \textcolor{comment}{// validate header}
+367         \textcolor{keywordflow}{if} (payloadLen  > dataLen - TOTAL\_HEADER\_SIZE) \{
+368             \hyperlink{maap__log_8h_ae9decd5440c360a6d0ab5175c9cf08be}{IF\_LOG\_INTERVAL}(1000) \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}("header data len > actual data 
+      len");
+369             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a24b34150800528a0ebd52daf61465b3c}{AVB\_TRACE\_MAP\_DETAIL});
+370             return \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+371         \}
+372 
+373         \textcolor{comment}{// Get item pointer in media queue}
+374         \hyperlink{structmedia__q__item__t}{media\_q\_item\_t} *pMediaQItem = \hyperlink{build_2sdk__eavb_2openavb__mediaq__pub_8h_ae2ce807451447ec2dab9a4284ac61b99}{openavbMediaQHeadLock}(pMediaQ);
+375         if (pMediaQItem) \{
+376             \textcolor{comment}{// Get the timestamp and place it in the media queue item.}
+377             \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} timestamp = ntohl(*(\hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} *)(&pHdr[\hyperlink{openavb__map__h264_8c_a9d86e1cc24fdb882ab67e7bf0e1788a1}{HIDX\_AVTP\_TIMESTAMP32}]));
+378             \hyperlink{openavb__avtp__time_8c_ab1d229e70e6a888f8daf7c2ddafd2976}{openavbAvtpTimeSetToTimestamp}(pMediaQItem->pAvtpTime, timestamp);
+379 
+380             \textcolor{comment}{// Set timestamp valid and timestamp uncertain flags}
+381             \hyperlink{openavb__avtp__time_8c_aa246209297862b2796f9a716261ed310}{openavbAvtpTimeSetTimestampValid}(pMediaQItem->pAvtpTime, (pHdr[
+      \hyperlink{openavb__map__h264_8c_aa912ad4f984243f81c8fadf4c7d8a2a8}{HIDX\_AVTP\_HIDE7\_TV1}] & 0x01) ? \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE} : FALSE);
+382             \hyperlink{openavb__avtp__time_8c_aef5fb8e14af27b6e771caff167658e21}{openavbAvtpTimeSetTimestampUncertain}(pMediaQItem->pAvtpTime
+      , (pHdr[\hyperlink{openavb__map__h264_8c_a74d586288021d96098aa71fc3d883fa9}{HIDX\_AVTP\_HIDE7\_TU1}] & 0x01) ? \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE} : FALSE);
+383 
+384             \textcolor{keywordflow}{if} (pHdr[\hyperlink{openavb__map__h264_8c_a09702c1739a4f1981ff45f7914d20a42}{HIDX\_M31\_M21\_M11\_M01\_EVT2\_RESV2}] & 0x10)
+385                 ((\hyperlink{structmedia__q__item__map__h264__pub__data__t}{media\_q\_item\_map\_h264\_pub\_data\_t} *)pMediaQItem->
+      pPubMapData)->lastPacket = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+386             \textcolor{keywordflow}{else}
+387                 ((\hyperlink{structmedia__q__item__map__h264__pub__data__t}{media\_q\_item\_map\_h264\_pub\_data\_t} *)pMediaQItem->
+      pPubMapData)->lastPacket = FALSE;
+388 
+389             ((\hyperlink{structmedia__q__item__map__h264__pub__data__t}{media\_q\_item\_map\_h264\_pub\_data\_t} *)pMediaQItem->pPubMapData)
+      ->timestamp =
+390                     ntohl(*(\hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} *)(&pHdr[\hyperlink{openavb__map__h264_8c_a88209552bf43920f41ad017a823e3cf7}{HIDX\_H264\_TIMESTAMP32}]));
+391 
+392             \textcolor{keywordflow}{if} (pMediaQItem->itemSize >= payloadLen) \{
+393                 memcpy(pMediaQItem->pPubData, pPayload, payloadLen);
+394                 pMediaQItem->dataLen = payloadLen;
+395             \}
+396             \textcolor{keywordflow}{else} \{
+397                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Data to large for media queue (itemSize %d, data size %d)."}, 
+      pMediaQItem->itemSize, payloadLen);
+398                 pMediaQItem->dataLen = 0;
+399             \}
+400 
+401             \hyperlink{build_2sdk__eavb_2openavb__mediaq__pub_8h_a0a57c275ac213fdd14c944741c6e9250}{openavbMediaQHeadPush}(pMediaQ);
+402             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1ba49b1b3841555131e277b8ab63e782}{AVB\_TRACE\_LINE}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a82981d22250bd06846fd081ab657680e}{AVB\_TRACE\_MAP\_LINE});
+403             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(AVB\_TRACE\_MAP\_DETAIL);
+404             \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+405         \}
+406         \textcolor{keywordflow}{else} \{
+407             \hyperlink{maap__log_8h_ae9decd5440c360a6d0ab5175c9cf08be}{IF\_LOG\_INTERVAL}(1000) \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}("Media queue full");
+408             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(AVB\_TRACE\_MAP\_DETAIL);
+409             return FALSE;   \textcolor{comment}{// Media queue full}
+410         \}
+411     \}
+412     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(AVB\_TRACE\_MAP\_DETAIL);
+413     return FALSE;
+414 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__map__h264_8c_a034ca823227c3efb3321955c01273c08_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__map__h264_8c_a034ca823227c3efb3321955c01273c08_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}!openavb\+Map\+H264\+Rx\+Init\+CB@{openavb\+Map\+H264\+Rx\+Init\+CB}}
+\index{openavb\+Map\+H264\+Rx\+Init\+CB@{openavb\+Map\+H264\+Rx\+Init\+CB}!openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Map\+H264\+Rx\+Init\+C\+B(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q)}{openavbMapH264RxInitCB(media_q_t *pMediaQ)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Map\+H264\+Rx\+Init\+CB (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__map__h264_8c_a881826c5eed2c3e0e82ac8dea94aa5fb}{}\label{openavb__map__h264_8c_a881826c5eed2c3e0e82ac8dea94aa5fb}
+
+
+openavb\+\_\+map\+\_\+h264.\+c 파일의 342 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+343 \{
+344     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a5401b6427c6e720ca9352115eb88d39f}{AVB\_TRACE\_MAP});
+345     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a5401b6427c6e720ca9352115eb88d39f}{AVB\_TRACE\_MAP});
+346 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__map__h264_8c_a881826c5eed2c3e0e82ac8dea94aa5fb_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}!openavb\+Map\+H264\+Subtype\+CB@{openavb\+Map\+H264\+Subtype\+CB}}
+\index{openavb\+Map\+H264\+Subtype\+CB@{openavb\+Map\+H264\+Subtype\+CB}!openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Map\+H264\+Subtype\+C\+B()}{openavbMapH264SubtypeCB()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf U8} openavb\+Map\+H264\+Subtype\+CB (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__map__h264_8c_ab2a2b0dfab1d27cb80e58a7cdc0cded4}{}\label{openavb__map__h264_8c_ab2a2b0dfab1d27cb80e58a7cdc0cded4}
+
+
+openavb\+\_\+map\+\_\+h264.\+c 파일의 180 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+181 \{
+182     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a5401b6427c6e720ca9352115eb88d39f}{AVB\_TRACE\_MAP});
+183     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a5401b6427c6e720ca9352115eb88d39f}{AVB\_TRACE\_MAP});
+184     \textcolor{keywordflow}{return} 0x03;        \textcolor{comment}{// AVTP Video subtype}
+185 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__map__h264_8c_ab2a2b0dfab1d27cb80e58a7cdc0cded4_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}!openavb\+Map\+H264\+Transmit\+Interval\+CB@{openavb\+Map\+H264\+Transmit\+Interval\+CB}}
+\index{openavb\+Map\+H264\+Transmit\+Interval\+CB@{openavb\+Map\+H264\+Transmit\+Interval\+CB}!openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Map\+H264\+Transmit\+Interval\+C\+B(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q)}{openavbMapH264TransmitIntervalCB(media_q_t *pMediaQ)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf U32} openavb\+Map\+H264\+Transmit\+Interval\+CB (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__map__h264_8c_a7ecec53fc8d58a2d0c05984932c34f30}{}\label{openavb__map__h264_8c_a7ecec53fc8d58a2d0c05984932c34f30}
+
+
+openavb\+\_\+map\+\_\+h264.\+c 파일의 213 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+214 \{
+215     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a5401b6427c6e720ca9352115eb88d39f}{AVB\_TRACE\_MAP});
+216     \textcolor{keywordflow}{if} (pMediaQ) \{
+217         \hyperlink{structpvt__data__t}{pvt\_data\_t} *pPvtData = pMediaQ->\hyperlink{structmedia__q__t_aee939b53d02a9217a5307ada087f3c50}{pPvtMapInfo};
+218         \textcolor{keywordflow}{if} (!pPvtData) \{
+219             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Private mapping module data not allocated."});
+220             \textcolor{keywordflow}{return} 0;
+221         \}
+222 
+223         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a5401b6427c6e720ca9352115eb88d39f}{AVB\_TRACE\_MAP});
+224         \textcolor{keywordflow}{return} pPvtData->\hyperlink{structpvt__data__t_abb67a593d59c479e632685a33c092a32}{txInterval};
+225     \}
+226     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a5401b6427c6e720ca9352115eb88d39f}{AVB\_TRACE\_MAP});
+227     \textcolor{keywordflow}{return} 0;
+228 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__map__h264_8c_a7ecec53fc8d58a2d0c05984932c34f30_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}!openavb\+Map\+H264\+Tx\+CB@{openavb\+Map\+H264\+Tx\+CB}}
+\index{openavb\+Map\+H264\+Tx\+CB@{openavb\+Map\+H264\+Tx\+CB}!openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Map\+H264\+Tx\+C\+B(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q, U8 $\ast$p\+Data, U32 $\ast$data\+Len)}{openavbMapH264TxCB(media_q_t *pMediaQ, U8 *pData, U32 *dataLen)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf tx\+\_\+cb\+\_\+ret\+\_\+t} openavb\+Map\+H264\+Tx\+CB (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ, }
+\item[{{\bf U8} $\ast$}]{p\+Data, }
+\item[{{\bf U32} $\ast$}]{data\+Len}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__map__h264_8c_ae87aef0fce1299a29c7c677b574b07c5}{}\label{openavb__map__h264_8c_ae87aef0fce1299a29c7c677b574b07c5}
+
+
+openavb\+\_\+map\+\_\+h264.\+c 파일의 255 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+256 \{
+257     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a24b34150800528a0ebd52daf61465b3c}{AVB\_TRACE\_MAP\_DETAIL});
+258     \textcolor{keywordflow}{if} (pMediaQ && pData && dataLen) \{
+259         \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *pHdr = pData;
+260         \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *pPayload = pData + \hyperlink{openavb__map__h264_8c_aa51d9d7f77b3245e88384185cf288da9}{TOTAL\_HEADER\_SIZE};
+261         \hyperlink{structpvt__data__t}{pvt\_data\_t} *pPvtData = pMediaQ->\hyperlink{structmedia__q__t_aee939b53d02a9217a5307ada087f3c50}{pPvtMapInfo};
+262         \textcolor{keywordflow}{if} (!pPvtData) \{
+263             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Private mapping module data not allocated."});
+264             \textcolor{keywordflow}{return} \hyperlink{build_2sdk__eavb_2openavb__map__pub_8h_adbd7b5e94070d12e84c8740e2027a843ab5479d73dceb1df51b92da5c5f69120c}{TX\_CB\_RET\_PACKET\_NOT\_READY};
+265         \}
+266 
+267         \textcolor{comment}{//pHdr[HIDX\_AVTP\_TIMESTAMP32] = 0x00;               // Set later}
+268         pHdr[\hyperlink{openavb__map__h264_8c_a7f2f2a532b30a1dc2927240642c156ad}{HIDX\_FORMAT8}] = 0x02;                          \textcolor{comment}{// RTP Payload type}
+269         pHdr[\hyperlink{openavb__map__h264_8c_a719ea6e56cc68685e785149d907c4f35}{HIDX\_FORMAT\_SUBTYPE8}] = 0x01;                  \textcolor{comment}{// H.264 subtype}
+270         pHdr[\hyperlink{openavb__map__h264_8c_ad2e24666200bd8587d3677a904221f86}{HIDX\_RESV16}] = 0x0000;                          \textcolor{comment}{// Reserved }
+271         \textcolor{comment}{//pHdr[HIDX\_STREAM\_DATA\_LEN16] = 0x0000;            // Set later    }
+272         \textcolor{comment}{//pHdr[HIDX\_M31\_M21\_M11\_M01\_EVT2\_RESV2] = 0x00;     // M0 set later}
+273         pHdr[\hyperlink{openavb__map__h264_8c_a51dd7836266cc19ef1f24ac1c1093d95}{HIDX\_RESV8}] = 0x00;
+274 
+275         \hyperlink{structmedia__q__item__t}{media\_q\_item\_t} *pMediaQItem = \hyperlink{build_2sdk__eavb_2openavb__mediaq__pub_8h_aafa1645c7e234bd011a70063d368b995}{openavbMediaQTailLock}(pMediaQ, 
+      \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+276         \textcolor{keywordflow}{if} (pMediaQItem) \{
+277             \textcolor{keywordflow}{if} (pMediaQItem->\hyperlink{structmedia__q__item__t_a1dfc68b1003d0c64f82d4c19649c2c52}{dataLen} > 0) \{
+278                 \textcolor{keywordflow}{if} (pMediaQItem->\hyperlink{structmedia__q__item__t_a1dfc68b1003d0c64f82d4c19649c2c52}{dataLen} > pPvtData->\hyperlink{structpvt__data__t_a91e248b2730fbe7951ac5d9d3aae1752}{itemSize}) \{
+279                     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Media queue data item size too large. Reported size: %d 
+       Max Size: %d"}, pMediaQItem->\hyperlink{structmedia__q__item__t_a1dfc68b1003d0c64f82d4c19649c2c52}{dataLen}, pPvtData->\hyperlink{structpvt__data__t_a91e248b2730fbe7951ac5d9d3aae1752}{itemSize});
+280                     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a24b34150800528a0ebd52daf61465b3c}{AVB\_TRACE\_MAP\_DETAIL});
+281                     \hyperlink{build_2sdk__eavb_2openavb__mediaq__pub_8h_ab0525761a2b45c4c14d4fdc80fa24c47}{openavbMediaQTailPull}(pMediaQ);
+282                     \textcolor{keywordflow}{return} \hyperlink{build_2sdk__eavb_2openavb__map__pub_8h_adbd7b5e94070d12e84c8740e2027a843ab5479d73dceb1df51b92da5c5f69120c}{TX\_CB\_RET\_PACKET\_NOT\_READY};
+283                 \}
+284 
+285                 \textcolor{comment}{// PTP walltime already set in the interface module. Just add the max transit time.}
+286                 \hyperlink{openavb__avtp__time_8c_a7cce1a0fb475285772362a09aa2d086c}{openavbAvtpTimeAddUSec}(pMediaQItem->
+      \hyperlink{structmedia__q__item__t_aa7a475459f9c1a43c64ed85ff1c758cc}{pAvtpTime}, pPvtData->\hyperlink{structpvt__data__t_a3838a4b3ace56e06dc76c5b13f1df3ff}{maxTransitUsec});
+287 
+288                 \textcolor{comment}{// Set timestamp valid flag}
+289                 \textcolor{keywordflow}{if} (\hyperlink{openavb__avtp__time_8c_a973567b6644bfa4f94229022f808a876}{openavbAvtpTimeTimestampIsValid}(pMediaQItem->
+      \hyperlink{structmedia__q__item__t_aa7a475459f9c1a43c64ed85ff1c758cc}{pAvtpTime}))
+290                     pHdr[\hyperlink{openavb__map__h264_8c_aa912ad4f984243f81c8fadf4c7d8a2a8}{HIDX\_AVTP\_HIDE7\_TV1}] |= 0x01;      \textcolor{comment}{// Set}
+291                 \textcolor{keywordflow}{else} \{
+292                     pHdr[\hyperlink{openavb__map__h264_8c_aa912ad4f984243f81c8fadf4c7d8a2a8}{HIDX\_AVTP\_HIDE7\_TV1}] &= ~0x01;     \textcolor{comment}{// Clear}
+293                 \}
+294 
+295                 \textcolor{comment}{// Set timestamp uncertain flag}
+296                 \textcolor{keywordflow}{if} (\hyperlink{openavb__avtp__time_8c_a19d62055ab8b11f88053afa7918cbf37}{openavbAvtpTimeTimestampIsUncertain}(pMediaQItem->
+      \hyperlink{structmedia__q__item__t_aa7a475459f9c1a43c64ed85ff1c758cc}{pAvtpTime}))
+297                     pHdr[\hyperlink{openavb__map__h264_8c_a74d586288021d96098aa71fc3d883fa9}{HIDX\_AVTP\_HIDE7\_TU1}] |= 0x01;      \textcolor{comment}{// Set}
+298                 \textcolor{keywordflow}{else} pHdr[\hyperlink{openavb__map__h264_8c_a74d586288021d96098aa71fc3d883fa9}{HIDX\_AVTP\_HIDE7\_TU1}] &= ~0x01;    \textcolor{comment}{// Clear}
+299 
+300                 \textcolor{comment}{// Set the timestamp.}
+301                 *(\hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} *)(&pHdr[\hyperlink{openavb__map__h264_8c_a9d86e1cc24fdb882ab67e7bf0e1788a1}{HIDX\_AVTP\_TIMESTAMP32}]) = htonl(
+      \hyperlink{openavb__avtp__time_8c_a5847af407bcf3d0e8d7b6106842eeb8d}{openavbAvtpTimeGetAvtpTimestamp}(pMediaQItem->
+      \hyperlink{structmedia__q__item__t_aa7a475459f9c1a43c64ed85ff1c758cc}{pAvtpTime}));
+302 
+303                 \textcolor{keywordflow}{if} (((\hyperlink{structmedia__q__item__map__h264__pub__data__t}{media\_q\_item\_map\_h264\_pub\_data\_t} *)pMediaQItem->
+      \hyperlink{structmedia__q__item__t_aa95927d84c1d7409725f2e169b8ec342}{pPubMapData})->lastPacket) \{
+304                     pHdr[\hyperlink{openavb__map__h264_8c_a09702c1739a4f1981ff45f7914d20a42}{HIDX\_M31\_M21\_M11\_M01\_EVT2\_RESV2}] = 0x10;;
+305                 \}
+306                 \textcolor{keywordflow}{else} \{
+307                     pHdr[\hyperlink{openavb__map__h264_8c_a09702c1739a4f1981ff45f7914d20a42}{HIDX\_M31\_M21\_M11\_M01\_EVT2\_RESV2}] = 0x00;
+308                 \}
+309 
+310                 \textcolor{comment}{// Set h264\_timestamp}
+311                 *(\hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} *)(&pHdr[\hyperlink{openavb__map__h264_8c_a88209552bf43920f41ad017a823e3cf7}{HIDX\_H264\_TIMESTAMP32}]) =
+312                         htonl(((\hyperlink{structmedia__q__item__map__h264__pub__data__t}{media\_q\_item\_map\_h264\_pub\_data\_t} *)
+      pMediaQItem->\hyperlink{structmedia__q__item__t_aa95927d84c1d7409725f2e169b8ec342}{pPubMapData})->timestamp);
+313 
+314                 \textcolor{comment}{// Copy the h264 rtp payload into the outgoing avtp packet.}
+315                 memcpy(pPayload, pMediaQItem->\hyperlink{structmedia__q__item__t_ac27724ac74fd97e91418f1539eccdfb0}{pPubData}, pMediaQItem->
+      \hyperlink{structmedia__q__item__t_a1dfc68b1003d0c64f82d4c19649c2c52}{dataLen});
+316 
+317                 *(\hyperlink{openavb__types__base__pub_8h_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16} *)(&pHdr[\hyperlink{openavb__map__h264_8c_a5d769cbea4518f2646bc9d74255e885a}{HIDX\_STREAM\_DATA\_LEN16}]) = htons(pMediaQItem->
+      \hyperlink{structmedia__q__item__t_a1dfc68b1003d0c64f82d4c19649c2c52}{dataLen});
+318 
+319                 \textcolor{comment}{// Set out bound data length (entire packet length)}
+320                 *dataLen = pMediaQItem->\hyperlink{structmedia__q__item__t_a1dfc68b1003d0c64f82d4c19649c2c52}{dataLen} + \hyperlink{openavb__map__h264_8c_aa51d9d7f77b3245e88384185cf288da9}{TOTAL\_HEADER\_SIZE};
+321 
+322                 \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1ba49b1b3841555131e277b8ab63e782}{AVB\_TRACE\_LINE}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a82981d22250bd06846fd081ab657680e}{AVB\_TRACE\_MAP\_LINE});
+323                 \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a24b34150800528a0ebd52daf61465b3c}{AVB\_TRACE\_MAP\_DETAIL});
+324                 \hyperlink{build_2sdk__eavb_2openavb__mediaq__pub_8h_ab0525761a2b45c4c14d4fdc80fa24c47}{openavbMediaQTailPull}(pMediaQ);
+325                 \textcolor{keywordflow}{return} \hyperlink{build_2sdk__eavb_2openavb__map__pub_8h_adbd7b5e94070d12e84c8740e2027a843a3ebc69a50dc698bf04baf68ad94c4f69}{TX\_CB\_RET\_PACKET\_READY};
+326             \}
+327             \hyperlink{build_2sdk__eavb_2openavb__mediaq__pub_8h_ab0525761a2b45c4c14d4fdc80fa24c47}{openavbMediaQTailPull}(pMediaQ);
+328         \}
+329     \}
+330 
+331     \textcolor{keywordflow}{if} (dataLen) \{
+332         \textcolor{comment}{// Set out bound data length (entire packet length)}
+333         *dataLen = 0;
+334     \}
+335 
+336     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a24b34150800528a0ebd52daf61465b3c}{AVB\_TRACE\_MAP\_DETAIL});
+337     \textcolor{keywordflow}{return} \hyperlink{build_2sdk__eavb_2openavb__map__pub_8h_adbd7b5e94070d12e84c8740e2027a843ab5479d73dceb1df51b92da5c5f69120c}{TX\_CB\_RET\_PACKET\_NOT\_READY};
+338 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__map__h264_8c_ae87aef0fce1299a29c7c677b574b07c5_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__map__h264_8c_ae87aef0fce1299a29c7c677b574b07c5_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}!openavb\+Map\+H264\+Tx\+Init\+CB@{openavb\+Map\+H264\+Tx\+Init\+CB}}
+\index{openavb\+Map\+H264\+Tx\+Init\+CB@{openavb\+Map\+H264\+Tx\+Init\+CB}!openavb\+\_\+map\+\_\+h264.\+c@{openavb\+\_\+map\+\_\+h264.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Map\+H264\+Tx\+Init\+C\+B(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q)}{openavbMapH264TxInitCB(media_q_t *pMediaQ)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Map\+H264\+Tx\+Init\+CB (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__map__h264_8c_aeeec09f7e49d44819a0c0720c6c8b13f}{}\label{openavb__map__h264_8c_aeeec09f7e49d44819a0c0720c6c8b13f}
+
+
+openavb\+\_\+map\+\_\+h264.\+c 파일의 248 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+249 \{
+250     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a5401b6427c6e720ca9352115eb88d39f}{AVB\_TRACE\_MAP});
+251     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a5401b6427c6e720ca9352115eb88d39f}{AVB\_TRACE\_MAP});
+252 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__map__h264_8c_aeeec09f7e49d44819a0c0720c6c8b13f_icgraph}
+\end{center}
+\end{figure}
+
+

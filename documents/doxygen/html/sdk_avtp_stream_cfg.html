@@ -1,0 +1,272 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.11"/>
+<title>OpenAvnu: AVTP Stream (Talker/Listener) Configuration</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">OpenAvnu
+   &#160;<span id="projectnumber">0.1</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 다음에 의해 생성됨 :  Doxygen 1.8.11 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'검색');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>메인&#160;페이지</span></a></li>
+      <li class="current"><a href="pages.html"><span>관련된&#160;페이지</span></a></li>
+      <li><a href="modules.html"><span>모듈</span></a></li>
+      <li><a href="namespaces.html"><span>네임스페이스</span></a></li>
+      <li><a href="annotated.html"><span>데이타&#160;구조</span></a></li>
+      <li><a href="files.html"><span>파일들</span></a></li>
+      <li><a href="examples.html"><span>예제</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="검색" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('sdk_avtp_stream_cfg.html','');});
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">AVTP Stream (Talker/Listener) Configuration </div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><h1><a class="anchor" id="sdk_avtp_stream_cfg_overview"></a>
+Overview </h1>
+<p>The configuration of streams (talkers and listeners) is controlled via the structure <a class="el" href="structopenavb__tl__cfg__t.html">openavb_tl_cfg_t</a> that is passed to the <a class="el" href="tl_2openavb__tl__pub_8h.html#af3f5f9270f359618de3497ab9a469b83">openavbTLConfigure</a> function. There are 3 major sections within the configuration structure. The general talker / listener (AVTP stream) section, the mapping module section and the interface module section. The general section has settings used by the talker/listener module directly. The mapping module section has settings specific to the mapping module being used for the stream and the interface module section has settings specific to the interface module being used for the stream.</p>
+<p>How the <a class="el" href="structopenavb__tl__cfg__t.html">openavb_tl_cfg_t</a> structure gets set is platform dependent. For the Linux reference implementation reading from .ini files is supported which in turn fills this structure. For RTOSes the stream configuration structure is usually set directly via code in the AVB host application module. Therefore the use of .ini files is a layer above the what the core AVB stack uses. The Release Notes for the AVB port should be referenced with regards to where the configuration values can be set.</p>
+<p>Here is a sample configuration structure initialization for a H.264 listener.</p>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;void h264_SampleListenerCfg(openavb_tl_cfg_t *cfg)</div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;{</div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;    // Clear our the configuration structure to ensure defaults (0)</div><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;    memset(cfg, 0, sizeof(openavb_tl_cfg_t));</div><div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div><div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;    // This must be set to the multicast address that is used </div><div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    U8 multicastStrmAddr[] = { 0x91, 0xE0, 0xF0, 0x00, 0xFE, 0x00 };</div><div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div><div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    ///////////////////</div><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    // TL (Talker / Listener) Configuration</div><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    ///////////////////</div><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    // Identify the role of the stream (talker or listener)</div><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    // must be set to AVB_ROLE_LISTENER or AVB_ROLE_TALKER</div><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    cfg-&gt;role = AVB_ROLE_LISTENER;</div><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div><div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    memcpy(cfg-&gt;stream_addr.buffer.ether_addr_octet, multicastStrmAddr, ETH_ALEN);</div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    cfg-&gt;stream_addr.mac = &amp;cfg-&gt;stream_addr.buffer;</div><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div><div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    // max_interval_frames: The maximum number of packets that will be sent during </div><div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    // an observation interval. This is only used on the talker.</div><div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    // cfg-&gt;max_interval_frames = 1;</div><div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div><div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    // max_transit_usec: Allows manually specifying a maximum transit time. </div><div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    // On the talker this value is added to the PTP walltime to create the AVTP Timestamp.</div><div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    // On the listener this value is used to validate an expected valid timestamp range.</div><div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    // Note: For the listener the map_nv_item_count value must be set large enough to </div><div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    // allow buffering at least as many AVTP packets that can be transmitted during this </div><div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    // max transit time.</div><div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    cfg-&gt;max_transit_usec = 2000;</div><div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div><div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    // max_transmit_deficit_usec: Allows setting the maximum packet transmit rate deficit that will</div><div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    // be recovered when a talker falls behind. This is only used on a talker side. When a talker</div><div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    // can not keep up with the specified transmit rate it builds up a deficit and will attempt to </div><div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    // make up for this deficit by sending more packets. There is normally some variability in the </div><div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    // transmit rate because of other demands on the system so this is expected. However, without this</div><div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    // bounding value the deficit could grew too large in cases such where more streams are started </div><div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    // than the system can support and when the number of streams is reduced the remaining streams </div><div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    // will attempt to recover this deficit by sending packets at a higher rate. This can cause a problem</div><div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    // at the listener side and significantly delay the recovery time before media playback will return </div><div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    // to normal. Typically this value can be set to the expected buffer size (in usec) that listeners are </div><div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    // expected to be buffering. For low latency solutions this is normally a small value. For non-live </div><div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    // media playback such as video playback the listener side buffers can often be large enough to held many</div><div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    // seconds of data.</div><div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    // cfg-&gt;max_transmit_deficit_usec = 2000;</div><div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div><div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    // internal_latency: Allows mannually specifying an internal latency time. This is used</div><div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    // only on the talker.</div><div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    //  cfg-&gt;internal_latency = 0;</div><div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div><div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    // The number of microseconds a media queue items can be passed the presentation time at which</div><div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    // point it will be purged.</div><div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    cfg-&gt;max_stale = 500;</div><div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div><div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    // number of intervals to handle at once (talker)</div><div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    // cfg-&gt;batch_factor = 1;</div><div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div><div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    // report_seconds: How often to output stats. Defaults to 10 seconds. 0 turns off the stats. </div><div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    cfg-&gt;report_seconds = 0;</div><div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div><div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    // sr_class: A talker only setting. Values are either SR_CLASS_A or SR_CLASS_B.</div><div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    // cfg-&gt;sr_class = SR_CLASS_A;</div><div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div><div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    // raw_tx_buffers: The number of raw socket transmit buffers.</div><div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    // cfg-&gt;raw_tx_buffers = 40;</div><div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div><div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    // raw_rx_buffers: The number of raw socket receive buffers.</div><div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    cfg-&gt;raw_rx_buffers = 40;</div><div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div><div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    // tx_blocking_in_intf : A talker only option. When set packet pacing is expected to be handled in the interface module.</div><div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    // Commonly there will be a matching interface module configuration item that needs to be set.</div><div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    // cfg-&gt;tx_blocking_in_intf = FALSE;</div><div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div><div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    ///////////////////</div><div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    // The remaining configuration items vary depending on the mapping module and interface module being used.</div><div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    // These configuration values are populated as name value pairs.</div><div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    ///////////////////</div><div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;</div><div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    // Configuration index counter.</div><div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    int cfgIdx = 0;</div><div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div><div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    ///////////////////</div><div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    // Mapping module</div><div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    ///////////////////</div><div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    // map_nv_item_count: The number of media queue elements to hold.</div><div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    cfg-&gt;libCfgNames[cfgIdx] = &quot;map_nv_item_count&quot;;</div><div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    cfg-&gt;libCfgValues[cfgIdx++] = &quot;10&quot;;</div><div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;</div><div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    // map_nv_tx_rate: Transmit rate. Typically this is set to match the SR Class. 8000 for A and 4000 for B</div><div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    // cfg-&gt;libCfgNames[cfgIdx] = &quot;map_nv_tx_rate&quot;;</div><div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    // cfg-&gt;libCfgValues[cfgIdx++] = &quot;8000&quot;;</div><div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;</div><div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    // map_nv_max_payload_size: This is the max RTP payload size. See RFC 6184 for details,</div><div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    // 1412 is the default size</div><div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    cfg-&gt;libCfgNames[cfgIdx] = &quot;map_nv_max_payload_size&quot;;</div><div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    cfg-&gt;libCfgValues[cfgIdx++] = &quot;1412&quot;;</div><div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;</div><div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    ///////////////////</div><div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    // Interface module</div><div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    ///////////////////</div><div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;</div><div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    // intf_nv_blocking_tx_callback : A talker only option. When set packet pacing is expected to be handled in the interface module.</div><div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    // Commonly the TL configuration option tx_blocking_in_intf needs to be set to match this.</div><div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    // cfg-&gt;libCfgNames[cfgIdx] = &quot;intf_nv_blocking_tx_callback&quot;;</div><div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    // cfg-&gt;libCfgValues[cfgIdx++] = &quot;1&quot;;</div><div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;</div><div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    // intf_nv_ignore_timestamp : If set the listener will ignore the timestamp on media queue items.</div><div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    cfg-&gt;libCfgNames[cfgIdx] = &quot;intf_nv_ignore_timestamp&quot;;</div><div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    cfg-&gt;libCfgValues[cfgIdx++] = &quot;0&quot;;</div><div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;</div><div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    cfg-&gt;nLibCfgItems = cfgIdx;</div><div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;</div><div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    ///////////////////</div><div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    // Mapping and interface modules main initialization entry points</div><div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    ///////////////////</div><div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;</div><div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    // pMapInitFn : Mapping module initialization function. (openavb_map_initialize_fn_t)</div><div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    cfg-&gt;osalCfg.pMapInitFn = openavbMapH264Initialize;</div><div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;</div><div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    // pIntfInitFn : Interface module initialization function. (openavb_intf_initialize_fn_t)</div><div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    cfg-&gt;osalCfg.pIntfInitFn = openavbIntfJ6Video;</div><div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;} </div></div><!-- fragment --><p><br />
+</p>
+<h1><a class="anchor" id="sdk_avtp_stream_cfg_common"></a>
+Common Stream Configuration </h1>
+<p>These are common stream configuration values.</p>
+<table class="doxtable">
+<tr>
+<th>Name </th><th>Description  </th></tr>
+<tr>
+<td>role </td><td>Sets the process as a talker or listener. Valid values are <em>talker</em> or <em>listener</em>. </td></tr>
+<tr>
+<td>stream_addr </td><td>Used on the listener and should be set to the mac address of the talker. If not specified on the talker, the talker's detected mac address will be used.<br />
+If AVDECC is being used, this does not need to be specified for the listener, as AVDECC will tell the listener which value to use. </td></tr>
+<tr>
+<td>stream_uid </td><td>The unique stream ID. The talker and listener must both have this set the same.<br />
+If AVDECC is being used, this does not need to be specified for the listener, as AVDECC will tell the listener which value to use. </td></tr>
+<tr>
+<td>dest_addr </td><td>Destination multicast address for the stream.<br />
+If using<ul>
+<li>
+<b>with MAAP</b> - dynamic destination addresses are generated automatically by the talker and passed to the listener, and don't need to be configured.<br />
+However, it is recommended that a locally administered (static) address still be configured, as the dest_addr will be used if the MAAP daemon is not available.</li>
+<li>
+<b>without MAAP</b>, locally administered (static) addresses must be configured. Those addresses are in the range of: 91:E0:F0:00:FE:00 - 91:E0:F0:00:FE:FF. Typically use :00 for the first stream, :01 for the second, etc. </li>
+</ul>
+If <b>SRP</b> <ul>
+<li>
+<b>is being</b> used the static destination address only needs to be set in the talker; </li>
+<li>
+<b>is not being</b> used the destination address need to be set (to the same value) in both the talker and listener.</li>
+</ul>
+The destination is a multicast address, not a real MAC address, so it does not match the talker or listener's interface MAC. There are several pools of those addresses for use by AVTP defined in 1722. </td></tr>
+<tr>
+<td>max_interval_frames </td><td>The maximum number of packets that will be sent during an observation interval. This is only used on the talker. </td></tr>
+<tr>
+<td>max_frame_size </td><td>Maximum size of the frame </td></tr>
+<tr>
+<td>sr_class </td><td>A talker only setting. Values are either A or B. If not set an internal default is used. </td></tr>
+<tr>
+<td>sr_rank </td><td>A talker only setting. If not set an internal default is used. </td></tr>
+<tr>
+<td>max_transit_usec </td><td>Allows manually specifying a maximum transit time. <ul>
+<li>
+<b>On the talker</b> this value is added to the PTP walltime to create the AVTP <a class="el" href="class_timestamp.html" title="Provides a Timestamp interface. ">Timestamp</a>.</li>
+<li>
+<b>On the listener</b> this value is used to validate an expected valid timestamp range.</li>
+</ul>
+<b>Note:</b> For the listener the map_nv_item_count value must be set large enough to allow buffering at least as many AVTP packets that can be transmitted during this max transit time. </td></tr>
+<tr>
+<td>max_transmit_deficit_usec </td><td><p class="starttd">Allows setting the maximum packet transmit rate deficit that will be recovered when a talker falls behind. </p>
+<p>When a talker can not keep up with the specified transmit rate it builds up a deficit and will attempt to make up for this deficit by sending more packets. There is normally some variability in the transmit rate because of other demands on the system so this is expected. However, without this bounding value the deficit could grew too large in cases such where more streams are started than the system can support and when the number of streams is reduced the remaining streams will attempt to recover this deficit by sending packets at a higher rate. This can cause a problem at the listener side and significantly delay the recovery time before media playback will return to normal.</p>
+<p></p>
+<p>Typically this value can be set to the expected buffer size (in usec) that listeners are expected to be buffering.<br />
+For low latency solutions this is normally a small value. For non-live media playback such as video playback the listener side buffers can often be large enough to held many seconds of data.</p>
+<p class="endtd"><b>Note:</b> This is only used on a talker side. </p>
+</td></tr>
+<tr>
+<td>internal_latency </td><td>Allows manually specifying an internal latency time. This is used only on the talker. </td></tr>
+<tr>
+<td>max_stale </td><td><p class="starttd">The number of microseconds beyond the presentation time that media queue items will be purged because they are too old (past the presentation time).<br />
+This is only used on listener end stations.</p>
+<p><b>Note:</b> needing to purge old media queue items is often a sign of some other problem.<br />
+For example: a delay at stream startup before incoming packets are ready to be processed by the media sink.<br />
+If this deficit in processing or purging the old (stale) packets is not handled, syncing multiple listeners will be problematic.</p>
+<p class="endtd"></p>
+</td></tr>
+<tr>
+<td>raw_tx_buffers </td><td>The number of raw socket transmit buffers. Typically 4 - 8 are good values. This is only used by the talker. If not set internal defaults are used. </td></tr>
+<tr>
+<td>raw_rx_buffers </td><td>The number of raw socket receive buffers. Typically 50 - 100 are good values. This is only used by the listener. If not set internal defaults are used. </td></tr>
+<tr>
+<td>report_seconds </td><td>How often to output stats. Defaults to 10 seconds. 0 turns off the stats. </td></tr>
+<tr>
+<td>tx_blocking_in_intf </td><td>The interface module will block until data is available. This is a talker only configuration value and not all interface modules support it. </td></tr>
+<tr>
+<td>pMapInitFn </td><td>Pointer to the mapping module initialization function. Since this is a pointer to a function address is it not directly set in platforms that use a .ini file. </td></tr>
+<tr>
+<td>IntfInitFn </td><td>Pointer to the interface module initialization function. Since this is a pointer to a function address is it not directly set in platforms that use a .ini file. </td></tr>
+</table>
+<p><br />
+</p>
+<h1>Platform Specific Stream Configuration Values</h1>
+<p>Some platform ports have unique configuration values.</p>
+<h2>Linux</h2>
+<table class="doxtable">
+<tr>
+<th>Name </th><th>Description  </th></tr>
+<tr>
+<td>map_lib </td><td>The name of the library file (commonly a .so file) that implements the Initialize function.<br />
+Comment out the map_lib name and link in the .c file to the openavb_tl executable to embed the mapper directly into the executable unit. There is no need to change anything else. The Initialize function will still be dynamically linked in. </td></tr>
+<tr>
+<td>map_fn </td><td>The name of the initialize function in the mapper </td></tr>
+<tr>
+<td>intf_lib </td><td>The name of the library file (commonly a .so file) that implements the Initialize function.<br />
+Comment out the intf_lib name and link in the .c file to the openavb_tl executable to embed the interface directly into the executable unit.<br />
+There is no need to change anything else. The Initialize function will still be dynamically linked in </td></tr>
+<tr>
+<td>intf_fn </td><td>The name of the initialize function in the interface </td></tr>
+</table>
+<p><br />
+</p>
+<h1><a class="anchor" id="sdk_avtp_stream_cfg_combinations"></a>
+Example Interface / Mapping Combinations </h1>
+<p>Below are a few interface / mapping module combinations. Notice that a single interface module may work with mutliple mapping modules. Additionally some mappings may work with multiple interface modules.</p>
+<table class="doxtable">
+<tr>
+<th>interface module </th><th>mapping module </th><th>description  </th></tr>
+<tr>
+<td><a class="el" href="echo_host_intf.html">echo</a> </td><td><a class="el" href="pipe_map.html">pipe</a> </td><td>Demonstration interface used mostly for verification and testing purposes. </td></tr>
+<tr>
+<td><a class="el" href="alsa_intf.html">alsa</a> </td><td><a class="el" href="uncmp_audio_map.html">uncmp_audio</a></td><td>Audio interface created for demonstration on Linux. Can be used to play captured (line in, mic) audio stream via EAVB </td></tr>
+<tr>
+<td><a class="el" href="alsa_intf.html">alsa</a> </td><td><a class="el" href="aaf_audio_map.html">aaf_audio</a></td><td>Audio interface created for demonstration on Linux. Can be used to play captured (line in, mic) audio stream via EAVB </td></tr>
+<tr>
+<td><a class="el" href="wav_file_intf.html">wav_file</a></td><td><a class="el" href="uncmp_audio_map.html">uncmp_audio</a></td><td>Configuration for playing wave file via EAVB </td></tr>
+</table>
+<p><br />
+</p>
+<h1><a class="anchor" id="sdk_avtp_stream_cfg_intf_map"></a>
+Interface and Mapping Module Configuration </h1>
+<p>Each interface module and mapping module has unique configuration values. Details of these configuration values can be found in the reference pages for each module.</p>
+<ul>
+<li>Reference: AVTP Mapping Modules<ul>
+<li><a class="el" href="aaf_audio_map.html">1722 AAF (aaf_audio)</a></li>
+<li><a class="el" href="ctrl_map.html">Control (ctrl)</a></li>
+<li><a class="el" href="mjpeg_map.html">Motion JPEG (mjpeg)</a></li>
+<li><a class="el" href="mpeg2ts_map.html">MPEG2 TS (mpeg2ts)</a></li>
+<li><a class="el" href="null_map.html">NULL (null)</a></li>
+<li><a class="el" href="pipe_map.html">PIPE (pipe)</a></li>
+<li><a class="el" href="uncmp_audio_map.html">61883-6 (uncmp_audio)</a></li>
+</ul>
+</li>
+<li>Reference: AVTP Interface Module<ul>
+<li><a class="el" href="ctrl_intf.html">Control (ctrl)</a></li>
+<li><a class="el" href="echo_host_intf.html">Echo (echo)</a></li>
+<li><a class="el" href="null_host_intf.html">Null (null)</a></li>
+<li><a class="el" href="viewer_intf.html">Viewer (viewer)</a></li>
+</ul>
+</li>
+<li>Reference: AVTP Interface Module Linux Specific<ul>
+<li><a class="el" href="alsa_intf.html">ALSA (alsa)</a></li>
+<li><a class="el" href="mjpeg_gst_intf.html">MJPEG GST (mjpeg_gstreamer)</a></li>
+<li><a class="el" href="mpeg2ts_file_intf.html">MPEG2 TS File (mpeg2ts_file)</a></li>
+<li><a class="el" href="mpeg2ts_gst_intf.html">MPEG2 TS GST (mpeg2ts_gstreamer)</a></li>
+<li><a class="el" href="wav_file_intf.html">WAV File (wav_file)</a> </li>
+</ul>
+</li>
+</ul>
+</div></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">다음에 의해 생성됨 : 
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.11 </li>
+  </ul>
+</div>
+</body>
+</html>

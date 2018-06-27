@@ -1,0 +1,1313 @@
+\hypertarget{openavb__map__uncmp__audio_8c}{}\section{lib/avtp\+\_\+pipeline/map\+\_\+uncmp\+\_\+audio/openavb\+\_\+map\+\_\+uncmp\+\_\+audio.c 파일 참조}
+\label{openavb__map__uncmp__audio_8c}\index{lib/avtp\+\_\+pipeline/map\+\_\+uncmp\+\_\+audio/openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{lib/avtp\+\_\+pipeline/map\+\_\+uncmp\+\_\+audio/openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}}
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+types\+\_\+pub.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+trace\+\_\+pub.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+avtp\+\_\+time\+\_\+pub.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+mediaq\+\_\+pub.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+map\+\_\+pub.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+map\+\_\+uncmp\+\_\+audio\+\_\+pub.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+log\+\_\+pub.\+h\char`\"{}}\\*
+openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__map__uncmp__audio_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{데이타 구조}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structpvt__data__t}{pvt\+\_\+data\+\_\+t}
+\end{DoxyCompactItemize}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{openavb__map__uncmp__audio_8c_a63985c785a174ef97f3ec20798862d5a}{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+ON}~1
+\item 
+\#define \hyperlink{openavb__map__uncmp__audio_8c_abcfb21b6495585fe36058f57a9fe58fc}{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}~\char`\"{}61883-\/6 Mapping\char`\"{}
+\item 
+\#define \hyperlink{openavb__map__uncmp__audio_8c_a60dcf69231f49285a63a22e7c5b7a27d}{A\+V\+T\+P\+\_\+\+V0\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}~12
+\item 
+\#define \hyperlink{openavb__map__uncmp__audio_8c_ac2c2b2e4a24272e6be4fe526a0011539}{M\+A\+P\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}~12
+\item 
+\#define \hyperlink{openavb__map__uncmp__audio_8c_affb22bdc91cf9f3ecb4a8c91fb6c2ae5}{C\+I\+P\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}~8
+\item 
+\#define \hyperlink{openavb__map__uncmp__audio_8c_aa51d9d7f77b3245e88384185cf288da9}{T\+O\+T\+A\+L\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}~(\hyperlink{openavb__map__uncmp__audio_8c_a60dcf69231f49285a63a22e7c5b7a27d}{A\+V\+T\+P\+\_\+\+V0\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE} + \hyperlink{openavb__map__uncmp__audio_8c_ac2c2b2e4a24272e6be4fe526a0011539}{M\+A\+P\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE} + \hyperlink{openavb__map__uncmp__audio_8c_affb22bdc91cf9f3ecb4a8c91fb6c2ae5}{C\+I\+P\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE})
+\item 
+\#define \hyperlink{openavb__map__uncmp__audio_8c_a1987e05c59aa30b6235ac6fdf7084dc8}{H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+V\+E\+R\+Z\+E\+R\+O96}~0
+\item 
+\#define \hyperlink{openavb__map__uncmp__audio_8c_aa912ad4f984243f81c8fadf4c7d8a2a8}{H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+H\+I\+D\+E7\+\_\+\+T\+V1}~1
+\item 
+\#define \hyperlink{openavb__map__uncmp__audio_8c_a74d586288021d96098aa71fc3d883fa9}{H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+H\+I\+D\+E7\+\_\+\+T\+U1}~3
+\item 
+\#define \hyperlink{openavb__map__uncmp__audio_8c_a9d86e1cc24fdb882ab67e7bf0e1788a1}{H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+T\+I\+M\+E\+S\+T\+A\+M\+P32}~12
+\item 
+\#define \hyperlink{openavb__map__uncmp__audio_8c_af93a42a13cbec3023cfb04a85557d936}{H\+I\+D\+X\+\_\+\+G\+A\+T\+E\+W\+A\+Y32}~16
+\item 
+\#define \hyperlink{openavb__map__uncmp__audio_8c_aa184fc6d8b199ac9be8321c73bdc75ff}{H\+I\+D\+X\+\_\+\+D\+A\+T\+A\+L\+E\+N16}~20
+\item 
+\#define \hyperlink{openavb__map__uncmp__audio_8c_ae18cccf7c9eb3e7d982faca5cb448328}{H\+I\+D\+X\+\_\+\+T\+A\+G2\+\_\+\+C\+H\+A\+N\+N\+E\+L6}~22
+\item 
+\#define \hyperlink{openavb__map__uncmp__audio_8c_ac8fe782823bb9f46824545998771adf7}{H\+I\+D\+X\+\_\+\+T\+C\+O\+D\+E4\+\_\+\+S\+Y4}~23
+\item 
+\#define \hyperlink{openavb__map__uncmp__audio_8c_a05de2150bfc1e6e456a3a0ff37b093e6}{H\+I\+D\+X\+\_\+\+C\+I\+P2\+\_\+\+S\+I\+D6}~24
+\item 
+\#define \hyperlink{openavb__map__uncmp__audio_8c_a7d0258f09f8acc688f13c95ee7c7858f}{H\+I\+D\+X\+\_\+\+D\+B\+S8}~25
+\item 
+\#define \hyperlink{openavb__map__uncmp__audio_8c_aa414d47464d1a3ee75e04ac2b8ffc1cb}{H\+I\+D\+X\+\_\+\+F\+N2\+\_\+\+Q\+P\+C3\+\_\+\+S\+P\+H1\+\_\+\+R\+S\+V2}~26
+\item 
+\#define \hyperlink{openavb__map__uncmp__audio_8c_a122a93df5dc16fafa0cf93858adaa7d6}{H\+I\+D\+X\+\_\+\+D\+B\+C8}~27
+\item 
+\#define \hyperlink{openavb__map__uncmp__audio_8c_a37b81277aff2e35f6891ab75f552cb07}{H\+I\+D\+X\+\_\+\+C\+I\+P2\+\_\+\+F\+M\+T6}~28
+\item 
+\#define \hyperlink{openavb__map__uncmp__audio_8c_ace0b4a4d8535250e4d5a951442ef6e6c}{H\+I\+D\+X\+\_\+\+F\+D\+F5\+\_\+\+S\+F\+C3}~29
+\item 
+\#define \hyperlink{openavb__map__uncmp__audio_8c_a95163ab22eed26a6e676a4698720aa5d}{H\+I\+D\+X\+\_\+\+S\+Y\+T16}~30
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{openavb__map__uncmp__audio_8c_a2997a4fc5f01b30536a1b2fd054ee3e7}{x\+\_\+calculate\+Sizes} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ)
+\item 
+void \hyperlink{openavb__map__uncmp__audio_8c_a0d9ea54830413e3099fa68430449e966}{openavb\+Map\+Uncmp\+Audio\+Cfg\+CB} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ, const char $\ast$name, const char $\ast$value)
+\item 
+\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} \hyperlink{openavb__map__uncmp__audio_8c_a5ae8913686f7aba87ed8cdc210112d2d}{openavb\+Map\+Uncmp\+Audio\+Subtype\+CB} ()
+\item 
+\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} \hyperlink{openavb__map__uncmp__audio_8c_af174d38fdd2d35a6cb93e5413af2b8ac}{openavb\+Map\+Uncmp\+Audio\+Avtp\+Version\+CB} ()
+\item 
+\hyperlink{openavb__types__base__pub_8h_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16} \hyperlink{openavb__map__uncmp__audio_8c_ac42adcf88d8e31aab8811ec546b8063a}{openavb\+Map\+Uncmp\+Audio\+Max\+Data\+Size\+CB} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ)
+\item 
+\hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} \hyperlink{openavb__map__uncmp__audio_8c_aea1755fe2a4ecc2a7d485d96e21425c1}{openavb\+Map\+Uncmp\+Audio\+Transmit\+Interval\+CB} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ)
+\item 
+void \hyperlink{openavb__map__uncmp__audio_8c_a4a84e1e801ccc5d24f93e780224cef8e}{openavb\+Map\+Uncmp\+Audio\+Gen\+Init\+CB} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ)
+\item 
+void \hyperlink{openavb__map__uncmp__audio_8c_ac4c723f88d6b4608f6c6787178662be5}{openavb\+Map\+Uncmp\+Audio\+A\+V\+D\+E\+C\+C\+Init\+CB} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ, \hyperlink{openavb__types__base__pub_8h_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16} config\+Idx, \hyperlink{openavb__types__base__pub_8h_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16} descriptor\+Type, \hyperlink{openavb__types__base__pub_8h_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16} descriptor\+Idx)
+\item 
+void \hyperlink{openavb__map__uncmp__audio_8c_ad64d643b6d75a5753419df19db145be8}{openavb\+Map\+Uncmp\+Audio\+Tx\+Init\+CB} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ)
+\item 
+\hyperlink{build_2sdk__eavb_2openavb__map__pub_8h_adbd7b5e94070d12e84c8740e2027a843}{tx\+\_\+cb\+\_\+ret\+\_\+t} \hyperlink{openavb__map__uncmp__audio_8c_a0abcd114185b1f2d9c6b49cc4f0c914c}{openavb\+Map\+Uncmp\+Audio\+Tx\+CB} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ, \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} $\ast$p\+Data, \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} $\ast$data\+Len)
+\item 
+void \hyperlink{openavb__map__uncmp__audio_8c_aae1e2587b1af9fb09e0fb78cc1182cc8}{openavb\+Map\+Uncmp\+Audio\+Rx\+Init\+CB} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ)
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__map__uncmp__audio_8c_ae99fc5f5f85cc5130f927a720554ee23}{openavb\+Map\+Uncmp\+Audio\+Rx\+CB} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ, \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} $\ast$p\+Data, \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} data\+Len)
+\item 
+void \hyperlink{openavb__map__uncmp__audio_8c_ac242a8a90f61e4dc5475aa1ace4448de}{openavb\+Map\+Uncmp\+Audio\+End\+CB} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ)
+\item 
+void \hyperlink{openavb__map__uncmp__audio_8c_a4095930142d79adf61ce9a67cee23030}{openavb\+Map\+Uncmp\+Audio\+Gen\+End\+CB} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ)
+\item 
+\hyperlink{include_2openavb__types__pub_8h_a1ca888bd091694c05472e1b91df1a97b}{D\+L\+L\+\_\+\+E\+X\+P\+O\+RT} \hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__map__uncmp__audio_8c_a0078bdde743b4808cf3dbd8a523b1f77}{openavb\+Map\+Uncmp\+Audio\+Initialize} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ, \hyperlink{structopenavb__map__cb__t}{openavb\+\_\+map\+\_\+cb\+\_\+t} $\ast$p\+Map\+CB, \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} in\+Max\+Transit\+Usec)
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}!A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT@{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}}
+\index{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT@{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}!openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}}
+\subsubsection[{\texorpdfstring{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}{AVB_LOG_COMPONENT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT~\char`\"{}61883-\/6 Mapping\char`\"{}}\hypertarget{openavb__map__uncmp__audio_8c_abcfb21b6495585fe36058f57a9fe58fc}{}\label{openavb__map__uncmp__audio_8c_abcfb21b6495585fe36058f57a9fe58fc}
+
+
+openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c 파일의 48 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}!A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+ON@{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+ON}}
+\index{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+ON@{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+ON}!openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}}
+\subsubsection[{\texorpdfstring{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+ON}{AVB_LOG_ON}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+ON~1}\hypertarget{openavb__map__uncmp__audio_8c_a63985c785a174ef97f3ec20798862d5a}{}\label{openavb__map__uncmp__audio_8c_a63985c785a174ef97f3ec20798862d5a}
+
+
+openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c 파일의 46 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}!A\+V\+T\+P\+\_\+\+V0\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE@{A\+V\+T\+P\+\_\+\+V0\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}}
+\index{A\+V\+T\+P\+\_\+\+V0\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE@{A\+V\+T\+P\+\_\+\+V0\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}!openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}}
+\subsubsection[{\texorpdfstring{A\+V\+T\+P\+\_\+\+V0\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}{AVTP_V0_HEADER_SIZE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+V\+T\+P\+\_\+\+V0\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE~12}\hypertarget{openavb__map__uncmp__audio_8c_a60dcf69231f49285a63a22e7c5b7a27d}{}\label{openavb__map__uncmp__audio_8c_a60dcf69231f49285a63a22e7c5b7a27d}
+
+
+openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c 파일의 52 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}!C\+I\+P\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE@{C\+I\+P\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}}
+\index{C\+I\+P\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE@{C\+I\+P\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}!openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}}
+\subsubsection[{\texorpdfstring{C\+I\+P\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}{CIP_HEADER_SIZE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+I\+P\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE~8}\hypertarget{openavb__map__uncmp__audio_8c_affb22bdc91cf9f3ecb4a8c91fb6c2ae5}{}\label{openavb__map__uncmp__audio_8c_affb22bdc91cf9f3ecb4a8c91fb6c2ae5}
+
+
+openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c 파일의 54 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}!H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+H\+I\+D\+E7\+\_\+\+T\+U1@{H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+H\+I\+D\+E7\+\_\+\+T\+U1}}
+\index{H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+H\+I\+D\+E7\+\_\+\+T\+U1@{H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+H\+I\+D\+E7\+\_\+\+T\+U1}!openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}}
+\subsubsection[{\texorpdfstring{H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+H\+I\+D\+E7\+\_\+\+T\+U1}{HIDX_AVTP_HIDE7_TU1}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+H\+I\+D\+E7\+\_\+\+T\+U1~3}\hypertarget{openavb__map__uncmp__audio_8c_a74d586288021d96098aa71fc3d883fa9}{}\label{openavb__map__uncmp__audio_8c_a74d586288021d96098aa71fc3d883fa9}
+
+
+openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c 파일의 69 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}!H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+H\+I\+D\+E7\+\_\+\+T\+V1@{H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+H\+I\+D\+E7\+\_\+\+T\+V1}}
+\index{H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+H\+I\+D\+E7\+\_\+\+T\+V1@{H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+H\+I\+D\+E7\+\_\+\+T\+V1}!openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}}
+\subsubsection[{\texorpdfstring{H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+H\+I\+D\+E7\+\_\+\+T\+V1}{HIDX_AVTP_HIDE7_TV1}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+H\+I\+D\+E7\+\_\+\+T\+V1~1}\hypertarget{openavb__map__uncmp__audio_8c_aa912ad4f984243f81c8fadf4c7d8a2a8}{}\label{openavb__map__uncmp__audio_8c_aa912ad4f984243f81c8fadf4c7d8a2a8}
+
+
+openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c 파일의 66 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}!H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+T\+I\+M\+E\+S\+T\+A\+M\+P32@{H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+T\+I\+M\+E\+S\+T\+A\+M\+P32}}
+\index{H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+T\+I\+M\+E\+S\+T\+A\+M\+P32@{H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+T\+I\+M\+E\+S\+T\+A\+M\+P32}!openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}}
+\subsubsection[{\texorpdfstring{H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+T\+I\+M\+E\+S\+T\+A\+M\+P32}{HIDX_AVTP_TIMESTAMP32}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+T\+I\+M\+E\+S\+T\+A\+M\+P32~12}\hypertarget{openavb__map__uncmp__audio_8c_a9d86e1cc24fdb882ab67e7bf0e1788a1}{}\label{openavb__map__uncmp__audio_8c_a9d86e1cc24fdb882ab67e7bf0e1788a1}
+
+
+openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c 파일의 76 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}!H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+V\+E\+R\+Z\+E\+R\+O96@{H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+V\+E\+R\+Z\+E\+R\+O96}}
+\index{H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+V\+E\+R\+Z\+E\+R\+O96@{H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+V\+E\+R\+Z\+E\+R\+O96}!openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}}
+\subsubsection[{\texorpdfstring{H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+V\+E\+R\+Z\+E\+R\+O96}{HIDX_AVTP_VERZERO96}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+I\+D\+X\+\_\+\+A\+V\+T\+P\+\_\+\+V\+E\+R\+Z\+E\+R\+O96~0}\hypertarget{openavb__map__uncmp__audio_8c_a1987e05c59aa30b6235ac6fdf7084dc8}{}\label{openavb__map__uncmp__audio_8c_a1987e05c59aa30b6235ac6fdf7084dc8}
+
+
+openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c 파일의 63 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}!H\+I\+D\+X\+\_\+\+C\+I\+P2\+\_\+\+F\+M\+T6@{H\+I\+D\+X\+\_\+\+C\+I\+P2\+\_\+\+F\+M\+T6}}
+\index{H\+I\+D\+X\+\_\+\+C\+I\+P2\+\_\+\+F\+M\+T6@{H\+I\+D\+X\+\_\+\+C\+I\+P2\+\_\+\+F\+M\+T6}!openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}}
+\subsubsection[{\texorpdfstring{H\+I\+D\+X\+\_\+\+C\+I\+P2\+\_\+\+F\+M\+T6}{HIDX_CIP2_FMT6}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+I\+D\+X\+\_\+\+C\+I\+P2\+\_\+\+F\+M\+T6~28}\hypertarget{openavb__map__uncmp__audio_8c_a37b81277aff2e35f6891ab75f552cb07}{}\label{openavb__map__uncmp__audio_8c_a37b81277aff2e35f6891ab75f552cb07}
+
+
+openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c 파일의 114 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}!H\+I\+D\+X\+\_\+\+C\+I\+P2\+\_\+\+S\+I\+D6@{H\+I\+D\+X\+\_\+\+C\+I\+P2\+\_\+\+S\+I\+D6}}
+\index{H\+I\+D\+X\+\_\+\+C\+I\+P2\+\_\+\+S\+I\+D6@{H\+I\+D\+X\+\_\+\+C\+I\+P2\+\_\+\+S\+I\+D6}!openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}}
+\subsubsection[{\texorpdfstring{H\+I\+D\+X\+\_\+\+C\+I\+P2\+\_\+\+S\+I\+D6}{HIDX_CIP2_SID6}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+I\+D\+X\+\_\+\+C\+I\+P2\+\_\+\+S\+I\+D6~24}\hypertarget{openavb__map__uncmp__audio_8c_a05de2150bfc1e6e456a3a0ff37b093e6}{}\label{openavb__map__uncmp__audio_8c_a05de2150bfc1e6e456a3a0ff37b093e6}
+
+
+openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c 파일의 98 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}!H\+I\+D\+X\+\_\+\+D\+A\+T\+A\+L\+E\+N16@{H\+I\+D\+X\+\_\+\+D\+A\+T\+A\+L\+E\+N16}}
+\index{H\+I\+D\+X\+\_\+\+D\+A\+T\+A\+L\+E\+N16@{H\+I\+D\+X\+\_\+\+D\+A\+T\+A\+L\+E\+N16}!openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}}
+\subsubsection[{\texorpdfstring{H\+I\+D\+X\+\_\+\+D\+A\+T\+A\+L\+E\+N16}{HIDX_DATALEN16}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+I\+D\+X\+\_\+\+D\+A\+T\+A\+L\+E\+N16~20}\hypertarget{openavb__map__uncmp__audio_8c_aa184fc6d8b199ac9be8321c73bdc75ff}{}\label{openavb__map__uncmp__audio_8c_aa184fc6d8b199ac9be8321c73bdc75ff}
+
+
+openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c 파일의 82 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}!H\+I\+D\+X\+\_\+\+D\+B\+C8@{H\+I\+D\+X\+\_\+\+D\+B\+C8}}
+\index{H\+I\+D\+X\+\_\+\+D\+B\+C8@{H\+I\+D\+X\+\_\+\+D\+B\+C8}!openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}}
+\subsubsection[{\texorpdfstring{H\+I\+D\+X\+\_\+\+D\+B\+C8}{HIDX_DBC8}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+I\+D\+X\+\_\+\+D\+B\+C8~27}\hypertarget{openavb__map__uncmp__audio_8c_a122a93df5dc16fafa0cf93858adaa7d6}{}\label{openavb__map__uncmp__audio_8c_a122a93df5dc16fafa0cf93858adaa7d6}
+
+
+openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c 파일의 110 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}!H\+I\+D\+X\+\_\+\+D\+B\+S8@{H\+I\+D\+X\+\_\+\+D\+B\+S8}}
+\index{H\+I\+D\+X\+\_\+\+D\+B\+S8@{H\+I\+D\+X\+\_\+\+D\+B\+S8}!openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}}
+\subsubsection[{\texorpdfstring{H\+I\+D\+X\+\_\+\+D\+B\+S8}{HIDX_DBS8}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+I\+D\+X\+\_\+\+D\+B\+S8~25}\hypertarget{openavb__map__uncmp__audio_8c_a7d0258f09f8acc688f13c95ee7c7858f}{}\label{openavb__map__uncmp__audio_8c_a7d0258f09f8acc688f13c95ee7c7858f}
+
+
+openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c 파일의 101 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}!H\+I\+D\+X\+\_\+\+F\+D\+F5\+\_\+\+S\+F\+C3@{H\+I\+D\+X\+\_\+\+F\+D\+F5\+\_\+\+S\+F\+C3}}
+\index{H\+I\+D\+X\+\_\+\+F\+D\+F5\+\_\+\+S\+F\+C3@{H\+I\+D\+X\+\_\+\+F\+D\+F5\+\_\+\+S\+F\+C3}!openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}}
+\subsubsection[{\texorpdfstring{H\+I\+D\+X\+\_\+\+F\+D\+F5\+\_\+\+S\+F\+C3}{HIDX_FDF5_SFC3}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+I\+D\+X\+\_\+\+F\+D\+F5\+\_\+\+S\+F\+C3~29}\hypertarget{openavb__map__uncmp__audio_8c_ace0b4a4d8535250e4d5a951442ef6e6c}{}\label{openavb__map__uncmp__audio_8c_ace0b4a4d8535250e4d5a951442ef6e6c}
+
+
+openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c 파일의 118 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}!H\+I\+D\+X\+\_\+\+F\+N2\+\_\+\+Q\+P\+C3\+\_\+\+S\+P\+H1\+\_\+\+R\+S\+V2@{H\+I\+D\+X\+\_\+\+F\+N2\+\_\+\+Q\+P\+C3\+\_\+\+S\+P\+H1\+\_\+\+R\+S\+V2}}
+\index{H\+I\+D\+X\+\_\+\+F\+N2\+\_\+\+Q\+P\+C3\+\_\+\+S\+P\+H1\+\_\+\+R\+S\+V2@{H\+I\+D\+X\+\_\+\+F\+N2\+\_\+\+Q\+P\+C3\+\_\+\+S\+P\+H1\+\_\+\+R\+S\+V2}!openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}}
+\subsubsection[{\texorpdfstring{H\+I\+D\+X\+\_\+\+F\+N2\+\_\+\+Q\+P\+C3\+\_\+\+S\+P\+H1\+\_\+\+R\+S\+V2}{HIDX_FN2_QPC3_SPH1_RSV2}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+I\+D\+X\+\_\+\+F\+N2\+\_\+\+Q\+P\+C3\+\_\+\+S\+P\+H1\+\_\+\+R\+S\+V2~26}\hypertarget{openavb__map__uncmp__audio_8c_aa414d47464d1a3ee75e04ac2b8ffc1cb}{}\label{openavb__map__uncmp__audio_8c_aa414d47464d1a3ee75e04ac2b8ffc1cb}
+
+
+openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c 파일의 107 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}!H\+I\+D\+X\+\_\+\+G\+A\+T\+E\+W\+A\+Y32@{H\+I\+D\+X\+\_\+\+G\+A\+T\+E\+W\+A\+Y32}}
+\index{H\+I\+D\+X\+\_\+\+G\+A\+T\+E\+W\+A\+Y32@{H\+I\+D\+X\+\_\+\+G\+A\+T\+E\+W\+A\+Y32}!openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}}
+\subsubsection[{\texorpdfstring{H\+I\+D\+X\+\_\+\+G\+A\+T\+E\+W\+A\+Y32}{HIDX_GATEWAY32}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+I\+D\+X\+\_\+\+G\+A\+T\+E\+W\+A\+Y32~16}\hypertarget{openavb__map__uncmp__audio_8c_af93a42a13cbec3023cfb04a85557d936}{}\label{openavb__map__uncmp__audio_8c_af93a42a13cbec3023cfb04a85557d936}
+
+
+openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c 파일의 79 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}!H\+I\+D\+X\+\_\+\+S\+Y\+T16@{H\+I\+D\+X\+\_\+\+S\+Y\+T16}}
+\index{H\+I\+D\+X\+\_\+\+S\+Y\+T16@{H\+I\+D\+X\+\_\+\+S\+Y\+T16}!openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}}
+\subsubsection[{\texorpdfstring{H\+I\+D\+X\+\_\+\+S\+Y\+T16}{HIDX_SYT16}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+I\+D\+X\+\_\+\+S\+Y\+T16~30}\hypertarget{openavb__map__uncmp__audio_8c_a95163ab22eed26a6e676a4698720aa5d}{}\label{openavb__map__uncmp__audio_8c_a95163ab22eed26a6e676a4698720aa5d}
+
+
+openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c 파일의 121 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}!H\+I\+D\+X\+\_\+\+T\+A\+G2\+\_\+\+C\+H\+A\+N\+N\+E\+L6@{H\+I\+D\+X\+\_\+\+T\+A\+G2\+\_\+\+C\+H\+A\+N\+N\+E\+L6}}
+\index{H\+I\+D\+X\+\_\+\+T\+A\+G2\+\_\+\+C\+H\+A\+N\+N\+E\+L6@{H\+I\+D\+X\+\_\+\+T\+A\+G2\+\_\+\+C\+H\+A\+N\+N\+E\+L6}!openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}}
+\subsubsection[{\texorpdfstring{H\+I\+D\+X\+\_\+\+T\+A\+G2\+\_\+\+C\+H\+A\+N\+N\+E\+L6}{HIDX_TAG2_CHANNEL6}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+I\+D\+X\+\_\+\+T\+A\+G2\+\_\+\+C\+H\+A\+N\+N\+E\+L6~22}\hypertarget{openavb__map__uncmp__audio_8c_ae18cccf7c9eb3e7d982faca5cb448328}{}\label{openavb__map__uncmp__audio_8c_ae18cccf7c9eb3e7d982faca5cb448328}
+
+
+openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c 파일의 86 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}!H\+I\+D\+X\+\_\+\+T\+C\+O\+D\+E4\+\_\+\+S\+Y4@{H\+I\+D\+X\+\_\+\+T\+C\+O\+D\+E4\+\_\+\+S\+Y4}}
+\index{H\+I\+D\+X\+\_\+\+T\+C\+O\+D\+E4\+\_\+\+S\+Y4@{H\+I\+D\+X\+\_\+\+T\+C\+O\+D\+E4\+\_\+\+S\+Y4}!openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}}
+\subsubsection[{\texorpdfstring{H\+I\+D\+X\+\_\+\+T\+C\+O\+D\+E4\+\_\+\+S\+Y4}{HIDX_TCODE4_SY4}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+I\+D\+X\+\_\+\+T\+C\+O\+D\+E4\+\_\+\+S\+Y4~23}\hypertarget{openavb__map__uncmp__audio_8c_ac8fe782823bb9f46824545998771adf7}{}\label{openavb__map__uncmp__audio_8c_ac8fe782823bb9f46824545998771adf7}
+
+
+openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c 파일의 90 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}!M\+A\+P\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE@{M\+A\+P\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}}
+\index{M\+A\+P\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE@{M\+A\+P\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}!openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}}
+\subsubsection[{\texorpdfstring{M\+A\+P\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}{MAP_HEADER_SIZE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+P\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE~12}\hypertarget{openavb__map__uncmp__audio_8c_ac2c2b2e4a24272e6be4fe526a0011539}{}\label{openavb__map__uncmp__audio_8c_ac2c2b2e4a24272e6be4fe526a0011539}
+
+
+openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c 파일의 53 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}!T\+O\+T\+A\+L\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE@{T\+O\+T\+A\+L\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}}
+\index{T\+O\+T\+A\+L\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE@{T\+O\+T\+A\+L\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}!openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}}
+\subsubsection[{\texorpdfstring{T\+O\+T\+A\+L\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}{TOTAL_HEADER_SIZE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+O\+T\+A\+L\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE~({\bf A\+V\+T\+P\+\_\+\+V0\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE} + {\bf M\+A\+P\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE} + {\bf C\+I\+P\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE})}\hypertarget{openavb__map__uncmp__audio_8c_aa51d9d7f77b3245e88384185cf288da9}{}\label{openavb__map__uncmp__audio_8c_aa51d9d7f77b3245e88384185cf288da9}
+
+
+openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c 파일의 56 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{함수 문서화}
+\index{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}!openavb\+Map\+Uncmp\+Audio\+A\+V\+D\+E\+C\+C\+Init\+CB@{openavb\+Map\+Uncmp\+Audio\+A\+V\+D\+E\+C\+C\+Init\+CB}}
+\index{openavb\+Map\+Uncmp\+Audio\+A\+V\+D\+E\+C\+C\+Init\+CB@{openavb\+Map\+Uncmp\+Audio\+A\+V\+D\+E\+C\+C\+Init\+CB}!openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Map\+Uncmp\+Audio\+A\+V\+D\+E\+C\+C\+Init\+C\+B(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q, U16 config\+Idx, U16 descriptor\+Type, U16 descriptor\+Idx)}{openavbMapUncmpAudioAVDECCInitCB(media_q_t *pMediaQ, U16 configIdx, U16 descriptorType, U16 descriptorIdx)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Map\+Uncmp\+Audio\+A\+V\+D\+E\+C\+C\+Init\+CB (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ, }
+\item[{{\bf U16}}]{config\+Idx, }
+\item[{{\bf U16}}]{descriptor\+Type, }
+\item[{{\bf U16}}]{descriptor\+Idx}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__map__uncmp__audio_8c_ac4c723f88d6b4608f6c6787178662be5}{}\label{openavb__map__uncmp__audio_8c_ac4c723f88d6b4608f6c6787178662be5}
+
+
+openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c 파일의 391 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+392 \{
+393     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a5401b6427c6e720ca9352115eb88d39f}{AVB\_TRACE\_MAP});
+394 
+395     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a5401b6427c6e720ca9352115eb88d39f}{AVB\_TRACE\_MAP});
+396 \}
+\end{DoxyCode}
+\index{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}!openavb\+Map\+Uncmp\+Audio\+Avtp\+Version\+CB@{openavb\+Map\+Uncmp\+Audio\+Avtp\+Version\+CB}}
+\index{openavb\+Map\+Uncmp\+Audio\+Avtp\+Version\+CB@{openavb\+Map\+Uncmp\+Audio\+Avtp\+Version\+CB}!openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Map\+Uncmp\+Audio\+Avtp\+Version\+C\+B()}{openavbMapUncmpAudioAvtpVersionCB()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf U8} openavb\+Map\+Uncmp\+Audio\+Avtp\+Version\+CB (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__map__uncmp__audio_8c_af174d38fdd2d35a6cb93e5413af2b8ac}{}\label{openavb__map__uncmp__audio_8c_af174d38fdd2d35a6cb93e5413af2b8ac}
+
+
+openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c 파일의 331 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+332 \{
+333     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a24b34150800528a0ebd52daf61465b3c}{AVB\_TRACE\_MAP\_DETAIL});
+334     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a24b34150800528a0ebd52daf61465b3c}{AVB\_TRACE\_MAP\_DETAIL});
+335     \textcolor{keywordflow}{return} 0x00;        \textcolor{comment}{// Version 0}
+336 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__map__uncmp__audio_8c_af174d38fdd2d35a6cb93e5413af2b8ac_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}!openavb\+Map\+Uncmp\+Audio\+Cfg\+CB@{openavb\+Map\+Uncmp\+Audio\+Cfg\+CB}}
+\index{openavb\+Map\+Uncmp\+Audio\+Cfg\+CB@{openavb\+Map\+Uncmp\+Audio\+Cfg\+CB}!openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Map\+Uncmp\+Audio\+Cfg\+C\+B(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q, const char $\ast$name, const char $\ast$value)}{openavbMapUncmpAudioCfgCB(media_q_t *pMediaQ, const char *name, const char *value)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Map\+Uncmp\+Audio\+Cfg\+CB (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ, }
+\item[{const char $\ast$}]{name, }
+\item[{const char $\ast$}]{value}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__map__uncmp__audio_8c_a0d9ea54830413e3099fa68430449e966}{}\label{openavb__map__uncmp__audio_8c_a0d9ea54830413e3099fa68430449e966}
+
+
+openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c 파일의 290 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+291 \{
+292     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a5401b6427c6e720ca9352115eb88d39f}{AVB\_TRACE\_MAP});
+293 
+294     \textcolor{keywordflow}{if} (pMediaQ) \{
+295         \hyperlink{structpvt__data__t}{pvt\_data\_t} *pPvtData = pMediaQ->\hyperlink{structmedia__q__t_aee939b53d02a9217a5307ada087f3c50}{pPvtMapInfo};
+296         \textcolor{keywordflow}{if} (!pPvtData) \{
+297             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Private mapping module data not allocated."});
+298             \textcolor{keywordflow}{return};
+299         \}
+300 
+301         \textcolor{keywordflow}{if} (strcmp(name, \textcolor{stringliteral}{"map\_nv\_item\_count"}) == 0) \{
+302             \textcolor{keywordtype}{char} *pEnd;
+303             pPvtData->\hyperlink{structpvt__data__t_ad3640734bb9fadb7e6a9e529417638f7}{itemCount} = strtol(value, &pEnd, 10);
+304         \}
+305         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strcmp(name, \textcolor{stringliteral}{"map\_nv\_tx\_rate"}) == 0
+306             || strcmp(name, \textcolor{stringliteral}{"map\_nv\_tx\_interval"}) == 0) \{
+307             \textcolor{keywordtype}{char} *pEnd;
+308             pPvtData->\hyperlink{structpvt__data__t_abb67a593d59c479e632685a33c092a32}{txInterval} = strtol(value, &pEnd, 10);
+309         \}
+310         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strcmp(name, \textcolor{stringliteral}{"map\_nv\_packing\_factor"}) == 0) \{
+311             \textcolor{keywordtype}{char} *pEnd;
+312             pPvtData->\hyperlink{structpvt__data__t_af54e12a5e4f46ccf41a32ff0ea9b3405}{packingFactor} = strtol(value, &pEnd, 10);
+313         \}
+314         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strcmp(name, \textcolor{stringliteral}{"map\_nv\_audio\_mcr"}) == 0) \{
+315             \textcolor{keywordtype}{char} *pEnd;
+316             pPvtData->\hyperlink{structpvt__data__t_aa6f30f30bdfe69903d6d830130732e4f}{audioMcr} = (\hyperlink{openavb__audio__pub_8h_a4f9f6ccd37995bce95bbfe2ebad11b36}{avb\_audio\_mcr\_t})strtol(value, &pEnd, 10);
+317         \}
+318     \}
+319 
+320     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a5401b6427c6e720ca9352115eb88d39f}{AVB\_TRACE\_MAP});
+321 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__map__uncmp__audio_8c_a0d9ea54830413e3099fa68430449e966_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}!openavb\+Map\+Uncmp\+Audio\+End\+CB@{openavb\+Map\+Uncmp\+Audio\+End\+CB}}
+\index{openavb\+Map\+Uncmp\+Audio\+End\+CB@{openavb\+Map\+Uncmp\+Audio\+End\+CB}!openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Map\+Uncmp\+Audio\+End\+C\+B(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q)}{openavbMapUncmpAudioEndCB(media_q_t *pMediaQ)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Map\+Uncmp\+Audio\+End\+CB (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__map__uncmp__audio_8c_ac242a8a90f61e4dc5475aa1ace4448de}{}\label{openavb__map__uncmp__audio_8c_ac242a8a90f61e4dc5475aa1ace4448de}
+
+
+openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c 파일의 699 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+700 \{
+701     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a5401b6427c6e720ca9352115eb88d39f}{AVB\_TRACE\_MAP});
+702     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a5401b6427c6e720ca9352115eb88d39f}{AVB\_TRACE\_MAP});
+703 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__map__uncmp__audio_8c_ac242a8a90f61e4dc5475aa1ace4448de_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}!openavb\+Map\+Uncmp\+Audio\+Gen\+End\+CB@{openavb\+Map\+Uncmp\+Audio\+Gen\+End\+CB}}
+\index{openavb\+Map\+Uncmp\+Audio\+Gen\+End\+CB@{openavb\+Map\+Uncmp\+Audio\+Gen\+End\+CB}!openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Map\+Uncmp\+Audio\+Gen\+End\+C\+B(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q)}{openavbMapUncmpAudioGenEndCB(media_q_t *pMediaQ)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Map\+Uncmp\+Audio\+Gen\+End\+CB (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__map__uncmp__audio_8c_a4095930142d79adf61ce9a67cee23030}{}\label{openavb__map__uncmp__audio_8c_a4095930142d79adf61ce9a67cee23030}
+
+
+openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c 파일의 705 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+706 \{
+707     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+708     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+709 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__map__uncmp__audio_8c_a4095930142d79adf61ce9a67cee23030_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}!openavb\+Map\+Uncmp\+Audio\+Gen\+Init\+CB@{openavb\+Map\+Uncmp\+Audio\+Gen\+Init\+CB}}
+\index{openavb\+Map\+Uncmp\+Audio\+Gen\+Init\+CB@{openavb\+Map\+Uncmp\+Audio\+Gen\+Init\+CB}!openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Map\+Uncmp\+Audio\+Gen\+Init\+C\+B(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q)}{openavbMapUncmpAudioGenInitCB(media_q_t *pMediaQ)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Map\+Uncmp\+Audio\+Gen\+Init\+CB (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__map__uncmp__audio_8c_a4a84e1e801ccc5d24f93e780224cef8e}{}\label{openavb__map__uncmp__audio_8c_a4a84e1e801ccc5d24f93e780224cef8e}
+
+
+openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c 파일의 374 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+375 \{
+376     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a5401b6427c6e720ca9352115eb88d39f}{AVB\_TRACE\_MAP});
+377     \textcolor{keywordflow}{if} (pMediaQ) \{
+378         \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t}{media\_q\_pub\_map\_uncmp\_audio\_info\_t} *pPubMapInfo = pMediaQ->
+      \hyperlink{structmedia__q__t_a0226ccb90fbafac84294a908013853b4}{pPubMapInfo};
+379         \hyperlink{structpvt__data__t}{pvt\_data\_t} *pPvtData = pMediaQ->\hyperlink{structmedia__q__t_aee939b53d02a9217a5307ada087f3c50}{pPvtMapInfo};
+380         \textcolor{keywordflow}{if} (!pPvtData) \{
+381             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Private mapping module data not allocated."});
+382             \textcolor{keywordflow}{return};
+383         \}
+384 
+385         \hyperlink{openavb__map__uncmp__audio_8c_a2997a4fc5f01b30536a1b2fd054ee3e7}{x\_calculateSizes}(pMediaQ);
+386         \hyperlink{build_2sdk__eavb_2openavb__mediaq__pub_8h_a392a15d51328fab65d754685450834de}{openavbMediaQSetSize}(pMediaQ, pPvtData->\hyperlink{structpvt__data__t_ad3640734bb9fadb7e6a9e529417638f7}{itemCount}, pPubMapInfo->
+      \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a91e248b2730fbe7951ac5d9d3aae1752}{itemSize});
+387     \}
+388     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a5401b6427c6e720ca9352115eb88d39f}{AVB\_TRACE\_MAP});
+389     \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__map__uncmp__audio_8c_a4a84e1e801ccc5d24f93e780224cef8e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__map__uncmp__audio_8c_a4a84e1e801ccc5d24f93e780224cef8e_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}!openavb\+Map\+Uncmp\+Audio\+Initialize@{openavb\+Map\+Uncmp\+Audio\+Initialize}}
+\index{openavb\+Map\+Uncmp\+Audio\+Initialize@{openavb\+Map\+Uncmp\+Audio\+Initialize}!openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Map\+Uncmp\+Audio\+Initialize(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q, openavb\+\_\+map\+\_\+cb\+\_\+t $\ast$p\+Map\+C\+B, U32 in\+Max\+Transit\+Usec)}{openavbMapUncmpAudioInitialize(media_q_t *pMediaQ, openavb_map_cb_t *pMapCB, U32 inMaxTransitUsec)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf D\+L\+L\+\_\+\+E\+X\+P\+O\+RT} {\bf bool} openavb\+Map\+Uncmp\+Audio\+Initialize (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ, }
+\item[{{\bf openavb\+\_\+map\+\_\+cb\+\_\+t} $\ast$}]{p\+Map\+CB, }
+\item[{{\bf U32}}]{in\+Max\+Transit\+Usec}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__map__uncmp__audio_8c_a0078bdde743b4808cf3dbd8a523b1f77}{}\label{openavb__map__uncmp__audio_8c_a0078bdde743b4808cf3dbd8a523b1f77}
+
+
+openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c 파일의 712 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+713 \{
+714     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a5401b6427c6e720ca9352115eb88d39f}{AVB\_TRACE\_MAP});
+715 
+716     \textcolor{keywordflow}{if} (pMediaQ) \{
+717         pMediaQ->\hyperlink{structmedia__q__t_a3f16216bd90b1b04cca7fbb4766cb5ff}{pMediaQDataFormat} = strdup(
+      \hyperlink{openavb__map__uncmp__audio__pub_8h_a4736a8cfd6189ed6e01a633a4fa23fc3}{MapUncmpAudioMediaQDataFormat});
+718         pMediaQ->\hyperlink{structmedia__q__t_a0226ccb90fbafac84294a908013853b4}{pPubMapInfo} = \hyperlink{_memory_leak_detector_malloc_macros_8h_a7cbb7b79af9d539af55b59dfc3598390}{calloc}(1, \textcolor{keyword}{sizeof}(
+      \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t}{media\_q\_pub\_map\_uncmp\_audio\_info\_t}));       \textcolor{comment}{// Memory freed by the media
+       queue when the media queue is destroyed.}
+719         pMediaQ->\hyperlink{structmedia__q__t_aee939b53d02a9217a5307ada087f3c50}{pPvtMapInfo} = \hyperlink{_memory_leak_detector_malloc_macros_8h_a7cbb7b79af9d539af55b59dfc3598390}{calloc}(1, \textcolor{keyword}{sizeof}(\hyperlink{structpvt__data__t}{pvt\_data\_t}));                   
+                  \textcolor{comment}{// Memory freed by the media queue when the media queue is destroyed.}
+720 
+721         \textcolor{keywordflow}{if} (!pMediaQ->\hyperlink{structmedia__q__t_a3f16216bd90b1b04cca7fbb4766cb5ff}{pMediaQDataFormat} || !pMediaQ->
+      \hyperlink{structmedia__q__t_a0226ccb90fbafac84294a908013853b4}{pPubMapInfo} || !pMediaQ->\hyperlink{structmedia__q__t_aee939b53d02a9217a5307ada087f3c50}{pPvtMapInfo}) \{
+722             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Unable to allocate memory for mapping module."});
+723             \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+724         \}
+725 
+726         \hyperlink{structpvt__data__t}{pvt\_data\_t} *pPvtData = pMediaQ->\hyperlink{structmedia__q__t_aee939b53d02a9217a5307ada087f3c50}{pPvtMapInfo};
+727 
+728         pMapCB->\hyperlink{structopenavb__map__cb__t_aa88869f419f2830bcbfe2646b0efb2fc}{map\_cfg\_cb} = \hyperlink{openavb__map__uncmp__audio_8c_a0d9ea54830413e3099fa68430449e966}{openavbMapUncmpAudioCfgCB};
+729         pMapCB->\hyperlink{structopenavb__map__cb__t_aa3fdb0836d9178ec32d124b7c3d614e9}{map\_subtype\_cb} = \hyperlink{openavb__map__uncmp__audio_8c_a5ae8913686f7aba87ed8cdc210112d2d}{openavbMapUncmpAudioSubtypeCB};
+730         pMapCB->\hyperlink{structopenavb__map__cb__t_a185e195210352d990db73d5ed37b5533}{map\_avtp\_version\_cb} = 
+      \hyperlink{openavb__map__uncmp__audio_8c_af174d38fdd2d35a6cb93e5413af2b8ac}{openavbMapUncmpAudioAvtpVersionCB};
+731         pMapCB->\hyperlink{structopenavb__map__cb__t_ac87069ceed64005bb4a3c8fbb3da8357}{map\_max\_data\_size\_cb} = 
+      \hyperlink{openavb__map__uncmp__audio_8c_ac42adcf88d8e31aab8811ec546b8063a}{openavbMapUncmpAudioMaxDataSizeCB};
+732         pMapCB->\hyperlink{structopenavb__map__cb__t_a9928a7e0cddbaebed6cb1333e270acf3}{map\_transmit\_interval\_cb} = 
+      \hyperlink{openavb__map__uncmp__audio_8c_aea1755fe2a4ecc2a7d485d96e21425c1}{openavbMapUncmpAudioTransmitIntervalCB};
+733         pMapCB->\hyperlink{structopenavb__map__cb__t_ae2e9b66edaa11de03638bbcc5f8414bf}{map\_gen\_init\_cb} = \hyperlink{openavb__map__uncmp__audio_8c_a4a84e1e801ccc5d24f93e780224cef8e}{openavbMapUncmpAudioGenInitCB}
+      ;
+734         pMapCB->\hyperlink{structopenavb__map__cb__t_a187e10e5170f1fc6d1162148f9edf2d9}{map\_tx\_init\_cb} = \hyperlink{openavb__map__uncmp__audio_8c_ad64d643b6d75a5753419df19db145be8}{openavbMapUncmpAudioTxInitCB};
+735         pMapCB->\hyperlink{structopenavb__map__cb__t_a4a157fb8eb778c17724d3121c42bc9c7}{map\_tx\_cb} = \hyperlink{openavb__map__uncmp__audio_8c_a0abcd114185b1f2d9c6b49cc4f0c914c}{openavbMapUncmpAudioTxCB};
+736         pMapCB->\hyperlink{structopenavb__map__cb__t_abb274346a258817c73be3d4860cd8c03}{map\_rx\_init\_cb} = \hyperlink{openavb__map__uncmp__audio_8c_aae1e2587b1af9fb09e0fb78cc1182cc8}{openavbMapUncmpAudioRxInitCB};
+737         pMapCB->\hyperlink{structopenavb__map__cb__t_a354eb0e412d873e04ed0618f600f8fb1}{map\_rx\_cb} = \hyperlink{openavb__map__uncmp__audio_8c_ae99fc5f5f85cc5130f927a720554ee23}{openavbMapUncmpAudioRxCB};
+738         pMapCB->\hyperlink{structopenavb__map__cb__t_ace0872ff88cbd5e79bdc4cf223f68421}{map\_end\_cb} = \hyperlink{openavb__map__uncmp__audio_8c_ac242a8a90f61e4dc5475aa1ace4448de}{openavbMapUncmpAudioEndCB};
+739         pMapCB->\hyperlink{structopenavb__map__cb__t_aefd70fa9d3e6cd61a4b7f1272a1eedcd}{map\_gen\_end\_cb} = \hyperlink{openavb__map__uncmp__audio_8c_a4095930142d79adf61ce9a67cee23030}{openavbMapUncmpAudioGenEndCB};
+740 
+741         pPvtData->\hyperlink{structpvt__data__t_ad3640734bb9fadb7e6a9e529417638f7}{itemCount} = 20;
+742         pPvtData->\hyperlink{structpvt__data__t_abb67a593d59c479e632685a33c092a32}{txInterval} = 0;
+743         pPvtData->\hyperlink{structpvt__data__t_af54e12a5e4f46ccf41a32ff0ea9b3405}{packingFactor} = 1;
+744         pPvtData->\hyperlink{structpvt__data__t_a3838a4b3ace56e06dc76c5b13f1df3ff}{maxTransitUsec} = inMaxTransitUsec;
+745         pPvtData->\hyperlink{structpvt__data__t_aa05e00460f8849cf9f5a16d7a5d6a73e}{DBC} = 0;
+746         pPvtData->\hyperlink{structpvt__data__t_aa6f30f30bdfe69903d6d830130732e4f}{audioMcr} = \hyperlink{openavb__audio__pub_8h_a4f9f6ccd37995bce95bbfe2ebad11b36aaa82c8295070d1e44661b6549985c403}{AVB\_MCR\_NONE};
+747 
+748         \hyperlink{build_2sdk__eavb_2openavb__mediaq__pub_8h_afb76a6274ad6626ee51a50174d7b9389}{openavbMediaQSetMaxLatency}(pMediaQ, inMaxTransitUsec);
+749     \}
+750 
+751     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a5401b6427c6e720ca9352115eb88d39f}{AVB\_TRACE\_MAP});
+752     \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+753 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__map__uncmp__audio_8c_a0078bdde743b4808cf3dbd8a523b1f77_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=318pt]{openavb__map__uncmp__audio_8c_a0078bdde743b4808cf3dbd8a523b1f77_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}!openavb\+Map\+Uncmp\+Audio\+Max\+Data\+Size\+CB@{openavb\+Map\+Uncmp\+Audio\+Max\+Data\+Size\+CB}}
+\index{openavb\+Map\+Uncmp\+Audio\+Max\+Data\+Size\+CB@{openavb\+Map\+Uncmp\+Audio\+Max\+Data\+Size\+CB}!openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Map\+Uncmp\+Audio\+Max\+Data\+Size\+C\+B(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q)}{openavbMapUncmpAudioMaxDataSizeCB(media_q_t *pMediaQ)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf U16} openavb\+Map\+Uncmp\+Audio\+Max\+Data\+Size\+CB (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__map__uncmp__audio_8c_ac42adcf88d8e31aab8811ec546b8063a}{}\label{openavb__map__uncmp__audio_8c_ac42adcf88d8e31aab8811ec546b8063a}
+
+
+openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c 파일의 338 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+339 \{
+340     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a5401b6427c6e720ca9352115eb88d39f}{AVB\_TRACE\_MAP});
+341 
+342     \textcolor{keywordflow}{if} (pMediaQ) \{
+343         \hyperlink{structpvt__data__t}{pvt\_data\_t} *pPvtData = pMediaQ->\hyperlink{structmedia__q__t_aee939b53d02a9217a5307ada087f3c50}{pPvtMapInfo};
+344         \textcolor{keywordflow}{if} (!pPvtData) \{
+345             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Private mapping module data not allocated."});
+346             \textcolor{keywordflow}{return} 0;
+347         \}
+348 
+349         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a5401b6427c6e720ca9352115eb88d39f}{AVB\_TRACE\_MAP});
+350         \textcolor{keywordflow}{return} pPvtData->\hyperlink{structpvt__data__t_a41116ea77bd2a5f8dc80bbe814719ee1}{maxPayloadSize};
+351     \}
+352     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a5401b6427c6e720ca9352115eb88d39f}{AVB\_TRACE\_MAP});
+353     \textcolor{keywordflow}{return} 0;
+354 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__map__uncmp__audio_8c_ac42adcf88d8e31aab8811ec546b8063a_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}!openavb\+Map\+Uncmp\+Audio\+Rx\+CB@{openavb\+Map\+Uncmp\+Audio\+Rx\+CB}}
+\index{openavb\+Map\+Uncmp\+Audio\+Rx\+CB@{openavb\+Map\+Uncmp\+Audio\+Rx\+CB}!openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Map\+Uncmp\+Audio\+Rx\+C\+B(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q, U8 $\ast$p\+Data, U32 data\+Len)}{openavbMapUncmpAudioRxCB(media_q_t *pMediaQ, U8 *pData, U32 dataLen)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} openavb\+Map\+Uncmp\+Audio\+Rx\+CB (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ, }
+\item[{{\bf U8} $\ast$}]{p\+Data, }
+\item[{{\bf U32}}]{data\+Len}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__map__uncmp__audio_8c_ae99fc5f5f85cc5130f927a720554ee23}{}\label{openavb__map__uncmp__audio_8c_ae99fc5f5f85cc5130f927a720554ee23}
+
+
+openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c 파일의 579 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+580 \{
+581     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a24b34150800528a0ebd52daf61465b3c}{AVB\_TRACE\_MAP\_DETAIL});
+582     \textcolor{keywordflow}{if} (pMediaQ && pData) \{
+583         \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *pHdr = pData;
+584         \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *pPayload = pData + \hyperlink{openavb__map__uncmp__audio_8c_aa51d9d7f77b3245e88384185cf288da9}{TOTAL\_HEADER\_SIZE};
+585         \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t}{media\_q\_pub\_map\_uncmp\_audio\_info\_t} *pPubMapInfo = pMediaQ->
+      \hyperlink{structmedia__q__t_a0226ccb90fbafac84294a908013853b4}{pPubMapInfo};
+586 
+587         \textcolor{comment}{//pHdr[HIDX\_AVTP\_TIMESTAMP32];}
+588         \textcolor{comment}{//pHdr[HIDX\_GATEWAY32];}
+589         \hyperlink{openavb__types__base__pub_8h_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16} payloadLen = ntohs(*(\hyperlink{openavb__types__base__pub_8h_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16} *)(&pHdr[\hyperlink{openavb__map__uncmp__audio_8c_aa184fc6d8b199ac9be8321c73bdc75ff}{HIDX\_DATALEN16}]));
+590 
+591         \textcolor{comment}{//pHdr[HIDX\_TAG2\_CHANNEL6];}
+592         \textcolor{comment}{//pHdr[HIDX\_TCODE4\_SY4];}
+593         \textcolor{comment}{//pHdr[HIDX\_CIP2\_SID6];}
+594         \textcolor{comment}{//pHdr[HIDX\_DBS8];}
+595         \textcolor{comment}{//pHdr[HIDX\_FN2\_QPC3\_SPH1\_RSV2];}
+596         \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} dbc = pHdr[\hyperlink{openavb__map__uncmp__audio_8c_a122a93df5dc16fafa0cf93858adaa7d6}{HIDX\_DBC8}];
+597         \textcolor{comment}{//pHdr[HIDX\_CIP2\_FMT6];}
+598         \textcolor{comment}{//pHdr[HIDX\_TSF1\_RESA7];}
+599         \textcolor{comment}{//pHdr[HIDX\_RESB8];}
+600         \textcolor{comment}{//pHdr[HIDX\_RESC8];}
+601         \textcolor{keywordtype}{bool} tsValid = (pHdr[\hyperlink{openavb__map__uncmp__audio_8c_aa912ad4f984243f81c8fadf4c7d8a2a8}{HIDX\_AVTP\_HIDE7\_TV1}] & 0x01) ? 
+      \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE} : \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+602         \textcolor{keywordtype}{bool} tsUncertain = (pHdr[\hyperlink{openavb__map__uncmp__audio_8c_a74d586288021d96098aa71fc3d883fa9}{HIDX\_AVTP\_HIDE7\_TU1}] & 0x01) ? 
+      \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE} : \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+603 
+604         \textcolor{comment}{// Per iec61883-6 Secion 7.2}
+605         \textcolor{comment}{// index = mod((SYT\_INTERVAL - mod(DBC, SYT\_INTERVAL)), SYT\_INTERVAL)}
+606         \textcolor{comment}{// U8 dbcIdx = (pPubMapInfo->sytInterval - (dbc % pPubMapInfo->sytInterval)) %
+       pPubMapInfo->sytInterval;}
+607         \textcolor{comment}{// The dbcIdx calculation isn't used from spec because our implmentation only needs to know when
+       the timestamp index is at 0.}
+608         \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} dbcIdx = dbc % pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_afaaad205c0ba4c425e4bb5ecbce2a82a}{sytInterval};
+609         \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *pAVTPDataUnit = pPayload;
+610         \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *pAVTPDataUnitEnd = pData + \hyperlink{openavb__map__uncmp__audio_8c_a60dcf69231f49285a63a22e7c5b7a27d}{AVTP\_V0\_HEADER\_SIZE} + 
+      \hyperlink{openavb__map__uncmp__audio_8c_ac2c2b2e4a24272e6be4fe526a0011539}{MAP\_HEADER\_SIZE} + payloadLen;
+611 
+612         \textcolor{keywordflow}{while} (((pAVTPDataUnit + pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_ac26de86e26ac41388da8721b8bbdc592}{packetFrameSizeBytes}) <= pAVTPDataUnitEnd
+      )) \{
+613             \textcolor{comment}{// Get item pointer in media queue}
+614             \hyperlink{structmedia__q__item__t}{media\_q\_item\_t} *pMediaQItem = \hyperlink{build_2sdk__eavb_2openavb__mediaq__pub_8h_ae2ce807451447ec2dab9a4284ac61b99}{openavbMediaQHeadLock}(pMediaQ)
+      ;
+615             \textcolor{keywordflow}{if} (pMediaQItem) \{
+616 
+617                 \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} itemSizeWritten = 0;
+618                 \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *pItemData = (\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *)pMediaQItem->\hyperlink{structmedia__q__item__t_ac27724ac74fd97e91418f1539eccdfb0}{pPubData} + pMediaQItem->
+      \hyperlink{structmedia__q__item__t_a1dfc68b1003d0c64f82d4c19649c2c52}{dataLen};
+619                 \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *pItemDataEnd = (\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *)pMediaQItem->\hyperlink{structmedia__q__item__t_ac27724ac74fd97e91418f1539eccdfb0}{pPubData} + pMediaQItem->
+      \hyperlink{structmedia__q__item__t_a91e248b2730fbe7951ac5d9d3aae1752}{itemSize};
+620 
+621                 \textcolor{comment}{// Get the timestamp}
+622                 \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} timestamp = ntohl(*(\hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} *)(&pHdr[\hyperlink{openavb__map__uncmp__audio_8c_a9d86e1cc24fdb882ab67e7bf0e1788a1}{HIDX\_AVTP\_TIMESTAMP32}]));
+623                 \hyperlink{structpvt__data__t}{pvt\_data\_t} *pPvtData = pMediaQ->\hyperlink{structmedia__q__t_aee939b53d02a9217a5307ada087f3c50}{pPvtMapInfo};
+624                 \textcolor{keywordflow}{if} ((pPvtData->\hyperlink{structpvt__data__t_aa6f30f30bdfe69903d6d830130732e4f}{audioMcr} != \hyperlink{openavb__audio__pub_8h_a4f9f6ccd37995bce95bbfe2ebad11b36aaa82c8295070d1e44661b6549985c403}{AVB\_MCR\_NONE}) && tsValid && !tsUncertain) \{
+625                     \textcolor{comment}{// MCR mode set and timestamp is valid, and timestamp uncertain is not set}
+626                     \hyperlink{openavb__avtp__time_8c_a7d647de77165c1907244fbaedc333ad4}{openavbAvtpTimePushMCR}(pMediaQItem->
+      \hyperlink{structmedia__q__item__t_aa7a475459f9c1a43c64ed85ff1c758cc}{pAvtpTime}, timestamp);
+627                 \}
+628 
+629                 \textcolor{keywordflow}{if} (pMediaQItem->\hyperlink{structmedia__q__item__t_a1dfc68b1003d0c64f82d4c19649c2c52}{dataLen} == 0) \{
+630                     \textcolor{comment}{// This is the first set of frames for the media queue item, must align based on
+       SYT\_INTERVAL for proper synchronization of listeners}
+631                     \textcolor{keywordflow}{if} (dbcIdx > 0) \{
+632                         \textcolor{comment}{// Failed to make alignment with this packet. This AVTP packet will be tossed. Once
+       alignment is reached}
+633                         \textcolor{comment}{// it is expected not to need to toss packets anymore.}
+634                         \hyperlink{build_2sdk__eavb_2openavb__mediaq__pub_8h_ac73b08d1568f13b634e2a0f1ef35e11a}{openavbMediaQHeadUnlock}(pMediaQ);
+635                         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a24b34150800528a0ebd52daf61465b3c}{AVB\_TRACE\_MAP\_DETAIL});
+636                         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+637                     \}
+638 
+639                     \textcolor{comment}{// Set time stamp info on first data write to the media queue}
+640                     \textcolor{comment}{// place it in the media queue item.}
+641                     \hyperlink{openavb__avtp__time_8c_ab1d229e70e6a888f8daf7c2ddafd2976}{openavbAvtpTimeSetToTimestamp}(pMediaQItem->
+      \hyperlink{structmedia__q__item__t_aa7a475459f9c1a43c64ed85ff1c758cc}{pAvtpTime}, timestamp);
+642 
+643                     \textcolor{comment}{// Set timestamp valid and timestamp uncertain flags}
+644                     \hyperlink{openavb__avtp__time_8c_aa246209297862b2796f9a716261ed310}{openavbAvtpTimeSetTimestampValid}(pMediaQItem->
+      \hyperlink{structmedia__q__item__t_aa7a475459f9c1a43c64ed85ff1c758cc}{pAvtpTime}, tsValid);
+645                     \hyperlink{openavb__avtp__time_8c_aef5fb8e14af27b6e771caff167658e21}{openavbAvtpTimeSetTimestampUncertain}(pMediaQItem->
+      \hyperlink{structmedia__q__item__t_aa7a475459f9c1a43c64ed85ff1c758cc}{pAvtpTime}, tsUncertain);
+646                 \}
+647 
+648                 \textcolor{keywordflow}{while} (((pAVTPDataUnit + pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_ac26de86e26ac41388da8721b8bbdc592}{packetFrameSizeBytes}) <= 
+      pAVTPDataUnitEnd) && ((pItemData + pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a5e067b4fe2d5bde1db69eb4a8899f808}{itemFrameSizeBytes}) <= pItemDataEnd)) \{
+649                     \textcolor{keywordtype}{int} i1;
+650                     \textcolor{keywordflow}{for} (i1 = 0; i1 < pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_ad8a7767f3583795147d57c7252554dd9}{audioChannels}; i1++) \{
+651                         \textcolor{keywordflow}{if} (pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a3efebc8b73cdf8c8d500c5d88a1e8558}{itemSampleSizeBytes} == 2) \{
+652                             \hyperlink{openavb__types__base__pub_8h_a39c786017723555afb9e8b85accec0de}{S32} sample = ntohl(*(\hyperlink{openavb__types__base__pub_8h_a39c786017723555afb9e8b85accec0de}{S32} *)pAVTPDataUnit);
+653                             sample = sample * 1;
+654                             *(\hyperlink{openavb__types__base__pub_8h_a6d241ad21a823c90d4835380787db5d4}{S16} *)(pItemData) = (sample & 0x00ffffff) >> 8;
+655                             pAVTPDataUnit += 4;
+656                             pItemData += 2;
+657                             itemSizeWritten += 2;
+658                         \}
+659                         \textcolor{keywordflow}{else} \{
+660                             \hyperlink{openavb__types__base__pub_8h_a39c786017723555afb9e8b85accec0de}{S32} sample = ntohl(*(\hyperlink{openavb__types__base__pub_8h_a39c786017723555afb9e8b85accec0de}{S32} *)pAVTPDataUnit);
+661                             sample = sample * 1;
+662                             *(\hyperlink{openavb__types__base__pub_8h_a39c786017723555afb9e8b85accec0de}{S32} *)(pItemData) = sample & 0x00ffffff;
+663                             pAVTPDataUnit += 4;
+664                             pItemData += 3;
+665                             itemSizeWritten += 3;
+666                         \}
+667                     \}
+668                 \}
+669 
+670                 pMediaQItem->\hyperlink{structmedia__q__item__t_a1dfc68b1003d0c64f82d4c19649c2c52}{dataLen} += itemSizeWritten;
+671 
+672                 \textcolor{keywordflow}{if} (pMediaQItem->\hyperlink{structmedia__q__item__t_a1dfc68b1003d0c64f82d4c19649c2c52}{dataLen} < pMediaQItem->\hyperlink{structmedia__q__item__t_a91e248b2730fbe7951ac5d9d3aae1752}{itemSize}) \{
+673                     \textcolor{comment}{// More data can be written to the item}
+674                     \hyperlink{build_2sdk__eavb_2openavb__mediaq__pub_8h_ac73b08d1568f13b634e2a0f1ef35e11a}{openavbMediaQHeadUnlock}(pMediaQ);
+675                 \}
+676                 \textcolor{keywordflow}{else} \{
+677                     \textcolor{comment}{// The item is full push it.}
+678                     \hyperlink{build_2sdk__eavb_2openavb__mediaq__pub_8h_a0a57c275ac213fdd14c944741c6e9250}{openavbMediaQHeadPush}(pMediaQ);
+679                 \}
+680 
+681                 \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a24b34150800528a0ebd52daf61465b3c}{AVB\_TRACE\_MAP\_DETAIL});
+682                 \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};    \textcolor{comment}{// Normal exit}
+683             \}
+684             \textcolor{keywordflow}{else} \{
+685                 \hyperlink{maap__log_8h_ae9decd5440c360a6d0ab5175c9cf08be}{IF\_LOG\_INTERVAL}(1000) \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afd47d3bbb5f5219dd0a18ebba4ba9b3e}{AVB\_LOG\_INFO}("Media queue full");
+686                 \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a24b34150800528a0ebd52daf61465b3c}{AVB\_TRACE\_MAP\_DETAIL});
+687                 return \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};   \textcolor{comment}{// Media queue full}
+688             \}
+689         \}
+690         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(AVB\_TRACE\_MAP\_DETAIL);
+691         return \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};    \textcolor{comment}{// Normal exit}
+692     \}
+693     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(AVB\_TRACE\_MAP\_DETAIL);
+694     return FALSE;
+695 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__map__uncmp__audio_8c_ae99fc5f5f85cc5130f927a720554ee23_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__map__uncmp__audio_8c_ae99fc5f5f85cc5130f927a720554ee23_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}!openavb\+Map\+Uncmp\+Audio\+Rx\+Init\+CB@{openavb\+Map\+Uncmp\+Audio\+Rx\+Init\+CB}}
+\index{openavb\+Map\+Uncmp\+Audio\+Rx\+Init\+CB@{openavb\+Map\+Uncmp\+Audio\+Rx\+Init\+CB}!openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Map\+Uncmp\+Audio\+Rx\+Init\+C\+B(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q)}{openavbMapUncmpAudioRxInitCB(media_q_t *pMediaQ)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Map\+Uncmp\+Audio\+Rx\+Init\+CB (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__map__uncmp__audio_8c_aae1e2587b1af9fb09e0fb78cc1182cc8}{}\label{openavb__map__uncmp__audio_8c_aae1e2587b1af9fb09e0fb78cc1182cc8}
+
+
+openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c 파일의 572 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+573 \{
+574     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a5401b6427c6e720ca9352115eb88d39f}{AVB\_TRACE\_MAP});
+575     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a5401b6427c6e720ca9352115eb88d39f}{AVB\_TRACE\_MAP});
+576 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__map__uncmp__audio_8c_aae1e2587b1af9fb09e0fb78cc1182cc8_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}!openavb\+Map\+Uncmp\+Audio\+Subtype\+CB@{openavb\+Map\+Uncmp\+Audio\+Subtype\+CB}}
+\index{openavb\+Map\+Uncmp\+Audio\+Subtype\+CB@{openavb\+Map\+Uncmp\+Audio\+Subtype\+CB}!openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Map\+Uncmp\+Audio\+Subtype\+C\+B()}{openavbMapUncmpAudioSubtypeCB()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf U8} openavb\+Map\+Uncmp\+Audio\+Subtype\+CB (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__map__uncmp__audio_8c_a5ae8913686f7aba87ed8cdc210112d2d}{}\label{openavb__map__uncmp__audio_8c_a5ae8913686f7aba87ed8cdc210112d2d}
+
+
+openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c 파일의 323 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+324 \{
+325     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a5401b6427c6e720ca9352115eb88d39f}{AVB\_TRACE\_MAP});
+326     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a5401b6427c6e720ca9352115eb88d39f}{AVB\_TRACE\_MAP});
+327     \textcolor{keywordflow}{return} 0x00;        \textcolor{comment}{// 61883 AVB subtype}
+328 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__map__uncmp__audio_8c_a5ae8913686f7aba87ed8cdc210112d2d_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}!openavb\+Map\+Uncmp\+Audio\+Transmit\+Interval\+CB@{openavb\+Map\+Uncmp\+Audio\+Transmit\+Interval\+CB}}
+\index{openavb\+Map\+Uncmp\+Audio\+Transmit\+Interval\+CB@{openavb\+Map\+Uncmp\+Audio\+Transmit\+Interval\+CB}!openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Map\+Uncmp\+Audio\+Transmit\+Interval\+C\+B(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q)}{openavbMapUncmpAudioTransmitIntervalCB(media_q_t *pMediaQ)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf U32} openavb\+Map\+Uncmp\+Audio\+Transmit\+Interval\+CB (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__map__uncmp__audio_8c_aea1755fe2a4ecc2a7d485d96e21425c1}{}\label{openavb__map__uncmp__audio_8c_aea1755fe2a4ecc2a7d485d96e21425c1}
+
+
+openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c 파일의 357 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+358 \{
+359     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a5401b6427c6e720ca9352115eb88d39f}{AVB\_TRACE\_MAP});
+360     \textcolor{keywordflow}{if} (pMediaQ) \{
+361         \hyperlink{structpvt__data__t}{pvt\_data\_t} *pPvtData = pMediaQ->\hyperlink{structmedia__q__t_aee939b53d02a9217a5307ada087f3c50}{pPvtMapInfo};
+362         \textcolor{keywordflow}{if} (!pPvtData) \{
+363             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Private mapping module data not allocated."});
+364             \textcolor{keywordflow}{return} 0;
+365         \}
+366 
+367         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a5401b6427c6e720ca9352115eb88d39f}{AVB\_TRACE\_MAP});
+368         \textcolor{keywordflow}{return} pPvtData->\hyperlink{structpvt__data__t_abb67a593d59c479e632685a33c092a32}{txInterval};
+369     \}
+370     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a5401b6427c6e720ca9352115eb88d39f}{AVB\_TRACE\_MAP});
+371     \textcolor{keywordflow}{return} 0;
+372 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__map__uncmp__audio_8c_aea1755fe2a4ecc2a7d485d96e21425c1_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}!openavb\+Map\+Uncmp\+Audio\+Tx\+CB@{openavb\+Map\+Uncmp\+Audio\+Tx\+CB}}
+\index{openavb\+Map\+Uncmp\+Audio\+Tx\+CB@{openavb\+Map\+Uncmp\+Audio\+Tx\+CB}!openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Map\+Uncmp\+Audio\+Tx\+C\+B(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q, U8 $\ast$p\+Data, U32 $\ast$data\+Len)}{openavbMapUncmpAudioTxCB(media_q_t *pMediaQ, U8 *pData, U32 *dataLen)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf tx\+\_\+cb\+\_\+ret\+\_\+t} openavb\+Map\+Uncmp\+Audio\+Tx\+CB (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ, }
+\item[{{\bf U8} $\ast$}]{p\+Data, }
+\item[{{\bf U32} $\ast$}]{data\+Len}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__map__uncmp__audio_8c_a0abcd114185b1f2d9c6b49cc4f0c914c}{}\label{openavb__map__uncmp__audio_8c_a0abcd114185b1f2d9c6b49cc4f0c914c}
+
+
+openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c 파일의 429 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+430 \{
+431     \hyperlink{structmedia__q__item__t}{media\_q\_item\_t} *pMediaQItem = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+432     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a24b34150800528a0ebd52daf61465b3c}{AVB\_TRACE\_MAP\_DETAIL});
+433 
+434     \textcolor{keywordflow}{if} (!pData || !dataLen) \{
+435         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Mapping module data or data length argument incorrect."});
+436         \textcolor{keywordflow}{return} \hyperlink{build_2sdk__eavb_2openavb__map__pub_8h_adbd7b5e94070d12e84c8740e2027a843ab5479d73dceb1df51b92da5c5f69120c}{TX\_CB\_RET\_PACKET\_NOT\_READY};
+437     \}
+438 
+439     \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t}{media\_q\_pub\_map\_uncmp\_audio\_info\_t} *pPubMapInfo = pMediaQ->
+      \hyperlink{structmedia__q__t_a0226ccb90fbafac84294a908013853b4}{pPubMapInfo};
+440     \hyperlink{structpvt__data__t}{pvt\_data\_t} *pPvtData = pMediaQ->\hyperlink{structmedia__q__t_aee939b53d02a9217a5307ada087f3c50}{pPvtMapInfo};
+441 
+442     \textcolor{keywordflow}{if} (*dataLen - TOTAL\_HEADER\_SIZE < pPubMapInfo->packetAudioDataSizeBytes) \{
+443         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Not enough room in packet for audio frames."});
+444         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a24b34150800528a0ebd52daf61465b3c}{AVB\_TRACE\_MAP\_DETAIL});
+445         \textcolor{keywordflow}{return} \hyperlink{build_2sdk__eavb_2openavb__map__pub_8h_adbd7b5e94070d12e84c8740e2027a843ab5479d73dceb1df51b92da5c5f69120c}{TX\_CB\_RET\_PACKET\_NOT\_READY};
+446     \}
+447 
+448     \textcolor{keywordflow}{if} (\hyperlink{build_2sdk__eavb_2openavb__mediaq__pub_8h_ac1d02726069afc037940ef87f5893dfc}{openavbMediaQIsAvailableBytes}(pMediaQ, pPubMapInfo->
+      \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a5e067b4fe2d5bde1db69eb4a8899f808}{itemFrameSizeBytes} * pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a6fa8730e8997aa6d9cf63a467e0c23ee}{framesPerPacket}, 
+      \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE})) \{
+449         \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *pHdr = pData;
+450         \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *pPayload = pData + \hyperlink{openavb__map__uncmp__audio_8c_aa51d9d7f77b3245e88384185cf288da9}{TOTAL\_HEADER\_SIZE};
+451 
+452         \textcolor{comment}{//pHdr[HIDX\_AVTP\_TIMESTAMP32] = 0x00;           // Set later}
+453         *(\hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} *)(&pHdr[\hyperlink{openavb__map__uncmp__audio_8c_af93a42a13cbec3023cfb04a85557d936}{HIDX\_GATEWAY32}]) = 0x00000000;
+454         \textcolor{comment}{//pHdr[HIDX\_DATALEN16] = 0x00;                  // Set Later}
+455         pHdr[\hyperlink{openavb__map__uncmp__audio_8c_ae18cccf7c9eb3e7d982faca5cb448328}{HIDX\_TAG2\_CHANNEL6}] = (1 << 6) | 0x1f;
+456         pHdr[\hyperlink{openavb__map__uncmp__audio_8c_ac8fe782823bb9f46824545998771adf7}{HIDX\_TCODE4\_SY4}] = (0x0a << 4) | 0;
+457 
+458         \textcolor{comment}{// Set the majority of the CIP header now.}
+459         pHdr[\hyperlink{openavb__map__uncmp__audio_8c_a05de2150bfc1e6e456a3a0ff37b093e6}{HIDX\_CIP2\_SID6}] = (0x00 << 6) | 0x3f;
+460         pHdr[\hyperlink{openavb__map__uncmp__audio_8c_a7d0258f09f8acc688f13c95ee7c7858f}{HIDX\_DBS8}] = pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_ad8a7767f3583795147d57c7252554dd9}{audioChannels};
+461 
+462         pHdr[\hyperlink{openavb__map__uncmp__audio_8c_aa414d47464d1a3ee75e04ac2b8ffc1cb}{HIDX\_FN2\_QPC3\_SPH1\_RSV2}] = (0x00 << 6) | (0x00 << 3) | (0x00 << 2) | 0
+      x00;
+463         \textcolor{comment}{// pHdr[HIDX\_DBC8] = 0;                         // Set later}
+464         pHdr[\hyperlink{openavb__map__uncmp__audio_8c_a37b81277aff2e35f6891ab75f552cb07}{HIDX\_CIP2\_FMT6}] = (0x02 << 6) | 0x10;
+465         pHdr[\hyperlink{openavb__map__uncmp__audio_8c_ace0b4a4d8535250e4d5a951442ef6e6c}{HIDX\_FDF5\_SFC3}] = 0x00 << 3 | pPvtData->\hyperlink{structpvt__data__t_a0b64d32347a2d5e31675b5eca666a953}{cip\_sfc};
+466         *(\hyperlink{openavb__types__base__pub_8h_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16} *)(&pHdr[\hyperlink{openavb__map__uncmp__audio_8c_a95163ab22eed26a6e676a4698720aa5d}{HIDX\_SYT16}]) = 0xffff;
+467 
+468         \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} framesProcessed = 0;
+469         \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *pAVTPDataUnit = pPayload;
+470         \textcolor{keywordtype}{bool} timestampSet = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};     \textcolor{comment}{// index of the timestamp}
+471         \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} sytInt = pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_afaaad205c0ba4c425e4bb5ecbce2a82a}{sytInterval};
+472         \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} dbc = pPvtData->\hyperlink{structpvt__data__t_aa05e00460f8849cf9f5a16d7a5d6a73e}{DBC};
+473         \textcolor{keywordflow}{while} (framesProcessed < pPubMapInfo->framesPerPacket) \{
+474             pMediaQItem = \hyperlink{build_2sdk__eavb_2openavb__mediaq__pub_8h_aafa1645c7e234bd011a70063d368b995}{openavbMediaQTailLock}(pMediaQ, 
+      \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+475             \textcolor{keywordflow}{if} (pMediaQItem && pMediaQItem->\hyperlink{structmedia__q__item__t_ac27724ac74fd97e91418f1539eccdfb0}{pPubData} && pMediaQItem->
+      \hyperlink{structmedia__q__item__t_a1dfc68b1003d0c64f82d4c19649c2c52}{dataLen} > 0) \{
+476                 \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *pItemData = (\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *)pMediaQItem->\hyperlink{structmedia__q__item__t_ac27724ac74fd97e91418f1539eccdfb0}{pPubData} + pMediaQItem->
+      \hyperlink{structmedia__q__item__t_a7581457a4c56a2aa1f2c76cdc2309d6b}{readIdx};
+477 
+478                 if (pMediaQItem->\hyperlink{structmedia__q__item__t_a7581457a4c56a2aa1f2c76cdc2309d6b}{readIdx} == 0) \{
+479                     \textcolor{comment}{// Timestamp from the media queue is always associated with the first data point.}
+480 
+481                     \textcolor{comment}{// PTP walltime already set in the interface module. Just add the max transit time.}
+482                     \hyperlink{openavb__avtp__time_8c_a7cce1a0fb475285772362a09aa2d086c}{openavbAvtpTimeAddUSec}(pMediaQItem->
+      \hyperlink{structmedia__q__item__t_aa7a475459f9c1a43c64ed85ff1c758cc}{pAvtpTime}, pPvtData->\hyperlink{structpvt__data__t_a3838a4b3ace56e06dc76c5b13f1df3ff}{maxTransitUsec});
+483 
+484                     \textcolor{comment}{// Set timestamp valid flag}
+485                     \textcolor{keywordflow}{if} (\hyperlink{openavb__avtp__time_8c_a973567b6644bfa4f94229022f808a876}{openavbAvtpTimeTimestampIsValid}(pMediaQItem->
+      \hyperlink{structmedia__q__item__t_aa7a475459f9c1a43c64ed85ff1c758cc}{pAvtpTime}))
+486                         pHdr[\hyperlink{openavb__map__uncmp__audio_8c_aa912ad4f984243f81c8fadf4c7d8a2a8}{HIDX\_AVTP\_HIDE7\_TV1}] |= 0x01;      \textcolor{comment}{// Set}
+487                     \textcolor{keywordflow}{else} \{
+488                         pHdr[\hyperlink{openavb__map__uncmp__audio_8c_aa912ad4f984243f81c8fadf4c7d8a2a8}{HIDX\_AVTP\_HIDE7\_TV1}] &= ~0x01;     \textcolor{comment}{// Clear}
+489                     \}
+490 
+491                     \textcolor{comment}{// Set timestamp uncertain flag}
+492                     \textcolor{keywordflow}{if} (\hyperlink{openavb__avtp__time_8c_a19d62055ab8b11f88053afa7918cbf37}{openavbAvtpTimeTimestampIsUncertain}(pMediaQItem
+      ->\hyperlink{structmedia__q__item__t_aa7a475459f9c1a43c64ed85ff1c758cc}{pAvtpTime}))
+493                         pHdr[\hyperlink{openavb__map__uncmp__audio_8c_a74d586288021d96098aa71fc3d883fa9}{HIDX\_AVTP\_HIDE7\_TU1}] |= 0x01;      \textcolor{comment}{// Set}
+494                     \textcolor{keywordflow}{else}
+495                         pHdr[\hyperlink{openavb__map__uncmp__audio_8c_a74d586288021d96098aa71fc3d883fa9}{HIDX\_AVTP\_HIDE7\_TU1}] &= ~0x01;     \textcolor{comment}{// Clear}
+496 
+497                 \}
+498 
+499                 \textcolor{keywordflow}{while} (framesProcessed < pPubMapInfo->framesPerPacket && pMediaQItem->
+      \hyperlink{structmedia__q__item__t_a7581457a4c56a2aa1f2c76cdc2309d6b}{readIdx} < pMediaQItem->\hyperlink{structmedia__q__item__t_a1dfc68b1003d0c64f82d4c19649c2c52}{dataLen}) \{
+500                     \textcolor{keywordtype}{int} i1;
+501                     \textcolor{keywordflow}{for} (i1 = 0; i1 < pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_ad8a7767f3583795147d57c7252554dd9}{audioChannels}; i1++) \{
+502                         \textcolor{keywordflow}{if} (pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a3efebc8b73cdf8c8d500c5d88a1e8558}{itemSampleSizeBytes} == 2) \{
+503                             \hyperlink{openavb__types__base__pub_8h_a39c786017723555afb9e8b85accec0de}{S32} sample = *(\hyperlink{openavb__types__base__pub_8h_a6d241ad21a823c90d4835380787db5d4}{S16} *)pItemData;
+504                             sample &= 0x0000ffff;
+505                             sample = sample << 8;
+506                             sample |= pPvtData->\hyperlink{structpvt__data__t_a38cae627dba8ab1a49cff7afc89d99ed}{AM824\_label};
+507                             sample = htonl(sample);
+508                             *(\hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} *)(pAVTPDataUnit) = sample;
+509                             pAVTPDataUnit += 4;
+510                             pItemData += 2;
+511                         \}
+512                         \textcolor{keywordflow}{else} \{
+513                             \hyperlink{openavb__types__base__pub_8h_a39c786017723555afb9e8b85accec0de}{S32} sample = *(\hyperlink{openavb__types__base__pub_8h_a39c786017723555afb9e8b85accec0de}{S32} *)pItemData;
+514                             sample &= 0x00ffffff;
+515                             sample |= pPvtData->\hyperlink{structpvt__data__t_a38cae627dba8ab1a49cff7afc89d99ed}{AM824\_label};
+516                             sample = htonl(sample);
+517                             *(\hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} *)(pAVTPDataUnit) = sample;
+518                             pAVTPDataUnit += 4;
+519                             pItemData += 3;
+520                         \}
+521                     \}
+522                     framesProcessed++;
+523                     \textcolor{keywordflow}{if} (dbc % sytInt == 0) \{
+524                         *(\hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} *)(&pHdr[\hyperlink{openavb__map__uncmp__audio_8c_a9d86e1cc24fdb882ab67e7bf0e1788a1}{HIDX\_AVTP\_TIMESTAMP32}]) = htonl(
+      \hyperlink{openavb__avtp__time_8c_a5847af407bcf3d0e8d7b6106842eeb8d}{openavbAvtpTimeGetAvtpTimestamp}(pMediaQItem->
+      \hyperlink{structmedia__q__item__t_aa7a475459f9c1a43c64ed85ff1c758cc}{pAvtpTime}));
+525 
+526                         timestampSet = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+527                     \}
+528                     dbc++;
+529                     pMediaQItem->\hyperlink{structmedia__q__item__t_a7581457a4c56a2aa1f2c76cdc2309d6b}{readIdx} += pPubMapInfo->
+      \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a5e067b4fe2d5bde1db69eb4a8899f808}{itemFrameSizeBytes};
+530                 \}
+531 
+532                 \textcolor{keywordflow}{if} (pMediaQItem->\hyperlink{structmedia__q__item__t_a7581457a4c56a2aa1f2c76cdc2309d6b}{readIdx} >= pMediaQItem->\hyperlink{structmedia__q__item__t_a1dfc68b1003d0c64f82d4c19649c2c52}{dataLen}) \{
+533                     \textcolor{comment}{// Read the entire item}
+534                     \hyperlink{build_2sdk__eavb_2openavb__mediaq__pub_8h_ab0525761a2b45c4c14d4fdc80fa24c47}{openavbMediaQTailPull}(pMediaQ);
+535                 \}
+536                 \textcolor{keywordflow}{else} \{
+537                     \textcolor{comment}{// More to read next interval}
+538                     \hyperlink{build_2sdk__eavb_2openavb__mediaq__pub_8h_a9b57c7a2cfb99521a7e460bd29b3b31a}{openavbMediaQTailUnlock}(pMediaQ);
+539                 \}
+540             \}
+541             \textcolor{keywordflow}{else} \{
+542                 \hyperlink{build_2sdk__eavb_2openavb__mediaq__pub_8h_ab0525761a2b45c4c14d4fdc80fa24c47}{openavbMediaQTailPull}(pMediaQ);
+543             \}
+544         \}
+545 
+546         \textcolor{comment}{// Check if timestamp was set}
+547         \textcolor{keywordflow}{if} (!timestampSet) \{
+548             \textcolor{comment}{// Timestamp wasn't set so mark it as invalid}
+549             pHdr[\hyperlink{openavb__map__uncmp__audio_8c_aa912ad4f984243f81c8fadf4c7d8a2a8}{HIDX\_AVTP\_HIDE7\_TV1}] &= ~0x01;
+550         \}
+551 
+552         \textcolor{comment}{// Set the block continutity and data length}
+553         pHdr[\hyperlink{openavb__map__uncmp__audio_8c_a122a93df5dc16fafa0cf93858adaa7d6}{HIDX\_DBC8}] = pPvtData->\hyperlink{structpvt__data__t_aa05e00460f8849cf9f5a16d7a5d6a73e}{DBC};
+554         pPvtData->\hyperlink{structpvt__data__t_aa05e00460f8849cf9f5a16d7a5d6a73e}{DBC} = dbc;
+555 
+556         *(\hyperlink{openavb__types__base__pub_8h_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16} *)(&pHdr[\hyperlink{openavb__map__uncmp__audio_8c_aa184fc6d8b199ac9be8321c73bdc75ff}{HIDX\_DATALEN16}]) = htons((pPubMapInfo->
+      \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a6fa8730e8997aa6d9cf63a467e0c23ee}{framesPerPacket} * pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_ac26de86e26ac41388da8721b8bbdc592}{packetFrameSizeBytes}) + 
+      \hyperlink{openavb__map__uncmp__audio_8c_affb22bdc91cf9f3ecb4a8c91fb6c2ae5}{CIP\_HEADER\_SIZE});
+557 
+558         \textcolor{comment}{// Set out bound data length (entire packet length)}
+559         *dataLen = (pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a6fa8730e8997aa6d9cf63a467e0c23ee}{framesPerPacket} * pPubMapInfo->
+      \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_ac26de86e26ac41388da8721b8bbdc592}{packetFrameSizeBytes}) + TOTAL\_HEADER\_SIZE;
+560 
+561         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1ba49b1b3841555131e277b8ab63e782}{AVB\_TRACE\_LINE}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a82981d22250bd06846fd081ab657680e}{AVB\_TRACE\_MAP\_LINE});
+562         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a24b34150800528a0ebd52daf61465b3c}{AVB\_TRACE\_MAP\_DETAIL});
+563         \textcolor{keywordflow}{return} \hyperlink{build_2sdk__eavb_2openavb__map__pub_8h_adbd7b5e94070d12e84c8740e2027a843a3ebc69a50dc698bf04baf68ad94c4f69}{TX\_CB\_RET\_PACKET\_READY};
+564 
+565     \}
+566     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a24b34150800528a0ebd52daf61465b3c}{AVB\_TRACE\_MAP\_DETAIL});
+567     \textcolor{keywordflow}{return} \hyperlink{build_2sdk__eavb_2openavb__map__pub_8h_adbd7b5e94070d12e84c8740e2027a843ab5479d73dceb1df51b92da5c5f69120c}{TX\_CB\_RET\_PACKET\_NOT\_READY};
+568 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__map__uncmp__audio_8c_a0abcd114185b1f2d9c6b49cc4f0c914c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__map__uncmp__audio_8c_a0abcd114185b1f2d9c6b49cc4f0c914c_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}!openavb\+Map\+Uncmp\+Audio\+Tx\+Init\+CB@{openavb\+Map\+Uncmp\+Audio\+Tx\+Init\+CB}}
+\index{openavb\+Map\+Uncmp\+Audio\+Tx\+Init\+CB@{openavb\+Map\+Uncmp\+Audio\+Tx\+Init\+CB}!openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Map\+Uncmp\+Audio\+Tx\+Init\+C\+B(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q)}{openavbMapUncmpAudioTxInitCB(media_q_t *pMediaQ)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Map\+Uncmp\+Audio\+Tx\+Init\+CB (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__map__uncmp__audio_8c_ad64d643b6d75a5753419df19db145be8}{}\label{openavb__map__uncmp__audio_8c_ad64d643b6d75a5753419df19db145be8}
+
+
+openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c 파일의 400 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+401 \{
+402     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a5401b6427c6e720ca9352115eb88d39f}{AVB\_TRACE\_MAP});
+403 
+404     \textcolor{comment}{// Check the media queue for proper allocations to avoid doing it on each tx callback.}
+405     \textcolor{keywordflow}{if} (!pMediaQ) \{
+406         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Media queue not allocated."});
+407         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a5401b6427c6e720ca9352115eb88d39f}{AVB\_TRACE\_MAP});
+408         \textcolor{keywordflow}{return};
+409     \}
+410 
+411     \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t}{media\_q\_pub\_map\_uncmp\_audio\_info\_t} *pPubMapInfo = pMediaQ->
+      \hyperlink{structmedia__q__t_a0226ccb90fbafac84294a908013853b4}{pPubMapInfo};
+412     \textcolor{keywordflow}{if} (!pPubMapInfo) \{
+413         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Public mapping module data not allocated."});
+414         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a5401b6427c6e720ca9352115eb88d39f}{AVB\_TRACE\_MAP});
+415         \textcolor{keywordflow}{return};
+416     \}
+417 
+418     \hyperlink{structpvt__data__t}{pvt\_data\_t} *pPvtData = pMediaQ->\hyperlink{structmedia__q__t_aee939b53d02a9217a5307ada087f3c50}{pPvtMapInfo};
+419     \textcolor{keywordflow}{if} (!pPvtData) \{
+420         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Private mapping module data not allocated."});
+421         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a5401b6427c6e720ca9352115eb88d39f}{AVB\_TRACE\_MAP});
+422         \textcolor{keywordflow}{return};
+423     \}
+424 
+425     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a5401b6427c6e720ca9352115eb88d39f}{AVB\_TRACE\_MAP});
+426 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__map__uncmp__audio_8c_ad64d643b6d75a5753419df19db145be8_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}!x\+\_\+calculate\+Sizes@{x\+\_\+calculate\+Sizes}}
+\index{x\+\_\+calculate\+Sizes@{x\+\_\+calculate\+Sizes}!openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c@{openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c}}
+\subsubsection[{\texorpdfstring{x\+\_\+calculate\+Sizes(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q)}{x_calculateSizes(media_q_t *pMediaQ)}}]{\setlength{\rightskip}{0pt plus 5cm}static void x\+\_\+calculate\+Sizes (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__map__uncmp__audio_8c_a2997a4fc5f01b30536a1b2fd054ee3e7}{}\label{openavb__map__uncmp__audio_8c_a2997a4fc5f01b30536a1b2fd054ee3e7}
+
+
+openavb\+\_\+map\+\_\+uncmp\+\_\+audio.\+c 파일의 155 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+156 \{
+157     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a5401b6427c6e720ca9352115eb88d39f}{AVB\_TRACE\_MAP});
+158 
+159     \textcolor{keywordflow}{if} (pMediaQ) \{
+160         \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t}{media\_q\_pub\_map\_uncmp\_audio\_info\_t} *pPubMapInfo = pMediaQ->
+      \hyperlink{structmedia__q__t_a0226ccb90fbafac84294a908013853b4}{pPubMapInfo};
+161         \hyperlink{structpvt__data__t}{pvt\_data\_t} *pPvtData = pMediaQ->\hyperlink{structmedia__q__t_aee939b53d02a9217a5307ada087f3c50}{pPvtMapInfo};
+162         \textcolor{keywordflow}{if} (!pPvtData) \{
+163             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Private mapping module data not allocated."});
+164             \textcolor{keywordflow}{return};
+165         \}
+166 
+167         \textcolor{keywordflow}{switch} (pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a98636b12c3c9cafdc6992d03d6f86852}{audioRate}) \{
+168             \textcolor{keywordflow}{case} \hyperlink{openavb__audio__pub_8h_a6070f1cfbb6824de6f0b2524cd306903a884c75bac816358dea4ae73b82dacd9e}{AVB\_AUDIO\_RATE\_32KHZ}:
+169                 pPvtData->\hyperlink{structpvt__data__t_a0b64d32347a2d5e31675b5eca666a953}{cip\_sfc} = 0;
+170                 pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_afaaad205c0ba4c425e4bb5ecbce2a82a}{sytInterval} = 8;
+171                 \textcolor{keywordflow}{break};
+172 
+173             \textcolor{keywordflow}{case} \hyperlink{openavb__audio__pub_8h_a6070f1cfbb6824de6f0b2524cd306903ab222297c088f8d3f72e73c434a8a1dd0}{AVB\_AUDIO\_RATE\_44\_1KHZ}:
+174                 pPvtData->\hyperlink{structpvt__data__t_a0b64d32347a2d5e31675b5eca666a953}{cip\_sfc} = 1;
+175                 pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_afaaad205c0ba4c425e4bb5ecbce2a82a}{sytInterval} = 8;
+176                 \textcolor{keywordflow}{break};
+177 
+178             \textcolor{keywordflow}{case} \hyperlink{openavb__audio__pub_8h_a6070f1cfbb6824de6f0b2524cd306903a3a14e34aa46b5b2055c1ea8a33799033}{AVB\_AUDIO\_RATE\_48KHZ}:
+179                 pPvtData->\hyperlink{structpvt__data__t_a0b64d32347a2d5e31675b5eca666a953}{cip\_sfc} = 2;
+180                 pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_afaaad205c0ba4c425e4bb5ecbce2a82a}{sytInterval} = 8;
+181                 \textcolor{keywordflow}{break};
+182 
+183             \textcolor{keywordflow}{case} \hyperlink{openavb__audio__pub_8h_a6070f1cfbb6824de6f0b2524cd306903aabf736afb1863242bdbfb36dcb68cdaa}{AVB\_AUDIO\_RATE\_88\_2KHZ}:
+184                 pPvtData->\hyperlink{structpvt__data__t_a0b64d32347a2d5e31675b5eca666a953}{cip\_sfc} = 3;
+185                 pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_afaaad205c0ba4c425e4bb5ecbce2a82a}{sytInterval} = 16;
+186                 \textcolor{keywordflow}{break};
+187 
+188             \textcolor{keywordflow}{case} \hyperlink{openavb__audio__pub_8h_a6070f1cfbb6824de6f0b2524cd306903a264f5b727167e67085c4979a64e48937}{AVB\_AUDIO\_RATE\_96KHZ}:
+189                 pPvtData->\hyperlink{structpvt__data__t_a0b64d32347a2d5e31675b5eca666a953}{cip\_sfc} = 4;
+190                 pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_afaaad205c0ba4c425e4bb5ecbce2a82a}{sytInterval} = 16;
+191                 \textcolor{keywordflow}{break};
+192 
+193             \textcolor{keywordflow}{case} \hyperlink{openavb__audio__pub_8h_a6070f1cfbb6824de6f0b2524cd306903a1ab6d71bc250c3018fe9c627362341d4}{AVB\_AUDIO\_RATE\_176\_4KHZ}:
+194                 pPvtData->\hyperlink{structpvt__data__t_a0b64d32347a2d5e31675b5eca666a953}{cip\_sfc} = 5;
+195                 pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_afaaad205c0ba4c425e4bb5ecbce2a82a}{sytInterval} = 32;
+196                 \textcolor{keywordflow}{break};
+197 
+198             \textcolor{keywordflow}{case} \hyperlink{openavb__audio__pub_8h_a6070f1cfbb6824de6f0b2524cd306903a3ee3a238ee6d8277331dc48448edecdc}{AVB\_AUDIO\_RATE\_192KHZ}:
+199                 pPvtData->\hyperlink{structpvt__data__t_a0b64d32347a2d5e31675b5eca666a953}{cip\_sfc} = 6;
+200                 pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_afaaad205c0ba4c425e4bb5ecbce2a82a}{sytInterval} = 32;
+201                 \textcolor{keywordflow}{break};
+202 
+203             \textcolor{keywordflow}{default}:
+204                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Invalid audio frequency configured: %u"}, pPubMapInfo->
+      \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a98636b12c3c9cafdc6992d03d6f86852}{audioRate});
+205                 pPvtData->\hyperlink{structpvt__data__t_a0b64d32347a2d5e31675b5eca666a953}{cip\_sfc} = 2;
+206                 pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_afaaad205c0ba4c425e4bb5ecbce2a82a}{sytInterval} = 8;
+207                 \textcolor{keywordflow}{break};
+208         \}
+209 
+210         pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a6fa8730e8997aa6d9cf63a467e0c23ee}{framesPerPacket} = (pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a98636b12c3c9cafdc6992d03d6f86852}{audioRate} / pPvtData->
+      \hyperlink{structpvt__data__t_abb67a593d59c479e632685a33c092a32}{txInterval});
+211         \textcolor{keywordflow}{if} (pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a6fa8730e8997aa6d9cf63a467e0c23ee}{framesPerPacket} < 1) \{
+212             pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a6fa8730e8997aa6d9cf63a467e0c23ee}{framesPerPacket} = 1;
+213         \}
+214         \textcolor{keywordflow}{if} (pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a98636b12c3c9cafdc6992d03d6f86852}{audioRate} % pPvtData->\hyperlink{structpvt__data__t_abb67a593d59c479e632685a33c092a32}{txInterval} != 0) \{
+215             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a6b02336e691e2e0579d2a5bb06367296}{AVB\_LOGF\_WARNING}(\textcolor{stringliteral}{"audio rate (%d) is not an integer multiple of TX rate (%d).
+       Recommend TX rate of (%d)"},
+216                 pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a98636b12c3c9cafdc6992d03d6f86852}{audioRate}, pPvtData->\hyperlink{structpvt__data__t_abb67a593d59c479e632685a33c092a32}{txInterval}, pPubMapInfo->
+      \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a98636b12c3c9cafdc6992d03d6f86852}{audioRate} / (pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a6fa8730e8997aa6d9cf63a467e0c23ee}{framesPerPacket} + 1));
+217             pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a6fa8730e8997aa6d9cf63a467e0c23ee}{framesPerPacket} += 1;
+218         \}
+219 
+220         pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_af54e12a5e4f46ccf41a32ff0ea9b3405}{packingFactor} = pPvtData->\hyperlink{structpvt__data__t_af54e12a5e4f46ccf41a32ff0ea9b3405}{packingFactor};
+221         \textcolor{keywordflow}{if} (pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_af54e12a5e4f46ccf41a32ff0ea9b3405}{packingFactor} > 1) \{
+222             \textcolor{comment}{// Packing multiple packets of sampling into a media queue item}
+223             pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a584c8e40420ea0739971d02cefc8dd93}{framesPerItem} = pPubMapInfo->
+      \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a6fa8730e8997aa6d9cf63a467e0c23ee}{framesPerPacket} * pPvtData->\hyperlink{structpvt__data__t_af54e12a5e4f46ccf41a32ff0ea9b3405}{packingFactor};
+224         \}
+225         \textcolor{keywordflow}{else} \{
+226             \textcolor{comment}{// No packing. SYT\_INTERVAL is used for media queue item size.}
+227             pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a584c8e40420ea0739971d02cefc8dd93}{framesPerItem} = pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_afaaad205c0ba4c425e4bb5ecbce2a82a}{sytInterval};
+228         \}
+229         \textcolor{keywordflow}{if} (pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a584c8e40420ea0739971d02cefc8dd93}{framesPerItem} < 1) \{
+230             pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a584c8e40420ea0739971d02cefc8dd93}{framesPerItem} = 1;
+231         \}
+232 
+233         pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_affb5b0213ff6cfafd726c5c7a4958beb}{packetSampleSizeBytes} = 4;
+234 
+235         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a2be7e90c7cb63f12b221ed1cd4999185}{AVB\_LOGF\_INFO}(\textcolor{stringliteral}{"Rate:%d"}, pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a98636b12c3c9cafdc6992d03d6f86852}{audioRate});
+236         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a2be7e90c7cb63f12b221ed1cd4999185}{AVB\_LOGF\_INFO}(\textcolor{stringliteral}{"Bits:%d"}, pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a868321a19830c5c46ed52c007dfdedb9}{audioBitDepth});
+237         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a2be7e90c7cb63f12b221ed1cd4999185}{AVB\_LOGF\_INFO}(\textcolor{stringliteral}{"Channels:%d"}, pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_ad8a7767f3583795147d57c7252554dd9}{audioChannels});
+238         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a2be7e90c7cb63f12b221ed1cd4999185}{AVB\_LOGF\_INFO}(\textcolor{stringliteral}{"Packet Interval:%d"}, pPvtData->\hyperlink{structpvt__data__t_abb67a593d59c479e632685a33c092a32}{txInterval});
+239         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a2be7e90c7cb63f12b221ed1cd4999185}{AVB\_LOGF\_INFO}(\textcolor{stringliteral}{"Frames per packet:%d"}, pPubMapInfo->
+      \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a6fa8730e8997aa6d9cf63a467e0c23ee}{framesPerPacket});
+240         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a2be7e90c7cb63f12b221ed1cd4999185}{AVB\_LOGF\_INFO}(\textcolor{stringliteral}{"Packing Factor:%d"}, pPvtData->\hyperlink{structpvt__data__t_af54e12a5e4f46ccf41a32ff0ea9b3405}{packingFactor});
+241         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a2be7e90c7cb63f12b221ed1cd4999185}{AVB\_LOGF\_INFO}(\textcolor{stringliteral}{"Frames per MediaQ Item:%d"}, pPubMapInfo->
+      \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a584c8e40420ea0739971d02cefc8dd93}{framesPerItem});
+242         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a2be7e90c7cb63f12b221ed1cd4999185}{AVB\_LOGF\_INFO}(\textcolor{stringliteral}{"Sample Size Bytes:%d"}, pPubMapInfo->
+      \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_affb5b0213ff6cfafd726c5c7a4958beb}{packetSampleSizeBytes});
+243 
+244         \textcolor{keywordflow}{if} (pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a868321a19830c5c46ed52c007dfdedb9}{audioBitDepth} == \hyperlink{openavb__audio__pub_8h_ae64ee32f6ac9a6b2cf607f46ee4160bda67e5ba1cfde8d53b3f4daff5fda2dca0}{AVB\_AUDIO\_BIT\_DEPTH\_16BIT} 
+      || pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a868321a19830c5c46ed52c007dfdedb9}{audioBitDepth} == \hyperlink{openavb__audio__pub_8h_ae64ee32f6ac9a6b2cf607f46ee4160bda894075c835f04541f7f640e04830edbc}{AVB\_AUDIO\_BIT\_DEPTH\_20BIT}) \{
+245             \textcolor{comment}{// TODO: The 20Bit format was downgraded to 16 bit and therefore 2 bytes}
+246             pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a3efebc8b73cdf8c8d500c5d88a1e8558}{itemSampleSizeBytes} = 2;
+247         \}
+248         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a868321a19830c5c46ed52c007dfdedb9}{audioBitDepth} == 
+      \hyperlink{openavb__audio__pub_8h_ae64ee32f6ac9a6b2cf607f46ee4160bdaf6a3127cc5c4b6ad52c5c972c15d5387}{AVB\_AUDIO\_BIT\_DEPTH\_24BIT}) \{
+249             pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a3efebc8b73cdf8c8d500c5d88a1e8558}{itemSampleSizeBytes} = 3;
+250         \}
+251         \textcolor{keywordflow}{else} \{
+252             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Invalid audio format configured: %u"}, pPubMapInfo->
+      \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a868321a19830c5c46ed52c007dfdedb9}{audioBitDepth});
+253             pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a3efebc8b73cdf8c8d500c5d88a1e8558}{itemSampleSizeBytes} = 1;
+254         \}
+255 
+256         pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_ac26de86e26ac41388da8721b8bbdc592}{packetFrameSizeBytes} = pPubMapInfo->
+      \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_affb5b0213ff6cfafd726c5c7a4958beb}{packetSampleSizeBytes} * pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_ad8a7767f3583795147d57c7252554dd9}{audioChannels};
+257         pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a74ea99827baf90850caefe2a10f25721}{packetAudioDataSizeBytes} = pPubMapInfo->
+      \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a6fa8730e8997aa6d9cf63a467e0c23ee}{framesPerPacket} * pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_ac26de86e26ac41388da8721b8bbdc592}{packetFrameSizeBytes};
+258         pPvtData->\hyperlink{structpvt__data__t_a41116ea77bd2a5f8dc80bbe814719ee1}{maxPayloadSize} = pPubMapInfo->
+      \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a74ea99827baf90850caefe2a10f25721}{packetAudioDataSizeBytes} + \hyperlink{openavb__map__uncmp__audio_8c_aa51d9d7f77b3245e88384185cf288da9}{TOTAL\_HEADER\_SIZE};
+259 
+260         pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a5e067b4fe2d5bde1db69eb4a8899f808}{itemFrameSizeBytes} = pPubMapInfo->
+      \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a3efebc8b73cdf8c8d500c5d88a1e8558}{itemSampleSizeBytes} * pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_ad8a7767f3583795147d57c7252554dd9}{audioChannels};
+261         pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a91e248b2730fbe7951ac5d9d3aae1752}{itemSize} = pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a5e067b4fe2d5bde1db69eb4a8899f808}{itemFrameSizeBytes} * pPubMapInfo->
+      \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a584c8e40420ea0739971d02cefc8dd93}{framesPerItem};
+262 
+263         \textcolor{keywordflow}{switch} (pPubMapInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a868321a19830c5c46ed52c007dfdedb9}{audioBitDepth}) \{
+264             \textcolor{keywordflow}{case} \hyperlink{openavb__audio__pub_8h_ae64ee32f6ac9a6b2cf607f46ee4160bda67e5ba1cfde8d53b3f4daff5fda2dca0}{AVB\_AUDIO\_BIT\_DEPTH\_16BIT}:
+265                 pPvtData->\hyperlink{structpvt__data__t_a38cae627dba8ab1a49cff7afc89d99ed}{AM824\_label} = 0x42000000;
+266                 \textcolor{keywordflow}{break};
+267 
+268             \textcolor{keywordflow}{case} \hyperlink{openavb__audio__pub_8h_ae64ee32f6ac9a6b2cf607f46ee4160bda894075c835f04541f7f640e04830edbc}{AVB\_AUDIO\_BIT\_DEPTH\_20BIT}:
+269                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"20 bit not currently supported. Downgraded to 16 bit."});
+270                 pPvtData->\hyperlink{structpvt__data__t_a38cae627dba8ab1a49cff7afc89d99ed}{AM824\_label} = 0x42000000;
+271                 \textcolor{keywordflow}{break};
+272 
+273             \textcolor{keywordflow}{case} \hyperlink{openavb__audio__pub_8h_ae64ee32f6ac9a6b2cf607f46ee4160bdaf6a3127cc5c4b6ad52c5c972c15d5387}{AVB\_AUDIO\_BIT\_DEPTH\_24BIT}:
+274                 pPvtData->\hyperlink{structpvt__data__t_a38cae627dba8ab1a49cff7afc89d99ed}{AM824\_label} = 0x40000000;
+275                 \textcolor{keywordflow}{break};
+276 
+277             \textcolor{keywordflow}{default}:
+278                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Invalid audio bit depth configured: %u"}, pPubMapInfo->
+      \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a868321a19830c5c46ed52c007dfdedb9}{audioBitDepth});
+279                 pPvtData->\hyperlink{structpvt__data__t_a38cae627dba8ab1a49cff7afc89d99ed}{AM824\_label} = 0x40000000;
+280                 \textcolor{keywordflow}{break};
+281         \}
+282 
+283     \}
+284 
+285     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a5401b6427c6e720ca9352115eb88d39f}{AVB\_TRACE\_MAP});
+286 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__map__uncmp__audio_8c_a2997a4fc5f01b30536a1b2fd054ee3e7_icgraph}
+\end{center}
+\end{figure}
+
+

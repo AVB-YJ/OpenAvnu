@@ -1,0 +1,26 @@
+var group__mpeg__pes__compressed__audio__bitrate =
+[
+    [ "JDKSAVDECC_MPEG_PES_COMPRESSED_AUDIO_BITRATE_112_KBPS", "group__mpeg__pes__compressed__audio__bitrate.html#ga8308b56b4a161ff567ee71a00e18e0ba", null ],
+    [ "JDKSAVDECC_MPEG_PES_COMPRESSED_AUDIO_BITRATE_128_KBPS", "group__mpeg__pes__compressed__audio__bitrate.html#ga84706cd86bf0750147e4ae78a21be58f", null ],
+    [ "JDKSAVDECC_MPEG_PES_COMPRESSED_AUDIO_BITRATE_144_KBPS", "group__mpeg__pes__compressed__audio__bitrate.html#ga2eafc3f2a60b46695c458e8b12a46cf6", null ],
+    [ "JDKSAVDECC_MPEG_PES_COMPRESSED_AUDIO_BITRATE_160_KBPS", "group__mpeg__pes__compressed__audio__bitrate.html#gaecba814c47cbd4df7e5c3906b1cd7d2a", null ],
+    [ "JDKSAVDECC_MPEG_PES_COMPRESSED_AUDIO_BITRATE_16_KBPS", "group__mpeg__pes__compressed__audio__bitrate.html#ga3fe908e2ea0af7da9a3da4a1e07cf713", null ],
+    [ "JDKSAVDECC_MPEG_PES_COMPRESSED_AUDIO_BITRATE_192_KBPS", "group__mpeg__pes__compressed__audio__bitrate.html#ga63ba8c68a09ac6b6297fe36c8d4579d3", null ],
+    [ "JDKSAVDECC_MPEG_PES_COMPRESSED_AUDIO_BITRATE_224_KBPS", "group__mpeg__pes__compressed__audio__bitrate.html#ga5961692f268ad1b2e829576625923f9d", null ],
+    [ "JDKSAVDECC_MPEG_PES_COMPRESSED_AUDIO_BITRATE_24_KBPS", "group__mpeg__pes__compressed__audio__bitrate.html#gac2c1f4a464bddee88db61e65605506fb", null ],
+    [ "JDKSAVDECC_MPEG_PES_COMPRESSED_AUDIO_BITRATE_256_KBPS", "group__mpeg__pes__compressed__audio__bitrate.html#gad397138b0fcbd2506252c56ecf3ae081", null ],
+    [ "JDKSAVDECC_MPEG_PES_COMPRESSED_AUDIO_BITRATE_288_KBPS", "group__mpeg__pes__compressed__audio__bitrate.html#ga6bbc0bb0b60b761f6a4e2e22977f2ed5", null ],
+    [ "JDKSAVDECC_MPEG_PES_COMPRESSED_AUDIO_BITRATE_320_KBPS", "group__mpeg__pes__compressed__audio__bitrate.html#gadce539410ccf6ce23fe644756c7918f2", null ],
+    [ "JDKSAVDECC_MPEG_PES_COMPRESSED_AUDIO_BITRATE_32_KBPS", "group__mpeg__pes__compressed__audio__bitrate.html#ga8898d1b0fbfc554a0f551e02443293b0", null ],
+    [ "JDKSAVDECC_MPEG_PES_COMPRESSED_AUDIO_BITRATE_352_KBPS", "group__mpeg__pes__compressed__audio__bitrate.html#ga0fd6b9542a814a134df9fdcc9bca62c6", null ],
+    [ "JDKSAVDECC_MPEG_PES_COMPRESSED_AUDIO_BITRATE_384_KBPS", "group__mpeg__pes__compressed__audio__bitrate.html#ga72bb68bba5f282e334f814368280626a", null ],
+    [ "JDKSAVDECC_MPEG_PES_COMPRESSED_AUDIO_BITRATE_40_KBPS", "group__mpeg__pes__compressed__audio__bitrate.html#ga81d531f1c8fb1025e48e58c9435c03e6", null ],
+    [ "JDKSAVDECC_MPEG_PES_COMPRESSED_AUDIO_BITRATE_48_KBPS", "group__mpeg__pes__compressed__audio__bitrate.html#ga5d3403769d525d5a3500ee4cf9bf1c9f", null ],
+    [ "JDKSAVDECC_MPEG_PES_COMPRESSED_AUDIO_BITRATE_56_KBPS", "group__mpeg__pes__compressed__audio__bitrate.html#gafc0e0fe55e93571d7842c6aa76fea9dc", null ],
+    [ "JDKSAVDECC_MPEG_PES_COMPRESSED_AUDIO_BITRATE_64_KBPS", "group__mpeg__pes__compressed__audio__bitrate.html#gab7a4f366e1fac62ee1bd10fd9baa08f0", null ],
+    [ "JDKSAVDECC_MPEG_PES_COMPRESSED_AUDIO_BITRATE_80_KBPS", "group__mpeg__pes__compressed__audio__bitrate.html#ga82a6af5b709fa3df2a033ce376458dd7", null ],
+    [ "JDKSAVDECC_MPEG_PES_COMPRESSED_AUDIO_BITRATE_96_KBPS", "group__mpeg__pes__compressed__audio__bitrate.html#ga9e6858c57f0dd8b792aa9a246322a5a7", null ],
+    [ "JDKSAVDECC_MPEG_PES_COMPRESSED_AUDIO_BITRATE_OTHER__DECODE_FROM_STREAM_", "group__mpeg__pes__compressed__audio__bitrate.html#ga0635f43596b6e495454052614ca9389e", null ],
+    [ "JDKSAVDECC_MPEG_PES_COMPRESSED_AUDIO_BITRATE_RESERVED_FOR_FUTURE_USE_", "group__mpeg__pes__compressed__audio__bitrate.html#ga371587cfa6a44d4566c632eda89abb83", null ],
+    [ "JDKSAVDECC_MPEG_PES_COMPRESSED_AUDIO_BITRATE_VARIABLE_BIT_RATE", "group__mpeg__pes__compressed__audio__bitrate.html#ga064911aab9631789ff86a7d4c90ec4c1", null ]
+];

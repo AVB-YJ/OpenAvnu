@@ -1,0 +1,25 @@
+var structavtp__stream__t =
+[
+    [ "avtp_sequence_num", "structavtp__stream__t.html#a56abc5c750ed448e7ca88ac571feb962", null ],
+    [ "bPause", "structavtp__stream__t.html#a094a344391aa86a98299bac3deb91ce6", null ],
+    [ "bRxSignalMode", "structavtp__stream__t.html#aa3e26a0875dca06ce8a6040be346c595", null ],
+    [ "bytes", "structavtp__stream__t.html#aaef33f7869026b185b6ba7b899c324f4", null ],
+    [ "dest_addr", "structavtp__stream__t.html#a339610ccd1360cfca1bafde0e16ef3d1", null ],
+    [ "ethHdrLen", "structavtp__stream__t.html#accd5eff5dfccb78aa19869522125835b", null ],
+    [ "frameLen", "structavtp__stream__t.html#a62d47babdcc48dfcfc59166ca8d2c28b", null ],
+    [ "ifname", "structavtp__stream__t.html#a57634e15933b3c82405e0bbe1e270d1b", null ],
+    [ "info", "structavtp__stream__t.html#a180aa6c9020618ff0caab084c56759f9", null ],
+    [ "max_transit_usec", "structavtp__stream__t.html#a03a0af93a04672d910ac9108e32f7ab6", null ],
+    [ "nbuffers", "structavtp__stream__t.html#a94614663db649ac71090a1f634aefd98", null ],
+    [ "nLost", "structavtp__stream__t.html#a8d73c0624a1f30a89e2d98013aa91187", null ],
+    [ "pBuf", "structavtp__stream__t.html#afedd920ccfd825275dcb5246a3c505d4", null ],
+    [ "pIntfCB", "structavtp__stream__t.html#a437f354862480a1e88dbf887decb189a", null ],
+    [ "pMapCB", "structavtp__stream__t.html#ae26c54ab64456a99f94f3421e1d01960", null ],
+    [ "pMediaQ", "structavtp__stream__t.html#a19b6a37a9e1222c5c08444ea175d6a45", null ],
+    [ "rawsock", "structavtp__stream__t.html#afe47f2588e837096d884e9cbb94a7d20", null ],
+    [ "state", "structavtp__stream__t.html#a8d80202ecf85686d01d46652b7923422", null ],
+    [ "streamIDnet", "structavtp__stream__t.html#a9b673f6e12b6cd5b67db92b5df0eb123", null ],
+    [ "subtype", "structavtp__stream__t.html#ad61c2796f8f447c2ca8979f4aeccf351", null ],
+    [ "tsEval", "structavtp__stream__t.html#ac4e4017bf67519fe0d817ab545496aad", null ],
+    [ "tx", "structavtp__stream__t.html#a3b1e88519ca75747960d51b86b2c5e95", null ]
+];

@@ -1,0 +1,198 @@
+\hypertarget{mrpl_8c}{}\section{examples/mrp\+\_\+client/mrpl.c 파일 참조}
+\label{mrpl_8c}\index{examples/mrp\+\_\+client/mrpl.\+c@{examples/mrp\+\_\+client/mrpl.\+c}}
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}mrpd.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}mrpdclient.\+h\char`\"{}}\\*
+mrpl.\+c에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrpl_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{mrpl_8c_acfc1668731750cb1ee8974b8a7c133ef}{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR}~\char`\"{}0.\+0\char`\"{}
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{mrpl_8c_ad96d407a911fbb914fa8e4cfbf2faf0f}{usage} (void)
+\item 
+int \hyperlink{mrpl_8c_a0ddf1224851353fc92bfbff6f499fa97}{main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\subsection*{변수}
+\begin{DoxyCompactItemize}
+\item 
+static const char $\ast$ \hyperlink{mrpl_8c_ae724265d048ace6b96a1e977ea11c1c7}{version\+\_\+str}
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{mrpl.\+c@{mrpl.\+c}!V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR@{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR}}
+\index{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR@{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR}!mrpl.\+c@{mrpl.\+c}}
+\subsubsection[{\texorpdfstring{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR}{VERSION_STR}}]{\setlength{\rightskip}{0pt plus 5cm}\#define V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR~\char`\"{}0.\+0\char`\"{}}\hypertarget{mrpl_8c_acfc1668731750cb1ee8974b8a7c133ef}{}\label{mrpl_8c_acfc1668731750cb1ee8974b8a7c133ef}
+
+
+mrpl.\+c 파일의 45 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{함수 문서화}
+\index{mrpl.\+c@{mrpl.\+c}!main@{main}}
+\index{main@{main}!mrpl.\+c@{mrpl.\+c}}
+\subsubsection[{\texorpdfstring{main(int argc, char $\ast$argv[])}{main(int argc, char *argv[])}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{mrpl_8c_a0ddf1224851353fc92bfbff6f499fa97}{}\label{mrpl_8c_a0ddf1224851353fc92bfbff6f499fa97}
+
+
+mrpl.\+c 파일의 63 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+64 \{
+65     \textcolor{keywordtype}{int} \hyperlink{shaper__daemon_8c_a4e1e0e72dd773439e333c84dd762a9c3}{c};
+66     SOCKET \hyperlink{mrp_validate_8c_a7c6126ba8f26829f864321a56ba52389}{mrpd\_sock} = SOCKET\_ERROR;
+67     \textcolor{keywordtype}{int} rc = 0;
+68     \textcolor{keywordtype}{char} *\hyperlink{mrp_validate_8c_a3820841c4bbf28f04505bea65d6b84f7}{msgbuf};
+69     \textcolor{keywordtype}{int} leave = 0;
+70 
+71 \textcolor{preprocessor}{#if defined WIN32}
+72     WSADATA wsa\_data;
+73     WSAStartup(MAKEWORD(1, 1), &wsa\_data);
+74 \textcolor{preprocessor}{#endif}
+75 
+76     \textcolor{keywordflow}{for} (;;) \{
+77         c = \hyperlink{getopt_8c_a5b4d105808f29eef11f1a690ccc4e04a}{getopt}(argc, argv, \textcolor{stringliteral}{"hlj"});
+78 
+79         \textcolor{keywordflow}{if} (c < 0)
+80             \textcolor{keywordflow}{break};
+81 
+82         \textcolor{keywordflow}{switch} (c) \{
+83         \textcolor{keywordflow}{case} \textcolor{charliteral}{'h'}:
+84             \hyperlink{mrpl_8c_ad96d407a911fbb914fa8e4cfbf2faf0f}{usage}();
+85             \textcolor{keywordflow}{break};
+86         \textcolor{keywordflow}{case} \textcolor{charliteral}{'l'}:
+87             leave = 1;
+88             \textcolor{keywordflow}{break};
+89         \textcolor{keywordflow}{case} \textcolor{charliteral}{'j'}:
+90             leave = 0;
+91             \textcolor{keywordflow}{break};
+92         \}
+93     \}
+94     \textcolor{keywordflow}{if} (\hyperlink{getopt_8c_ad5e1c16213bbee2d5e8cc363309f418c}{optind} < argc)
+95         \hyperlink{mrpl_8c_ad96d407a911fbb914fa8e4cfbf2faf0f}{usage}();
+96 
+97     mrpd\_sock = \hyperlink{mrpdclient_8c_a86398ff28353622452f6cb48917cc6ef}{mrpdclient\_init}();
+98     \textcolor{keywordflow}{if} (mrpd\_sock == SOCKET\_ERROR) \{
+99         printf(\textcolor{stringliteral}{"mrpdclient\_init failed\(\backslash\)n"});
+100         \textcolor{keywordflow}{return} EXIT\_FAILURE;
+101     \}
+102 
+103     msgbuf = \hyperlink{_memory_leak_detector_malloc_macros_8h_ab8b25cd8f16d4a6552afe4e65c4f082d}{malloc}(\hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+104     \textcolor{keywordflow}{if} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} == msgbuf) \{
+105         printf(\textcolor{stringliteral}{"malloc failed\(\backslash\)n"});
+106         \textcolor{keywordflow}{return} EXIT\_FAILURE;
+107     \}
+108 
+109     memset(msgbuf, 0, \hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+110     sprintf(msgbuf, \textcolor{stringliteral}{"S+D:C=6,P=3,V=0002"});
+111     rc = \hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(mrpd\_sock, msgbuf, 
+      \hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+112     \textcolor{keywordflow}{if} (rc != \hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE}) \{
+113         printf(\textcolor{stringliteral}{"mrpdclient\_sendto failed\(\backslash\)n"});
+114         \textcolor{keywordflow}{return} EXIT\_FAILURE;
+115     \}
+116 
+117     memset(msgbuf, 0, \hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+118     \textcolor{keywordflow}{if} (leave)
+119         sprintf(msgbuf, \textcolor{stringliteral}{"S-L:L=A0369F022EEE0000,D=2"});
+120     \textcolor{keywordflow}{else}
+121         sprintf(msgbuf, \textcolor{stringliteral}{"S+L:L=A0369F022EEE0000,D=2"});
+122 
+123     rc = \hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(mrpd\_sock, msgbuf, 
+      \hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+124     \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(msgbuf);
+125     \textcolor{keywordflow}{if} (rc != \hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE}) \{
+126         printf(\textcolor{stringliteral}{"mrpdclient\_sendto failed\(\backslash\)n"});
+127         \textcolor{keywordflow}{return} EXIT\_FAILURE;
+128     \}
+129 
+130     rc = \hyperlink{mrpdclient_8c_aa4b8e8554b0dd71a41dab7280373d736}{mrpdclient\_close}(&mrpd\_sock);
+131     \textcolor{keywordflow}{if} (-1 == rc)
+132         \textcolor{keywordflow}{return} EXIT\_FAILURE;
+133     \textcolor{keywordflow}{else}
+134         \textcolor{keywordflow}{return} EXIT\_SUCCESS;
+135 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrpl_8c_a0ddf1224851353fc92bfbff6f499fa97_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrpl.\+c@{mrpl.\+c}!usage@{usage}}
+\index{usage@{usage}!mrpl.\+c@{mrpl.\+c}}
+\subsubsection[{\texorpdfstring{usage(void)}{usage(void)}}]{\setlength{\rightskip}{0pt plus 5cm}static void usage (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{mrpl_8c_ad96d407a911fbb914fa8e4cfbf2faf0f}{}\label{mrpl_8c_ad96d407a911fbb914fa8e4cfbf2faf0f}
+
+
+mrpl.\+c 파일의 50 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+51 \{
+52     fprintf(stderr,
+53         \textcolor{stringliteral}{"\(\backslash\)n"}
+54         \textcolor{stringliteral}{"usage: mrpl [-lj]"}
+55         \textcolor{stringliteral}{"\(\backslash\)n"}
+56         \textcolor{stringliteral}{"options:\(\backslash\)n"}
+57         \textcolor{stringliteral}{"    -h  show this message\(\backslash\)n"}
+58         \textcolor{stringliteral}{"    -l  leave a stream\(\backslash\)n"}
+59         \textcolor{stringliteral}{"    -j  join a steam\(\backslash\)n"} \textcolor{stringliteral}{"\(\backslash\)n"} \textcolor{stringliteral}{"%s"} \textcolor{stringliteral}{"\(\backslash\)n"}, \hyperlink{mrpl_8c_ae724265d048ace6b96a1e977ea11c1c7}{version\_str});
+60     exit(1);
+61 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=197pt]{mrpl_8c_ad96d407a911fbb914fa8e4cfbf2faf0f_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{변수 문서화}
+\index{mrpl.\+c@{mrpl.\+c}!version\+\_\+str@{version\+\_\+str}}
+\index{version\+\_\+str@{version\+\_\+str}!mrpl.\+c@{mrpl.\+c}}
+\subsubsection[{\texorpdfstring{version\+\_\+str}{version_str}}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ version\+\_\+str\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{mrpl_8c_ae724265d048ace6b96a1e977ea11c1c7}{}\label{mrpl_8c_ae724265d048ace6b96a1e977ea11c1c7}
+{\bfseries 초기값\+:}
+\begin{DoxyCode}
+=
+    \textcolor{stringliteral}{"mrpl v"} \hyperlink{mrpl_8c_acfc1668731750cb1ee8974b8a7c133ef}{VERSION\_STR} \textcolor{stringliteral}{"\(\backslash\)n"} \textcolor{stringliteral}{"Copyright (c) 2012, Intel Corporation\(\backslash\)n"}
+\end{DoxyCode}
+
+
+mrpl.\+c 파일의 47 번째 라인에서 정의되었습니다.
+

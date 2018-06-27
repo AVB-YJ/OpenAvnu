@@ -1,0 +1,2339 @@
+\hypertarget{mrpw_8c}{}\section{daemons/mrpd/mrpw.c 파일 참조}
+\label{mrpw_8c}\index{daemons/mrpd/mrpw.\+c@{daemons/mrpd/mrpw.\+c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$pcap.\+h$>$}\\*
+{\ttfamily \#include $<$winsock2.\+h$>$}\\*
+{\ttfamily \#include $<$iphlpapi.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}mrpd.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}mrp.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}mvrp.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}msrp.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}mmrp.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}mrpw.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}que.\+h\char`\"{}}\\*
+mrpw.\+c에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrpw_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{데이타 구조}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structwtimer}{wtimer}
+\item 
+struct \hyperlink{structnetif}{netif}
+\item 
+struct \hyperlink{structnetif__thread__data}{netif\+\_\+thread\+\_\+data}
+\item 
+struct \hyperlink{structctl__thread__params}{ctl\+\_\+thread\+\_\+params}
+\end{DoxyCompactItemize}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{mrpw_8c_aa4a5c0ebf019527a3fe36bfc83fb3460}{T\+I\+M\+E\+\_\+\+P\+E\+R\+I\+O\+D\+\_\+25\+\_\+\+M\+I\+L\+L\+I\+S\+E\+C\+O\+N\+DS}~25
+\item 
+\#define \hyperlink{mrpw_8c_a974c690685310e1cde3deb2167bfc55e}{N\+E\+T\+I\+F\+\_\+\+T\+I\+M\+E\+O\+UT}~(-\/2)
+\item 
+\#define \hyperlink{mrpw_8c_acfc1668731750cb1ee8974b8a7c133ef}{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR}~\char`\"{}0.\+0\char`\"{}
+\end{DoxyCompactItemize}
+\subsection*{열거형 타입}
+\begin{DoxyCompactItemize}
+\item 
+enum \{ \\*
+\hyperlink{mrpw_8c_ab04a0655cd1e3bcac5e8f48c18df1a57a0d5f08ca5b32548df70038cb720d10db}{pkt\+\_\+event\+\_\+wpcap}, 
+\hyperlink{mrpw_8c_ab04a0655cd1e3bcac5e8f48c18df1a57a6163f6fe4eb14b9e4a33ccf59f4ede6c}{pkt\+\_\+event\+\_\+localhost}, 
+\hyperlink{mrpw_8c_ab04a0655cd1e3bcac5e8f48c18df1a57a0ab9f4eb2a2b5ebfb1b091a37e12862b}{pkt\+\_\+event\+\_\+wpcap\+\_\+timeout}, 
+\hyperlink{mrpw_8c_ab04a0655cd1e3bcac5e8f48c18df1a57ac7af1f4d8289185ee48add52ad64c8a4}{pkt\+\_\+event\+\_\+localhost\+\_\+timeout}, 
+\\*
+\hyperlink{mrpw_8c_ab04a0655cd1e3bcac5e8f48c18df1a57ad3fa3ef31ee45a9a4f7df32fcf38b10b}{app\+\_\+event\+\_\+kill\+\_\+all}, 
+\hyperlink{mrpw_8c_ab04a0655cd1e3bcac5e8f48c18df1a57aae7be117c6f5a0e09fd1747acfd2b475}{loop\+\_\+time\+\_\+tick}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structnetif}{netif} $\ast$ \hyperlink{mrpw_8c_a8e890dcb64441152519423bb14f75994}{netif\+\_\+open} (int timeout\+\_\+ms)
+\item 
+int \hyperlink{mrpw_8c_a83bfe860c71e63613dd11e0d43d0a3ab}{netif\+\_\+close} (struct \hyperlink{structnetif}{netif} $\ast$\hyperlink{mrpw_8c_a5cc977ed1a8aa84968c166553e31f25f}{net\+\_\+if})
+\item 
+int \hyperlink{mrpw_8c_acce90c8f6cda1c86a2ec91256fa975c3}{netif\+\_\+set\+\_\+capture\+\_\+ethertype} (struct \hyperlink{structnetif}{netif} $\ast$\hyperlink{mrpw_8c_a5cc977ed1a8aa84968c166553e31f25f}{net\+\_\+if}, uint16\+\_\+t $\ast$\hyperlink{rawsock__tx_8c_af3d6d4ec5b93edfddc9de51233ae9f7e}{ethertype}, \hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\+\_\+t} count)
+\item 
+int \hyperlink{mrpw_8c_a3cc41dadf18d034d8f3c3fd93324805f}{netif\+\_\+capture\+\_\+frame} (struct \hyperlink{structnetif}{netif} $\ast$\hyperlink{mrpw_8c_a5cc977ed1a8aa84968c166553e31f25f}{net\+\_\+if}, \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\+\_\+t} $\ast$$\ast$\hyperlink{gst__avb__playbin_8c_ac8e710e0b5e994c0545d75d69868c6f0}{frame}, uint16\+\_\+t $\ast$length)
+\item 
+int \hyperlink{mrpw_8c_a6fd69ec1e9bfc15c179e387f2fc42d2b}{netif\+\_\+send\+\_\+frame} (struct \hyperlink{structnetif}{netif} $\ast$\hyperlink{mrpw_8c_a5cc977ed1a8aa84968c166553e31f25f}{net\+\_\+if}, \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\+\_\+t} $\ast$\hyperlink{gst__avb__playbin_8c_ac8e710e0b5e994c0545d75d69868c6f0}{frame}, uint16\+\_\+t length)
+\item 
+D\+W\+O\+RD W\+I\+N\+A\+PI \hyperlink{mrpw_8c_a737803cef506c99c568afa1d3e3b11b8}{netif\+\_\+thread} (L\+P\+V\+O\+ID lp\+Param)
+\item 
+unsigned int \hyperlink{mrpw_8c_aca8978c5ed66b48f8b79329b98853253}{clock\+\_\+monotonic\+\_\+in\+\_\+ms} (void)
+\item 
+H\+T\+I\+M\+ER \hyperlink{mrpw_8c_a10261079d5a8ac144d272b8f2bf276e8}{mrpd\+\_\+timer\+\_\+create} (void)
+\item 
+void \hyperlink{mrpw_8c_af47498bfb83b236bf03ce96db3eadc5d}{mrpd\+\_\+timer\+\_\+close} (H\+T\+I\+M\+ER t)
+\item 
+int \hyperlink{mrpw_8c_a07123f13700611dc4e8d553a4624aec9}{mrpd\+\_\+timer\+\_\+start\+\_\+interval} (H\+T\+I\+M\+ER timerfd, unsigned long value\+\_\+ms, unsigned long interval\+\_\+ms)
+\item 
+int \hyperlink{mrpw_8c_a48f07c4e3388017cd02afbd89cfbc97b}{mrpd\+\_\+timer\+\_\+start} (H\+T\+I\+M\+ER timerfd, unsigned long value\+\_\+ms)
+\item 
+int \hyperlink{mrpw_8c_a0aa88cd38f0c2252a18bce5027285697}{mrpd\+\_\+timer\+\_\+restart} (H\+T\+I\+M\+ER timerfd)
+\item 
+int \hyperlink{mrpw_8c_a82eb5ab74804ccd1872dcfeb9b3f1a8e}{mrpd\+\_\+timer\+\_\+stop} (H\+T\+I\+M\+ER timerfd)
+\item 
+int \hyperlink{mrpw_8c_ade93aa7051a36894e294b79da453d78c}{mrpd\+\_\+timer\+\_\+timeout} (H\+T\+I\+M\+ER timerfd)
+\item 
+int \hyperlink{mrpw_8c_afde7c2ad932061c8213d2c63309b872c}{gctimer\+\_\+start} ()
+\item 
+int \hyperlink{mrpw_8c_ad9ff9ae98f1bb8d71f54348b56ca4fa4}{mrp\+\_\+periodictimer\+\_\+start} ()
+\item 
+int \hyperlink{mrpw_8c_aae8bc4b5b0ba7e4798449abc28c7ff50}{mrp\+\_\+periodictimer\+\_\+stop} ()
+\item 
+int \hyperlink{mrpw_8c_a5b0b02e11db50efcae15acdc84592365}{mrpd\+\_\+init\+\_\+timers} (struct \hyperlink{structmrp__database}{mrp\+\_\+database} $\ast$mrp\+\_\+db)
+\item 
+int \hyperlink{mrpw_8c_a40d9254969e58bd9d0047bd352d58752}{init\+\_\+timers} (void)
+\item 
+int \hyperlink{mrpw_8c_a2718f426181044574c66149d44325166}{process\+\_\+ctl\+\_\+msg} (char $\ast$buf, int buflen, struct sockaddr\+\_\+in $\ast$\hyperlink{jack__listener_8c_afed7053cd7bdd1cce33dec7213f340ea}{client})
+\item 
+int \hyperlink{mrpw_8c_ac547f698ca2b65c56a82c7c97e5a8cce}{mrpd\+\_\+recvmsgbuf} (S\+O\+C\+K\+ET sock, char $\ast$$\ast$buf)
+\item 
+int \hyperlink{mrpw_8c_a0b11a3acfabce074af443f2fc82c562e}{mrpd\+\_\+send\+\_\+ctl\+\_\+msg} (struct sockaddr\+\_\+in $\ast$client\+\_\+addr, char $\ast$notify\+\_\+data, int notify\+\_\+len)
+\item 
+int \hyperlink{mrpw_8c_a19778b71809cd3a21e7677bd0a155e51}{mrpd\+\_\+close\+\_\+socket} (S\+O\+C\+K\+ET sock)
+\item 
+size\+\_\+t \hyperlink{mrpw_8c_a7019f75f6f4372b0a905f57803829871}{mrpd\+\_\+send} (S\+O\+C\+K\+ET sockfd, const void $\ast$buf, size\+\_\+t len, int flags)
+\item 
+int \hyperlink{mrpw_8c_a0b88fa7c9f2281df5d2d6d80b5615f34}{mrpd\+\_\+init\+\_\+protocol\+\_\+socket} (uint16\+\_\+t etype, S\+O\+C\+K\+ET $\ast$sock, unsigned char $\ast$multicast\+\_\+addr)
+\item 
+int \hyperlink{mrpw_8c_a3f681ced4968ad45ebeb1b744b4989f3}{init\+\_\+local\+\_\+ctl} (void)
+\item 
+D\+W\+O\+RD W\+I\+N\+A\+PI \hyperlink{mrpw_8c_af50d5780f830ddf91914a60fa6506461}{ctl\+\_\+thread} (L\+P\+V\+O\+ID lp\+Param)
+\item 
+int \hyperlink{mrpw_8c_ade9e7ae018e5aa62281e7e3d1f09d124}{mrpd\+\_\+reclaim} ()
+\item 
+int \hyperlink{mrpw_8c_a9111b9d8ad7715088291ffa006c3a119}{mrpw\+\_\+init\+\_\+threads} (void)
+\item 
+int \hyperlink{mrpw_8c_abd516b2adb743e329475e3dc16abb71c}{mrpw\+\_\+run\+\_\+once} (void)
+\item 
+int \hyperlink{mrpw_8c_aab3c897dbd7370fb8d9200888c390807}{mrpw\+\_\+init\+\_\+protocols} (void)
+\item 
+void \hyperlink{mrpw_8c_a0315e6f711caf027b6f18fea9f52afd2}{mrpw\+\_\+cleanup} (void)
+\item 
+void \hyperlink{mrpw_8c_ab119c2fcc7d054ac05112df1da366d60}{process\+\_\+events} (void)
+\item 
+int \hyperlink{mrpw_8c_a0ddf1224851353fc92bfbff6f499fa97}{main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\item 
+void \hyperlink{mrpw_8c_a4297c4bc693f82e4cb9f04a56431840b}{mrpd\+\_\+log\+\_\+printf} (const char $\ast$fmt,...)
+\end{DoxyCompactItemize}
+\subsection*{변수}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{mrpw_8c_aa2339b21f98abccd12533a54d5f9d712}{daemonize}
+\item 
+int \hyperlink{mrpw_8c_ad3139c31ff2065414a32aff30445c816}{mmrp\+\_\+enable}
+\item 
+int \hyperlink{mrpw_8c_ab5bdb305967e9668954905d1793599f8}{mvrp\+\_\+enable}
+\item 
+int \hyperlink{mrpw_8c_a107c484178b3656d9cc3c4a793ea0a64}{msrp\+\_\+enable}
+\item 
+int \hyperlink{mrpw_8c_a33859e291ba549473023e0ff9fc6bca2}{logging\+\_\+enable}
+\item 
+int \hyperlink{mrpw_8c_ac5d426d6e3922546d2824f6f8948b167}{mrpd\+\_\+port}
+\item 
+H\+A\+N\+D\+LE \hyperlink{mrpw_8c_aabb6f0d78cb7d2986f3ff29232170d5d}{pkt\+\_\+events} \mbox{[}6\mbox{]}
+\item 
+H\+A\+N\+D\+LE \hyperlink{mrpw_8c_a4d95ba25c746583a03e04328f101bf02}{sem\+\_\+kill\+\_\+wpcap\+\_\+thread}
+\item 
+H\+A\+N\+D\+LE \hyperlink{mrpw_8c_a29583df1023714b8da35d001ce5eef6b}{sem\+\_\+kill\+\_\+localhost\+\_\+thread}
+\item 
+struct \hyperlink{structque__def}{que\+\_\+def} $\ast$ \hyperlink{mrpw_8c_a1564cc0a2d217fccefbd60142a533fa0}{que\+\_\+wpcap}
+\item 
+struct \hyperlink{structque__def}{que\+\_\+def} $\ast$ \hyperlink{mrpw_8c_a1b27f05d6b948bfa6dbca45d028672f1}{que\+\_\+localhost}
+\item 
+int \hyperlink{mrpw_8c_a4357208f4b73859a1aabe21ab5c4b95b}{interface\+\_\+fd}
+\item 
+int \hyperlink{mrpw_8c_a76843f7fb36637f07903bdab30dd3658}{registration}
+\item 
+int \hyperlink{mrpw_8c_a08ed403eabc8682a01da8a737ac32c31}{participant}
+\item 
+static const char $\ast$ \hyperlink{mrpw_8c_ae724265d048ace6b96a1e977ea11c1c7}{version\+\_\+str}
+\item 
+unsigned char \hyperlink{mrpw_8c_ab42ba46b155e06fe7850ed877f07de86}{S\+T\+A\+T\+I\+O\+N\+\_\+\+A\+D\+DR} \mbox{[}$\,$\mbox{]} = \{ 0x00, 0x88, 0x77, 0x66, 0x55, 0x44 \}
+\item 
+S\+O\+C\+K\+ET \hyperlink{mrpw_8c_abf70939a32bc17d4c4876dccc834a8fc}{control\+\_\+socket}
+\item 
+S\+O\+C\+K\+ET \hyperlink{mrpw_8c_ad2c9cdf7e23d2cf3875bd410709c27c8}{mmrp\+\_\+socket}
+\item 
+S\+O\+C\+K\+ET \hyperlink{mrpw_8c_af6724e3786b97cec4803af3f5372166c}{mvrp\+\_\+socket}
+\item 
+S\+O\+C\+K\+ET \hyperlink{mrpw_8c_a743cd84649ee1c7a93be5c80fe272b78}{msrp\+\_\+socket}
+\item 
+struct \hyperlink{structnetif}{netif} $\ast$ \hyperlink{mrpw_8c_a5cc977ed1a8aa84968c166553e31f25f}{net\+\_\+if}
+\item 
+H\+T\+I\+M\+ER \hyperlink{mrpw_8c_af88f400fec5cb09e035b149aa9bcff4d}{periodic\+\_\+timer}
+\item 
+H\+T\+I\+M\+ER \hyperlink{mrpw_8c_abf254d0c64007ea3cae8d94cee94c6a8}{gc\+\_\+timer}
+\item 
+H\+T\+I\+M\+ER \hyperlink{mrpw_8c_a9ff7f27f7cd3b7de922903c1593c8ea1}{timer\+\_\+check\+\_\+tick}
+\item 
+struct \hyperlink{structmmrp__database}{mmrp\+\_\+database} $\ast$ \hyperlink{mrpw_8c_acea0810e73cb6b2bce5c27bb4d1b5b18}{M\+M\+R\+P\+\_\+db}
+\item 
+struct \hyperlink{structmvrp__database}{mvrp\+\_\+database} $\ast$ \hyperlink{mrpw_8c_a69153097f1eb68878b4a0eb4d4f5810f}{M\+V\+R\+P\+\_\+db}
+\item 
+struct \hyperlink{structmsrp__database}{msrp\+\_\+database} $\ast$ \hyperlink{mrpw_8c_a2632449b508d61015863de936e0f902c}{M\+S\+R\+P\+\_\+db}
+\item 
+static int \hyperlink{mrpw_8c_af9109bf8bcce675d06c30defc1cb02ae}{clock\+\_\+monotonic\+\_\+in\+\_\+ms\+\_\+init} = 0
+\item 
+static L\+A\+R\+G\+E\+\_\+\+I\+N\+T\+E\+G\+ER \hyperlink{mrpw_8c_a65c33680392ae536d1a69319ddf31882}{clock\+\_\+monotonic\+\_\+freq}
+\item 
+static \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\+\_\+t} $\ast$ \hyperlink{mrpw_8c_a421e94742210cb464d86ac82cf866d9b}{last\+\_\+pdu\+\_\+buffer}
+\item 
+static int \hyperlink{mrpw_8c_a1f85060549f67cfec5c072795047d27d}{last\+\_\+pdu\+\_\+buffer\+\_\+size}
+\item 
+H\+A\+N\+D\+LE \hyperlink{mrpw_8c_ab5aa09e700d80d1d10d7302013575519}{kill\+\_\+packet\+\_\+capture}
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{mrpw.\+c@{mrpw.\+c}!N\+E\+T\+I\+F\+\_\+\+T\+I\+M\+E\+O\+UT@{N\+E\+T\+I\+F\+\_\+\+T\+I\+M\+E\+O\+UT}}
+\index{N\+E\+T\+I\+F\+\_\+\+T\+I\+M\+E\+O\+UT@{N\+E\+T\+I\+F\+\_\+\+T\+I\+M\+E\+O\+UT}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{N\+E\+T\+I\+F\+\_\+\+T\+I\+M\+E\+O\+UT}{NETIF_TIMEOUT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+E\+T\+I\+F\+\_\+\+T\+I\+M\+E\+O\+UT~(-\/2)}\hypertarget{mrpw_8c_a974c690685310e1cde3deb2167bfc55e}{}\label{mrpw_8c_a974c690685310e1cde3deb2167bfc55e}
+
+
+mrpw.\+c 파일의 55 번째 라인에서 정의되었습니다.
+
+\index{mrpw.\+c@{mrpw.\+c}!T\+I\+M\+E\+\_\+\+P\+E\+R\+I\+O\+D\+\_\+25\+\_\+\+M\+I\+L\+L\+I\+S\+E\+C\+O\+N\+DS@{T\+I\+M\+E\+\_\+\+P\+E\+R\+I\+O\+D\+\_\+25\+\_\+\+M\+I\+L\+L\+I\+S\+E\+C\+O\+N\+DS}}
+\index{T\+I\+M\+E\+\_\+\+P\+E\+R\+I\+O\+D\+\_\+25\+\_\+\+M\+I\+L\+L\+I\+S\+E\+C\+O\+N\+DS@{T\+I\+M\+E\+\_\+\+P\+E\+R\+I\+O\+D\+\_\+25\+\_\+\+M\+I\+L\+L\+I\+S\+E\+C\+O\+N\+DS}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{T\+I\+M\+E\+\_\+\+P\+E\+R\+I\+O\+D\+\_\+25\+\_\+\+M\+I\+L\+L\+I\+S\+E\+C\+O\+N\+DS}{TIME_PERIOD_25_MILLISECONDS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+I\+M\+E\+\_\+\+P\+E\+R\+I\+O\+D\+\_\+25\+\_\+\+M\+I\+L\+L\+I\+S\+E\+C\+O\+N\+DS~25}\hypertarget{mrpw_8c_aa4a5c0ebf019527a3fe36bfc83fb3460}{}\label{mrpw_8c_aa4a5c0ebf019527a3fe36bfc83fb3460}
+
+
+mrpw.\+c 파일의 54 번째 라인에서 정의되었습니다.
+
+\index{mrpw.\+c@{mrpw.\+c}!V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR@{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR}}
+\index{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR@{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR}{VERSION_STR}}]{\setlength{\rightskip}{0pt plus 5cm}\#define V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR~\char`\"{}0.\+0\char`\"{}}\hypertarget{mrpw_8c_acfc1668731750cb1ee8974b8a7c133ef}{}\label{mrpw_8c_acfc1668731750cb1ee8974b8a7c133ef}
+
+
+mrpw.\+c 파일의 121 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{열거형 타입 문서화}
+\subsubsection[{\texorpdfstring{anonymous enum}{anonymous enum}}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}\hypertarget{mrpw_8c_ab04a0655cd1e3bcac5e8f48c18df1a57}{}\label{mrpw_8c_ab04a0655cd1e3bcac5e8f48c18df1a57}
+\begin{Desc}
+\item[열거형 멤버]\par
+\begin{description}
+\index{pkt\+\_\+event\+\_\+wpcap@{pkt\+\_\+event\+\_\+wpcap}!mrpw.\+c@{mrpw.\+c}}\index{mrpw.\+c@{mrpw.\+c}!pkt\+\_\+event\+\_\+wpcap@{pkt\+\_\+event\+\_\+wpcap}}\item[{\em 
+pkt\+\_\+event\+\_\+wpcap\hypertarget{mrpw_8c_ab04a0655cd1e3bcac5e8f48c18df1a57a0d5f08ca5b32548df70038cb720d10db}{}\label{mrpw_8c_ab04a0655cd1e3bcac5e8f48c18df1a57a0d5f08ca5b32548df70038cb720d10db}
+}]\index{pkt\+\_\+event\+\_\+localhost@{pkt\+\_\+event\+\_\+localhost}!mrpw.\+c@{mrpw.\+c}}\index{mrpw.\+c@{mrpw.\+c}!pkt\+\_\+event\+\_\+localhost@{pkt\+\_\+event\+\_\+localhost}}\item[{\em 
+pkt\+\_\+event\+\_\+localhost\hypertarget{mrpw_8c_ab04a0655cd1e3bcac5e8f48c18df1a57a6163f6fe4eb14b9e4a33ccf59f4ede6c}{}\label{mrpw_8c_ab04a0655cd1e3bcac5e8f48c18df1a57a6163f6fe4eb14b9e4a33ccf59f4ede6c}
+}]\index{pkt\+\_\+event\+\_\+wpcap\+\_\+timeout@{pkt\+\_\+event\+\_\+wpcap\+\_\+timeout}!mrpw.\+c@{mrpw.\+c}}\index{mrpw.\+c@{mrpw.\+c}!pkt\+\_\+event\+\_\+wpcap\+\_\+timeout@{pkt\+\_\+event\+\_\+wpcap\+\_\+timeout}}\item[{\em 
+pkt\+\_\+event\+\_\+wpcap\+\_\+timeout\hypertarget{mrpw_8c_ab04a0655cd1e3bcac5e8f48c18df1a57a0ab9f4eb2a2b5ebfb1b091a37e12862b}{}\label{mrpw_8c_ab04a0655cd1e3bcac5e8f48c18df1a57a0ab9f4eb2a2b5ebfb1b091a37e12862b}
+}]\index{pkt\+\_\+event\+\_\+localhost\+\_\+timeout@{pkt\+\_\+event\+\_\+localhost\+\_\+timeout}!mrpw.\+c@{mrpw.\+c}}\index{mrpw.\+c@{mrpw.\+c}!pkt\+\_\+event\+\_\+localhost\+\_\+timeout@{pkt\+\_\+event\+\_\+localhost\+\_\+timeout}}\item[{\em 
+pkt\+\_\+event\+\_\+localhost\+\_\+timeout\hypertarget{mrpw_8c_ab04a0655cd1e3bcac5e8f48c18df1a57ac7af1f4d8289185ee48add52ad64c8a4}{}\label{mrpw_8c_ab04a0655cd1e3bcac5e8f48c18df1a57ac7af1f4d8289185ee48add52ad64c8a4}
+}]\index{app\+\_\+event\+\_\+kill\+\_\+all@{app\+\_\+event\+\_\+kill\+\_\+all}!mrpw.\+c@{mrpw.\+c}}\index{mrpw.\+c@{mrpw.\+c}!app\+\_\+event\+\_\+kill\+\_\+all@{app\+\_\+event\+\_\+kill\+\_\+all}}\item[{\em 
+app\+\_\+event\+\_\+kill\+\_\+all\hypertarget{mrpw_8c_ab04a0655cd1e3bcac5e8f48c18df1a57ad3fa3ef31ee45a9a4f7df32fcf38b10b}{}\label{mrpw_8c_ab04a0655cd1e3bcac5e8f48c18df1a57ad3fa3ef31ee45a9a4f7df32fcf38b10b}
+}]\index{loop\+\_\+time\+\_\+tick@{loop\+\_\+time\+\_\+tick}!mrpw.\+c@{mrpw.\+c}}\index{mrpw.\+c@{mrpw.\+c}!loop\+\_\+time\+\_\+tick@{loop\+\_\+time\+\_\+tick}}\item[{\em 
+loop\+\_\+time\+\_\+tick\hypertarget{mrpw_8c_ab04a0655cd1e3bcac5e8f48c18df1a57aae7be117c6f5a0e09fd1747acfd2b475}{}\label{mrpw_8c_ab04a0655cd1e3bcac5e8f48c18df1a57aae7be117c6f5a0e09fd1747acfd2b475}
+}]\end{description}
+\end{Desc}
+
+
+mrpw.\+c 파일의 82 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+82      \{
+83     \hyperlink{mrpw_8c_ab04a0655cd1e3bcac5e8f48c18df1a57a0d5f08ca5b32548df70038cb720d10db}{pkt\_event\_wpcap},
+84     \hyperlink{mrpw_8c_ab04a0655cd1e3bcac5e8f48c18df1a57a6163f6fe4eb14b9e4a33ccf59f4ede6c}{pkt\_event\_localhost},
+85     \hyperlink{mrpw_8c_ab04a0655cd1e3bcac5e8f48c18df1a57a0ab9f4eb2a2b5ebfb1b091a37e12862b}{pkt\_event\_wpcap\_timeout},
+86     \hyperlink{mrpw_8c_ab04a0655cd1e3bcac5e8f48c18df1a57ac7af1f4d8289185ee48add52ad64c8a4}{pkt\_event\_localhost\_timeout},
+87     \hyperlink{mrpw_8c_ab04a0655cd1e3bcac5e8f48c18df1a57ad3fa3ef31ee45a9a4f7df32fcf38b10b}{app\_event\_kill\_all},
+88     \hyperlink{mrpw_8c_ab04a0655cd1e3bcac5e8f48c18df1a57aae7be117c6f5a0e09fd1747acfd2b475}{loop\_time\_tick}
+89 \};
+\end{DoxyCode}
+
+
+\subsection{함수 문서화}
+\index{mrpw.\+c@{mrpw.\+c}!clock\+\_\+monotonic\+\_\+in\+\_\+ms@{clock\+\_\+monotonic\+\_\+in\+\_\+ms}}
+\index{clock\+\_\+monotonic\+\_\+in\+\_\+ms@{clock\+\_\+monotonic\+\_\+in\+\_\+ms}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{clock\+\_\+monotonic\+\_\+in\+\_\+ms(void)}{clock_monotonic_in_ms(void)}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int clock\+\_\+monotonic\+\_\+in\+\_\+ms (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{mrpw_8c_aca8978c5ed66b48f8b79329b98853253}{}\label{mrpw_8c_aca8978c5ed66b48f8b79329b98853253}
+
+
+mrpw.\+c 파일의 337 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+338 \{
+339     LARGE\_INTEGER \hyperlink{structwtimer_a16ff2d8e15ade4948398b0aeb80124a8}{count};
+340     QueryPerformanceCounter(&count);
+341     \textcolor{keywordflow}{if} (!\hyperlink{mrpw_8c_af9109bf8bcce675d06c30defc1cb02ae}{clock\_monotonic\_in\_ms\_init}) \{
+342         QueryPerformanceFrequency(&\hyperlink{mrpw_8c_a65c33680392ae536d1a69319ddf31882}{clock\_monotonic\_freq});
+343         \hyperlink{mrpw_8c_af9109bf8bcce675d06c30defc1cb02ae}{clock\_monotonic\_in\_ms\_init} = 1;
+344     \}
+345     \textcolor{keywordflow}{return} (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int})((double)count.QuadPart * 1000.0 /
+346                   (\textcolor{keywordtype}{double})\hyperlink{mrpw_8c_a65c33680392ae536d1a69319ddf31882}{clock\_monotonic\_freq}.QuadPart);
+347 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrpw_8c_aca8978c5ed66b48f8b79329b98853253_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrpw.\+c@{mrpw.\+c}!ctl\+\_\+thread@{ctl\+\_\+thread}}
+\index{ctl\+\_\+thread@{ctl\+\_\+thread}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{ctl\+\_\+thread(\+L\+P\+V\+O\+I\+D lp\+Param)}{ctl_thread(LPVOID lpParam)}}]{\setlength{\rightskip}{0pt plus 5cm}D\+W\+O\+RD W\+I\+N\+A\+PI ctl\+\_\+thread (
+\begin{DoxyParamCaption}
+\item[{L\+P\+V\+O\+ID}]{lp\+Param}
+\end{DoxyParamCaption}
+)}\hypertarget{mrpw_8c_af50d5780f830ddf91914a60fa6506461}{}\label{mrpw_8c_af50d5780f830ddf91914a60fa6506461}
+
+
+mrpw.\+c 파일의 674 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+675 \{
+676     \textcolor{keyword}{struct }\hyperlink{structctl__thread__params}{ctl\_thread\_params} s;
+677     \textcolor{keywordtype}{int} client\_len;
+678 
+679     \textcolor{keywordflow}{while} (WaitForSingleObject(\hyperlink{mrpw_8c_a29583df1023714b8da35d001ce5eef6b}{sem\_kill\_localhost\_thread}, 0)) \{
+680         client\_len = \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct }sockaddr);
+681         s.\hyperlink{structctl__thread__params_a3820841c4bbf28f04505bea65d6b84f7}{msgbuf} = (\textcolor{keywordtype}{char} *)\hyperlink{_memory_leak_detector_malloc_macros_8h_ab8b25cd8f16d4a6552afe4e65c4f082d}{malloc}(\hyperlink{mrpd_8h_a63a4db05a55163366a16c61994e77a6f}{MAX\_MRPD\_CMDSZ});
+682         s.bytes =
+683             recvfrom(\hyperlink{mrpw_8c_abf70939a32bc17d4c4876dccc834a8fc}{control\_socket}, s.msgbuf, \hyperlink{mrpd_8h_a63a4db05a55163366a16c61994e77a6f}{MAX\_MRPD\_CMDSZ}, 0,
+684                  &s.client\_addr, &client\_len);
+685         \textcolor{keywordflow}{if} (s.bytes > 0) \{
+686             \hyperlink{que_8c_a4e2ee12a5c085f144e4182aa867f0538}{que\_push}(\hyperlink{mrpw_8c_a1b27f05d6b948bfa6dbca45d028672f1}{que\_localhost}, &s);
+687         \} \textcolor{keywordflow}{else} \{
+688             \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(s.msgbuf);
+689             \textcolor{keywordflow}{if} (!SetEvent(\hyperlink{mrpw_8c_aabb6f0d78cb7d2986f3ff29232170d5d}{pkt\_events}[\hyperlink{mrpw_8c_ab04a0655cd1e3bcac5e8f48c18df1a57ac7af1f4d8289185ee48add52ad64c8a4}{pkt\_event\_localhost\_timeout}])) \{
+690                 printf
+691                     (\textcolor{stringliteral}{"SetEvent pkt\_event\_localhost\_timeout failed (%d)\(\backslash\)n"},
+692                      GetLastError());
+693                 \textcolor{keywordflow}{return} 1;
+694             \}
+695         \}
+696     \}
+697     \textcolor{keywordflow}{return} 0;
+698 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{mrpw_8c_af50d5780f830ddf91914a60fa6506461_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=345pt]{mrpw_8c_af50d5780f830ddf91914a60fa6506461_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrpw.\+c@{mrpw.\+c}!gctimer\+\_\+start@{gctimer\+\_\+start}}
+\index{gctimer\+\_\+start@{gctimer\+\_\+start}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{gctimer\+\_\+start()}{gctimer_start()}}]{\setlength{\rightskip}{0pt plus 5cm}int gctimer\+\_\+start (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{mrpw_8c_afde7c2ad932061c8213d2c63309b872c}{}\label{mrpw_8c_afde7c2ad932061c8213d2c63309b872c}
+
+
+mrpw.\+c 파일의 410 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+411 \{
+412     \textcolor{comment}{/* reclaim memory every 30 minutes */}
+413     \textcolor{keywordflow}{return} \hyperlink{mrpw_8c_a48f07c4e3388017cd02afbd89cfbc97b}{mrpd\_timer\_start}(\hyperlink{mrpw_8c_abf254d0c64007ea3cae8d94cee94c6a8}{gc\_timer}, 30 * 60 * 1000);
+414 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrpw_8c_afde7c2ad932061c8213d2c63309b872c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrpw_8c_afde7c2ad932061c8213d2c63309b872c_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrpw.\+c@{mrpw.\+c}!init\+\_\+local\+\_\+ctl@{init\+\_\+local\+\_\+ctl}}
+\index{init\+\_\+local\+\_\+ctl@{init\+\_\+local\+\_\+ctl}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{init\+\_\+local\+\_\+ctl(void)}{init_local_ctl(void)}}]{\setlength{\rightskip}{0pt plus 5cm}int init\+\_\+local\+\_\+ctl (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{mrpw_8c_a3f681ced4968ad45ebeb1b744b4989f3}{}\label{mrpw_8c_a3f681ced4968ad45ebeb1b744b4989f3}
+
+
+mrpw.\+c 파일의 626 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+627 \{
+628     \textcolor{keyword}{struct }sockaddr\_in addr;
+629     SOCKET sock\_fd = \hyperlink{openavb__acmp__message_8c_a26769957ec1a2beaf223f33b66ee64ab}{INVALID\_SOCKET};
+630     \textcolor{keywordtype}{int} rc;
+631     u\_long iMode = 1;
+632     DWORD iResult;
+633     \textcolor{keywordtype}{int} \hyperlink{aaf-listener_8c_a869c60cb165af7b6177060c00c5c416c}{timeout} = 100;   \textcolor{comment}{// ms}
+634 
+635     sock\_fd = socket(AF\_INET, SOCK\_DGRAM, 0);
+636     \textcolor{keywordflow}{if} (sock\_fd == \hyperlink{openavb__acmp__message_8c_a26769957ec1a2beaf223f33b66ee64ab}{INVALID\_SOCKET})
+637         \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+638 
+639     iResult = setsockopt(sock\_fd, SOL\_SOCKET, SO\_RCVTIMEO,
+640                  (\textcolor{keywordtype}{void} *)&timeout, \textcolor{keyword}{sizeof}(timeout));
+641     \textcolor{keywordflow}{if} (iResult != NO\_ERROR)
+642         \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+643     iResult = setsockopt(sock\_fd, SOL\_SOCKET, SO\_SNDTIMEO,
+644                  (\textcolor{keywordtype}{void} *)&timeout, \textcolor{keyword}{sizeof}(timeout));
+645     \textcolor{keywordflow}{if} (iResult != NO\_ERROR)
+646         \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+647 
+648     memset(&addr, 0, \textcolor{keyword}{sizeof}(addr));
+649     addr.sin\_family = AF\_INET;
+650     addr.sin\_port = htons(\hyperlink{mrpw_8c_ac5d426d6e3922546d2824f6f8948b167}{mrpd\_port});
+651     addr.sin\_addr.s\_addr = inet\_addr(\textcolor{stringliteral}{"127.0.0.1"});
+652 
+653     rc = bind(sock\_fd, (\textcolor{keyword}{struct} sockaddr *)&addr, \textcolor{keyword}{sizeof}(addr));
+654 
+655     \textcolor{keywordflow}{if} (rc == SOCKET\_ERROR)
+656         \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+657 
+658     \hyperlink{mrpw_8c_abf70939a32bc17d4c4876dccc834a8fc}{control\_socket} = sock\_fd;
+659 
+660     \textcolor{keywordflow}{return} 0;
+661  \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out}:
+662     \textcolor{keywordflow}{if} (sock\_fd != \hyperlink{openavb__acmp__message_8c_a26769957ec1a2beaf223f33b66ee64ab}{INVALID\_SOCKET})
+663         closesocket(sock\_fd);
+664 
+665     \textcolor{keywordflow}{return} -1;
+666 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrpw_8c_a3f681ced4968ad45ebeb1b744b4989f3_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrpw_8c_a3f681ced4968ad45ebeb1b744b4989f3_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrpw.\+c@{mrpw.\+c}!init\+\_\+timers@{init\+\_\+timers}}
+\index{init\+\_\+timers@{init\+\_\+timers}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{init\+\_\+timers(void)}{init_timers(void)}}]{\setlength{\rightskip}{0pt plus 5cm}int init\+\_\+timers (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{mrpw_8c_a40d9254969e58bd9d0047bd352d58752}{}\label{mrpw_8c_a40d9254969e58bd9d0047bd352d58752}
+
+
+mrpw.\+c 파일의 455 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+456 \{
+457     \textcolor{comment}{/*}
+458 \textcolor{comment}{     * primarily whether to schedule the periodic timer as the}
+459 \textcolor{comment}{     * rest are self-scheduling as a side-effect of state transitions}
+460 \textcolor{comment}{     * of the various attributes}
+461 \textcolor{comment}{     */}
+462 
+463     \hyperlink{mrpw_8c_af88f400fec5cb09e035b149aa9bcff4d}{periodic\_timer} = \hyperlink{mrpw_8c_a10261079d5a8ac144d272b8f2bf276e8}{mrpd\_timer\_create}();
+464     \hyperlink{mrpw_8c_abf254d0c64007ea3cae8d94cee94c6a8}{gc\_timer} = \hyperlink{mrpw_8c_a10261079d5a8ac144d272b8f2bf276e8}{mrpd\_timer\_create}();
+465 
+466     \textcolor{keywordflow}{if} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} == \hyperlink{mrpw_8c_af88f400fec5cb09e035b149aa9bcff4d}{periodic\_timer})
+467         \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+468     \textcolor{keywordflow}{if} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} == \hyperlink{mrpw_8c_abf254d0c64007ea3cae8d94cee94c6a8}{gc\_timer})
+469         \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+470 
+471     \hyperlink{mrpw_8c_afde7c2ad932061c8213d2c63309b872c}{gctimer\_start}();
+472     \textcolor{keywordflow}{return} 0;
+473 
+474  \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out}:
+475     \textcolor{keywordflow}{return} -1;
+476 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrpw_8c_a40d9254969e58bd9d0047bd352d58752_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrpw_8c_a40d9254969e58bd9d0047bd352d58752_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrpw.\+c@{mrpw.\+c}!main@{main}}
+\index{main@{main}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{main(int argc, char $\ast$argv[])}{main(int argc, char *argv[])}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{mrpw_8c_a0ddf1224851353fc92bfbff6f499fa97}{}\label{mrpw_8c_a0ddf1224851353fc92bfbff6f499fa97}
+
+
+mrpw.\+c 파일의 986 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+987 \{
+988     \textcolor{keywordtype}{int} status;
+989 
+990     status = \hyperlink{mrpw_8c_aab3c897dbd7370fb8d9200888c390807}{mrpw\_init\_protocols}();
+991 
+992     \textcolor{keywordflow}{if} (status < 0) \{
+993         \hyperlink{mrpw_8c_a0315e6f711caf027b6f18fea9f52afd2}{mrpw\_cleanup}();
+994         \textcolor{keywordflow}{return} status;
+995     \}
+996 
+997     status = \hyperlink{mrpw_8c_a9111b9d8ad7715088291ffa006c3a119}{mrpw\_init\_threads}();
+998     \textcolor{keywordflow}{if} (status < 0) \{
+999         \hyperlink{mrpw_8c_a0315e6f711caf027b6f18fea9f52afd2}{mrpw\_cleanup}();
+1000         \textcolor{keywordflow}{return} status;
+1001     \}
+1002 
+1003     \hyperlink{mrpw_8c_ab119c2fcc7d054ac05112df1da366d60}{process\_events}();
+1004 
+1005     \hyperlink{mrpw_8c_a0315e6f711caf027b6f18fea9f52afd2}{mrpw\_cleanup}();
+1006     \textcolor{keywordflow}{return} status;
+1007 
+1008 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrpw_8c_a0ddf1224851353fc92bfbff6f499fa97_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrpw.\+c@{mrpw.\+c}!mrp\+\_\+periodictimer\+\_\+start@{mrp\+\_\+periodictimer\+\_\+start}}
+\index{mrp\+\_\+periodictimer\+\_\+start@{mrp\+\_\+periodictimer\+\_\+start}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{mrp\+\_\+periodictimer\+\_\+start()}{mrp_periodictimer_start()}}]{\setlength{\rightskip}{0pt plus 5cm}int mrp\+\_\+periodictimer\+\_\+start (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{mrpw_8c_ad9ff9ae98f1bb8d71f54348b56ca4fa4}{}\label{mrpw_8c_ad9ff9ae98f1bb8d71f54348b56ca4fa4}
+
+
+mrpw.\+c 파일의 416 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+417 \{
+418     \textcolor{comment}{/* periodictimer has expired. (10.7.5.23)}
+419 \textcolor{comment}{     * PeriodicTransmission state machine generates periodic events}
+420 \textcolor{comment}{     * period is one-per-sec}
+421 \textcolor{comment}{     */}
+422     \textcolor{keywordflow}{return} \hyperlink{mrpw_8c_a07123f13700611dc4e8d553a4624aec9}{mrpd\_timer\_start\_interval}(\hyperlink{mrpw_8c_af88f400fec5cb09e035b149aa9bcff4d}{periodic\_timer}, 1000, 1000);
+423 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrpw_8c_ad9ff9ae98f1bb8d71f54348b56ca4fa4_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrpw.\+c@{mrpw.\+c}!mrp\+\_\+periodictimer\+\_\+stop@{mrp\+\_\+periodictimer\+\_\+stop}}
+\index{mrp\+\_\+periodictimer\+\_\+stop@{mrp\+\_\+periodictimer\+\_\+stop}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{mrp\+\_\+periodictimer\+\_\+stop()}{mrp_periodictimer_stop()}}]{\setlength{\rightskip}{0pt plus 5cm}int mrp\+\_\+periodictimer\+\_\+stop (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{mrpw_8c_aae8bc4b5b0ba7e4798449abc28c7ff50}{}\label{mrpw_8c_aae8bc4b5b0ba7e4798449abc28c7ff50}
+
+
+mrpw.\+c 파일의 425 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+426 \{
+427     \textcolor{comment}{/* periodictimer has expired. (10.7.5.23)}
+428 \textcolor{comment}{     * PeriodicTransmission state machine generates periodic events}
+429 \textcolor{comment}{     * period is one-per-sec}
+430 \textcolor{comment}{     */}
+431     \textcolor{keywordflow}{return} \hyperlink{mrpw_8c_a82eb5ab74804ccd1872dcfeb9b3f1a8e}{mrpd\_timer\_stop}(\hyperlink{mrpw_8c_af88f400fec5cb09e035b149aa9bcff4d}{periodic\_timer});
+432 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=323pt]{mrpw_8c_aae8bc4b5b0ba7e4798449abc28c7ff50_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrpw.\+c@{mrpw.\+c}!mrpd\+\_\+close\+\_\+socket@{mrpd\+\_\+close\+\_\+socket}}
+\index{mrpd\+\_\+close\+\_\+socket@{mrpd\+\_\+close\+\_\+socket}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{mrpd\+\_\+close\+\_\+socket(\+S\+O\+C\+K\+E\+T sock)}{mrpd_close_socket(SOCKET sock)}}]{\setlength{\rightskip}{0pt plus 5cm}int mrpd\+\_\+close\+\_\+socket (
+\begin{DoxyParamCaption}
+\item[{S\+O\+C\+K\+ET}]{sock}
+\end{DoxyParamCaption}
+)}\hypertarget{mrpw_8c_a19778b71809cd3a21e7677bd0a155e51}{}\label{mrpw_8c_a19778b71809cd3a21e7677bd0a155e51}
+
+
+mrpw.\+c 파일의 604 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+605 \{
+606     \textcolor{keywordflow}{return} closesocket(sock);
+607 \}
+\end{DoxyCode}
+\index{mrpw.\+c@{mrpw.\+c}!mrpd\+\_\+init\+\_\+protocol\+\_\+socket@{mrpd\+\_\+init\+\_\+protocol\+\_\+socket}}
+\index{mrpd\+\_\+init\+\_\+protocol\+\_\+socket@{mrpd\+\_\+init\+\_\+protocol\+\_\+socket}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{mrpd\+\_\+init\+\_\+protocol\+\_\+socket(uint16\+\_\+t etype, S\+O\+C\+K\+E\+T $\ast$sock, unsigned char $\ast$multicast\+\_\+addr)}{mrpd_init_protocol_socket(uint16_t etype, SOCKET *sock, unsigned char *multicast_addr)}}]{\setlength{\rightskip}{0pt plus 5cm}int mrpd\+\_\+init\+\_\+protocol\+\_\+socket (
+\begin{DoxyParamCaption}
+\item[{uint16\+\_\+t}]{etype, }
+\item[{S\+O\+C\+K\+ET $\ast$}]{sock, }
+\item[{unsigned char $\ast$}]{multicast\+\_\+addr}
+\end{DoxyParamCaption}
+)}\hypertarget{mrpw_8c_a0b88fa7c9f2281df5d2d6d80b5615f34}{}\label{mrpw_8c_a0b88fa7c9f2281df5d2d6d80b5615f34}
+
+
+mrpw.\+c 파일의 619 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+621 \{
+622     *sock = 0x1234;
+623     \textcolor{keywordflow}{return} 0;
+624 \}
+\end{DoxyCode}
+\index{mrpw.\+c@{mrpw.\+c}!mrpd\+\_\+init\+\_\+timers@{mrpd\+\_\+init\+\_\+timers}}
+\index{mrpd\+\_\+init\+\_\+timers@{mrpd\+\_\+init\+\_\+timers}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{mrpd\+\_\+init\+\_\+timers(struct mrp\+\_\+database $\ast$mrp\+\_\+db)}{mrpd_init_timers(struct mrp_database *mrp_db)}}]{\setlength{\rightskip}{0pt plus 5cm}int mrpd\+\_\+init\+\_\+timers (
+\begin{DoxyParamCaption}
+\item[{struct {\bf mrp\+\_\+database} $\ast$}]{mrp\+\_\+db}
+\end{DoxyParamCaption}
+)}\hypertarget{mrpw_8c_a5b0b02e11db50efcae15acdc84592365}{}\label{mrpw_8c_a5b0b02e11db50efcae15acdc84592365}
+
+
+mrpw.\+c 파일의 434 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+435 \{
+436     mrp\_db->\hyperlink{structmrp__database_a55eea88044cf545b4b60f7a851e2ca4e}{join\_timer} = \hyperlink{mrpw_8c_a10261079d5a8ac144d272b8f2bf276e8}{mrpd\_timer\_create}();
+437     mrp\_db->\hyperlink{structmrp__database_afb0e407756ab2688bbd60efbbdcc66d4}{lv\_timer} = \hyperlink{mrpw_8c_a10261079d5a8ac144d272b8f2bf276e8}{mrpd\_timer\_create}();
+438     mrp\_db->\hyperlink{structmrp__database_a63013eac35405517020e4681a260d06d}{lva\_timer} = \hyperlink{mrpw_8c_a10261079d5a8ac144d272b8f2bf276e8}{mrpd\_timer\_create}();
+439 
+440     \textcolor{keywordflow}{if} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} == mrp\_db->\hyperlink{structmrp__database_a55eea88044cf545b4b60f7a851e2ca4e}{join\_timer})
+441         \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+442     \textcolor{keywordflow}{if} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} == mrp\_db->\hyperlink{structmrp__database_afb0e407756ab2688bbd60efbbdcc66d4}{lv\_timer})
+443         \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+444     \textcolor{keywordflow}{if} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} == mrp\_db->\hyperlink{structmrp__database_a63013eac35405517020e4681a260d06d}{lva\_timer})
+445         \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+446     \textcolor{keywordflow}{return} 0;
+447  \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out}:
+448     \hyperlink{mrpw_8c_af47498bfb83b236bf03ce96db3eadc5d}{mrpd\_timer\_close}(mrp\_db->\hyperlink{structmrp__database_a55eea88044cf545b4b60f7a851e2ca4e}{join\_timer});
+449     \hyperlink{mrpw_8c_af47498bfb83b236bf03ce96db3eadc5d}{mrpd\_timer\_close}(mrp\_db->\hyperlink{structmrp__database_afb0e407756ab2688bbd60efbbdcc66d4}{lv\_timer});
+450     \hyperlink{mrpw_8c_af47498bfb83b236bf03ce96db3eadc5d}{mrpd\_timer\_close}(mrp\_db->\hyperlink{structmrp__database_a63013eac35405517020e4681a260d06d}{lva\_timer});
+451 
+452     \textcolor{keywordflow}{return} -1;
+453 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=303pt]{mrpw_8c_a5b0b02e11db50efcae15acdc84592365_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrpw.\+c@{mrpw.\+c}!mrpd\+\_\+log\+\_\+printf@{mrpd\+\_\+log\+\_\+printf}}
+\index{mrpd\+\_\+log\+\_\+printf@{mrpd\+\_\+log\+\_\+printf}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{mrpd\+\_\+log\+\_\+printf(const char $\ast$fmt,...)}{mrpd_log_printf(const char *fmt,...)}}]{\setlength{\rightskip}{0pt plus 5cm}void mrpd\+\_\+log\+\_\+printf (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fmt, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)}\hypertarget{mrpw_8c_a4297c4bc693f82e4cb9f04a56431840b}{}\label{mrpw_8c_a4297c4bc693f82e4cb9f04a56431840b}
+
+
+mrpw.\+c 파일의 1010 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+1011 \{
+1012     LARGE\_INTEGER count;
+1013     LARGE\_INTEGER freq;
+1014     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ms;
+1015     va\_list arglist;
+1016 
+1017     \textcolor{comment}{/* get time stamp in ms */}
+1018     QueryPerformanceCounter(&count);
+1019     QueryPerformanceFrequency(&freq);
+1020     ms = (\textcolor{keywordtype}{unsigned} int)((count.QuadPart * 1000 / freq.QuadPart) &
+1021                 0xfffffff);
+1022 
+1023     printf(\textcolor{stringliteral}{"MRPD %03d.%03d "}, ms / 1000, ms % 1000);
+1024 
+1025     va\_start(arglist, fmt);
+1026     vprintf(fmt, arglist);
+1027     va\_end(arglist);
+1028 
+1029 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=253pt]{mrpw_8c_a4297c4bc693f82e4cb9f04a56431840b_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrpw.\+c@{mrpw.\+c}!mrpd\+\_\+reclaim@{mrpd\+\_\+reclaim}}
+\index{mrpd\+\_\+reclaim@{mrpd\+\_\+reclaim}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{mrpd\+\_\+reclaim()}{mrpd_reclaim()}}]{\setlength{\rightskip}{0pt plus 5cm}int mrpd\+\_\+reclaim (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{mrpw_8c_ade9e7ae018e5aa62281e7e3d1f09d124}{}\label{mrpw_8c_ade9e7ae018e5aa62281e7e3d1f09d124}
+
+
+mrpw.\+c 파일의 700 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+701 \{
+702 
+703     \textcolor{comment}{/*}
+704 \textcolor{comment}{     * if the local applications have neither registered interest}
+705 \textcolor{comment}{     * by joining, and the remote node has quit advertising the attribute}
+706 \textcolor{comment}{     * and allowing it to go into the MT state, delete the attribute }
+707 \textcolor{comment}{     */}
+708 
+709     \textcolor{keywordflow}{if} (\hyperlink{mrpw_8c_ad3139c31ff2065414a32aff30445c816}{mmrp\_enable})
+710         \hyperlink{mmrp_8c_ab1d9d63f7619b1f06b01c5833f027f24}{mmrp\_reclaim}();
+711     \textcolor{keywordflow}{if} (\hyperlink{mrpw_8c_ab5bdb305967e9668954905d1793599f8}{mvrp\_enable})
+712         \hyperlink{mvrp_8c_ab97cad47467dfaf8e55c7aa048b9e226}{mvrp\_reclaim}();
+713     \textcolor{keywordflow}{if} (\hyperlink{mrpw_8c_a107c484178b3656d9cc3c4a793ea0a64}{msrp\_enable})
+714         \hyperlink{msrp_8c_ace1078cdae4953e1b43b3aada4fcf90d}{msrp\_reclaim}();
+715 
+716     \hyperlink{mrpw_8c_afde7c2ad932061c8213d2c63309b872c}{gctimer\_start}();
+717 
+718     \textcolor{keywordflow}{return} 0;
+719 
+720 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrpw_8c_ade9e7ae018e5aa62281e7e3d1f09d124_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrpw_8c_ade9e7ae018e5aa62281e7e3d1f09d124_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrpw.\+c@{mrpw.\+c}!mrpd\+\_\+recvmsgbuf@{mrpd\+\_\+recvmsgbuf}}
+\index{mrpd\+\_\+recvmsgbuf@{mrpd\+\_\+recvmsgbuf}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{mrpd\+\_\+recvmsgbuf(\+S\+O\+C\+K\+E\+T sock, char $\ast$$\ast$buf)}{mrpd_recvmsgbuf(SOCKET sock, char **buf)}}]{\setlength{\rightskip}{0pt plus 5cm}int mrpd\+\_\+recvmsgbuf (
+\begin{DoxyParamCaption}
+\item[{S\+O\+C\+K\+ET}]{sock, }
+\item[{char $\ast$$\ast$}]{buf}
+\end{DoxyParamCaption}
+)}\hypertarget{mrpw_8c_ac547f698ca2b65c56a82c7c97e5a8cce}{}\label{mrpw_8c_ac547f698ca2b65c56a82c7c97e5a8cce}
+
+
+mrpw.\+c 파일의 576 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+577 \{
+578 
+579     *buf = (\textcolor{keywordtype}{char} *)\hyperlink{_memory_leak_detector_malloc_macros_8h_ab8b25cd8f16d4a6552afe4e65c4f082d}{malloc}(\hyperlink{packet_8cpp_ad15d35a0d29a9dbf9324e3859ce3b008}{MAX\_FRAME\_SIZE});
+580     \textcolor{keywordflow}{if} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} == *buf)
+581         \textcolor{keywordflow}{return} -1;
+582 
+583     memcpy(*buf, \hyperlink{mrpw_8c_a421e94742210cb464d86ac82cf866d9b}{last\_pdu\_buffer}, \hyperlink{mrpw_8c_a1f85060549f67cfec5c072795047d27d}{last\_pdu\_buffer\_size});
+584     \textcolor{keywordflow}{return} \hyperlink{mrpw_8c_a1f85060549f67cfec5c072795047d27d}{last\_pdu\_buffer\_size};
+585 \}
+\end{DoxyCode}
+\index{mrpw.\+c@{mrpw.\+c}!mrpd\+\_\+send@{mrpd\+\_\+send}}
+\index{mrpd\+\_\+send@{mrpd\+\_\+send}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{mrpd\+\_\+send(\+S\+O\+C\+K\+E\+T sockfd, const void $\ast$buf, size\+\_\+t len, int flags)}{mrpd_send(SOCKET sockfd, const void *buf, size_t len, int flags)}}]{\setlength{\rightskip}{0pt plus 5cm}size\+\_\+t mrpd\+\_\+send (
+\begin{DoxyParamCaption}
+\item[{S\+O\+C\+K\+ET}]{sockfd, }
+\item[{const void $\ast$}]{buf, }
+\item[{size\+\_\+t}]{len, }
+\item[{int}]{flags}
+\end{DoxyParamCaption}
+)}\hypertarget{mrpw_8c_a7019f75f6f4372b0a905f57803829871}{}\label{mrpw_8c_a7019f75f6f4372b0a905f57803829871}
+
+
+mrpw.\+c 파일의 609 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+610 \{
+611     \textcolor{keywordflow}{if} (pcap\_sendpacket(\hyperlink{mrpw_8c_a5cc977ed1a8aa84968c166553e31f25f}{net\_if}->\hyperlink{structnetif_a79b3ba185b2046dc6ed20455903d38a9}{pcap\_interface}, buf, len) != 0) \{
+612         fprintf(stderr, \textcolor{stringliteral}{"\(\backslash\)nError sending the packet: \(\backslash\)n"},
+613             pcap\_geterr(\hyperlink{mrpw_8c_a5cc977ed1a8aa84968c166553e31f25f}{net\_if}->\hyperlink{structnetif_a79b3ba185b2046dc6ed20455903d38a9}{pcap\_interface}));
+614         \textcolor{keywordflow}{return} -1;
+615     \}
+616     \textcolor{keywordflow}{return} len;
+617 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrpw_8c_a7019f75f6f4372b0a905f57803829871_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrpw.\+c@{mrpw.\+c}!mrpd\+\_\+send\+\_\+ctl\+\_\+msg@{mrpd\+\_\+send\+\_\+ctl\+\_\+msg}}
+\index{mrpd\+\_\+send\+\_\+ctl\+\_\+msg@{mrpd\+\_\+send\+\_\+ctl\+\_\+msg}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{mrpd\+\_\+send\+\_\+ctl\+\_\+msg(struct sockaddr\+\_\+in $\ast$client\+\_\+addr, char $\ast$notify\+\_\+data, int notify\+\_\+len)}{mrpd_send_ctl_msg(struct sockaddr_in *client_addr, char *notify_data, int notify_len)}}]{\setlength{\rightskip}{0pt plus 5cm}int mrpd\+\_\+send\+\_\+ctl\+\_\+msg (
+\begin{DoxyParamCaption}
+\item[{struct sockaddr\+\_\+in $\ast$}]{client\+\_\+addr, }
+\item[{char $\ast$}]{notify\+\_\+data, }
+\item[{int}]{notify\+\_\+len}
+\end{DoxyParamCaption}
+)}\hypertarget{mrpw_8c_a0b11a3acfabce074af443f2fc82c562e}{}\label{mrpw_8c_a0b11a3acfabce074af443f2fc82c562e}
+
+
+mrpw.\+c 파일의 587 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+589 \{
+590 
+591     \textcolor{keywordtype}{int} rc;
+592 
+593     \textcolor{keywordflow}{if} (\hyperlink{openavb__acmp__message_8c_a26769957ec1a2beaf223f33b66ee64ab}{INVALID\_SOCKET} == \hyperlink{mrpw_8c_abf70939a32bc17d4c4876dccc834a8fc}{control\_socket})
+594         \textcolor{keywordflow}{return} 0;
+595 
+596 \textcolor{preprocessor}{#if LOG\_CLIENT\_SEND}
+597     printf(\textcolor{stringliteral}{"CTL MSG:%s to CLNT %d\(\backslash\)n"}, notify\_data, client\_addr->sin\_port);
+598 \textcolor{preprocessor}{#endif}
+599     rc = sendto(\hyperlink{mrpw_8c_abf70939a32bc17d4c4876dccc834a8fc}{control\_socket}, notify\_data, notify\_len,
+600             0, (\textcolor{keyword}{struct} sockaddr *)client\_addr, \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} sockaddr));
+601     \textcolor{keywordflow}{return} rc;
+602 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrpw_8c_a0b11a3acfabce074af443f2fc82c562e_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrpw.\+c@{mrpw.\+c}!mrpd\+\_\+timer\+\_\+close@{mrpd\+\_\+timer\+\_\+close}}
+\index{mrpd\+\_\+timer\+\_\+close@{mrpd\+\_\+timer\+\_\+close}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{mrpd\+\_\+timer\+\_\+close(\+H\+T\+I\+M\+E\+R t)}{mrpd_timer_close(HTIMER t)}}]{\setlength{\rightskip}{0pt plus 5cm}void mrpd\+\_\+timer\+\_\+close (
+\begin{DoxyParamCaption}
+\item[{H\+T\+I\+M\+ER}]{t}
+\end{DoxyParamCaption}
+)}\hypertarget{mrpw_8c_af47498bfb83b236bf03ce96db3eadc5d}{}\label{mrpw_8c_af47498bfb83b236bf03ce96db3eadc5d}
+
+
+mrpw.\+c 파일의 354 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+355 \{
+356     \textcolor{keywordflow}{if} (t)
+357         \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(t);
+358 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=299pt]{mrpw_8c_af47498bfb83b236bf03ce96db3eadc5d_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrpw.\+c@{mrpw.\+c}!mrpd\+\_\+timer\+\_\+create@{mrpd\+\_\+timer\+\_\+create}}
+\index{mrpd\+\_\+timer\+\_\+create@{mrpd\+\_\+timer\+\_\+create}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{mrpd\+\_\+timer\+\_\+create(void)}{mrpd_timer_create(void)}}]{\setlength{\rightskip}{0pt plus 5cm}H\+T\+I\+M\+ER mrpd\+\_\+timer\+\_\+create (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{mrpw_8c_a10261079d5a8ac144d272b8f2bf276e8}{}\label{mrpw_8c_a10261079d5a8ac144d272b8f2bf276e8}
+
+
+mrpw.\+c 파일의 349 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+350 \{
+351     \textcolor{keywordflow}{return} (\textcolor{keyword}{struct} \hyperlink{structwtimer}{wtimer} *)\hyperlink{_memory_leak_detector_malloc_macros_8h_a7cbb7b79af9d539af55b59dfc3598390}{calloc}(1, \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} \hyperlink{structwtimer}{wtimer}));
+352 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrpw_8c_a10261079d5a8ac144d272b8f2bf276e8_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrpw.\+c@{mrpw.\+c}!mrpd\+\_\+timer\+\_\+restart@{mrpd\+\_\+timer\+\_\+restart}}
+\index{mrpd\+\_\+timer\+\_\+restart@{mrpd\+\_\+timer\+\_\+restart}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{mrpd\+\_\+timer\+\_\+restart(\+H\+T\+I\+M\+E\+R timerfd)}{mrpd_timer_restart(HTIMER timerfd)}}]{\setlength{\rightskip}{0pt plus 5cm}int mrpd\+\_\+timer\+\_\+restart (
+\begin{DoxyParamCaption}
+\item[{H\+T\+I\+M\+ER}]{timerfd}
+\end{DoxyParamCaption}
+)}\hypertarget{mrpw_8c_a0aa88cd38f0c2252a18bce5027285697}{}\label{mrpw_8c_a0aa88cd38f0c2252a18bce5027285697}
+
+
+mrpw.\+c 파일의 377 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+378 \{
+379     \textcolor{keyword}{struct }\hyperlink{structwtimer}{wtimer} *t = (\textcolor{keyword}{struct }\hyperlink{structwtimer}{wtimer} *)timerfd;
+380     \textcolor{keywordflow}{if} (t->\hyperlink{structwtimer_a23545cd41cdc93998f5b3caeb3e29936}{interval}) \{
+381         t->\hyperlink{structwtimer_a84903b4395021e776bfb0b9f303b0142}{start\_time} = t->\hyperlink{structwtimer_a84903b4395021e776bfb0b9f303b0142}{start\_time} + t->\hyperlink{structwtimer_a23545cd41cdc93998f5b3caeb3e29936}{interval};
+382         t->\hyperlink{structwtimer_a2f45113638a0b749a8a205d2cd7fb42b}{running} = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+383         t->\hyperlink{structwtimer_a4bd3978f9fa83a0e08225dca54a00eb6}{elapsed} = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+384     \}
+385     \textcolor{keywordflow}{return} 0;
+386 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrpw_8c_a0aa88cd38f0c2252a18bce5027285697_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrpw.\+c@{mrpw.\+c}!mrpd\+\_\+timer\+\_\+start@{mrpd\+\_\+timer\+\_\+start}}
+\index{mrpd\+\_\+timer\+\_\+start@{mrpd\+\_\+timer\+\_\+start}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{mrpd\+\_\+timer\+\_\+start(\+H\+T\+I\+M\+E\+R timerfd, unsigned long value\+\_\+ms)}{mrpd_timer_start(HTIMER timerfd, unsigned long value_ms)}}]{\setlength{\rightskip}{0pt plus 5cm}int mrpd\+\_\+timer\+\_\+start (
+\begin{DoxyParamCaption}
+\item[{H\+T\+I\+M\+ER}]{timerfd, }
+\item[{unsigned long}]{value\+\_\+ms}
+\end{DoxyParamCaption}
+)}\hypertarget{mrpw_8c_a48f07c4e3388017cd02afbd89cfbc97b}{}\label{mrpw_8c_a48f07c4e3388017cd02afbd89cfbc97b}
+
+
+mrpw.\+c 파일의 372 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+373 \{
+374     \textcolor{keywordflow}{return} \hyperlink{mrpw_8c_a07123f13700611dc4e8d553a4624aec9}{mrpd\_timer\_start\_interval}(timerfd, value\_ms, 0);
+375 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrpw_8c_a48f07c4e3388017cd02afbd89cfbc97b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrpw_8c_a48f07c4e3388017cd02afbd89cfbc97b_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrpw.\+c@{mrpw.\+c}!mrpd\+\_\+timer\+\_\+start\+\_\+interval@{mrpd\+\_\+timer\+\_\+start\+\_\+interval}}
+\index{mrpd\+\_\+timer\+\_\+start\+\_\+interval@{mrpd\+\_\+timer\+\_\+start\+\_\+interval}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{mrpd\+\_\+timer\+\_\+start\+\_\+interval(\+H\+T\+I\+M\+E\+R timerfd, unsigned long value\+\_\+ms, unsigned long interval\+\_\+ms)}{mrpd_timer_start_interval(HTIMER timerfd, unsigned long value_ms, unsigned long interval_ms)}}]{\setlength{\rightskip}{0pt plus 5cm}int mrpd\+\_\+timer\+\_\+start\+\_\+interval (
+\begin{DoxyParamCaption}
+\item[{H\+T\+I\+M\+ER}]{timerfd, }
+\item[{unsigned long}]{value\+\_\+ms, }
+\item[{unsigned long}]{interval\+\_\+ms}
+\end{DoxyParamCaption}
+)}\hypertarget{mrpw_8c_a07123f13700611dc4e8d553a4624aec9}{}\label{mrpw_8c_a07123f13700611dc4e8d553a4624aec9}
+
+
+mrpw.\+c 파일의 360 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+362 \{
+363     \textcolor{keyword}{struct }\hyperlink{structwtimer}{wtimer} *t = (\textcolor{keyword}{struct }\hyperlink{structwtimer}{wtimer} *)timerfd;
+364     t->\hyperlink{structwtimer_a2f45113638a0b749a8a205d2cd7fb42b}{running} = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+365     t->\hyperlink{structwtimer_a4bd3978f9fa83a0e08225dca54a00eb6}{elapsed} = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+366     t->\hyperlink{structwtimer_a16ff2d8e15ade4948398b0aeb80124a8}{count} = value\_ms;
+367     t->\hyperlink{structwtimer_a23545cd41cdc93998f5b3caeb3e29936}{interval} = interval\_ms;
+368     t->\hyperlink{structwtimer_a84903b4395021e776bfb0b9f303b0142}{start\_time} = \hyperlink{mrpw_8c_aca8978c5ed66b48f8b79329b98853253}{clock\_monotonic\_in\_ms}();
+369     \textcolor{keywordflow}{return} 0;
+370 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrpw_8c_a07123f13700611dc4e8d553a4624aec9_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrpw_8c_a07123f13700611dc4e8d553a4624aec9_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrpw.\+c@{mrpw.\+c}!mrpd\+\_\+timer\+\_\+stop@{mrpd\+\_\+timer\+\_\+stop}}
+\index{mrpd\+\_\+timer\+\_\+stop@{mrpd\+\_\+timer\+\_\+stop}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{mrpd\+\_\+timer\+\_\+stop(\+H\+T\+I\+M\+E\+R timerfd)}{mrpd_timer_stop(HTIMER timerfd)}}]{\setlength{\rightskip}{0pt plus 5cm}int mrpd\+\_\+timer\+\_\+stop (
+\begin{DoxyParamCaption}
+\item[{H\+T\+I\+M\+ER}]{timerfd}
+\end{DoxyParamCaption}
+)}\hypertarget{mrpw_8c_a82eb5ab74804ccd1872dcfeb9b3f1a8e}{}\label{mrpw_8c_a82eb5ab74804ccd1872dcfeb9b3f1a8e}
+
+
+mrpw.\+c 파일의 388 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+389 \{
+390     \textcolor{keyword}{struct }\hyperlink{structwtimer}{wtimer} *t = (\textcolor{keyword}{struct }\hyperlink{structwtimer}{wtimer} *)timerfd;
+391     t->\hyperlink{structwtimer_a2f45113638a0b749a8a205d2cd7fb42b}{running} = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+392     t->\hyperlink{structwtimer_a4bd3978f9fa83a0e08225dca54a00eb6}{elapsed} = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+393     \textcolor{keywordflow}{return} 0;
+394 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=323pt]{mrpw_8c_a82eb5ab74804ccd1872dcfeb9b3f1a8e_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrpw.\+c@{mrpw.\+c}!mrpd\+\_\+timer\+\_\+timeout@{mrpd\+\_\+timer\+\_\+timeout}}
+\index{mrpd\+\_\+timer\+\_\+timeout@{mrpd\+\_\+timer\+\_\+timeout}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{mrpd\+\_\+timer\+\_\+timeout(\+H\+T\+I\+M\+E\+R timerfd)}{mrpd_timer_timeout(HTIMER timerfd)}}]{\setlength{\rightskip}{0pt plus 5cm}int mrpd\+\_\+timer\+\_\+timeout (
+\begin{DoxyParamCaption}
+\item[{H\+T\+I\+M\+ER}]{timerfd}
+\end{DoxyParamCaption}
+)}\hypertarget{mrpw_8c_ade93aa7051a36894e294b79da453d78c}{}\label{mrpw_8c_ade93aa7051a36894e294b79da453d78c}
+
+
+mrpw.\+c 파일의 396 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+397 \{
+398     \textcolor{keyword}{struct }\hyperlink{structwtimer}{wtimer} *t = (\textcolor{keyword}{struct }\hyperlink{structwtimer}{wtimer} *)timerfd;
+399     \textcolor{keywordflow}{if} (t->\hyperlink{structwtimer_a2f45113638a0b749a8a205d2cd7fb42b}{running} && !t->\hyperlink{structwtimer_a4bd3978f9fa83a0e08225dca54a00eb6}{elapsed}) \{
+400         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} elapsed\_ms;
+401         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} current\_time = \hyperlink{mrpw_8c_aca8978c5ed66b48f8b79329b98853253}{clock\_monotonic\_in\_ms}();
+402         elapsed\_ms = current\_time - t->\hyperlink{structwtimer_a84903b4395021e776bfb0b9f303b0142}{start\_time};
+403         \textcolor{keywordflow}{if} (elapsed\_ms > t->\hyperlink{structwtimer_a16ff2d8e15ade4948398b0aeb80124a8}{count}) \{
+404             t->\hyperlink{structwtimer_a4bd3978f9fa83a0e08225dca54a00eb6}{elapsed} = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+405         \}
+406     \}
+407     \textcolor{keywordflow}{return} t->\hyperlink{structwtimer_a4bd3978f9fa83a0e08225dca54a00eb6}{elapsed};
+408 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=341pt]{mrpw_8c_ade93aa7051a36894e294b79da453d78c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrpw_8c_ade93aa7051a36894e294b79da453d78c_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrpw.\+c@{mrpw.\+c}!mrpw\+\_\+cleanup@{mrpw\+\_\+cleanup}}
+\index{mrpw\+\_\+cleanup@{mrpw\+\_\+cleanup}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{mrpw\+\_\+cleanup(void)}{mrpw_cleanup(void)}}]{\setlength{\rightskip}{0pt plus 5cm}void mrpw\+\_\+cleanup (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{mrpw_8c_a0315e6f711caf027b6f18fea9f52afd2}{}\label{mrpw_8c_a0315e6f711caf027b6f18fea9f52afd2}
+
+
+mrpw.\+c 파일의 971 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+972 \{
+973     WSACleanup();
+974 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{mrpw_8c_a0315e6f711caf027b6f18fea9f52afd2_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrpw.\+c@{mrpw.\+c}!mrpw\+\_\+init\+\_\+protocols@{mrpw\+\_\+init\+\_\+protocols}}
+\index{mrpw\+\_\+init\+\_\+protocols@{mrpw\+\_\+init\+\_\+protocols}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{mrpw\+\_\+init\+\_\+protocols(void)}{mrpw_init_protocols(void)}}]{\setlength{\rightskip}{0pt plus 5cm}int mrpw\+\_\+init\+\_\+protocols (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{mrpw_8c_aab3c897dbd7370fb8d9200888c390807}{}\label{mrpw_8c_aab3c897dbd7370fb8d9200888c390807}
+
+
+mrpw.\+c 파일의 905 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+906 \{
+907     uint16\_t ether\_types[4];
+908     WSADATA wsa\_data;
+909     \textcolor{keywordtype}{int} rc;
+910 
+911     \hyperlink{mrpw_8c_ac5d426d6e3922546d2824f6f8948b167}{mrpd\_port} = \hyperlink{mrpd_8h_a957ecb95a01b342339073f6422eb2bf9}{MRPD\_PORT\_DEFAULT};
+912     \hyperlink{mrpw_8c_ad3139c31ff2065414a32aff30445c816}{mmrp\_enable} = 1;
+913     \hyperlink{mrpw_8c_ab5bdb305967e9668954905d1793599f8}{mvrp\_enable} = 1;
+914     \hyperlink{mrpw_8c_a107c484178b3656d9cc3c4a793ea0a64}{msrp\_enable} = 1;
+915     \hyperlink{mrpw_8c_a33859e291ba549473023e0ff9fc6bca2}{logging\_enable} = 1;
+916 
+917     WSAStartup(MAKEWORD(1, 1), &wsa\_data);
+918 
+919     \textcolor{comment}{/* open our network interface and set the capture ethertype to MRP types */}
+920     \hyperlink{mrpw_8c_a5cc977ed1a8aa84968c166553e31f25f}{net\_if} = \hyperlink{mrpw_8c_a8e890dcb64441152519423bb14f75994}{netif\_open}(\hyperlink{mrpw_8c_aa4a5c0ebf019527a3fe36bfc83fb3460}{TIME\_PERIOD\_25\_MILLISECONDS});    \textcolor{comment}{// time
+       out is 25ms}
+921     \textcolor{keywordflow}{if} (!\hyperlink{mrpw_8c_a5cc977ed1a8aa84968c166553e31f25f}{net\_if}) \{
+922         fprintf(stderr, \textcolor{stringliteral}{"ERROR - opening network interface\(\backslash\)n"});
+923         \textcolor{keywordflow}{return} -1;
+924     \}
+925 
+926     ether\_types[0] = \hyperlink{mvrp_8h_a3ad4d369044fe353738f68d5e89b48d9}{MVRP\_ETYPE};
+927     ether\_types[1] = \hyperlink{mmrp_8h_adea7aaa34d3ac34bc388b49c079758a9}{MMRP\_ETYPE};
+928     ether\_types[2] = \hyperlink{msrp_8h_aa7e86b03530c32b55bd7498078a10755}{MSRP\_ETYPE};
+929     \textcolor{keywordflow}{if} (\hyperlink{mrpw_8c_acce90c8f6cda1c86a2ec91256fa975c3}{netif\_set\_capture\_ethertype}(\hyperlink{mrpw_8c_a5cc977ed1a8aa84968c166553e31f25f}{net\_if}, ether\_types, 3)) \{
+930         fprintf(stderr, \textcolor{stringliteral}{"ERROR - setting netif capture ethertype\(\backslash\)n"});
+931         \textcolor{keywordflow}{return} -1;
+932     \}
+933 
+934     rc = \hyperlink{mrp_8c_a5396c032a7efad48c8c58b20277c941f}{mrp\_init}();
+935     \textcolor{keywordflow}{if} (rc)
+936         \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+937 
+938     rc = \hyperlink{mrpw_8c_a3f681ced4968ad45ebeb1b744b4989f3}{init\_local\_ctl}();
+939     \textcolor{keywordflow}{if} (rc)
+940         \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+941 
+942     \textcolor{keywordflow}{if} (\hyperlink{mrpw_8c_ad3139c31ff2065414a32aff30445c816}{mmrp\_enable}) \{
+943         rc = \hyperlink{mmrp_8c_a5b29834ea6559ef166c451cd001841bd}{mmrp\_init}(\hyperlink{mrpw_8c_ad3139c31ff2065414a32aff30445c816}{mmrp\_enable});
+944         \textcolor{keywordflow}{if} (rc)
+945             \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+946     \}
+947 
+948     \textcolor{keywordflow}{if} (\hyperlink{mrpw_8c_ab5bdb305967e9668954905d1793599f8}{mvrp\_enable}) \{
+949         rc = \hyperlink{mvrp_8c_ad47f57aadab06ad5d8fd73656beaedb7}{mvrp\_init}(\hyperlink{mrpw_8c_ab5bdb305967e9668954905d1793599f8}{mvrp\_enable});
+950         \textcolor{keywordflow}{if} (rc)
+951             \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+952     \}
+953 
+954     \textcolor{keywordflow}{if} (\hyperlink{mrpw_8c_a107c484178b3656d9cc3c4a793ea0a64}{msrp\_enable}) \{
+955         rc = \hyperlink{msrp_8c_abbb51df9457d02837c27d6f0375ba50b}{msrp\_init}(\hyperlink{mrpw_8c_a107c484178b3656d9cc3c4a793ea0a64}{msrp\_enable}, 
+      \hyperlink{msrp_8h_a91c5fd0ba46a6f654394f67f8ca0c729}{MSRP\_INTERESTING\_STREAM\_ID\_COUNT}, 0);
+956         \textcolor{keywordflow}{if} (rc)
+957             \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+958     \}
+959 
+960     rc = \hyperlink{mrpw_8c_a40d9254969e58bd9d0047bd352d58752}{init\_timers}();
+961     \textcolor{keywordflow}{if} (rc)
+962         \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+963 
+964     \textcolor{keywordflow}{return} 0;
+965 
+966  \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out}:
+967     \textcolor{keywordflow}{return} -1;
+968 
+969 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrpw_8c_aab3c897dbd7370fb8d9200888c390807_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=258pt]{mrpw_8c_aab3c897dbd7370fb8d9200888c390807_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrpw.\+c@{mrpw.\+c}!mrpw\+\_\+init\+\_\+threads@{mrpw\+\_\+init\+\_\+threads}}
+\index{mrpw\+\_\+init\+\_\+threads@{mrpw\+\_\+init\+\_\+threads}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{mrpw\+\_\+init\+\_\+threads(void)}{mrpw_init_threads(void)}}]{\setlength{\rightskip}{0pt plus 5cm}int mrpw\+\_\+init\+\_\+threads (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{mrpw_8c_a9111b9d8ad7715088291ffa006c3a119}{}\label{mrpw_8c_a9111b9d8ad7715088291ffa006c3a119}
+
+
+mrpw.\+c 파일의 724 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+725 \{
+726     HANDLE hThread1, hThread2;
+727     DWORD dwThreadID1, dwThreadID2;
+728     \textcolor{keyword}{struct }avb\_avtpdu *avtpdu = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+729     \hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\_t} src\_mac\_address = 0;
+730     \textcolor{keywordtype}{int} i;
+731 
+732     \hyperlink{mrpw_8c_a9ff7f27f7cd3b7de922903c1593c8ea1}{timer\_check\_tick} = \hyperlink{mrpw_8c_a10261079d5a8ac144d272b8f2bf276e8}{mrpd\_timer\_create}();
+733     \hyperlink{mrpw_8c_a07123f13700611dc4e8d553a4624aec9}{mrpd\_timer\_start\_interval}(\hyperlink{mrpw_8c_a9ff7f27f7cd3b7de922903c1593c8ea1}{timer\_check\_tick}, 100, 100);
+734 
+735     \hyperlink{mrpw_8c_a1564cc0a2d217fccefbd60142a533fa0}{que\_wpcap} = \hyperlink{que_8c_ad7fc66fadb0edad9376edc027b63e45c}{que\_new}(256, \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} \hyperlink{structnetif__thread__data}{netif\_thread\_data}));
+736     \hyperlink{mrpw_8c_a1b27f05d6b948bfa6dbca45d028672f1}{que\_localhost} = \hyperlink{que_8c_ad7fc66fadb0edad9376edc027b63e45c}{que\_new}(256, \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} 
+      \hyperlink{structctl__thread__params}{ctl\_thread\_params}));
+737 
+738     \hyperlink{mrpw_8c_a4d95ba25c746583a03e04328f101bf02}{sem\_kill\_wpcap\_thread} = CreateSemaphore(\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, 0, 32767, 
+      \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+739     \hyperlink{mrpw_8c_a29583df1023714b8da35d001ce5eef6b}{sem\_kill\_localhost\_thread} = CreateSemaphore(\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, 0, 32767, 
+      \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+740     \textcolor{keywordflow}{for} (i = \hyperlink{mrpw_8c_ab04a0655cd1e3bcac5e8f48c18df1a57a0ab9f4eb2a2b5ebfb1b091a37e12862b}{pkt\_event\_wpcap\_timeout}; i <= \hyperlink{mrpw_8c_ab04a0655cd1e3bcac5e8f48c18df1a57aae7be117c6f5a0e09fd1747acfd2b475}{loop\_time\_tick}; i++) \{
+741         \hyperlink{mrpw_8c_aabb6f0d78cb7d2986f3ff29232170d5d}{pkt\_events}[i] = CreateEvent(\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, 
+      \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+742         \textcolor{keywordflow}{if} (\hyperlink{mrpw_8c_aabb6f0d78cb7d2986f3ff29232170d5d}{pkt\_events}[i] == \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \{
+743             fprintf(stderr, \textcolor{stringliteral}{"CreateEvent error: %d\(\backslash\)n"},
+744                 GetLastError());
+745             ExitProcess(0);
+746         \}
+747     \}
+748     \hyperlink{mrpw_8c_aabb6f0d78cb7d2986f3ff29232170d5d}{pkt\_events}[\hyperlink{mrpw_8c_ab04a0655cd1e3bcac5e8f48c18df1a57a0d5f08ca5b32548df70038cb720d10db}{pkt\_event\_wpcap}] = 
+      \hyperlink{que_8c_a4f8ca4d264fb8ecf6f34ed01f2a17ac4}{que\_data\_available\_object}(\hyperlink{mrpw_8c_a1564cc0a2d217fccefbd60142a533fa0}{que\_wpcap});
+749     \hyperlink{mrpw_8c_aabb6f0d78cb7d2986f3ff29232170d5d}{pkt\_events}[\hyperlink{mrpw_8c_ab04a0655cd1e3bcac5e8f48c18df1a57a6163f6fe4eb14b9e4a33ccf59f4ede6c}{pkt\_event\_localhost}] =
+750         \hyperlink{que_8c_a4f8ca4d264fb8ecf6f34ed01f2a17ac4}{que\_data\_available\_object}(\hyperlink{mrpw_8c_a1b27f05d6b948bfa6dbca45d028672f1}{que\_localhost});
+751 
+752     \textcolor{comment}{// Create threads}
+753     hThread1 = CreateThread(\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL},   \textcolor{comment}{// default security attributes}
+754                 0,  \textcolor{comment}{// default stack size}
+755                 (LPTHREAD\_START\_ROUTINE) \hyperlink{mrpw_8c_a737803cef506c99c568afa1d3e3b11b8}{netif\_thread}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL},    \textcolor{comment}{// no thread function
+       arguments}
+756                 0,  \textcolor{comment}{// default creation flags}
+757                 &dwThreadID1);  \textcolor{comment}{// receive thread identifier}
+758 
+759     \textcolor{keywordflow}{if} (hThread1 == \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \{
+760         fprintf(stderr, \textcolor{stringliteral}{"CreateThread error: %d\(\backslash\)n"}, GetLastError());
+761         \textcolor{keywordflow}{return} -1;
+762     \}
+763 
+764     hThread2 = CreateThread(\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL},   \textcolor{comment}{// default security attributes}
+765                 0,  \textcolor{comment}{// default stack size}
+766                 (LPTHREAD\_START\_ROUTINE) \hyperlink{mrpw_8c_af50d5780f830ddf91914a60fa6506461}{ctl\_thread}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL},    \textcolor{comment}{// no thread function arguments}
+767                 0,  \textcolor{comment}{// default creation flags}
+768                 &dwThreadID2);  \textcolor{comment}{// receive thread identifier}
+769 
+770     \textcolor{keywordflow}{if} (hThread2 == \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \{
+771         fprintf(stderr, \textcolor{stringliteral}{"CreateThread error: %d\(\backslash\)n"}, GetLastError());
+772         \textcolor{keywordflow}{return} -1;
+773     \}
+774     \textcolor{keywordflow}{return} 0;
+775 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrpw_8c_a9111b9d8ad7715088291ffa006c3a119_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=250pt]{mrpw_8c_a9111b9d8ad7715088291ffa006c3a119_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrpw.\+c@{mrpw.\+c}!mrpw\+\_\+run\+\_\+once@{mrpw\+\_\+run\+\_\+once}}
+\index{mrpw\+\_\+run\+\_\+once@{mrpw\+\_\+run\+\_\+once}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{mrpw\+\_\+run\+\_\+once(void)}{mrpw_run_once(void)}}]{\setlength{\rightskip}{0pt plus 5cm}int mrpw\+\_\+run\+\_\+once (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{mrpw_8c_abd516b2adb743e329475e3dc16abb71c}{}\label{mrpw_8c_abd516b2adb743e329475e3dc16abb71c}
+
+
+mrpw.\+c 파일의 777 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+778 \{
+779     \textcolor{keyword}{struct }\hyperlink{structnetif__thread__data}{netif\_thread\_data} wpcap\_pkt;
+780     \textcolor{keyword}{struct }\hyperlink{structctl__thread__params}{ctl\_thread\_params} localhost\_pkt;
+781     uint16\_t length = 0;
+782     \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} *payload;
+783     uint16\_t protocol;
+784     \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} *proto;
+785 
+786     DWORD dwEvent =
+787         WaitForMultipleObjects(\textcolor{keyword}{sizeof}(\hyperlink{mrpw_8c_aabb6f0d78cb7d2986f3ff29232170d5d}{pkt\_events}) / \textcolor{keyword}{sizeof}(HANDLE),
+788                    \hyperlink{mrpw_8c_aabb6f0d78cb7d2986f3ff29232170d5d}{pkt\_events},
+789                    \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE},
+790                    100);    \textcolor{comment}{/* 100ms wait */}
+791 
+792     \textcolor{comment}{/* special exit case */}
+793     \textcolor{keywordflow}{if} (WAIT\_OBJECT\_0 + \hyperlink{mrpw_8c_ab04a0655cd1e3bcac5e8f48c18df1a57ad3fa3ef31ee45a9a4f7df32fcf38b10b}{app\_event\_kill\_all} == dwEvent)
+794         \textcolor{keywordflow}{return} -1;
+795 
+796     \textcolor{keywordflow}{switch} (dwEvent) \{
+797     \textcolor{keywordflow}{case} WAIT\_TIMEOUT:
+798     \textcolor{keywordflow}{case} WAIT\_OBJECT\_0 + \hyperlink{mrpw_8c_ab04a0655cd1e3bcac5e8f48c18df1a57aae7be117c6f5a0e09fd1747acfd2b475}{loop\_time\_tick}:
+799         \textcolor{comment}{/* timeout - run protocols */}
+800         \textcolor{keywordflow}{if} (\hyperlink{mrpw_8c_ad3139c31ff2065414a32aff30445c816}{mmrp\_enable}) \{
+801             \textcolor{keywordflow}{if} (\hyperlink{mrpw_8c_ade93aa7051a36894e294b79da453d78c}{mrpd\_timer\_timeout}(\hyperlink{mrpw_8c_acea0810e73cb6b2bce5c27bb4d1b5b18}{MMRP\_db}->\hyperlink{structmmrp__database_a7e08db3b85c932325ce3a3605a09ab0c}{mrp\_db}.
+      \hyperlink{structmrp__database_a63013eac35405517020e4681a260d06d}{lva\_timer}))
+802                 \hyperlink{mmrp_8c_a494d680e84bb2796362c1f1beb754771}{mmrp\_event}(\hyperlink{mrp_8h_a8088f6bff6d11fdddbea73c3596356ca}{MRP\_EVENT\_LVATIMER}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+803             \textcolor{keywordflow}{if} (\hyperlink{mrpw_8c_ade93aa7051a36894e294b79da453d78c}{mrpd\_timer\_timeout}(\hyperlink{mrpw_8c_acea0810e73cb6b2bce5c27bb4d1b5b18}{MMRP\_db}->\hyperlink{structmmrp__database_a7e08db3b85c932325ce3a3605a09ab0c}{mrp\_db}.
+      \hyperlink{structmrp__database_afb0e407756ab2688bbd60efbbdcc66d4}{lv\_timer}))
+804                 \hyperlink{mmrp_8c_a494d680e84bb2796362c1f1beb754771}{mmrp\_event}(\hyperlink{mrp_8h_acf9a8791c6d90b6323ac11e00d79f626}{MRP\_EVENT\_LVTIMER}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+805             \textcolor{keywordflow}{if} (\hyperlink{mrpw_8c_ade93aa7051a36894e294b79da453d78c}{mrpd\_timer\_timeout}(\hyperlink{mrpw_8c_acea0810e73cb6b2bce5c27bb4d1b5b18}{MMRP\_db}->\hyperlink{structmmrp__database_a7e08db3b85c932325ce3a3605a09ab0c}{mrp\_db}.
+      \hyperlink{structmrp__database_a55eea88044cf545b4b60f7a851e2ca4e}{join\_timer}))
+806                 \hyperlink{mmrp_8c_a494d680e84bb2796362c1f1beb754771}{mmrp\_event}(\hyperlink{mrp_8h_afc138ed41cc8e8ca7f7ccb9ec3347bf2}{MRP\_EVENT\_TX}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+807         \}
+808 
+809         \textcolor{keywordflow}{if} (\hyperlink{mrpw_8c_ab5bdb305967e9668954905d1793599f8}{mvrp\_enable}) \{
+810             \textcolor{keywordflow}{if} (\hyperlink{mrpw_8c_ade93aa7051a36894e294b79da453d78c}{mrpd\_timer\_timeout}(\hyperlink{mrpw_8c_a69153097f1eb68878b4a0eb4d4f5810f}{MVRP\_db}->\hyperlink{structmvrp__database_a7e08db3b85c932325ce3a3605a09ab0c}{mrp\_db}.
+      \hyperlink{structmrp__database_a63013eac35405517020e4681a260d06d}{lva\_timer}))
+811                 \hyperlink{mvrp_8c_a8233b6c80e371d771ecf46b527a1dbf1}{mvrp\_event}(\hyperlink{mrp_8h_a8088f6bff6d11fdddbea73c3596356ca}{MRP\_EVENT\_LVATIMER}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+812             \textcolor{keywordflow}{if} (\hyperlink{mrpw_8c_ade93aa7051a36894e294b79da453d78c}{mrpd\_timer\_timeout}(\hyperlink{mrpw_8c_a69153097f1eb68878b4a0eb4d4f5810f}{MVRP\_db}->\hyperlink{structmvrp__database_a7e08db3b85c932325ce3a3605a09ab0c}{mrp\_db}.
+      \hyperlink{structmrp__database_afb0e407756ab2688bbd60efbbdcc66d4}{lv\_timer}))
+813                 \hyperlink{mvrp_8c_a8233b6c80e371d771ecf46b527a1dbf1}{mvrp\_event}(\hyperlink{mrp_8h_acf9a8791c6d90b6323ac11e00d79f626}{MRP\_EVENT\_LVTIMER}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+814             \textcolor{keywordflow}{if} (\hyperlink{mrpw_8c_ade93aa7051a36894e294b79da453d78c}{mrpd\_timer\_timeout}(\hyperlink{mrpw_8c_a69153097f1eb68878b4a0eb4d4f5810f}{MVRP\_db}->\hyperlink{structmvrp__database_a7e08db3b85c932325ce3a3605a09ab0c}{mrp\_db}.
+      \hyperlink{structmrp__database_a55eea88044cf545b4b60f7a851e2ca4e}{join\_timer}))
+815                 \hyperlink{mvrp_8c_a8233b6c80e371d771ecf46b527a1dbf1}{mvrp\_event}(\hyperlink{mrp_8h_afc138ed41cc8e8ca7f7ccb9ec3347bf2}{MRP\_EVENT\_TX}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+816         \}
+817 
+818         \textcolor{keywordflow}{if} (\hyperlink{mrpw_8c_a107c484178b3656d9cc3c4a793ea0a64}{msrp\_enable}) \{
+819             \textcolor{keywordflow}{if} (\hyperlink{mrpw_8c_ade93aa7051a36894e294b79da453d78c}{mrpd\_timer\_timeout}(\hyperlink{mrpw_8c_a2632449b508d61015863de936e0f902c}{MSRP\_db}->\hyperlink{structmsrp__database_a7e08db3b85c932325ce3a3605a09ab0c}{mrp\_db}.
+      \hyperlink{structmrp__database_a63013eac35405517020e4681a260d06d}{lva\_timer}))
+820                 \hyperlink{msrp_8c_afdf1c4b7bf6c48671ee29d4d585bd2f1}{msrp\_event}(\hyperlink{mrp_8h_a8088f6bff6d11fdddbea73c3596356ca}{MRP\_EVENT\_LVATIMER}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+821             \textcolor{keywordflow}{if} (\hyperlink{mrpw_8c_ade93aa7051a36894e294b79da453d78c}{mrpd\_timer\_timeout}(\hyperlink{mrpw_8c_a2632449b508d61015863de936e0f902c}{MSRP\_db}->\hyperlink{structmsrp__database_a7e08db3b85c932325ce3a3605a09ab0c}{mrp\_db}.
+      \hyperlink{structmrp__database_afb0e407756ab2688bbd60efbbdcc66d4}{lv\_timer}))
+822                 \hyperlink{msrp_8c_afdf1c4b7bf6c48671ee29d4d585bd2f1}{msrp\_event}(\hyperlink{mrp_8h_acf9a8791c6d90b6323ac11e00d79f626}{MRP\_EVENT\_LVTIMER}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+823             \textcolor{keywordflow}{if} (\hyperlink{mrpw_8c_ade93aa7051a36894e294b79da453d78c}{mrpd\_timer\_timeout}(\hyperlink{mrpw_8c_a2632449b508d61015863de936e0f902c}{MSRP\_db}->\hyperlink{structmsrp__database_a7e08db3b85c932325ce3a3605a09ab0c}{mrp\_db}.
+      \hyperlink{structmrp__database_a55eea88044cf545b4b60f7a851e2ca4e}{join\_timer}))
+824                 \hyperlink{msrp_8c_afdf1c4b7bf6c48671ee29d4d585bd2f1}{msrp\_event}(\hyperlink{mrp_8h_afc138ed41cc8e8ca7f7ccb9ec3347bf2}{MRP\_EVENT\_TX}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+825         \}
+826 
+827         \textcolor{keywordflow}{if} (\hyperlink{mrpw_8c_ade93aa7051a36894e294b79da453d78c}{mrpd\_timer\_timeout}(\hyperlink{mrpw_8c_af88f400fec5cb09e035b149aa9bcff4d}{periodic\_timer})) \{
+828             \textcolor{comment}{//printf("mrpd\_timer\_timeout(periodic\_timer)\(\backslash\)n");}
+829             \textcolor{keywordflow}{if} (\hyperlink{mrpw_8c_ad3139c31ff2065414a32aff30445c816}{mmrp\_enable})
+830                 \hyperlink{mmrp_8c_a494d680e84bb2796362c1f1beb754771}{mmrp\_event}(\hyperlink{mrp_8h_ae0ba8d40bfa479a2f4f9dc84732cd4d1}{MRP\_EVENT\_PERIODIC}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+831             \textcolor{keywordflow}{if} (\hyperlink{mrpw_8c_ab5bdb305967e9668954905d1793599f8}{mvrp\_enable})
+832                 \hyperlink{mvrp_8c_a8233b6c80e371d771ecf46b527a1dbf1}{mvrp\_event}(\hyperlink{mrp_8h_ae0ba8d40bfa479a2f4f9dc84732cd4d1}{MRP\_EVENT\_PERIODIC}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+833             \textcolor{keywordflow}{if} (\hyperlink{mrpw_8c_a107c484178b3656d9cc3c4a793ea0a64}{msrp\_enable})
+834                 \hyperlink{msrp_8c_afdf1c4b7bf6c48671ee29d4d585bd2f1}{msrp\_event}(\hyperlink{mrp_8h_ae0ba8d40bfa479a2f4f9dc84732cd4d1}{MRP\_EVENT\_PERIODIC}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+835             \hyperlink{mrpw_8c_a0aa88cd38f0c2252a18bce5027285697}{mrpd\_timer\_restart}(\hyperlink{mrpw_8c_af88f400fec5cb09e035b149aa9bcff4d}{periodic\_timer});
+836         \}
+837         \textcolor{keywordflow}{if} (\hyperlink{mrpw_8c_ade93aa7051a36894e294b79da453d78c}{mrpd\_timer\_timeout}(\hyperlink{mrpw_8c_abf254d0c64007ea3cae8d94cee94c6a8}{gc\_timer})) \{
+838             \hyperlink{mrpw_8c_ade9e7ae018e5aa62281e7e3d1f09d124}{mrpd\_reclaim}();
+839         \}
+840         \hyperlink{mrpw_8c_a0aa88cd38f0c2252a18bce5027285697}{mrpd\_timer\_restart}(\hyperlink{mrpw_8c_a9ff7f27f7cd3b7de922903c1593c8ea1}{timer\_check\_tick});
+841         \textcolor{keywordflow}{break};
+842 
+843     \textcolor{keywordflow}{case} WAIT\_OBJECT\_0 + \hyperlink{mrpw_8c_ab04a0655cd1e3bcac5e8f48c18df1a57a0d5f08ca5b32548df70038cb720d10db}{pkt\_event\_wpcap}:
+844         \hyperlink{que_8c_afb8951e9ab296a98eea1bde8342ea4f9}{que\_pop\_nowait}(\hyperlink{mrpw_8c_a1564cc0a2d217fccefbd60142a533fa0}{que\_wpcap}, &wpcap\_pkt);
+845         proto = &wpcap\_pkt.frame[12];
+846         protocol = (uint16\_t) proto[0] << 8 | (uint16\_t) proto[1];
+847         payload = proto + 2;
+848 
+849         \hyperlink{mrpw_8c_a421e94742210cb464d86ac82cf866d9b}{last\_pdu\_buffer} = wpcap\_pkt.frame;
+850         \hyperlink{mrpw_8c_a1f85060549f67cfec5c072795047d27d}{last\_pdu\_buffer\_size} = wpcap\_pkt.length;
+851 
+852         \textcolor{keywordflow}{switch} (protocol) \{
+853         \textcolor{keywordflow}{case} \hyperlink{mvrp_8h_a3ad4d369044fe353738f68d5e89b48d9}{MVRP\_ETYPE}:
+854             \textcolor{keywordflow}{if} (\hyperlink{mrpw_8c_ab5bdb305967e9668954905d1793599f8}{mvrp\_enable})
+855                 \hyperlink{mvrp_8c_abc8ecd8b4fb3b7fc7442c162f0a893e7}{mvrp\_recv\_msg}();
+856             \textcolor{keywordflow}{break};
+857 
+858         \textcolor{keywordflow}{case} \hyperlink{mmrp_8h_adea7aaa34d3ac34bc388b49c079758a9}{MMRP\_ETYPE}:
+859             \textcolor{keywordflow}{if} (\hyperlink{mrpw_8c_ad3139c31ff2065414a32aff30445c816}{mmrp\_enable})
+860                 \hyperlink{mmrp_8c_a4ee9f804f3087ebe0175fa6b252af230}{mmrp\_recv\_msg}();
+861             \textcolor{keywordflow}{break};
+862 
+863         \textcolor{keywordflow}{case} \hyperlink{msrp_8h_aa7e86b03530c32b55bd7498078a10755}{MSRP\_ETYPE}:
+864             \textcolor{keywordflow}{if} (\hyperlink{mrpw_8c_a107c484178b3656d9cc3c4a793ea0a64}{msrp\_enable})
+865                 \hyperlink{msrp_8c_ab9b686db38f7cc0e2137156ee6fbe1ce}{msrp\_recv\_msg}();
+866             \textcolor{keywordflow}{break};
+867         \}
+868         \textcolor{keywordflow}{if} (\hyperlink{mrpw_8c_ade93aa7051a36894e294b79da453d78c}{mrpd\_timer\_timeout}(&\hyperlink{mrpw_8c_a9ff7f27f7cd3b7de922903c1593c8ea1}{timer\_check\_tick})) \{
+869             \textcolor{keywordflow}{if} (!SetEvent(\hyperlink{mrpw_8c_aabb6f0d78cb7d2986f3ff29232170d5d}{pkt\_events}[\hyperlink{mrpw_8c_ab04a0655cd1e3bcac5e8f48c18df1a57aae7be117c6f5a0e09fd1747acfd2b475}{loop\_time\_tick}])) \{
+870                 printf(\textcolor{stringliteral}{"SetEvent loop\_time\_tick failed (%d)\(\backslash\)n"},
+871                        GetLastError());
+872                 exit(-1);
+873             \}
+874         \}
+875         \textcolor{keywordflow}{break};
+876 
+877     \textcolor{keywordflow}{case} WAIT\_OBJECT\_0 + \hyperlink{mrpw_8c_ab04a0655cd1e3bcac5e8f48c18df1a57a0ab9f4eb2a2b5ebfb1b091a37e12862b}{pkt\_event\_wpcap\_timeout}:
+878         \textcolor{comment}{//printf("pkt\_event\_wpcap\_timeout\(\backslash\)n");}
+879         \textcolor{keywordflow}{break};
+880 
+881     \textcolor{keywordflow}{case} WAIT\_OBJECT\_0 + \hyperlink{mrpw_8c_ab04a0655cd1e3bcac5e8f48c18df1a57a6163f6fe4eb14b9e4a33ccf59f4ede6c}{pkt\_event\_localhost}:
+882         \hyperlink{que_8c_afb8951e9ab296a98eea1bde8342ea4f9}{que\_pop\_nowait}(\hyperlink{mrpw_8c_a1b27f05d6b948bfa6dbca45d028672f1}{que\_localhost}, &localhost\_pkt);
+883         \hyperlink{mrpw_8c_a2718f426181044574c66149d44325166}{process\_ctl\_msg}(localhost\_pkt.msgbuf,
+884                 localhost\_pkt.bytes, (\textcolor{keyword}{struct} sockaddr\_in *)
+885                 &localhost\_pkt.client\_addr);
+886         \textcolor{keywordflow}{if} (\hyperlink{mrpw_8c_ade93aa7051a36894e294b79da453d78c}{mrpd\_timer\_timeout}(&\hyperlink{mrpw_8c_a9ff7f27f7cd3b7de922903c1593c8ea1}{timer\_check\_tick})) \{
+887             \textcolor{keywordflow}{if} (!SetEvent(\hyperlink{mrpw_8c_aabb6f0d78cb7d2986f3ff29232170d5d}{pkt\_events}[loop\_time\_tick])) \{
+888                 printf(\textcolor{stringliteral}{"SetEvent loop\_time\_tick failed (%d)\(\backslash\)n"},
+889                        GetLastError());
+890                 exit(-1);
+891             \}
+892         \}
+893         \textcolor{keywordflow}{break};
+894 
+895     \textcolor{keywordflow}{case} WAIT\_OBJECT\_0 + \hyperlink{mrpw_8c_ab04a0655cd1e3bcac5e8f48c18df1a57ac7af1f4d8289185ee48add52ad64c8a4}{pkt\_event\_localhost\_timeout}:
+896         \textcolor{comment}{//printf("pkt\_event\_localhost\_timeout\(\backslash\)n");}
+897         \textcolor{keywordflow}{break};
+898 
+899     \textcolor{keywordflow}{default}:
+900         printf(\textcolor{stringliteral}{"Unknown event %d\(\backslash\)n"}, dwEvent);
+901     \}
+902     \textcolor{keywordflow}{return} 0;
+903 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrpw_8c_abd516b2adb743e329475e3dc16abb71c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrpw_8c_abd516b2adb743e329475e3dc16abb71c_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrpw.\+c@{mrpw.\+c}!netif\+\_\+capture\+\_\+frame@{netif\+\_\+capture\+\_\+frame}}
+\index{netif\+\_\+capture\+\_\+frame@{netif\+\_\+capture\+\_\+frame}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{netif\+\_\+capture\+\_\+frame(struct netif $\ast$net\+\_\+if, uint8\+\_\+t $\ast$$\ast$frame, uint16\+\_\+t $\ast$length)}{netif_capture_frame(struct netif *net_if, uint8_t **frame, uint16_t *length)}}]{\setlength{\rightskip}{0pt plus 5cm}int netif\+\_\+capture\+\_\+frame (
+\begin{DoxyParamCaption}
+\item[{struct {\bf netif} $\ast$}]{net\+\_\+if, }
+\item[{{\bf uint8\+\_\+t} $\ast$$\ast$}]{frame, }
+\item[{uint16\+\_\+t $\ast$}]{length}
+\end{DoxyParamCaption}
+)}\hypertarget{mrpw_8c_a3cc41dadf18d034d8f3c3fd93324805f}{}\label{mrpw_8c_a3cc41dadf18d034d8f3c3fd93324805f}
+
+
+mrpw.\+c 파일의 281 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+283 \{
+284     \textcolor{keyword}{struct }pcap\_pkthdr *header;
+285     \textcolor{keywordtype}{int} error = 0;
+286 
+287     *length = 0;
+288     error = pcap\_next\_ex(net\_if->\hyperlink{structnetif_a79b3ba185b2046dc6ed20455903d38a9}{pcap\_interface}, &header, \hyperlink{gst__avb__playbin_8c_ac8e710e0b5e994c0545d75d69868c6f0}{frame});
+289     \textcolor{keywordflow}{if} (error > 0) \{
+290         *length = (uint16\_t) header->len;
+291         return (1);
+292     \} \textcolor{keywordflow}{else} \{
+293         \textcolor{keywordflow}{return} (\hyperlink{mrpw_8c_a974c690685310e1cde3deb2167bfc55e}{NETIF\_TIMEOUT});
+294     \}
+295 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrpw_8c_a3cc41dadf18d034d8f3c3fd93324805f_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrpw.\+c@{mrpw.\+c}!netif\+\_\+close@{netif\+\_\+close}}
+\index{netif\+\_\+close@{netif\+\_\+close}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{netif\+\_\+close(struct netif $\ast$net\+\_\+if)}{netif_close(struct netif *net_if)}}]{\setlength{\rightskip}{0pt plus 5cm}int netif\+\_\+close (
+\begin{DoxyParamCaption}
+\item[{struct {\bf netif} $\ast$}]{net\+\_\+if}
+\end{DoxyParamCaption}
+)}\hypertarget{mrpw_8c_a83bfe860c71e63613dd11e0d43d0a3ab}{}\label{mrpw_8c_a83bfe860c71e63613dd11e0d43d0a3ab}
+
+
+mrpw.\+c 파일의 236 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+237 \{
+238     \textcolor{comment}{/* At this point, we don't need any more the device list. Free it */}
+239     pcap\_freealldevs(net\_if->\hyperlink{structnetif_a2be2f5d8859972dbfd0a842bf7946e61}{alldevs});
+240     pcap\_close(net\_if->\hyperlink{structnetif_a79b3ba185b2046dc6ed20455903d38a9}{pcap\_interface});
+241     \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(net\_if);
+242     \textcolor{keywordflow}{return} (0);
+243 \}
+\end{DoxyCode}
+\index{mrpw.\+c@{mrpw.\+c}!netif\+\_\+open@{netif\+\_\+open}}
+\index{netif\+\_\+open@{netif\+\_\+open}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{netif\+\_\+open(int timeout\+\_\+ms)}{netif_open(int timeout_ms)}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf netif}$\ast$ netif\+\_\+open (
+\begin{DoxyParamCaption}
+\item[{int}]{timeout\+\_\+ms}
+\end{DoxyParamCaption}
+)}\hypertarget{mrpw_8c_a8e890dcb64441152519423bb14f75994}{}\label{mrpw_8c_a8e890dcb64441152519423bb14f75994}
+
+
+mrpw.\+c 파일의 143 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+144 \{
+145     \textcolor{keywordtype}{int} inum = 0;
+146     \textcolor{keywordtype}{int} i = 0, total\_interfaces = 0;
+147     \textcolor{keyword}{struct }\hyperlink{structnetif}{netif} *\hyperlink{structnetif}{netif};
+148     PIP\_ADAPTER\_INFO AdapterInfo;
+149     PIP\_ADAPTER\_INFO Current;
+150     DWORD status, \hyperlink{gst__avb__playbin_8c_a439227feff9d7f55384e8780cfc2eb82}{size};
+151 
+152     netif = (\textcolor{keyword}{struct }netif *)\hyperlink{_memory_leak_detector_malloc_macros_8h_a7cbb7b79af9d539af55b59dfc3598390}{calloc}(1, \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} netif));
+153 
+154     \textcolor{comment}{/* Retrieve the device list on the local machine */}
+155     \textcolor{keywordflow}{if} (pcap\_findalldevs(&netif->\hyperlink{structnetif_a2be2f5d8859972dbfd0a842bf7946e61}{alldevs}, netif->\hyperlink{structnetif_a41891cad090df07cd9360f1d8a9f1396}{errbuf}) == -1) \{
+156         printf(\textcolor{stringliteral}{"Error finding interfaces\(\backslash\)n"});
+157         \textcolor{keywordflow}{goto} error\_return;
+158     \}
+159 
+160     \textcolor{comment}{/* Print the list */}
+161     \textcolor{keywordflow}{for} (netif->\hyperlink{structnetif_a6613c16cd9a1fcb4703a820d46c3789f}{d} = netif->\hyperlink{structnetif_a2be2f5d8859972dbfd0a842bf7946e61}{alldevs}; netif->\hyperlink{structnetif_a6613c16cd9a1fcb4703a820d46c3789f}{d}; netif->\hyperlink{structnetif_a6613c16cd9a1fcb4703a820d46c3789f}{d} = netif->\hyperlink{structnetif_a6613c16cd9a1fcb4703a820d46c3789f}{d}->next) \{
+162         \textcolor{comment}{/*printf("%d. %s", ++i, d->name); */}
+163         printf(\textcolor{stringliteral}{"%d"}, ++i);
+164         \textcolor{keywordflow}{if} (netif->\hyperlink{structnetif_a6613c16cd9a1fcb4703a820d46c3789f}{d}->description)
+165             printf(\textcolor{stringliteral}{" (%-70s)\(\backslash\)n"}, netif->\hyperlink{structnetif_a6613c16cd9a1fcb4703a820d46c3789f}{d}->description);
+166         \textcolor{keywordflow}{else}
+167             printf(\textcolor{stringliteral}{" (No description available)\(\backslash\)n"});
+168     \}
+169     total\_interfaces = \hyperlink{structnetif_acb559820d9ca11295b4500f179ef6392}{i};
+170 
+171     \textcolor{keywordflow}{if} (i == 0) \{
+172         printf
+173             (\textcolor{stringliteral}{"\(\backslash\)nNo interfaces found! Make sure WinPcap is installed.\(\backslash\)n"});
+174         \textcolor{keywordflow}{goto} error\_return;
+175     \}
+176 
+177     printf(\textcolor{stringliteral}{"Enter the interface number (1-%d):"}, i);
+178     scanf\_s(\textcolor{stringliteral}{"%d"}, &inum);
+179 
+180     \textcolor{keywordflow}{if} (inum < 1 || inum > i) \{
+181         printf(\textcolor{stringliteral}{"\(\backslash\)nInterface number out of range.\(\backslash\)n"});
+182         \textcolor{comment}{/* Free the device list */}
+183         pcap\_freealldevs(netif->\hyperlink{structnetif_a2be2f5d8859972dbfd0a842bf7946e61}{alldevs});
+184         \textcolor{keywordflow}{goto} error\_return;
+185     \}
+186 
+187     \textcolor{comment}{/* Jump to the selected adapter */}
+188     \textcolor{keywordflow}{for} (netif->\hyperlink{structnetif_a6613c16cd9a1fcb4703a820d46c3789f}{d} = netif->\hyperlink{structnetif_a2be2f5d8859972dbfd0a842bf7946e61}{alldevs}, i = 0; i < inum - 1;
+189          netif->\hyperlink{structnetif_a6613c16cd9a1fcb4703a820d46c3789f}{d} = netif->\hyperlink{structnetif_a6613c16cd9a1fcb4703a820d46c3789f}{d}->next, i++) ;
+190 
+191     \textcolor{comment}{/* Open the device */}
+192     \textcolor{keywordflow}{if} ((netif->\hyperlink{structnetif_a79b3ba185b2046dc6ed20455903d38a9}{pcap\_interface} = pcap\_open\_live(netif->\hyperlink{structnetif_a6613c16cd9a1fcb4703a820d46c3789f}{d}->name,  \textcolor{comment}{// name of the device}
+193                             65536,  \textcolor{comment}{// portion of the packet to capture}
+194                             \textcolor{comment}{// 65536 guarantees that the whole packet will be captured on all the link
+       layers}
+195                             1,  \textcolor{comment}{// promiscuous mode}
+196                             timeout\_ms, \textcolor{comment}{// read timeout in ms}
+197                             netif->\hyperlink{structnetif_a41891cad090df07cd9360f1d8a9f1396}{errbuf} \textcolor{comment}{// error buffer}
+198          )) == \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \{
+199         fprintf(stderr,
+200             \textcolor{stringliteral}{"\(\backslash\)nUnable to open the adapter. %s is not supported by WinPcap\(\backslash\)n"},
+201             netif->\hyperlink{structnetif_a6613c16cd9a1fcb4703a820d46c3789f}{d}->name);
+202         \textcolor{comment}{/* Free the device list */}
+203         pcap\_freealldevs(netif->\hyperlink{structnetif_a2be2f5d8859972dbfd0a842bf7946e61}{alldevs});
+204         \textcolor{keywordflow}{goto} error\_return;
+205     \}
+206 
+207     \textcolor{comment}{/* lookup ip address */}
+208 
+209     \textcolor{comment}{/* first, call to lookup the size */}
+210     status = GetAdaptersInfo(\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, &size);
+211     \textcolor{keywordflow}{if} (status != ERROR\_BUFFER\_OVERFLOW)
+212         \textcolor{keywordflow}{goto} error\_return;
+213     AdapterInfo = (PIP\_ADAPTER\_INFO)\hyperlink{_memory_leak_detector_malloc_macros_8h_ab8b25cd8f16d4a6552afe4e65c4f082d}{malloc}(size);
+214 
+215     status = GetAdaptersInfo(AdapterInfo, &size);
+216     \textcolor{keywordflow}{if} (status != ERROR\_SUCCESS) \{
+217         fprintf(stderr,
+218             \textcolor{stringliteral}{"\(\backslash\)nError, GetAdaptersInfo() call in netif\_win32\_pcap.c failed\(\backslash\)n"});
+219         \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(AdapterInfo);
+220         \textcolor{keywordflow}{goto} error\_return;
+221     \}
+222 
+223     \textcolor{keywordflow}{for} (Current = AdapterInfo; Current != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}; Current = Current->Next) \{
+224         \textcolor{keywordflow}{if} (strstr(netif->\hyperlink{structnetif_a6613c16cd9a1fcb4703a820d46c3789f}{d}->name, Current->AdapterName) != 0) \{
+225             memcpy(netif->\hyperlink{structnetif_a2f32c75fb4bc7ba39243ef4a9f8eacc1}{mac}, &Current->Address, \textcolor{keyword}{sizeof}(netif->\hyperlink{structnetif_a2f32c75fb4bc7ba39243ef4a9f8eacc1}{mac}));
+226         \}
+227     \}
+228     \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(AdapterInfo);
+229     \textcolor{keywordflow}{return} netif;
+230 
+231  error\_return:
+232     \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(netif);
+233     \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+234 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrpw_8c_a8e890dcb64441152519423bb14f75994_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrpw.\+c@{mrpw.\+c}!netif\+\_\+send\+\_\+frame@{netif\+\_\+send\+\_\+frame}}
+\index{netif\+\_\+send\+\_\+frame@{netif\+\_\+send\+\_\+frame}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{netif\+\_\+send\+\_\+frame(struct netif $\ast$net\+\_\+if, uint8\+\_\+t $\ast$frame, uint16\+\_\+t length)}{netif_send_frame(struct netif *net_if, uint8_t *frame, uint16_t length)}}]{\setlength{\rightskip}{0pt plus 5cm}int netif\+\_\+send\+\_\+frame (
+\begin{DoxyParamCaption}
+\item[{struct {\bf netif} $\ast$}]{net\+\_\+if, }
+\item[{{\bf uint8\+\_\+t} $\ast$}]{frame, }
+\item[{uint16\+\_\+t}]{length}
+\end{DoxyParamCaption}
+)}\hypertarget{mrpw_8c_a6fd69ec1e9bfc15c179e387f2fc42d2b}{}\label{mrpw_8c_a6fd69ec1e9bfc15c179e387f2fc42d2b}
+
+
+mrpw.\+c 파일의 297 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+298 \{
+299     \textcolor{comment}{//printf("TX frame: %d bytes\(\backslash\)n", length);}
+300     \textcolor{keywordflow}{if} (pcap\_sendpacket(net\_if->\hyperlink{structnetif_a79b3ba185b2046dc6ed20455903d38a9}{pcap\_interface}, \hyperlink{gst__avb__playbin_8c_ac8e710e0b5e994c0545d75d69868c6f0}{frame}, length) != 0) \{
+301         fprintf(stderr, \textcolor{stringliteral}{"\(\backslash\)nError sending the packet: \(\backslash\)n"},
+302             pcap\_geterr(net\_if->\hyperlink{structnetif_a79b3ba185b2046dc6ed20455903d38a9}{pcap\_interface}));
+303         \textcolor{keywordflow}{return} -1;
+304     \}
+305     \textcolor{keywordflow}{return} (0);
+306 \}
+\end{DoxyCode}
+\index{mrpw.\+c@{mrpw.\+c}!netif\+\_\+set\+\_\+capture\+\_\+ethertype@{netif\+\_\+set\+\_\+capture\+\_\+ethertype}}
+\index{netif\+\_\+set\+\_\+capture\+\_\+ethertype@{netif\+\_\+set\+\_\+capture\+\_\+ethertype}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{netif\+\_\+set\+\_\+capture\+\_\+ethertype(struct netif $\ast$net\+\_\+if, uint16\+\_\+t $\ast$ethertype, uint32\+\_\+t count)}{netif_set_capture_ethertype(struct netif *net_if, uint16_t *ethertype, uint32_t count)}}]{\setlength{\rightskip}{0pt plus 5cm}int netif\+\_\+set\+\_\+capture\+\_\+ethertype (
+\begin{DoxyParamCaption}
+\item[{struct {\bf netif} $\ast$}]{net\+\_\+if, }
+\item[{uint16\+\_\+t $\ast$}]{ethertype, }
+\item[{{\bf uint32\+\_\+t}}]{count}
+\end{DoxyParamCaption}
+)}\hypertarget{mrpw_8c_acce90c8f6cda1c86a2ec91256fa975c3}{}\label{mrpw_8c_acce90c8f6cda1c86a2ec91256fa975c3}
+
+
+mrpw.\+c 파일의 245 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+247 \{
+248     \textcolor{keyword}{struct }bpf\_program fcode;
+249     \textcolor{keywordtype}{char} ethertype\_string[512];
+250     \textcolor{keywordtype}{char} ethertype\_single[64];
+251     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} i;
+252 
+253     ethertype\_string[0] = 0;
+254     \textcolor{keywordflow}{for} (i = 0; i < count; i++) \{
+255         sprintf(ethertype\_single, \textcolor{stringliteral}{"ether proto 0x%04x"}, \hyperlink{avtp__rx_8c_af3d6d4ec5b93edfddc9de51233ae9f7e}{ethertype}[i]);
+256         strcat(ethertype\_string, ethertype\_single);
+257         \textcolor{keywordflow}{if} ((i + 1) < count)
+258             strcat(ethertype\_string, \textcolor{stringliteral}{" or "});
+259     \}
+260 
+261     \textcolor{comment}{// compile a filter}
+262     \textcolor{keywordflow}{if} (pcap\_compile(net\_if->\hyperlink{structnetif_a79b3ba185b2046dc6ed20455903d38a9}{pcap\_interface}, &fcode, ethertype\_string, 1, 0)
+263         < 0) \{
+264         fprintf(stderr,
+265             \textcolor{stringliteral}{"\(\backslash\)nUnable to compile the packet filter. Check the syntax.\(\backslash\)n"});
+266         \textcolor{comment}{/* Free the device list */}
+267         pcap\_freealldevs(net\_if->\hyperlink{structnetif_a2be2f5d8859972dbfd0a842bf7946e61}{alldevs});
+268         \textcolor{keywordflow}{return} -1;
+269     \}
+270     \textcolor{comment}{//set the filter}
+271     \textcolor{keywordflow}{if} (pcap\_setfilter(net\_if->\hyperlink{structnetif_a79b3ba185b2046dc6ed20455903d38a9}{pcap\_interface}, &fcode) < 0) \{
+272         fprintf(stderr, \textcolor{stringliteral}{"\(\backslash\)nError setting the filter.\(\backslash\)n"});
+273         \textcolor{comment}{/* Free the device list */}
+274         pcap\_freealldevs(net\_if->\hyperlink{structnetif_a2be2f5d8859972dbfd0a842bf7946e61}{alldevs});
+275         \textcolor{keywordflow}{return} -1;
+276     \}
+277 
+278     \textcolor{keywordflow}{return} (0);
+279 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrpw_8c_acce90c8f6cda1c86a2ec91256fa975c3_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrpw.\+c@{mrpw.\+c}!netif\+\_\+thread@{netif\+\_\+thread}}
+\index{netif\+\_\+thread@{netif\+\_\+thread}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{netif\+\_\+thread(\+L\+P\+V\+O\+I\+D lp\+Param)}{netif_thread(LPVOID lpParam)}}]{\setlength{\rightskip}{0pt plus 5cm}D\+W\+O\+RD W\+I\+N\+A\+PI netif\+\_\+thread (
+\begin{DoxyParamCaption}
+\item[{L\+P\+V\+O\+ID}]{lp\+Param}
+\end{DoxyParamCaption}
+)}\hypertarget{mrpw_8c_a737803cef506c99c568afa1d3e3b11b8}{}\label{mrpw_8c_a737803cef506c99c568afa1d3e3b11b8}
+
+
+mrpw.\+c 파일의 313 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+314 \{
+315     \textcolor{keywordtype}{int} status;
+316     \textcolor{keyword}{struct }\hyperlink{structnetif__thread__data}{netif\_thread\_data} d;
+317 
+318     \textcolor{keywordflow}{while} (WaitForSingleObject(\hyperlink{mrpw_8c_a4d95ba25c746583a03e04328f101bf02}{sem\_kill\_wpcap\_thread}, 0)) \{
+319         status = \hyperlink{mrpw_8c_a3cc41dadf18d034d8f3c3fd93324805f}{netif\_capture\_frame}(\hyperlink{mrpw_8c_a5cc977ed1a8aa84968c166553e31f25f}{net\_if}, &d.frame, &d.length);
+320         \textcolor{keywordflow}{if} (status > 0) \{
+321             \hyperlink{que_8c_a4e2ee12a5c085f144e4182aa867f0538}{que\_push}(\hyperlink{mrpw_8c_a1564cc0a2d217fccefbd60142a533fa0}{que\_wpcap}, &d);
+322         \} \textcolor{keywordflow}{else} \{
+323             \textcolor{keywordflow}{if} (!SetEvent(\hyperlink{mrpw_8c_aabb6f0d78cb7d2986f3ff29232170d5d}{pkt\_events}[\hyperlink{mrpw_8c_ab04a0655cd1e3bcac5e8f48c18df1a57a0ab9f4eb2a2b5ebfb1b091a37e12862b}{pkt\_event\_wpcap\_timeout}])) \{
+324                 printf
+325                     (\textcolor{stringliteral}{"SetEvent pkt\_event\_wpcap\_timeout failed (%d)\(\backslash\)n"},
+326                      GetLastError());
+327                 \textcolor{keywordflow}{return} 1;
+328             \}
+329         \}
+330     \}
+331     \textcolor{keywordflow}{return} 0;
+332 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=287pt]{mrpw_8c_a737803cef506c99c568afa1d3e3b11b8_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrpw_8c_a737803cef506c99c568afa1d3e3b11b8_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrpw.\+c@{mrpw.\+c}!process\+\_\+ctl\+\_\+msg@{process\+\_\+ctl\+\_\+msg}}
+\index{process\+\_\+ctl\+\_\+msg@{process\+\_\+ctl\+\_\+msg}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{process\+\_\+ctl\+\_\+msg(char $\ast$buf, int buflen, struct sockaddr\+\_\+in $\ast$client)}{process_ctl_msg(char *buf, int buflen, struct sockaddr_in *client)}}]{\setlength{\rightskip}{0pt plus 5cm}int process\+\_\+ctl\+\_\+msg (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{buf, }
+\item[{int}]{buflen, }
+\item[{struct sockaddr\+\_\+in $\ast$}]{client}
+\end{DoxyParamCaption}
+)}\hypertarget{mrpw_8c_a2718f426181044574c66149d44325166}{}\label{mrpw_8c_a2718f426181044574c66149d44325166}
+
+
+mrpw.\+c 파일의 480 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+481 \{
+482 
+483     \textcolor{keywordtype}{char} respbuf[8];
+484     \textcolor{comment}{/*}
+485 \textcolor{comment}{     * Inbound/output commands from/to a client:}
+486 \textcolor{comment}{     *}
+487 \textcolor{comment}{     * When sent from a client, indicates an operation on the}
+488 \textcolor{comment}{     * internal attribute databases. When sent by the daemon to}
+489 \textcolor{comment}{     * a client, indicates an event such as a new attribute arrival,}
+490 \textcolor{comment}{     * or a leaveall timer to force clients to re-advertise continued}
+491 \textcolor{comment}{     * interest in an attribute.}
+492 \textcolor{comment}{     *}
+493 \textcolor{comment}{     * BYE   Client detaches from daemon}
+494 \textcolor{comment}{     *}
+495 \textcolor{comment}{     * M+? - JOIN\_MT a MAC address or service declaration}
+496 \textcolor{comment}{     * M++   JOIN\_IN a MAC Address (XXX: MMRP doesn't use 'New' though?)}
+497 \textcolor{comment}{     * M-- - LV a MAC address or service declaration}
+498 \textcolor{comment}{     * V+? - JOIN\_MT a VID (VLAN ID)}
+499 \textcolor{comment}{     * V++ - JOIN\_IN a VID (VLAN ID)}
+500 \textcolor{comment}{     * V-- - LV a VID (VLAN ID)}
+501 \textcolor{comment}{     * S+? - JOIN\_MT a Stream}
+502 \textcolor{comment}{     * S++ - JOIN\_IN a Stream}
+503 \textcolor{comment}{     * S-- - LV a Stream}
+504 \textcolor{comment}{     *}
+505 \textcolor{comment}{     * Outbound messages}
+506 \textcolor{comment}{     * ERC - error, unrecognized command}
+507 \textcolor{comment}{     * ERP - error, unrecognized parameter}
+508 \textcolor{comment}{     * ERI - error, internal}
+509 \textcolor{comment}{     * OK+ - success}
+510 \textcolor{comment}{     *}
+511 \textcolor{comment}{     * Registrar Commands}
+512 \textcolor{comment}{     *}
+513 \textcolor{comment}{     * M?? - query MMRP Registrar MAC Address database}
+514 \textcolor{comment}{     * V?? - query MVRP Registrar VID database}
+515 \textcolor{comment}{     * S?? - query MSRP Registrar database}
+516 \textcolor{comment}{     *}
+517 \textcolor{comment}{     * Registrar Responses (to ?? commands)}
+518 \textcolor{comment}{     *}
+519 \textcolor{comment}{     * MIN - Registered}
+520 \textcolor{comment}{     * MMT - Registered, Empty}
+521 \textcolor{comment}{     * MLV - Registered, Leaving}
+522 \textcolor{comment}{     * MNE - New attribute notification}
+523 \textcolor{comment}{     * MJO - JOIN attribute notification}
+524 \textcolor{comment}{     * MLV - LEAVE attribute notification}
+525 \textcolor{comment}{     * VIN - Registered}
+526 \textcolor{comment}{     * VMT - Registered, Empty}
+527 \textcolor{comment}{     * VLV - Registered, Leaving}
+528 \textcolor{comment}{     * SIN - Registered}
+529 \textcolor{comment}{     * SMT - Registered, Empty}
+530 \textcolor{comment}{     * SLV - Registered, Leaving}
+531 \textcolor{comment}{     *}
+532 \textcolor{comment}{     */}
+533 
+534     memset(respbuf, 0, \textcolor{keyword}{sizeof}(respbuf));
+535 
+536 \textcolor{preprocessor}{#if LOG\_CLIENT\_RECV}
+537     \textcolor{keywordflow}{if} (\hyperlink{mrpw_8c_a33859e291ba549473023e0ff9fc6bca2}{logging\_enable})
+538         printf(\textcolor{stringliteral}{"CMD:%s from CLNT %d\(\backslash\)n"}, buf, \hyperlink{jack__listener_8c_afed7053cd7bdd1cce33dec7213f340ea}{client}->sin\_port);
+539 \textcolor{preprocessor}{#endif}
+540 
+541     \textcolor{keywordflow}{if} (buflen < 3) \{
+542         printf(\textcolor{stringliteral}{"buflen = %d!\(\backslash\)b"}, buflen);
+543 
+544         \textcolor{keywordflow}{return} -1;
+545     \}
+546 
+547     \textcolor{keywordflow}{switch} (buf[0]) \{
+548     \textcolor{keywordflow}{case} \textcolor{charliteral}{'M'}:
+549         \textcolor{keywordflow}{return} \hyperlink{mmrp_8c_a80e4cd4658a40390ebe9cea163581c45}{mmrp\_recv\_cmd}(buf, buflen, \hyperlink{jack__listener_8c_afed7053cd7bdd1cce33dec7213f340ea}{client});
+550         \textcolor{keywordflow}{break};
+551     \textcolor{keywordflow}{case} \textcolor{charliteral}{'V'}:
+552         \textcolor{keywordflow}{return} \hyperlink{mvrp_8c_a3f72134f3c8f16b0ad7d1aec0daf61a2}{mvrp\_recv\_cmd}(buf, buflen, \hyperlink{jack__listener_8c_afed7053cd7bdd1cce33dec7213f340ea}{client});
+553         \textcolor{keywordflow}{break};
+554     \textcolor{keywordflow}{case} \textcolor{charliteral}{'S'}:
+555         \textcolor{keywordflow}{return} \hyperlink{msrp_8c_a072b3d50b567a96dabff447fca5b8a4a}{msrp\_recv\_cmd}(buf, buflen, \hyperlink{jack__listener_8c_afed7053cd7bdd1cce33dec7213f340ea}{client});
+556         \textcolor{keywordflow}{break};
+557     \textcolor{keywordflow}{case} \textcolor{charliteral}{'B'}:
+558         \hyperlink{mmrp_8c_ad00b443aef7fb39111695a356c0ea9cb}{mmrp\_bye}(\hyperlink{jack__listener_8c_afed7053cd7bdd1cce33dec7213f340ea}{client});
+559         \hyperlink{mvrp_8c_a27761658967d18d903b98ca32d9bdd63}{mvrp\_bye}(\hyperlink{jack__listener_8c_afed7053cd7bdd1cce33dec7213f340ea}{client});
+560         \hyperlink{msrp_8c_a94a301e42230fc4de895f1fa98cddf39}{msrp\_bye}(\hyperlink{jack__listener_8c_afed7053cd7bdd1cce33dec7213f340ea}{client});
+561         \textcolor{keywordflow}{break};
+562     \textcolor{keywordflow}{default}:
+563         printf(\textcolor{stringliteral}{"unrecognized command %s\(\backslash\)n"}, buf);
+564         snprintf(respbuf, \textcolor{keyword}{sizeof}(respbuf) - 1, \textcolor{stringliteral}{"ERC %s"}, buf);
+565         \hyperlink{mrpw_8c_a0b11a3acfabce074af443f2fc82c562e}{mrpd\_send\_ctl\_msg}(\hyperlink{jack__listener_8c_afed7053cd7bdd1cce33dec7213f340ea}{client}, respbuf, \textcolor{keyword}{sizeof}(respbuf));
+566         \textcolor{keywordflow}{return} -1;
+567         \textcolor{keywordflow}{break};
+568     \}
+569 
+570     \textcolor{keywordflow}{return} 0;
+571 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{mrpw_8c_a2718f426181044574c66149d44325166_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrpw_8c_a2718f426181044574c66149d44325166_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrpw.\+c@{mrpw.\+c}!process\+\_\+events@{process\+\_\+events}}
+\index{process\+\_\+events@{process\+\_\+events}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{process\+\_\+events(void)}{process_events(void)}}]{\setlength{\rightskip}{0pt plus 5cm}void process\+\_\+events (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{mrpw_8c_ab119c2fcc7d054ac05112df1da366d60}{}\label{mrpw_8c_ab119c2fcc7d054ac05112df1da366d60}
+
+
+mrpw.\+c 파일의 976 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+977 \{
+978     \textcolor{keywordtype}{int} status;
+979     \textcolor{keywordflow}{while} (1) \{
+980         status = \hyperlink{mrpw_8c_abd516b2adb743e329475e3dc16abb71c}{mrpw\_run\_once}();
+981         \textcolor{keywordflow}{if} (status < 0)
+982             \textcolor{keywordflow}{break};
+983     \}
+984 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrpw_8c_ab119c2fcc7d054ac05112df1da366d60_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=240pt]{mrpw_8c_ab119c2fcc7d054ac05112df1da366d60_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{변수 문서화}
+\index{mrpw.\+c@{mrpw.\+c}!clock\+\_\+monotonic\+\_\+freq@{clock\+\_\+monotonic\+\_\+freq}}
+\index{clock\+\_\+monotonic\+\_\+freq@{clock\+\_\+monotonic\+\_\+freq}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{clock\+\_\+monotonic\+\_\+freq}{clock_monotonic_freq}}]{\setlength{\rightskip}{0pt plus 5cm}L\+A\+R\+G\+E\+\_\+\+I\+N\+T\+E\+G\+ER clock\+\_\+monotonic\+\_\+freq\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{mrpw_8c_a65c33680392ae536d1a69319ddf31882}{}\label{mrpw_8c_a65c33680392ae536d1a69319ddf31882}
+
+
+mrpw.\+c 파일의 335 번째 라인에서 정의되었습니다.
+
+\index{mrpw.\+c@{mrpw.\+c}!clock\+\_\+monotonic\+\_\+in\+\_\+ms\+\_\+init@{clock\+\_\+monotonic\+\_\+in\+\_\+ms\+\_\+init}}
+\index{clock\+\_\+monotonic\+\_\+in\+\_\+ms\+\_\+init@{clock\+\_\+monotonic\+\_\+in\+\_\+ms\+\_\+init}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{clock\+\_\+monotonic\+\_\+in\+\_\+ms\+\_\+init}{clock_monotonic_in_ms_init}}]{\setlength{\rightskip}{0pt plus 5cm}int clock\+\_\+monotonic\+\_\+in\+\_\+ms\+\_\+init = 0\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{mrpw_8c_af9109bf8bcce675d06c30defc1cb02ae}{}\label{mrpw_8c_af9109bf8bcce675d06c30defc1cb02ae}
+
+
+mrpw.\+c 파일의 334 번째 라인에서 정의되었습니다.
+
+\index{mrpw.\+c@{mrpw.\+c}!control\+\_\+socket@{control\+\_\+socket}}
+\index{control\+\_\+socket@{control\+\_\+socket}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{control\+\_\+socket}{control_socket}}]{\setlength{\rightskip}{0pt plus 5cm}S\+O\+C\+K\+ET control\+\_\+socket}\hypertarget{mrpw_8c_abf70939a32bc17d4c4876dccc834a8fc}{}\label{mrpw_8c_abf70939a32bc17d4c4876dccc834a8fc}
+
+
+mrpw.\+c 파일의 129 번째 라인에서 정의되었습니다.
+
+\index{mrpw.\+c@{mrpw.\+c}!daemonize@{daemonize}}
+\index{daemonize@{daemonize}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{daemonize}{daemonize}}]{\setlength{\rightskip}{0pt plus 5cm}int daemonize}\hypertarget{mrpw_8c_aa2339b21f98abccd12533a54d5f9d712}{}\label{mrpw_8c_aa2339b21f98abccd12533a54d5f9d712}
+
+
+mrpw.\+c 파일의 92 번째 라인에서 정의되었습니다.
+
+\index{mrpw.\+c@{mrpw.\+c}!gc\+\_\+timer@{gc\+\_\+timer}}
+\index{gc\+\_\+timer@{gc\+\_\+timer}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{gc\+\_\+timer}{gc_timer}}]{\setlength{\rightskip}{0pt plus 5cm}H\+T\+I\+M\+ER gc\+\_\+timer}\hypertarget{mrpw_8c_abf254d0c64007ea3cae8d94cee94c6a8}{}\label{mrpw_8c_abf254d0c64007ea3cae8d94cee94c6a8}
+
+
+mrpw.\+c 파일의 136 번째 라인에서 정의되었습니다.
+
+\index{mrpw.\+c@{mrpw.\+c}!interface\+\_\+fd@{interface\+\_\+fd}}
+\index{interface\+\_\+fd@{interface\+\_\+fd}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{interface\+\_\+fd}{interface_fd}}]{\setlength{\rightskip}{0pt plus 5cm}int interface\+\_\+fd}\hypertarget{mrpw_8c_a4357208f4b73859a1aabe21ab5c4b95b}{}\label{mrpw_8c_a4357208f4b73859a1aabe21ab5c4b95b}
+
+
+mrpw.\+c 파일의 105 번째 라인에서 정의되었습니다.
+
+\index{mrpw.\+c@{mrpw.\+c}!kill\+\_\+packet\+\_\+capture@{kill\+\_\+packet\+\_\+capture}}
+\index{kill\+\_\+packet\+\_\+capture@{kill\+\_\+packet\+\_\+capture}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{kill\+\_\+packet\+\_\+capture}{kill_packet_capture}}]{\setlength{\rightskip}{0pt plus 5cm}H\+A\+N\+D\+LE kill\+\_\+packet\+\_\+capture}\hypertarget{mrpw_8c_ab5aa09e700d80d1d10d7302013575519}{}\label{mrpw_8c_ab5aa09e700d80d1d10d7302013575519}
+
+
+mrpw.\+c 파일의 722 번째 라인에서 정의되었습니다.
+
+\index{mrpw.\+c@{mrpw.\+c}!last\+\_\+pdu\+\_\+buffer@{last\+\_\+pdu\+\_\+buffer}}
+\index{last\+\_\+pdu\+\_\+buffer@{last\+\_\+pdu\+\_\+buffer}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{last\+\_\+pdu\+\_\+buffer}{last_pdu_buffer}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint8\+\_\+t}$\ast$ last\+\_\+pdu\+\_\+buffer\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{mrpw_8c_a421e94742210cb464d86ac82cf866d9b}{}\label{mrpw_8c_a421e94742210cb464d86ac82cf866d9b}
+
+
+mrpw.\+c 파일의 573 번째 라인에서 정의되었습니다.
+
+\index{mrpw.\+c@{mrpw.\+c}!last\+\_\+pdu\+\_\+buffer\+\_\+size@{last\+\_\+pdu\+\_\+buffer\+\_\+size}}
+\index{last\+\_\+pdu\+\_\+buffer\+\_\+size@{last\+\_\+pdu\+\_\+buffer\+\_\+size}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{last\+\_\+pdu\+\_\+buffer\+\_\+size}{last_pdu_buffer_size}}]{\setlength{\rightskip}{0pt plus 5cm}int last\+\_\+pdu\+\_\+buffer\+\_\+size\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{mrpw_8c_a1f85060549f67cfec5c072795047d27d}{}\label{mrpw_8c_a1f85060549f67cfec5c072795047d27d}
+
+
+mrpw.\+c 파일의 574 번째 라인에서 정의되었습니다.
+
+\index{mrpw.\+c@{mrpw.\+c}!logging\+\_\+enable@{logging\+\_\+enable}}
+\index{logging\+\_\+enable@{logging\+\_\+enable}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{logging\+\_\+enable}{logging_enable}}]{\setlength{\rightskip}{0pt plus 5cm}int logging\+\_\+enable}\hypertarget{mrpw_8c_a33859e291ba549473023e0ff9fc6bca2}{}\label{mrpw_8c_a33859e291ba549473023e0ff9fc6bca2}
+
+
+mrpw.\+c 파일의 96 번째 라인에서 정의되었습니다.
+
+\index{mrpw.\+c@{mrpw.\+c}!M\+M\+R\+P\+\_\+db@{M\+M\+R\+P\+\_\+db}}
+\index{M\+M\+R\+P\+\_\+db@{M\+M\+R\+P\+\_\+db}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{M\+M\+R\+P\+\_\+db}{MMRP_db}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf mmrp\+\_\+database}$\ast$ M\+M\+R\+P\+\_\+db}\hypertarget{mrpw_8c_acea0810e73cb6b2bce5c27bb4d1b5b18}{}\label{mrpw_8c_acea0810e73cb6b2bce5c27bb4d1b5b18}
+
+
+mmrp.\+c 파일의 56 번째 라인에서 정의되었습니다.
+
+\index{mrpw.\+c@{mrpw.\+c}!mmrp\+\_\+enable@{mmrp\+\_\+enable}}
+\index{mmrp\+\_\+enable@{mmrp\+\_\+enable}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{mmrp\+\_\+enable}{mmrp_enable}}]{\setlength{\rightskip}{0pt plus 5cm}int mmrp\+\_\+enable}\hypertarget{mrpw_8c_ad3139c31ff2065414a32aff30445c816}{}\label{mrpw_8c_ad3139c31ff2065414a32aff30445c816}
+
+
+mrpw.\+c 파일의 93 번째 라인에서 정의되었습니다.
+
+\index{mrpw.\+c@{mrpw.\+c}!mmrp\+\_\+socket@{mmrp\+\_\+socket}}
+\index{mmrp\+\_\+socket@{mmrp\+\_\+socket}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{mmrp\+\_\+socket}{mmrp_socket}}]{\setlength{\rightskip}{0pt plus 5cm}S\+O\+C\+K\+ET mmrp\+\_\+socket}\hypertarget{mrpw_8c_ad2c9cdf7e23d2cf3875bd410709c27c8}{}\label{mrpw_8c_ad2c9cdf7e23d2cf3875bd410709c27c8}
+
+
+mmrp.\+c 파일의 54 번째 라인에서 정의되었습니다.
+
+\index{mrpw.\+c@{mrpw.\+c}!mrpd\+\_\+port@{mrpd\+\_\+port}}
+\index{mrpd\+\_\+port@{mrpd\+\_\+port}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{mrpd\+\_\+port}{mrpd_port}}]{\setlength{\rightskip}{0pt plus 5cm}int mrpd\+\_\+port}\hypertarget{mrpw_8c_ac5d426d6e3922546d2824f6f8948b167}{}\label{mrpw_8c_ac5d426d6e3922546d2824f6f8948b167}
+
+
+mrpw.\+c 파일의 97 번째 라인에서 정의되었습니다.
+
+\index{mrpw.\+c@{mrpw.\+c}!M\+S\+R\+P\+\_\+db@{M\+S\+R\+P\+\_\+db}}
+\index{M\+S\+R\+P\+\_\+db@{M\+S\+R\+P\+\_\+db}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{M\+S\+R\+P\+\_\+db}{MSRP_db}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf msrp\+\_\+database}$\ast$ M\+S\+R\+P\+\_\+db}\hypertarget{mrpw_8c_a2632449b508d61015863de936e0f902c}{}\label{mrpw_8c_a2632449b508d61015863de936e0f902c}
+
+
+msrp.\+c 파일의 67 번째 라인에서 정의되었습니다.
+
+\index{mrpw.\+c@{mrpw.\+c}!msrp\+\_\+enable@{msrp\+\_\+enable}}
+\index{msrp\+\_\+enable@{msrp\+\_\+enable}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{msrp\+\_\+enable}{msrp_enable}}]{\setlength{\rightskip}{0pt plus 5cm}int msrp\+\_\+enable}\hypertarget{mrpw_8c_a107c484178b3656d9cc3c4a793ea0a64}{}\label{mrpw_8c_a107c484178b3656d9cc3c4a793ea0a64}
+
+
+mrpw.\+c 파일의 95 번째 라인에서 정의되었습니다.
+
+\index{mrpw.\+c@{mrpw.\+c}!msrp\+\_\+socket@{msrp\+\_\+socket}}
+\index{msrp\+\_\+socket@{msrp\+\_\+socket}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{msrp\+\_\+socket}{msrp_socket}}]{\setlength{\rightskip}{0pt plus 5cm}S\+O\+C\+K\+ET msrp\+\_\+socket}\hypertarget{mrpw_8c_a743cd84649ee1c7a93be5c80fe272b78}{}\label{mrpw_8c_a743cd84649ee1c7a93be5c80fe272b78}
+
+
+msrp.\+c 파일의 66 번째 라인에서 정의되었습니다.
+
+\index{mrpw.\+c@{mrpw.\+c}!M\+V\+R\+P\+\_\+db@{M\+V\+R\+P\+\_\+db}}
+\index{M\+V\+R\+P\+\_\+db@{M\+V\+R\+P\+\_\+db}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{M\+V\+R\+P\+\_\+db}{MVRP_db}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf mvrp\+\_\+database}$\ast$ M\+V\+R\+P\+\_\+db}\hypertarget{mrpw_8c_a69153097f1eb68878b4a0eb4d4f5810f}{}\label{mrpw_8c_a69153097f1eb68878b4a0eb4d4f5810f}
+
+
+mvrp.\+c 파일의 58 번째 라인에서 정의되었습니다.
+
+\index{mrpw.\+c@{mrpw.\+c}!mvrp\+\_\+enable@{mvrp\+\_\+enable}}
+\index{mvrp\+\_\+enable@{mvrp\+\_\+enable}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{mvrp\+\_\+enable}{mvrp_enable}}]{\setlength{\rightskip}{0pt plus 5cm}int mvrp\+\_\+enable}\hypertarget{mrpw_8c_ab5bdb305967e9668954905d1793599f8}{}\label{mrpw_8c_ab5bdb305967e9668954905d1793599f8}
+
+
+mrpw.\+c 파일의 94 번째 라인에서 정의되었습니다.
+
+\index{mrpw.\+c@{mrpw.\+c}!mvrp\+\_\+socket@{mvrp\+\_\+socket}}
+\index{mvrp\+\_\+socket@{mvrp\+\_\+socket}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{mvrp\+\_\+socket}{mvrp_socket}}]{\setlength{\rightskip}{0pt plus 5cm}S\+O\+C\+K\+ET mvrp\+\_\+socket}\hypertarget{mrpw_8c_af6724e3786b97cec4803af3f5372166c}{}\label{mrpw_8c_af6724e3786b97cec4803af3f5372166c}
+
+
+mvrp.\+c 파일의 57 번째 라인에서 정의되었습니다.
+
+\index{mrpw.\+c@{mrpw.\+c}!net\+\_\+if@{net\+\_\+if}}
+\index{net\+\_\+if@{net\+\_\+if}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{net\+\_\+if}{net_if}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf netif}$\ast$ net\+\_\+if}\hypertarget{mrpw_8c_a5cc977ed1a8aa84968c166553e31f25f}{}\label{mrpw_8c_a5cc977ed1a8aa84968c166553e31f25f}
+
+
+mrpw.\+c 파일의 133 번째 라인에서 정의되었습니다.
+
+\index{mrpw.\+c@{mrpw.\+c}!participant@{participant}}
+\index{participant@{participant}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{participant}{participant}}]{\setlength{\rightskip}{0pt plus 5cm}int participant}\hypertarget{mrpw_8c_a08ed403eabc8682a01da8a737ac32c31}{}\label{mrpw_8c_a08ed403eabc8682a01da8a737ac32c31}
+
+
+mrpw.\+c 파일의 115 번째 라인에서 정의되었습니다.
+
+\index{mrpw.\+c@{mrpw.\+c}!periodic\+\_\+timer@{periodic\+\_\+timer}}
+\index{periodic\+\_\+timer@{periodic\+\_\+timer}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{periodic\+\_\+timer}{periodic_timer}}]{\setlength{\rightskip}{0pt plus 5cm}H\+T\+I\+M\+ER periodic\+\_\+timer}\hypertarget{mrpw_8c_af88f400fec5cb09e035b149aa9bcff4d}{}\label{mrpw_8c_af88f400fec5cb09e035b149aa9bcff4d}
+
+
+mrpw.\+c 파일의 135 번째 라인에서 정의되었습니다.
+
+\index{mrpw.\+c@{mrpw.\+c}!pkt\+\_\+events@{pkt\+\_\+events}}
+\index{pkt\+\_\+events@{pkt\+\_\+events}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{pkt\+\_\+events}{pkt_events}}]{\setlength{\rightskip}{0pt plus 5cm}H\+A\+N\+D\+LE pkt\+\_\+events\mbox{[}6\mbox{]}}\hypertarget{mrpw_8c_aabb6f0d78cb7d2986f3ff29232170d5d}{}\label{mrpw_8c_aabb6f0d78cb7d2986f3ff29232170d5d}
+
+
+mrpw.\+c 파일의 98 번째 라인에서 정의되었습니다.
+
+\index{mrpw.\+c@{mrpw.\+c}!que\+\_\+localhost@{que\+\_\+localhost}}
+\index{que\+\_\+localhost@{que\+\_\+localhost}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{que\+\_\+localhost}{que_localhost}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf que\+\_\+def}$\ast$ que\+\_\+localhost}\hypertarget{mrpw_8c_a1b27f05d6b948bfa6dbca45d028672f1}{}\label{mrpw_8c_a1b27f05d6b948bfa6dbca45d028672f1}
+
+
+mrpw.\+c 파일의 102 번째 라인에서 정의되었습니다.
+
+\index{mrpw.\+c@{mrpw.\+c}!que\+\_\+wpcap@{que\+\_\+wpcap}}
+\index{que\+\_\+wpcap@{que\+\_\+wpcap}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{que\+\_\+wpcap}{que_wpcap}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf que\+\_\+def}$\ast$ que\+\_\+wpcap}\hypertarget{mrpw_8c_a1564cc0a2d217fccefbd60142a533fa0}{}\label{mrpw_8c_a1564cc0a2d217fccefbd60142a533fa0}
+
+
+mrpw.\+c 파일의 101 번째 라인에서 정의되었습니다.
+
+\index{mrpw.\+c@{mrpw.\+c}!registration@{registration}}
+\index{registration@{registration}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{registration}{registration}}]{\setlength{\rightskip}{0pt plus 5cm}int registration}\hypertarget{mrpw_8c_a76843f7fb36637f07903bdab30dd3658}{}\label{mrpw_8c_a76843f7fb36637f07903bdab30dd3658}
+
+
+mrpw.\+c 파일의 108 번째 라인에서 정의되었습니다.
+
+\index{mrpw.\+c@{mrpw.\+c}!sem\+\_\+kill\+\_\+localhost\+\_\+thread@{sem\+\_\+kill\+\_\+localhost\+\_\+thread}}
+\index{sem\+\_\+kill\+\_\+localhost\+\_\+thread@{sem\+\_\+kill\+\_\+localhost\+\_\+thread}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{sem\+\_\+kill\+\_\+localhost\+\_\+thread}{sem_kill_localhost_thread}}]{\setlength{\rightskip}{0pt plus 5cm}H\+A\+N\+D\+LE sem\+\_\+kill\+\_\+localhost\+\_\+thread}\hypertarget{mrpw_8c_a29583df1023714b8da35d001ce5eef6b}{}\label{mrpw_8c_a29583df1023714b8da35d001ce5eef6b}
+
+
+mrpw.\+c 파일의 100 번째 라인에서 정의되었습니다.
+
+\index{mrpw.\+c@{mrpw.\+c}!sem\+\_\+kill\+\_\+wpcap\+\_\+thread@{sem\+\_\+kill\+\_\+wpcap\+\_\+thread}}
+\index{sem\+\_\+kill\+\_\+wpcap\+\_\+thread@{sem\+\_\+kill\+\_\+wpcap\+\_\+thread}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{sem\+\_\+kill\+\_\+wpcap\+\_\+thread}{sem_kill_wpcap_thread}}]{\setlength{\rightskip}{0pt plus 5cm}H\+A\+N\+D\+LE sem\+\_\+kill\+\_\+wpcap\+\_\+thread}\hypertarget{mrpw_8c_a4d95ba25c746583a03e04328f101bf02}{}\label{mrpw_8c_a4d95ba25c746583a03e04328f101bf02}
+
+
+mrpw.\+c 파일의 99 번째 라인에서 정의되었습니다.
+
+\index{mrpw.\+c@{mrpw.\+c}!S\+T\+A\+T\+I\+O\+N\+\_\+\+A\+D\+DR@{S\+T\+A\+T\+I\+O\+N\+\_\+\+A\+D\+DR}}
+\index{S\+T\+A\+T\+I\+O\+N\+\_\+\+A\+D\+DR@{S\+T\+A\+T\+I\+O\+N\+\_\+\+A\+D\+DR}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{S\+T\+A\+T\+I\+O\+N\+\_\+\+A\+D\+DR}{STATION_ADDR}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char S\+T\+A\+T\+I\+O\+N\+\_\+\+A\+D\+DR\mbox{[}$\,$\mbox{]} = \{ 0x00, 0x88, 0x77, 0x66, 0x55, 0x44 \}}\hypertarget{mrpw_8c_ab42ba46b155e06fe7850ed877f07de86}{}\label{mrpw_8c_ab42ba46b155e06fe7850ed877f07de86}
+
+
+mrpw.\+c 파일의 126 번째 라인에서 정의되었습니다.
+
+\index{mrpw.\+c@{mrpw.\+c}!timer\+\_\+check\+\_\+tick@{timer\+\_\+check\+\_\+tick}}
+\index{timer\+\_\+check\+\_\+tick@{timer\+\_\+check\+\_\+tick}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{timer\+\_\+check\+\_\+tick}{timer_check_tick}}]{\setlength{\rightskip}{0pt plus 5cm}H\+T\+I\+M\+ER timer\+\_\+check\+\_\+tick}\hypertarget{mrpw_8c_a9ff7f27f7cd3b7de922903c1593c8ea1}{}\label{mrpw_8c_a9ff7f27f7cd3b7de922903c1593c8ea1}
+
+
+mrpw.\+c 파일의 137 번째 라인에서 정의되었습니다.
+
+\index{mrpw.\+c@{mrpw.\+c}!version\+\_\+str@{version\+\_\+str}}
+\index{version\+\_\+str@{version\+\_\+str}!mrpw.\+c@{mrpw.\+c}}
+\subsubsection[{\texorpdfstring{version\+\_\+str}{version_str}}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ version\+\_\+str\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{mrpw_8c_ae724265d048ace6b96a1e977ea11c1c7}{}\label{mrpw_8c_ae724265d048ace6b96a1e977ea11c1c7}
+{\bfseries 초기값\+:}
+\begin{DoxyCode}
+=
+    \textcolor{stringliteral}{"mrpw v"} \hyperlink{mrpw_8c_acfc1668731750cb1ee8974b8a7c133ef}{VERSION\_STR} \textcolor{stringliteral}{"\(\backslash\)n"} \textcolor{stringliteral}{"Copyright (c) 2012, AudioScience Inc\(\backslash\)n"}
+\end{DoxyCode}
+
+
+mrpw.\+c 파일의 123 번째 라인에서 정의되었습니다.
+

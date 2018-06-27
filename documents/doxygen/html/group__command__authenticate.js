@@ -1,0 +1,35 @@
+var group__command__authenticate =
+[
+    [ "jdksavdecc_aem_command_authenticate", "structjdksavdecc__aem__command__authenticate.html", [
+      [ "aem_header", "structjdksavdecc__aem__command__authenticate.html#ae1e77ccb75ff5021ad923221eab38294", null ],
+      [ "descriptor_index", "structjdksavdecc__aem__command__authenticate.html#a042bbc76d835b82d27c1932431ee38d4", null ],
+      [ "descriptor_type", "structjdksavdecc__aem__command__authenticate.html#ab7c32b6c7131c13d4ea3b7ee2f09b78d", null ],
+      [ "reserved", "structjdksavdecc__aem__command__authenticate.html#a5a6ed8c04a3db86066924b1a1bf4dad3", null ],
+      [ "token_length", "structjdksavdecc__aem__command__authenticate.html#a97da4c134a2723b8dbcd1c88d8577991", null ]
+    ] ],
+    [ "JDKSAVDECC_AEM_COMMAND_AUTHENTICATE_COMMAND_LEN", "group__command__authenticate.html#ga4fc8006ff44cdde3e0c193973f0e4831", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_AUTHENTICATE_COMMAND_OFFSET_AUTHENTICATION_TOKEN", "group__command__authenticate.html#gab4e477e8a4d194dc54d3011ef68e98b5", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_AUTHENTICATE_COMMAND_OFFSET_COMMAND_TYPE", "group__command__authenticate.html#ga9df7679d7bc0a677e289393932b82531", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_AUTHENTICATE_COMMAND_OFFSET_CONTROLLER_ENTITY_ID", "group__command__authenticate.html#ga06c32b7f579c4812af73b347002f3de2", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_AUTHENTICATE_COMMAND_OFFSET_DESCRIPTOR_INDEX", "group__command__authenticate.html#gafaa8d369e9f1badb16456baedc015ae1", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_AUTHENTICATE_COMMAND_OFFSET_DESCRIPTOR_TYPE", "group__command__authenticate.html#gae59b6008707cccaab8f575f3e83dcea4", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_AUTHENTICATE_COMMAND_OFFSET_RESERVED", "group__command__authenticate.html#ga5e646c3fc47cf554add5ea6c886e2e09", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_AUTHENTICATE_COMMAND_OFFSET_SEQUENCE_ID", "group__command__authenticate.html#ga621c1548f304b92f84a269dee92e676d", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_AUTHENTICATE_COMMAND_OFFSET_TOKEN_LENGTH", "group__command__authenticate.html#ga6dea4aaa99a318d656816c1f1fef5e3e", null ],
+    [ "jdksavdecc_aem_command_authenticate_get_command_type", "group__command__authenticate.html#ga2c74db085583504db7c2a34a76380009", null ],
+    [ "jdksavdecc_aem_command_authenticate_get_controller_entity_id", "group__command__authenticate.html#ga0d817f3a63a94a9e4f13071e7c299cba", null ],
+    [ "jdksavdecc_aem_command_authenticate_get_descriptor_index", "group__command__authenticate.html#gaa20d61859334e4bf12677ccc80220622", null ],
+    [ "jdksavdecc_aem_command_authenticate_get_descriptor_type", "group__command__authenticate.html#gab4d7a396b0a39e094bb57a21c5697cf0", null ],
+    [ "jdksavdecc_aem_command_authenticate_get_reserved", "group__command__authenticate.html#ga9867a66fbdcbf3e2dbd6bb195bd7c5ae", null ],
+    [ "jdksavdecc_aem_command_authenticate_get_sequence_id", "group__command__authenticate.html#ga61321b4eb72f8c756174fe65493e59a0", null ],
+    [ "jdksavdecc_aem_command_authenticate_get_token_length", "group__command__authenticate.html#gac1a07f001172b01d8199d7a9483aea77", null ],
+    [ "jdksavdecc_aem_command_authenticate_read", "group__command__authenticate.html#ga7c852288dc51972be0e549e27b6f0e54", null ],
+    [ "jdksavdecc_aem_command_authenticate_set_command_type", "group__command__authenticate.html#ga20e31c1cf733308d7614c902841ed5a3", null ],
+    [ "jdksavdecc_aem_command_authenticate_set_controller_entity_id", "group__command__authenticate.html#ga8f58b0058dd6a744fc07cc8403157a71", null ],
+    [ "jdksavdecc_aem_command_authenticate_set_descriptor_index", "group__command__authenticate.html#gaa28e92d7200435a04569083ac362f4b7", null ],
+    [ "jdksavdecc_aem_command_authenticate_set_descriptor_type", "group__command__authenticate.html#ga482382acdfff24eaf915502ce4d5ae75", null ],
+    [ "jdksavdecc_aem_command_authenticate_set_reserved", "group__command__authenticate.html#gaf13f88d40fd1495d07317425b62c42f5", null ],
+    [ "jdksavdecc_aem_command_authenticate_set_sequence_id", "group__command__authenticate.html#gaa592e6831289bf94389392ca38a687b0", null ],
+    [ "jdksavdecc_aem_command_authenticate_set_token_length", "group__command__authenticate.html#gadac2376c5bfbabed04c519a0563bb83d", null ],
+    [ "jdksavdecc_aem_command_authenticate_write", "group__command__authenticate.html#gad9f91fe52de0dc2859fec3f593d704fb", null ]
+];

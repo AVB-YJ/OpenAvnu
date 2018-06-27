@@ -1,0 +1,25 @@
+var class_memory_report_allocator =
+[
+    [ "MemoryReportAllocator", "class_memory_report_allocator.html#ab084f90daa56ba2012181189ef4832e9", null ],
+    [ "~MemoryReportAllocator", "class_memory_report_allocator.html#aa12dedd8bd5d3d262b9a6cd1c9951943", null ],
+    [ "alloc_memory", "class_memory_report_allocator.html#a126f004b0a561fbedbba12273cfbbd61", null ],
+    [ "alloc_name", "class_memory_report_allocator.html#a62de9a48894a6e9b1381a3fbbb8fdca9", null ],
+    [ "allocMemoryLeakNode", "class_memory_report_allocator.html#a1a786ad58b46528e82235a14fa667c1d", null ],
+    [ "free_memory", "class_memory_report_allocator.html#a7c662c2adde1ec0a375b14c0d106b6d5", null ],
+    [ "free_name", "class_memory_report_allocator.html#ac80755bbbec0c8edcbc9072b3640b68c", null ],
+    [ "freeMemoryLeakNode", "class_memory_report_allocator.html#a10f2958f3b7378256e933896ccc93df0", null ],
+    [ "getRealAllocator", "class_memory_report_allocator.html#a18a227d75379af0777357a7a9299e7a5", null ],
+    [ "hasBeenDestroyed", "class_memory_report_allocator.html#ae26c82159ce24eb59770352585b402fd", null ],
+    [ "isOfEqualType", "class_memory_report_allocator.html#a3d6a5cc2f6b7a38b3f1d3e0567bf4f93", null ],
+    [ "name", "class_memory_report_allocator.html#a90b3e100eca6e28565e6447326b1f7b0", null ],
+    [ "setFormatter", "class_memory_report_allocator.html#ad37a1a2f2f4b9b3bc727787419603822", null ],
+    [ "setRealAllocator", "class_memory_report_allocator.html#a737067a84ae7d257b322e2623c977367", null ],
+    [ "setTestResult", "class_memory_report_allocator.html#acaf37f2a99edd0cc27d26e030cfc0350", null ],
+    [ "alloc_name_", "class_memory_report_allocator.html#ae5a98ff3b709da10db95a0ed03362548", null ],
+    [ "formatter_", "class_memory_report_allocator.html#a09aec3af9ca6c3c27226a1aaaea13987", null ],
+    [ "free_name_", "class_memory_report_allocator.html#a4f7ece205625129df190e624cccf9286", null ],
+    [ "hasBeenDestroyed_", "class_memory_report_allocator.html#a971604f223534e64d5024d63396b397a", null ],
+    [ "name_", "class_memory_report_allocator.html#a7dac8366c11fbcad2f49d85fe8fc4fbe", null ],
+    [ "realAllocator_", "class_memory_report_allocator.html#ab9c67fc1ce22037b740577262578c47f", null ],
+    [ "result_", "class_memory_report_allocator.html#acf81b99797e96c7d602ffc4c3cb012b0", null ]
+];

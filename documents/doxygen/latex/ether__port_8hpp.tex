@@ -1,0 +1,147 @@
+\hypertarget{ether__port_8hpp}{}\section{daemons/gptp/common/ether\+\_\+port.hpp 파일 참조}
+\label{ether__port_8hpp}\index{daemons/gptp/common/ether\+\_\+port.\+hpp@{daemons/gptp/common/ether\+\_\+port.\+hpp}}
+{\ttfamily \#include $<$ieee1588.\+hpp$>$}\\*
+{\ttfamily \#include $<$avbap\+\_\+message.\+hpp$>$}\\*
+{\ttfamily \#include $<$avbts\+\_\+ostimer.\+hpp$>$}\\*
+{\ttfamily \#include $<$avbts\+\_\+oslock.\+hpp$>$}\\*
+{\ttfamily \#include $<$avbts\+\_\+osnet.\+hpp$>$}\\*
+{\ttfamily \#include $<$avbts\+\_\+osthread.\+hpp$>$}\\*
+{\ttfamily \#include $<$avbts\+\_\+oscondition.\+hpp$>$}\\*
+{\ttfamily \#include $<$ipcdef.\+hpp$>$}\\*
+{\ttfamily \#include $<$gptp\+\_\+log.\+hpp$>$}\\*
+{\ttfamily \#include $<$stdint.\+h$>$}\\*
+{\ttfamily \#include $<$map$>$}\\*
+{\ttfamily \#include $<$list$>$}\\*
+{\ttfamily \#include $<$common\+\_\+port.\+hpp$>$}\\*
+ether\+\_\+port.\+hpp에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ether__port_8hpp__incl}
+\end{center}
+\end{figure}
+이 그래프는 이 파일을 직/간접적으로 include 하는 파일들을 보여줍니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ether__port_8hpp__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{데이타 구조}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_ether_port}{Ether\+Port}
+\begin{DoxyCompactList}\small\item\em Ethernet specific port functions. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{ether__port_8hpp_a7db8f9ecd9370a994a3091dcb39a69b8}{G\+P\+T\+P\+\_\+\+M\+U\+L\+T\+I\+C\+A\+ST}~0x0180\+C200000\+E\+U\+LL
+\item 
+\#define \hyperlink{ether__port_8hpp_aa55f1415f7826334e80fba7475229632}{P\+D\+E\+L\+A\+Y\+\_\+\+M\+U\+L\+T\+I\+C\+A\+ST}~\hyperlink{ether__port_8hpp_a7db8f9ecd9370a994a3091dcb39a69b8}{G\+P\+T\+P\+\_\+\+M\+U\+L\+T\+I\+C\+A\+ST}
+\item 
+\#define \hyperlink{ether__port_8hpp_ac6af5961c5e33170351096c78bc8781c}{O\+T\+H\+E\+R\+\_\+\+M\+U\+L\+T\+I\+C\+A\+ST}~\hyperlink{ether__port_8hpp_a7db8f9ecd9370a994a3091dcb39a69b8}{G\+P\+T\+P\+\_\+\+M\+U\+L\+T\+I\+C\+A\+ST}
+\item 
+\#define \hyperlink{ether__port_8hpp_ae5e4ab2d6a28a2adab504b954330a4a5}{T\+E\+S\+T\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+M\+U\+L\+T\+I\+C\+A\+ST}~0x011\+B\+C50\+A\+C000\+U\+LL
+\item 
+\#define \hyperlink{ether__port_8hpp_ae3d8888bc7a7c847c8d528fdabdbeecc}{P\+D\+E\+L\+A\+Y\+\_\+\+R\+E\+S\+P\+\_\+\+R\+E\+C\+E\+I\+P\+T\+\_\+\+T\+I\+M\+E\+O\+U\+T\+\_\+\+M\+U\+L\+T\+I\+P\+L\+I\+ER}~3
+\end{DoxyCompactItemize}
+\subsection*{타입정의}
+\begin{DoxyCompactItemize}
+\item 
+typedef std\+::map$<$ \hyperlink{class_port_identity}{Port\+Identity}, \hyperlink{class_link_layer_address}{Link\+Layer\+Address} $>$ \hyperlink{ether__port_8hpp_a6864851c1ec54dd1562c2a576746d6cd}{Identity\+Map\+\_\+t}
+\begin{DoxyCompactList}\small\item\em Provides a map for the identity\+Map member of \hyperlink{class_ether_port}{Ether\+Port} class. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{열거형 타입}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{ether__port_8hpp_a7674c329addda8fbe6176bbbf25c8b21}{Port\+Type} \{ \hyperlink{ether__port_8hpp_a7674c329addda8fbe6176bbbf25c8b21ae307daa999bfd69743cd368d6d372c82}{V1}, 
+\hyperlink{ether__port_8hpp_a7674c329addda8fbe6176bbbf25c8b21ac83e48d4e24fe0dbe65936116af25c72}{V2\+\_\+\+E2E}, 
+\hyperlink{ether__port_8hpp_a7674c329addda8fbe6176bbbf25c8b21a967bb73bbabe7029ef487ceccca9c08d}{V2\+\_\+\+P2P}
+ \}\begin{DoxyCompactList}\small\item\em Port\+Type enumeration. Selects between delay request-\/response (E2E) mechanism or P\+T\+P\+V1 or P\+T\+P\+V2 P2P (peer delay) mechanism. \end{DoxyCompactList}
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{ether\+\_\+port.\+hpp@{ether\+\_\+port.\+hpp}!G\+P\+T\+P\+\_\+\+M\+U\+L\+T\+I\+C\+A\+ST@{G\+P\+T\+P\+\_\+\+M\+U\+L\+T\+I\+C\+A\+ST}}
+\index{G\+P\+T\+P\+\_\+\+M\+U\+L\+T\+I\+C\+A\+ST@{G\+P\+T\+P\+\_\+\+M\+U\+L\+T\+I\+C\+A\+ST}!ether\+\_\+port.\+hpp@{ether\+\_\+port.\+hpp}}
+\subsubsection[{\texorpdfstring{G\+P\+T\+P\+\_\+\+M\+U\+L\+T\+I\+C\+A\+ST}{GPTP_MULTICAST}}]{\setlength{\rightskip}{0pt plus 5cm}\#define G\+P\+T\+P\+\_\+\+M\+U\+L\+T\+I\+C\+A\+ST~0x0180\+C200000\+E\+U\+LL}\hypertarget{ether__port_8hpp_a7db8f9ecd9370a994a3091dcb39a69b8}{}\label{ether__port_8hpp_a7db8f9ecd9370a994a3091dcb39a69b8}
+G\+P\+TP multicast adddress 
+
+ether\+\_\+port.\+hpp 파일의 57 번째 라인에서 정의되었습니다.
+
+\index{ether\+\_\+port.\+hpp@{ether\+\_\+port.\+hpp}!O\+T\+H\+E\+R\+\_\+\+M\+U\+L\+T\+I\+C\+A\+ST@{O\+T\+H\+E\+R\+\_\+\+M\+U\+L\+T\+I\+C\+A\+ST}}
+\index{O\+T\+H\+E\+R\+\_\+\+M\+U\+L\+T\+I\+C\+A\+ST@{O\+T\+H\+E\+R\+\_\+\+M\+U\+L\+T\+I\+C\+A\+ST}!ether\+\_\+port.\+hpp@{ether\+\_\+port.\+hpp}}
+\subsubsection[{\texorpdfstring{O\+T\+H\+E\+R\+\_\+\+M\+U\+L\+T\+I\+C\+A\+ST}{OTHER_MULTICAST}}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+T\+H\+E\+R\+\_\+\+M\+U\+L\+T\+I\+C\+A\+ST~{\bf G\+P\+T\+P\+\_\+\+M\+U\+L\+T\+I\+C\+A\+ST}}\hypertarget{ether__port_8hpp_ac6af5961c5e33170351096c78bc8781c}{}\label{ether__port_8hpp_ac6af5961c5e33170351096c78bc8781c}
+O\+T\+H\+ER multicast value 
+
+ether\+\_\+port.\+hpp 파일의 59 번째 라인에서 정의되었습니다.
+
+\index{ether\+\_\+port.\+hpp@{ether\+\_\+port.\+hpp}!P\+D\+E\+L\+A\+Y\+\_\+\+M\+U\+L\+T\+I\+C\+A\+ST@{P\+D\+E\+L\+A\+Y\+\_\+\+M\+U\+L\+T\+I\+C\+A\+ST}}
+\index{P\+D\+E\+L\+A\+Y\+\_\+\+M\+U\+L\+T\+I\+C\+A\+ST@{P\+D\+E\+L\+A\+Y\+\_\+\+M\+U\+L\+T\+I\+C\+A\+ST}!ether\+\_\+port.\+hpp@{ether\+\_\+port.\+hpp}}
+\subsubsection[{\texorpdfstring{P\+D\+E\+L\+A\+Y\+\_\+\+M\+U\+L\+T\+I\+C\+A\+ST}{PDELAY_MULTICAST}}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+D\+E\+L\+A\+Y\+\_\+\+M\+U\+L\+T\+I\+C\+A\+ST~{\bf G\+P\+T\+P\+\_\+\+M\+U\+L\+T\+I\+C\+A\+ST}}\hypertarget{ether__port_8hpp_aa55f1415f7826334e80fba7475229632}{}\label{ether__port_8hpp_aa55f1415f7826334e80fba7475229632}
+P\+D\+E\+L\+AY Multicast value 
+
+ether\+\_\+port.\+hpp 파일의 58 번째 라인에서 정의되었습니다.
+
+\index{ether\+\_\+port.\+hpp@{ether\+\_\+port.\+hpp}!P\+D\+E\+L\+A\+Y\+\_\+\+R\+E\+S\+P\+\_\+\+R\+E\+C\+E\+I\+P\+T\+\_\+\+T\+I\+M\+E\+O\+U\+T\+\_\+\+M\+U\+L\+T\+I\+P\+L\+I\+ER@{P\+D\+E\+L\+A\+Y\+\_\+\+R\+E\+S\+P\+\_\+\+R\+E\+C\+E\+I\+P\+T\+\_\+\+T\+I\+M\+E\+O\+U\+T\+\_\+\+M\+U\+L\+T\+I\+P\+L\+I\+ER}}
+\index{P\+D\+E\+L\+A\+Y\+\_\+\+R\+E\+S\+P\+\_\+\+R\+E\+C\+E\+I\+P\+T\+\_\+\+T\+I\+M\+E\+O\+U\+T\+\_\+\+M\+U\+L\+T\+I\+P\+L\+I\+ER@{P\+D\+E\+L\+A\+Y\+\_\+\+R\+E\+S\+P\+\_\+\+R\+E\+C\+E\+I\+P\+T\+\_\+\+T\+I\+M\+E\+O\+U\+T\+\_\+\+M\+U\+L\+T\+I\+P\+L\+I\+ER}!ether\+\_\+port.\+hpp@{ether\+\_\+port.\+hpp}}
+\subsubsection[{\texorpdfstring{P\+D\+E\+L\+A\+Y\+\_\+\+R\+E\+S\+P\+\_\+\+R\+E\+C\+E\+I\+P\+T\+\_\+\+T\+I\+M\+E\+O\+U\+T\+\_\+\+M\+U\+L\+T\+I\+P\+L\+I\+ER}{PDELAY_RESP_RECEIPT_TIMEOUT_MULTIPLIER}}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+D\+E\+L\+A\+Y\+\_\+\+R\+E\+S\+P\+\_\+\+R\+E\+C\+E\+I\+P\+T\+\_\+\+T\+I\+M\+E\+O\+U\+T\+\_\+\+M\+U\+L\+T\+I\+P\+L\+I\+ER~3}\hypertarget{ether__port_8hpp_ae3d8888bc7a7c847c8d528fdabdbeecc}{}\label{ether__port_8hpp_ae3d8888bc7a7c847c8d528fdabdbeecc}
+P\+Delay timeout multiplier 
+
+ether\+\_\+port.\+hpp 파일의 62 번째 라인에서 정의되었습니다.
+
+\index{ether\+\_\+port.\+hpp@{ether\+\_\+port.\+hpp}!T\+E\+S\+T\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+M\+U\+L\+T\+I\+C\+A\+ST@{T\+E\+S\+T\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+M\+U\+L\+T\+I\+C\+A\+ST}}
+\index{T\+E\+S\+T\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+M\+U\+L\+T\+I\+C\+A\+ST@{T\+E\+S\+T\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+M\+U\+L\+T\+I\+C\+A\+ST}!ether\+\_\+port.\+hpp@{ether\+\_\+port.\+hpp}}
+\subsubsection[{\texorpdfstring{T\+E\+S\+T\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+M\+U\+L\+T\+I\+C\+A\+ST}{TEST_STATUS_MULTICAST}}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+E\+S\+T\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+M\+U\+L\+T\+I\+C\+A\+ST~0x011\+B\+C50\+A\+C000\+U\+LL}\hypertarget{ether__port_8hpp_ae5e4ab2d6a28a2adab504b954330a4a5}{}\label{ether__port_8hpp_ae5e4ab2d6a28a2adab504b954330a4a5}
+A\+Vnu Automotive profile test status msg Multicast value 
+
+ether\+\_\+port.\+hpp 파일의 60 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{타입정의 문서화}
+\index{ether\+\_\+port.\+hpp@{ether\+\_\+port.\+hpp}!Identity\+Map\+\_\+t@{Identity\+Map\+\_\+t}}
+\index{Identity\+Map\+\_\+t@{Identity\+Map\+\_\+t}!ether\+\_\+port.\+hpp@{ether\+\_\+port.\+hpp}}
+\subsubsection[{\texorpdfstring{Identity\+Map\+\_\+t}{IdentityMap_t}}]{\setlength{\rightskip}{0pt plus 5cm}typedef std\+::map$<$ {\bf Port\+Identity}, {\bf Link\+Layer\+Address} $>$ {\bf Identity\+Map\+\_\+t}}\hypertarget{ether__port_8hpp_a6864851c1ec54dd1562c2a576746d6cd}{}\label{ether__port_8hpp_a6864851c1ec54dd1562c2a576746d6cd}
+
+
+Provides a map for the identity\+Map member of \hyperlink{class_ether_port}{Ether\+Port} class. 
+
+
+
+ether\+\_\+port.\+hpp 파일의 78 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{열거형 타입 문서화}
+\index{ether\+\_\+port.\+hpp@{ether\+\_\+port.\+hpp}!Port\+Type@{Port\+Type}}
+\index{Port\+Type@{Port\+Type}!ether\+\_\+port.\+hpp@{ether\+\_\+port.\+hpp}}
+\subsubsection[{\texorpdfstring{Port\+Type}{PortType}}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf Port\+Type}}\hypertarget{ether__port_8hpp_a7674c329addda8fbe6176bbbf25c8b21}{}\label{ether__port_8hpp_a7674c329addda8fbe6176bbbf25c8b21}
+
+
+Port\+Type enumeration. Selects between delay request-\/response (E2E) mechanism or P\+T\+P\+V1 or P\+T\+P\+V2 P2P (peer delay) mechanism. 
+
+\begin{Desc}
+\item[열거형 멤버]\par
+\begin{description}
+\index{V1@{V1}!ether\+\_\+port.\+hpp@{ether\+\_\+port.\+hpp}}\index{ether\+\_\+port.\+hpp@{ether\+\_\+port.\+hpp}!V1@{V1}}\item[{\em 
+V1\hypertarget{ether__port_8hpp_a7674c329addda8fbe6176bbbf25c8b21ae307daa999bfd69743cd368d6d372c82}{}\label{ether__port_8hpp_a7674c329addda8fbe6176bbbf25c8b21ae307daa999bfd69743cd368d6d372c82}
+}]\index{V2\+\_\+\+E2E@{V2\+\_\+\+E2E}!ether\+\_\+port.\+hpp@{ether\+\_\+port.\+hpp}}\index{ether\+\_\+port.\+hpp@{ether\+\_\+port.\+hpp}!V2\+\_\+\+E2E@{V2\+\_\+\+E2E}}\item[{\em 
+V2\+\_\+\+E2E\hypertarget{ether__port_8hpp_a7674c329addda8fbe6176bbbf25c8b21ac83e48d4e24fe0dbe65936116af25c72}{}\label{ether__port_8hpp_a7674c329addda8fbe6176bbbf25c8b21ac83e48d4e24fe0dbe65936116af25c72}
+}]\index{V2\+\_\+\+P2P@{V2\+\_\+\+P2P}!ether\+\_\+port.\+hpp@{ether\+\_\+port.\+hpp}}\index{ether\+\_\+port.\+hpp@{ether\+\_\+port.\+hpp}!V2\+\_\+\+P2P@{V2\+\_\+\+P2P}}\item[{\em 
+V2\+\_\+\+P2P\hypertarget{ether__port_8hpp_a7674c329addda8fbe6176bbbf25c8b21a967bb73bbabe7029ef487ceccca9c08d}{}\label{ether__port_8hpp_a7674c329addda8fbe6176bbbf25c8b21a967bb73bbabe7029ef487ceccca9c08d}
+}]\end{description}
+\end{Desc}
+
+
+ether\+\_\+port.\+hpp 파일의 68 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+68              \{
+69     \hyperlink{ether__port_8hpp_a7674c329addda8fbe6176bbbf25c8b21ae307daa999bfd69743cd368d6d372c82}{V1},
+70     \hyperlink{ether__port_8hpp_a7674c329addda8fbe6176bbbf25c8b21ac83e48d4e24fe0dbe65936116af25c72}{V2\_E2E},
+71     \hyperlink{ether__port_8hpp_a7674c329addda8fbe6176bbbf25c8b21a967bb73bbabe7029ef487ceccca9c08d}{V2\_P2P}
+72 \} \hyperlink{ether__port_8hpp_a7674c329addda8fbe6176bbbf25c8b21}{PortType};
+\end{DoxyCode}

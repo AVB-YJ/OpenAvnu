@@ -1,0 +1,35 @@
+var group__command__add__audio__mappings__response =
+[
+    [ "jdksavdecc_aem_command_add_audio_mappings_response", "structjdksavdecc__aem__command__add__audio__mappings__response.html", [
+      [ "aem_header", "structjdksavdecc__aem__command__add__audio__mappings__response.html#ae1e77ccb75ff5021ad923221eab38294", null ],
+      [ "descriptor_index", "structjdksavdecc__aem__command__add__audio__mappings__response.html#a042bbc76d835b82d27c1932431ee38d4", null ],
+      [ "descriptor_type", "structjdksavdecc__aem__command__add__audio__mappings__response.html#ab7c32b6c7131c13d4ea3b7ee2f09b78d", null ],
+      [ "number_of_mappings", "structjdksavdecc__aem__command__add__audio__mappings__response.html#ac7db472c5622ef473d5d0a5c416d5531", null ],
+      [ "reserved", "structjdksavdecc__aem__command__add__audio__mappings__response.html#a5a6ed8c04a3db86066924b1a1bf4dad3", null ]
+    ] ],
+    [ "JDKSAVDECC_AEM_COMMAND_ADD_AUDIO_MAPPINGS_RESPONSE_LEN", "group__command__add__audio__mappings__response.html#ga2cef1e4c1cdc7e8b6573a4427913f5de", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_ADD_AUDIO_MAPPINGS_RESPONSE_OFFSET_COMMAND_TYPE", "group__command__add__audio__mappings__response.html#gae029af6e193a2569535e9fe76c3bed33", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_ADD_AUDIO_MAPPINGS_RESPONSE_OFFSET_CONTROLLER_ENTITY_ID", "group__command__add__audio__mappings__response.html#gac257234a818134c0bf32b1eb2c391928", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_ADD_AUDIO_MAPPINGS_RESPONSE_OFFSET_DESCRIPTOR_INDEX", "group__command__add__audio__mappings__response.html#ga0dde1646e180c9485735e2fb8be51d9a", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_ADD_AUDIO_MAPPINGS_RESPONSE_OFFSET_DESCRIPTOR_TYPE", "group__command__add__audio__mappings__response.html#ga43929177bf6b30c0ad3a6815cfe3627d", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_ADD_AUDIO_MAPPINGS_RESPONSE_OFFSET_MAPPINGS", "group__command__add__audio__mappings__response.html#gafbc13940199d2f419ac8fed06450422c", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_ADD_AUDIO_MAPPINGS_RESPONSE_OFFSET_NUMBER_OF_MAPPINGS", "group__command__add__audio__mappings__response.html#ga7c0e56133ef6bb35d217198dd1194fbb", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_ADD_AUDIO_MAPPINGS_RESPONSE_OFFSET_RESERVED", "group__command__add__audio__mappings__response.html#ga65bda6ee1860d9465f2e514fd55d0490", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_ADD_AUDIO_MAPPINGS_RESPONSE_OFFSET_SEQUENCE_ID", "group__command__add__audio__mappings__response.html#gae154db596700c73229d9267d702e4114", null ],
+    [ "jdksavdecc_aem_command_add_audio_mappings_response_get_command_type", "group__command__add__audio__mappings__response.html#ga2a79b6eeda65caa6a6c6a3f64da1df72", null ],
+    [ "jdksavdecc_aem_command_add_audio_mappings_response_get_controller_entity_id", "group__command__add__audio__mappings__response.html#ga5fb6c88e7ab028da8e8ba71b156c32d5", null ],
+    [ "jdksavdecc_aem_command_add_audio_mappings_response_get_descriptor_index", "group__command__add__audio__mappings__response.html#ga76045e388d5d0ff951b2a1e991196c01", null ],
+    [ "jdksavdecc_aem_command_add_audio_mappings_response_get_descriptor_type", "group__command__add__audio__mappings__response.html#ga608374a64878861178106de48db53a1d", null ],
+    [ "jdksavdecc_aem_command_add_audio_mappings_response_get_number_of_mappings", "group__command__add__audio__mappings__response.html#gadbf8fd35c190f525593642d7a3e8bcee", null ],
+    [ "jdksavdecc_aem_command_add_audio_mappings_response_get_reserved", "group__command__add__audio__mappings__response.html#ga91840ca257e843a95f9be247be3c33bd", null ],
+    [ "jdksavdecc_aem_command_add_audio_mappings_response_get_sequence_id", "group__command__add__audio__mappings__response.html#ga8d016d1b6491d03e437aa627a8666d1c", null ],
+    [ "jdksavdecc_aem_command_add_audio_mappings_response_read", "group__command__add__audio__mappings__response.html#ga865d122ac12aa8ff911c20322b5ff13f", null ],
+    [ "jdksavdecc_aem_command_add_audio_mappings_response_set_command_type", "group__command__add__audio__mappings__response.html#gad834f1ded56873abe764e70631972dcf", null ],
+    [ "jdksavdecc_aem_command_add_audio_mappings_response_set_controller_entity_id", "group__command__add__audio__mappings__response.html#ga58fdc1b62ba8011162e0fb60cb1040df", null ],
+    [ "jdksavdecc_aem_command_add_audio_mappings_response_set_descriptor_index", "group__command__add__audio__mappings__response.html#ga40d57d3fff45a154612e697cbe78565c", null ],
+    [ "jdksavdecc_aem_command_add_audio_mappings_response_set_descriptor_type", "group__command__add__audio__mappings__response.html#ga31853061d0a9e51ee06487028ec90c6a", null ],
+    [ "jdksavdecc_aem_command_add_audio_mappings_response_set_number_of_mappings", "group__command__add__audio__mappings__response.html#ga436ae95629e91254eef5acaee8c71998", null ],
+    [ "jdksavdecc_aem_command_add_audio_mappings_response_set_reserved", "group__command__add__audio__mappings__response.html#ga1ab6e9f68c45569c0c995725e5ad31fe", null ],
+    [ "jdksavdecc_aem_command_add_audio_mappings_response_set_sequence_id", "group__command__add__audio__mappings__response.html#gae897973b616207fff6f6c562fdf9dd55", null ],
+    [ "jdksavdecc_aem_command_add_audio_mappings_response_write", "group__command__add__audio__mappings__response.html#ga58c2a72ad5d205dbee4c0fb6efb5b2e7", null ]
+];

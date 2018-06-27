@@ -1,0 +1,28 @@
+var structjdksavdecc__descriptor__video__unit__cluster =
+[
+    [ "block_latency", "structjdksavdecc__descriptor__video__unit__cluster.html#ae2e9f0088d5e900b610d1b2818dfc559", null ],
+    [ "current_aspect_ratio", "structjdksavdecc__descriptor__video__unit__cluster.html#a37e093dd240216552aa87a2d2feaa310", null ],
+    [ "current_color_space", "structjdksavdecc__descriptor__video__unit__cluster.html#a135455c45a6c2e37e96118ff6f374d9b", null ],
+    [ "current_format_specific", "structjdksavdecc__descriptor__video__unit__cluster.html#a63f65131cfbe03bc516880e297be3181", null ],
+    [ "current_sampling_rate", "structjdksavdecc__descriptor__video__unit__cluster.html#a081e14c5c832a659daf22003ed8e918d", null ],
+    [ "current_size", "structjdksavdecc__descriptor__video__unit__cluster.html#a8444502ec86f883b4c80ebd5b8218b07", null ],
+    [ "descriptor_index", "structjdksavdecc__descriptor__video__unit__cluster.html#a042bbc76d835b82d27c1932431ee38d4", null ],
+    [ "descriptor_type", "structjdksavdecc__descriptor__video__unit__cluster.html#ab7c32b6c7131c13d4ea3b7ee2f09b78d", null ],
+    [ "format", "structjdksavdecc__descriptor__video__unit__cluster.html#a7864fd50d470f893524181b4a59d9828", null ],
+    [ "localized_description", "structjdksavdecc__descriptor__video__unit__cluster.html#a0926f846ca65a83ad5bb06b4aff8f408", null ],
+    [ "object_name", "structjdksavdecc__descriptor__video__unit__cluster.html#a7d1f5945a13863b1762fc6db74fa8f80", null ],
+    [ "path_latency", "structjdksavdecc__descriptor__video__unit__cluster.html#a5527ea1fa3f885e9d2264e450e1635fa", null ],
+    [ "signal_index", "structjdksavdecc__descriptor__video__unit__cluster.html#ae2e81a95ee9ad83f1fe22b6a1ee29075", null ],
+    [ "signal_output", "structjdksavdecc__descriptor__video__unit__cluster.html#ab4b91864e6fc335d7e86536d9f4461e4", null ],
+    [ "signal_type", "structjdksavdecc__descriptor__video__unit__cluster.html#a248e60ef99d5ed1779989d1dd6b6dc5a", null ],
+    [ "supported_aspect_ratios_count", "structjdksavdecc__descriptor__video__unit__cluster.html#abe30723a49848d56d0fbca98a1e02ab6", null ],
+    [ "supported_aspect_ratios_offset", "structjdksavdecc__descriptor__video__unit__cluster.html#a87bb2020a649eb68ce41e714a2d7d838", null ],
+    [ "supported_color_spaces_count", "structjdksavdecc__descriptor__video__unit__cluster.html#a020f3551cc29786237d98e5e70afce8a", null ],
+    [ "supported_color_spaces_offset", "structjdksavdecc__descriptor__video__unit__cluster.html#a765d0a4a3da2b125e5523cbec6a61251", null ],
+    [ "supported_format_specifics_count", "structjdksavdecc__descriptor__video__unit__cluster.html#a3fcf29c535a8155899a04ec7d49fed92", null ],
+    [ "supported_format_specifics_offset", "structjdksavdecc__descriptor__video__unit__cluster.html#a4f27294c624ea8ade0df5e53def07e00", null ],
+    [ "supported_sampling_rates_count", "structjdksavdecc__descriptor__video__unit__cluster.html#a976ed67e20174bbc1a9988dc8f577fd8", null ],
+    [ "supported_sampling_rates_offset", "structjdksavdecc__descriptor__video__unit__cluster.html#a07e4720cf58229a78c3c0939837b6228", null ],
+    [ "supported_sizes_count", "structjdksavdecc__descriptor__video__unit__cluster.html#a46e215a11ac96892c1e6a2d520e901c0", null ],
+    [ "supported_sizes_offset", "structjdksavdecc__descriptor__video__unit__cluster.html#a4de5ca1afb8f583facff9d78d61b98c6", null ]
+];

@@ -1,0 +1,651 @@
+\hypertarget{avtp__aaf_8c}{}\section{lib/libavtp/src/avtp\+\_\+aaf.c 파일 참조}
+\label{avtp__aaf_8c}\index{lib/libavtp/src/avtp\+\_\+aaf.\+c@{lib/libavtp/src/avtp\+\_\+aaf.\+c}}
+{\ttfamily \#include $<$arpa/inet.\+h$>$}\\*
+{\ttfamily \#include $<$endian.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}avtp.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}avtp\+\_\+aaf.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}util.\+h\char`\"{}}\\*
+avtp\+\_\+aaf.\+c에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{avtp__aaf_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{avtp__aaf_8c_a7bb8e17973b93a8557783f0c0f5a0f9a}{S\+H\+I\+F\+T\+\_\+\+SV}~(31 -\/ 8)
+\item 
+\#define \hyperlink{avtp__aaf_8c_a9a1e8a16053b025d6e4733fa3db41161}{S\+H\+I\+F\+T\+\_\+\+MR}~(31 -\/ 12)
+\item 
+\#define \hyperlink{avtp__aaf_8c_ac1877659c66655fd5b92ed26cb54815b}{S\+H\+I\+F\+T\+\_\+\+TV}~(31 -\/ 15)
+\item 
+\#define \hyperlink{avtp__aaf_8c_a030a5eaf697ae1f9d813931db0c8b326}{S\+H\+I\+F\+T\+\_\+\+S\+E\+Q\+\_\+\+N\+UM}~(31 -\/ 23)
+\item 
+\#define \hyperlink{avtp__aaf_8c_af37cdd2c86f1ff8d5edae1259ec7d5e9}{S\+H\+I\+F\+T\+\_\+\+F\+O\+R\+M\+AT}~(31 -\/ 7)
+\item 
+\#define \hyperlink{avtp__aaf_8c_a2d4e1dd49e5d1ce62d364ce337aedabc}{S\+H\+I\+F\+T\+\_\+\+N\+SR}~(31 -\/ 11)
+\item 
+\#define \hyperlink{avtp__aaf_8c_a466f3293f490ccddab502b152e5960ac}{S\+H\+I\+F\+T\+\_\+\+C\+H\+A\+N\+\_\+\+P\+E\+R\+\_\+\+F\+R\+A\+ME}~(31 -\/ 23)
+\item 
+\#define \hyperlink{avtp__aaf_8c_a0a5400b20e21e6ccfab4b9a75aa867c3}{S\+H\+I\+F\+T\+\_\+\+S\+T\+R\+E\+A\+M\+\_\+\+D\+A\+T\+A\+\_\+\+L\+EN}~(31 -\/ 15)
+\item 
+\#define \hyperlink{avtp__aaf_8c_a2a51f91c56e198deddb96cee96b8fa53}{S\+H\+I\+F\+T\+\_\+\+SP}~(31 -\/ 19)
+\item 
+\#define \hyperlink{avtp__aaf_8c_a878c24d290bbb72f32f63410f662cf38}{S\+H\+I\+F\+T\+\_\+\+E\+VT}~(31 -\/ 23)
+\item 
+\#define \hyperlink{avtp__aaf_8c_a224c5ddfa8bd3d09e0bb5ad4783f5057}{M\+A\+S\+K\+\_\+\+SV}~(\hyperlink{lib_2libavtp_2src_2util_8h_a5d4a957d0c0edbc5693bbc2c4aaed355}{B\+I\+T\+M\+A\+SK}(1) $<$$<$ \hyperlink{avtp__aaf_8c_a7bb8e17973b93a8557783f0c0f5a0f9a}{S\+H\+I\+F\+T\+\_\+\+SV})
+\item 
+\#define \hyperlink{avtp__aaf_8c_a52d288f83c9e27e5bac538bdcfa51cb6}{M\+A\+S\+K\+\_\+\+MR}~(\hyperlink{lib_2libavtp_2src_2util_8h_a5d4a957d0c0edbc5693bbc2c4aaed355}{B\+I\+T\+M\+A\+SK}(1) $<$$<$ \hyperlink{avtp__aaf_8c_a9a1e8a16053b025d6e4733fa3db41161}{S\+H\+I\+F\+T\+\_\+\+MR})
+\item 
+\#define \hyperlink{avtp__aaf_8c_a995883bb91a18f829630374e1835872d}{M\+A\+S\+K\+\_\+\+TV}~(\hyperlink{lib_2libavtp_2src_2util_8h_a5d4a957d0c0edbc5693bbc2c4aaed355}{B\+I\+T\+M\+A\+SK}(1) $<$$<$ \hyperlink{avtp__aaf_8c_ac1877659c66655fd5b92ed26cb54815b}{S\+H\+I\+F\+T\+\_\+\+TV})
+\item 
+\#define \hyperlink{avtp__aaf_8c_a933f697e02898cb11185251ca816c29e}{M\+A\+S\+K\+\_\+\+S\+E\+Q\+\_\+\+N\+UM}~(\hyperlink{lib_2libavtp_2src_2util_8h_a5d4a957d0c0edbc5693bbc2c4aaed355}{B\+I\+T\+M\+A\+SK}(8) $<$$<$ \hyperlink{avtp__aaf_8c_a030a5eaf697ae1f9d813931db0c8b326}{S\+H\+I\+F\+T\+\_\+\+S\+E\+Q\+\_\+\+N\+UM})
+\item 
+\#define \hyperlink{avtp__aaf_8c_ae27a8c87c00a07d9ee0b9f4b8b2ff039}{M\+A\+S\+K\+\_\+\+TU}~(\hyperlink{lib_2libavtp_2src_2util_8h_a5d4a957d0c0edbc5693bbc2c4aaed355}{B\+I\+T\+M\+A\+SK}(1))
+\item 
+\#define \hyperlink{avtp__aaf_8c_a701ba03e606a4fea201fa333635e71ac}{M\+A\+S\+K\+\_\+\+F\+O\+R\+M\+AT}~(\hyperlink{lib_2libavtp_2src_2util_8h_a5d4a957d0c0edbc5693bbc2c4aaed355}{B\+I\+T\+M\+A\+SK}(8) $<$$<$ \hyperlink{avtp__aaf_8c_af37cdd2c86f1ff8d5edae1259ec7d5e9}{S\+H\+I\+F\+T\+\_\+\+F\+O\+R\+M\+AT})
+\item 
+\#define \hyperlink{avtp__aaf_8c_a5eb10169c6013d791adc4bdb6ead6d08}{M\+A\+S\+K\+\_\+\+N\+SR}~(\hyperlink{lib_2libavtp_2src_2util_8h_a5d4a957d0c0edbc5693bbc2c4aaed355}{B\+I\+T\+M\+A\+SK}(4) $<$$<$ \hyperlink{avtp__aaf_8c_a2d4e1dd49e5d1ce62d364ce337aedabc}{S\+H\+I\+F\+T\+\_\+\+N\+SR})
+\item 
+\#define \hyperlink{avtp__aaf_8c_a7d328b84e087c94ce056b736d0bc0741}{M\+A\+S\+K\+\_\+\+C\+H\+A\+N\+\_\+\+P\+E\+R\+\_\+\+F\+R\+A\+ME}~(\hyperlink{lib_2libavtp_2src_2util_8h_a5d4a957d0c0edbc5693bbc2c4aaed355}{B\+I\+T\+M\+A\+SK}(10) $<$$<$ \hyperlink{avtp__aaf_8c_a466f3293f490ccddab502b152e5960ac}{S\+H\+I\+F\+T\+\_\+\+C\+H\+A\+N\+\_\+\+P\+E\+R\+\_\+\+F\+R\+A\+ME})
+\item 
+\#define \hyperlink{avtp__aaf_8c_aab2e021f92e2554af6bea86ab5dea679}{M\+A\+S\+K\+\_\+\+B\+I\+T\+\_\+\+D\+E\+P\+TH}~(\hyperlink{lib_2libavtp_2src_2util_8h_a5d4a957d0c0edbc5693bbc2c4aaed355}{B\+I\+T\+M\+A\+SK}(8))
+\item 
+\#define \hyperlink{avtp__aaf_8c_ae69eb8ce322e5e978c59b82aabe42649}{M\+A\+S\+K\+\_\+\+S\+T\+R\+E\+A\+M\+\_\+\+D\+A\+T\+A\+\_\+\+L\+EN}~(\hyperlink{lib_2libavtp_2src_2util_8h_a5d4a957d0c0edbc5693bbc2c4aaed355}{B\+I\+T\+M\+A\+SK}(16) $<$$<$ \hyperlink{avtp__aaf_8c_a0a5400b20e21e6ccfab4b9a75aa867c3}{S\+H\+I\+F\+T\+\_\+\+S\+T\+R\+E\+A\+M\+\_\+\+D\+A\+T\+A\+\_\+\+L\+EN})
+\item 
+\#define \hyperlink{avtp__aaf_8c_a9dd359e213de1151875e2aae8797f759}{M\+A\+S\+K\+\_\+\+SP}~(\hyperlink{lib_2libavtp_2src_2util_8h_a5d4a957d0c0edbc5693bbc2c4aaed355}{B\+I\+T\+M\+A\+SK}(1) $<$$<$ \hyperlink{avtp__aaf_8c_a2a51f91c56e198deddb96cee96b8fa53}{S\+H\+I\+F\+T\+\_\+\+SP})
+\item 
+\#define \hyperlink{avtp__aaf_8c_a62ddb31e885b9e09f579b6399d68bd4f}{M\+A\+S\+K\+\_\+\+E\+VT}~(\hyperlink{lib_2libavtp_2src_2util_8h_a5d4a957d0c0edbc5693bbc2c4aaed355}{B\+I\+T\+M\+A\+SK}(4) $<$$<$ \hyperlink{avtp__aaf_8c_a878c24d290bbb72f32f63410f662cf38}{S\+H\+I\+F\+T\+\_\+\+E\+VT})
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+static int \hyperlink{avtp__aaf_8c_a64b0039aae564becb91dc320991577de}{get\+\_\+field\+\_\+value} (const struct \hyperlink{structavtp__stream__pdu}{avtp\+\_\+stream\+\_\+pdu} $\ast$pdu, enum \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22db}{avtp\+\_\+aaf\+\_\+field} field, \hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\+\_\+t} $\ast$val)
+\item 
+int \hyperlink{avtp__aaf_8c_acc4c927b036e22def8e6b6beb3ac6026}{avtp\+\_\+aaf\+\_\+pdu\+\_\+get} (const struct \hyperlink{structavtp__stream__pdu}{avtp\+\_\+stream\+\_\+pdu} $\ast$pdu, enum \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22db}{avtp\+\_\+aaf\+\_\+field} field, \hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\+\_\+t} $\ast$val)
+\item 
+static int \hyperlink{avtp__aaf_8c_a689adad1eafd1fdd6acb4aa64b747074}{set\+\_\+field\+\_\+value} (struct \hyperlink{structavtp__stream__pdu}{avtp\+\_\+stream\+\_\+pdu} $\ast$pdu, enum \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22db}{avtp\+\_\+aaf\+\_\+field} field, \hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\+\_\+t} val)
+\item 
+int \hyperlink{avtp__aaf_8c_af242dc7ed6c5ca5ea8e9d5071c13e19d}{avtp\+\_\+aaf\+\_\+pdu\+\_\+set} (struct \hyperlink{structavtp__stream__pdu}{avtp\+\_\+stream\+\_\+pdu} $\ast$pdu, enum \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22db}{avtp\+\_\+aaf\+\_\+field} field, \hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\+\_\+t} val)
+\item 
+int \hyperlink{avtp__aaf_8c_abbf7b8f31bede05bb514b548a0f9708f}{avtp\+\_\+aaf\+\_\+pdu\+\_\+init} (struct \hyperlink{structavtp__stream__pdu}{avtp\+\_\+stream\+\_\+pdu} $\ast$pdu)
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}!M\+A\+S\+K\+\_\+\+B\+I\+T\+\_\+\+D\+E\+P\+TH@{M\+A\+S\+K\+\_\+\+B\+I\+T\+\_\+\+D\+E\+P\+TH}}
+\index{M\+A\+S\+K\+\_\+\+B\+I\+T\+\_\+\+D\+E\+P\+TH@{M\+A\+S\+K\+\_\+\+B\+I\+T\+\_\+\+D\+E\+P\+TH}!avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}}
+\subsubsection[{\texorpdfstring{M\+A\+S\+K\+\_\+\+B\+I\+T\+\_\+\+D\+E\+P\+TH}{MASK_BIT_DEPTH}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+S\+K\+\_\+\+B\+I\+T\+\_\+\+D\+E\+P\+TH~({\bf B\+I\+T\+M\+A\+SK}(8))}\hypertarget{avtp__aaf_8c_aab2e021f92e2554af6bea86ab5dea679}{}\label{avtp__aaf_8c_aab2e021f92e2554af6bea86ab5dea679}
+
+
+avtp\+\_\+aaf.\+c 파일의 55 번째 라인에서 정의되었습니다.
+
+\index{avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}!M\+A\+S\+K\+\_\+\+C\+H\+A\+N\+\_\+\+P\+E\+R\+\_\+\+F\+R\+A\+ME@{M\+A\+S\+K\+\_\+\+C\+H\+A\+N\+\_\+\+P\+E\+R\+\_\+\+F\+R\+A\+ME}}
+\index{M\+A\+S\+K\+\_\+\+C\+H\+A\+N\+\_\+\+P\+E\+R\+\_\+\+F\+R\+A\+ME@{M\+A\+S\+K\+\_\+\+C\+H\+A\+N\+\_\+\+P\+E\+R\+\_\+\+F\+R\+A\+ME}!avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}}
+\subsubsection[{\texorpdfstring{M\+A\+S\+K\+\_\+\+C\+H\+A\+N\+\_\+\+P\+E\+R\+\_\+\+F\+R\+A\+ME}{MASK_CHAN_PER_FRAME}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+S\+K\+\_\+\+C\+H\+A\+N\+\_\+\+P\+E\+R\+\_\+\+F\+R\+A\+ME~({\bf B\+I\+T\+M\+A\+SK}(10) $<$$<$ {\bf S\+H\+I\+F\+T\+\_\+\+C\+H\+A\+N\+\_\+\+P\+E\+R\+\_\+\+F\+R\+A\+ME})}\hypertarget{avtp__aaf_8c_a7d328b84e087c94ce056b736d0bc0741}{}\label{avtp__aaf_8c_a7d328b84e087c94ce056b736d0bc0741}
+
+
+avtp\+\_\+aaf.\+c 파일의 54 번째 라인에서 정의되었습니다.
+
+\index{avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}!M\+A\+S\+K\+\_\+\+E\+VT@{M\+A\+S\+K\+\_\+\+E\+VT}}
+\index{M\+A\+S\+K\+\_\+\+E\+VT@{M\+A\+S\+K\+\_\+\+E\+VT}!avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}}
+\subsubsection[{\texorpdfstring{M\+A\+S\+K\+\_\+\+E\+VT}{MASK_EVT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+S\+K\+\_\+\+E\+VT~({\bf B\+I\+T\+M\+A\+SK}(4) $<$$<$ {\bf S\+H\+I\+F\+T\+\_\+\+E\+VT})}\hypertarget{avtp__aaf_8c_a62ddb31e885b9e09f579b6399d68bd4f}{}\label{avtp__aaf_8c_a62ddb31e885b9e09f579b6399d68bd4f}
+
+
+avtp\+\_\+aaf.\+c 파일의 58 번째 라인에서 정의되었습니다.
+
+\index{avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}!M\+A\+S\+K\+\_\+\+F\+O\+R\+M\+AT@{M\+A\+S\+K\+\_\+\+F\+O\+R\+M\+AT}}
+\index{M\+A\+S\+K\+\_\+\+F\+O\+R\+M\+AT@{M\+A\+S\+K\+\_\+\+F\+O\+R\+M\+AT}!avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}}
+\subsubsection[{\texorpdfstring{M\+A\+S\+K\+\_\+\+F\+O\+R\+M\+AT}{MASK_FORMAT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+S\+K\+\_\+\+F\+O\+R\+M\+AT~({\bf B\+I\+T\+M\+A\+SK}(8) $<$$<$ {\bf S\+H\+I\+F\+T\+\_\+\+F\+O\+R\+M\+AT})}\hypertarget{avtp__aaf_8c_a701ba03e606a4fea201fa333635e71ac}{}\label{avtp__aaf_8c_a701ba03e606a4fea201fa333635e71ac}
+
+
+avtp\+\_\+aaf.\+c 파일의 52 번째 라인에서 정의되었습니다.
+
+\index{avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}!M\+A\+S\+K\+\_\+\+MR@{M\+A\+S\+K\+\_\+\+MR}}
+\index{M\+A\+S\+K\+\_\+\+MR@{M\+A\+S\+K\+\_\+\+MR}!avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}}
+\subsubsection[{\texorpdfstring{M\+A\+S\+K\+\_\+\+MR}{MASK_MR}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+S\+K\+\_\+\+MR~({\bf B\+I\+T\+M\+A\+SK}(1) $<$$<$ {\bf S\+H\+I\+F\+T\+\_\+\+MR})}\hypertarget{avtp__aaf_8c_a52d288f83c9e27e5bac538bdcfa51cb6}{}\label{avtp__aaf_8c_a52d288f83c9e27e5bac538bdcfa51cb6}
+
+
+avtp\+\_\+aaf.\+c 파일의 48 번째 라인에서 정의되었습니다.
+
+\index{avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}!M\+A\+S\+K\+\_\+\+N\+SR@{M\+A\+S\+K\+\_\+\+N\+SR}}
+\index{M\+A\+S\+K\+\_\+\+N\+SR@{M\+A\+S\+K\+\_\+\+N\+SR}!avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}}
+\subsubsection[{\texorpdfstring{M\+A\+S\+K\+\_\+\+N\+SR}{MASK_NSR}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+S\+K\+\_\+\+N\+SR~({\bf B\+I\+T\+M\+A\+SK}(4) $<$$<$ {\bf S\+H\+I\+F\+T\+\_\+\+N\+SR})}\hypertarget{avtp__aaf_8c_a5eb10169c6013d791adc4bdb6ead6d08}{}\label{avtp__aaf_8c_a5eb10169c6013d791adc4bdb6ead6d08}
+
+
+avtp\+\_\+aaf.\+c 파일의 53 번째 라인에서 정의되었습니다.
+
+\index{avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}!M\+A\+S\+K\+\_\+\+S\+E\+Q\+\_\+\+N\+UM@{M\+A\+S\+K\+\_\+\+S\+E\+Q\+\_\+\+N\+UM}}
+\index{M\+A\+S\+K\+\_\+\+S\+E\+Q\+\_\+\+N\+UM@{M\+A\+S\+K\+\_\+\+S\+E\+Q\+\_\+\+N\+UM}!avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}}
+\subsubsection[{\texorpdfstring{M\+A\+S\+K\+\_\+\+S\+E\+Q\+\_\+\+N\+UM}{MASK_SEQ_NUM}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+S\+K\+\_\+\+S\+E\+Q\+\_\+\+N\+UM~({\bf B\+I\+T\+M\+A\+SK}(8) $<$$<$ {\bf S\+H\+I\+F\+T\+\_\+\+S\+E\+Q\+\_\+\+N\+UM})}\hypertarget{avtp__aaf_8c_a933f697e02898cb11185251ca816c29e}{}\label{avtp__aaf_8c_a933f697e02898cb11185251ca816c29e}
+
+
+avtp\+\_\+aaf.\+c 파일의 50 번째 라인에서 정의되었습니다.
+
+\index{avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}!M\+A\+S\+K\+\_\+\+SP@{M\+A\+S\+K\+\_\+\+SP}}
+\index{M\+A\+S\+K\+\_\+\+SP@{M\+A\+S\+K\+\_\+\+SP}!avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}}
+\subsubsection[{\texorpdfstring{M\+A\+S\+K\+\_\+\+SP}{MASK_SP}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+S\+K\+\_\+\+SP~({\bf B\+I\+T\+M\+A\+SK}(1) $<$$<$ {\bf S\+H\+I\+F\+T\+\_\+\+SP})}\hypertarget{avtp__aaf_8c_a9dd359e213de1151875e2aae8797f759}{}\label{avtp__aaf_8c_a9dd359e213de1151875e2aae8797f759}
+
+
+avtp\+\_\+aaf.\+c 파일의 57 번째 라인에서 정의되었습니다.
+
+\index{avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}!M\+A\+S\+K\+\_\+\+S\+T\+R\+E\+A\+M\+\_\+\+D\+A\+T\+A\+\_\+\+L\+EN@{M\+A\+S\+K\+\_\+\+S\+T\+R\+E\+A\+M\+\_\+\+D\+A\+T\+A\+\_\+\+L\+EN}}
+\index{M\+A\+S\+K\+\_\+\+S\+T\+R\+E\+A\+M\+\_\+\+D\+A\+T\+A\+\_\+\+L\+EN@{M\+A\+S\+K\+\_\+\+S\+T\+R\+E\+A\+M\+\_\+\+D\+A\+T\+A\+\_\+\+L\+EN}!avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}}
+\subsubsection[{\texorpdfstring{M\+A\+S\+K\+\_\+\+S\+T\+R\+E\+A\+M\+\_\+\+D\+A\+T\+A\+\_\+\+L\+EN}{MASK_STREAM_DATA_LEN}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+S\+K\+\_\+\+S\+T\+R\+E\+A\+M\+\_\+\+D\+A\+T\+A\+\_\+\+L\+EN~({\bf B\+I\+T\+M\+A\+SK}(16) $<$$<$ {\bf S\+H\+I\+F\+T\+\_\+\+S\+T\+R\+E\+A\+M\+\_\+\+D\+A\+T\+A\+\_\+\+L\+EN})}\hypertarget{avtp__aaf_8c_ae69eb8ce322e5e978c59b82aabe42649}{}\label{avtp__aaf_8c_ae69eb8ce322e5e978c59b82aabe42649}
+
+
+avtp\+\_\+aaf.\+c 파일의 56 번째 라인에서 정의되었습니다.
+
+\index{avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}!M\+A\+S\+K\+\_\+\+SV@{M\+A\+S\+K\+\_\+\+SV}}
+\index{M\+A\+S\+K\+\_\+\+SV@{M\+A\+S\+K\+\_\+\+SV}!avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}}
+\subsubsection[{\texorpdfstring{M\+A\+S\+K\+\_\+\+SV}{MASK_SV}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+S\+K\+\_\+\+SV~({\bf B\+I\+T\+M\+A\+SK}(1) $<$$<$ {\bf S\+H\+I\+F\+T\+\_\+\+SV})}\hypertarget{avtp__aaf_8c_a224c5ddfa8bd3d09e0bb5ad4783f5057}{}\label{avtp__aaf_8c_a224c5ddfa8bd3d09e0bb5ad4783f5057}
+
+
+avtp\+\_\+aaf.\+c 파일의 47 번째 라인에서 정의되었습니다.
+
+\index{avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}!M\+A\+S\+K\+\_\+\+TU@{M\+A\+S\+K\+\_\+\+TU}}
+\index{M\+A\+S\+K\+\_\+\+TU@{M\+A\+S\+K\+\_\+\+TU}!avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}}
+\subsubsection[{\texorpdfstring{M\+A\+S\+K\+\_\+\+TU}{MASK_TU}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+S\+K\+\_\+\+TU~({\bf B\+I\+T\+M\+A\+SK}(1))}\hypertarget{avtp__aaf_8c_ae27a8c87c00a07d9ee0b9f4b8b2ff039}{}\label{avtp__aaf_8c_ae27a8c87c00a07d9ee0b9f4b8b2ff039}
+
+
+avtp\+\_\+aaf.\+c 파일의 51 번째 라인에서 정의되었습니다.
+
+\index{avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}!M\+A\+S\+K\+\_\+\+TV@{M\+A\+S\+K\+\_\+\+TV}}
+\index{M\+A\+S\+K\+\_\+\+TV@{M\+A\+S\+K\+\_\+\+TV}!avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}}
+\subsubsection[{\texorpdfstring{M\+A\+S\+K\+\_\+\+TV}{MASK_TV}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+S\+K\+\_\+\+TV~({\bf B\+I\+T\+M\+A\+SK}(1) $<$$<$ {\bf S\+H\+I\+F\+T\+\_\+\+TV})}\hypertarget{avtp__aaf_8c_a995883bb91a18f829630374e1835872d}{}\label{avtp__aaf_8c_a995883bb91a18f829630374e1835872d}
+
+
+avtp\+\_\+aaf.\+c 파일의 49 번째 라인에서 정의되었습니다.
+
+\index{avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}!S\+H\+I\+F\+T\+\_\+\+C\+H\+A\+N\+\_\+\+P\+E\+R\+\_\+\+F\+R\+A\+ME@{S\+H\+I\+F\+T\+\_\+\+C\+H\+A\+N\+\_\+\+P\+E\+R\+\_\+\+F\+R\+A\+ME}}
+\index{S\+H\+I\+F\+T\+\_\+\+C\+H\+A\+N\+\_\+\+P\+E\+R\+\_\+\+F\+R\+A\+ME@{S\+H\+I\+F\+T\+\_\+\+C\+H\+A\+N\+\_\+\+P\+E\+R\+\_\+\+F\+R\+A\+ME}!avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}}
+\subsubsection[{\texorpdfstring{S\+H\+I\+F\+T\+\_\+\+C\+H\+A\+N\+\_\+\+P\+E\+R\+\_\+\+F\+R\+A\+ME}{SHIFT_CHAN_PER_FRAME}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+H\+I\+F\+T\+\_\+\+C\+H\+A\+N\+\_\+\+P\+E\+R\+\_\+\+F\+R\+A\+ME~(31 -\/ 23)}\hypertarget{avtp__aaf_8c_a466f3293f490ccddab502b152e5960ac}{}\label{avtp__aaf_8c_a466f3293f490ccddab502b152e5960ac}
+
+
+avtp\+\_\+aaf.\+c 파일의 42 번째 라인에서 정의되었습니다.
+
+\index{avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}!S\+H\+I\+F\+T\+\_\+\+E\+VT@{S\+H\+I\+F\+T\+\_\+\+E\+VT}}
+\index{S\+H\+I\+F\+T\+\_\+\+E\+VT@{S\+H\+I\+F\+T\+\_\+\+E\+VT}!avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}}
+\subsubsection[{\texorpdfstring{S\+H\+I\+F\+T\+\_\+\+E\+VT}{SHIFT_EVT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+H\+I\+F\+T\+\_\+\+E\+VT~(31 -\/ 23)}\hypertarget{avtp__aaf_8c_a878c24d290bbb72f32f63410f662cf38}{}\label{avtp__aaf_8c_a878c24d290bbb72f32f63410f662cf38}
+
+
+avtp\+\_\+aaf.\+c 파일의 45 번째 라인에서 정의되었습니다.
+
+\index{avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}!S\+H\+I\+F\+T\+\_\+\+F\+O\+R\+M\+AT@{S\+H\+I\+F\+T\+\_\+\+F\+O\+R\+M\+AT}}
+\index{S\+H\+I\+F\+T\+\_\+\+F\+O\+R\+M\+AT@{S\+H\+I\+F\+T\+\_\+\+F\+O\+R\+M\+AT}!avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}}
+\subsubsection[{\texorpdfstring{S\+H\+I\+F\+T\+\_\+\+F\+O\+R\+M\+AT}{SHIFT_FORMAT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+H\+I\+F\+T\+\_\+\+F\+O\+R\+M\+AT~(31 -\/ 7)}\hypertarget{avtp__aaf_8c_af37cdd2c86f1ff8d5edae1259ec7d5e9}{}\label{avtp__aaf_8c_af37cdd2c86f1ff8d5edae1259ec7d5e9}
+
+
+avtp\+\_\+aaf.\+c 파일의 40 번째 라인에서 정의되었습니다.
+
+\index{avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}!S\+H\+I\+F\+T\+\_\+\+MR@{S\+H\+I\+F\+T\+\_\+\+MR}}
+\index{S\+H\+I\+F\+T\+\_\+\+MR@{S\+H\+I\+F\+T\+\_\+\+MR}!avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}}
+\subsubsection[{\texorpdfstring{S\+H\+I\+F\+T\+\_\+\+MR}{SHIFT_MR}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+H\+I\+F\+T\+\_\+\+MR~(31 -\/ 12)}\hypertarget{avtp__aaf_8c_a9a1e8a16053b025d6e4733fa3db41161}{}\label{avtp__aaf_8c_a9a1e8a16053b025d6e4733fa3db41161}
+
+
+avtp\+\_\+aaf.\+c 파일의 37 번째 라인에서 정의되었습니다.
+
+\index{avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}!S\+H\+I\+F\+T\+\_\+\+N\+SR@{S\+H\+I\+F\+T\+\_\+\+N\+SR}}
+\index{S\+H\+I\+F\+T\+\_\+\+N\+SR@{S\+H\+I\+F\+T\+\_\+\+N\+SR}!avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}}
+\subsubsection[{\texorpdfstring{S\+H\+I\+F\+T\+\_\+\+N\+SR}{SHIFT_NSR}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+H\+I\+F\+T\+\_\+\+N\+SR~(31 -\/ 11)}\hypertarget{avtp__aaf_8c_a2d4e1dd49e5d1ce62d364ce337aedabc}{}\label{avtp__aaf_8c_a2d4e1dd49e5d1ce62d364ce337aedabc}
+
+
+avtp\+\_\+aaf.\+c 파일의 41 번째 라인에서 정의되었습니다.
+
+\index{avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}!S\+H\+I\+F\+T\+\_\+\+S\+E\+Q\+\_\+\+N\+UM@{S\+H\+I\+F\+T\+\_\+\+S\+E\+Q\+\_\+\+N\+UM}}
+\index{S\+H\+I\+F\+T\+\_\+\+S\+E\+Q\+\_\+\+N\+UM@{S\+H\+I\+F\+T\+\_\+\+S\+E\+Q\+\_\+\+N\+UM}!avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}}
+\subsubsection[{\texorpdfstring{S\+H\+I\+F\+T\+\_\+\+S\+E\+Q\+\_\+\+N\+UM}{SHIFT_SEQ_NUM}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+H\+I\+F\+T\+\_\+\+S\+E\+Q\+\_\+\+N\+UM~(31 -\/ 23)}\hypertarget{avtp__aaf_8c_a030a5eaf697ae1f9d813931db0c8b326}{}\label{avtp__aaf_8c_a030a5eaf697ae1f9d813931db0c8b326}
+
+
+avtp\+\_\+aaf.\+c 파일의 39 번째 라인에서 정의되었습니다.
+
+\index{avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}!S\+H\+I\+F\+T\+\_\+\+SP@{S\+H\+I\+F\+T\+\_\+\+SP}}
+\index{S\+H\+I\+F\+T\+\_\+\+SP@{S\+H\+I\+F\+T\+\_\+\+SP}!avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}}
+\subsubsection[{\texorpdfstring{S\+H\+I\+F\+T\+\_\+\+SP}{SHIFT_SP}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+H\+I\+F\+T\+\_\+\+SP~(31 -\/ 19)}\hypertarget{avtp__aaf_8c_a2a51f91c56e198deddb96cee96b8fa53}{}\label{avtp__aaf_8c_a2a51f91c56e198deddb96cee96b8fa53}
+
+
+avtp\+\_\+aaf.\+c 파일의 44 번째 라인에서 정의되었습니다.
+
+\index{avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}!S\+H\+I\+F\+T\+\_\+\+S\+T\+R\+E\+A\+M\+\_\+\+D\+A\+T\+A\+\_\+\+L\+EN@{S\+H\+I\+F\+T\+\_\+\+S\+T\+R\+E\+A\+M\+\_\+\+D\+A\+T\+A\+\_\+\+L\+EN}}
+\index{S\+H\+I\+F\+T\+\_\+\+S\+T\+R\+E\+A\+M\+\_\+\+D\+A\+T\+A\+\_\+\+L\+EN@{S\+H\+I\+F\+T\+\_\+\+S\+T\+R\+E\+A\+M\+\_\+\+D\+A\+T\+A\+\_\+\+L\+EN}!avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}}
+\subsubsection[{\texorpdfstring{S\+H\+I\+F\+T\+\_\+\+S\+T\+R\+E\+A\+M\+\_\+\+D\+A\+T\+A\+\_\+\+L\+EN}{SHIFT_STREAM_DATA_LEN}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+H\+I\+F\+T\+\_\+\+S\+T\+R\+E\+A\+M\+\_\+\+D\+A\+T\+A\+\_\+\+L\+EN~(31 -\/ 15)}\hypertarget{avtp__aaf_8c_a0a5400b20e21e6ccfab4b9a75aa867c3}{}\label{avtp__aaf_8c_a0a5400b20e21e6ccfab4b9a75aa867c3}
+
+
+avtp\+\_\+aaf.\+c 파일의 43 번째 라인에서 정의되었습니다.
+
+\index{avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}!S\+H\+I\+F\+T\+\_\+\+SV@{S\+H\+I\+F\+T\+\_\+\+SV}}
+\index{S\+H\+I\+F\+T\+\_\+\+SV@{S\+H\+I\+F\+T\+\_\+\+SV}!avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}}
+\subsubsection[{\texorpdfstring{S\+H\+I\+F\+T\+\_\+\+SV}{SHIFT_SV}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+H\+I\+F\+T\+\_\+\+SV~(31 -\/ 8)}\hypertarget{avtp__aaf_8c_a7bb8e17973b93a8557783f0c0f5a0f9a}{}\label{avtp__aaf_8c_a7bb8e17973b93a8557783f0c0f5a0f9a}
+
+
+avtp\+\_\+aaf.\+c 파일의 36 번째 라인에서 정의되었습니다.
+
+\index{avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}!S\+H\+I\+F\+T\+\_\+\+TV@{S\+H\+I\+F\+T\+\_\+\+TV}}
+\index{S\+H\+I\+F\+T\+\_\+\+TV@{S\+H\+I\+F\+T\+\_\+\+TV}!avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}}
+\subsubsection[{\texorpdfstring{S\+H\+I\+F\+T\+\_\+\+TV}{SHIFT_TV}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+H\+I\+F\+T\+\_\+\+TV~(31 -\/ 15)}\hypertarget{avtp__aaf_8c_ac1877659c66655fd5b92ed26cb54815b}{}\label{avtp__aaf_8c_ac1877659c66655fd5b92ed26cb54815b}
+
+
+avtp\+\_\+aaf.\+c 파일의 38 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{함수 문서화}
+\index{avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}!avtp\+\_\+aaf\+\_\+pdu\+\_\+get@{avtp\+\_\+aaf\+\_\+pdu\+\_\+get}}
+\index{avtp\+\_\+aaf\+\_\+pdu\+\_\+get@{avtp\+\_\+aaf\+\_\+pdu\+\_\+get}!avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}}
+\subsubsection[{\texorpdfstring{avtp\+\_\+aaf\+\_\+pdu\+\_\+get(const struct avtp\+\_\+stream\+\_\+pdu $\ast$pdu, enum avtp\+\_\+aaf\+\_\+field field, uint64\+\_\+t $\ast$val)}{avtp_aaf_pdu_get(const struct avtp_stream_pdu *pdu, enum avtp_aaf_field field, uint64_t *val)}}]{\setlength{\rightskip}{0pt plus 5cm}int avtp\+\_\+aaf\+\_\+pdu\+\_\+get (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf avtp\+\_\+stream\+\_\+pdu} $\ast$}]{pdu, }
+\item[{enum {\bf avtp\+\_\+aaf\+\_\+field}}]{field, }
+\item[{{\bf uint64\+\_\+t} $\ast$}]{val}
+\end{DoxyParamCaption}
+)}\hypertarget{avtp__aaf_8c_acc4c927b036e22def8e6b6beb3ac6026}{}\label{avtp__aaf_8c_acc4c927b036e22def8e6b6beb3ac6026}
+
+
+avtp\+\_\+aaf.\+c 파일의 136 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+138 \{
+139     \textcolor{keywordtype}{int} res;
+140 
+141     \textcolor{keywordflow}{if} (!pdu || !val)
+142         \textcolor{keywordflow}{return} -EINVAL;
+143 
+144     \textcolor{keywordflow}{switch} (field) \{
+145     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dba77da9ad6a21d2ac376ea286cb2ce6583}{AVTP\_AAF\_FIELD\_SV}:
+146     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dba7eb52ad27551549484048c7c54ff9bf3}{AVTP\_AAF\_FIELD\_MR}:
+147     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dba490dfd07398cccbefac45e6a58692eab}{AVTP\_AAF\_FIELD\_TV}:
+148     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dba8d6f89598372ef8aaf5dfbbf0c4c7111}{AVTP\_AAF\_FIELD\_SEQ\_NUM}:
+149     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dbabc8e228f159d10a9134451448e470f36}{AVTP\_AAF\_FIELD\_TU}:
+150     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dbad867950e53bb3b120e37a7598fcd1fb4}{AVTP\_AAF\_FIELD\_FORMAT}:
+151     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dbaa7c9036133950993bf1311879c665634}{AVTP\_AAF\_FIELD\_NSR}:
+152     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dbab6202d8ac4e1b7e819e5adb08b90a346}{AVTP\_AAF\_FIELD\_CHAN\_PER\_FRAME}:
+153     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dbabedcf9db303c9373c61a44389d371993}{AVTP\_AAF\_FIELD\_BIT\_DEPTH}:
+154     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dba0adf28243896ab6183e2558b52b1cae5}{AVTP\_AAF\_FIELD\_STREAM\_DATA\_LEN}:
+155     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dba79d34018cdf39cf46998df2bc16e7617}{AVTP\_AAF\_FIELD\_SP}:
+156     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dbaa14798600c79bcb32f2d5af24d250c83}{AVTP\_AAF\_FIELD\_EVT}:
+157         res = \hyperlink{avtp__aaf_8c_a64b0039aae564becb91dc320991577de}{get\_field\_value}(pdu, field, val);
+158         \textcolor{keywordflow}{break};
+159     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dba2b2d9a400ce400921c5e96caabf8a631}{AVTP\_AAF\_FIELD\_TIMESTAMP}:
+160         *val = ntohl(pdu->\hyperlink{structavtp__stream__pdu_a81ec49d93f7a916531f4d97214f47515}{avtp\_time});
+161         res = 0;
+162         \textcolor{keywordflow}{break};
+163     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dba4760c4bfc01d5a5200aa35cc1cdc0c13}{AVTP\_AAF\_FIELD\_STREAM\_ID}:
+164         *val = be64toh(pdu->\hyperlink{structavtp__stream__pdu_af5af7b461263e29ceb91a8d3a8bc2c97}{stream\_id});
+165         res = 0;
+166         \textcolor{keywordflow}{break};
+167     \textcolor{keywordflow}{default}:
+168         res = -EINVAL;
+169         \textcolor{keywordflow}{break};
+170     \}
+171 
+172     \textcolor{keywordflow}{return} res;
+173 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=292pt]{avtp__aaf_8c_acc4c927b036e22def8e6b6beb3ac6026_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{avtp__aaf_8c_acc4c927b036e22def8e6b6beb3ac6026_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}!avtp\+\_\+aaf\+\_\+pdu\+\_\+init@{avtp\+\_\+aaf\+\_\+pdu\+\_\+init}}
+\index{avtp\+\_\+aaf\+\_\+pdu\+\_\+init@{avtp\+\_\+aaf\+\_\+pdu\+\_\+init}!avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}}
+\subsubsection[{\texorpdfstring{avtp\+\_\+aaf\+\_\+pdu\+\_\+init(struct avtp\+\_\+stream\+\_\+pdu $\ast$pdu)}{avtp_aaf_pdu_init(struct avtp_stream_pdu *pdu)}}]{\setlength{\rightskip}{0pt plus 5cm}int avtp\+\_\+aaf\+\_\+pdu\+\_\+init (
+\begin{DoxyParamCaption}
+\item[{struct {\bf avtp\+\_\+stream\+\_\+pdu} $\ast$}]{pdu}
+\end{DoxyParamCaption}
+)}\hypertarget{avtp__aaf_8c_abbf7b8f31bede05bb514b548a0f9708f}{}\label{avtp__aaf_8c_abbf7b8f31bede05bb514b548a0f9708f}
+
+
+avtp\+\_\+aaf.\+c 파일의 293 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+294 \{
+295     \textcolor{keywordtype}{int} res;
+296 
+297     \textcolor{keywordflow}{if} (!pdu)
+298         \textcolor{keywordflow}{return} -EINVAL;
+299 
+300     memset(pdu, 0, \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} \hyperlink{structavtp__stream__pdu}{avtp\_stream\_pdu}));
+301 
+302     res = \hyperlink{avtp_8h_af79299e7e5721514f10efc9507660bc0}{avtp\_pdu\_set}((\textcolor{keyword}{struct} \hyperlink{structavtp__common__pdu}{avtp\_common\_pdu} *) pdu, 
+      \hyperlink{avtp_8h_ae8ac82f40d36ba8c7a71a451a1d7ddf0a9e663acceb0e8f7e7f4ac33bff00512c}{AVTP\_FIELD\_SUBTYPE},
+303                             \hyperlink{openavb__map__aaf__audio_8c_a246903796b0d2d8596659143992f1c3b}{AVTP\_SUBTYPE\_AAF});
+304     \textcolor{keywordflow}{if} (res < 0)
+305         \textcolor{keywordflow}{return} res;
+306 
+307     res = \hyperlink{avtp__aaf_8c_af242dc7ed6c5ca5ea8e9d5071c13e19d}{avtp\_aaf\_pdu\_set}(pdu, \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dba77da9ad6a21d2ac376ea286cb2ce6583}{AVTP\_AAF\_FIELD\_SV}, 1);
+308     \textcolor{keywordflow}{if} (res < 0)
+309         \textcolor{keywordflow}{return} res;
+310 
+311     \textcolor{keywordflow}{return} 0;
+312 \};
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{avtp__aaf_8c_abbf7b8f31bede05bb514b548a0f9708f_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{avtp__aaf_8c_abbf7b8f31bede05bb514b548a0f9708f_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}!avtp\+\_\+aaf\+\_\+pdu\+\_\+set@{avtp\+\_\+aaf\+\_\+pdu\+\_\+set}}
+\index{avtp\+\_\+aaf\+\_\+pdu\+\_\+set@{avtp\+\_\+aaf\+\_\+pdu\+\_\+set}!avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}}
+\subsubsection[{\texorpdfstring{avtp\+\_\+aaf\+\_\+pdu\+\_\+set(struct avtp\+\_\+stream\+\_\+pdu $\ast$pdu, enum avtp\+\_\+aaf\+\_\+field field, uint64\+\_\+t val)}{avtp_aaf_pdu_set(struct avtp_stream_pdu *pdu, enum avtp_aaf_field field, uint64_t val)}}]{\setlength{\rightskip}{0pt plus 5cm}int avtp\+\_\+aaf\+\_\+pdu\+\_\+set (
+\begin{DoxyParamCaption}
+\item[{struct {\bf avtp\+\_\+stream\+\_\+pdu} $\ast$}]{pdu, }
+\item[{enum {\bf avtp\+\_\+aaf\+\_\+field}}]{field, }
+\item[{{\bf uint64\+\_\+t}}]{val}
+\end{DoxyParamCaption}
+)}\hypertarget{avtp__aaf_8c_af242dc7ed6c5ca5ea8e9d5071c13e19d}{}\label{avtp__aaf_8c_af242dc7ed6c5ca5ea8e9d5071c13e19d}
+
+
+avtp\+\_\+aaf.\+c 파일의 255 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+257 \{
+258     \textcolor{keywordtype}{int} res;
+259 
+260     \textcolor{keywordflow}{if} (!pdu)
+261         \textcolor{keywordflow}{return} -EINVAL;
+262 
+263     \textcolor{keywordflow}{switch} (field) \{
+264     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dba77da9ad6a21d2ac376ea286cb2ce6583}{AVTP\_AAF\_FIELD\_SV}:
+265     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dba7eb52ad27551549484048c7c54ff9bf3}{AVTP\_AAF\_FIELD\_MR}:
+266     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dba490dfd07398cccbefac45e6a58692eab}{AVTP\_AAF\_FIELD\_TV}:
+267     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dba8d6f89598372ef8aaf5dfbbf0c4c7111}{AVTP\_AAF\_FIELD\_SEQ\_NUM}:
+268     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dbabc8e228f159d10a9134451448e470f36}{AVTP\_AAF\_FIELD\_TU}:
+269     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dbad867950e53bb3b120e37a7598fcd1fb4}{AVTP\_AAF\_FIELD\_FORMAT}:
+270     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dbaa7c9036133950993bf1311879c665634}{AVTP\_AAF\_FIELD\_NSR}:
+271     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dbab6202d8ac4e1b7e819e5adb08b90a346}{AVTP\_AAF\_FIELD\_CHAN\_PER\_FRAME}:
+272     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dbabedcf9db303c9373c61a44389d371993}{AVTP\_AAF\_FIELD\_BIT\_DEPTH}:
+273     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dba0adf28243896ab6183e2558b52b1cae5}{AVTP\_AAF\_FIELD\_STREAM\_DATA\_LEN}:
+274     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dba79d34018cdf39cf46998df2bc16e7617}{AVTP\_AAF\_FIELD\_SP}:
+275     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dbaa14798600c79bcb32f2d5af24d250c83}{AVTP\_AAF\_FIELD\_EVT}:
+276         res = \hyperlink{avtp__aaf_8c_a689adad1eafd1fdd6acb4aa64b747074}{set\_field\_value}(pdu, field, val);
+277         \textcolor{keywordflow}{break};
+278     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dba2b2d9a400ce400921c5e96caabf8a631}{AVTP\_AAF\_FIELD\_TIMESTAMP}:
+279         pdu->\hyperlink{structavtp__stream__pdu_a81ec49d93f7a916531f4d97214f47515}{avtp\_time} = htonl(val);
+280         res = 0;
+281         \textcolor{keywordflow}{break};
+282     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dba4760c4bfc01d5a5200aa35cc1cdc0c13}{AVTP\_AAF\_FIELD\_STREAM\_ID}:
+283         pdu->\hyperlink{structavtp__stream__pdu_af5af7b461263e29ceb91a8d3a8bc2c97}{stream\_id} = htobe64(val);
+284         res = 0;
+285         \textcolor{keywordflow}{break};
+286     \textcolor{keywordflow}{default}:
+287         res = -EINVAL;
+288     \}
+289 
+290     \textcolor{keywordflow}{return} res;
+291 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=292pt]{avtp__aaf_8c_af242dc7ed6c5ca5ea8e9d5071c13e19d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{avtp__aaf_8c_af242dc7ed6c5ca5ea8e9d5071c13e19d_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}!get\+\_\+field\+\_\+value@{get\+\_\+field\+\_\+value}}
+\index{get\+\_\+field\+\_\+value@{get\+\_\+field\+\_\+value}!avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}}
+\subsubsection[{\texorpdfstring{get\+\_\+field\+\_\+value(const struct avtp\+\_\+stream\+\_\+pdu $\ast$pdu, enum avtp\+\_\+aaf\+\_\+field field, uint64\+\_\+t $\ast$val)}{get_field_value(const struct avtp_stream_pdu *pdu, enum avtp_aaf_field field, uint64_t *val)}}]{\setlength{\rightskip}{0pt plus 5cm}static int get\+\_\+field\+\_\+value (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf avtp\+\_\+stream\+\_\+pdu} $\ast$}]{pdu, }
+\item[{enum {\bf avtp\+\_\+aaf\+\_\+field}}]{field, }
+\item[{{\bf uint64\+\_\+t} $\ast$}]{val}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{avtp__aaf_8c_a64b0039aae564becb91dc320991577de}{}\label{avtp__aaf_8c_a64b0039aae564becb91dc320991577de}
+
+
+avtp\+\_\+aaf.\+c 파일의 60 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+62 \{
+63     \hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\_t} bitmap, mask;
+64     \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} shift;
+65 
+66     \textcolor{keywordflow}{switch} (field) \{
+67     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dba77da9ad6a21d2ac376ea286cb2ce6583}{AVTP\_AAF\_FIELD\_SV}:
+68         mask = \hyperlink{avtp__aaf_8c_a224c5ddfa8bd3d09e0bb5ad4783f5057}{MASK\_SV};
+69         shift = \hyperlink{avtp__aaf_8c_a7bb8e17973b93a8557783f0c0f5a0f9a}{SHIFT\_SV};
+70         bitmap = ntohl(pdu->\hyperlink{structavtp__stream__pdu_a3210e9f18fdc9c29cef7600c4d1e67e9}{subtype\_data});
+71         \textcolor{keywordflow}{break};
+72     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dba7eb52ad27551549484048c7c54ff9bf3}{AVTP\_AAF\_FIELD\_MR}:
+73         mask = \hyperlink{avtp__aaf_8c_a52d288f83c9e27e5bac538bdcfa51cb6}{MASK\_MR};
+74         shift = \hyperlink{avtp__aaf_8c_a9a1e8a16053b025d6e4733fa3db41161}{SHIFT\_MR};
+75         bitmap = ntohl(pdu->\hyperlink{structavtp__stream__pdu_a3210e9f18fdc9c29cef7600c4d1e67e9}{subtype\_data});
+76         \textcolor{keywordflow}{break};
+77     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dba490dfd07398cccbefac45e6a58692eab}{AVTP\_AAF\_FIELD\_TV}:
+78         mask = \hyperlink{avtp__aaf_8c_a995883bb91a18f829630374e1835872d}{MASK\_TV};
+79         shift = \hyperlink{avtp__aaf_8c_ac1877659c66655fd5b92ed26cb54815b}{SHIFT\_TV};
+80         bitmap = ntohl(pdu->\hyperlink{structavtp__stream__pdu_a3210e9f18fdc9c29cef7600c4d1e67e9}{subtype\_data});
+81         \textcolor{keywordflow}{break};
+82     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dba8d6f89598372ef8aaf5dfbbf0c4c7111}{AVTP\_AAF\_FIELD\_SEQ\_NUM}:
+83         mask = \hyperlink{avtp__aaf_8c_a933f697e02898cb11185251ca816c29e}{MASK\_SEQ\_NUM};
+84         shift = \hyperlink{avtp__aaf_8c_a030a5eaf697ae1f9d813931db0c8b326}{SHIFT\_SEQ\_NUM};
+85         bitmap = ntohl(pdu->\hyperlink{structavtp__stream__pdu_a3210e9f18fdc9c29cef7600c4d1e67e9}{subtype\_data});
+86         \textcolor{keywordflow}{break};
+87     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dbabc8e228f159d10a9134451448e470f36}{AVTP\_AAF\_FIELD\_TU}:
+88         mask = \hyperlink{avtp__aaf_8c_ae27a8c87c00a07d9ee0b9f4b8b2ff039}{MASK\_TU};
+89         shift = 0;
+90         bitmap = ntohl(pdu->\hyperlink{structavtp__stream__pdu_a3210e9f18fdc9c29cef7600c4d1e67e9}{subtype\_data});
+91         \textcolor{keywordflow}{break};
+92     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dbad867950e53bb3b120e37a7598fcd1fb4}{AVTP\_AAF\_FIELD\_FORMAT}:
+93         mask = \hyperlink{avtp__aaf_8c_a701ba03e606a4fea201fa333635e71ac}{MASK\_FORMAT};
+94         shift = \hyperlink{avtp__aaf_8c_af37cdd2c86f1ff8d5edae1259ec7d5e9}{SHIFT\_FORMAT};
+95         bitmap = ntohl(pdu->\hyperlink{structavtp__stream__pdu_acbfc36b550978f88cf0a3d9d2b2ce0dd}{format\_specific});
+96         \textcolor{keywordflow}{break};
+97     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dbaa7c9036133950993bf1311879c665634}{AVTP\_AAF\_FIELD\_NSR}:
+98         mask = \hyperlink{avtp__aaf_8c_a5eb10169c6013d791adc4bdb6ead6d08}{MASK\_NSR};
+99         shift = \hyperlink{avtp__aaf_8c_a2d4e1dd49e5d1ce62d364ce337aedabc}{SHIFT\_NSR};
+100         bitmap = ntohl(pdu->\hyperlink{structavtp__stream__pdu_acbfc36b550978f88cf0a3d9d2b2ce0dd}{format\_specific});
+101         \textcolor{keywordflow}{break};
+102     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dbab6202d8ac4e1b7e819e5adb08b90a346}{AVTP\_AAF\_FIELD\_CHAN\_PER\_FRAME}:
+103         mask = \hyperlink{avtp__aaf_8c_a7d328b84e087c94ce056b736d0bc0741}{MASK\_CHAN\_PER\_FRAME};
+104         shift = \hyperlink{avtp__aaf_8c_a466f3293f490ccddab502b152e5960ac}{SHIFT\_CHAN\_PER\_FRAME};
+105         bitmap = ntohl(pdu->\hyperlink{structavtp__stream__pdu_acbfc36b550978f88cf0a3d9d2b2ce0dd}{format\_specific});
+106         \textcolor{keywordflow}{break};
+107     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dbabedcf9db303c9373c61a44389d371993}{AVTP\_AAF\_FIELD\_BIT\_DEPTH}:
+108         mask = \hyperlink{avtp__aaf_8c_aab2e021f92e2554af6bea86ab5dea679}{MASK\_BIT\_DEPTH};
+109         shift = 0;
+110         bitmap = ntohl(pdu->\hyperlink{structavtp__stream__pdu_acbfc36b550978f88cf0a3d9d2b2ce0dd}{format\_specific});
+111         \textcolor{keywordflow}{break};
+112     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dba0adf28243896ab6183e2558b52b1cae5}{AVTP\_AAF\_FIELD\_STREAM\_DATA\_LEN}:
+113         mask = \hyperlink{avtp__aaf_8c_ae69eb8ce322e5e978c59b82aabe42649}{MASK\_STREAM\_DATA\_LEN};
+114         shift = \hyperlink{avtp__aaf_8c_a0a5400b20e21e6ccfab4b9a75aa867c3}{SHIFT\_STREAM\_DATA\_LEN};
+115         bitmap = ntohl(pdu->\hyperlink{structavtp__stream__pdu_a737b6c4ff9f6954da39283e7351cbf58}{packet\_info});
+116         \textcolor{keywordflow}{break};
+117     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dba79d34018cdf39cf46998df2bc16e7617}{AVTP\_AAF\_FIELD\_SP}:
+118         mask = \hyperlink{avtp__aaf_8c_a9dd359e213de1151875e2aae8797f759}{MASK\_SP};
+119         shift = \hyperlink{avtp__aaf_8c_a2a51f91c56e198deddb96cee96b8fa53}{SHIFT\_SP};
+120         bitmap = ntohl(pdu->\hyperlink{structavtp__stream__pdu_a737b6c4ff9f6954da39283e7351cbf58}{packet\_info});
+121         \textcolor{keywordflow}{break};
+122     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dbaa14798600c79bcb32f2d5af24d250c83}{AVTP\_AAF\_FIELD\_EVT}:
+123         mask = \hyperlink{avtp__aaf_8c_a62ddb31e885b9e09f579b6399d68bd4f}{MASK\_EVT};
+124         shift = \hyperlink{avtp__aaf_8c_a878c24d290bbb72f32f63410f662cf38}{SHIFT\_EVT};
+125         bitmap = ntohl(pdu->\hyperlink{structavtp__stream__pdu_a737b6c4ff9f6954da39283e7351cbf58}{packet\_info});
+126         \textcolor{keywordflow}{break};
+127     \textcolor{keywordflow}{default}:
+128         \textcolor{keywordflow}{return} -EINVAL;
+129     \}
+130 
+131     *val = \hyperlink{lib_2libavtp_2src_2util_8h_ad2e346a2dc18e6f5434232b2097aa88a}{BITMAP\_GET\_VALUE}(bitmap, mask, shift);
+132 
+133     \textcolor{keywordflow}{return} 0;
+134 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{avtp__aaf_8c_a64b0039aae564becb91dc320991577de_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}!set\+\_\+field\+\_\+value@{set\+\_\+field\+\_\+value}}
+\index{set\+\_\+field\+\_\+value@{set\+\_\+field\+\_\+value}!avtp\+\_\+aaf.\+c@{avtp\+\_\+aaf.\+c}}
+\subsubsection[{\texorpdfstring{set\+\_\+field\+\_\+value(struct avtp\+\_\+stream\+\_\+pdu $\ast$pdu, enum avtp\+\_\+aaf\+\_\+field field, uint32\+\_\+t val)}{set_field_value(struct avtp_stream_pdu *pdu, enum avtp_aaf_field field, uint32_t val)}}]{\setlength{\rightskip}{0pt plus 5cm}static int set\+\_\+field\+\_\+value (
+\begin{DoxyParamCaption}
+\item[{struct {\bf avtp\+\_\+stream\+\_\+pdu} $\ast$}]{pdu, }
+\item[{enum {\bf avtp\+\_\+aaf\+\_\+field}}]{field, }
+\item[{{\bf uint32\+\_\+t}}]{val}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{avtp__aaf_8c_a689adad1eafd1fdd6acb4aa64b747074}{}\label{avtp__aaf_8c_a689adad1eafd1fdd6acb4aa64b747074}
+
+
+avtp\+\_\+aaf.\+c 파일의 175 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+177 \{
+178     \hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\_t} *ptr, bitmap, mask;
+179     \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} shift;
+180 
+181     \textcolor{keywordflow}{switch} (field) \{
+182     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dba77da9ad6a21d2ac376ea286cb2ce6583}{AVTP\_AAF\_FIELD\_SV}:
+183         mask = \hyperlink{avtp__aaf_8c_a224c5ddfa8bd3d09e0bb5ad4783f5057}{MASK\_SV};
+184         shift = \hyperlink{avtp__aaf_8c_a7bb8e17973b93a8557783f0c0f5a0f9a}{SHIFT\_SV};
+185         ptr = &pdu->\hyperlink{structavtp__stream__pdu_a3210e9f18fdc9c29cef7600c4d1e67e9}{subtype\_data};
+186         \textcolor{keywordflow}{break};
+187     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dba7eb52ad27551549484048c7c54ff9bf3}{AVTP\_AAF\_FIELD\_MR}:
+188         mask = \hyperlink{avtp__aaf_8c_a52d288f83c9e27e5bac538bdcfa51cb6}{MASK\_MR};
+189         shift = \hyperlink{avtp__aaf_8c_a9a1e8a16053b025d6e4733fa3db41161}{SHIFT\_MR};
+190         ptr = &pdu->\hyperlink{structavtp__stream__pdu_a3210e9f18fdc9c29cef7600c4d1e67e9}{subtype\_data};
+191         \textcolor{keywordflow}{break};
+192     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dba490dfd07398cccbefac45e6a58692eab}{AVTP\_AAF\_FIELD\_TV}:
+193         mask = \hyperlink{avtp__aaf_8c_a995883bb91a18f829630374e1835872d}{MASK\_TV};
+194         shift = \hyperlink{avtp__aaf_8c_ac1877659c66655fd5b92ed26cb54815b}{SHIFT\_TV};
+195         ptr = &pdu->\hyperlink{structavtp__stream__pdu_a3210e9f18fdc9c29cef7600c4d1e67e9}{subtype\_data};
+196         \textcolor{keywordflow}{break};
+197     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dba8d6f89598372ef8aaf5dfbbf0c4c7111}{AVTP\_AAF\_FIELD\_SEQ\_NUM}:
+198         mask = \hyperlink{avtp__aaf_8c_a933f697e02898cb11185251ca816c29e}{MASK\_SEQ\_NUM};
+199         shift = \hyperlink{avtp__aaf_8c_a030a5eaf697ae1f9d813931db0c8b326}{SHIFT\_SEQ\_NUM};
+200         ptr = &pdu->\hyperlink{structavtp__stream__pdu_a3210e9f18fdc9c29cef7600c4d1e67e9}{subtype\_data};
+201         \textcolor{keywordflow}{break};
+202     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dbabc8e228f159d10a9134451448e470f36}{AVTP\_AAF\_FIELD\_TU}:
+203         mask = \hyperlink{avtp__aaf_8c_ae27a8c87c00a07d9ee0b9f4b8b2ff039}{MASK\_TU};
+204         shift = 0;
+205         ptr = &pdu->\hyperlink{structavtp__stream__pdu_a3210e9f18fdc9c29cef7600c4d1e67e9}{subtype\_data};
+206         \textcolor{keywordflow}{break};
+207     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dbad867950e53bb3b120e37a7598fcd1fb4}{AVTP\_AAF\_FIELD\_FORMAT}:
+208         mask = \hyperlink{avtp__aaf_8c_a701ba03e606a4fea201fa333635e71ac}{MASK\_FORMAT};
+209         shift = \hyperlink{avtp__aaf_8c_af37cdd2c86f1ff8d5edae1259ec7d5e9}{SHIFT\_FORMAT};
+210         ptr = &pdu->\hyperlink{structavtp__stream__pdu_acbfc36b550978f88cf0a3d9d2b2ce0dd}{format\_specific};
+211         \textcolor{keywordflow}{break};
+212     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dbaa7c9036133950993bf1311879c665634}{AVTP\_AAF\_FIELD\_NSR}:
+213         mask = \hyperlink{avtp__aaf_8c_a5eb10169c6013d791adc4bdb6ead6d08}{MASK\_NSR};
+214         shift = \hyperlink{avtp__aaf_8c_a2d4e1dd49e5d1ce62d364ce337aedabc}{SHIFT\_NSR};
+215         ptr = &pdu->\hyperlink{structavtp__stream__pdu_acbfc36b550978f88cf0a3d9d2b2ce0dd}{format\_specific};
+216         \textcolor{keywordflow}{break};
+217     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dbab6202d8ac4e1b7e819e5adb08b90a346}{AVTP\_AAF\_FIELD\_CHAN\_PER\_FRAME}:
+218         mask = \hyperlink{avtp__aaf_8c_a7d328b84e087c94ce056b736d0bc0741}{MASK\_CHAN\_PER\_FRAME};
+219         shift = \hyperlink{avtp__aaf_8c_a466f3293f490ccddab502b152e5960ac}{SHIFT\_CHAN\_PER\_FRAME};
+220         ptr = &pdu->\hyperlink{structavtp__stream__pdu_acbfc36b550978f88cf0a3d9d2b2ce0dd}{format\_specific};
+221         \textcolor{keywordflow}{break};
+222     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dbabedcf9db303c9373c61a44389d371993}{AVTP\_AAF\_FIELD\_BIT\_DEPTH}:
+223         mask = \hyperlink{avtp__aaf_8c_aab2e021f92e2554af6bea86ab5dea679}{MASK\_BIT\_DEPTH};
+224         shift = 0;
+225         ptr = &pdu->\hyperlink{structavtp__stream__pdu_acbfc36b550978f88cf0a3d9d2b2ce0dd}{format\_specific};
+226         \textcolor{keywordflow}{break};
+227     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dba0adf28243896ab6183e2558b52b1cae5}{AVTP\_AAF\_FIELD\_STREAM\_DATA\_LEN}:
+228         mask = \hyperlink{avtp__aaf_8c_ae69eb8ce322e5e978c59b82aabe42649}{MASK\_STREAM\_DATA\_LEN};
+229         shift = \hyperlink{avtp__aaf_8c_a0a5400b20e21e6ccfab4b9a75aa867c3}{SHIFT\_STREAM\_DATA\_LEN};
+230         ptr = &pdu->\hyperlink{structavtp__stream__pdu_a737b6c4ff9f6954da39283e7351cbf58}{packet\_info};
+231         \textcolor{keywordflow}{break};
+232     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dba79d34018cdf39cf46998df2bc16e7617}{AVTP\_AAF\_FIELD\_SP}:
+233         mask = \hyperlink{avtp__aaf_8c_a9dd359e213de1151875e2aae8797f759}{MASK\_SP};
+234         shift = \hyperlink{avtp__aaf_8c_a2a51f91c56e198deddb96cee96b8fa53}{SHIFT\_SP};
+235         ptr = &pdu->\hyperlink{structavtp__stream__pdu_a737b6c4ff9f6954da39283e7351cbf58}{packet\_info};
+236         \textcolor{keywordflow}{break};
+237     \textcolor{keywordflow}{case} \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dbaa14798600c79bcb32f2d5af24d250c83}{AVTP\_AAF\_FIELD\_EVT}:
+238         mask = \hyperlink{avtp__aaf_8c_a62ddb31e885b9e09f579b6399d68bd4f}{MASK\_EVT};
+239         shift = \hyperlink{avtp__aaf_8c_a878c24d290bbb72f32f63410f662cf38}{SHIFT\_EVT};
+240         ptr = &pdu->\hyperlink{structavtp__stream__pdu_a737b6c4ff9f6954da39283e7351cbf58}{packet\_info};
+241         \textcolor{keywordflow}{break};
+242     \textcolor{keywordflow}{default}:
+243         \textcolor{keywordflow}{return} -EINVAL;
+244     \}
+245 
+246     bitmap = ntohl(*ptr);
+247 
+248     \hyperlink{lib_2libavtp_2src_2util_8h_a1fd0a0167bac2497d5607126e1d8196f}{BITMAP\_SET\_VALUE}(bitmap, val, mask, shift);
+249 
+250     *ptr = htonl(bitmap);
+251 
+252     \textcolor{keywordflow}{return} 0;
+253 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{avtp__aaf_8c_a689adad1eafd1fdd6acb4aa64b747074_icgraph}
+\end{center}
+\end{figure}
+
+

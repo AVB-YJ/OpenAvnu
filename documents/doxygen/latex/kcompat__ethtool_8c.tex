@@ -1,0 +1,2149 @@
+\hypertarget{kcompat__ethtool_8c}{}\section{kmod/igb/kcompat\+\_\+ethtool.c 파일 참조}
+\label{kcompat__ethtool_8c}\index{kmod/igb/kcompat\+\_\+ethtool.\+c@{kmod/igb/kcompat\+\_\+ethtool.\+c}}
+{\ttfamily \#include $<$linux/module.\+h$>$}\\*
+{\ttfamily \#include $<$linux/types.\+h$>$}\\*
+{\ttfamily \#include $<$linux/errno.\+h$>$}\\*
+{\ttfamily \#include $<$linux/mii.\+h$>$}\\*
+{\ttfamily \#include $<$linux/ethtool.\+h$>$}\\*
+{\ttfamily \#include $<$linux/netdevice.\+h$>$}\\*
+{\ttfamily \#include $<$asm/uaccess.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}kcompat.\+h\char`\"{}}\\*
+kcompat\+\_\+ethtool.\+c에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{kcompat__ethtool_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{데이타 구조}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct__kc__ethtool__ops}{\+\_\+kc\+\_\+ethtool\+\_\+ops}
+\item 
+struct \hyperlink{struct__kc__mii__if__info}{\+\_\+kc\+\_\+mii\+\_\+if\+\_\+info}
+\item 
+struct \hyperlink{struct__kc__pci__dev__ext}{\+\_\+kc\+\_\+pci\+\_\+dev\+\_\+ext}
+\item 
+struct \hyperlink{struct__kc__net__dev__ext}{\+\_\+kc\+\_\+net\+\_\+dev\+\_\+ext}
+\end{DoxyCompactItemize}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{kcompat__ethtool_8c_a693f47efb52e1b03c3053d2d0691c015}{S\+U\+P\+P\+O\+R\+T\+E\+D\+\_\+10000base\+T\+\_\+\+Full}~(1 $<$$<$ 12)
+\item 
+\#define \hyperlink{kcompat__ethtool_8c_a1df98b8e1d48bbfb9b5f9cb7901de6e8}{A\+D\+V\+E\+R\+T\+I\+S\+E\+D\+\_\+10000base\+T\+\_\+\+Full}~(1 $<$$<$ 12)
+\item 
+\#define \hyperlink{kcompat__ethtool_8c_a8faae1c4e8d606cc1edf9131252d9fbc}{S\+P\+E\+E\+D\+\_\+10000}~10000
+\item 
+\#define \hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\+\_\+ops}~\hyperlink{struct__kc__ethtool__ops}{\+\_\+kc\+\_\+ethtool\+\_\+ops}
+\item 
+\#define \hyperlink{kcompat__ethtool_8c_ac89887547b8c5f48ecb5cce668768439}{S\+E\+T\+\_\+\+E\+T\+H\+T\+O\+O\+L\+\_\+\+O\+PS}(netdev,  ops)~(\hyperlink{kcompat__ethtool_8c_ac0ef654b2177bb0fb3ebb38ac08f2359}{ethtool\+\_\+ops} = (ops))
+\item 
+\#define \hyperlink{kcompat__ethtool_8c_afaa7145fe53bf9ed2a50476350339ca3}{ethtool\+\_\+op\+\_\+get\+\_\+link}~\hyperlink{kcompat__ethtool_8c_a18cf1dbe70f7c44857682a3d54c5a2ac}{\+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+get\+\_\+link}
+\item 
+\#define \hyperlink{kcompat__ethtool_8c_a900944c21ab5ee4727a6cb2c3faddf30}{ethtool\+\_\+op\+\_\+get\+\_\+tx\+\_\+csum}~\hyperlink{kcompat__ethtool_8c_a2a1fe27d9fd35ed8182ec4a4488431c6}{\+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+get\+\_\+tx\+\_\+csum}
+\item 
+\#define \hyperlink{kcompat__ethtool_8c_a9536ec8d5239bc2c42f5473a5de8f863}{ethtool\+\_\+op\+\_\+set\+\_\+tx\+\_\+csum}~\hyperlink{kcompat__ethtool_8c_ad407f08c5393385c31f3b5f629973dc2}{\+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+set\+\_\+tx\+\_\+csum}
+\item 
+\#define \hyperlink{kcompat__ethtool_8c_adbfe3ec8be2e24dd656a0914d7b9bc6d}{ethtool\+\_\+op\+\_\+get\+\_\+sg}~\hyperlink{kcompat__ethtool_8c_a34d4070c60cd268eafc282c6b1dcdc5e}{\+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+get\+\_\+sg}
+\item 
+\#define \hyperlink{kcompat__ethtool_8c_aa56e1ba3688a9d34cc0c49e6f0f621bb}{ethtool\+\_\+op\+\_\+set\+\_\+sg}~\hyperlink{kcompat__ethtool_8c_a67f5d8ca3b09a76d385352e3b627cd66}{\+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+set\+\_\+sg}
+\item 
+\#define \hyperlink{kcompat__ethtool_8c_ac54b24c4f4a7fdee79149409058f9b88}{ethtool\+\_\+op\+\_\+get\+\_\+tso}~\hyperlink{kcompat__ethtool_8c_a7c57aff74323909187101e03a42128ff}{\+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+get\+\_\+tso}
+\item 
+\#define \hyperlink{kcompat__ethtool_8c_a93db9e88fe4fee0b3860babdfcb9d5e3}{ethtool\+\_\+op\+\_\+set\+\_\+tso}~\hyperlink{kcompat__ethtool_8c_a3f6ed7b093dca22cdb103a730606836d}{\+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+set\+\_\+tso}
+\item 
+\#define \hyperlink{kcompat__ethtool_8c_a996b6b05d61a295e99a679fbf1977249}{E\+T\+H\+T\+O\+O\+L\+\_\+\+O\+P\+S\+\_\+\+C\+O\+M\+P\+AT}
+\item 
+\#define \hyperlink{kcompat__ethtool_8c_a91bcb315a2b5dca5b87fdd0af20b2213}{mii\+\_\+if\+\_\+info}~\hyperlink{struct__kc__mii__if__info}{\+\_\+kc\+\_\+mii\+\_\+if\+\_\+info}
+\item 
+\#define \hyperlink{kcompat__ethtool_8c_a7f34a07dceb9ecadb09ef4ddd1623142}{mii\+\_\+link\+\_\+ok}~\hyperlink{kcompat__ethtool_8c_a85dcb107c3174a5b48f85c0b13ec756c}{\+\_\+kc\+\_\+mii\+\_\+link\+\_\+ok}
+\item 
+\#define \hyperlink{kcompat__ethtool_8c_ab57c2c34837458f6b1e848ce239ceccb}{mii\+\_\+nway\+\_\+restart}~\hyperlink{kcompat__ethtool_8c_ae305ef847ddf05bddf06e2c377f8d4c2}{\+\_\+kc\+\_\+mii\+\_\+nway\+\_\+restart}
+\item 
+\#define \hyperlink{kcompat__ethtool_8c_a940ad61d9069994ad9f5318a818bb715}{mii\+\_\+ethtool\+\_\+gset}~\hyperlink{kcompat__ethtool_8c_a1b0da6270ef7054464930385cfbf5bba}{\+\_\+kc\+\_\+mii\+\_\+ethtool\+\_\+gset}
+\item 
+\#define \hyperlink{kcompat__ethtool_8c_a13abe5b85838951ec84f6ca1d8da78ec}{mii\+\_\+ethtool\+\_\+sset}~\hyperlink{kcompat__ethtool_8c_a8f115a4cb28d2ec10e5960a6e2bd0813}{\+\_\+kc\+\_\+mii\+\_\+ethtool\+\_\+sset}
+\item 
+\#define \hyperlink{kcompat__ethtool_8c_ae002f023be8a8fc1a8abf0a09ade2664}{mii\+\_\+check\+\_\+link}~\hyperlink{kcompat__ethtool_8c_a39be7ddbdbbb1dfc2716f06c1edddcf9}{\+\_\+kc\+\_\+mii\+\_\+check\+\_\+link}
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{lib_2igb_2e1000__osdep_8h_a64e91c10a0d8fb627e92932050284264}{u32} \hyperlink{kcompat__ethtool_8c_a18cf1dbe70f7c44857682a3d54c5a2ac}{\+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+get\+\_\+link} (struct net\+\_\+device $\ast$dev)
+\item 
+\hyperlink{lib_2igb_2e1000__osdep_8h_a64e91c10a0d8fb627e92932050284264}{u32} \hyperlink{kcompat__ethtool_8c_a2a1fe27d9fd35ed8182ec4a4488431c6}{\+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+get\+\_\+tx\+\_\+csum} (struct net\+\_\+device $\ast$dev)
+\item 
+int \hyperlink{kcompat__ethtool_8c_ad407f08c5393385c31f3b5f629973dc2}{\+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+set\+\_\+tx\+\_\+csum} (struct net\+\_\+device $\ast$dev, \hyperlink{lib_2igb_2e1000__osdep_8h_a64e91c10a0d8fb627e92932050284264}{u32} data)
+\item 
+\hyperlink{lib_2igb_2e1000__osdep_8h_a64e91c10a0d8fb627e92932050284264}{u32} \hyperlink{kcompat__ethtool_8c_a34d4070c60cd268eafc282c6b1dcdc5e}{\+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+get\+\_\+sg} (struct net\+\_\+device $\ast$dev)
+\item 
+int \hyperlink{kcompat__ethtool_8c_a67f5d8ca3b09a76d385352e3b627cd66}{\+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+set\+\_\+sg} (struct net\+\_\+device $\ast$dev, \hyperlink{lib_2igb_2e1000__osdep_8h_a64e91c10a0d8fb627e92932050284264}{u32} data)
+\item 
+\hyperlink{lib_2igb_2e1000__osdep_8h_a64e91c10a0d8fb627e92932050284264}{u32} \hyperlink{kcompat__ethtool_8c_a7c57aff74323909187101e03a42128ff}{\+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+get\+\_\+tso} (struct net\+\_\+device $\ast$dev)
+\item 
+int \hyperlink{kcompat__ethtool_8c_a3f6ed7b093dca22cdb103a730606836d}{\+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+set\+\_\+tso} (struct net\+\_\+device $\ast$dev, \hyperlink{lib_2igb_2e1000__osdep_8h_a64e91c10a0d8fb627e92932050284264}{u32} data)
+\item 
+static int \hyperlink{kcompat__ethtool_8c_a65114c33a3cd4db69f3c8b55a7aaafee}{ethtool\+\_\+get\+\_\+settings} (struct net\+\_\+device $\ast$dev, void $\ast$useraddr)
+\item 
+static int \hyperlink{kcompat__ethtool_8c_adb44382663858539e5502a85d134ff6a}{ethtool\+\_\+set\+\_\+settings} (struct net\+\_\+device $\ast$dev, void $\ast$useraddr)
+\item 
+static int \hyperlink{kcompat__ethtool_8c_a92fd577a16e29a9ca506982cbd36be05}{ethtool\+\_\+get\+\_\+drvinfo} (struct net\+\_\+device $\ast$dev, void $\ast$useraddr)
+\item 
+static int \hyperlink{kcompat__ethtool_8c_a06685acda21fdf860fed33a3179b4f19}{ethtool\+\_\+get\+\_\+regs} (struct net\+\_\+device $\ast$dev, char $\ast$useraddr)
+\item 
+static int \hyperlink{kcompat__ethtool_8c_ad3c064fe15f58f47d423cc0df8568b1a}{ethtool\+\_\+get\+\_\+wol} (struct net\+\_\+device $\ast$dev, char $\ast$useraddr)
+\item 
+static int \hyperlink{kcompat__ethtool_8c_a949d79acacb843d21e3a9925c43c6af2}{ethtool\+\_\+set\+\_\+wol} (struct net\+\_\+device $\ast$dev, char $\ast$useraddr)
+\item 
+static int \hyperlink{kcompat__ethtool_8c_a46ef1c910da06d901d4b309379d08ed9}{ethtool\+\_\+get\+\_\+msglevel} (struct net\+\_\+device $\ast$dev, char $\ast$useraddr)
+\item 
+static int \hyperlink{kcompat__ethtool_8c_a48f9aa3086aed394fcaca7e9b5c6fdf7}{ethtool\+\_\+set\+\_\+msglevel} (struct net\+\_\+device $\ast$dev, char $\ast$useraddr)
+\item 
+static int \hyperlink{kcompat__ethtool_8c_ac57afa1b7920d316da0fdc570dd9406e}{ethtool\+\_\+nway\+\_\+reset} (struct net\+\_\+device $\ast$dev)
+\item 
+static int \hyperlink{kcompat__ethtool_8c_aa2042709e8d0ae6c23de08b28761dd3f}{ethtool\+\_\+get\+\_\+link} (struct net\+\_\+device $\ast$dev, void $\ast$useraddr)
+\item 
+static int \hyperlink{kcompat__ethtool_8c_a9f9beb2c7b7f75f3e53642cb5dcb48ec}{ethtool\+\_\+get\+\_\+eeprom} (struct net\+\_\+device $\ast$dev, void $\ast$useraddr)
+\item 
+static int \hyperlink{kcompat__ethtool_8c_ac31e10dd1769467fa7a39b64735669ca}{ethtool\+\_\+set\+\_\+eeprom} (struct net\+\_\+device $\ast$dev, void $\ast$useraddr)
+\item 
+static int \hyperlink{kcompat__ethtool_8c_a5861997b38d628f5153acde2445dd7b9}{ethtool\+\_\+get\+\_\+coalesce} (struct net\+\_\+device $\ast$dev, void $\ast$useraddr)
+\item 
+static int \hyperlink{kcompat__ethtool_8c_aa737b25bd81094795ac79f48c2a2e8f4}{ethtool\+\_\+set\+\_\+coalesce} (struct net\+\_\+device $\ast$dev, void $\ast$useraddr)
+\item 
+static int \hyperlink{kcompat__ethtool_8c_a1137796eac92b6df1c58ed8fd5070a44}{ethtool\+\_\+get\+\_\+ringparam} (struct net\+\_\+device $\ast$dev, void $\ast$useraddr)
+\item 
+static int \hyperlink{kcompat__ethtool_8c_a25735011096d93e5deeb00510423e8fc}{ethtool\+\_\+set\+\_\+ringparam} (struct net\+\_\+device $\ast$dev, void $\ast$useraddr)
+\item 
+static int \hyperlink{kcompat__ethtool_8c_a05af49886a8f267a18d34341d59c743a}{ethtool\+\_\+get\+\_\+pauseparam} (struct net\+\_\+device $\ast$dev, void $\ast$useraddr)
+\item 
+static int \hyperlink{kcompat__ethtool_8c_adec49b7fbfe5f9028b137f37debb05e8}{ethtool\+\_\+set\+\_\+pauseparam} (struct net\+\_\+device $\ast$dev, void $\ast$useraddr)
+\item 
+static int \hyperlink{kcompat__ethtool_8c_aeac587c8ee85fb900da8feffd634da5c}{ethtool\+\_\+get\+\_\+rx\+\_\+csum} (struct net\+\_\+device $\ast$dev, char $\ast$useraddr)
+\item 
+static int \hyperlink{kcompat__ethtool_8c_a4dfaa97fc6f67c0dd207ddaac3558b3a}{ethtool\+\_\+set\+\_\+rx\+\_\+csum} (struct net\+\_\+device $\ast$dev, char $\ast$useraddr)
+\item 
+static int \hyperlink{kcompat__ethtool_8c_a422c2cf96017c7ab46abef205dcc47f7}{ethtool\+\_\+get\+\_\+tx\+\_\+csum} (struct net\+\_\+device $\ast$dev, char $\ast$useraddr)
+\item 
+static int \hyperlink{kcompat__ethtool_8c_a03701af71480a5b2f49abfbab1a6c563}{ethtool\+\_\+set\+\_\+tx\+\_\+csum} (struct net\+\_\+device $\ast$dev, char $\ast$useraddr)
+\item 
+static int \hyperlink{kcompat__ethtool_8c_a906bba1b2281ed976a4c39de5f7a7340}{ethtool\+\_\+get\+\_\+sg} (struct net\+\_\+device $\ast$dev, char $\ast$useraddr)
+\item 
+static int \hyperlink{kcompat__ethtool_8c_a78eb31e9508f72c3983d753c31f51719}{ethtool\+\_\+set\+\_\+sg} (struct net\+\_\+device $\ast$dev, char $\ast$useraddr)
+\item 
+static int \hyperlink{kcompat__ethtool_8c_a037ee517037320325aaf2cc54ee18d02}{ethtool\+\_\+get\+\_\+tso} (struct net\+\_\+device $\ast$dev, char $\ast$useraddr)
+\item 
+static int \hyperlink{kcompat__ethtool_8c_ad47062f14f79f8281769c8efefad27f3}{ethtool\+\_\+set\+\_\+tso} (struct net\+\_\+device $\ast$dev, char $\ast$useraddr)
+\item 
+static int \hyperlink{kcompat__ethtool_8c_a2806d13c8a002549316dcbd1aa267037}{ethtool\+\_\+self\+\_\+test} (struct net\+\_\+device $\ast$dev, char $\ast$useraddr)
+\item 
+static int \hyperlink{kcompat__ethtool_8c_a19dfa4c9969f8d94b0e1058fc696e2c2}{ethtool\+\_\+get\+\_\+strings} (struct net\+\_\+device $\ast$dev, void $\ast$useraddr)
+\item 
+static int \hyperlink{kcompat__ethtool_8c_ab3ed5e3f07a169ef1b22d7ff0fd5a1df}{ethtool\+\_\+phys\+\_\+id} (struct net\+\_\+device $\ast$dev, void $\ast$useraddr)
+\item 
+static int \hyperlink{kcompat__ethtool_8c_a1ba4ff860b73b3041128653e6dc778b1}{ethtool\+\_\+get\+\_\+stats} (struct net\+\_\+device $\ast$dev, void $\ast$useraddr)
+\item 
+int \hyperlink{kcompat__ethtool_8c_a458322e3bcff9788654149af9ffdf239}{ethtool\+\_\+ioctl} (struct ifreq $\ast$ifr)
+\item 
+int \hyperlink{kcompat__ethtool_8c_a85dcb107c3174a5b48f85c0b13ec756c}{\+\_\+kc\+\_\+mii\+\_\+link\+\_\+ok} (struct \hyperlink{kcompat__ethtool_8c_a91bcb315a2b5dca5b87fdd0af20b2213}{mii\+\_\+if\+\_\+info} $\ast$mii)
+\item 
+int \hyperlink{kcompat__ethtool_8c_ae305ef847ddf05bddf06e2c377f8d4c2}{\+\_\+kc\+\_\+mii\+\_\+nway\+\_\+restart} (struct \hyperlink{kcompat__ethtool_8c_a91bcb315a2b5dca5b87fdd0af20b2213}{mii\+\_\+if\+\_\+info} $\ast$mii)
+\item 
+int \hyperlink{kcompat__ethtool_8c_a1b0da6270ef7054464930385cfbf5bba}{\+\_\+kc\+\_\+mii\+\_\+ethtool\+\_\+gset} (struct \hyperlink{kcompat__ethtool_8c_a91bcb315a2b5dca5b87fdd0af20b2213}{mii\+\_\+if\+\_\+info} $\ast$mii, struct ethtool\+\_\+cmd $\ast$ecmd)
+\item 
+int \hyperlink{kcompat__ethtool_8c_a8f115a4cb28d2ec10e5960a6e2bd0813}{\+\_\+kc\+\_\+mii\+\_\+ethtool\+\_\+sset} (struct \hyperlink{kcompat__ethtool_8c_a91bcb315a2b5dca5b87fdd0af20b2213}{mii\+\_\+if\+\_\+info} $\ast$mii, struct ethtool\+\_\+cmd $\ast$ecmd)
+\item 
+void \hyperlink{kcompat__ethtool_8c_a39be7ddbdbbb1dfc2716f06c1edddcf9}{\+\_\+kc\+\_\+mii\+\_\+check\+\_\+link} (struct \hyperlink{kcompat__ethtool_8c_a91bcb315a2b5dca5b87fdd0af20b2213}{mii\+\_\+if\+\_\+info} $\ast$mii)
+\end{DoxyCompactItemize}
+\subsection*{변수}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct__kc__ethtool__ops}{\+\_\+kc\+\_\+ethtool\+\_\+ops} $\ast$ \hyperlink{kcompat__ethtool_8c_ac0ef654b2177bb0fb3ebb38ac08f2359}{ethtool\+\_\+ops} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{N\+U\+LL}
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!A\+D\+V\+E\+R\+T\+I\+S\+E\+D\+\_\+10000base\+T\+\_\+\+Full@{A\+D\+V\+E\+R\+T\+I\+S\+E\+D\+\_\+10000base\+T\+\_\+\+Full}}
+\index{A\+D\+V\+E\+R\+T\+I\+S\+E\+D\+\_\+10000base\+T\+\_\+\+Full@{A\+D\+V\+E\+R\+T\+I\+S\+E\+D\+\_\+10000base\+T\+\_\+\+Full}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{A\+D\+V\+E\+R\+T\+I\+S\+E\+D\+\_\+10000base\+T\+\_\+\+Full}{ADVERTISED_10000baseT_Full}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+D\+V\+E\+R\+T\+I\+S\+E\+D\+\_\+10000base\+T\+\_\+\+Full~(1 $<$$<$ 12)}\hypertarget{kcompat__ethtool_8c_a1df98b8e1d48bbfb9b5f9cb7901de6e8}{}\label{kcompat__ethtool_8c_a1df98b8e1d48bbfb9b5f9cb7901de6e8}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 59 번째 라인에서 정의되었습니다.
+
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!ethtool\+\_\+op\+\_\+get\+\_\+link@{ethtool\+\_\+op\+\_\+get\+\_\+link}}
+\index{ethtool\+\_\+op\+\_\+get\+\_\+link@{ethtool\+\_\+op\+\_\+get\+\_\+link}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{ethtool\+\_\+op\+\_\+get\+\_\+link}{ethtool_op_get_link}}]{\setlength{\rightskip}{0pt plus 5cm}\#define ethtool\+\_\+op\+\_\+get\+\_\+link~{\bf \+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+get\+\_\+link}}\hypertarget{kcompat__ethtool_8c_afaa7145fe53bf9ed2a50476350339ca3}{}\label{kcompat__ethtool_8c_afaa7145fe53bf9ed2a50476350339ca3}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 116 번째 라인에서 정의되었습니다.
+
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!ethtool\+\_\+op\+\_\+get\+\_\+sg@{ethtool\+\_\+op\+\_\+get\+\_\+sg}}
+\index{ethtool\+\_\+op\+\_\+get\+\_\+sg@{ethtool\+\_\+op\+\_\+get\+\_\+sg}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{ethtool\+\_\+op\+\_\+get\+\_\+sg}{ethtool_op_get_sg}}]{\setlength{\rightskip}{0pt plus 5cm}\#define ethtool\+\_\+op\+\_\+get\+\_\+sg~{\bf \+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+get\+\_\+sg}}\hypertarget{kcompat__ethtool_8c_adbfe3ec8be2e24dd656a0914d7b9bc6d}{}\label{kcompat__ethtool_8c_adbfe3ec8be2e24dd656a0914d7b9bc6d}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 154 번째 라인에서 정의되었습니다.
+
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!ethtool\+\_\+op\+\_\+get\+\_\+tso@{ethtool\+\_\+op\+\_\+get\+\_\+tso}}
+\index{ethtool\+\_\+op\+\_\+get\+\_\+tso@{ethtool\+\_\+op\+\_\+get\+\_\+tso}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{ethtool\+\_\+op\+\_\+get\+\_\+tso}{ethtool_op_get_tso}}]{\setlength{\rightskip}{0pt plus 5cm}\#define ethtool\+\_\+op\+\_\+get\+\_\+tso~{\bf \+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+get\+\_\+tso}}\hypertarget{kcompat__ethtool_8c_ac54b24c4f4a7fdee79149409058f9b88}{}\label{kcompat__ethtool_8c_ac54b24c4f4a7fdee79149409058f9b88}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 179 번째 라인에서 정의되었습니다.
+
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!ethtool\+\_\+op\+\_\+get\+\_\+tx\+\_\+csum@{ethtool\+\_\+op\+\_\+get\+\_\+tx\+\_\+csum}}
+\index{ethtool\+\_\+op\+\_\+get\+\_\+tx\+\_\+csum@{ethtool\+\_\+op\+\_\+get\+\_\+tx\+\_\+csum}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{ethtool\+\_\+op\+\_\+get\+\_\+tx\+\_\+csum}{ethtool_op_get_tx_csum}}]{\setlength{\rightskip}{0pt plus 5cm}\#define ethtool\+\_\+op\+\_\+get\+\_\+tx\+\_\+csum~{\bf \+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+get\+\_\+tx\+\_\+csum}}\hypertarget{kcompat__ethtool_8c_a900944c21ab5ee4727a6cb2c3faddf30}{}\label{kcompat__ethtool_8c_a900944c21ab5ee4727a6cb2c3faddf30}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 123 번째 라인에서 정의되었습니다.
+
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!ethtool\+\_\+op\+\_\+set\+\_\+sg@{ethtool\+\_\+op\+\_\+set\+\_\+sg}}
+\index{ethtool\+\_\+op\+\_\+set\+\_\+sg@{ethtool\+\_\+op\+\_\+set\+\_\+sg}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{ethtool\+\_\+op\+\_\+set\+\_\+sg}{ethtool_op_set_sg}}]{\setlength{\rightskip}{0pt plus 5cm}\#define ethtool\+\_\+op\+\_\+set\+\_\+sg~{\bf \+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+set\+\_\+sg}}\hypertarget{kcompat__ethtool_8c_aa56e1ba3688a9d34cc0c49e6f0f621bb}{}\label{kcompat__ethtool_8c_aa56e1ba3688a9d34cc0c49e6f0f621bb}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 165 번째 라인에서 정의되었습니다.
+
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!ethtool\+\_\+op\+\_\+set\+\_\+tso@{ethtool\+\_\+op\+\_\+set\+\_\+tso}}
+\index{ethtool\+\_\+op\+\_\+set\+\_\+tso@{ethtool\+\_\+op\+\_\+set\+\_\+tso}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{ethtool\+\_\+op\+\_\+set\+\_\+tso}{ethtool_op_set_tso}}]{\setlength{\rightskip}{0pt plus 5cm}\#define ethtool\+\_\+op\+\_\+set\+\_\+tso~{\bf \+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+set\+\_\+tso}}\hypertarget{kcompat__ethtool_8c_a93db9e88fe4fee0b3860babdfcb9d5e3}{}\label{kcompat__ethtool_8c_a93db9e88fe4fee0b3860babdfcb9d5e3}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 190 번째 라인에서 정의되었습니다.
+
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!ethtool\+\_\+op\+\_\+set\+\_\+tx\+\_\+csum@{ethtool\+\_\+op\+\_\+set\+\_\+tx\+\_\+csum}}
+\index{ethtool\+\_\+op\+\_\+set\+\_\+tx\+\_\+csum@{ethtool\+\_\+op\+\_\+set\+\_\+tx\+\_\+csum}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{ethtool\+\_\+op\+\_\+set\+\_\+tx\+\_\+csum}{ethtool_op_set_tx_csum}}]{\setlength{\rightskip}{0pt plus 5cm}\#define ethtool\+\_\+op\+\_\+set\+\_\+tx\+\_\+csum~{\bf \+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+set\+\_\+tx\+\_\+csum}}\hypertarget{kcompat__ethtool_8c_a9536ec8d5239bc2c42f5473a5de8f863}{}\label{kcompat__ethtool_8c_a9536ec8d5239bc2c42f5473a5de8f863}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 134 번째 라인에서 정의되었습니다.
+
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!ethtool\+\_\+ops@{ethtool\+\_\+ops}}
+\index{ethtool\+\_\+ops@{ethtool\+\_\+ops}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{ethtool\+\_\+ops}{ethtool_ops}}]{\setlength{\rightskip}{0pt plus 5cm}\#define ethtool\+\_\+ops~{\bf \+\_\+kc\+\_\+ethtool\+\_\+ops}}\hypertarget{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{}\label{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 64 번째 라인에서 정의되었습니다.
+
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!E\+T\+H\+T\+O\+O\+L\+\_\+\+O\+P\+S\+\_\+\+C\+O\+M\+P\+AT@{E\+T\+H\+T\+O\+O\+L\+\_\+\+O\+P\+S\+\_\+\+C\+O\+M\+P\+AT}}
+\index{E\+T\+H\+T\+O\+O\+L\+\_\+\+O\+P\+S\+\_\+\+C\+O\+M\+P\+AT@{E\+T\+H\+T\+O\+O\+L\+\_\+\+O\+P\+S\+\_\+\+C\+O\+M\+P\+AT}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{E\+T\+H\+T\+O\+O\+L\+\_\+\+O\+P\+S\+\_\+\+C\+O\+M\+P\+AT}{ETHTOOL_OPS_COMPAT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\+T\+H\+T\+O\+O\+L\+\_\+\+O\+P\+S\+\_\+\+C\+O\+M\+P\+AT}\hypertarget{kcompat__ethtool_8c_a996b6b05d61a295e99a679fbf1977249}{}\label{kcompat__ethtool_8c_a996b6b05d61a295e99a679fbf1977249}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 778 번째 라인에서 정의되었습니다.
+
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!mii\+\_\+check\+\_\+link@{mii\+\_\+check\+\_\+link}}
+\index{mii\+\_\+check\+\_\+link@{mii\+\_\+check\+\_\+link}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{mii\+\_\+check\+\_\+link}{mii_check_link}}]{\setlength{\rightskip}{0pt plus 5cm}\#define mii\+\_\+check\+\_\+link~{\bf \+\_\+kc\+\_\+mii\+\_\+check\+\_\+link}}\hypertarget{kcompat__ethtool_8c_ae002f023be8a8fc1a8abf0a09ade2664}{}\label{kcompat__ethtool_8c_ae002f023be8a8fc1a8abf0a09ade2664}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 893 번째 라인에서 정의되었습니다.
+
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!mii\+\_\+ethtool\+\_\+gset@{mii\+\_\+ethtool\+\_\+gset}}
+\index{mii\+\_\+ethtool\+\_\+gset@{mii\+\_\+ethtool\+\_\+gset}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{mii\+\_\+ethtool\+\_\+gset}{mii_ethtool_gset}}]{\setlength{\rightskip}{0pt plus 5cm}\#define mii\+\_\+ethtool\+\_\+gset~{\bf \+\_\+kc\+\_\+mii\+\_\+ethtool\+\_\+gset}}\hypertarget{kcompat__ethtool_8c_a940ad61d9069994ad9f5318a818bb715}{}\label{kcompat__ethtool_8c_a940ad61d9069994ad9f5318a818bb715}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 889 번째 라인에서 정의되었습니다.
+
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!mii\+\_\+ethtool\+\_\+sset@{mii\+\_\+ethtool\+\_\+sset}}
+\index{mii\+\_\+ethtool\+\_\+sset@{mii\+\_\+ethtool\+\_\+sset}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{mii\+\_\+ethtool\+\_\+sset}{mii_ethtool_sset}}]{\setlength{\rightskip}{0pt plus 5cm}\#define mii\+\_\+ethtool\+\_\+sset~{\bf \+\_\+kc\+\_\+mii\+\_\+ethtool\+\_\+sset}}\hypertarget{kcompat__ethtool_8c_a13abe5b85838951ec84f6ca1d8da78ec}{}\label{kcompat__ethtool_8c_a13abe5b85838951ec84f6ca1d8da78ec}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 891 번째 라인에서 정의되었습니다.
+
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!mii\+\_\+if\+\_\+info@{mii\+\_\+if\+\_\+info}}
+\index{mii\+\_\+if\+\_\+info@{mii\+\_\+if\+\_\+info}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{mii\+\_\+if\+\_\+info}{mii_if_info}}]{\setlength{\rightskip}{0pt plus 5cm}\#define mii\+\_\+if\+\_\+info~{\bf \+\_\+kc\+\_\+mii\+\_\+if\+\_\+info}}\hypertarget{kcompat__ethtool_8c_a91bcb315a2b5dca5b87fdd0af20b2213}{}\label{kcompat__ethtool_8c_a91bcb315a2b5dca5b87fdd0af20b2213}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 866 번째 라인에서 정의되었습니다.
+
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!mii\+\_\+link\+\_\+ok@{mii\+\_\+link\+\_\+ok}}
+\index{mii\+\_\+link\+\_\+ok@{mii\+\_\+link\+\_\+ok}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{mii\+\_\+link\+\_\+ok}{mii_link_ok}}]{\setlength{\rightskip}{0pt plus 5cm}\#define mii\+\_\+link\+\_\+ok~{\bf \+\_\+kc\+\_\+mii\+\_\+link\+\_\+ok}}\hypertarget{kcompat__ethtool_8c_a7f34a07dceb9ecadb09ef4ddd1623142}{}\label{kcompat__ethtool_8c_a7f34a07dceb9ecadb09ef4ddd1623142}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 885 번째 라인에서 정의되었습니다.
+
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!mii\+\_\+nway\+\_\+restart@{mii\+\_\+nway\+\_\+restart}}
+\index{mii\+\_\+nway\+\_\+restart@{mii\+\_\+nway\+\_\+restart}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{mii\+\_\+nway\+\_\+restart}{mii_nway_restart}}]{\setlength{\rightskip}{0pt plus 5cm}\#define mii\+\_\+nway\+\_\+restart~{\bf \+\_\+kc\+\_\+mii\+\_\+nway\+\_\+restart}}\hypertarget{kcompat__ethtool_8c_ab57c2c34837458f6b1e848ce239ceccb}{}\label{kcompat__ethtool_8c_ab57c2c34837458f6b1e848ce239ceccb}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 887 번째 라인에서 정의되었습니다.
+
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!S\+E\+T\+\_\+\+E\+T\+H\+T\+O\+O\+L\+\_\+\+O\+PS@{S\+E\+T\+\_\+\+E\+T\+H\+T\+O\+O\+L\+\_\+\+O\+PS}}
+\index{S\+E\+T\+\_\+\+E\+T\+H\+T\+O\+O\+L\+\_\+\+O\+PS@{S\+E\+T\+\_\+\+E\+T\+H\+T\+O\+O\+L\+\_\+\+O\+PS}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{S\+E\+T\+\_\+\+E\+T\+H\+T\+O\+O\+L\+\_\+\+O\+PS}{SET_ETHTOOL_OPS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+E\+T\+\_\+\+E\+T\+H\+T\+O\+O\+L\+\_\+\+O\+PS(
+\begin{DoxyParamCaption}
+\item[{}]{netdev, }
+\item[{}]{ops}
+\end{DoxyParamCaption}
+)~({\bf ethtool\+\_\+ops} = (ops))}\hypertarget{kcompat__ethtool_8c_ac89887547b8c5f48ecb5cce668768439}{}\label{kcompat__ethtool_8c_ac89887547b8c5f48ecb5cce668768439}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 107 번째 라인에서 정의되었습니다.
+
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!S\+P\+E\+E\+D\+\_\+10000@{S\+P\+E\+E\+D\+\_\+10000}}
+\index{S\+P\+E\+E\+D\+\_\+10000@{S\+P\+E\+E\+D\+\_\+10000}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{S\+P\+E\+E\+D\+\_\+10000}{SPEED_10000}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+P\+E\+E\+D\+\_\+10000~10000}\hypertarget{kcompat__ethtool_8c_a8faae1c4e8d606cc1edf9131252d9fbc}{}\label{kcompat__ethtool_8c_a8faae1c4e8d606cc1edf9131252d9fbc}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 61 번째 라인에서 정의되었습니다.
+
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!S\+U\+P\+P\+O\+R\+T\+E\+D\+\_\+10000base\+T\+\_\+\+Full@{S\+U\+P\+P\+O\+R\+T\+E\+D\+\_\+10000base\+T\+\_\+\+Full}}
+\index{S\+U\+P\+P\+O\+R\+T\+E\+D\+\_\+10000base\+T\+\_\+\+Full@{S\+U\+P\+P\+O\+R\+T\+E\+D\+\_\+10000base\+T\+\_\+\+Full}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{S\+U\+P\+P\+O\+R\+T\+E\+D\+\_\+10000base\+T\+\_\+\+Full}{SUPPORTED_10000baseT_Full}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+U\+P\+P\+O\+R\+T\+E\+D\+\_\+10000base\+T\+\_\+\+Full~(1 $<$$<$ 12)}\hypertarget{kcompat__ethtool_8c_a693f47efb52e1b03c3053d2d0691c015}{}\label{kcompat__ethtool_8c_a693f47efb52e1b03c3053d2d0691c015}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 57 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{함수 문서화}
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!\+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+get\+\_\+link@{\+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+get\+\_\+link}}
+\index{\+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+get\+\_\+link@{\+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+get\+\_\+link}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{\+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+get\+\_\+link(struct net\+\_\+device $\ast$dev)}{_kc_ethtool_op_get_link(struct net_device *dev)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf u32} \+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+get\+\_\+link (
+\begin{DoxyParamCaption}
+\item[{struct net\+\_\+device $\ast$}]{dev}
+\end{DoxyParamCaption}
+)}\hypertarget{kcompat__ethtool_8c_a18cf1dbe70f7c44857682a3d54c5a2ac}{}\label{kcompat__ethtool_8c_a18cf1dbe70f7c44857682a3d54c5a2ac}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 117 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+118 \{
+119     \textcolor{keywordflow}{return} netif\_carrier\_ok(dev) ? 1 : 0;
+120 \}
+\end{DoxyCode}
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!\+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+get\+\_\+sg@{\+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+get\+\_\+sg}}
+\index{\+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+get\+\_\+sg@{\+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+get\+\_\+sg}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{\+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+get\+\_\+sg(struct net\+\_\+device $\ast$dev)}{_kc_ethtool_op_get_sg(struct net_device *dev)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf u32} \+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+get\+\_\+sg (
+\begin{DoxyParamCaption}
+\item[{struct net\+\_\+device $\ast$}]{dev}
+\end{DoxyParamCaption}
+)}\hypertarget{kcompat__ethtool_8c_a34d4070c60cd268eafc282c6b1dcdc5e}{}\label{kcompat__ethtool_8c_a34d4070c60cd268eafc282c6b1dcdc5e}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 155 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+156 \{
+157 \textcolor{preprocessor}{#ifdef NETIF\_F\_SG}
+158     \textcolor{keywordflow}{return} (dev->features & NETIF\_F\_SG) != 0;
+159 \textcolor{preprocessor}{#else}
+160     \textcolor{keywordflow}{return} 0;
+161 \textcolor{preprocessor}{#endif}
+162 \}
+\end{DoxyCode}
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!\+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+get\+\_\+tso@{\+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+get\+\_\+tso}}
+\index{\+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+get\+\_\+tso@{\+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+get\+\_\+tso}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{\+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+get\+\_\+tso(struct net\+\_\+device $\ast$dev)}{_kc_ethtool_op_get_tso(struct net_device *dev)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf u32} \+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+get\+\_\+tso (
+\begin{DoxyParamCaption}
+\item[{struct net\+\_\+device $\ast$}]{dev}
+\end{DoxyParamCaption}
+)}\hypertarget{kcompat__ethtool_8c_a7c57aff74323909187101e03a42128ff}{}\label{kcompat__ethtool_8c_a7c57aff74323909187101e03a42128ff}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 180 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+181 \{
+182 \textcolor{preprocessor}{#ifdef NETIF\_F\_TSO}
+183     \textcolor{keywordflow}{return} (dev->features & NETIF\_F\_TSO) != 0;
+184 \textcolor{preprocessor}{#else}
+185     \textcolor{keywordflow}{return} 0;
+186 \textcolor{preprocessor}{#endif}
+187 \}
+\end{DoxyCode}
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!\+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+get\+\_\+tx\+\_\+csum@{\+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+get\+\_\+tx\+\_\+csum}}
+\index{\+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+get\+\_\+tx\+\_\+csum@{\+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+get\+\_\+tx\+\_\+csum}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{\+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+get\+\_\+tx\+\_\+csum(struct net\+\_\+device $\ast$dev)}{_kc_ethtool_op_get_tx_csum(struct net_device *dev)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf u32} \+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+get\+\_\+tx\+\_\+csum (
+\begin{DoxyParamCaption}
+\item[{struct net\+\_\+device $\ast$}]{dev}
+\end{DoxyParamCaption}
+)}\hypertarget{kcompat__ethtool_8c_a2a1fe27d9fd35ed8182ec4a4488431c6}{}\label{kcompat__ethtool_8c_a2a1fe27d9fd35ed8182ec4a4488431c6}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 124 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+125 \{
+126 \textcolor{preprocessor}{#ifdef NETIF\_F\_IP\_CSUM}
+127     \textcolor{keywordflow}{return} (dev->features & NETIF\_F\_IP\_CSUM) != 0;
+128 \textcolor{preprocessor}{#else}
+129     \textcolor{keywordflow}{return} 0;
+130 \textcolor{preprocessor}{#endif}
+131 \}
+\end{DoxyCode}
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!\+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+set\+\_\+sg@{\+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+set\+\_\+sg}}
+\index{\+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+set\+\_\+sg@{\+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+set\+\_\+sg}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{\+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+set\+\_\+sg(struct net\+\_\+device $\ast$dev, u32 data)}{_kc_ethtool_op_set_sg(struct net_device *dev, u32 data)}}]{\setlength{\rightskip}{0pt plus 5cm}int \+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+set\+\_\+sg (
+\begin{DoxyParamCaption}
+\item[{struct net\+\_\+device $\ast$}]{dev, }
+\item[{{\bf u32}}]{data}
+\end{DoxyParamCaption}
+)}\hypertarget{kcompat__ethtool_8c_a67f5d8ca3b09a76d385352e3b627cd66}{}\label{kcompat__ethtool_8c_a67f5d8ca3b09a76d385352e3b627cd66}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 166 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+167 \{
+168 \textcolor{preprocessor}{#ifdef NETIF\_F\_SG}
+169     \textcolor{keywordflow}{if} (data)
+170         dev->features |= NETIF\_F\_SG;
+171     \textcolor{keywordflow}{else}
+172         dev->features &= ~NETIF\_F\_SG;
+173 \textcolor{preprocessor}{#endif}
+174 
+175     \textcolor{keywordflow}{return} 0;
+176 \}
+\end{DoxyCode}
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!\+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+set\+\_\+tso@{\+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+set\+\_\+tso}}
+\index{\+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+set\+\_\+tso@{\+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+set\+\_\+tso}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{\+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+set\+\_\+tso(struct net\+\_\+device $\ast$dev, u32 data)}{_kc_ethtool_op_set_tso(struct net_device *dev, u32 data)}}]{\setlength{\rightskip}{0pt plus 5cm}int \+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+set\+\_\+tso (
+\begin{DoxyParamCaption}
+\item[{struct net\+\_\+device $\ast$}]{dev, }
+\item[{{\bf u32}}]{data}
+\end{DoxyParamCaption}
+)}\hypertarget{kcompat__ethtool_8c_a3f6ed7b093dca22cdb103a730606836d}{}\label{kcompat__ethtool_8c_a3f6ed7b093dca22cdb103a730606836d}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 191 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+192 \{
+193 \textcolor{preprocessor}{#ifdef NETIF\_F\_TSO}
+194     \textcolor{keywordflow}{if} (data)
+195         dev->features |= NETIF\_F\_TSO;
+196     \textcolor{keywordflow}{else}
+197         dev->features &= ~NETIF\_F\_TSO;
+198 \textcolor{preprocessor}{#endif}
+199 
+200     \textcolor{keywordflow}{return} 0;
+201 \}
+\end{DoxyCode}
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!\+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+set\+\_\+tx\+\_\+csum@{\+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+set\+\_\+tx\+\_\+csum}}
+\index{\+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+set\+\_\+tx\+\_\+csum@{\+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+set\+\_\+tx\+\_\+csum}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{\+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+set\+\_\+tx\+\_\+csum(struct net\+\_\+device $\ast$dev, u32 data)}{_kc_ethtool_op_set_tx_csum(struct net_device *dev, u32 data)}}]{\setlength{\rightskip}{0pt plus 5cm}int \+\_\+kc\+\_\+ethtool\+\_\+op\+\_\+set\+\_\+tx\+\_\+csum (
+\begin{DoxyParamCaption}
+\item[{struct net\+\_\+device $\ast$}]{dev, }
+\item[{{\bf u32}}]{data}
+\end{DoxyParamCaption}
+)}\hypertarget{kcompat__ethtool_8c_ad407f08c5393385c31f3b5f629973dc2}{}\label{kcompat__ethtool_8c_ad407f08c5393385c31f3b5f629973dc2}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 135 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+136 \{
+137 \textcolor{preprocessor}{#ifdef NETIF\_F\_IP\_CSUM}
+138     \textcolor{keywordflow}{if} (data)
+139 \textcolor{preprocessor}{#ifdef NETIF\_F\_IPV6\_CSUM}
+140         dev->features |= (NETIF\_F\_IP\_CSUM | NETIF\_F\_IPV6\_CSUM);
+141     \textcolor{keywordflow}{else}
+142         dev->features &= ~(NETIF\_F\_IP\_CSUM | NETIF\_F\_IPV6\_CSUM);
+143 \textcolor{preprocessor}{#else}
+144         dev->features |= NETIF\_F\_IP\_CSUM;
+145     \textcolor{keywordflow}{else}
+146         dev->features &= ~NETIF\_F\_IP\_CSUM;
+147 \textcolor{preprocessor}{#endif}
+148 \textcolor{preprocessor}{#endif}
+149 
+150     \textcolor{keywordflow}{return} 0;
+151 \}
+\end{DoxyCode}
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!\+\_\+kc\+\_\+mii\+\_\+check\+\_\+link@{\+\_\+kc\+\_\+mii\+\_\+check\+\_\+link}}
+\index{\+\_\+kc\+\_\+mii\+\_\+check\+\_\+link@{\+\_\+kc\+\_\+mii\+\_\+check\+\_\+link}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{\+\_\+kc\+\_\+mii\+\_\+check\+\_\+link(struct mii\+\_\+if\+\_\+info $\ast$mii)}{_kc_mii_check_link(struct mii_if_info *mii)}}]{\setlength{\rightskip}{0pt plus 5cm}void \+\_\+kc\+\_\+mii\+\_\+check\+\_\+link (
+\begin{DoxyParamCaption}
+\item[{struct {\bf mii\+\_\+if\+\_\+info} $\ast$}]{mii}
+\end{DoxyParamCaption}
+)}\hypertarget{kcompat__ethtool_8c_a39be7ddbdbbb1dfc2716f06c1edddcf9}{}\label{kcompat__ethtool_8c_a39be7ddbdbbb1dfc2716f06c1edddcf9}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 1082 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+1083 \{
+1084     \textcolor{keywordtype}{int} cur\_link = \hyperlink{kcompat__ethtool_8c_a7f34a07dceb9ecadb09ef4ddd1623142}{mii\_link\_ok}(mii);
+1085     \textcolor{keywordtype}{int} prev\_link = netif\_carrier\_ok(mii->dev);
+1086 
+1087     \textcolor{keywordflow}{if} (cur\_link && !prev\_link)
+1088         netif\_carrier\_on(mii->dev);
+1089     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (prev\_link && !cur\_link)
+1090         netif\_carrier\_off(mii->dev);
+1091 \}
+\end{DoxyCode}
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!\+\_\+kc\+\_\+mii\+\_\+ethtool\+\_\+gset@{\+\_\+kc\+\_\+mii\+\_\+ethtool\+\_\+gset}}
+\index{\+\_\+kc\+\_\+mii\+\_\+ethtool\+\_\+gset@{\+\_\+kc\+\_\+mii\+\_\+ethtool\+\_\+gset}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{\+\_\+kc\+\_\+mii\+\_\+ethtool\+\_\+gset(struct mii\+\_\+if\+\_\+info $\ast$mii, struct ethtool\+\_\+cmd $\ast$ecmd)}{_kc_mii_ethtool_gset(struct mii_if_info *mii, struct ethtool_cmd *ecmd)}}]{\setlength{\rightskip}{0pt plus 5cm}int \+\_\+kc\+\_\+mii\+\_\+ethtool\+\_\+gset (
+\begin{DoxyParamCaption}
+\item[{struct {\bf mii\+\_\+if\+\_\+info} $\ast$}]{mii, }
+\item[{struct ethtool\+\_\+cmd $\ast$}]{ecmd}
+\end{DoxyParamCaption}
+)}\hypertarget{kcompat__ethtool_8c_a1b0da6270ef7054464930385cfbf5bba}{}\label{kcompat__ethtool_8c_a1b0da6270ef7054464930385cfbf5bba}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 925 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+926 \{
+927     \textcolor{keyword}{struct }net\_device *dev = mii->dev;
+928     \hyperlink{lib_2igb_2e1000__osdep_8h_a64e91c10a0d8fb627e92932050284264}{u32} advert, bmcr, lpa, nego;
+929 
+930     ecmd->supported =
+931         (SUPPORTED\_10baseT\_Half | SUPPORTED\_10baseT\_Full |
+932          SUPPORTED\_100baseT\_Half | SUPPORTED\_100baseT\_Full |
+933          SUPPORTED\_Autoneg | SUPPORTED\_TP | SUPPORTED\_MII);
+934 
+935     \textcolor{comment}{/* only supports twisted-pair */}
+936     ecmd->port = PORT\_MII;
+937 
+938     \textcolor{comment}{/* only supports internal transceiver */}
+939     ecmd->transceiver = XCVR\_INTERNAL;
+940 
+941     \textcolor{comment}{/* this isn't fully supported at higher layers */}
+942     ecmd->phy\_address = mii->phy\_id;
+943 
+944     ecmd->advertising = ADVERTISED\_TP | ADVERTISED\_MII;
+945     advert = mii->mdio\_read(dev, mii->phy\_id, MII\_ADVERTISE);
+946     \textcolor{keywordflow}{if} (advert & ADVERTISE\_10HALF)
+947         ecmd->advertising |= ADVERTISED\_10baseT\_Half;
+948     \textcolor{keywordflow}{if} (advert & ADVERTISE\_10FULL)
+949         ecmd->advertising |= ADVERTISED\_10baseT\_Full;
+950     \textcolor{keywordflow}{if} (advert & ADVERTISE\_100HALF)
+951         ecmd->advertising |= ADVERTISED\_100baseT\_Half;
+952     \textcolor{keywordflow}{if} (advert & ADVERTISE\_100FULL)
+953         ecmd->advertising |= ADVERTISED\_100baseT\_Full;
+954 
+955     bmcr = mii->mdio\_read(dev, mii->phy\_id, MII\_BMCR);
+956     lpa = mii->mdio\_read(dev, mii->phy\_id, MII\_LPA);
+957     \textcolor{keywordflow}{if} (bmcr & BMCR\_ANENABLE) \{
+958         ecmd->advertising |= ADVERTISED\_Autoneg;
+959         ecmd->autoneg = AUTONEG\_ENABLE;
+960 
+961         nego = mii\_nway\_result(advert & lpa);
+962         \textcolor{keywordflow}{if} (nego == LPA\_100FULL || nego == LPA\_100HALF)
+963             ecmd->speed = \hyperlink{kmod_2igb_2e1000__defines_8h_a336e90e6c7a7d8bc7925752a13faf849}{SPEED\_100};
+964         \textcolor{keywordflow}{else}
+965             ecmd->speed = \hyperlink{kmod_2igb_2e1000__defines_8h_ab830e8b55930052c8706c5aeae2497d0}{SPEED\_10};
+966         \textcolor{keywordflow}{if} (nego == LPA\_100FULL || nego == LPA\_10FULL) \{
+967             ecmd->duplex = DUPLEX\_FULL;
+968             mii->full\_duplex = 1;
+969         \} \textcolor{keywordflow}{else} \{
+970             ecmd->duplex = DUPLEX\_HALF;
+971             mii->full\_duplex = 0;
+972         \}
+973     \} \textcolor{keywordflow}{else} \{
+974         ecmd->autoneg = AUTONEG\_DISABLE;
+975 
+976         ecmd->speed = (bmcr & BMCR\_SPEED100) ? \hyperlink{kmod_2igb_2e1000__defines_8h_a336e90e6c7a7d8bc7925752a13faf849}{SPEED\_100} : \hyperlink{kmod_2igb_2e1000__defines_8h_ab830e8b55930052c8706c5aeae2497d0}{SPEED\_10};
+977         ecmd->duplex = (bmcr & BMCR\_FULLDPLX) ? DUPLEX\_FULL : DUPLEX\_HALF;
+978     \}
+979 
+980     \textcolor{comment}{/* ignore maxtxpkt, maxrxpkt for now */}
+981 
+982     \textcolor{keywordflow}{return} 0;
+983 \}
+\end{DoxyCode}
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!\+\_\+kc\+\_\+mii\+\_\+ethtool\+\_\+sset@{\+\_\+kc\+\_\+mii\+\_\+ethtool\+\_\+sset}}
+\index{\+\_\+kc\+\_\+mii\+\_\+ethtool\+\_\+sset@{\+\_\+kc\+\_\+mii\+\_\+ethtool\+\_\+sset}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{\+\_\+kc\+\_\+mii\+\_\+ethtool\+\_\+sset(struct mii\+\_\+if\+\_\+info $\ast$mii, struct ethtool\+\_\+cmd $\ast$ecmd)}{_kc_mii_ethtool_sset(struct mii_if_info *mii, struct ethtool_cmd *ecmd)}}]{\setlength{\rightskip}{0pt plus 5cm}int \+\_\+kc\+\_\+mii\+\_\+ethtool\+\_\+sset (
+\begin{DoxyParamCaption}
+\item[{struct {\bf mii\+\_\+if\+\_\+info} $\ast$}]{mii, }
+\item[{struct ethtool\+\_\+cmd $\ast$}]{ecmd}
+\end{DoxyParamCaption}
+)}\hypertarget{kcompat__ethtool_8c_a8f115a4cb28d2ec10e5960a6e2bd0813}{}\label{kcompat__ethtool_8c_a8f115a4cb28d2ec10e5960a6e2bd0813}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 985 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+986 \{
+987     \textcolor{keyword}{struct }net\_device *dev = mii->dev;
+988 
+989     \textcolor{keywordflow}{if} (ecmd->speed != \hyperlink{kmod_2igb_2e1000__defines_8h_ab830e8b55930052c8706c5aeae2497d0}{SPEED\_10} && ecmd->speed != \hyperlink{kmod_2igb_2e1000__defines_8h_a336e90e6c7a7d8bc7925752a13faf849}{SPEED\_100})
+990         \textcolor{keywordflow}{return} -EINVAL;
+991     \textcolor{keywordflow}{if} (ecmd->duplex != DUPLEX\_HALF && ecmd->duplex != DUPLEX\_FULL)
+992         \textcolor{keywordflow}{return} -EINVAL;
+993     \textcolor{keywordflow}{if} (ecmd->port != PORT\_MII)
+994         \textcolor{keywordflow}{return} -EINVAL;
+995     \textcolor{keywordflow}{if} (ecmd->transceiver != XCVR\_INTERNAL)
+996         \textcolor{keywordflow}{return} -EINVAL;
+997     \textcolor{keywordflow}{if} (ecmd->phy\_address != mii->phy\_id)
+998         \textcolor{keywordflow}{return} -EINVAL;
+999     \textcolor{keywordflow}{if} (ecmd->autoneg != AUTONEG\_DISABLE && ecmd->autoneg != AUTONEG\_ENABLE)
+1000         \textcolor{keywordflow}{return} -EINVAL;
+1001 
+1002     \textcolor{comment}{/* ignore supported, maxtxpkt, maxrxpkt */}
+1003 
+1004     \textcolor{keywordflow}{if} (ecmd->autoneg == AUTONEG\_ENABLE) \{
+1005         \hyperlink{lib_2igb_2e1000__osdep_8h_a64e91c10a0d8fb627e92932050284264}{u32} bmcr, advert, tmp;
+1006 
+1007         \textcolor{keywordflow}{if} ((ecmd->advertising & (ADVERTISED\_10baseT\_Half |
+1008                       ADVERTISED\_10baseT\_Full |
+1009                       ADVERTISED\_100baseT\_Half |
+1010                       ADVERTISED\_100baseT\_Full)) == 0)
+1011             \textcolor{keywordflow}{return} -EINVAL;
+1012 
+1013         \textcolor{comment}{/* advertise only what has been requested */}
+1014         advert = mii->mdio\_read(dev, mii->phy\_id, MII\_ADVERTISE);
+1015         tmp = advert & ~(ADVERTISE\_ALL | ADVERTISE\_100BASE4);
+1016         \textcolor{keywordflow}{if} (ADVERTISED\_10baseT\_Half)
+1017             tmp |= ADVERTISE\_10HALF;
+1018         \textcolor{keywordflow}{if} (ADVERTISED\_10baseT\_Full)
+1019             tmp |= ADVERTISE\_10FULL;
+1020         \textcolor{keywordflow}{if} (ADVERTISED\_100baseT\_Half)
+1021             tmp |= ADVERTISE\_100HALF;
+1022         \textcolor{keywordflow}{if} (ADVERTISED\_100baseT\_Full)
+1023             tmp |= ADVERTISE\_100FULL;
+1024         \textcolor{keywordflow}{if} (advert != tmp) \{
+1025             mii->mdio\_write(dev, mii->phy\_id, MII\_ADVERTISE, tmp);
+1026             mii->advertising = tmp;
+1027         \}
+1028 
+1029         \textcolor{comment}{/* turn on autonegotiation, and force a renegotiate */}
+1030         bmcr = mii->mdio\_read(dev, mii->phy\_id, MII\_BMCR);
+1031         bmcr |= (BMCR\_ANENABLE | BMCR\_ANRESTART);
+1032         mii->mdio\_write(dev, mii->phy\_id, MII\_BMCR, bmcr);
+1033 
+1034         mii->force\_media = 0;
+1035     \} \textcolor{keywordflow}{else} \{
+1036         \hyperlink{lib_2igb_2e1000__osdep_8h_a64e91c10a0d8fb627e92932050284264}{u32} bmcr, tmp;
+1037 
+1038         \textcolor{comment}{/* turn off auto negotiation, set speed and duplexity */}
+1039         bmcr = mii->mdio\_read(dev, mii->phy\_id, MII\_BMCR);
+1040         tmp = bmcr & ~(BMCR\_ANENABLE | BMCR\_SPEED100 | BMCR\_FULLDPLX);
+1041         \textcolor{keywordflow}{if} (ecmd->speed == \hyperlink{kmod_2igb_2e1000__defines_8h_a336e90e6c7a7d8bc7925752a13faf849}{SPEED\_100})
+1042             tmp |= BMCR\_SPEED100;
+1043         \textcolor{keywordflow}{if} (ecmd->duplex == DUPLEX\_FULL) \{
+1044             tmp |= BMCR\_FULLDPLX;
+1045             mii->full\_duplex = 1;
+1046         \} \textcolor{keywordflow}{else}
+1047             mii->full\_duplex = 0;
+1048         \textcolor{keywordflow}{if} (bmcr != tmp)
+1049             mii->mdio\_write(dev, mii->phy\_id, MII\_BMCR, tmp);
+1050 
+1051         mii->force\_media = 1;
+1052     \}
+1053     \textcolor{keywordflow}{return} 0;
+1054 \}
+\end{DoxyCode}
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!\+\_\+kc\+\_\+mii\+\_\+link\+\_\+ok@{\+\_\+kc\+\_\+mii\+\_\+link\+\_\+ok}}
+\index{\+\_\+kc\+\_\+mii\+\_\+link\+\_\+ok@{\+\_\+kc\+\_\+mii\+\_\+link\+\_\+ok}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{\+\_\+kc\+\_\+mii\+\_\+link\+\_\+ok(struct mii\+\_\+if\+\_\+info $\ast$mii)}{_kc_mii_link_ok(struct mii_if_info *mii)}}]{\setlength{\rightskip}{0pt plus 5cm}int \+\_\+kc\+\_\+mii\+\_\+link\+\_\+ok (
+\begin{DoxyParamCaption}
+\item[{struct {\bf mii\+\_\+if\+\_\+info} $\ast$}]{mii}
+\end{DoxyParamCaption}
+)}\hypertarget{kcompat__ethtool_8c_a85dcb107c3174a5b48f85c0b13ec756c}{}\label{kcompat__ethtool_8c_a85dcb107c3174a5b48f85c0b13ec756c}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 1056 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+1057 \{
+1058     \textcolor{comment}{/* first, a dummy read, needed to latch some MII phys */}
+1059     mii->mdio\_read(mii->dev, mii->phy\_id, MII\_BMSR);
+1060     \textcolor{keywordflow}{if} (mii->mdio\_read(mii->dev, mii->phy\_id, MII\_BMSR) & BMSR\_LSTATUS)
+1061         \textcolor{keywordflow}{return} 1;
+1062     \textcolor{keywordflow}{return} 0;
+1063 \}
+\end{DoxyCode}
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!\+\_\+kc\+\_\+mii\+\_\+nway\+\_\+restart@{\+\_\+kc\+\_\+mii\+\_\+nway\+\_\+restart}}
+\index{\+\_\+kc\+\_\+mii\+\_\+nway\+\_\+restart@{\+\_\+kc\+\_\+mii\+\_\+nway\+\_\+restart}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{\+\_\+kc\+\_\+mii\+\_\+nway\+\_\+restart(struct mii\+\_\+if\+\_\+info $\ast$mii)}{_kc_mii_nway_restart(struct mii_if_info *mii)}}]{\setlength{\rightskip}{0pt plus 5cm}int \+\_\+kc\+\_\+mii\+\_\+nway\+\_\+restart (
+\begin{DoxyParamCaption}
+\item[{struct {\bf mii\+\_\+if\+\_\+info} $\ast$}]{mii}
+\end{DoxyParamCaption}
+)}\hypertarget{kcompat__ethtool_8c_ae305ef847ddf05bddf06e2c377f8d4c2}{}\label{kcompat__ethtool_8c_ae305ef847ddf05bddf06e2c377f8d4c2}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 1065 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+1066 \{
+1067     \textcolor{keywordtype}{int} bmcr;
+1068     \textcolor{keywordtype}{int} r = -EINVAL;
+1069 
+1070     \textcolor{comment}{/* if autoneg is off, it's an error */}
+1071     bmcr = mii->mdio\_read(mii->dev, mii->phy\_id, MII\_BMCR);
+1072 
+1073     \textcolor{keywordflow}{if} (bmcr & BMCR\_ANENABLE) \{
+1074         bmcr |= BMCR\_ANRESTART;
+1075         mii->mdio\_write(mii->dev, mii->phy\_id, MII\_BMCR, bmcr);
+1076         r = 0;
+1077     \}
+1078 
+1079     \textcolor{keywordflow}{return} r;
+1080 \}
+\end{DoxyCode}
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!ethtool\+\_\+get\+\_\+coalesce@{ethtool\+\_\+get\+\_\+coalesce}}
+\index{ethtool\+\_\+get\+\_\+coalesce@{ethtool\+\_\+get\+\_\+coalesce}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{ethtool\+\_\+get\+\_\+coalesce(struct net\+\_\+device $\ast$dev, void $\ast$useraddr)}{ethtool_get_coalesce(struct net_device *dev, void *useraddr)}}]{\setlength{\rightskip}{0pt plus 5cm}static int ethtool\+\_\+get\+\_\+coalesce (
+\begin{DoxyParamCaption}
+\item[{struct net\+\_\+device $\ast$}]{dev, }
+\item[{void $\ast$}]{useraddr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{kcompat__ethtool_8c_a5861997b38d628f5153acde2445dd7b9}{}\label{kcompat__ethtool_8c_a5861997b38d628f5153acde2445dd7b9}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 460 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+461 \{
+462     \textcolor{keyword}{struct }\hyperlink{kcompat_8h_a88fa035fec6b4ef68bb34dab55f3ad97}{ethtool\_coalesce} coalesce = \{ \hyperlink{kcompat_8h_ab2b1b330a9e8312428bb3fbd4faafff3}{ETHTOOL\_GCOALESCE} \};
+463 
+464     \textcolor{keywordflow}{if} (!\hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops}->get\_coalesce)
+465         \textcolor{keywordflow}{return} -EOPNOTSUPP;
+466 
+467     \hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops}->get\_coalesce(dev, &coalesce);
+468 
+469     \textcolor{keywordflow}{if} (copy\_to\_user(useraddr, &coalesce, \textcolor{keyword}{sizeof}(coalesce)))
+470         \textcolor{keywordflow}{return} -EFAULT;
+471     \textcolor{keywordflow}{return} 0;
+472 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{kcompat__ethtool_8c_a5861997b38d628f5153acde2445dd7b9_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!ethtool\+\_\+get\+\_\+drvinfo@{ethtool\+\_\+get\+\_\+drvinfo}}
+\index{ethtool\+\_\+get\+\_\+drvinfo@{ethtool\+\_\+get\+\_\+drvinfo}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{ethtool\+\_\+get\+\_\+drvinfo(struct net\+\_\+device $\ast$dev, void $\ast$useraddr)}{ethtool_get_drvinfo(struct net_device *dev, void *useraddr)}}]{\setlength{\rightskip}{0pt plus 5cm}static int ethtool\+\_\+get\+\_\+drvinfo (
+\begin{DoxyParamCaption}
+\item[{struct net\+\_\+device $\ast$}]{dev, }
+\item[{void $\ast$}]{useraddr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{kcompat__ethtool_8c_a92fd577a16e29a9ca506982cbd36be05}{}\label{kcompat__ethtool_8c_a92fd577a16e29a9ca506982cbd36be05}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 235 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+236 \{
+237     \textcolor{keyword}{struct }\hyperlink{kcompat_8h_af1c825c7736fa8eb05b5761b7536caeb}{ethtool\_drvinfo} info;
+238     \textcolor{keyword}{struct }\hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops} *ops = \hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops};
+239 
+240     \textcolor{keywordflow}{if} (!ops->get\_drvinfo)
+241         \textcolor{keywordflow}{return} -EOPNOTSUPP;
+242 
+243     memset(&info, 0, \textcolor{keyword}{sizeof}(info));
+244     info.cmd = ETHTOOL\_GDRVINFO;
+245     ops->get\_drvinfo(dev, &info);
+246 
+247     \textcolor{keywordflow}{if} (ops->self\_test\_count)
+248         info.testinfo\_len = ops->self\_test\_count(dev);
+249     \textcolor{keywordflow}{if} (ops->get\_stats\_count)
+250         info.n\_stats = ops->get\_stats\_count(dev);
+251     \textcolor{keywordflow}{if} (ops->get\_regs\_len)
+252         info.regdump\_len = ops->get\_regs\_len(dev);
+253     \textcolor{keywordflow}{if} (ops->get\_eeprom\_len)
+254         info.eedump\_len = ops->get\_eeprom\_len(dev);
+255 
+256     \textcolor{keywordflow}{if} (copy\_to\_user(useraddr, &info, \textcolor{keyword}{sizeof}(info)))
+257         \textcolor{keywordflow}{return} -EFAULT;
+258     \textcolor{keywordflow}{return} 0;
+259 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{kcompat__ethtool_8c_a92fd577a16e29a9ca506982cbd36be05_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!ethtool\+\_\+get\+\_\+eeprom@{ethtool\+\_\+get\+\_\+eeprom}}
+\index{ethtool\+\_\+get\+\_\+eeprom@{ethtool\+\_\+get\+\_\+eeprom}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{ethtool\+\_\+get\+\_\+eeprom(struct net\+\_\+device $\ast$dev, void $\ast$useraddr)}{ethtool_get_eeprom(struct net_device *dev, void *useraddr)}}]{\setlength{\rightskip}{0pt plus 5cm}static int ethtool\+\_\+get\+\_\+eeprom (
+\begin{DoxyParamCaption}
+\item[{struct net\+\_\+device $\ast$}]{dev, }
+\item[{void $\ast$}]{useraddr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{kcompat__ethtool_8c_a9f9beb2c7b7f75f3e53642cb5dcb48ec}{}\label{kcompat__ethtool_8c_a9f9beb2c7b7f75f3e53642cb5dcb48ec}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 374 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+375 \{
+376     \textcolor{keyword}{struct }\hyperlink{structethtool__eeprom}{ethtool\_eeprom} eeprom;
+377     \textcolor{keyword}{struct }\hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops} *ops = \hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops};
+378     \hyperlink{lib_2igb_2e1000__osdep_8h_a8baca7e76da9e0e11ce3a275dd19130c}{u8} *data;
+379     \textcolor{keywordtype}{int} ret;
+380 
+381     \textcolor{keywordflow}{if} (!ops->get\_eeprom || !ops->get\_eeprom\_len)
+382         \textcolor{keywordflow}{return} -EOPNOTSUPP;
+383 
+384     \textcolor{keywordflow}{if} (copy\_from\_user(&eeprom, useraddr, \textcolor{keyword}{sizeof}(eeprom)))
+385         \textcolor{keywordflow}{return} -EFAULT;
+386 
+387     \textcolor{comment}{/* Check for wrap and zero */}
+388     \textcolor{keywordflow}{if} (eeprom.offset + eeprom.len <= eeprom.offset)
+389         \textcolor{keywordflow}{return} -EINVAL;
+390 
+391     \textcolor{comment}{/* Check for exceeding total eeprom len */}
+392     \textcolor{keywordflow}{if} (eeprom.offset + eeprom.len > ops->get\_eeprom\_len(dev))
+393         \textcolor{keywordflow}{return} -EINVAL;
+394 
+395     data = kmalloc(eeprom.len, GFP\_USER);
+396     \textcolor{keywordflow}{if} (!data)
+397         \textcolor{keywordflow}{return} -ENOMEM;
+398 
+399     ret = -EFAULT;
+400     \textcolor{keywordflow}{if} (copy\_from\_user(data, useraddr + \textcolor{keyword}{sizeof}(eeprom), eeprom.len))
+401         \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+402 
+403     ret = ops->get\_eeprom(dev, &eeprom, data);
+404     \textcolor{keywordflow}{if} (ret)
+405         \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+406 
+407     ret = -EFAULT;
+408     \textcolor{keywordflow}{if} (copy\_to\_user(useraddr, &eeprom, \textcolor{keyword}{sizeof}(eeprom)))
+409         \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+410     \textcolor{keywordflow}{if} (copy\_to\_user(useraddr + \textcolor{keyword}{sizeof}(eeprom), data, eeprom.len))
+411         \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+412     ret = 0;
+413 
+414 \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out}:
+415     kfree(data);
+416     \textcolor{keywordflow}{return} ret;
+417 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{kcompat__ethtool_8c_a9f9beb2c7b7f75f3e53642cb5dcb48ec_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!ethtool\+\_\+get\+\_\+link@{ethtool\+\_\+get\+\_\+link}}
+\index{ethtool\+\_\+get\+\_\+link@{ethtool\+\_\+get\+\_\+link}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{ethtool\+\_\+get\+\_\+link(struct net\+\_\+device $\ast$dev, void $\ast$useraddr)}{ethtool_get_link(struct net_device *dev, void *useraddr)}}]{\setlength{\rightskip}{0pt plus 5cm}static int ethtool\+\_\+get\+\_\+link (
+\begin{DoxyParamCaption}
+\item[{struct net\+\_\+device $\ast$}]{dev, }
+\item[{void $\ast$}]{useraddr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{kcompat__ethtool_8c_aa2042709e8d0ae6c23de08b28761dd3f}{}\label{kcompat__ethtool_8c_aa2042709e8d0ae6c23de08b28761dd3f}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 360 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+361 \{
+362     \textcolor{keyword}{struct }\hyperlink{structethtool__value}{ethtool\_value} edata = \{ \hyperlink{kcompat_8h_a67a6ed39a961cb11e5b986cb9a5e015c}{ETHTOOL\_GLINK} \};
+363 
+364     \textcolor{keywordflow}{if} (!\hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops}->get\_link)
+365         \textcolor{keywordflow}{return} -EOPNOTSUPP;
+366 
+367     edata.\hyperlink{structethtool__value_a0e5b72ac4f845f11204b39c8fb0f5d91}{data} = \hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops}->get\_link(dev);
+368 
+369     \textcolor{keywordflow}{if} (copy\_to\_user(useraddr, &edata, \textcolor{keyword}{sizeof}(edata)))
+370         \textcolor{keywordflow}{return} -EFAULT;
+371     \textcolor{keywordflow}{return} 0;
+372 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{kcompat__ethtool_8c_aa2042709e8d0ae6c23de08b28761dd3f_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!ethtool\+\_\+get\+\_\+msglevel@{ethtool\+\_\+get\+\_\+msglevel}}
+\index{ethtool\+\_\+get\+\_\+msglevel@{ethtool\+\_\+get\+\_\+msglevel}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{ethtool\+\_\+get\+\_\+msglevel(struct net\+\_\+device $\ast$dev, char $\ast$useraddr)}{ethtool_get_msglevel(struct net_device *dev, char *useraddr)}}]{\setlength{\rightskip}{0pt plus 5cm}static int ethtool\+\_\+get\+\_\+msglevel (
+\begin{DoxyParamCaption}
+\item[{struct net\+\_\+device $\ast$}]{dev, }
+\item[{char $\ast$}]{useraddr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{kcompat__ethtool_8c_a46ef1c910da06d901d4b309379d08ed9}{}\label{kcompat__ethtool_8c_a46ef1c910da06d901d4b309379d08ed9}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 324 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+325 \{
+326     \textcolor{keyword}{struct }\hyperlink{structethtool__value}{ethtool\_value} edata = \{ \hyperlink{kcompat_8h_a96d02e666097490b02edc635f4df2e92}{ETHTOOL\_GMSGLVL} \};
+327 
+328     \textcolor{keywordflow}{if} (!\hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops}->get\_msglevel)
+329         \textcolor{keywordflow}{return} -EOPNOTSUPP;
+330 
+331     edata.\hyperlink{structethtool__value_a0e5b72ac4f845f11204b39c8fb0f5d91}{data} = \hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops}->get\_msglevel(dev);
+332 
+333     \textcolor{keywordflow}{if} (copy\_to\_user(useraddr, &edata, \textcolor{keyword}{sizeof}(edata)))
+334         \textcolor{keywordflow}{return} -EFAULT;
+335     \textcolor{keywordflow}{return} 0;
+336 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{kcompat__ethtool_8c_a46ef1c910da06d901d4b309379d08ed9_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!ethtool\+\_\+get\+\_\+pauseparam@{ethtool\+\_\+get\+\_\+pauseparam}}
+\index{ethtool\+\_\+get\+\_\+pauseparam@{ethtool\+\_\+get\+\_\+pauseparam}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{ethtool\+\_\+get\+\_\+pauseparam(struct net\+\_\+device $\ast$dev, void $\ast$useraddr)}{ethtool_get_pauseparam(struct net_device *dev, void *useraddr)}}]{\setlength{\rightskip}{0pt plus 5cm}static int ethtool\+\_\+get\+\_\+pauseparam (
+\begin{DoxyParamCaption}
+\item[{struct net\+\_\+device $\ast$}]{dev, }
+\item[{void $\ast$}]{useraddr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{kcompat__ethtool_8c_a05af49886a8f267a18d34341d59c743a}{}\label{kcompat__ethtool_8c_a05af49886a8f267a18d34341d59c743a}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 514 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+515 \{
+516     \textcolor{keyword}{struct }\hyperlink{kcompat_8h_a25d94d0b4f727dc72793458fc0cc5364}{ethtool\_pauseparam} pauseparam = \{ 
+      \hyperlink{kcompat_8h_ac1ece1ac3c48dfa8d9c788f76e028338}{ETHTOOL\_GPAUSEPARAM} \};
+517 
+518     \textcolor{keywordflow}{if} (!\hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops}->get\_pauseparam)
+519         \textcolor{keywordflow}{return} -EOPNOTSUPP;
+520 
+521     \hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops}->get\_pauseparam(dev, &pauseparam);
+522 
+523     \textcolor{keywordflow}{if} (copy\_to\_user(useraddr, &pauseparam, \textcolor{keyword}{sizeof}(pauseparam)))
+524         \textcolor{keywordflow}{return} -EFAULT;
+525     \textcolor{keywordflow}{return} 0;
+526 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{kcompat__ethtool_8c_a05af49886a8f267a18d34341d59c743a_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!ethtool\+\_\+get\+\_\+regs@{ethtool\+\_\+get\+\_\+regs}}
+\index{ethtool\+\_\+get\+\_\+regs@{ethtool\+\_\+get\+\_\+regs}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{ethtool\+\_\+get\+\_\+regs(struct net\+\_\+device $\ast$dev, char $\ast$useraddr)}{ethtool_get_regs(struct net_device *dev, char *useraddr)}}]{\setlength{\rightskip}{0pt plus 5cm}static int ethtool\+\_\+get\+\_\+regs (
+\begin{DoxyParamCaption}
+\item[{struct net\+\_\+device $\ast$}]{dev, }
+\item[{char $\ast$}]{useraddr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{kcompat__ethtool_8c_a06685acda21fdf860fed33a3179b4f19}{}\label{kcompat__ethtool_8c_a06685acda21fdf860fed33a3179b4f19}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 261 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+262 \{
+263     \textcolor{keyword}{struct }\hyperlink{kcompat_8h_ab64eb40b42f214389fe782ee1b3ddf9c}{ethtool\_regs} regs;
+264     \textcolor{keyword}{struct }\hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops} *ops = \hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops};
+265     \textcolor{keywordtype}{void} *regbuf;
+266     \textcolor{keywordtype}{int} reglen, ret;
+267 
+268     \textcolor{keywordflow}{if} (!ops->get\_regs || !ops->get\_regs\_len)
+269         \textcolor{keywordflow}{return} -EOPNOTSUPP;
+270 
+271     \textcolor{keywordflow}{if} (copy\_from\_user(&regs, useraddr, \textcolor{keyword}{sizeof}(regs)))
+272         \textcolor{keywordflow}{return} -EFAULT;
+273 
+274     reglen = ops->get\_regs\_len(dev);
+275     \textcolor{keywordflow}{if} (regs.len > reglen)
+276         regs.len = reglen;
+277 
+278     regbuf = kmalloc(reglen, GFP\_USER);
+279     \textcolor{keywordflow}{if} (!regbuf)
+280         \textcolor{keywordflow}{return} -ENOMEM;
+281 
+282     ops->get\_regs(dev, &regs, regbuf);
+283 
+284     ret = -EFAULT;
+285     \textcolor{keywordflow}{if} (copy\_to\_user(useraddr, &regs, \textcolor{keyword}{sizeof}(regs)))
+286         \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+287     useraddr += offsetof(\textcolor{keyword}{struct} \hyperlink{kcompat_8h_ab64eb40b42f214389fe782ee1b3ddf9c}{ethtool\_regs}, data);
+288     \textcolor{keywordflow}{if} (copy\_to\_user(useraddr, regbuf, reglen))
+289         \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+290     ret = 0;
+291 
+292 \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out}:
+293     kfree(regbuf);
+294     \textcolor{keywordflow}{return} ret;
+295 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{kcompat__ethtool_8c_a06685acda21fdf860fed33a3179b4f19_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!ethtool\+\_\+get\+\_\+ringparam@{ethtool\+\_\+get\+\_\+ringparam}}
+\index{ethtool\+\_\+get\+\_\+ringparam@{ethtool\+\_\+get\+\_\+ringparam}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{ethtool\+\_\+get\+\_\+ringparam(struct net\+\_\+device $\ast$dev, void $\ast$useraddr)}{ethtool_get_ringparam(struct net_device *dev, void *useraddr)}}]{\setlength{\rightskip}{0pt plus 5cm}static int ethtool\+\_\+get\+\_\+ringparam (
+\begin{DoxyParamCaption}
+\item[{struct net\+\_\+device $\ast$}]{dev, }
+\item[{void $\ast$}]{useraddr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{kcompat__ethtool_8c_a1137796eac92b6df1c58ed8fd5070a44}{}\label{kcompat__ethtool_8c_a1137796eac92b6df1c58ed8fd5070a44}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 487 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+488 \{
+489     \textcolor{keyword}{struct }\hyperlink{kcompat_8h_aa0f9281f1f6fef10992f4e8ae9143653}{ethtool\_ringparam} ringparam = \{ \hyperlink{kcompat_8h_ab154bd3fcb54f490898a77420421567d}{ETHTOOL\_GRINGPARAM} \};
+490 
+491     \textcolor{keywordflow}{if} (!\hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops}->get\_ringparam)
+492         \textcolor{keywordflow}{return} -EOPNOTSUPP;
+493 
+494     \hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops}->get\_ringparam(dev, &ringparam);
+495 
+496     \textcolor{keywordflow}{if} (copy\_to\_user(useraddr, &ringparam, \textcolor{keyword}{sizeof}(ringparam)))
+497         \textcolor{keywordflow}{return} -EFAULT;
+498     \textcolor{keywordflow}{return} 0;
+499 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{kcompat__ethtool_8c_a1137796eac92b6df1c58ed8fd5070a44_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!ethtool\+\_\+get\+\_\+rx\+\_\+csum@{ethtool\+\_\+get\+\_\+rx\+\_\+csum}}
+\index{ethtool\+\_\+get\+\_\+rx\+\_\+csum@{ethtool\+\_\+get\+\_\+rx\+\_\+csum}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{ethtool\+\_\+get\+\_\+rx\+\_\+csum(struct net\+\_\+device $\ast$dev, char $\ast$useraddr)}{ethtool_get_rx_csum(struct net_device *dev, char *useraddr)}}]{\setlength{\rightskip}{0pt plus 5cm}static int ethtool\+\_\+get\+\_\+rx\+\_\+csum (
+\begin{DoxyParamCaption}
+\item[{struct net\+\_\+device $\ast$}]{dev, }
+\item[{char $\ast$}]{useraddr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{kcompat__ethtool_8c_aeac587c8ee85fb900da8feffd634da5c}{}\label{kcompat__ethtool_8c_aeac587c8ee85fb900da8feffd634da5c}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 541 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+542 \{
+543     \textcolor{keyword}{struct }\hyperlink{structethtool__value}{ethtool\_value} edata = \{ \hyperlink{kcompat_8h_a972cf74afba7535ee4e4a33fe05b852d}{ETHTOOL\_GRXCSUM} \};
+544 
+545     \textcolor{keywordflow}{if} (!\hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops}->get\_rx\_csum)
+546         \textcolor{keywordflow}{return} -EOPNOTSUPP;
+547 
+548     edata.\hyperlink{structethtool__value_a0e5b72ac4f845f11204b39c8fb0f5d91}{data} = \hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops}->get\_rx\_csum(dev);
+549 
+550     \textcolor{keywordflow}{if} (copy\_to\_user(useraddr, &edata, \textcolor{keyword}{sizeof}(edata)))
+551         \textcolor{keywordflow}{return} -EFAULT;
+552     \textcolor{keywordflow}{return} 0;
+553 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{kcompat__ethtool_8c_aeac587c8ee85fb900da8feffd634da5c_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!ethtool\+\_\+get\+\_\+settings@{ethtool\+\_\+get\+\_\+settings}}
+\index{ethtool\+\_\+get\+\_\+settings@{ethtool\+\_\+get\+\_\+settings}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{ethtool\+\_\+get\+\_\+settings(struct net\+\_\+device $\ast$dev, void $\ast$useraddr)}{ethtool_get_settings(struct net_device *dev, void *useraddr)}}]{\setlength{\rightskip}{0pt plus 5cm}static int ethtool\+\_\+get\+\_\+settings (
+\begin{DoxyParamCaption}
+\item[{struct net\+\_\+device $\ast$}]{dev, }
+\item[{void $\ast$}]{useraddr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{kcompat__ethtool_8c_a65114c33a3cd4db69f3c8b55a7aaafee}{}\label{kcompat__ethtool_8c_a65114c33a3cd4db69f3c8b55a7aaafee}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 205 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+206 \{
+207     \textcolor{keyword}{struct }ethtool\_cmd cmd = \{ ETHTOOL\_GSET \};
+208     \textcolor{keywordtype}{int} \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err};
+209 
+210     \textcolor{keywordflow}{if} (!\hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops}->get\_settings)
+211         \textcolor{keywordflow}{return} -EOPNOTSUPP;
+212 
+213     err = \hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops}->get\_settings(dev, &cmd);
+214     \textcolor{keywordflow}{if} (err < 0)
+215         \textcolor{keywordflow}{return} \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err};
+216 
+217     \textcolor{keywordflow}{if} (copy\_to\_user(useraddr, &cmd, \textcolor{keyword}{sizeof}(cmd)))
+218         \textcolor{keywordflow}{return} -EFAULT;
+219     \textcolor{keywordflow}{return} 0;
+220 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{kcompat__ethtool_8c_a65114c33a3cd4db69f3c8b55a7aaafee_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!ethtool\+\_\+get\+\_\+sg@{ethtool\+\_\+get\+\_\+sg}}
+\index{ethtool\+\_\+get\+\_\+sg@{ethtool\+\_\+get\+\_\+sg}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{ethtool\+\_\+get\+\_\+sg(struct net\+\_\+device $\ast$dev, char $\ast$useraddr)}{ethtool_get_sg(struct net_device *dev, char *useraddr)}}]{\setlength{\rightskip}{0pt plus 5cm}static int ethtool\+\_\+get\+\_\+sg (
+\begin{DoxyParamCaption}
+\item[{struct net\+\_\+device $\ast$}]{dev, }
+\item[{char $\ast$}]{useraddr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{kcompat__ethtool_8c_a906bba1b2281ed976a4c39de5f7a7340}{}\label{kcompat__ethtool_8c_a906bba1b2281ed976a4c39de5f7a7340}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 596 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+597 \{
+598     \textcolor{keyword}{struct }\hyperlink{structethtool__value}{ethtool\_value} edata = \{ \hyperlink{kcompat_8h_ab239239a12a042511313da4670362a47}{ETHTOOL\_GSG} \};
+599 
+600     \textcolor{keywordflow}{if} (!\hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops}->get\_sg)
+601         \textcolor{keywordflow}{return} -EOPNOTSUPP;
+602 
+603     edata.\hyperlink{structethtool__value_a0e5b72ac4f845f11204b39c8fb0f5d91}{data} = \hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops}->get\_sg(dev);
+604 
+605     \textcolor{keywordflow}{if} (copy\_to\_user(useraddr, &edata, \textcolor{keyword}{sizeof}(edata)))
+606         \textcolor{keywordflow}{return} -EFAULT;
+607     \textcolor{keywordflow}{return} 0;
+608 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{kcompat__ethtool_8c_a906bba1b2281ed976a4c39de5f7a7340_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!ethtool\+\_\+get\+\_\+stats@{ethtool\+\_\+get\+\_\+stats}}
+\index{ethtool\+\_\+get\+\_\+stats@{ethtool\+\_\+get\+\_\+stats}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{ethtool\+\_\+get\+\_\+stats(struct net\+\_\+device $\ast$dev, void $\ast$useraddr)}{ethtool_get_stats(struct net_device *dev, void *useraddr)}}]{\setlength{\rightskip}{0pt plus 5cm}static int ethtool\+\_\+get\+\_\+stats (
+\begin{DoxyParamCaption}
+\item[{struct net\+\_\+device $\ast$}]{dev, }
+\item[{void $\ast$}]{useraddr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{kcompat__ethtool_8c_a1ba4ff860b73b3041128653e6dc778b1}{}\label{kcompat__ethtool_8c_a1ba4ff860b73b3041128653e6dc778b1}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 743 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+744 \{
+745     \textcolor{keyword}{struct }\hyperlink{structethtool__stats}{ethtool\_stats} stats;
+746     \textcolor{keyword}{struct }\hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops} *ops = \hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops};
+747     \hyperlink{lib_2igb_2e1000__osdep_8h_a1d8f78f95a414480659f3182e6067b80}{u64} *data;
+748     \textcolor{keywordtype}{int} ret;
+749 
+750     \textcolor{keywordflow}{if} (!ops->get\_ethtool\_stats || !ops->get\_stats\_count)
+751         \textcolor{keywordflow}{return} -EOPNOTSUPP;
+752 
+753     \textcolor{keywordflow}{if} (copy\_from\_user(&stats, useraddr, \textcolor{keyword}{sizeof}(stats)))
+754         \textcolor{keywordflow}{return} -EFAULT;
+755 
+756     stats.n\_stats = ops->get\_stats\_count(dev);
+757     data = kmalloc(stats.n\_stats * \textcolor{keyword}{sizeof}(\hyperlink{lib_2igb_2e1000__osdep_8h_a1d8f78f95a414480659f3182e6067b80}{u64}), GFP\_USER);
+758     \textcolor{keywordflow}{if} (!data)
+759         \textcolor{keywordflow}{return} -ENOMEM;
+760 
+761     ops->get\_ethtool\_stats(dev, &stats, data);
+762 
+763     ret = -EFAULT;
+764     \textcolor{keywordflow}{if} (copy\_to\_user(useraddr, &stats, \textcolor{keyword}{sizeof}(stats)))
+765         \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+766     useraddr += \textcolor{keyword}{sizeof}(stats);
+767     \textcolor{keywordflow}{if} (copy\_to\_user(useraddr, data, stats.n\_stats * \textcolor{keyword}{sizeof}(\hyperlink{lib_2igb_2e1000__osdep_8h_a1d8f78f95a414480659f3182e6067b80}{u64})))
+768         \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+769     ret = 0;
+770 
+771 \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out}:
+772     kfree(data);
+773     \textcolor{keywordflow}{return} ret;
+774 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{kcompat__ethtool_8c_a1ba4ff860b73b3041128653e6dc778b1_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!ethtool\+\_\+get\+\_\+strings@{ethtool\+\_\+get\+\_\+strings}}
+\index{ethtool\+\_\+get\+\_\+strings@{ethtool\+\_\+get\+\_\+strings}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{ethtool\+\_\+get\+\_\+strings(struct net\+\_\+device $\ast$dev, void $\ast$useraddr)}{ethtool_get_strings(struct net_device *dev, void *useraddr)}}]{\setlength{\rightskip}{0pt plus 5cm}static int ethtool\+\_\+get\+\_\+strings (
+\begin{DoxyParamCaption}
+\item[{struct net\+\_\+device $\ast$}]{dev, }
+\item[{void $\ast$}]{useraddr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{kcompat__ethtool_8c_a19dfa4c9969f8d94b0e1058fc696e2c2}{}\label{kcompat__ethtool_8c_a19dfa4c9969f8d94b0e1058fc696e2c2}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 683 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+684 \{
+685     \textcolor{keyword}{struct }\hyperlink{structethtool__gstrings}{ethtool\_gstrings} gstrings;
+686     \textcolor{keyword}{struct }\hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops} *ops = \hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops};
+687     \hyperlink{lib_2igb_2e1000__osdep_8h_a8baca7e76da9e0e11ce3a275dd19130c}{u8} *data;
+688     \textcolor{keywordtype}{int} ret;
+689 
+690     \textcolor{keywordflow}{if} (!ops->get\_strings)
+691         \textcolor{keywordflow}{return} -EOPNOTSUPP;
+692 
+693     \textcolor{keywordflow}{if} (copy\_from\_user(&gstrings, useraddr, \textcolor{keyword}{sizeof}(gstrings)))
+694         \textcolor{keywordflow}{return} -EFAULT;
+695 
+696     \textcolor{keywordflow}{switch} (gstrings.string\_set) \{
+697     \textcolor{keywordflow}{case} \hyperlink{kcompat_8h_a4e394ee5459720a083047a45bc6218e1a04f42244d29041aa09506885c64b2174}{ETH\_SS\_TEST}:
+698         \textcolor{keywordflow}{if} (!ops->self\_test\_count)
+699             \textcolor{keywordflow}{return} -EOPNOTSUPP;
+700         gstrings.len = ops->self\_test\_count(dev);
+701         \textcolor{keywordflow}{break};
+702     \textcolor{keywordflow}{case} \hyperlink{kcompat_8h_a4e394ee5459720a083047a45bc6218e1a9524d8c20f630b1f6db877f0280ac047}{ETH\_SS\_STATS}:
+703         \textcolor{keywordflow}{if} (!ops->get\_stats\_count)
+704             \textcolor{keywordflow}{return} -EOPNOTSUPP;
+705         gstrings.len = ops->get\_stats\_count(dev);
+706         \textcolor{keywordflow}{break};
+707     \textcolor{keywordflow}{default}:
+708         \textcolor{keywordflow}{return} -EINVAL;
+709     \}
+710 
+711     data = kmalloc(gstrings.len * \hyperlink{kcompat_8h_adea81e7411780905348b5b3ce78aaa68}{ETH\_GSTRING\_LEN}, GFP\_USER);
+712     \textcolor{keywordflow}{if} (!data)
+713         \textcolor{keywordflow}{return} -ENOMEM;
+714 
+715     ops->get\_strings(dev, gstrings.string\_set, data);
+716 
+717     ret = -EFAULT;
+718     \textcolor{keywordflow}{if} (copy\_to\_user(useraddr, &gstrings, \textcolor{keyword}{sizeof}(gstrings)))
+719         \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+720     useraddr += \textcolor{keyword}{sizeof}(gstrings);
+721     \textcolor{keywordflow}{if} (copy\_to\_user(useraddr, data, gstrings.len * \hyperlink{kcompat_8h_adea81e7411780905348b5b3ce78aaa68}{ETH\_GSTRING\_LEN}))
+722         \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+723     ret = 0;
+724 
+725 \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out}:
+726     kfree(data);
+727     \textcolor{keywordflow}{return} ret;
+728 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{kcompat__ethtool_8c_a19dfa4c9969f8d94b0e1058fc696e2c2_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!ethtool\+\_\+get\+\_\+tso@{ethtool\+\_\+get\+\_\+tso}}
+\index{ethtool\+\_\+get\+\_\+tso@{ethtool\+\_\+get\+\_\+tso}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{ethtool\+\_\+get\+\_\+tso(struct net\+\_\+device $\ast$dev, char $\ast$useraddr)}{ethtool_get_tso(struct net_device *dev, char *useraddr)}}]{\setlength{\rightskip}{0pt plus 5cm}static int ethtool\+\_\+get\+\_\+tso (
+\begin{DoxyParamCaption}
+\item[{struct net\+\_\+device $\ast$}]{dev, }
+\item[{char $\ast$}]{useraddr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{kcompat__ethtool_8c_a037ee517037320325aaf2cc54ee18d02}{}\label{kcompat__ethtool_8c_a037ee517037320325aaf2cc54ee18d02}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 623 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+624 \{
+625     \textcolor{keyword}{struct }\hyperlink{structethtool__value}{ethtool\_value} edata = \{ \hyperlink{kcompat_8h_abf1dd17d78a20164571e371839a03556}{ETHTOOL\_GTSO} \};
+626 
+627     \textcolor{keywordflow}{if} (!\hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops}->get\_tso)
+628         \textcolor{keywordflow}{return} -EOPNOTSUPP;
+629 
+630     edata.\hyperlink{structethtool__value_a0e5b72ac4f845f11204b39c8fb0f5d91}{data} = \hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops}->get\_tso(dev);
+631 
+632     \textcolor{keywordflow}{if} (copy\_to\_user(useraddr, &edata, \textcolor{keyword}{sizeof}(edata)))
+633         \textcolor{keywordflow}{return} -EFAULT;
+634     \textcolor{keywordflow}{return} 0;
+635 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{kcompat__ethtool_8c_a037ee517037320325aaf2cc54ee18d02_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!ethtool\+\_\+get\+\_\+tx\+\_\+csum@{ethtool\+\_\+get\+\_\+tx\+\_\+csum}}
+\index{ethtool\+\_\+get\+\_\+tx\+\_\+csum@{ethtool\+\_\+get\+\_\+tx\+\_\+csum}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{ethtool\+\_\+get\+\_\+tx\+\_\+csum(struct net\+\_\+device $\ast$dev, char $\ast$useraddr)}{ethtool_get_tx_csum(struct net_device *dev, char *useraddr)}}]{\setlength{\rightskip}{0pt plus 5cm}static int ethtool\+\_\+get\+\_\+tx\+\_\+csum (
+\begin{DoxyParamCaption}
+\item[{struct net\+\_\+device $\ast$}]{dev, }
+\item[{char $\ast$}]{useraddr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{kcompat__ethtool_8c_a422c2cf96017c7ab46abef205dcc47f7}{}\label{kcompat__ethtool_8c_a422c2cf96017c7ab46abef205dcc47f7}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 569 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+570 \{
+571     \textcolor{keyword}{struct }\hyperlink{structethtool__value}{ethtool\_value} edata = \{ \hyperlink{kcompat_8h_a2f48e82e210e7242c812f233fbfd8dd8}{ETHTOOL\_GTXCSUM} \};
+572 
+573     \textcolor{keywordflow}{if} (!\hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops}->get\_tx\_csum)
+574         \textcolor{keywordflow}{return} -EOPNOTSUPP;
+575 
+576     edata.\hyperlink{structethtool__value_a0e5b72ac4f845f11204b39c8fb0f5d91}{data} = \hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops}->get\_tx\_csum(dev);
+577 
+578     \textcolor{keywordflow}{if} (copy\_to\_user(useraddr, &edata, \textcolor{keyword}{sizeof}(edata)))
+579         \textcolor{keywordflow}{return} -EFAULT;
+580     \textcolor{keywordflow}{return} 0;
+581 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{kcompat__ethtool_8c_a422c2cf96017c7ab46abef205dcc47f7_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!ethtool\+\_\+get\+\_\+wol@{ethtool\+\_\+get\+\_\+wol}}
+\index{ethtool\+\_\+get\+\_\+wol@{ethtool\+\_\+get\+\_\+wol}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{ethtool\+\_\+get\+\_\+wol(struct net\+\_\+device $\ast$dev, char $\ast$useraddr)}{ethtool_get_wol(struct net_device *dev, char *useraddr)}}]{\setlength{\rightskip}{0pt plus 5cm}static int ethtool\+\_\+get\+\_\+wol (
+\begin{DoxyParamCaption}
+\item[{struct net\+\_\+device $\ast$}]{dev, }
+\item[{char $\ast$}]{useraddr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{kcompat__ethtool_8c_ad3c064fe15f58f47d423cc0df8568b1a}{}\label{kcompat__ethtool_8c_ad3c064fe15f58f47d423cc0df8568b1a}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 297 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+298 \{
+299     \textcolor{keyword}{struct }\hyperlink{structethtool__wolinfo}{ethtool\_wolinfo} wol = \{ \hyperlink{kcompat_8h_a631f738f9780dda68c984967d41eec1e}{ETHTOOL\_GWOL} \};
+300 
+301     \textcolor{keywordflow}{if} (!\hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops}->get\_wol)
+302         \textcolor{keywordflow}{return} -EOPNOTSUPP;
+303 
+304     \hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops}->get\_wol(dev, &wol);
+305 
+306     \textcolor{keywordflow}{if} (copy\_to\_user(useraddr, &wol, \textcolor{keyword}{sizeof}(wol)))
+307         \textcolor{keywordflow}{return} -EFAULT;
+308     \textcolor{keywordflow}{return} 0;
+309 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{kcompat__ethtool_8c_ad3c064fe15f58f47d423cc0df8568b1a_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!ethtool\+\_\+ioctl@{ethtool\+\_\+ioctl}}
+\index{ethtool\+\_\+ioctl@{ethtool\+\_\+ioctl}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{ethtool\+\_\+ioctl(struct ifreq $\ast$ifr)}{ethtool_ioctl(struct ifreq *ifr)}}]{\setlength{\rightskip}{0pt plus 5cm}int ethtool\+\_\+ioctl (
+\begin{DoxyParamCaption}
+\item[{struct ifreq $\ast$}]{ifr}
+\end{DoxyParamCaption}
+)}\hypertarget{kcompat__ethtool_8c_a458322e3bcff9788654149af9ffdf239}{}\label{kcompat__ethtool_8c_a458322e3bcff9788654149af9ffdf239}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 779 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+780 \{
+781     \textcolor{keyword}{struct }net\_device *dev = \_\_dev\_get\_by\_name(ifr->ifr\_name);
+782     \textcolor{keywordtype}{void} *useraddr = (\textcolor{keywordtype}{void} *) ifr->ifr\_data;
+783     \hyperlink{lib_2igb_2e1000__osdep_8h_a64e91c10a0d8fb627e92932050284264}{u32} ethcmd;
+784 
+785     \textcolor{comment}{/*}
+786 \textcolor{comment}{     * XXX: This can be pushed down into the ethtool\_* handlers that}
+787 \textcolor{comment}{     * need it.  Keep existing behavior for the moment.}
+788 \textcolor{comment}{     */}
+789     if (!capable(CAP\_NET\_ADMIN))
+790         \textcolor{keywordflow}{return} -EPERM;
+791 
+792     \textcolor{keywordflow}{if} (!dev || !netif\_device\_present(dev))
+793         \textcolor{keywordflow}{return} -ENODEV;
+794 
+795     \textcolor{keywordflow}{if} (copy\_from\_user(&ethcmd, useraddr, \textcolor{keyword}{sizeof} (ethcmd)))
+796         \textcolor{keywordflow}{return} -EFAULT;
+797 
+798     \textcolor{keywordflow}{switch} (ethcmd) \{
+799     \textcolor{keywordflow}{case} ETHTOOL\_GSET:
+800         \textcolor{keywordflow}{return} \hyperlink{kcompat__ethtool_8c_a65114c33a3cd4db69f3c8b55a7aaafee}{ethtool\_get\_settings}(dev, useraddr);
+801     \textcolor{keywordflow}{case} ETHTOOL\_SSET:
+802         \textcolor{keywordflow}{return} \hyperlink{kcompat__ethtool_8c_adb44382663858539e5502a85d134ff6a}{ethtool\_set\_settings}(dev, useraddr);
+803     \textcolor{keywordflow}{case} ETHTOOL\_GDRVINFO:
+804         \textcolor{keywordflow}{return} \hyperlink{kcompat__ethtool_8c_a92fd577a16e29a9ca506982cbd36be05}{ethtool\_get\_drvinfo}(dev, useraddr);
+805     \textcolor{keywordflow}{case} \hyperlink{kcompat_8h_ae9bd4e4afc25b8a93453ae2bd7ec37c2}{ETHTOOL\_GREGS}:
+806         \textcolor{keywordflow}{return} \hyperlink{kcompat__ethtool_8c_a06685acda21fdf860fed33a3179b4f19}{ethtool\_get\_regs}(dev, useraddr);
+807     \textcolor{keywordflow}{case} \hyperlink{kcompat_8h_a631f738f9780dda68c984967d41eec1e}{ETHTOOL\_GWOL}:
+808         \textcolor{keywordflow}{return} \hyperlink{kcompat__ethtool_8c_ad3c064fe15f58f47d423cc0df8568b1a}{ethtool\_get\_wol}(dev, useraddr);
+809     \textcolor{keywordflow}{case} \hyperlink{kcompat_8h_a217f223a55c61be7e54ea21f635a41bd}{ETHTOOL\_SWOL}:
+810         \textcolor{keywordflow}{return} \hyperlink{kcompat__ethtool_8c_a949d79acacb843d21e3a9925c43c6af2}{ethtool\_set\_wol}(dev, useraddr);
+811     \textcolor{keywordflow}{case} \hyperlink{kcompat_8h_a96d02e666097490b02edc635f4df2e92}{ETHTOOL\_GMSGLVL}:
+812         \textcolor{keywordflow}{return} \hyperlink{kcompat__ethtool_8c_a46ef1c910da06d901d4b309379d08ed9}{ethtool\_get\_msglevel}(dev, useraddr);
+813     \textcolor{keywordflow}{case} \hyperlink{kcompat_8h_a59bceed1cdcc3bde2fa62d90f860dc6e}{ETHTOOL\_SMSGLVL}:
+814         \textcolor{keywordflow}{return} \hyperlink{kcompat__ethtool_8c_a48f9aa3086aed394fcaca7e9b5c6fdf7}{ethtool\_set\_msglevel}(dev, useraddr);
+815     \textcolor{keywordflow}{case} \hyperlink{kcompat_8h_aa9e745ca3f71a8b8f40b33d9c5296e11}{ETHTOOL\_NWAY\_RST}:
+816         \textcolor{keywordflow}{return} \hyperlink{kcompat__ethtool_8c_ac57afa1b7920d316da0fdc570dd9406e}{ethtool\_nway\_reset}(dev);
+817     \textcolor{keywordflow}{case} \hyperlink{kcompat_8h_a67a6ed39a961cb11e5b986cb9a5e015c}{ETHTOOL\_GLINK}:
+818         \textcolor{keywordflow}{return} \hyperlink{kcompat__ethtool_8c_aa2042709e8d0ae6c23de08b28761dd3f}{ethtool\_get\_link}(dev, useraddr);
+819     \textcolor{keywordflow}{case} \hyperlink{kcompat_8h_aabcff2991436a204b5b0d053da982ef0}{ETHTOOL\_GEEPROM}:
+820         \textcolor{keywordflow}{return} \hyperlink{kcompat__ethtool_8c_a9f9beb2c7b7f75f3e53642cb5dcb48ec}{ethtool\_get\_eeprom}(dev, useraddr);
+821     \textcolor{keywordflow}{case} \hyperlink{kcompat_8h_a7ded09df8c47cc52367b90e6fd2f8c9c}{ETHTOOL\_SEEPROM}:
+822         \textcolor{keywordflow}{return} \hyperlink{kcompat__ethtool_8c_ac31e10dd1769467fa7a39b64735669ca}{ethtool\_set\_eeprom}(dev, useraddr);
+823     \textcolor{keywordflow}{case} \hyperlink{kcompat_8h_ab2b1b330a9e8312428bb3fbd4faafff3}{ETHTOOL\_GCOALESCE}:
+824         \textcolor{keywordflow}{return} \hyperlink{kcompat__ethtool_8c_a5861997b38d628f5153acde2445dd7b9}{ethtool\_get\_coalesce}(dev, useraddr);
+825     \textcolor{keywordflow}{case} \hyperlink{kcompat_8h_a5d478292e4b70e5bb8228631cd50a86e}{ETHTOOL\_SCOALESCE}:
+826         \textcolor{keywordflow}{return} \hyperlink{kcompat__ethtool_8c_aa737b25bd81094795ac79f48c2a2e8f4}{ethtool\_set\_coalesce}(dev, useraddr);
+827     \textcolor{keywordflow}{case} \hyperlink{kcompat_8h_ab154bd3fcb54f490898a77420421567d}{ETHTOOL\_GRINGPARAM}:
+828         \textcolor{keywordflow}{return} \hyperlink{kcompat__ethtool_8c_a1137796eac92b6df1c58ed8fd5070a44}{ethtool\_get\_ringparam}(dev, useraddr);
+829     \textcolor{keywordflow}{case} \hyperlink{kcompat_8h_aa2afd7bb2f85e5c35bc7d124a07f02be}{ETHTOOL\_SRINGPARAM}:
+830         \textcolor{keywordflow}{return} \hyperlink{kcompat__ethtool_8c_a25735011096d93e5deeb00510423e8fc}{ethtool\_set\_ringparam}(dev, useraddr);
+831     \textcolor{keywordflow}{case} \hyperlink{kcompat_8h_ac1ece1ac3c48dfa8d9c788f76e028338}{ETHTOOL\_GPAUSEPARAM}:
+832         \textcolor{keywordflow}{return} \hyperlink{kcompat__ethtool_8c_a05af49886a8f267a18d34341d59c743a}{ethtool\_get\_pauseparam}(dev, useraddr);
+833     \textcolor{keywordflow}{case} \hyperlink{kcompat_8h_a9b6b23eba3e92a2061ed1452e8d4a895}{ETHTOOL\_SPAUSEPARAM}:
+834         \textcolor{keywordflow}{return} \hyperlink{kcompat__ethtool_8c_adec49b7fbfe5f9028b137f37debb05e8}{ethtool\_set\_pauseparam}(dev, useraddr);
+835     \textcolor{keywordflow}{case} \hyperlink{kcompat_8h_a972cf74afba7535ee4e4a33fe05b852d}{ETHTOOL\_GRXCSUM}:
+836         \textcolor{keywordflow}{return} \hyperlink{kcompat__ethtool_8c_aeac587c8ee85fb900da8feffd634da5c}{ethtool\_get\_rx\_csum}(dev, useraddr);
+837     \textcolor{keywordflow}{case} \hyperlink{kcompat_8h_a28145a2230ebd196617cdbf7a3f01209}{ETHTOOL\_SRXCSUM}:
+838         \textcolor{keywordflow}{return} \hyperlink{kcompat__ethtool_8c_a4dfaa97fc6f67c0dd207ddaac3558b3a}{ethtool\_set\_rx\_csum}(dev, useraddr);
+839     \textcolor{keywordflow}{case} \hyperlink{kcompat_8h_a2f48e82e210e7242c812f233fbfd8dd8}{ETHTOOL\_GTXCSUM}:
+840         \textcolor{keywordflow}{return} \hyperlink{kcompat__ethtool_8c_a422c2cf96017c7ab46abef205dcc47f7}{ethtool\_get\_tx\_csum}(dev, useraddr);
+841     \textcolor{keywordflow}{case} \hyperlink{kcompat_8h_ac70f22a97fd8a767859fe92d4c3caf6d}{ETHTOOL\_STXCSUM}:
+842         \textcolor{keywordflow}{return} \hyperlink{kcompat__ethtool_8c_a03701af71480a5b2f49abfbab1a6c563}{ethtool\_set\_tx\_csum}(dev, useraddr);
+843     \textcolor{keywordflow}{case} \hyperlink{kcompat_8h_ab239239a12a042511313da4670362a47}{ETHTOOL\_GSG}:
+844         \textcolor{keywordflow}{return} \hyperlink{kcompat__ethtool_8c_a906bba1b2281ed976a4c39de5f7a7340}{ethtool\_get\_sg}(dev, useraddr);
+845     \textcolor{keywordflow}{case} \hyperlink{kcompat_8h_a1a0395fc0ffba140716d4b8e3f6d9492}{ETHTOOL\_SSG}:
+846         \textcolor{keywordflow}{return} \hyperlink{kcompat__ethtool_8c_a78eb31e9508f72c3983d753c31f51719}{ethtool\_set\_sg}(dev, useraddr);
+847     \textcolor{keywordflow}{case} \hyperlink{kcompat_8h_abf1dd17d78a20164571e371839a03556}{ETHTOOL\_GTSO}:
+848         \textcolor{keywordflow}{return} \hyperlink{kcompat__ethtool_8c_a037ee517037320325aaf2cc54ee18d02}{ethtool\_get\_tso}(dev, useraddr);
+849     \textcolor{keywordflow}{case} \hyperlink{kcompat_8h_a21bc84fb4109345ad0e9618160565ca0}{ETHTOOL\_STSO}:
+850         \textcolor{keywordflow}{return} \hyperlink{kcompat__ethtool_8c_ad47062f14f79f8281769c8efefad27f3}{ethtool\_set\_tso}(dev, useraddr);
+851     \textcolor{keywordflow}{case} \hyperlink{kcompat_8h_acdfad1e6348b969bffc615d9aabb9f86}{ETHTOOL\_TEST}:
+852         \textcolor{keywordflow}{return} \hyperlink{kcompat__ethtool_8c_a2806d13c8a002549316dcbd1aa267037}{ethtool\_self\_test}(dev, useraddr);
+853     \textcolor{keywordflow}{case} \hyperlink{kcompat_8h_a918d6325887f66010aa3c3bdee4bbb57}{ETHTOOL\_GSTRINGS}:
+854         \textcolor{keywordflow}{return} \hyperlink{kcompat__ethtool_8c_a19dfa4c9969f8d94b0e1058fc696e2c2}{ethtool\_get\_strings}(dev, useraddr);
+855     \textcolor{keywordflow}{case} \hyperlink{kcompat_8h_a39afeb65b0d7167cb6a4b0d588f31461}{ETHTOOL\_PHYS\_ID}:
+856         \textcolor{keywordflow}{return} \hyperlink{kcompat__ethtool_8c_ab3ed5e3f07a169ef1b22d7ff0fd5a1df}{ethtool\_phys\_id}(dev, useraddr);
+857     \textcolor{keywordflow}{case} \hyperlink{kcompat_8h_a5361d1b74190e8196c3e5ad6c6303f65}{ETHTOOL\_GSTATS}:
+858         \textcolor{keywordflow}{return} \hyperlink{kcompat__ethtool_8c_a1ba4ff860b73b3041128653e6dc778b1}{ethtool\_get\_stats}(dev, useraddr);
+859     \textcolor{keywordflow}{default}:
+860         \textcolor{keywordflow}{return} -EOPNOTSUPP;
+861     \}
+862 
+863     \textcolor{keywordflow}{return} -EOPNOTSUPP;
+864 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{kcompat__ethtool_8c_a458322e3bcff9788654149af9ffdf239_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{kcompat__ethtool_8c_a458322e3bcff9788654149af9ffdf239_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!ethtool\+\_\+nway\+\_\+reset@{ethtool\+\_\+nway\+\_\+reset}}
+\index{ethtool\+\_\+nway\+\_\+reset@{ethtool\+\_\+nway\+\_\+reset}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{ethtool\+\_\+nway\+\_\+reset(struct net\+\_\+device $\ast$dev)}{ethtool_nway_reset(struct net_device *dev)}}]{\setlength{\rightskip}{0pt plus 5cm}static int ethtool\+\_\+nway\+\_\+reset (
+\begin{DoxyParamCaption}
+\item[{struct net\+\_\+device $\ast$}]{dev}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{kcompat__ethtool_8c_ac57afa1b7920d316da0fdc570dd9406e}{}\label{kcompat__ethtool_8c_ac57afa1b7920d316da0fdc570dd9406e}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 352 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+353 \{
+354     \textcolor{keywordflow}{if} (!\hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops}->nway\_reset)
+355         \textcolor{keywordflow}{return} -EOPNOTSUPP;
+356 
+357     \textcolor{keywordflow}{return} \hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops}->nway\_reset(dev);
+358 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{kcompat__ethtool_8c_ac57afa1b7920d316da0fdc570dd9406e_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!ethtool\+\_\+phys\+\_\+id@{ethtool\+\_\+phys\+\_\+id}}
+\index{ethtool\+\_\+phys\+\_\+id@{ethtool\+\_\+phys\+\_\+id}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{ethtool\+\_\+phys\+\_\+id(struct net\+\_\+device $\ast$dev, void $\ast$useraddr)}{ethtool_phys_id(struct net_device *dev, void *useraddr)}}]{\setlength{\rightskip}{0pt plus 5cm}static int ethtool\+\_\+phys\+\_\+id (
+\begin{DoxyParamCaption}
+\item[{struct net\+\_\+device $\ast$}]{dev, }
+\item[{void $\ast$}]{useraddr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{kcompat__ethtool_8c_ab3ed5e3f07a169ef1b22d7ff0fd5a1df}{}\label{kcompat__ethtool_8c_ab3ed5e3f07a169ef1b22d7ff0fd5a1df}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 730 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+731 \{
+732     \textcolor{keyword}{struct }\hyperlink{structethtool__value}{ethtool\_value} id;
+733 
+734     \textcolor{keywordflow}{if} (!\hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops}->phys\_id)
+735         \textcolor{keywordflow}{return} -EOPNOTSUPP;
+736 
+737     \textcolor{keywordflow}{if} (copy\_from\_user(&\textcolor{keywordtype}{id}, useraddr, \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{id})))
+738         \textcolor{keywordflow}{return} -EFAULT;
+739 
+740     \textcolor{keywordflow}{return} \hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops}->phys\_id(dev, \textcolor{keywordtype}{id}.\hyperlink{structethtool__value_a0e5b72ac4f845f11204b39c8fb0f5d91}{data});
+741 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{kcompat__ethtool_8c_ab3ed5e3f07a169ef1b22d7ff0fd5a1df_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!ethtool\+\_\+self\+\_\+test@{ethtool\+\_\+self\+\_\+test}}
+\index{ethtool\+\_\+self\+\_\+test@{ethtool\+\_\+self\+\_\+test}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{ethtool\+\_\+self\+\_\+test(struct net\+\_\+device $\ast$dev, char $\ast$useraddr)}{ethtool_self_test(struct net_device *dev, char *useraddr)}}]{\setlength{\rightskip}{0pt plus 5cm}static int ethtool\+\_\+self\+\_\+test (
+\begin{DoxyParamCaption}
+\item[{struct net\+\_\+device $\ast$}]{dev, }
+\item[{char $\ast$}]{useraddr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{kcompat__ethtool_8c_a2806d13c8a002549316dcbd1aa267037}{}\label{kcompat__ethtool_8c_a2806d13c8a002549316dcbd1aa267037}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 650 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+651 \{
+652     \textcolor{keyword}{struct }\hyperlink{structethtool__test}{ethtool\_test} test;
+653     \textcolor{keyword}{struct }\hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops} *ops = \hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops};
+654     \hyperlink{lib_2igb_2e1000__osdep_8h_a1d8f78f95a414480659f3182e6067b80}{u64} *data;
+655     \textcolor{keywordtype}{int} ret;
+656 
+657     \textcolor{keywordflow}{if} (!ops->self\_test || !ops->self\_test\_count)
+658         \textcolor{keywordflow}{return} -EOPNOTSUPP;
+659 
+660     \textcolor{keywordflow}{if} (copy\_from\_user(&test, useraddr, \textcolor{keyword}{sizeof}(test)))
+661         \textcolor{keywordflow}{return} -EFAULT;
+662 
+663     test.len = ops->self\_test\_count(dev);
+664     data = kmalloc(test.len * \textcolor{keyword}{sizeof}(\hyperlink{lib_2igb_2e1000__osdep_8h_a1d8f78f95a414480659f3182e6067b80}{u64}), GFP\_USER);
+665     \textcolor{keywordflow}{if} (!data)
+666         \textcolor{keywordflow}{return} -ENOMEM;
+667 
+668     ops->self\_test(dev, &test, data);
+669 
+670     ret = -EFAULT;
+671     \textcolor{keywordflow}{if} (copy\_to\_user(useraddr, &test, \textcolor{keyword}{sizeof}(test)))
+672         \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+673     useraddr += \textcolor{keyword}{sizeof}(test);
+674     \textcolor{keywordflow}{if} (copy\_to\_user(useraddr, data, test.len * \textcolor{keyword}{sizeof}(\hyperlink{lib_2igb_2e1000__osdep_8h_a1d8f78f95a414480659f3182e6067b80}{u64})))
+675         \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+676     ret = 0;
+677 
+678 \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out}:
+679     kfree(data);
+680     \textcolor{keywordflow}{return} ret;
+681 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{kcompat__ethtool_8c_a2806d13c8a002549316dcbd1aa267037_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!ethtool\+\_\+set\+\_\+coalesce@{ethtool\+\_\+set\+\_\+coalesce}}
+\index{ethtool\+\_\+set\+\_\+coalesce@{ethtool\+\_\+set\+\_\+coalesce}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{ethtool\+\_\+set\+\_\+coalesce(struct net\+\_\+device $\ast$dev, void $\ast$useraddr)}{ethtool_set_coalesce(struct net_device *dev, void *useraddr)}}]{\setlength{\rightskip}{0pt plus 5cm}static int ethtool\+\_\+set\+\_\+coalesce (
+\begin{DoxyParamCaption}
+\item[{struct net\+\_\+device $\ast$}]{dev, }
+\item[{void $\ast$}]{useraddr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{kcompat__ethtool_8c_aa737b25bd81094795ac79f48c2a2e8f4}{}\label{kcompat__ethtool_8c_aa737b25bd81094795ac79f48c2a2e8f4}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 474 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+475 \{
+476     \textcolor{keyword}{struct }\hyperlink{kcompat_8h_a88fa035fec6b4ef68bb34dab55f3ad97}{ethtool\_coalesce} coalesce;
+477 
+478     \textcolor{keywordflow}{if} (!\hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops}->get\_coalesce)
+479         \textcolor{keywordflow}{return} -EOPNOTSUPP;
+480 
+481     \textcolor{keywordflow}{if} (copy\_from\_user(&coalesce, useraddr, \textcolor{keyword}{sizeof}(coalesce)))
+482         \textcolor{keywordflow}{return} -EFAULT;
+483 
+484     \textcolor{keywordflow}{return} \hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops}->set\_coalesce(dev, &coalesce);
+485 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{kcompat__ethtool_8c_aa737b25bd81094795ac79f48c2a2e8f4_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!ethtool\+\_\+set\+\_\+eeprom@{ethtool\+\_\+set\+\_\+eeprom}}
+\index{ethtool\+\_\+set\+\_\+eeprom@{ethtool\+\_\+set\+\_\+eeprom}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{ethtool\+\_\+set\+\_\+eeprom(struct net\+\_\+device $\ast$dev, void $\ast$useraddr)}{ethtool_set_eeprom(struct net_device *dev, void *useraddr)}}]{\setlength{\rightskip}{0pt plus 5cm}static int ethtool\+\_\+set\+\_\+eeprom (
+\begin{DoxyParamCaption}
+\item[{struct net\+\_\+device $\ast$}]{dev, }
+\item[{void $\ast$}]{useraddr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{kcompat__ethtool_8c_ac31e10dd1769467fa7a39b64735669ca}{}\label{kcompat__ethtool_8c_ac31e10dd1769467fa7a39b64735669ca}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 419 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+420 \{
+421     \textcolor{keyword}{struct }\hyperlink{structethtool__eeprom}{ethtool\_eeprom} eeprom;
+422     \textcolor{keyword}{struct }\hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops} *ops = \hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops};
+423     \hyperlink{lib_2igb_2e1000__osdep_8h_a8baca7e76da9e0e11ce3a275dd19130c}{u8} *data;
+424     \textcolor{keywordtype}{int} ret;
+425 
+426     \textcolor{keywordflow}{if} (!ops->set\_eeprom || !ops->get\_eeprom\_len)
+427         \textcolor{keywordflow}{return} -EOPNOTSUPP;
+428 
+429     \textcolor{keywordflow}{if} (copy\_from\_user(&eeprom, useraddr, \textcolor{keyword}{sizeof}(eeprom)))
+430         \textcolor{keywordflow}{return} -EFAULT;
+431 
+432     \textcolor{comment}{/* Check for wrap and zero */}
+433     \textcolor{keywordflow}{if} (eeprom.offset + eeprom.len <= eeprom.offset)
+434         \textcolor{keywordflow}{return} -EINVAL;
+435 
+436     \textcolor{comment}{/* Check for exceeding total eeprom len */}
+437     \textcolor{keywordflow}{if} (eeprom.offset + eeprom.len > ops->get\_eeprom\_len(dev))
+438         \textcolor{keywordflow}{return} -EINVAL;
+439 
+440     data = kmalloc(eeprom.len, GFP\_USER);
+441     \textcolor{keywordflow}{if} (!data)
+442         \textcolor{keywordflow}{return} -ENOMEM;
+443 
+444     ret = -EFAULT;
+445     \textcolor{keywordflow}{if} (copy\_from\_user(data, useraddr + \textcolor{keyword}{sizeof}(eeprom), eeprom.len))
+446         \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+447 
+448     ret = ops->set\_eeprom(dev, &eeprom, data);
+449     \textcolor{keywordflow}{if} (ret)
+450         \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+451 
+452     \textcolor{keywordflow}{if} (copy\_to\_user(useraddr + \textcolor{keyword}{sizeof}(eeprom), data, eeprom.len))
+453         ret = -EFAULT;
+454 
+455 \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out}:
+456     kfree(data);
+457     \textcolor{keywordflow}{return} ret;
+458 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{kcompat__ethtool_8c_ac31e10dd1769467fa7a39b64735669ca_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!ethtool\+\_\+set\+\_\+msglevel@{ethtool\+\_\+set\+\_\+msglevel}}
+\index{ethtool\+\_\+set\+\_\+msglevel@{ethtool\+\_\+set\+\_\+msglevel}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{ethtool\+\_\+set\+\_\+msglevel(struct net\+\_\+device $\ast$dev, char $\ast$useraddr)}{ethtool_set_msglevel(struct net_device *dev, char *useraddr)}}]{\setlength{\rightskip}{0pt plus 5cm}static int ethtool\+\_\+set\+\_\+msglevel (
+\begin{DoxyParamCaption}
+\item[{struct net\+\_\+device $\ast$}]{dev, }
+\item[{char $\ast$}]{useraddr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{kcompat__ethtool_8c_a48f9aa3086aed394fcaca7e9b5c6fdf7}{}\label{kcompat__ethtool_8c_a48f9aa3086aed394fcaca7e9b5c6fdf7}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 338 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+339 \{
+340     \textcolor{keyword}{struct }\hyperlink{structethtool__value}{ethtool\_value} edata;
+341 
+342     \textcolor{keywordflow}{if} (!\hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops}->set\_msglevel)
+343         \textcolor{keywordflow}{return} -EOPNOTSUPP;
+344 
+345     \textcolor{keywordflow}{if} (copy\_from\_user(&edata, useraddr, \textcolor{keyword}{sizeof}(edata)))
+346         \textcolor{keywordflow}{return} -EFAULT;
+347 
+348     \hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops}->set\_msglevel(dev, edata.data);
+349     \textcolor{keywordflow}{return} 0;
+350 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{kcompat__ethtool_8c_a48f9aa3086aed394fcaca7e9b5c6fdf7_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!ethtool\+\_\+set\+\_\+pauseparam@{ethtool\+\_\+set\+\_\+pauseparam}}
+\index{ethtool\+\_\+set\+\_\+pauseparam@{ethtool\+\_\+set\+\_\+pauseparam}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{ethtool\+\_\+set\+\_\+pauseparam(struct net\+\_\+device $\ast$dev, void $\ast$useraddr)}{ethtool_set_pauseparam(struct net_device *dev, void *useraddr)}}]{\setlength{\rightskip}{0pt plus 5cm}static int ethtool\+\_\+set\+\_\+pauseparam (
+\begin{DoxyParamCaption}
+\item[{struct net\+\_\+device $\ast$}]{dev, }
+\item[{void $\ast$}]{useraddr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{kcompat__ethtool_8c_adec49b7fbfe5f9028b137f37debb05e8}{}\label{kcompat__ethtool_8c_adec49b7fbfe5f9028b137f37debb05e8}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 528 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+529 \{
+530     \textcolor{keyword}{struct }\hyperlink{kcompat_8h_a25d94d0b4f727dc72793458fc0cc5364}{ethtool\_pauseparam} pauseparam;
+531 
+532     \textcolor{keywordflow}{if} (!\hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops}->get\_pauseparam)
+533         \textcolor{keywordflow}{return} -EOPNOTSUPP;
+534 
+535     \textcolor{keywordflow}{if} (copy\_from\_user(&pauseparam, useraddr, \textcolor{keyword}{sizeof}(pauseparam)))
+536         \textcolor{keywordflow}{return} -EFAULT;
+537 
+538     \textcolor{keywordflow}{return} \hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops}->set\_pauseparam(dev, &pauseparam);
+539 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{kcompat__ethtool_8c_adec49b7fbfe5f9028b137f37debb05e8_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!ethtool\+\_\+set\+\_\+ringparam@{ethtool\+\_\+set\+\_\+ringparam}}
+\index{ethtool\+\_\+set\+\_\+ringparam@{ethtool\+\_\+set\+\_\+ringparam}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{ethtool\+\_\+set\+\_\+ringparam(struct net\+\_\+device $\ast$dev, void $\ast$useraddr)}{ethtool_set_ringparam(struct net_device *dev, void *useraddr)}}]{\setlength{\rightskip}{0pt plus 5cm}static int ethtool\+\_\+set\+\_\+ringparam (
+\begin{DoxyParamCaption}
+\item[{struct net\+\_\+device $\ast$}]{dev, }
+\item[{void $\ast$}]{useraddr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{kcompat__ethtool_8c_a25735011096d93e5deeb00510423e8fc}{}\label{kcompat__ethtool_8c_a25735011096d93e5deeb00510423e8fc}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 501 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+502 \{
+503     \textcolor{keyword}{struct }\hyperlink{kcompat_8h_aa0f9281f1f6fef10992f4e8ae9143653}{ethtool\_ringparam} ringparam;
+504 
+505     \textcolor{keywordflow}{if} (!\hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops}->get\_ringparam)
+506         \textcolor{keywordflow}{return} -EOPNOTSUPP;
+507 
+508     \textcolor{keywordflow}{if} (copy\_from\_user(&ringparam, useraddr, \textcolor{keyword}{sizeof}(ringparam)))
+509         \textcolor{keywordflow}{return} -EFAULT;
+510 
+511     \textcolor{keywordflow}{return} \hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops}->set\_ringparam(dev, &ringparam);
+512 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{kcompat__ethtool_8c_a25735011096d93e5deeb00510423e8fc_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!ethtool\+\_\+set\+\_\+rx\+\_\+csum@{ethtool\+\_\+set\+\_\+rx\+\_\+csum}}
+\index{ethtool\+\_\+set\+\_\+rx\+\_\+csum@{ethtool\+\_\+set\+\_\+rx\+\_\+csum}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{ethtool\+\_\+set\+\_\+rx\+\_\+csum(struct net\+\_\+device $\ast$dev, char $\ast$useraddr)}{ethtool_set_rx_csum(struct net_device *dev, char *useraddr)}}]{\setlength{\rightskip}{0pt plus 5cm}static int ethtool\+\_\+set\+\_\+rx\+\_\+csum (
+\begin{DoxyParamCaption}
+\item[{struct net\+\_\+device $\ast$}]{dev, }
+\item[{char $\ast$}]{useraddr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{kcompat__ethtool_8c_a4dfaa97fc6f67c0dd207ddaac3558b3a}{}\label{kcompat__ethtool_8c_a4dfaa97fc6f67c0dd207ddaac3558b3a}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 555 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+556 \{
+557     \textcolor{keyword}{struct }\hyperlink{structethtool__value}{ethtool\_value} edata;
+558 
+559     \textcolor{keywordflow}{if} (!\hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops}->set\_rx\_csum)
+560         \textcolor{keywordflow}{return} -EOPNOTSUPP;
+561 
+562     \textcolor{keywordflow}{if} (copy\_from\_user(&edata, useraddr, \textcolor{keyword}{sizeof}(edata)))
+563         \textcolor{keywordflow}{return} -EFAULT;
+564 
+565     \hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops}->set\_rx\_csum(dev, edata.data);
+566     \textcolor{keywordflow}{return} 0;
+567 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{kcompat__ethtool_8c_a4dfaa97fc6f67c0dd207ddaac3558b3a_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!ethtool\+\_\+set\+\_\+settings@{ethtool\+\_\+set\+\_\+settings}}
+\index{ethtool\+\_\+set\+\_\+settings@{ethtool\+\_\+set\+\_\+settings}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{ethtool\+\_\+set\+\_\+settings(struct net\+\_\+device $\ast$dev, void $\ast$useraddr)}{ethtool_set_settings(struct net_device *dev, void *useraddr)}}]{\setlength{\rightskip}{0pt plus 5cm}static int ethtool\+\_\+set\+\_\+settings (
+\begin{DoxyParamCaption}
+\item[{struct net\+\_\+device $\ast$}]{dev, }
+\item[{void $\ast$}]{useraddr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{kcompat__ethtool_8c_adb44382663858539e5502a85d134ff6a}{}\label{kcompat__ethtool_8c_adb44382663858539e5502a85d134ff6a}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 222 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+223 \{
+224     \textcolor{keyword}{struct }ethtool\_cmd cmd;
+225 
+226     \textcolor{keywordflow}{if} (!\hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops}->set\_settings)
+227         \textcolor{keywordflow}{return} -EOPNOTSUPP;
+228 
+229     \textcolor{keywordflow}{if} (copy\_from\_user(&cmd, useraddr, \textcolor{keyword}{sizeof}(cmd)))
+230         \textcolor{keywordflow}{return} -EFAULT;
+231 
+232     \textcolor{keywordflow}{return} \hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops}->set\_settings(dev, &cmd);
+233 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{kcompat__ethtool_8c_adb44382663858539e5502a85d134ff6a_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!ethtool\+\_\+set\+\_\+sg@{ethtool\+\_\+set\+\_\+sg}}
+\index{ethtool\+\_\+set\+\_\+sg@{ethtool\+\_\+set\+\_\+sg}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{ethtool\+\_\+set\+\_\+sg(struct net\+\_\+device $\ast$dev, char $\ast$useraddr)}{ethtool_set_sg(struct net_device *dev, char *useraddr)}}]{\setlength{\rightskip}{0pt plus 5cm}static int ethtool\+\_\+set\+\_\+sg (
+\begin{DoxyParamCaption}
+\item[{struct net\+\_\+device $\ast$}]{dev, }
+\item[{char $\ast$}]{useraddr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{kcompat__ethtool_8c_a78eb31e9508f72c3983d753c31f51719}{}\label{kcompat__ethtool_8c_a78eb31e9508f72c3983d753c31f51719}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 610 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+611 \{
+612     \textcolor{keyword}{struct }\hyperlink{structethtool__value}{ethtool\_value} edata;
+613 
+614     \textcolor{keywordflow}{if} (!\hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops}->set\_sg)
+615         \textcolor{keywordflow}{return} -EOPNOTSUPP;
+616 
+617     \textcolor{keywordflow}{if} (copy\_from\_user(&edata, useraddr, \textcolor{keyword}{sizeof}(edata)))
+618         \textcolor{keywordflow}{return} -EFAULT;
+619 
+620     \textcolor{keywordflow}{return} \hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops}->set\_sg(dev, edata.data);
+621 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{kcompat__ethtool_8c_a78eb31e9508f72c3983d753c31f51719_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!ethtool\+\_\+set\+\_\+tso@{ethtool\+\_\+set\+\_\+tso}}
+\index{ethtool\+\_\+set\+\_\+tso@{ethtool\+\_\+set\+\_\+tso}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{ethtool\+\_\+set\+\_\+tso(struct net\+\_\+device $\ast$dev, char $\ast$useraddr)}{ethtool_set_tso(struct net_device *dev, char *useraddr)}}]{\setlength{\rightskip}{0pt plus 5cm}static int ethtool\+\_\+set\+\_\+tso (
+\begin{DoxyParamCaption}
+\item[{struct net\+\_\+device $\ast$}]{dev, }
+\item[{char $\ast$}]{useraddr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{kcompat__ethtool_8c_ad47062f14f79f8281769c8efefad27f3}{}\label{kcompat__ethtool_8c_ad47062f14f79f8281769c8efefad27f3}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 637 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+638 \{
+639     \textcolor{keyword}{struct }\hyperlink{structethtool__value}{ethtool\_value} edata;
+640 
+641     \textcolor{keywordflow}{if} (!\hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops}->set\_tso)
+642         \textcolor{keywordflow}{return} -EOPNOTSUPP;
+643 
+644     \textcolor{keywordflow}{if} (copy\_from\_user(&edata, useraddr, \textcolor{keyword}{sizeof}(edata)))
+645         \textcolor{keywordflow}{return} -EFAULT;
+646 
+647     \textcolor{keywordflow}{return} \hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops}->set\_tso(dev, edata.data);
+648 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{kcompat__ethtool_8c_ad47062f14f79f8281769c8efefad27f3_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!ethtool\+\_\+set\+\_\+tx\+\_\+csum@{ethtool\+\_\+set\+\_\+tx\+\_\+csum}}
+\index{ethtool\+\_\+set\+\_\+tx\+\_\+csum@{ethtool\+\_\+set\+\_\+tx\+\_\+csum}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{ethtool\+\_\+set\+\_\+tx\+\_\+csum(struct net\+\_\+device $\ast$dev, char $\ast$useraddr)}{ethtool_set_tx_csum(struct net_device *dev, char *useraddr)}}]{\setlength{\rightskip}{0pt plus 5cm}static int ethtool\+\_\+set\+\_\+tx\+\_\+csum (
+\begin{DoxyParamCaption}
+\item[{struct net\+\_\+device $\ast$}]{dev, }
+\item[{char $\ast$}]{useraddr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{kcompat__ethtool_8c_a03701af71480a5b2f49abfbab1a6c563}{}\label{kcompat__ethtool_8c_a03701af71480a5b2f49abfbab1a6c563}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 583 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+584 \{
+585     \textcolor{keyword}{struct }\hyperlink{structethtool__value}{ethtool\_value} edata;
+586 
+587     \textcolor{keywordflow}{if} (!\hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops}->set\_tx\_csum)
+588         \textcolor{keywordflow}{return} -EOPNOTSUPP;
+589 
+590     \textcolor{keywordflow}{if} (copy\_from\_user(&edata, useraddr, \textcolor{keyword}{sizeof}(edata)))
+591         \textcolor{keywordflow}{return} -EFAULT;
+592 
+593     \textcolor{keywordflow}{return} \hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops}->set\_tx\_csum(dev, edata.data);
+594 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{kcompat__ethtool_8c_a03701af71480a5b2f49abfbab1a6c563_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!ethtool\+\_\+set\+\_\+wol@{ethtool\+\_\+set\+\_\+wol}}
+\index{ethtool\+\_\+set\+\_\+wol@{ethtool\+\_\+set\+\_\+wol}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{ethtool\+\_\+set\+\_\+wol(struct net\+\_\+device $\ast$dev, char $\ast$useraddr)}{ethtool_set_wol(struct net_device *dev, char *useraddr)}}]{\setlength{\rightskip}{0pt plus 5cm}static int ethtool\+\_\+set\+\_\+wol (
+\begin{DoxyParamCaption}
+\item[{struct net\+\_\+device $\ast$}]{dev, }
+\item[{char $\ast$}]{useraddr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{kcompat__ethtool_8c_a949d79acacb843d21e3a9925c43c6af2}{}\label{kcompat__ethtool_8c_a949d79acacb843d21e3a9925c43c6af2}
+
+
+kcompat\+\_\+ethtool.\+c 파일의 311 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+312 \{
+313     \textcolor{keyword}{struct }\hyperlink{structethtool__wolinfo}{ethtool\_wolinfo} wol;
+314 
+315     \textcolor{keywordflow}{if} (!\hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops}->set\_wol)
+316         \textcolor{keywordflow}{return} -EOPNOTSUPP;
+317 
+318     \textcolor{keywordflow}{if} (copy\_from\_user(&wol, useraddr, \textcolor{keyword}{sizeof}(wol)))
+319         \textcolor{keywordflow}{return} -EFAULT;
+320 
+321     \textcolor{keywordflow}{return} \hyperlink{kcompat__ethtool_8c_a6daa75e8d2d87688d80af56e004e597f}{ethtool\_ops}->set\_wol(dev, &wol);
+322 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{kcompat__ethtool_8c_a949d79acacb843d21e3a9925c43c6af2_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{변수 문서화}
+\index{kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}!ethtool\+\_\+ops@{ethtool\+\_\+ops}}
+\index{ethtool\+\_\+ops@{ethtool\+\_\+ops}!kcompat\+\_\+ethtool.\+c@{kcompat\+\_\+ethtool.\+c}}
+\subsubsection[{\texorpdfstring{ethtool\+\_\+ops}{ethtool_ops}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf \+\_\+kc\+\_\+ethtool\+\_\+ops} $\ast$ ethtool\+\_\+ops = {\bf N\+U\+LL}}\hypertarget{kcompat__ethtool_8c_ac0ef654b2177bb0fb3ebb38ac08f2359}{}\label{kcompat__ethtool_8c_ac0ef654b2177bb0fb3ebb38ac08f2359}

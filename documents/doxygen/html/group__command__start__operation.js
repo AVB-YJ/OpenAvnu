@@ -1,0 +1,35 @@
+var group__command__start__operation =
+[
+    [ "jdksavdecc_aem_command_start_operation", "structjdksavdecc__aem__command__start__operation.html", [
+      [ "aem_header", "structjdksavdecc__aem__command__start__operation.html#ae1e77ccb75ff5021ad923221eab38294", null ],
+      [ "descriptor_index", "structjdksavdecc__aem__command__start__operation.html#a042bbc76d835b82d27c1932431ee38d4", null ],
+      [ "descriptor_type", "structjdksavdecc__aem__command__start__operation.html#ab7c32b6c7131c13d4ea3b7ee2f09b78d", null ],
+      [ "operation_id", "structjdksavdecc__aem__command__start__operation.html#a5b1b19c38a3b340cfc6ebcb9eeb153e2", null ],
+      [ "operation_type", "structjdksavdecc__aem__command__start__operation.html#ab2dfcd06646c4907feb4ec8153ba7b79", null ]
+    ] ],
+    [ "JDKSAVDECC_AEM_COMMAND_START_OPERATION_COMMAND_LEN", "group__command__start__operation.html#gadc16cfcdc418cdc8d97b9593e4d3cea1", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_START_OPERATION_COMMAND_OFFSET_COMMAND_TYPE", "group__command__start__operation.html#ga209fd91e48ab6244c32f70c21ab99d23", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_START_OPERATION_COMMAND_OFFSET_CONTROLLER_ENTITY_ID", "group__command__start__operation.html#gac5897e9435a0735843ccef9a07d4e449", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_START_OPERATION_COMMAND_OFFSET_DESCRIPTOR_INDEX", "group__command__start__operation.html#gaae0c9a246aec08d8a23b7c9475a534cb", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_START_OPERATION_COMMAND_OFFSET_DESCRIPTOR_TYPE", "group__command__start__operation.html#ga80e1dec5ecd05e09cfebee1c16c5ec22", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_START_OPERATION_COMMAND_OFFSET_OPERATION_ID", "group__command__start__operation.html#ga16966da87cb4ed32081b62661cd8db90", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_START_OPERATION_COMMAND_OFFSET_OPERATION_TYPE", "group__command__start__operation.html#ga0e8b0176434128bc788ed50a6f43e6b8", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_START_OPERATION_COMMAND_OFFSET_SEQUENCE_ID", "group__command__start__operation.html#ga26c54bfa351ec8a95f81263ba9cd1fdd", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_START_OPERATION_COMMAND_OFFSET_VALUES", "group__command__start__operation.html#gaa36a30e47fc0ad447d4c9c9e92435a80", null ],
+    [ "jdksavdecc_aem_command_start_operation_get_command_type", "group__command__start__operation.html#gaa9ebead0edc47616e0176c99815b9d05", null ],
+    [ "jdksavdecc_aem_command_start_operation_get_controller_entity_id", "group__command__start__operation.html#gab93f259b034934b890bc6aa68b755b14", null ],
+    [ "jdksavdecc_aem_command_start_operation_get_descriptor_index", "group__command__start__operation.html#gae1a71d403c101467adcff0f74dc643b6", null ],
+    [ "jdksavdecc_aem_command_start_operation_get_descriptor_type", "group__command__start__operation.html#ga276a63f8443860145441878d5e726b7b", null ],
+    [ "jdksavdecc_aem_command_start_operation_get_operation_id", "group__command__start__operation.html#ga41ab9db90ef10ace3dd74af14ea949f3", null ],
+    [ "jdksavdecc_aem_command_start_operation_get_operation_type", "group__command__start__operation.html#gaa7840852a5f41545689b8689bc029a00", null ],
+    [ "jdksavdecc_aem_command_start_operation_get_sequence_id", "group__command__start__operation.html#ga0b0a5fc6350dd64a272427f49719bcce", null ],
+    [ "jdksavdecc_aem_command_start_operation_read", "group__command__start__operation.html#gac1626678fc533f6030b602f60b10c778", null ],
+    [ "jdksavdecc_aem_command_start_operation_set_command_type", "group__command__start__operation.html#ga8db2676d3c5fb6207ac1c7511523ce91", null ],
+    [ "jdksavdecc_aem_command_start_operation_set_controller_entity_id", "group__command__start__operation.html#ga5c93ccdd70b0a0ca03538b64b81a280f", null ],
+    [ "jdksavdecc_aem_command_start_operation_set_descriptor_index", "group__command__start__operation.html#ga898c28f032e67d1ff2d0aae756abfb76", null ],
+    [ "jdksavdecc_aem_command_start_operation_set_descriptor_type", "group__command__start__operation.html#gaee59238787b331c4fa0df198cf9d3b5c", null ],
+    [ "jdksavdecc_aem_command_start_operation_set_operation_id", "group__command__start__operation.html#gaccdb0a33f9c5f4820f0d6085eeef7bfc", null ],
+    [ "jdksavdecc_aem_command_start_operation_set_operation_type", "group__command__start__operation.html#gaf6ad38a36311a05bf9c16dc75d43587c", null ],
+    [ "jdksavdecc_aem_command_start_operation_set_sequence_id", "group__command__start__operation.html#ga05224fedd2c27a882e876d0d129fd515", null ],
+    [ "jdksavdecc_aem_command_start_operation_write", "group__command__start__operation.html#gaf0cf1d038dab08ae22452d1516ad876e", null ]
+];

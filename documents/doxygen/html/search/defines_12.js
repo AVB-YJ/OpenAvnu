@@ -1,0 +1,23 @@
+var searchData=
+[
+  ['rand',['RAND',['../maap__helper__linux_8h.html#aae1349d6c6ad44726e4e0721ae0c3264',1,'RAND():&#160;maap_helper_linux.h'],['../shaper__helper__linux_8h.html#aae1349d6c6ad44726e4e0721ae0c3264',1,'RAND():&#160;shaper_helper_linux.h'],['../openavb__os__services__osal_8h.html#aae1349d6c6ad44726e4e0721ae0c3264',1,'RAND():&#160;openavb_os_services_osal.h']]],
+  ['rawsock_5fmin_5ftimeout_5fusec',['RAWSOCK_MIN_TIMEOUT_USEC',['../openavb__os__services__osal_8h.html#a52de065c3b48c7720a6ee81304b8e223',1,'openavb_os_services_osal.h']]],
+  ['rawsock_5ftx_5fmode_5ffill',['RAWSOCK_TX_MODE_FILL',['../rawsock__tx_8c.html#ae473d6db2794fca9ceb400d5a4bf4ac1',1,'rawsock_tx.c']]],
+  ['rawsock_5ftx_5fmode_5fseq',['RAWSOCK_TX_MODE_SEQ',['../rawsock__tx_8c.html#a2c0cb427a23d8f86571cd5598729253d',1,'rawsock_tx.c']]],
+  ['rcvthread_5fthread_5fstk_5fsize',['rcvThread_THREAD_STK_SIZE',['../openavb__tasks_8h.html#a26f9089fbdb087491fe293cfd848f449',1,'openavb_tasks.h']]],
+  ['realloc',['realloc',['../_memory_leak_detector_malloc_macros_8h.html#a40bca1270eac14ea5da81c924c02c3b7',1,'MemoryLeakDetectorMallocMacros.h']]],
+  ['render_5fdelay',['RENDER_DELAY',['../jackd__talker_8c.html#ad67f15bfda3230674f801ea1a30c8164',1,'RENDER_DELAY():&#160;jackd_talker.c'],['../simple__talker_8c.html#ad67f15bfda3230674f801ea1a30c8164',1,'RENDER_DELAY():&#160;simple_talker.c']]],
+  ['replace_5fgetopt',['REPLACE_GETOPT',['../getopt_8c.html#a77fd2f19b813fdd8d7d4964c550485f8',1,'getopt.c']]],
+  ['report_5fseconds',['REPORT_SECONDS',['../avtp__rx_8c.html#aad8560c5d8b6b834271c0f40e3854be9',1,'avtp_rx.c']]],
+  ['req_5frx_5fdescriptor_5fmultiple',['REQ_RX_DESCRIPTOR_MULTIPLE',['../kmod_2igb_2e1000__defines_8h.html#a3d85ffce1bfa6a05d1e3f1680a2ada4e',1,'REQ_RX_DESCRIPTOR_MULTIPLE():&#160;e1000_defines.h'],['../lib_2igb_2e1000__defines_8h.html#a3d85ffce1bfa6a05d1e3f1680a2ada4e',1,'REQ_RX_DESCRIPTOR_MULTIPLE():&#160;e1000_defines.h']]],
+  ['req_5ftx_5fdescriptor_5fmultiple',['REQ_TX_DESCRIPTOR_MULTIPLE',['../kmod_2igb_2e1000__defines_8h.html#a7c17690463801322d43f20186dae6b76',1,'REQ_TX_DESCRIPTOR_MULTIPLE():&#160;e1000_defines.h'],['../lib_2igb_2e1000__defines_8h.html#a7c17690463801322d43f20186dae6b76',1,'REQ_TX_DESCRIPTOR_MULTIPLE():&#160;e1000_defines.h']]],
+  ['rhel_5frelease_5fcode',['RHEL_RELEASE_CODE',['../kcompat_8h.html#a2f3fb854710e54fe58a89496867878b8',1,'kcompat.h']]],
+  ['rhel_5frelease_5fversion',['RHEL_RELEASE_VERSION',['../kcompat_8h.html#afa27a3987d8d363d7fc0a2cae246674a',1,'kcompat.h']]],
+  ['ring_5fqueue_5findex',['ring_queue_index',['../kmod_2igb_2igb_8h.html#a58016ef5dcd985fe19ed93d5d8fb2647',1,'igb.h']]],
+  ['rmb',['rmb',['../lib_2igb_2e1000__osdep_8h.html#a04c587cef17643201f0e631ceb64c0a7',1,'e1000_osdep.h']]],
+  ['rtp_5fpayloader_5fname',['RTP_PAYLOADER_NAME',['../openavb__intf__h264__gst_8c.html#a52a1f815a00461bea58e5bf531841e05',1,'openavb_intf_h264_gst.c']]],
+  ['rtp_5fsubns_5fscale_5fden',['RTP_SUBNS_SCALE_DEN',['../simple__talker_8c.html#a743bcc4e6733f8e26c026b575bc5115f',1,'simple_talker.c']]],
+  ['rtp_5fsubns_5fscale_5fnum',['RTP_SUBNS_SCALE_NUM',['../simple__talker_8c.html#abb6aaa19ddf030c0d80161ffe2bb07b8',1,'simple_talker.c']]],
+  ['run_5fall_5ftests',['RUN_ALL_TESTS',['../_utest_macros_8h.html#a0ad2a3458caeaa61b4b52bc746d6fb94',1,'UtestMacros.h']]],
+  ['rx_5fphy_5ftime',['RX_PHY_TIME',['../linux__hal__generic_8cpp.html#ac12c462a772bab79cc693c71bc906496',1,'RX_PHY_TIME():&#160;linux_hal_generic.cpp'],['../linux__hal__intelce_8cpp.html#ac12c462a772bab79cc693c71bc906496',1,'RX_PHY_TIME():&#160;linux_hal_intelce.cpp']]]
+];

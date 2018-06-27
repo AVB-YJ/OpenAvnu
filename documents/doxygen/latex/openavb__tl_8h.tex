@@ -1,0 +1,738 @@
+\hypertarget{openavb__tl_8h}{}\section{lib/avtp\+\_\+pipeline/tl/openavb\+\_\+tl.h 파일 참조}
+\label{openavb__tl_8h}\index{lib/avtp\+\_\+pipeline/tl/openavb\+\_\+tl.\+h@{lib/avtp\+\_\+pipeline/tl/openavb\+\_\+tl.\+h}}
+{\ttfamily \#include \char`\"{}openavb\+\_\+types.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+osal.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+mediaq\+\_\+pub.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+tl\+\_\+pub.\+h\char`\"{}}\\*
+openavb\+\_\+tl.\+h에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__tl_8h__incl}
+\end{center}
+\end{figure}
+이 그래프는 이 파일을 직/간접적으로 include 하는 파일들을 보여줍니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__tl_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{데이타 구조}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structtalker__stats__t}{talker\+\_\+stats\+\_\+t}
+\item 
+struct \hyperlink{structtl__state__t}{tl\+\_\+state\+\_\+t}
+\end{DoxyCompactItemize}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{openavb__tl_8h_a298bd01d98b67ac3fd35dd9ce07d2a1c}{T\+L\+\_\+\+L\+O\+CK}()~\{ \hyperlink{openavb__os__services__osal__pub_8h_aee93da9d4ea28eeaa9c64bd938d5549b}{M\+U\+T\+E\+X\+\_\+\+C\+R\+E\+A\+T\+E\+\_\+\+E\+RR}(); \hyperlink{openavb__os__services__osal__pub_8h_aaa0e54e00ca1cc9cb5bf9ac824a5e4ef}{M\+U\+T\+E\+X\+\_\+\+L\+O\+CK}(g\+T\+L\+State\+Mutex); \hyperlink{openavb__os__services__osal__pub_8h_a08d33bd2184e24e7676bda0efb5a3e5e}{M\+U\+T\+E\+X\+\_\+\+L\+O\+G\+\_\+\+E\+RR}(\char`\"{}Mutex lock failure\char`\"{}); \}
+\item 
+\#define \hyperlink{openavb__tl_8h_a9f0e3f12724995e5dfa6bb65a9c947a1}{T\+L\+\_\+\+U\+N\+L\+O\+CK}()~\{ \hyperlink{openavb__os__services__osal__pub_8h_aee93da9d4ea28eeaa9c64bd938d5549b}{M\+U\+T\+E\+X\+\_\+\+C\+R\+E\+A\+T\+E\+\_\+\+E\+RR}(); \hyperlink{openavb__os__services__osal__pub_8h_a0945f1588c967fbabfc91ddc7287cb32}{M\+U\+T\+E\+X\+\_\+\+U\+N\+L\+O\+CK}(g\+T\+L\+State\+Mutex); \hyperlink{openavb__os__services__osal__pub_8h_a08d33bd2184e24e7676bda0efb5a3e5e}{M\+U\+T\+E\+X\+\_\+\+L\+O\+G\+\_\+\+E\+RR}(\char`\"{}Mutex unlock failure\char`\"{}); \}
+\item 
+\#define \hyperlink{openavb__tl_8h_a505ebeb85eb3ff527bd8c6b709efd862}{L\+O\+C\+K\+\_\+\+S\+T\+A\+TS}()~\{ \hyperlink{openavb__os__services__osal__pub_8h_aee93da9d4ea28eeaa9c64bd938d5549b}{M\+U\+T\+E\+X\+\_\+\+C\+R\+E\+A\+T\+E\+\_\+\+E\+RR}(); \hyperlink{openavb__os__services__osal__pub_8h_aaa0e54e00ca1cc9cb5bf9ac824a5e4ef}{M\+U\+T\+E\+X\+\_\+\+L\+O\+CK}(p\+T\+L\+State-\/$>$stats\+Mutex); \hyperlink{openavb__os__services__osal__pub_8h_a08d33bd2184e24e7676bda0efb5a3e5e}{M\+U\+T\+E\+X\+\_\+\+L\+O\+G\+\_\+\+E\+RR}(\char`\"{}Mutex lock failure\char`\"{}); \}
+\item 
+\#define \hyperlink{openavb__tl_8h_ad7803eda1754a2d96b34f4c8d0b5b4ca}{U\+N\+L\+O\+C\+K\+\_\+\+S\+T\+A\+TS}()~\{ \hyperlink{openavb__os__services__osal__pub_8h_aee93da9d4ea28eeaa9c64bd938d5549b}{M\+U\+T\+E\+X\+\_\+\+C\+R\+E\+A\+T\+E\+\_\+\+E\+RR}(); \hyperlink{openavb__os__services__osal__pub_8h_a0945f1588c967fbabfc91ddc7287cb32}{M\+U\+T\+E\+X\+\_\+\+U\+N\+L\+O\+CK}(p\+T\+L\+State-\/$>$stats\+Mutex); \hyperlink{openavb__os__services__osal__pub_8h_a08d33bd2184e24e7676bda0efb5a3e5e}{M\+U\+T\+E\+X\+\_\+\+L\+O\+G\+\_\+\+E\+RR}(\char`\"{}Mutex unlock failure\char`\"{}); \}
+\end{DoxyCompactItemize}
+\subsection*{타입정의}
+\begin{DoxyCompactItemize}
+\item 
+typedef enum \hyperlink{openavb__tl_8h_a493ad4efce80f067372bcd6cca95b02a}{O\+P\+E\+N\+A\+V\+B\+\_\+\+T\+L\+\_\+\+A\+V\+B\+\_\+\+V\+E\+R\+\_\+\+S\+T\+A\+TE} \hyperlink{openavb__tl_8h_acf48266d3e9a42caae76e7bd4a8716d7}{openavb\+T\+L\+A\+V\+B\+Ver\+State\+\_\+t}
+\end{DoxyCompactItemize}
+\subsection*{열거형 타입}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{openavb__tl_8h_a493ad4efce80f067372bcd6cca95b02a}{O\+P\+E\+N\+A\+V\+B\+\_\+\+T\+L\+\_\+\+A\+V\+B\+\_\+\+V\+E\+R\+\_\+\+S\+T\+A\+TE} \{ \hyperlink{openavb__tl_8h_a493ad4efce80f067372bcd6cca95b02aa3de94dfd5d8f49e35ec9ade389fe5603}{O\+P\+E\+N\+A\+V\+B\+\_\+\+T\+L\+\_\+\+A\+V\+B\+\_\+\+V\+E\+R\+\_\+\+U\+N\+K\+N\+O\+WN} = 0, 
+\hyperlink{openavb__tl_8h_a493ad4efce80f067372bcd6cca95b02aae72d1399a4a10c99cc019a55619ca5a0}{O\+P\+E\+N\+A\+V\+B\+\_\+\+T\+L\+\_\+\+A\+V\+B\+\_\+\+V\+E\+R\+\_\+\+I\+N\+V\+A\+L\+ID}, 
+\hyperlink{openavb__tl_8h_a493ad4efce80f067372bcd6cca95b02aab4d1941e5a15e9f1d624b2159047f636}{O\+P\+E\+N\+A\+V\+B\+\_\+\+T\+L\+\_\+\+A\+V\+B\+\_\+\+V\+E\+R\+\_\+\+V\+A\+L\+ID}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{openavb__tl_8h_a4c1eb03ffa969bba0d001eca00997ce6}{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE} (T\+L\+Thread)
+\item 
+\hyperlink{openavb__tl_8h_a32fa44eb37f928cc82c64b67aabbb2cb}{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE} (avdecc\+Msg\+Thread)
+\item 
+\hyperlink{openavb__tl_8h_af79e9792c53479e44958c6d8c0e30fe4}{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+LE} (g\+T\+L\+State\+Mutex)
+\item 
+void \hyperlink{openavb__tl_8h_a892ce5f1e9a4acc33560b221ebdea6f6}{timespec\+\_\+add\+\_\+usec} (struct timespec $\ast$t, unsigned long us)
+\item 
+void \hyperlink{openavb__tl_8h_a1295219e6964f31fc4d9497db5be1e4b}{timespec\+\_\+sub\+\_\+usec} (struct timespec $\ast$t, unsigned long us)
+\item 
+unsigned long \hyperlink{openavb__tl_8h_afd9412437d4c5f80eccffd25cdb650dc}{timespec\+\_\+usec\+\_\+diff} (struct timespec $\ast$t1, struct timespec $\ast$t2)
+\item 
+int \hyperlink{openavb__tl_8h_a51c5f18b7b31155a1957e1997bcd85da}{timespec\+\_\+cmp} (struct timespec $\ast$a, struct timespec $\ast$b)
+\item 
+\hyperlink{build_2sdk__eavb_2openavb__tl__pub_8h_af231d6531d24afcf31511425dd4869d2}{tl\+\_\+handle\+\_\+t} \hyperlink{openavb__tl_8h_ad2f38bb797230bf2c03c44f4742a9815}{T\+L\+Handle\+List\+Get} (int endpoint\+Handle)
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__tl_8h_ace637593750e9b57aaae4c0a2bee39eb}{T\+L\+Handle\+List\+Remove} (\hyperlink{build_2sdk__eavb_2openavb__tl__pub_8h_af231d6531d24afcf31511425dd4869d2}{tl\+\_\+handle\+\_\+t} \hyperlink{jack__listener_8c_a6c138155d7b3442efd19d0aa3f93e548}{handle})
+\item 
+void \hyperlink{openavb__tl_8h_a1aff6dcd668b00924663a78a7d1ae07e}{openavb\+T\+L\+Unconfigure} (\hyperlink{structtl__state__t}{tl\+\_\+state\+\_\+t} $\ast$p\+T\+L\+State)
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__tl_8h_a642f4546d13df733a9e30baad3e5c72c}{T\+L\+Handle\+Remove} (\hyperlink{build_2sdk__eavb_2openavb__tl__pub_8h_af231d6531d24afcf31511425dd4869d2}{tl\+\_\+handle\+\_\+t} \hyperlink{jack__listener_8c_a6c138155d7b3442efd19d0aa3f93e548}{handle})
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__tl_8h_ad62b8315beb90e7a2ad20afaa852a678}{openavb\+T\+L\+Thread\+Fn\+Osal} (\hyperlink{structtl__state__t}{tl\+\_\+state\+\_\+t} $\ast$p\+T\+L\+State)
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__tl_8h_ad950ce035ff690c69bbcb292400cbb12}{openavb\+T\+L\+Open\+Link\+Libs\+Osal} (\hyperlink{structtl__state__t}{tl\+\_\+state\+\_\+t} $\ast$p\+T\+L\+State)
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__tl_8h_aa53d4e29f75ed17d81e45c21e4eb0580}{openavb\+T\+L\+Close\+Link\+Libs\+Osal} (\hyperlink{structtl__state__t}{tl\+\_\+state\+\_\+t} $\ast$p\+T\+L\+State)
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__tl_8h_a04a97a5b51065f7ce1f99c1dcb891f52}{openavb\+Ept\+Clnt\+Service} (int h, int \hyperlink{aaf-listener_8c_a869c60cb165af7b6177060c00c5c416c}{timeout})
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__tl_8h_a6847e0c892b70812242c164ee8943c11}{openavb\+Ept\+Clnt\+Stop\+Stream} (int h, \hyperlink{struct_a_v_b_stream_i_d__t}{A\+V\+B\+Stream\+I\+D\+\_\+t} $\ast$stream\+ID)
+\end{DoxyCompactItemize}
+\subsection*{변수}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} \hyperlink{openavb__tl_8h_ae541666b6e4d9d49cdb4d033dbbe60f0}{g\+Max\+TL}
+\item 
+\hyperlink{build_2sdk__eavb_2openavb__tl__pub_8h_af231d6531d24afcf31511425dd4869d2}{tl\+\_\+handle\+\_\+t} $\ast$ \hyperlink{openavb__tl_8h_ae763c69b8fd7908fa992bf0a4ffaa01d}{g\+T\+L\+Handle\+List}
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}!L\+O\+C\+K\+\_\+\+S\+T\+A\+TS@{L\+O\+C\+K\+\_\+\+S\+T\+A\+TS}}
+\index{L\+O\+C\+K\+\_\+\+S\+T\+A\+TS@{L\+O\+C\+K\+\_\+\+S\+T\+A\+TS}!openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}}
+\subsubsection[{\texorpdfstring{L\+O\+C\+K\+\_\+\+S\+T\+A\+TS}{LOCK_STATS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\+O\+C\+K\+\_\+\+S\+T\+A\+TS(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~\{ {\bf M\+U\+T\+E\+X\+\_\+\+C\+R\+E\+A\+T\+E\+\_\+\+E\+RR}(); {\bf M\+U\+T\+E\+X\+\_\+\+L\+O\+CK}(p\+T\+L\+State-\/$>$stats\+Mutex); {\bf M\+U\+T\+E\+X\+\_\+\+L\+O\+G\+\_\+\+E\+RR}(\char`\"{}Mutex lock failure\char`\"{}); \}}\hypertarget{openavb__tl_8h_a505ebeb85eb3ff527bd8c6b709efd862}{}\label{openavb__tl_8h_a505ebeb85eb3ff527bd8c6b709efd862}
+
+
+openavb\+\_\+tl.\+h 파일의 125 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}!T\+L\+\_\+\+L\+O\+CK@{T\+L\+\_\+\+L\+O\+CK}}
+\index{T\+L\+\_\+\+L\+O\+CK@{T\+L\+\_\+\+L\+O\+CK}!openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}}
+\subsubsection[{\texorpdfstring{T\+L\+\_\+\+L\+O\+CK}{TL_LOCK}}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+L\+\_\+\+L\+O\+CK(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~\{ {\bf M\+U\+T\+E\+X\+\_\+\+C\+R\+E\+A\+T\+E\+\_\+\+E\+RR}(); {\bf M\+U\+T\+E\+X\+\_\+\+L\+O\+CK}(g\+T\+L\+State\+Mutex); {\bf M\+U\+T\+E\+X\+\_\+\+L\+O\+G\+\_\+\+E\+RR}(\char`\"{}Mutex lock failure\char`\"{}); \}}\hypertarget{openavb__tl_8h_a298bd01d98b67ac3fd35dd9ce07d2a1c}{}\label{openavb__tl_8h_a298bd01d98b67ac3fd35dd9ce07d2a1c}
+
+
+openavb\+\_\+tl.\+h 파일의 119 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}!T\+L\+\_\+\+U\+N\+L\+O\+CK@{T\+L\+\_\+\+U\+N\+L\+O\+CK}}
+\index{T\+L\+\_\+\+U\+N\+L\+O\+CK@{T\+L\+\_\+\+U\+N\+L\+O\+CK}!openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}}
+\subsubsection[{\texorpdfstring{T\+L\+\_\+\+U\+N\+L\+O\+CK}{TL_UNLOCK}}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+L\+\_\+\+U\+N\+L\+O\+CK(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~\{ {\bf M\+U\+T\+E\+X\+\_\+\+C\+R\+E\+A\+T\+E\+\_\+\+E\+RR}(); {\bf M\+U\+T\+E\+X\+\_\+\+U\+N\+L\+O\+CK}(g\+T\+L\+State\+Mutex); {\bf M\+U\+T\+E\+X\+\_\+\+L\+O\+G\+\_\+\+E\+RR}(\char`\"{}Mutex unlock failure\char`\"{}); \}}\hypertarget{openavb__tl_8h_a9f0e3f12724995e5dfa6bb65a9c947a1}{}\label{openavb__tl_8h_a9f0e3f12724995e5dfa6bb65a9c947a1}
+
+
+openavb\+\_\+tl.\+h 파일의 120 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}!U\+N\+L\+O\+C\+K\+\_\+\+S\+T\+A\+TS@{U\+N\+L\+O\+C\+K\+\_\+\+S\+T\+A\+TS}}
+\index{U\+N\+L\+O\+C\+K\+\_\+\+S\+T\+A\+TS@{U\+N\+L\+O\+C\+K\+\_\+\+S\+T\+A\+TS}!openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}}
+\subsubsection[{\texorpdfstring{U\+N\+L\+O\+C\+K\+\_\+\+S\+T\+A\+TS}{UNLOCK_STATS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define U\+N\+L\+O\+C\+K\+\_\+\+S\+T\+A\+TS(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~\{ {\bf M\+U\+T\+E\+X\+\_\+\+C\+R\+E\+A\+T\+E\+\_\+\+E\+RR}(); {\bf M\+U\+T\+E\+X\+\_\+\+U\+N\+L\+O\+CK}(p\+T\+L\+State-\/$>$stats\+Mutex); {\bf M\+U\+T\+E\+X\+\_\+\+L\+O\+G\+\_\+\+E\+RR}(\char`\"{}Mutex unlock failure\char`\"{}); \}}\hypertarget{openavb__tl_8h_ad7803eda1754a2d96b34f4c8d0b5b4ca}{}\label{openavb__tl_8h_ad7803eda1754a2d96b34f4c8d0b5b4ca}
+
+
+openavb\+\_\+tl.\+h 파일의 126 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{타입정의 문서화}
+\index{openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}!openavb\+T\+L\+A\+V\+B\+Ver\+State\+\_\+t@{openavb\+T\+L\+A\+V\+B\+Ver\+State\+\_\+t}}
+\index{openavb\+T\+L\+A\+V\+B\+Ver\+State\+\_\+t@{openavb\+T\+L\+A\+V\+B\+Ver\+State\+\_\+t}!openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}}
+\subsubsection[{\texorpdfstring{openavb\+T\+L\+A\+V\+B\+Ver\+State\+\_\+t}{openavbTLAVBVerState_t}}]{\setlength{\rightskip}{0pt plus 5cm}typedef enum {\bf O\+P\+E\+N\+A\+V\+B\+\_\+\+T\+L\+\_\+\+A\+V\+B\+\_\+\+V\+E\+R\+\_\+\+S\+T\+A\+TE}  {\bf openavb\+T\+L\+A\+V\+B\+Ver\+State\+\_\+t}}\hypertarget{openavb__tl_8h_acf48266d3e9a42caae76e7bd4a8716d7}{}\label{openavb__tl_8h_acf48266d3e9a42caae76e7bd4a8716d7}
+
+
+\subsection{열거형 타입 문서화}
+\index{openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}!O\+P\+E\+N\+A\+V\+B\+\_\+\+T\+L\+\_\+\+A\+V\+B\+\_\+\+V\+E\+R\+\_\+\+S\+T\+A\+TE@{O\+P\+E\+N\+A\+V\+B\+\_\+\+T\+L\+\_\+\+A\+V\+B\+\_\+\+V\+E\+R\+\_\+\+S\+T\+A\+TE}}
+\index{O\+P\+E\+N\+A\+V\+B\+\_\+\+T\+L\+\_\+\+A\+V\+B\+\_\+\+V\+E\+R\+\_\+\+S\+T\+A\+TE@{O\+P\+E\+N\+A\+V\+B\+\_\+\+T\+L\+\_\+\+A\+V\+B\+\_\+\+V\+E\+R\+\_\+\+S\+T\+A\+TE}!openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}}
+\subsubsection[{\texorpdfstring{O\+P\+E\+N\+A\+V\+B\+\_\+\+T\+L\+\_\+\+A\+V\+B\+\_\+\+V\+E\+R\+\_\+\+S\+T\+A\+TE}{OPENAVB_TL_AVB_VER_STATE}}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf O\+P\+E\+N\+A\+V\+B\+\_\+\+T\+L\+\_\+\+A\+V\+B\+\_\+\+V\+E\+R\+\_\+\+S\+T\+A\+TE}}\hypertarget{openavb__tl_8h_a493ad4efce80f067372bcd6cca95b02a}{}\label{openavb__tl_8h_a493ad4efce80f067372bcd6cca95b02a}
+\begin{Desc}
+\item[열거형 멤버]\par
+\begin{description}
+\index{O\+P\+E\+N\+A\+V\+B\+\_\+\+T\+L\+\_\+\+A\+V\+B\+\_\+\+V\+E\+R\+\_\+\+U\+N\+K\+N\+O\+WN@{O\+P\+E\+N\+A\+V\+B\+\_\+\+T\+L\+\_\+\+A\+V\+B\+\_\+\+V\+E\+R\+\_\+\+U\+N\+K\+N\+O\+WN}!openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}}\index{openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}!O\+P\+E\+N\+A\+V\+B\+\_\+\+T\+L\+\_\+\+A\+V\+B\+\_\+\+V\+E\+R\+\_\+\+U\+N\+K\+N\+O\+WN@{O\+P\+E\+N\+A\+V\+B\+\_\+\+T\+L\+\_\+\+A\+V\+B\+\_\+\+V\+E\+R\+\_\+\+U\+N\+K\+N\+O\+WN}}\item[{\em 
+O\+P\+E\+N\+A\+V\+B\+\_\+\+T\+L\+\_\+\+A\+V\+B\+\_\+\+V\+E\+R\+\_\+\+U\+N\+K\+N\+O\+WN\hypertarget{openavb__tl_8h_a493ad4efce80f067372bcd6cca95b02aa3de94dfd5d8f49e35ec9ade389fe5603}{}\label{openavb__tl_8h_a493ad4efce80f067372bcd6cca95b02aa3de94dfd5d8f49e35ec9ade389fe5603}
+}]\index{O\+P\+E\+N\+A\+V\+B\+\_\+\+T\+L\+\_\+\+A\+V\+B\+\_\+\+V\+E\+R\+\_\+\+I\+N\+V\+A\+L\+ID@{O\+P\+E\+N\+A\+V\+B\+\_\+\+T\+L\+\_\+\+A\+V\+B\+\_\+\+V\+E\+R\+\_\+\+I\+N\+V\+A\+L\+ID}!openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}}\index{openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}!O\+P\+E\+N\+A\+V\+B\+\_\+\+T\+L\+\_\+\+A\+V\+B\+\_\+\+V\+E\+R\+\_\+\+I\+N\+V\+A\+L\+ID@{O\+P\+E\+N\+A\+V\+B\+\_\+\+T\+L\+\_\+\+A\+V\+B\+\_\+\+V\+E\+R\+\_\+\+I\+N\+V\+A\+L\+ID}}\item[{\em 
+O\+P\+E\+N\+A\+V\+B\+\_\+\+T\+L\+\_\+\+A\+V\+B\+\_\+\+V\+E\+R\+\_\+\+I\+N\+V\+A\+L\+ID\hypertarget{openavb__tl_8h_a493ad4efce80f067372bcd6cca95b02aae72d1399a4a10c99cc019a55619ca5a0}{}\label{openavb__tl_8h_a493ad4efce80f067372bcd6cca95b02aae72d1399a4a10c99cc019a55619ca5a0}
+}]\index{O\+P\+E\+N\+A\+V\+B\+\_\+\+T\+L\+\_\+\+A\+V\+B\+\_\+\+V\+E\+R\+\_\+\+V\+A\+L\+ID@{O\+P\+E\+N\+A\+V\+B\+\_\+\+T\+L\+\_\+\+A\+V\+B\+\_\+\+V\+E\+R\+\_\+\+V\+A\+L\+ID}!openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}}\index{openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}!O\+P\+E\+N\+A\+V\+B\+\_\+\+T\+L\+\_\+\+A\+V\+B\+\_\+\+V\+E\+R\+\_\+\+V\+A\+L\+ID@{O\+P\+E\+N\+A\+V\+B\+\_\+\+T\+L\+\_\+\+A\+V\+B\+\_\+\+V\+E\+R\+\_\+\+V\+A\+L\+ID}}\item[{\em 
+O\+P\+E\+N\+A\+V\+B\+\_\+\+T\+L\+\_\+\+A\+V\+B\+\_\+\+V\+E\+R\+\_\+\+V\+A\+L\+ID\hypertarget{openavb__tl_8h_a493ad4efce80f067372bcd6cca95b02aab4d1941e5a15e9f1d624b2159047f636}{}\label{openavb__tl_8h_a493ad4efce80f067372bcd6cca95b02aab4d1941e5a15e9f1d624b2159047f636}
+}]\end{description}
+\end{Desc}
+
+
+openavb\+\_\+tl.\+h 파일의 44 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+45 \{
+46     \hyperlink{openavb__tl_8h_a493ad4efce80f067372bcd6cca95b02aa3de94dfd5d8f49e35ec9ade389fe5603}{OPENAVB\_TL\_AVB\_VER\_UNKNOWN} = 0,
+47     \hyperlink{openavb__tl_8h_a493ad4efce80f067372bcd6cca95b02aae72d1399a4a10c99cc019a55619ca5a0}{OPENAVB\_TL\_AVB\_VER\_INVALID},
+48     \hyperlink{openavb__tl_8h_a493ad4efce80f067372bcd6cca95b02aab4d1941e5a15e9f1d624b2159047f636}{OPENAVB\_TL\_AVB\_VER\_VALID},
+49 \} \hyperlink{openavb__tl_8h_acf48266d3e9a42caae76e7bd4a8716d7}{openavbTLAVBVerState\_t};
+\end{DoxyCode}
+
+
+\subsection{함수 문서화}
+\index{openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}!M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+LE@{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+LE}}
+\index{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+LE@{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+LE}!openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}}
+\subsubsection[{\texorpdfstring{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+L\+E(g\+T\+L\+State\+Mutex)}{MUTEX_HANDLE(gTLStateMutex)}}]{\setlength{\rightskip}{0pt plus 5cm}M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+LE (
+\begin{DoxyParamCaption}
+\item[{g\+T\+L\+State\+Mutex}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__tl_8h_af79e9792c53479e44958c6d8c0e30fe4}{}\label{openavb__tl_8h_af79e9792c53479e44958c6d8c0e30fe4}
+\index{openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}!openavb\+Ept\+Clnt\+Service@{openavb\+Ept\+Clnt\+Service}}
+\index{openavb\+Ept\+Clnt\+Service@{openavb\+Ept\+Clnt\+Service}!openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}}
+\subsubsection[{\texorpdfstring{openavb\+Ept\+Clnt\+Service(int h, int timeout)}{openavbEptClntService(int h, int timeout)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} openavb\+Ept\+Clnt\+Service (
+\begin{DoxyParamCaption}
+\item[{int}]{h, }
+\item[{int}]{timeout}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__tl_8h_a04a97a5b51065f7ce1f99c1dcb891f52}{}\label{openavb__tl_8h_a04a97a5b51065f7ce1f99c1dcb891f52}
+
+
+openavb\+\_\+endpoint\+\_\+client\+\_\+osal.\+c 파일의 111 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+112 \{
+113     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_ae556b1548b3dcb1b8d51811611bcd57e}{AVB\_TRACE\_ENDPOINT});
+114     \textcolor{keywordtype}{bool} rc = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+115 
+116     \textcolor{keywordflow}{if} (h == \hyperlink{openavb__endpoint_8h_a47f5b9bb6606fa543966788137fee02a}{AVB\_ENDPOINT\_HANDLE\_INVALID}) \{
+117         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Client service: invalid socket"});
+118         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_ae556b1548b3dcb1b8d51811611bcd57e}{AVB\_TRACE\_ENDPOINT});
+119         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+120     \}
+121     
+122     \textcolor{keyword}{struct }pollfd \hyperlink{openavb__avdecc__msg__server__osal_8c_ae18b289099c8c9be5f76acee6311699a}{fds}[1];
+123     memset(\hyperlink{openavb__avdecc__msg__server__osal_8c_ae18b289099c8c9be5f76acee6311699a}{fds}, 0, \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} pollfd));
+124     \hyperlink{openavb__avdecc__msg__server__osal_8c_ae18b289099c8c9be5f76acee6311699a}{fds}[0].fd = h;
+125     \hyperlink{openavb__avdecc__msg__server__osal_8c_ae18b289099c8c9be5f76acee6311699a}{fds}[0].events = POLLIN;
+126 
+127     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a5579be334577e5c29b8794e8f2831ce5}{AVB\_LOG\_VERBOSE}(\textcolor{stringliteral}{"Waiting for event..."});
+128     \textcolor{keywordtype}{int} pRet = poll(\hyperlink{openavb__avdecc__msg__server__osal_8c_ae18b289099c8c9be5f76acee6311699a}{fds}, 1, \hyperlink{aaf-listener_8c_a869c60cb165af7b6177060c00c5c416c}{timeout});
+129 
+130     \textcolor{keywordflow}{if} (pRet == 0) \{
+131         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a5579be334577e5c29b8794e8f2831ce5}{AVB\_LOG\_VERBOSE}(\textcolor{stringliteral}{"Poll timeout"});
+132         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_ae556b1548b3dcb1b8d51811611bcd57e}{AVB\_TRACE\_ENDPOINT});
+133         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+134     \}
+135     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (pRet < 0) \{
+136         \textcolor{keywordflow}{if} (errno == EINTR) \{
+137             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a5579be334577e5c29b8794e8f2831ce5}{AVB\_LOG\_VERBOSE}(\textcolor{stringliteral}{"Poll interrupted"});
+138             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_ae556b1548b3dcb1b8d51811611bcd57e}{AVB\_TRACE\_ENDPOINT});
+139             \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+140         \}
+141         \textcolor{keywordflow}{else} \{
+142             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Poll error: %s"}, strerror(errno));
+143         \}
+144     \}
+145     \textcolor{keywordflow}{else} \{
+146         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afcf1f0c1d10ae9efe3782eb6cae78355}{AVB\_LOGF\_DEBUG}(\textcolor{stringliteral}{"Poll returned %d events"}, pRet);
+147         \textcolor{comment}{// only one fd, so it's readable.}
+148         \hyperlink{structopenavb_endpoint_message__t}{openavbEndpointMessage\_t} msgBuf;
+149         memset(&msgBuf, 0, \hyperlink{openavb__endpoint_8h_a9b0d07d9793de5e3bb74858c5067306a}{OPENAVB\_ENDPOINT\_MSG\_LEN});
+150         ssize\_t nRead = read(h, &msgBuf, \hyperlink{openavb__endpoint_8h_a9b0d07d9793de5e3bb74858c5067306a}{OPENAVB\_ENDPOINT\_MSG\_LEN});
+151                     
+152         \textcolor{keywordflow}{if} (nRead < \hyperlink{openavb__endpoint_8h_a9b0d07d9793de5e3bb74858c5067306a}{OPENAVB\_ENDPOINT\_MSG\_LEN}) \{
+153             \textcolor{comment}{// sock closed}
+154             \textcolor{keywordflow}{if} (nRead == 0) \{
+155                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Socket closed unexpectedly"});
+156             \}
+157             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (nRead < 0) \{
+158                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Socket read error: %s"}, strerror(errno));
+159             \}
+160             \textcolor{keywordflow}{else} \{
+161                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Socket read to short"});
+162             \}
+163             \hyperlink{openavb__endpoint__client__osal_8c_a997118c3d9b394cb957b442f0b021114}{socketClose}(h);
+164         \}
+165         \textcolor{keywordflow}{else} \{
+166             \textcolor{comment}{// got a message}
+167             \textcolor{keywordflow}{if} (\hyperlink{openavb__endpoint__client_8c_a54517b06c73820ec92a7a93f1477be1e}{openavbEptClntReceiveFromServer}(h, &msgBuf)) \{
+168                 rc = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+169             \}
+170             \textcolor{keywordflow}{else} \{
+171                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Invalid message received"});
+172                 \hyperlink{openavb__endpoint__client__osal_8c_a997118c3d9b394cb957b442f0b021114}{socketClose}(h);
+173             \}
+174         \}
+175     \}
+176     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_ae556b1548b3dcb1b8d51811611bcd57e}{AVB\_TRACE\_ENDPOINT});
+177     \textcolor{keywordflow}{return} rc;
+178 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__tl_8h_a04a97a5b51065f7ce1f99c1dcb891f52_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}!openavb\+Ept\+Clnt\+Stop\+Stream@{openavb\+Ept\+Clnt\+Stop\+Stream}}
+\index{openavb\+Ept\+Clnt\+Stop\+Stream@{openavb\+Ept\+Clnt\+Stop\+Stream}!openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}}
+\subsubsection[{\texorpdfstring{openavb\+Ept\+Clnt\+Stop\+Stream(int h, A\+V\+B\+Stream\+I\+D\+\_\+t $\ast$stream\+I\+D)}{openavbEptClntStopStream(int h, AVBStreamID_t *streamID)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} openavb\+Ept\+Clnt\+Stop\+Stream (
+\begin{DoxyParamCaption}
+\item[{int}]{h, }
+\item[{{\bf A\+V\+B\+Stream\+I\+D\+\_\+t} $\ast$}]{stream\+ID}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__tl_8h_a6847e0c892b70812242c164ee8943c11}{}\label{openavb__tl_8h_a6847e0c892b70812242c164ee8943c11}
+
+
+openavb\+\_\+endpoint\+\_\+client.\+c 파일의 174 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+175 \{
+176     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_ae556b1548b3dcb1b8d51811611bcd57e}{AVB\_TRACE\_ENDPOINT});
+177     \hyperlink{structopenavb_endpoint_message__t}{openavbEndpointMessage\_t} msgBuf;
+178 
+179     \textcolor{keywordflow}{if} (!streamID) \{
+180         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Client stop: invalid argument"});
+181         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_ae556b1548b3dcb1b8d51811611bcd57e}{AVB\_TRACE\_ENDPOINT});
+182         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+183     \}
+184 
+185     memset(&msgBuf, 0, \hyperlink{openavb__endpoint_8h_a9b0d07d9793de5e3bb74858c5067306a}{OPENAVB\_ENDPOINT\_MSG\_LEN});
+186     msgBuf.\hyperlink{structopenavb_endpoint_message__t_aafa5465615d5d57894a9aff52a0b8bbe}{type} = \hyperlink{openavb__endpoint_8h_a462f9660ca482a40ad5a10d88cc7b5aaa309144a2ca4a13448683fd3568c6c705}{OPENAVB\_ENDPOINT\_CLIENT\_STOP};
+187     memcpy(&(msgBuf.\hyperlink{structopenavb_endpoint_message__t_a989c1ccd88811e9926203a07d587bc21}{streamID}), streamID, \textcolor{keyword}{sizeof}(\hyperlink{struct_a_v_b_stream_i_d__t}{AVBStreamID\_t}));
+188     \textcolor{keywordtype}{bool} ret = \hyperlink{openavb__endpoint__client__osal_8c_a5d009d32a5183e5ef658073607044134}{openavbEptClntSendToServer}(h, &msgBuf);
+189 
+190     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_ae556b1548b3dcb1b8d51811611bcd57e}{AVB\_TRACE\_ENDPOINT});
+191     \textcolor{keywordflow}{return} ret;
+192 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__tl_8h_a6847e0c892b70812242c164ee8943c11_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}!openavb\+T\+L\+Close\+Link\+Libs\+Osal@{openavb\+T\+L\+Close\+Link\+Libs\+Osal}}
+\index{openavb\+T\+L\+Close\+Link\+Libs\+Osal@{openavb\+T\+L\+Close\+Link\+Libs\+Osal}!openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}}
+\subsubsection[{\texorpdfstring{openavb\+T\+L\+Close\+Link\+Libs\+Osal(tl\+\_\+state\+\_\+t $\ast$p\+T\+L\+State)}{openavbTLCloseLinkLibsOsal(tl_state_t *pTLState)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} openavb\+T\+L\+Close\+Link\+Libs\+Osal (
+\begin{DoxyParamCaption}
+\item[{{\bf tl\+\_\+state\+\_\+t} $\ast$}]{p\+T\+L\+State}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__tl_8h_aa53d4e29f75ed17d81e45c21e4eb0580}{}\label{openavb__tl_8h_aa53d4e29f75ed17d81e45c21e4eb0580}
+
+
+openavb\+\_\+tl\+\_\+osal.\+c 파일의 556 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+557 \{
+558     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_ae679116a5251aad926d752e57edbb7d3}{AVB\_TRACE\_TL});
+559 
+560     \textcolor{keywordflow}{if} (pTLState->mapLib.libHandle)
+561         dlclose(pTLState->mapLib.libHandle);
+562     \textcolor{keywordflow}{if} (pTLState->intfLib.libHandle)
+563         dlclose(pTLState->intfLib.libHandle);
+564 
+565     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_ae679116a5251aad926d752e57edbb7d3}{AVB\_TRACE\_TL});
+566     \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+567 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__tl_8h_aa53d4e29f75ed17d81e45c21e4eb0580_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}!openavb\+T\+L\+Open\+Link\+Libs\+Osal@{openavb\+T\+L\+Open\+Link\+Libs\+Osal}}
+\index{openavb\+T\+L\+Open\+Link\+Libs\+Osal@{openavb\+T\+L\+Open\+Link\+Libs\+Osal}!openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}}
+\subsubsection[{\texorpdfstring{openavb\+T\+L\+Open\+Link\+Libs\+Osal(tl\+\_\+state\+\_\+t $\ast$p\+T\+L\+State)}{openavbTLOpenLinkLibsOsal(tl_state_t *pTLState)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} openavb\+T\+L\+Open\+Link\+Libs\+Osal (
+\begin{DoxyParamCaption}
+\item[{{\bf tl\+\_\+state\+\_\+t} $\ast$}]{p\+T\+L\+State}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__tl_8h_ad950ce035ff690c69bbcb292400cbb12}{}\label{openavb__tl_8h_ad950ce035ff690c69bbcb292400cbb12}
+
+
+openavb\+\_\+tl\+\_\+osal.\+c 파일의 534 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+535 \{
+536     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_ae679116a5251aad926d752e57edbb7d3}{AVB\_TRACE\_TL});
+537 
+538     \textcolor{keywordflow}{if} (!pTLState->\hyperlink{structtl__state__t_a7b8161c0e9a273c59fbc1dfda943953e}{cfg}.\hyperlink{structopenavb__tl__cfg__t_a87d7ea4a63a493fb0c5ca7f8a1494a94}{pMapInitFn}) \{
+539         \textcolor{keywordflow}{if} (!\hyperlink{openavb__tl__osal_8c_af4331c677a956aa4a94c1c712e2b38d2}{openMapLib}(pTLState)) \{
+540             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_ae679116a5251aad926d752e57edbb7d3}{AVB\_TRACE\_TL});
+541             \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+542         \}
+543     \}
+544 
+545     \textcolor{keywordflow}{if} (!pTLState->\hyperlink{structtl__state__t_a7b8161c0e9a273c59fbc1dfda943953e}{cfg}.\hyperlink{structopenavb__tl__cfg__t_a1e93bc0d2fd6ea831a182dae7b7db6ac}{pIntfInitFn}) \{
+546         \textcolor{keywordflow}{if} (!\hyperlink{openavb__tl__osal_8c_a6edd9a8e8b75a770eab00173eb7d9ffa}{openIntfLib}(pTLState)) \{
+547             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_ae679116a5251aad926d752e57edbb7d3}{AVB\_TRACE\_TL});
+548             \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+549         \}
+550     \}
+551 
+552     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_ae679116a5251aad926d752e57edbb7d3}{AVB\_TRACE\_TL});
+553     \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+554 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=329pt]{openavb__tl_8h_ad950ce035ff690c69bbcb292400cbb12_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__tl_8h_ad950ce035ff690c69bbcb292400cbb12_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}!openavb\+T\+L\+Thread\+Fn\+Osal@{openavb\+T\+L\+Thread\+Fn\+Osal}}
+\index{openavb\+T\+L\+Thread\+Fn\+Osal@{openavb\+T\+L\+Thread\+Fn\+Osal}!openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}}
+\subsubsection[{\texorpdfstring{openavb\+T\+L\+Thread\+Fn\+Osal(tl\+\_\+state\+\_\+t $\ast$p\+T\+L\+State)}{openavbTLThreadFnOsal(tl_state_t *pTLState)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} openavb\+T\+L\+Thread\+Fn\+Osal (
+\begin{DoxyParamCaption}
+\item[{{\bf tl\+\_\+state\+\_\+t} $\ast$}]{p\+T\+L\+State}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__tl_8h_ad62b8315beb90e7a2ad20afaa852a678}{}\label{openavb__tl_8h_ad62b8315beb90e7a2ad20afaa852a678}
+
+
+openavb\+\_\+tl\+\_\+osal.\+c 파일의 458 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+459 \{
+460     \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+461 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=348pt]{openavb__tl_8h_ad62b8315beb90e7a2ad20afaa852a678_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}!openavb\+T\+L\+Unconfigure@{openavb\+T\+L\+Unconfigure}}
+\index{openavb\+T\+L\+Unconfigure@{openavb\+T\+L\+Unconfigure}!openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}}
+\subsubsection[{\texorpdfstring{openavb\+T\+L\+Unconfigure(tl\+\_\+state\+\_\+t $\ast$p\+T\+L\+State)}{openavbTLUnconfigure(tl_state_t *pTLState)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+T\+L\+Unconfigure (
+\begin{DoxyParamCaption}
+\item[{{\bf tl\+\_\+state\+\_\+t} $\ast$}]{p\+T\+L\+State}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__tl_8h_a1aff6dcd668b00924663a78a7d1ae07e}{}\label{openavb__tl_8h_a1aff6dcd668b00924663a78a7d1ae07e}
+
+
+openavb\+\_\+tl.\+c 파일의 246 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+247 \{
+248     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_ae679116a5251aad926d752e57edbb7d3}{AVB\_TRACE\_TL});
+249 
+250     \textcolor{comment}{// CORE\_TODO: Disable this functionality until updated to properly handle distinction between values
+       point to static const char}
+251     \textcolor{comment}{// and dynamically allocated strings.}
+252 \textcolor{preprocessor}{#if 0}
+253     \hyperlink{structopenavb__tl__cfg__t}{openavb\_tl\_cfg\_t} *pCfg = &pTLState->\hyperlink{structtl__state__t_a7b8161c0e9a273c59fbc1dfda943953e}{cfg};
+254 
+255     \textcolor{keywordtype}{int} i1;
+256     \textcolor{keywordflow}{for} (i1 = 0; i1 < pCfg->nLibCfgItems; i1++) \{
+257         \textcolor{keywordflow}{if} (pCfg->libCfgNames[i1])
+258             \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(pCfg->libCfgNames[i1]);
+259         \textcolor{keywordflow}{if} (pNVCfg->libCfgValues[i1])
+260             \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(pNVCfg->libCfgValues[i1]);
+261         pCfg->libCfgNames[i1] = pNVCfg->libCfgValues[i1] = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+262     \}
+263     pCfg->nLibCfgItems = 0;
+264 \textcolor{preprocessor}{#endif}
+265 
+266     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_ae679116a5251aad926d752e57edbb7d3}{AVB\_TRACE\_TL});
+267 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=323pt]{openavb__tl_8h_a1aff6dcd668b00924663a78a7d1ae07e_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}!T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE@{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE}}
+\index{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE@{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE}!openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}}
+\subsubsection[{\texorpdfstring{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+P\+E(\+T\+L\+Thread)}{THREAD_TYPE(TLThread)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE (
+\begin{DoxyParamCaption}
+\item[{T\+L\+Thread}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__tl_8h_a4c1eb03ffa969bba0d001eca00997ce6}{}\label{openavb__tl_8h_a4c1eb03ffa969bba0d001eca00997ce6}
+\index{openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}!T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE@{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE}}
+\index{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE@{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE}!openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}}
+\subsubsection[{\texorpdfstring{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+P\+E(avdecc\+Msg\+Thread)}{THREAD_TYPE(avdeccMsgThread)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE (
+\begin{DoxyParamCaption}
+\item[{avdecc\+Msg\+Thread}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__tl_8h_a32fa44eb37f928cc82c64b67aabbb2cb}{}\label{openavb__tl_8h_a32fa44eb37f928cc82c64b67aabbb2cb}
+\index{openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}!timespec\+\_\+add\+\_\+usec@{timespec\+\_\+add\+\_\+usec}}
+\index{timespec\+\_\+add\+\_\+usec@{timespec\+\_\+add\+\_\+usec}!openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}}
+\subsubsection[{\texorpdfstring{timespec\+\_\+add\+\_\+usec(struct timespec $\ast$t, unsigned long us)}{timespec_add_usec(struct timespec *t, unsigned long us)}}]{\setlength{\rightskip}{0pt plus 5cm}void timespec\+\_\+add\+\_\+usec (
+\begin{DoxyParamCaption}
+\item[{struct timespec $\ast$}]{t, }
+\item[{unsigned long}]{us}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__tl_8h_a892ce5f1e9a4acc33560b221ebdea6f6}{}\label{openavb__tl_8h_a892ce5f1e9a4acc33560b221ebdea6f6}
+
+
+openavb\+\_\+tl.\+c 파일의 71 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+72 \{
+73     t->tv\_nsec += us * \hyperlink{maap__helper__linux_8h_a3b2779e65a68758ef2bfe4875b41e091}{NANOSECONDS\_PER\_USEC};
+74     t->tv\_sec += t->tv\_nsec / \hyperlink{maap__helper__linux_8h_a5df38c677104658963501aa1e2a88e60}{NANOSECONDS\_PER\_SECOND};
+75     t->tv\_nsec = t->tv\_nsec % \hyperlink{maap__helper__linux_8h_a5df38c677104658963501aa1e2a88e60}{NANOSECONDS\_PER\_SECOND};
+76 \}
+\end{DoxyCode}
+\index{openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}!timespec\+\_\+cmp@{timespec\+\_\+cmp}}
+\index{timespec\+\_\+cmp@{timespec\+\_\+cmp}!openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}}
+\subsubsection[{\texorpdfstring{timespec\+\_\+cmp(struct timespec $\ast$a, struct timespec $\ast$b)}{timespec_cmp(struct timespec *a, struct timespec *b)}}]{\setlength{\rightskip}{0pt plus 5cm}int timespec\+\_\+cmp (
+\begin{DoxyParamCaption}
+\item[{struct timespec $\ast$}]{a, }
+\item[{struct timespec $\ast$}]{b}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__tl_8h_a51c5f18b7b31155a1957e1997bcd85da}{}\label{openavb__tl_8h_a51c5f18b7b31155a1957e1997bcd85da}
+
+
+avtp\+\_\+rx.\+c 파일의 59 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+60 \{
+61     \textcolor{keywordflow}{if} (a->tv\_sec > b->tv\_sec)
+62         \textcolor{keywordflow}{return} 1;
+63     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (a->tv\_sec < b->tv\_sec)
+64         \textcolor{keywordflow}{return} -1;
+65     \textcolor{keywordflow}{else} \{
+66         \textcolor{keywordflow}{if} (a->tv\_nsec > b->tv\_nsec)
+67             \textcolor{keywordflow}{return} 1;
+68         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (a->tv\_nsec < b->tv\_nsec)
+69             \textcolor{keywordflow}{return} -1;
+70     \}
+71     \textcolor{keywordflow}{return} 0;
+72 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{openavb__tl_8h_a51c5f18b7b31155a1957e1997bcd85da_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}!timespec\+\_\+sub\+\_\+usec@{timespec\+\_\+sub\+\_\+usec}}
+\index{timespec\+\_\+sub\+\_\+usec@{timespec\+\_\+sub\+\_\+usec}!openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}}
+\subsubsection[{\texorpdfstring{timespec\+\_\+sub\+\_\+usec(struct timespec $\ast$t, unsigned long us)}{timespec_sub_usec(struct timespec *t, unsigned long us)}}]{\setlength{\rightskip}{0pt plus 5cm}void timespec\+\_\+sub\+\_\+usec (
+\begin{DoxyParamCaption}
+\item[{struct timespec $\ast$}]{t, }
+\item[{unsigned long}]{us}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__tl_8h_a1295219e6964f31fc4d9497db5be1e4b}{}\label{openavb__tl_8h_a1295219e6964f31fc4d9497db5be1e4b}
+
+
+openavb\+\_\+tl.\+c 파일의 78 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+79 \{
+80     t->tv\_nsec -= us * \hyperlink{maap__helper__linux_8h_a3b2779e65a68758ef2bfe4875b41e091}{NANOSECONDS\_PER\_USEC};
+81     t->tv\_sec += t->tv\_nsec / \hyperlink{maap__helper__linux_8h_a5df38c677104658963501aa1e2a88e60}{NANOSECONDS\_PER\_SECOND};
+82     t->tv\_nsec = t->tv\_nsec % \hyperlink{maap__helper__linux_8h_a5df38c677104658963501aa1e2a88e60}{NANOSECONDS\_PER\_SECOND};
+83     \textcolor{keywordflow}{if} (t->tv\_nsec < 0) \{
+84         t->tv\_sec--;
+85         t->tv\_nsec = \hyperlink{maap__helper__linux_8h_a5df38c677104658963501aa1e2a88e60}{NANOSECONDS\_PER\_SECOND} + t->tv\_nsec;
+86     \}
+87 \}
+\end{DoxyCode}
+\index{openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}!timespec\+\_\+usec\+\_\+diff@{timespec\+\_\+usec\+\_\+diff}}
+\index{timespec\+\_\+usec\+\_\+diff@{timespec\+\_\+usec\+\_\+diff}!openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}}
+\subsubsection[{\texorpdfstring{timespec\+\_\+usec\+\_\+diff(struct timespec $\ast$t1, struct timespec $\ast$t2)}{timespec_usec_diff(struct timespec *t1, struct timespec *t2)}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long timespec\+\_\+usec\+\_\+diff (
+\begin{DoxyParamCaption}
+\item[{struct timespec $\ast$}]{t1, }
+\item[{struct timespec $\ast$}]{t2}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__tl_8h_afd9412437d4c5f80eccffd25cdb650dc}{}\label{openavb__tl_8h_afd9412437d4c5f80eccffd25cdb650dc}
+
+
+openavb\+\_\+tl.\+c 파일의 89 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+90 \{
+91     \textcolor{keywordflow}{return} (t1->tv\_sec - t2->tv\_sec) * \hyperlink{maap__helper__linux_8h_a8a708413d6171e7d86056793abe2cd1a}{MICROSECONDS\_PER\_SECOND}
+92            + (t1->tv\_nsec - t2->tv\_nsec) / \hyperlink{maap__helper__linux_8h_a3b2779e65a68758ef2bfe4875b41e091}{NANOSECONDS\_PER\_USEC};
+93 \}
+\end{DoxyCode}
+\index{openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}!T\+L\+Handle\+List\+Get@{T\+L\+Handle\+List\+Get}}
+\index{T\+L\+Handle\+List\+Get@{T\+L\+Handle\+List\+Get}!openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}}
+\subsubsection[{\texorpdfstring{T\+L\+Handle\+List\+Get(int endpoint\+Handle)}{TLHandleListGet(int endpointHandle)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf tl\+\_\+handle\+\_\+t} T\+L\+Handle\+List\+Get (
+\begin{DoxyParamCaption}
+\item[{int}]{endpoint\+Handle}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__tl_8h_ad2f38bb797230bf2c03c44f4742a9815}{}\label{openavb__tl_8h_ad2f38bb797230bf2c03c44f4742a9815}
+
+
+openavb\+\_\+tl\+\_\+endpoint.\+c 파일의 132 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+133 \{
+134     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_ae679116a5251aad926d752e57edbb7d3}{AVB\_TRACE\_TL});
+135 
+136     \textcolor{keywordflow}{if} (!endpointHandle || !\hyperlink{openavb__tl_8c_ae763c69b8fd7908fa992bf0a4ffaa01d}{gTLHandleList}) \{
+137         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_ae679116a5251aad926d752e57edbb7d3}{AVB\_TRACE\_TL});
+138         \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+139     \}
+140 
+141     \hyperlink{openavb__tl_8h_a298bd01d98b67ac3fd35dd9ce07d2a1c}{TL\_LOCK}();
+142     \textcolor{keywordtype}{int} i1;
+143     \textcolor{keywordflow}{for} (i1 = 0; i1 < \hyperlink{openavb__tl_8c_ae541666b6e4d9d49cdb4d033dbbe60f0}{gMaxTL}; i1++) \{
+144         \textcolor{keywordflow}{if} (\hyperlink{openavb__tl_8c_ae763c69b8fd7908fa992bf0a4ffaa01d}{gTLHandleList}[i1]) \{
+145             \hyperlink{structtl__state__t}{tl\_state\_t} *pTLState = (\hyperlink{structtl__state__t}{tl\_state\_t} *)
+      \hyperlink{openavb__tl_8c_ae763c69b8fd7908fa992bf0a4ffaa01d}{gTLHandleList}[i1];
+146             \textcolor{keywordflow}{if} (pTLState->\hyperlink{structtl__state__t_ab3ab35067245073649b909ddc82c2807}{endpointHandle} == endpointHandle) \{
+147                 \hyperlink{openavb__tl_8h_a9f0e3f12724995e5dfa6bb65a9c947a1}{TL\_UNLOCK}();
+148                 \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_ae679116a5251aad926d752e57edbb7d3}{AVB\_TRACE\_TL});
+149                 \textcolor{keywordflow}{return} pTLState;
+150             \}
+151         \}
+152     \}
+153     \hyperlink{openavb__tl_8h_a9f0e3f12724995e5dfa6bb65a9c947a1}{TL\_UNLOCK}();
+154     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_ae679116a5251aad926d752e57edbb7d3}{AVB\_TRACE\_TL});
+155     \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+156 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__tl_8h_ad2f38bb797230bf2c03c44f4742a9815_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}!T\+L\+Handle\+List\+Remove@{T\+L\+Handle\+List\+Remove}}
+\index{T\+L\+Handle\+List\+Remove@{T\+L\+Handle\+List\+Remove}!openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}}
+\subsubsection[{\texorpdfstring{T\+L\+Handle\+List\+Remove(tl\+\_\+handle\+\_\+t handle)}{TLHandleListRemove(tl_handle_t handle)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} T\+L\+Handle\+List\+Remove (
+\begin{DoxyParamCaption}
+\item[{{\bf tl\+\_\+handle\+\_\+t}}]{handle}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__tl_8h_ace637593750e9b57aaae4c0a2bee39eb}{}\label{openavb__tl_8h_ace637593750e9b57aaae4c0a2bee39eb}
+
+
+openavb\+\_\+tl.\+c 파일의 134 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+135 \{
+136     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_ae679116a5251aad926d752e57edbb7d3}{AVB\_TRACE\_TL});
+137 
+138     \textcolor{keywordflow}{if} (!\hyperlink{jack__listener_8c_a6c138155d7b3442efd19d0aa3f93e548}{handle} || !\hyperlink{openavb__tl_8c_ae763c69b8fd7908fa992bf0a4ffaa01d}{gTLHandleList}) \{
+139         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_ae679116a5251aad926d752e57edbb7d3}{AVB\_TRACE\_TL});
+140         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+141     \}
+142 
+143     \hyperlink{openavb__tl_8h_a298bd01d98b67ac3fd35dd9ce07d2a1c}{TL\_LOCK}();
+144     \textcolor{keywordtype}{int} i1;
+145     \textcolor{keywordflow}{for} (i1 = 0; i1 < \hyperlink{openavb__tl_8c_ae541666b6e4d9d49cdb4d033dbbe60f0}{gMaxTL}; i1++) \{
+146         \textcolor{keywordflow}{if} (\hyperlink{openavb__tl_8c_ae763c69b8fd7908fa992bf0a4ffaa01d}{gTLHandleList}[i1] == \hyperlink{jack__listener_8c_a6c138155d7b3442efd19d0aa3f93e548}{handle}) \{
+147             \hyperlink{openavb__tl_8c_ae763c69b8fd7908fa992bf0a4ffaa01d}{gTLHandleList}[i1] = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+148             \hyperlink{openavb__tl_8h_a9f0e3f12724995e5dfa6bb65a9c947a1}{TL\_UNLOCK}();
+149             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_ae679116a5251aad926d752e57edbb7d3}{AVB\_TRACE\_TL});
+150             \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+151         \}
+152     \}
+153     \hyperlink{openavb__tl_8h_a9f0e3f12724995e5dfa6bb65a9c947a1}{TL\_UNLOCK}();
+154     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_ae679116a5251aad926d752e57edbb7d3}{AVB\_TRACE\_TL});
+155     \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+156 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=317pt]{openavb__tl_8h_ace637593750e9b57aaae4c0a2bee39eb_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}!T\+L\+Handle\+Remove@{T\+L\+Handle\+Remove}}
+\index{T\+L\+Handle\+Remove@{T\+L\+Handle\+Remove}!openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}}
+\subsubsection[{\texorpdfstring{T\+L\+Handle\+Remove(tl\+\_\+handle\+\_\+t handle)}{TLHandleRemove(tl_handle_t handle)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} T\+L\+Handle\+Remove (
+\begin{DoxyParamCaption}
+\item[{{\bf tl\+\_\+handle\+\_\+t}}]{handle}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__tl_8h_a642f4546d13df733a9e30baad3e5c72c}{}\label{openavb__tl_8h_a642f4546d13df733a9e30baad3e5c72c}
+
+
+\subsection{변수 문서화}
+\index{openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}!g\+Max\+TL@{g\+Max\+TL}}
+\index{g\+Max\+TL@{g\+Max\+TL}!openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}}
+\subsubsection[{\texorpdfstring{g\+Max\+TL}{gMaxTL}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf U32} g\+Max\+TL}\hypertarget{openavb__tl_8h_ae541666b6e4d9d49cdb4d033dbbe60f0}{}\label{openavb__tl_8h_ae541666b6e4d9d49cdb4d033dbbe60f0}
+
+
+openavb\+\_\+tl.\+c 파일의 51 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}!g\+T\+L\+Handle\+List@{g\+T\+L\+Handle\+List}}
+\index{g\+T\+L\+Handle\+List@{g\+T\+L\+Handle\+List}!openavb\+\_\+tl.\+h@{openavb\+\_\+tl.\+h}}
+\subsubsection[{\texorpdfstring{g\+T\+L\+Handle\+List}{gTLHandleList}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf tl\+\_\+handle\+\_\+t}$\ast$ g\+T\+L\+Handle\+List}\hypertarget{openavb__tl_8h_ae763c69b8fd7908fa992bf0a4ffaa01d}{}\label{openavb__tl_8h_ae763c69b8fd7908fa992bf0a4ffaa01d}
+
+
+openavb\+\_\+tl.\+c 파일의 52 번째 라인에서 정의되었습니다.
+

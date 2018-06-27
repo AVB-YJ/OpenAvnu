@@ -1,0 +1,42 @@
+\section*{Description}
+
+Mpeg2 TS File interface module. Computation of TS packet duration copied from Live555 application (www.\+live555.\+com).
+
+~\newline
+ \section*{Interface module configuration parameters}
+
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*2{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}{\bf Name }&{\bf Description  }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}{\bf Name }&{\bf Description  }\\\cline{1-2}
+\endhead
+intf\+\_\+nv\+\_\+file\+\_\+name &The fully qualified file name. Used on {\bfseries talker} \textbackslash{} \\\cline{1-2}
+\end{longtabu}
+and on {\bfseries listener} side intf\+\_\+nv\+\_\+repeat $\vert$\+If set to 1 it will continually repeat the file \textbackslash{} stream when running as a talker intf\+\_\+nv\+\_\+repeat\+\_\+seconds $\vert$\+Delay in seconds which will be skipped when repeating intf\+\_\+nv\+\_\+enable\+\_\+proper\+\_\+bitrate\+\_\+streaming$\vert$\+Setting to 1 will enable tracking of \textbackslash{} the bitrate intf\+\_\+nv\+\_\+ignore\+\_\+timestamp $\vert$ If set to 1 timestamps will be ignored during \textbackslash{} processing of frames. This also means stale (old) \textbackslash{} Media Queue items will not be purged.
+
+~\newline
+ \section*{Notes}
+
+Additionally the \hyperlink{structopenavb__intf__cb__t_a43b6a9d9343f06ff21f680a90c9529f6}{openavb\+\_\+intf\+\_\+cb\+\_\+t\+::intf\+\_\+get\+\_\+src\+\_\+bitrate\+\_\+cb} callback function can be used to calculate the maximum bitrate of the source.
+
+{\bfseries Note}\+: To make those calculations {\bfseries intf\+\_\+nv\+\_\+enable\+\_\+proper\+\_\+bitrate\+\_\+streaming} has to be enabled.
+
+If this callback is registered (not N\+U\+LL) it will trigger several actions\+:
+\begin{DoxyItemize}
+\item calculated maximum bitrate will be passed to the maping module via the function \hyperlink{structopenavb__map__cb__t_a51d32b904dad1b9f7dd1d6169128d806}{openavb\+\_\+map\+\_\+cb\+\_\+t\+::map\+\_\+set\+\_\+src\+\_\+bitrate\+\_\+cb}
+\item callback \hyperlink{structopenavb__map__cb__t_af91d6f178bc808c13b21abab3861accb}{openavb\+\_\+map\+\_\+cb\+\_\+t\+::map\+\_\+get\+\_\+max\+\_\+interval\+\_\+frames\+\_\+cb} will be called to calculate the {\bfseries maximum interval frames}
+\item {\bfseries maximum frame size} is calculated by calling \hyperlink{structopenavb__map__cb__t_ac87069ceed64005bb4a3c8fbb3da8357}{openavb\+\_\+map\+\_\+cb\+\_\+t\+::map\+\_\+max\+\_\+data\+\_\+size\+\_\+cb}.
+\end{DoxyItemize}
+
+If this callback function is not registered (is N\+U\+LL), values taken from the configuration file for {\bfseries maximum frame size} and {\bfseries maximum interval frames} will be used for calculations.
+
+{\bfseries maximum frame size} and {\bfseries maximum interval frames} values are used by
+\begin{DoxyItemize}
+\item S\+RP to calculate bandwidth,
+\item F\+Q\+T\+SS to calculate queueing discipline parameters. 
+\end{DoxyItemize}

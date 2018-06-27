@@ -1,0 +1,1754 @@
+\hypertarget{openavb__aecp__message_8c}{}\section{lib/avtp\+\_\+pipeline/aecp/openavb\+\_\+aecp\+\_\+message.c 파일 참조}
+\label{openavb__aecp__message_8c}\index{lib/avtp\+\_\+pipeline/aecp/openavb\+\_\+aecp\+\_\+message.\+c@{lib/avtp\+\_\+pipeline/aecp/openavb\+\_\+aecp\+\_\+message.\+c}}
+{\ttfamily \#include \char`\"{}openavb\+\_\+platform.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$ctype.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+log.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+debug.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+rawsock.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+avtp.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+srp.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+aecp.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+aecp\+\_\+sm\+\_\+entity\+\_\+model\+\_\+entity.\+h\char`\"{}}\\*
+openavb\+\_\+aecp\+\_\+message.\+c에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__aecp__message_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{openavb__aecp__message_8c_abcfb21b6495585fe36058f57a9fe58fc}{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}~\char`\"{}A\+E\+CP\char`\"{}
+\item 
+\#define \hyperlink{openavb__aecp__message_8c_a26769957ec1a2beaf223f33b66ee64ab}{I\+N\+V\+A\+L\+I\+D\+\_\+\+S\+O\+C\+K\+ET}~(-\/1)
+\item 
+\#define \hyperlink{openavb__aecp__message_8c_af98fb8372f1f7bbd3f0456cad630770c}{A\+V\+T\+P\+\_\+\+H\+D\+R\+\_\+\+L\+EN}~12
+\item 
+\#define \hyperlink{openavb__aecp__message_8c_a057563cc9a9afc1341f081172af90369}{A\+E\+C\+P\+\_\+\+D\+A\+T\+A\+\_\+\+L\+EN}~1480
+\item 
+\#define \hyperlink{openavb__aecp__message_8c_aa79fbe53ba889636a96a256e6e28f6eb}{A\+E\+C\+P\+\_\+\+F\+R\+A\+M\+E\+\_\+\+L\+EN}~(\hyperlink{openavb__avtp_8h_a6fd5764cb5a23a3c8ece29f613e4a277}{E\+T\+H\+\_\+\+H\+D\+R\+\_\+\+L\+E\+N\+\_\+\+V\+L\+AN} + \hyperlink{openavb__aecp__message_8c_af98fb8372f1f7bbd3f0456cad630770c}{A\+V\+T\+P\+\_\+\+H\+D\+R\+\_\+\+L\+EN} + \hyperlink{openavb__aecp__message_8c_a057563cc9a9afc1341f081172af90369}{A\+E\+C\+P\+\_\+\+D\+A\+T\+A\+\_\+\+L\+EN})
+\item 
+\#define \hyperlink{openavb__aecp__message_8c_a629819b09e912bc787e300afb5af9890}{A\+E\+C\+P\+\_\+\+N\+U\+M\+\_\+\+B\+U\+F\+F\+E\+RS}~3
+\item 
+\#define \hyperlink{openavb__aecp__message_8c_ad937f94043c94bc430c2bb95753bdbcc}{A\+D\+D\+R\+\_\+\+P\+TR}(A)~(\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8}$\ast$)(\&((A)-\/$>$ether\+\_\+addr\+\_\+octet))
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{openavb__aecp__message_8c_a2fd635fa139ac4491bd3ac5b36f9d0f5}{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE} (openavb\+Aecp\+Message\+Rx\+Thread)
+\item 
+\hyperlink{openavb__aecp__message_8c_adceafd77a218b5b78f067af174a42e2b}{T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+ON} (openavb\+Aecp\+Message\+Rx\+Thread)
+\item 
+void \hyperlink{openavb__aecp__message_8c_a3d30a49dc34835ea724ea076b9e4a94d}{openavb\+Aecp\+Close\+Socket} ()
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__aecp__message_8c_af9060ee4197d78133e3029f2c52009f7}{openavb\+Aecp\+Open\+Socket} (const char $\ast$\hyperlink{aaf-talker_8c_ac7b430acaa92a7a26fbcdad47d2efc20}{ifname}, \hyperlink{openavb__types__base__pub_8h_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16} vlan\+ID, \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} vlan\+P\+CP)
+\item 
+static void \hyperlink{openavb__aecp__message_8c_a9c722284bab1daabf9474185358a4982}{openavb\+Aecp\+Message\+Rx\+Frame\+Parse} (\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} $\ast$payload, int \hyperlink{gstavbsink_8c_afbbc2e77af6298f5550aec6087ba7d32}{payload\+\_\+len}, \hyperlink{structhdr__info__t}{hdr\+\_\+info\+\_\+t} $\ast$hdr)
+\item 
+static void \hyperlink{openavb__aecp__message_8c_aac5ea1ff3583bfa2a744da34ad6efaaf}{openavb\+Aecp\+Message\+Rx\+Frame\+Receive} (\hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} timeout\+Usec)
+\item 
+void \hyperlink{openavb__aecp__message_8c_a86d4f4099b5def0576c208f649426566}{openavb\+Aecp\+Message\+Tx\+Frame} (\hyperlink{structopenavb__aecp___a_e_m_command_response__t}{openavb\+\_\+aecp\+\_\+\+A\+E\+M\+Command\+Response\+\_\+t} $\ast$A\+E\+M\+Command\+Response)
+\item 
+void $\ast$ \hyperlink{openavb__aecp__message_8c_aa6b51dfd7e73b8c04c06ec00cbec2666}{openavb\+Aecp\+Message\+Rx\+Thread\+Fn} (void $\ast$pv)
+\item 
+\hyperlink{openavb__result__codes_8h_a0cb594b7f047b8e4a76be68eca619be5}{openavb\+RC} \hyperlink{openavb__aecp__message_8c_ac05f77f3b1c6effaccdec4ae70b32bcf}{openavb\+Aecp\+Message\+Handler\+Start} ()
+\item 
+void \hyperlink{openavb__aecp__message_8c_a733c29df5337b4e85d176089bf68c632}{openavb\+Aecp\+Message\+Handler\+Stop} ()
+\item 
+\hyperlink{openavb__result__codes_8h_a0cb594b7f047b8e4a76be68eca619be5}{openavb\+RC} \hyperlink{openavb__aecp__message_8c_a660a1b47bec4074d7e18cfc0011deb44}{openavb\+Aecp\+Message\+Send\+Unsolicited\+Notification\+If\+Needed} (\hyperlink{structopenavb__aecp___a_e_m_command_response__t}{openavb\+\_\+aecp\+\_\+\+A\+E\+M\+Command\+Response\+\_\+t} $\ast$A\+E\+M\+Command\+Response)
+\item 
+\hyperlink{openavb__result__codes_8h_a0cb594b7f047b8e4a76be68eca619be5}{openavb\+RC} \hyperlink{openavb__aecp__message_8c_ad8c01ff9f209d985c0540ff693eaf443}{openavb\+Aecp\+Message\+Send} (\hyperlink{structopenavb__aecp___a_e_m_command_response__t}{openavb\+\_\+aecp\+\_\+\+A\+E\+M\+Command\+Response\+\_\+t} $\ast$A\+E\+M\+Command\+Response)
+\end{DoxyCompactItemize}
+\subsection*{변수}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structopenavb__avdecc__cfg__t}{openavb\+\_\+avdecc\+\_\+cfg\+\_\+t} \hyperlink{openavb__aecp__message_8c_a142e959837c765cd9a1767b886421315}{g\+Avdecc\+Cfg}
+\item 
+static void $\ast$ \hyperlink{openavb__aecp__message_8c_a2d8cdd4e3e7124a63509a346ade26a4b}{rx\+Sock} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{N\+U\+LL}
+\item 
+static void $\ast$ \hyperlink{openavb__aecp__message_8c_acc3c897b6f4f88ddba59c97f3178e402}{tx\+Sock} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{N\+U\+LL}
+\item 
+static struct ether\+\_\+addr \hyperlink{openavb__aecp__message_8c_ab00d246f71209a6c53d44b0ec45542a8}{intf\+Addr}
+\item 
+\hyperlink{structopenavb__aecp__sm__global__vars__t}{openavb\+\_\+aecp\+\_\+sm\+\_\+global\+\_\+vars\+\_\+t} \hyperlink{openavb__aecp__message_8c_a4bc568c3f8d5f659ef6288919a43c770}{openavb\+Aecp\+S\+M\+Global\+Vars}
+\item 
+static \hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__aecp__message_8c_acf182b7b2127314d5d00c6df827734b5}{b\+Running} = \hyperlink{lib_2igb_2e1000__osdep_8h_aa93f0eb578d23995850d61f7d61c55c1}{F\+A\+L\+SE}
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}!A\+D\+D\+R\+\_\+\+P\+TR@{A\+D\+D\+R\+\_\+\+P\+TR}}
+\index{A\+D\+D\+R\+\_\+\+P\+TR@{A\+D\+D\+R\+\_\+\+P\+TR}!openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{A\+D\+D\+R\+\_\+\+P\+TR}{ADDR_PTR}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+D\+D\+R\+\_\+\+P\+TR(
+\begin{DoxyParamCaption}
+\item[{}]{A}
+\end{DoxyParamCaption}
+)~({\bf U8}$\ast$)(\&((A)-\/$>$ether\+\_\+addr\+\_\+octet))}\hypertarget{openavb__aecp__message_8c_ad937f94043c94bc430c2bb95753bdbcc}{}\label{openavb__aecp__message_8c_ad937f94043c94bc430c2bb95753bdbcc}
+
+
+openavb\+\_\+aecp\+\_\+message.\+c 파일의 66 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}!A\+E\+C\+P\+\_\+\+D\+A\+T\+A\+\_\+\+L\+EN@{A\+E\+C\+P\+\_\+\+D\+A\+T\+A\+\_\+\+L\+EN}}
+\index{A\+E\+C\+P\+\_\+\+D\+A\+T\+A\+\_\+\+L\+EN@{A\+E\+C\+P\+\_\+\+D\+A\+T\+A\+\_\+\+L\+EN}!openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{A\+E\+C\+P\+\_\+\+D\+A\+T\+A\+\_\+\+L\+EN}{AECP_DATA_LEN}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+E\+C\+P\+\_\+\+D\+A\+T\+A\+\_\+\+L\+EN~1480}\hypertarget{openavb__aecp__message_8c_a057563cc9a9afc1341f081172af90369}{}\label{openavb__aecp__message_8c_a057563cc9a9afc1341f081172af90369}
+
+
+openavb\+\_\+aecp\+\_\+message.\+c 파일의 59 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}!A\+E\+C\+P\+\_\+\+F\+R\+A\+M\+E\+\_\+\+L\+EN@{A\+E\+C\+P\+\_\+\+F\+R\+A\+M\+E\+\_\+\+L\+EN}}
+\index{A\+E\+C\+P\+\_\+\+F\+R\+A\+M\+E\+\_\+\+L\+EN@{A\+E\+C\+P\+\_\+\+F\+R\+A\+M\+E\+\_\+\+L\+EN}!openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{A\+E\+C\+P\+\_\+\+F\+R\+A\+M\+E\+\_\+\+L\+EN}{AECP_FRAME_LEN}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+E\+C\+P\+\_\+\+F\+R\+A\+M\+E\+\_\+\+L\+EN~({\bf E\+T\+H\+\_\+\+H\+D\+R\+\_\+\+L\+E\+N\+\_\+\+V\+L\+AN} + {\bf A\+V\+T\+P\+\_\+\+H\+D\+R\+\_\+\+L\+EN} + {\bf A\+E\+C\+P\+\_\+\+D\+A\+T\+A\+\_\+\+L\+EN})}\hypertarget{openavb__aecp__message_8c_aa79fbe53ba889636a96a256e6e28f6eb}{}\label{openavb__aecp__message_8c_aa79fbe53ba889636a96a256e6e28f6eb}
+
+
+openavb\+\_\+aecp\+\_\+message.\+c 파일의 60 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}!A\+E\+C\+P\+\_\+\+N\+U\+M\+\_\+\+B\+U\+F\+F\+E\+RS@{A\+E\+C\+P\+\_\+\+N\+U\+M\+\_\+\+B\+U\+F\+F\+E\+RS}}
+\index{A\+E\+C\+P\+\_\+\+N\+U\+M\+\_\+\+B\+U\+F\+F\+E\+RS@{A\+E\+C\+P\+\_\+\+N\+U\+M\+\_\+\+B\+U\+F\+F\+E\+RS}!openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{A\+E\+C\+P\+\_\+\+N\+U\+M\+\_\+\+B\+U\+F\+F\+E\+RS}{AECP_NUM_BUFFERS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+E\+C\+P\+\_\+\+N\+U\+M\+\_\+\+B\+U\+F\+F\+E\+RS~3}\hypertarget{openavb__aecp__message_8c_a629819b09e912bc787e300afb5af9890}{}\label{openavb__aecp__message_8c_a629819b09e912bc787e300afb5af9890}
+
+
+openavb\+\_\+aecp\+\_\+message.\+c 파일의 63 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}!A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT@{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}}
+\index{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT@{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}!openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}{AVB_LOG_COMPONENT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT~\char`\"{}A\+E\+CP\char`\"{}}\hypertarget{openavb__aecp__message_8c_abcfb21b6495585fe36058f57a9fe58fc}{}\label{openavb__aecp__message_8c_abcfb21b6495585fe36058f57a9fe58fc}
+
+
+openavb\+\_\+aecp\+\_\+message.\+c 파일의 45 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}!A\+V\+T\+P\+\_\+\+H\+D\+R\+\_\+\+L\+EN@{A\+V\+T\+P\+\_\+\+H\+D\+R\+\_\+\+L\+EN}}
+\index{A\+V\+T\+P\+\_\+\+H\+D\+R\+\_\+\+L\+EN@{A\+V\+T\+P\+\_\+\+H\+D\+R\+\_\+\+L\+EN}!openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{A\+V\+T\+P\+\_\+\+H\+D\+R\+\_\+\+L\+EN}{AVTP_HDR_LEN}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+V\+T\+P\+\_\+\+H\+D\+R\+\_\+\+L\+EN~12}\hypertarget{openavb__aecp__message_8c_af98fb8372f1f7bbd3f0456cad630770c}{}\label{openavb__aecp__message_8c_af98fb8372f1f7bbd3f0456cad630770c}
+
+
+openavb\+\_\+aecp\+\_\+message.\+c 파일의 58 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}!I\+N\+V\+A\+L\+I\+D\+\_\+\+S\+O\+C\+K\+ET@{I\+N\+V\+A\+L\+I\+D\+\_\+\+S\+O\+C\+K\+ET}}
+\index{I\+N\+V\+A\+L\+I\+D\+\_\+\+S\+O\+C\+K\+ET@{I\+N\+V\+A\+L\+I\+D\+\_\+\+S\+O\+C\+K\+ET}!openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{I\+N\+V\+A\+L\+I\+D\+\_\+\+S\+O\+C\+K\+ET}{INVALID_SOCKET}}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\+N\+V\+A\+L\+I\+D\+\_\+\+S\+O\+C\+K\+ET~(-\/1)}\hypertarget{openavb__aecp__message_8c_a26769957ec1a2beaf223f33b66ee64ab}{}\label{openavb__aecp__message_8c_a26769957ec1a2beaf223f33b66ee64ab}
+
+
+openavb\+\_\+aecp\+\_\+message.\+c 파일의 55 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{함수 문서화}
+\index{openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}!openavb\+Aecp\+Close\+Socket@{openavb\+Aecp\+Close\+Socket}}
+\index{openavb\+Aecp\+Close\+Socket@{openavb\+Aecp\+Close\+Socket}!openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Aecp\+Close\+Socket()}{openavbAecpCloseSocket()}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Aecp\+Close\+Socket (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__aecp__message_8c_a3d30a49dc34835ea724ea076b9e4a94d}{}\label{openavb__aecp__message_8c_a3d30a49dc34835ea724ea076b9e4a94d}
+
+
+openavb\+\_\+aecp\+\_\+message.\+c 파일의 81 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+82 \{
+83     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a285a706485bf86a3bfa1aaf03ae676e2}{AVB\_TRACE\_AECP});
+84 
+85     \textcolor{keywordflow}{if} (\hyperlink{openavb__aecp__message_8c_a2d8cdd4e3e7124a63509a346ade26a4b}{rxSock}) \{
+86         \hyperlink{openavb__rawsock_8h_ae1e456bd2922c4ed8fc8263cc65d98d1}{openavbRawsockClose}(\hyperlink{openavb__aecp__message_8c_a2d8cdd4e3e7124a63509a346ade26a4b}{rxSock});
+87         \hyperlink{openavb__aecp__message_8c_a2d8cdd4e3e7124a63509a346ade26a4b}{rxSock} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+88     \}
+89     \textcolor{keywordflow}{if} (\hyperlink{openavb__aecp__message_8c_acc3c897b6f4f88ddba59c97f3178e402}{txSock}) \{
+90         \hyperlink{openavb__rawsock_8h_ae1e456bd2922c4ed8fc8263cc65d98d1}{openavbRawsockClose}(\hyperlink{openavb__aecp__message_8c_acc3c897b6f4f88ddba59c97f3178e402}{txSock});
+91         \hyperlink{openavb__aecp__message_8c_acc3c897b6f4f88ddba59c97f3178e402}{txSock} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+92     \}
+93 
+94     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a285a706485bf86a3bfa1aaf03ae676e2}{AVB\_TRACE\_AECP});
+95 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__aecp__message_8c_a3d30a49dc34835ea724ea076b9e4a94d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__aecp__message_8c_a3d30a49dc34835ea724ea076b9e4a94d_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}!openavb\+Aecp\+Message\+Handler\+Start@{openavb\+Aecp\+Message\+Handler\+Start}}
+\index{openavb\+Aecp\+Message\+Handler\+Start@{openavb\+Aecp\+Message\+Handler\+Start}!openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Aecp\+Message\+Handler\+Start()}{openavbAecpMessageHandlerStart()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf openavb\+RC} openavb\+Aecp\+Message\+Handler\+Start (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__aecp__message_8c_ac05f77f3b1c6effaccdec4ae70b32bcf}{}\label{openavb__aecp__message_8c_ac05f77f3b1c6effaccdec4ae70b32bcf}
+
+
+openavb\+\_\+aecp\+\_\+message.\+c 파일의 994 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+995 \{
+996     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a285a706485bf86a3bfa1aaf03ae676e2}{AVB\_TRACE\_AECP});
+997 
+998     \hyperlink{openavb__aecp__message_8c_acf182b7b2127314d5d00c6df827734b5}{bRunning} = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+999 
+1000     \textcolor{keywordflow}{if} (\hyperlink{openavb__aecp__message_8c_af9060ee4197d78133e3029f2c52009f7}{openavbAecpOpenSocket}((\textcolor{keyword}{const} \textcolor{keywordtype}{char} *)\hyperlink{openavb__aecp__message_8c_a142e959837c765cd9a1767b886421315}{gAvdeccCfg}.
+      \hyperlink{structopenavb__avdecc__cfg__t_a11d6071e5fa37b0c5776e17651485f11}{ifname}, \hyperlink{openavb__aecp__message_8c_a142e959837c765cd9a1767b886421315}{gAvdeccCfg}.\hyperlink{structopenavb__avdecc__cfg__t_a6f9e150f3345cb797072070d8972aec8}{vlanID}, \hyperlink{openavb__aecp__message_8c_a142e959837c765cd9a1767b886421315}{gAvdeccCfg}.\hyperlink{structopenavb__avdecc__cfg__t_aeceb46fe9886e43a65d96da0339c43fb}{vlanPCP})) \{
+1001 
+1002         \textcolor{comment}{// Start the RX thread}
+1003         \textcolor{keywordtype}{bool} errResult;
+1004         \hyperlink{maap__helper__linux_8h_a153e2ca1dd20bd23c619f8d2bafcc764}{THREAD\_CREATE}(openavbAecpMessageRxThread, openavbAecpMessageRxThread, 
+      \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{openavb__aecp__message_8c_aa6b51dfd7e73b8c04c06ec00cbec2666}{openavbAecpMessageRxThreadFn}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+1005         \hyperlink{maap__helper__linux_8h_a2d61dbf377bb5ab560d4b4bddf49c9c2}{THREAD\_CHECK\_ERROR}(openavbAecpMessageRxThread, \textcolor{stringliteral}{"Thread / task creation failed"}, 
+      errResult);
+1006         \textcolor{keywordflow}{if} (errResult) \{
+1007             \hyperlink{openavb__aecp__message_8c_acf182b7b2127314d5d00c6df827734b5}{bRunning} = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+1008             \hyperlink{openavb__aecp__message_8c_a3d30a49dc34835ea724ea076b9e4a94d}{openavbAecpCloseSocket}();
+1009             \hyperlink{openavb__result__codes_8h_a914b1a10e0333e834ea192298c7d9e26}{AVB\_RC\_TRACE\_RET}(\hyperlink{openavb__result__codes_8h_ae011b3feb6683a50e9a6a566b7bb679d}{OPENAVB\_AVDECC\_FAILURE}, 
+      \hyperlink{openavb__trace_8h_a285a706485bf86a3bfa1aaf03ae676e2}{AVB\_TRACE\_AECP});
+1010         \}
+1011 
+1012         \hyperlink{openavb__result__codes_8h_a914b1a10e0333e834ea192298c7d9e26}{AVB\_RC\_TRACE\_RET}(\hyperlink{openavb__result__codes_8h_a36a28b5430025e16249854e3e1e74f5e}{OPENAVB\_AVDECC\_SUCCESS}, 
+      \hyperlink{openavb__trace_8h_a285a706485bf86a3bfa1aaf03ae676e2}{AVB\_TRACE\_AECP});
+1013     \}
+1014 
+1015     \hyperlink{openavb__aecp__message_8c_acf182b7b2127314d5d00c6df827734b5}{bRunning} = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+1016     \hyperlink{openavb__result__codes_8h_a914b1a10e0333e834ea192298c7d9e26}{AVB\_RC\_TRACE\_RET}(\hyperlink{openavb__result__codes_8h_ae011b3feb6683a50e9a6a566b7bb679d}{OPENAVB\_AVDECC\_FAILURE}, 
+      \hyperlink{openavb__trace_8h_a285a706485bf86a3bfa1aaf03ae676e2}{AVB\_TRACE\_AECP});
+1017 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__aecp__message_8c_ac05f77f3b1c6effaccdec4ae70b32bcf_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__aecp__message_8c_ac05f77f3b1c6effaccdec4ae70b32bcf_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}!openavb\+Aecp\+Message\+Handler\+Stop@{openavb\+Aecp\+Message\+Handler\+Stop}}
+\index{openavb\+Aecp\+Message\+Handler\+Stop@{openavb\+Aecp\+Message\+Handler\+Stop}!openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Aecp\+Message\+Handler\+Stop()}{openavbAecpMessageHandlerStop()}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Aecp\+Message\+Handler\+Stop (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__aecp__message_8c_a733c29df5337b4e85d176089bf68c632}{}\label{openavb__aecp__message_8c_a733c29df5337b4e85d176089bf68c632}
+
+
+openavb\+\_\+aecp\+\_\+message.\+c 파일의 1019 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+1020 \{
+1021     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a285a706485bf86a3bfa1aaf03ae676e2}{AVB\_TRACE\_AECP});
+1022 
+1023     \textcolor{keywordflow}{if} (\hyperlink{openavb__aecp__message_8c_acf182b7b2127314d5d00c6df827734b5}{bRunning}) \{
+1024         \hyperlink{openavb__aecp__message_8c_acf182b7b2127314d5d00c6df827734b5}{bRunning} = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+1025         \hyperlink{maap__helper__linux_8h_ab2bcb74112112a2ed181d5784e0530f3}{THREAD\_JOIN}(openavbAecpMessageRxThread, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+1026         \hyperlink{openavb__aecp__message_8c_a3d30a49dc34835ea724ea076b9e4a94d}{openavbAecpCloseSocket}();
+1027     \}
+1028 
+1029     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a285a706485bf86a3bfa1aaf03ae676e2}{AVB\_TRACE\_AECP});
+1030 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__aecp__message_8c_a733c29df5337b4e85d176089bf68c632_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__aecp__message_8c_a733c29df5337b4e85d176089bf68c632_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}!openavb\+Aecp\+Message\+Rx\+Frame\+Parse@{openavb\+Aecp\+Message\+Rx\+Frame\+Parse}}
+\index{openavb\+Aecp\+Message\+Rx\+Frame\+Parse@{openavb\+Aecp\+Message\+Rx\+Frame\+Parse}!openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Aecp\+Message\+Rx\+Frame\+Parse(\+U8 $\ast$payload, int payload\+\_\+len, hdr\+\_\+info\+\_\+t $\ast$hdr)}{openavbAecpMessageRxFrameParse(U8 *payload, int payload_len, hdr_info_t *hdr)}}]{\setlength{\rightskip}{0pt plus 5cm}static void openavb\+Aecp\+Message\+Rx\+Frame\+Parse (
+\begin{DoxyParamCaption}
+\item[{{\bf U8} $\ast$}]{payload, }
+\item[{int}]{payload\+\_\+len, }
+\item[{{\bf hdr\+\_\+info\+\_\+t} $\ast$}]{hdr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__aecp__message_8c_a9c722284bab1daabf9474185358a4982}{}\label{openavb__aecp__message_8c_a9c722284bab1daabf9474185358a4982}
+
+
+openavb\+\_\+aecp\+\_\+message.\+c 파일의 147 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+148 \{
+149     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a285a706485bf86a3bfa1aaf03ae676e2}{AVB\_TRACE\_AECP});
+150 
+151 \textcolor{preprocessor}{#if 0}
+152     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afcf1f0c1d10ae9efe3782eb6cae78355}{AVB\_LOGF\_DEBUG}(\textcolor{stringliteral}{"openavbAecpMessageRxFrameParse packet data (length %d):"}, 
+      \hyperlink{gstavbsink_8c_afbbc2e77af6298f5550aec6087ba7d32}{payload\_len});
+153     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a8d4c50ca73e8a7fbca488128755e5e5c}{AVB\_LOG\_BUFFER}(\hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a35e326523cfad3b35b50459a9e6bf259}{AVB\_LOG\_LEVEL\_DEBUG}, payload, 
+      \hyperlink{gstavbsink_8c_afbbc2e77af6298f5550aec6087ba7d32}{payload\_len}, 16);
+154 \textcolor{preprocessor}{#endif}
+155 
+156     \textcolor{comment}{// Save the source address}
+157     \hyperlink{structopenavb__aecp___a_e_m_command_response__t}{openavb\_aecp\_AEMCommandResponse\_t} * openavbAecpCommandResponse = 
+      \hyperlink{_memory_leak_detector_malloc_macros_8h_a7cbb7b79af9d539af55b59dfc3598390}{calloc}(1, \textcolor{keyword}{sizeof}(\hyperlink{structopenavb__aecp___a_e_m_command_response__t}{openavb\_aecp\_AEMCommandResponse\_t}));
+158     \textcolor{keywordflow}{if} (!openavbAecpCommandResponse) \{ \textcolor{keywordflow}{return}; \}
+159     memcpy(openavbAecpCommandResponse->\hyperlink{structopenavb__aecp___a_e_m_command_response__t_af49630bd03e5ae4979e6213e3793876e}{host}, hdr->\hyperlink{structhdr__info__t_a603b5aebe0d4619ae32b09cd6612535f}{shost}, \hyperlink{openavb__avdecc__pub_8h_a9822d89774e0d6ddaa06503950130423}{ETH\_ALEN});
+160 
+161     \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *pSrc = payload;
+162     \{
+163         \textcolor{comment}{// AVTP Control Header}
+164         \hyperlink{structopenavb__aecp__control__header__t}{openavb\_aecp\_control\_header\_t} *pDst = &openavbAecpCommandResponse->
+      \hyperlink{structopenavb__aecp___a_e_m_command_response__t_a16afa0982cfd4ce9cdd5bda28d6cebe2}{headers};
+165         \hyperlink{openavb__avdecc_8h_a9b27d3f1018540fea565cdce94708cb4}{BIT\_B2DNTOHB}(pDst->\hyperlink{structopenavb__aecp__control__header__t_ad2828a59ad0b95e77da38333c0a717de}{cd}, pSrc, 0x80, 7, 0);
+166         \hyperlink{openavb__avdecc_8h_a9b27d3f1018540fea565cdce94708cb4}{BIT\_B2DNTOHB}(pDst->\hyperlink{structopenavb__aecp__control__header__t_ad61c2796f8f447c2ca8979f4aeccf351}{subtype}, pSrc, 0x7f, 0, 1);
+167         \hyperlink{openavb__avdecc_8h_a9b27d3f1018540fea565cdce94708cb4}{BIT\_B2DNTOHB}(pDst->\hyperlink{structopenavb__aecp__control__header__t_adc62d14194c9ab3aff5b994caef8bcb0}{sv}, pSrc, 0x80, 7, 0);
+168         \hyperlink{openavb__avdecc_8h_a9b27d3f1018540fea565cdce94708cb4}{BIT\_B2DNTOHB}(pDst->\hyperlink{structopenavb__aecp__control__header__t_ae5d1ca2d5099c6a5f760c897505cb11b}{version}, pSrc, 0x70, 4, 0);
+169         \hyperlink{openavb__avdecc_8h_a9b27d3f1018540fea565cdce94708cb4}{BIT\_B2DNTOHB}(pDst->\hyperlink{structopenavb__aecp__control__header__t_a5e8953d77df4508aa07ed906c5b19beb}{message\_type}, pSrc, 0x0f, 0, 1);
+170         \hyperlink{openavb__avdecc_8h_a9b27d3f1018540fea565cdce94708cb4}{BIT\_B2DNTOHB}(pDst->\hyperlink{structopenavb__aecp__control__header__t_aa2ef32d18f7a5a009b93a17834fe3828}{status}, pSrc, 0xf800, 11, 0);
+171         \hyperlink{openavb__avdecc_8h_ac640f4ad78fb76861555b256d3f8a649}{BIT\_B2DNTOHS}(pDst->\hyperlink{structopenavb__aecp__control__header__t_a6a26fcf01946013b206d67551ef6eb84}{control\_data\_length}, pSrc, 0x07ff, 0, 2);
+172         \hyperlink{openavb__avdecc_8h_a89139086445bc0a41eaa2a0d463d20ee}{OCT\_B2DMEMCP}(pDst->\hyperlink{structopenavb__aecp__control__header__t_ae1b176653a5c7930b960fd063409cf37}{target\_entity\_id}, pSrc);
+173     \}
+174 
+175     \textcolor{keywordflow}{if} (openavbAecpCommandResponse->\hyperlink{structopenavb__aecp___a_e_m_command_response__t_a16afa0982cfd4ce9cdd5bda28d6cebe2}{headers}.\hyperlink{structopenavb__aecp__control__header__t_ad61c2796f8f447c2ca8979f4aeccf351}{subtype} == 
+      \hyperlink{openavb__aecp_8h_a6314802625a50178fb54d43242f8aa5d}{OPENAVB\_AECP\_AVTP\_SUBTYPE}) \{
+176         \textcolor{comment}{// AECP Common PDU Fields}
+177         \hyperlink{structopenavb__aecp__common__data__unit__t}{openavb\_aecp\_common\_data\_unit\_t} *pDst = &openavbAecpCommandResponse
+      ->\hyperlink{structopenavb__aecp___a_e_m_command_response__t_ad6f02622785f0b6f92ab4329f747e01e}{commonPdu};
+178         \hyperlink{openavb__avdecc_8h_a89139086445bc0a41eaa2a0d463d20ee}{OCT\_B2DMEMCP}(pDst->\hyperlink{structopenavb__aecp__common__data__unit__t_a8b74ba582b9c19e1f2e475925f7cfb2f}{controller\_entity\_id}, pSrc);
+179         \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst->\hyperlink{structopenavb__aecp__common__data__unit__t_ada45e1a0fe13471280842df714983d95}{sequence\_id}, pSrc);
+180     \}
+181     \textcolor{keywordflow}{else} \{
+182         \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(openavbAecpCommandResponse);
+183         \textcolor{keywordflow}{return};
+184     \}
+185 
+186     \textcolor{keywordflow}{if} (openavbAecpCommandResponse->\hyperlink{structopenavb__aecp___a_e_m_command_response__t_a16afa0982cfd4ce9cdd5bda28d6cebe2}{headers}.\hyperlink{structopenavb__aecp__control__header__t_a5e8953d77df4508aa07ed906c5b19beb}{message\_type} == 
+      \hyperlink{openavb__aecp_8h_afe90e278cc4a665d3e5f145d20dfda91}{OPENAVB\_AECP\_MESSAGE\_TYPE\_AEM\_COMMAND}) \{
+187         \textcolor{comment}{// Entity Model PDU Fields}
+188         \hyperlink{structopenavb__aecp__entity__model__data__unit__t}{openavb\_aecp\_entity\_model\_data\_unit\_t} *pDst = &
+      openavbAecpCommandResponse->\hyperlink{structopenavb__aecp___a_e_m_command_response__t_a837e0716e898f24be1096090abd03bd3}{entityModelPdu};
+189         \hyperlink{openavb__avdecc_8h_ac640f4ad78fb76861555b256d3f8a649}{BIT\_B2DNTOHS}(pDst->\hyperlink{structopenavb__aecp__entity__model__data__unit__t_a9dc54b317bbb4de0e9975e4f535f4a62}{u}, pSrc, 0x8000, 15, 0);
+190         \hyperlink{openavb__avdecc_8h_ac640f4ad78fb76861555b256d3f8a649}{BIT\_B2DNTOHS}(pDst->\hyperlink{structopenavb__aecp__entity__model__data__unit__t_a448ca35c15a0f96705a67d23603e61bf}{command\_type}, pSrc, 0x7fff, 0, 2);
+191 
+192         \textcolor{keywordflow}{switch} (openavbAecpCommandResponse->\hyperlink{structopenavb__aecp___a_e_m_command_response__t_a837e0716e898f24be1096090abd03bd3}{entityModelPdu}.
+      \hyperlink{structopenavb__aecp__entity__model__data__unit__t_a448ca35c15a0f96705a67d23603e61bf}{command\_type}) \{
+193             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a2720fe38b1eda7142fd58533f4a12176}{OPENAVB\_AEM\_COMMAND\_CODE\_ACQUIRE\_ENTITY}:
+194                 \{
+195                     \hyperlink{structopenavb__aecp__command__data__acquire__entity__t}{openavb\_aecp\_command\_data\_acquire\_entity\_t} *
+      pDst = &openavbAecpCommandResponse->\hyperlink{structopenavb__aecp___a_e_m_command_response__t_a837e0716e898f24be1096090abd03bd3}{entityModelPdu}.\hyperlink{structopenavb__aecp__entity__model__data__unit__t_add21940869ac3d681807b8c2f348c449}{command\_data}.
+      \hyperlink{structopenavb__aecp__entity__model__data__unit__t_ace615330bf6f576e658a2abb6fa98498}{acquireEntityCmd};
+196                     \hyperlink{openavb__avdecc_8h_a4717f6c89c7c15ead09e02dc6f11f110}{OCT\_B2DNTOHL}(pDst->\hyperlink{structopenavb__aecp__command__data__acquire__entity__t_a66936d9b1b8185ff2dd6aaee07c22a2b}{flags}, pSrc);
+197                     \hyperlink{openavb__avdecc_8h_a89139086445bc0a41eaa2a0d463d20ee}{OCT\_B2DMEMCP}(pDst->\hyperlink{structopenavb__aecp__command__data__acquire__entity__t_ad571ead988eae05d924b81ef361c6047}{owner\_id}, pSrc);
+198                     \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst->\hyperlink{structopenavb__aecp__command__data__acquire__entity__t_a1e231d7874aada5925b29affc76782cc}{descriptor\_type}, pSrc);
+199                     \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst->\hyperlink{structopenavb__aecp__command__data__acquire__entity__t_ab26fb363c24b9a2a4391f9171c981b08}{descriptor\_index}, pSrc);
+200                 \}
+201                 \textcolor{keywordflow}{break};
+202             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_ac0afa511ea2e3aecda8b4993326ac2b2}{OPENAVB\_AEM\_COMMAND\_CODE\_LOCK\_ENTITY}:
+203                 \textcolor{comment}{// No command specific data}
+204                 \textcolor{keywordflow}{break};
+205             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_ac926915aa3225cb2b4c3fc5838d27326}{OPENAVB\_AEM\_COMMAND\_CODE\_ENTITY\_AVAILABLE}:
+206                 \textcolor{comment}{// No command specific data}
+207                 \textcolor{keywordflow}{break};
+208             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_aa7c973574de30fd586aaa4a050e37a58}{OPENAVB\_AEM\_COMMAND\_CODE\_CONTROLLER\_AVAILABLE}
+      :
+209                 \textcolor{comment}{// No command specific data}
+210                 \textcolor{keywordflow}{break};
+211             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a2908ff69dcb32d9941374368db7bae3f}{OPENAVB\_AEM\_COMMAND\_CODE\_READ\_DESCRIPTOR}:
+212                 \{
+213                     \hyperlink{structopenavb__aecp__command__data__read__descriptor__t}{openavb\_aecp\_command\_data\_read\_descriptor\_t} 
+      *pDst = &openavbAecpCommandResponse->\hyperlink{structopenavb__aecp___a_e_m_command_response__t_a837e0716e898f24be1096090abd03bd3}{entityModelPdu}.\hyperlink{structopenavb__aecp__entity__model__data__unit__t_add21940869ac3d681807b8c2f348c449}{command\_data}.
+      \hyperlink{structopenavb__aecp__entity__model__data__unit__t_a85da0a0c961a475372a50ea0ddcb8bce}{readDescriptorCmd};
+214                     \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst->\hyperlink{structopenavb__aecp__command__data__read__descriptor__t_aa4ea2d17e7732c1a15797c10fa40f9bb}{configuration\_index}, pSrc);
+215                     \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst->\hyperlink{structopenavb__aecp__command__data__read__descriptor__t_ac15a687d635cc969d1bfab4d96858b77}{reserved}, pSrc);
+216                     \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst->\hyperlink{structopenavb__aecp__command__data__read__descriptor__t_a1e231d7874aada5925b29affc76782cc}{descriptor\_type}, pSrc);
+217                     \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst->\hyperlink{structopenavb__aecp__command__data__read__descriptor__t_ab26fb363c24b9a2a4391f9171c981b08}{descriptor\_index}, pSrc);
+218                 \}
+219                 \textcolor{keywordflow}{break};
+220             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_af6684f7e8538bfd0113bb954e70cc110}{OPENAVB\_AEM\_COMMAND\_CODE\_WRITE\_DESCRIPTOR}:
+221                 \textcolor{keywordflow}{break};
+222             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_aa8ab05bc9a029627cc5a0830edf44d13}{OPENAVB\_AEM\_COMMAND\_CODE\_SET\_CONFIGURATION}:
+223                 \textcolor{keywordflow}{break};
+224             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a548d0ade9937c042bc9f35a9b727e071}{OPENAVB\_AEM\_COMMAND\_CODE\_GET\_CONFIGURATION}:
+225                 \textcolor{keywordflow}{break};
+226             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a32732ee5ba8855731c4dfe04e5317751}{OPENAVB\_AEM\_COMMAND\_CODE\_SET\_STREAM\_FORMAT}:
+227                 \{
+228                     \hyperlink{structopenavb__aecp__commandresponse__data__set__stream__format__t}{openavb\_aecp\_commandresponse\_data\_set\_stream\_format\_t}
+       *pDst = &openavbAecpCommandResponse->\hyperlink{structopenavb__aecp___a_e_m_command_response__t_a837e0716e898f24be1096090abd03bd3}{entityModelPdu}.\hyperlink{structopenavb__aecp__entity__model__data__unit__t_add21940869ac3d681807b8c2f348c449}{command\_data}.
+      \hyperlink{structopenavb__aecp__entity__model__data__unit__t_a546c17da78a7dd5a7de12d8b9152cc3e}{setStreamFormatCmd};
+229                     \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst->\hyperlink{structopenavb__aecp__commandresponse__data__set__stream__format__t_a1e231d7874aada5925b29affc76782cc}{descriptor\_type}, pSrc);
+230                     \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst->\hyperlink{structopenavb__aecp__commandresponse__data__set__stream__format__t_ab26fb363c24b9a2a4391f9171c981b08}{descriptor\_index}, pSrc);
+231                     \hyperlink{openavb__avdecc_8h_a89139086445bc0a41eaa2a0d463d20ee}{OCT\_B2DMEMCP}(pDst->\hyperlink{structopenavb__aecp__commandresponse__data__set__stream__format__t_a574c1a5d46fe953da8f394d622e1da8e}{stream\_format}, pSrc);
+232                 \}
+233                 \textcolor{keywordflow}{break};
+234             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a2afb41b45e5acc2932942af4719f5ce4}{OPENAVB\_AEM\_COMMAND\_CODE\_GET\_STREAM\_FORMAT}:
+235                 \{
+236                     \hyperlink{structopenavb__aecp__command__data__get__stream__format__t}{openavb\_aecp\_command\_data\_get\_stream\_format\_t}
+       *pDst = &openavbAecpCommandResponse->\hyperlink{structopenavb__aecp___a_e_m_command_response__t_a837e0716e898f24be1096090abd03bd3}{entityModelPdu}.\hyperlink{structopenavb__aecp__entity__model__data__unit__t_add21940869ac3d681807b8c2f348c449}{command\_data}.
+      \hyperlink{structopenavb__aecp__entity__model__data__unit__t_ae425075062fcb74ebd8ee7b04af5463d}{getStreamFormatCmd};
+237                     \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst->\hyperlink{structopenavb__aecp__command__data__get__stream__format__t_a1e231d7874aada5925b29affc76782cc}{descriptor\_type}, pSrc);
+238                     \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst->\hyperlink{structopenavb__aecp__command__data__get__stream__format__t_ab26fb363c24b9a2a4391f9171c981b08}{descriptor\_index}, pSrc);
+239                 \}
+240                 \textcolor{keywordflow}{break};
+241             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a26943ef28c3994d732992abcc873df9d}{OPENAVB\_AEM\_COMMAND\_CODE\_SET\_VIDEO\_FORMAT}:
+242                 \textcolor{keywordflow}{break};
+243             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_aa9e8436fcdc6baa7896d83a2a2127bda}{OPENAVB\_AEM\_COMMAND\_CODE\_GET\_VIDEO\_FORMAT}:
+244                 \textcolor{keywordflow}{break};
+245             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a98e5862311db638c68b5e2b9fed31683}{OPENAVB\_AEM\_COMMAND\_CODE\_SET\_SENSOR\_FORMAT}:
+246                 \textcolor{keywordflow}{break};
+247             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a8aa18d326f56f72340aed0abfb1fbce1}{OPENAVB\_AEM\_COMMAND\_CODE\_GET\_SENSOR\_FORMAT}:
+248                 \textcolor{keywordflow}{break};
+249             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a05f76983a06ae61a3db3018f101a79cf}{OPENAVB\_AEM\_COMMAND\_CODE\_SET\_STREAM\_INFO}:
+250                 \{
+251                     \hyperlink{structopenavb__aecp__commandresponse__data__set__stream__info__t}{openavb\_aecp\_commandresponse\_data\_set\_stream\_info\_t}
+       *pDst = &openavbAecpCommandResponse->\hyperlink{structopenavb__aecp___a_e_m_command_response__t_a837e0716e898f24be1096090abd03bd3}{entityModelPdu}.\hyperlink{structopenavb__aecp__entity__model__data__unit__t_add21940869ac3d681807b8c2f348c449}{command\_data}.
+      \hyperlink{structopenavb__aecp__entity__model__data__unit__t_a014d2445a78878a22d3c94679514404e}{setStreamInfoCmd};
+252                     \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst->\hyperlink{structopenavb__aecp__commandresponse__data__set__stream__info__t_a1e231d7874aada5925b29affc76782cc}{descriptor\_type}, pSrc);
+253                     \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst->\hyperlink{structopenavb__aecp__commandresponse__data__set__stream__info__t_ab26fb363c24b9a2a4391f9171c981b08}{descriptor\_index}, pSrc);
+254                     \hyperlink{openavb__avdecc_8h_a4717f6c89c7c15ead09e02dc6f11f110}{OCT\_B2DNTOHL}(pDst->\hyperlink{structopenavb__aecp__commandresponse__data__set__stream__info__t_a66936d9b1b8185ff2dd6aaee07c22a2b}{flags}, pSrc);
+255                     \hyperlink{openavb__avdecc_8h_a89139086445bc0a41eaa2a0d463d20ee}{OCT\_B2DMEMCP}(pDst->\hyperlink{structopenavb__aecp__commandresponse__data__set__stream__info__t_a574c1a5d46fe953da8f394d622e1da8e}{stream\_format}, pSrc);
+256                     \hyperlink{openavb__avdecc_8h_a89139086445bc0a41eaa2a0d463d20ee}{OCT\_B2DMEMCP}(pDst->\hyperlink{structopenavb__aecp__commandresponse__data__set__stream__info__t_a75d8c196686b96d97e0a271ac7b70da8}{stream\_id}, pSrc);
+257                     \hyperlink{openavb__avdecc_8h_a4717f6c89c7c15ead09e02dc6f11f110}{OCT\_B2DNTOHL}(pDst->\hyperlink{structopenavb__aecp__commandresponse__data__set__stream__info__t_af23a398fde70d3b5810b24454143b6a8}{msrp\_accumulated\_latency}, pSrc);
+258                     \hyperlink{openavb__avdecc_8h_a89139086445bc0a41eaa2a0d463d20ee}{OCT\_B2DMEMCP}(pDst->\hyperlink{structopenavb__aecp__commandresponse__data__set__stream__info__t_a26087f365a751a1415364bfb5e2b8a0e}{stream\_dest\_mac}, pSrc);
+259                     \hyperlink{openavb__avdecc_8h_a3268271594416c63f2216ecf26139745}{OCT\_B2DNTOHB}(pDst->\hyperlink{structopenavb__aecp__commandresponse__data__set__stream__info__t_ada8998fee44c5119858081584b96df9a}{msrp\_failure\_code}, pSrc);
+260                     \hyperlink{openavb__avdecc_8h_a3268271594416c63f2216ecf26139745}{OCT\_B2DNTOHB}(pDst->\hyperlink{structopenavb__aecp__commandresponse__data__set__stream__info__t_a693082fad6a007171d121b1959b46c56}{reserved\_1}, pSrc);
+261                     \hyperlink{openavb__avdecc_8h_a89139086445bc0a41eaa2a0d463d20ee}{OCT\_B2DMEMCP}(pDst->\hyperlink{structopenavb__aecp__commandresponse__data__set__stream__info__t_af4f515a13b1ab106e94727f481c3a156}{msrp\_failure\_bridge\_id}, pSrc);
+262                     \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst->\hyperlink{structopenavb__aecp__commandresponse__data__set__stream__info__t_a31db70d552fc6f5d35875430fca593e6}{stream\_vlan\_id}, pSrc);
+263                     \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst->\hyperlink{structopenavb__aecp__commandresponse__data__set__stream__info__t_a9886e8bdd009966e2d33176310d1d372}{reserved\_2}, pSrc);
+264                 \}
+265                 \textcolor{keywordflow}{break};
+266             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a3cde1ba2ed87e318c6f37dc509a59717}{OPENAVB\_AEM\_COMMAND\_CODE\_GET\_STREAM\_INFO}:
+267                 \{
+268                     \hyperlink{structopenavb__aecp__command__data__get__stream__info__t}{openavb\_aecp\_command\_data\_get\_stream\_info\_t} 
+      *pDst = &openavbAecpCommandResponse->\hyperlink{structopenavb__aecp___a_e_m_command_response__t_a837e0716e898f24be1096090abd03bd3}{entityModelPdu}.\hyperlink{structopenavb__aecp__entity__model__data__unit__t_add21940869ac3d681807b8c2f348c449}{command\_data}.
+      \hyperlink{structopenavb__aecp__entity__model__data__unit__t_adcfb85ef202fcbadc980c758ad16f927}{getStreamInfoCmd};
+269                     \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst->\hyperlink{structopenavb__aecp__command__data__get__stream__info__t_a1e231d7874aada5925b29affc76782cc}{descriptor\_type}, pSrc);
+270                     \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst->\hyperlink{structopenavb__aecp__command__data__get__stream__info__t_ab26fb363c24b9a2a4391f9171c981b08}{descriptor\_index}, pSrc);
+271                 \}
+272                 \textcolor{keywordflow}{break};
+273             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_ada2e2a49ab20cad94e099677cd3afcde}{OPENAVB\_AEM\_COMMAND\_CODE\_SET\_NAME}:
+274                 \textcolor{keywordflow}{break};
+275             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_ae58044cabcc0a16a6b29026611127fd3}{OPENAVB\_AEM\_COMMAND\_CODE\_GET\_NAME}:
+276                 \textcolor{keywordflow}{break};
+277             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a98e630f89874b35ab2e44cfbadab8841}{OPENAVB\_AEM\_COMMAND\_CODE\_SET\_ASSOCIATION\_ID}:
+278                 \textcolor{keywordflow}{break};
+279             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a7369b73f37ff8762adf95c99958c0c85}{OPENAVB\_AEM\_COMMAND\_CODE\_GET\_ASSOCIATION\_ID}:
+280                 \textcolor{keywordflow}{break};
+281             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_aa54b2ab1d1774a8704d3d3b8e005ee8a}{OPENAVB\_AEM\_COMMAND\_CODE\_SET\_SAMPLING\_RATE}:
+282                 \{
+283                     \hyperlink{structopenavb__aecp__commandresponse__data__set__sampling__rate__t}{openavb\_aecp\_commandresponse\_data\_set\_sampling\_rate\_t}
+       *pDst = &openavbAecpCommandResponse->\hyperlink{structopenavb__aecp___a_e_m_command_response__t_a837e0716e898f24be1096090abd03bd3}{entityModelPdu}.\hyperlink{structopenavb__aecp__entity__model__data__unit__t_add21940869ac3d681807b8c2f348c449}{command\_data}.
+      \hyperlink{structopenavb__aecp__entity__model__data__unit__t_a15af08e0a9cc278eee59ee48c197e99f}{setSamplingRateCmd};
+284                     \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst->\hyperlink{structopenavb__aecp__commandresponse__data__set__sampling__rate__t_a1e231d7874aada5925b29affc76782cc}{descriptor\_type}, pSrc);
+285                     \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst->\hyperlink{structopenavb__aecp__commandresponse__data__set__sampling__rate__t_ab26fb363c24b9a2a4391f9171c981b08}{descriptor\_index}, pSrc);
+286                     \hyperlink{openavb__avdecc_8h_a89139086445bc0a41eaa2a0d463d20ee}{OCT\_B2DMEMCP}(pDst->\hyperlink{structopenavb__aecp__commandresponse__data__set__sampling__rate__t_a6b09041f69d1e15bd5278514758e680a}{sampling\_rate}, pSrc);
+287                 \}
+288                 \textcolor{keywordflow}{break};
+289             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_af7bb0c7307fcea97694c5fd3d311a8e6}{OPENAVB\_AEM\_COMMAND\_CODE\_GET\_SAMPLING\_RATE}:
+290                 \{
+291                     \hyperlink{structopenavb__aecp__command__data__get__sampling__rate__t}{openavb\_aecp\_command\_data\_get\_sampling\_rate\_t}
+       *pDst = &openavbAecpCommandResponse->\hyperlink{structopenavb__aecp___a_e_m_command_response__t_a837e0716e898f24be1096090abd03bd3}{entityModelPdu}.\hyperlink{structopenavb__aecp__entity__model__data__unit__t_add21940869ac3d681807b8c2f348c449}{command\_data}.
+      \hyperlink{structopenavb__aecp__entity__model__data__unit__t_a910ae8fb1fc20ba0a95dee1256eb15d6}{getSamplingRateCmd};
+292                     \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst->\hyperlink{structopenavb__aecp__command__data__get__sampling__rate__t_a1e231d7874aada5925b29affc76782cc}{descriptor\_type}, pSrc);
+293                     \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst->\hyperlink{structopenavb__aecp__command__data__get__sampling__rate__t_ab26fb363c24b9a2a4391f9171c981b08}{descriptor\_index}, pSrc);
+294                 \}
+295                 \textcolor{keywordflow}{break};
+296             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a13fe16158755cd2cf595b8965055f8a3}{OPENAVB\_AEM\_COMMAND\_CODE\_SET\_CLOCK\_SOURCE}:
+297                 \{
+298                     \hyperlink{structopenavb__aecp__commandresponse__data__set__clock__source__t}{openavb\_aecp\_commandresponse\_data\_set\_clock\_source\_t}
+       *pDst = &openavbAecpCommandResponse->\hyperlink{structopenavb__aecp___a_e_m_command_response__t_a837e0716e898f24be1096090abd03bd3}{entityModelPdu}.\hyperlink{structopenavb__aecp__entity__model__data__unit__t_add21940869ac3d681807b8c2f348c449}{command\_data}.
+      \hyperlink{structopenavb__aecp__entity__model__data__unit__t_abde6fd6788e26fb9f65241bd84326448}{setClockSourceCmd};
+299                     \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst->\hyperlink{structopenavb__aecp__commandresponse__data__set__clock__source__t_a1e231d7874aada5925b29affc76782cc}{descriptor\_type}, pSrc);
+300                     \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst->\hyperlink{structopenavb__aecp__commandresponse__data__set__clock__source__t_ab26fb363c24b9a2a4391f9171c981b08}{descriptor\_index}, pSrc);
+301                     \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst->\hyperlink{structopenavb__aecp__commandresponse__data__set__clock__source__t_ab8a3ce0c7efc03bc176997db162ad53f}{clock\_source\_index}, pSrc);
+302                     \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst->\hyperlink{structopenavb__aecp__commandresponse__data__set__clock__source__t_ac15a687d635cc969d1bfab4d96858b77}{reserved}, pSrc);
+303                 \}
+304                 \textcolor{keywordflow}{break};
+305             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a56156dafb4ac52ad5b0d6eef34921036}{OPENAVB\_AEM\_COMMAND\_CODE\_GET\_CLOCK\_SOURCE}:
+306                 \{
+307                     \hyperlink{structopenavb__aecp__command__data__get__clock__source__t}{openavb\_aecp\_command\_data\_get\_clock\_source\_t}
+       *pDst = &openavbAecpCommandResponse->\hyperlink{structopenavb__aecp___a_e_m_command_response__t_a837e0716e898f24be1096090abd03bd3}{entityModelPdu}.\hyperlink{structopenavb__aecp__entity__model__data__unit__t_add21940869ac3d681807b8c2f348c449}{command\_data}.
+      \hyperlink{structopenavb__aecp__entity__model__data__unit__t_a93d7e5559cb1baa8ab3479ce42321943}{getClockSourceCmd};
+308                     \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst->\hyperlink{structopenavb__aecp__command__data__get__clock__source__t_a1e231d7874aada5925b29affc76782cc}{descriptor\_type}, pSrc);
+309                     \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst->\hyperlink{structopenavb__aecp__command__data__get__clock__source__t_ab26fb363c24b9a2a4391f9171c981b08}{descriptor\_index}, pSrc);
+310                 \}
+311                 \textcolor{keywordflow}{break};
+312             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a20f52278308a200e972d8e8c27df8645}{OPENAVB\_AEM\_COMMAND\_CODE\_SET\_CONTROL}:
+313                 \{
+314                     \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *pSrcEnd = pSrc + openavbAecpCommandResponse->\hyperlink{structopenavb__aecp___a_e_m_command_response__t_a16afa0982cfd4ce9cdd5bda28d6cebe2}{headers}.
+      \hyperlink{structopenavb__aecp__control__header__t_a6a26fcf01946013b206d67551ef6eb84}{control\_data\_length};
+315                     \hyperlink{structopenavb__aecp__commandresponse__data__set__control__t}{openavb\_aecp\_commandresponse\_data\_set\_control\_t}
+       *pDst = &openavbAecpCommandResponse->\hyperlink{structopenavb__aecp___a_e_m_command_response__t_a837e0716e898f24be1096090abd03bd3}{entityModelPdu}.\hyperlink{structopenavb__aecp__entity__model__data__unit__t_add21940869ac3d681807b8c2f348c449}{command\_data}.
+      \hyperlink{structopenavb__aecp__entity__model__data__unit__t_a1ef35da6243b706fd9499dd9fbf13410}{setControlCmd};
+316                     \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst->\hyperlink{structopenavb__aecp__commandresponse__data__set__control__t_a1e231d7874aada5925b29affc76782cc}{descriptor\_type}, pSrc);
+317                     \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst->\hyperlink{structopenavb__aecp__commandresponse__data__set__control__t_ab26fb363c24b9a2a4391f9171c981b08}{descriptor\_index}, pSrc);
+318 
+319                     \textcolor{comment}{// Need to get the descriptor to proper parse the values.}
+320                     \textcolor{keywordflow}{if} (pDst->\hyperlink{structopenavb__aecp__commandresponse__data__set__control__t_a1e231d7874aada5925b29affc76782cc}{descriptor\_type} == 
+      \hyperlink{openavb__aem__types__pub_8h_aa3742431c6e2cdbe0853930cb30e41ae}{OPENAVB\_AEM\_DESCRIPTOR\_CONTROL}) \{
+321                         \hyperlink{structopenavb__aem__descriptor__control__t}{openavb\_aem\_descriptor\_control\_t} *
+      pDescriptorControl = \hyperlink{openavb__aem_8c_a3a159070b7997da78614075d8a277485}{openavbAemGetDescriptor}(\hyperlink{openavb__aem_8c_aee7700ec752480b25acd0a2c5d854169}{openavbAemGetConfigIdx}(), pDst->
+      \hyperlink{structopenavb__aecp__commandresponse__data__set__control__t_a1e231d7874aada5925b29affc76782cc}{descriptor\_type}, pDst->\hyperlink{structopenavb__aecp__commandresponse__data__set__control__t_ab26fb363c24b9a2a4391f9171c981b08}{descriptor\_index});
+322                         \textcolor{keywordflow}{if} (pDescriptorControl) \{
+323                             \textcolor{keywordtype}{bool} bDone = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+324                             pDst->\hyperlink{structopenavb__aecp__commandresponse__data__set__control__t_a264345a5327a88764d6dc9b6ad3abc1f}{valuesCount} = 0;
+325                             \textcolor{keywordflow}{while} ((pSrc < pSrcEnd) || bDone) \{
+326                                 \textcolor{keywordflow}{switch} (pDescriptorControl->\hyperlink{structopenavb__aem__descriptor__control__t_ace2d194568aa6de8cab3ef0324f34579}{control\_value\_type}) \{
+327                                     \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_a940bf43b9de754c08c097ef88aa13e70}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_LINEAR\_INT8}:
+328                                     \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_a7452c5b482c90c422e31f9cdcc60bef0}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_LINEAR\_UINT8}:
+329                                         \hyperlink{openavb__avdecc_8h_a3268271594416c63f2216ecf26139745}{OCT\_B2DNTOHB}(pDst->\hyperlink{structopenavb__aecp__commandresponse__data__set__control__t_a7b56a329473e9e0c055e1940df0767a6}{values}.
+      \hyperlink{structopenavb__aecp__commandresponse__data__set__control__t_a45419fbe4bd6ac07e20b168e97eef09c}{linear\_int8}[pDst->\hyperlink{structopenavb__aecp__commandresponse__data__set__control__t_a264345a5327a88764d6dc9b6ad3abc1f}{valuesCount}++], pSrc);
+330                                         \textcolor{keywordflow}{break};
+331                                     \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_ac2f0e4d1db98e9fe00310b17aa417ab3}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_LINEAR\_INT16}:
+332                                     \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_a025aa27a34560cfe44353ac541b5c520}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_LINEAR\_UINT16}:
+333                                         \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst->\hyperlink{structopenavb__aecp__commandresponse__data__set__control__t_a7b56a329473e9e0c055e1940df0767a6}{values}.
+      \hyperlink{structopenavb__aecp__commandresponse__data__set__control__t_a971e2e30fcd86963178d3445519eccf4}{linear\_int16}[pDst->\hyperlink{structopenavb__aecp__commandresponse__data__set__control__t_a264345a5327a88764d6dc9b6ad3abc1f}{valuesCount}++], pSrc);
+334                                         \textcolor{keywordflow}{break};
+335                                     \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_afb13afd278ae9d68ef68a294c630d0af}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_LINEAR\_INT32}:
+336                                     \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_a536f02b3e28bf75d87b74495f4f5a1f6}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_LINEAR\_UINT32}:
+337                                         \hyperlink{openavb__avdecc_8h_a4717f6c89c7c15ead09e02dc6f11f110}{OCT\_B2DNTOHL}(pDst->\hyperlink{structopenavb__aecp__commandresponse__data__set__control__t_a7b56a329473e9e0c055e1940df0767a6}{values}.
+      \hyperlink{structopenavb__aecp__commandresponse__data__set__control__t_a0f999ad24beb8f01ba18c3059fa0769f}{linear\_int32}[pDst->\hyperlink{structopenavb__aecp__commandresponse__data__set__control__t_a264345a5327a88764d6dc9b6ad3abc1f}{valuesCount}++], pSrc);
+338                                         \textcolor{keywordflow}{break};
+339                                     \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_ac39bd6ca0b1f6b2b5f54374e0506b733}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_LINEAR\_INT64}:
+340                                     \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_a2f63a74e9578e27feca2b09f4c95bb60}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_LINEAR\_UINT64}:
+341                                         \hyperlink{openavb__avdecc_8h_a89139086445bc0a41eaa2a0d463d20ee}{OCT\_B2DMEMCP}(&pDst->\hyperlink{structopenavb__aecp__commandresponse__data__set__control__t_a7b56a329473e9e0c055e1940df0767a6}{values}.
+      \hyperlink{structopenavb__aecp__commandresponse__data__set__control__t_a6ecce63e7b6ac372b12a08319d5cfb56}{linear\_int64}[pDst->\hyperlink{structopenavb__aecp__commandresponse__data__set__control__t_a264345a5327a88764d6dc9b6ad3abc1f}{valuesCount}++], pSrc);
+342                                         \textcolor{keywordflow}{break};
+343                                     \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_a159f5dc2ff8c6d2bb3d744b4c898791c}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_LINEAR\_FLOAT}:
+344                                         \hyperlink{openavb__avdecc_8h_a89139086445bc0a41eaa2a0d463d20ee}{OCT\_B2DMEMCP}(&pDst->\hyperlink{structopenavb__aecp__commandresponse__data__set__control__t_a7b56a329473e9e0c055e1940df0767a6}{values}.
+      \hyperlink{structopenavb__aecp__commandresponse__data__set__control__t_a5a346af0ca505581807d6ed0ec84a85e}{linear\_float}[pDst->\hyperlink{structopenavb__aecp__commandresponse__data__set__control__t_a264345a5327a88764d6dc9b6ad3abc1f}{valuesCount}++], pSrc);
+345                                         \textcolor{keywordflow}{break};
+346                                     \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_aaba7a16c6fc0d67998072ed1eccb660d}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_LINEAR\_DOUBLE}:
+347                                         \hyperlink{openavb__avdecc_8h_a89139086445bc0a41eaa2a0d463d20ee}{OCT\_B2DMEMCP}(&pDst->\hyperlink{structopenavb__aecp__commandresponse__data__set__control__t_a7b56a329473e9e0c055e1940df0767a6}{values}.
+      \hyperlink{structopenavb__aecp__commandresponse__data__set__control__t_a4ac1f60ad606687e4dd294549ff9db69}{linear\_double}[pDst->\hyperlink{structopenavb__aecp__commandresponse__data__set__control__t_a264345a5327a88764d6dc9b6ad3abc1f}{valuesCount}++], pSrc);
+348                                         \textcolor{keywordflow}{break};
+349                                     \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_a02774eb2e978450ff68d9f3302d4cd4e}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_SELECTOR\_INT8}:
+350                                     \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_abceeb34ffcbaa00b8340d67106b35cbd}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_SELECTOR\_UINT8}:
+351                                     \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_aa2f6f73f208b294aed591b0ab119fec0}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_SELECTOR\_INT16}:
+352                                     \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_a6e5ae29b90afaa3ffdc6df33dd2c9033}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_SELECTOR\_UINT16}
+      :
+353                                     \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_aa4639c662f628a5de9392a6e206472fc}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_SELECTOR\_INT32}:
+354                                     \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_a4ca3f3a46d509ec3c2be26b9a594c78c}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_SELECTOR\_UINT32}
+      :
+355                                     \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_a737ef59343fb1376d72cc913934a243a}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_SELECTOR\_INT64}:
+356                                     \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_a47bcb7d27a6d4044ca58e8bb1ba95ae3}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_SELECTOR\_UINT64}
+      :
+357                                     \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_a601dde4a5e72ac54456de27b05e7ab9f}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_SELECTOR\_FLOAT}:
+358                                     \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_a711dec95d11666382c51ff3a15de1fa9}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_SELECTOR\_DOUBLE}
+      :
+359                                     \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_a85aa231c592259dbb0a60e64506d082f}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_SELECTOR\_STRING}
+      :
+360                                     \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_a4bdb9a2339b7caf6a442482ed0cad0b0}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_ARRAY\_INT8}:
+361                                     \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_a6c062eb3050af7b7f367ab670c9708ca}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_ARRAY\_UINT8}:
+362                                     \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_a55447c7fab2a480683547fcc3eedd41d}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_ARRAY\_INT16}:
+363                                     \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_a7e1b24f5cd86201108544173d68aa82c}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_ARRAY\_UINT16}:
+364                                     \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_a96cd270dbff0fef62cb256c6e6c236aa}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_ARRAY\_INT32}:
+365                                     \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_a41c0fc8177c3f58872667a3d1db1286c}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_ARRAY\_UINT32}:
+366                                     \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_a89a6738b6c06f3e54f765c6f0fa8cbc0}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_ARRAY\_INT64}:
+367                                     \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_ac5c96d10ed37654f69d709e857c322d5}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_ARRAY\_UINT64}:
+368                                     \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_af4023e25ea0e85de270005b4cdd54811}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_ARRAY\_FLOAT}:
+369                                     \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_aecc969ea8918a673b0accda002b0f676}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_ARRAY\_DOUBLE}:
+370                                     \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_a5baedaf109ff488dfcbd6d861e75273f}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_UTF8}:
+371                                     \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_a72d3ef7519d377c18ec9ab3d3c8bd3e1}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_BODE\_PLOT}:
+372                                     \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_ac1bd93a49d23071f66a222a1f9b31149}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_SMPTE\_TIME}:
+373                                     \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_aa6830cf1824576a6a541d41fc9d3aaf9}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_SAMPLE\_RATE}:
+374                                     \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_ad8f04c91bbfcfbcbd4edb10ba5065c88}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_GPTP\_TIME}:
+375                                     \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_a600b7de7a789148fb5a4250a8c8e27d7}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_VENDOR}:
+376                                         bDone = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};   \textcolor{comment}{// Not yet supported}
+377                                         \textcolor{keywordflow}{break};
+378                                 \}
+379                             \}
+380                         \}
+381                     \}
+382                 \}
+383                 \textcolor{keywordflow}{break};
+384             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_aff44948bba522df9827cf8d9111c4dac}{OPENAVB\_AEM\_COMMAND\_CODE\_GET\_CONTROL}:
+385                 \{
+386                     \hyperlink{structopenavb__aecp__command__data__get__control__t}{openavb\_aecp\_command\_data\_get\_control\_t} *pDst = 
+      &openavbAecpCommandResponse->\hyperlink{structopenavb__aecp___a_e_m_command_response__t_a837e0716e898f24be1096090abd03bd3}{entityModelPdu}.\hyperlink{structopenavb__aecp__entity__model__data__unit__t_add21940869ac3d681807b8c2f348c449}{command\_data}.
+      \hyperlink{structopenavb__aecp__entity__model__data__unit__t_a7be3af534e46d8bb8d19119cc6dd1930}{getControlCmd};
+387                     \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst->\hyperlink{structopenavb__aecp__command__data__get__control__t_a1e231d7874aada5925b29affc76782cc}{descriptor\_type}, pSrc);
+388                     \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst->\hyperlink{structopenavb__aecp__command__data__get__control__t_ab26fb363c24b9a2a4391f9171c981b08}{descriptor\_index}, pSrc);
+389                 \}
+390                 \textcolor{keywordflow}{break};
+391             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a682a963734688b124c604ca13f6a7452}{OPENAVB\_AEM\_COMMAND\_CODE\_INCREMENT\_CONTROL}:
+392                 \textcolor{keywordflow}{break};
+393             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a6abd5a7dc81255caeaa4f0db31064c43}{OPENAVB\_AEM\_COMMAND\_CODE\_DECREMENT\_CONTROL}:
+394                 \textcolor{keywordflow}{break};
+395             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a09d8575e4d0fa79dcc966f4e55795cc7}{OPENAVB\_AEM\_COMMAND\_CODE\_SET\_SIGNAL\_SELECTOR}:
+396                 \textcolor{keywordflow}{break};
+397             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a7f54a328bc799832d65b025fe6509b96}{OPENAVB\_AEM\_COMMAND\_CODE\_GET\_SIGNAL\_SELECTOR}:
+398                 \textcolor{keywordflow}{break};
+399             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_acb4ff3ba179e3ac91803178f0a74b0fc}{OPENAVB\_AEM\_COMMAND\_CODE\_SET\_MIXER}:
+400                 \textcolor{keywordflow}{break};
+401             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_ae73ad386def07442b1c87264bf7eea91}{OPENAVB\_AEM\_COMMAND\_CODE\_GET\_MIXER}:
+402                 \textcolor{keywordflow}{break};
+403             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a906b6837adf921d8e2104cb0576c35b8}{OPENAVB\_AEM\_COMMAND\_CODE\_SET\_MATRIX}:
+404                 \textcolor{keywordflow}{break};
+405             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_aabb28c0ee9f7c89e5d265e87706f32a4}{OPENAVB\_AEM\_COMMAND\_CODE\_GET\_MATRIX}:
+406                 \textcolor{keywordflow}{break};
+407             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a0140afd7e82e7734fbcf4f4d4d7d910e}{OPENAVB\_AEM\_COMMAND\_CODE\_START\_STREAMING}:
+408                 \{
+409                     \hyperlink{structopenavb__aecp__commandresponse__data__start__streaming__t}{openavb\_aecp\_commandresponse\_data\_start\_streaming\_t}
+       *pDst = &openavbAecpCommandResponse->\hyperlink{structopenavb__aecp___a_e_m_command_response__t_a837e0716e898f24be1096090abd03bd3}{entityModelPdu}.\hyperlink{structopenavb__aecp__entity__model__data__unit__t_add21940869ac3d681807b8c2f348c449}{command\_data}.
+      \hyperlink{structopenavb__aecp__entity__model__data__unit__t_a9b75fde43472148202bf8f748d0cfb3e}{startStreamingCmd};
+410                     \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst->\hyperlink{structopenavb__aecp__commandresponse__data__start__streaming__t_a1e231d7874aada5925b29affc76782cc}{descriptor\_type}, pSrc);
+411                     \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst->\hyperlink{structopenavb__aecp__commandresponse__data__start__streaming__t_ab26fb363c24b9a2a4391f9171c981b08}{descriptor\_index}, pSrc);
+412                 \}
+413                 \textcolor{keywordflow}{break};
+414             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_ab54580902c7ce03f9e8d653802168c72}{OPENAVB\_AEM\_COMMAND\_CODE\_STOP\_STREAMING}:
+415                 \{
+416                     \hyperlink{structopenavb__aecp__commandresponse__data__stop__streaming__t}{openavb\_aecp\_commandresponse\_data\_stop\_streaming\_t}
+       *pDst = &openavbAecpCommandResponse->\hyperlink{structopenavb__aecp___a_e_m_command_response__t_a837e0716e898f24be1096090abd03bd3}{entityModelPdu}.\hyperlink{structopenavb__aecp__entity__model__data__unit__t_add21940869ac3d681807b8c2f348c449}{command\_data}.
+      \hyperlink{structopenavb__aecp__entity__model__data__unit__t_a8387e501db6b695d4bd91b679ccb7594}{stopStreamingCmd};
+417                     \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst->\hyperlink{structopenavb__aecp__commandresponse__data__stop__streaming__t_a1e231d7874aada5925b29affc76782cc}{descriptor\_type}, pSrc);
+418                     \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst->\hyperlink{structopenavb__aecp__commandresponse__data__stop__streaming__t_ab26fb363c24b9a2a4391f9171c981b08}{descriptor\_index}, pSrc);
+419                 \}
+420                 \textcolor{keywordflow}{break};
+421             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_af352ecfb6b11c1f5b192393ba569121b}{OPENAVB\_AEM\_COMMAND\_CODE\_REGISTER\_UNSOLICITED\_NOTIFICATION}
+      :
+422                 \textcolor{keywordflow}{break};
+423             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a9232dc926b07ba703bc5f3a0b1891293}{OPENAVB\_AEM\_COMMAND\_CODE\_DEREGISTER\_UNSOLICITED\_NOTIFICATION}
+      :
+424                 \textcolor{keywordflow}{break};
+425             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a4788cd16b775b30770da92c9b6035210}{OPENAVB\_AEM\_COMMAND\_CODE\_IDENTIFY\_NOTIFICATION}
+      :
+426                 \textcolor{keywordflow}{break};
+427             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a98fdc21e5356460a186963664da9c4de}{OPENAVB\_AEM\_COMMAND\_CODE\_GET\_AVB\_INFO}:
+428                 \textcolor{keywordflow}{break};
+429             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a3931564f7a2bc9a910fbe4dc7a9552b7}{OPENAVB\_AEM\_COMMAND\_CODE\_GET\_AS\_PATH}:
+430                 \textcolor{keywordflow}{break};
+431             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a0ea3ddbf1b8337a0faf93d23d3439bd6}{OPENAVB\_AEM\_COMMAND\_CODE\_GET\_COUNTERS}:
+432                 \{
+433                     \hyperlink{structopenavb__aecp__command__data__get__counters__t}{openavb\_aecp\_command\_data\_get\_counters\_t} *pDst 
+      = &openavbAecpCommandResponse->\hyperlink{structopenavb__aecp___a_e_m_command_response__t_a837e0716e898f24be1096090abd03bd3}{entityModelPdu}.\hyperlink{structopenavb__aecp__entity__model__data__unit__t_add21940869ac3d681807b8c2f348c449}{command\_data}.
+      \hyperlink{structopenavb__aecp__entity__model__data__unit__t_a618ab6503cd3d29ce3b39f8bcb09ade5}{getCountersCmd};
+434                     \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst->\hyperlink{structopenavb__aecp__command__data__get__counters__t_a1e231d7874aada5925b29affc76782cc}{descriptor\_type}, pSrc);
+435                     \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst->\hyperlink{structopenavb__aecp__command__data__get__counters__t_ab26fb363c24b9a2a4391f9171c981b08}{descriptor\_index}, pSrc);
+436                 \}
+437                 \textcolor{keywordflow}{break};
+438             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a2205de44ddddbe98f5e32d34924e25d2}{OPENAVB\_AEM\_COMMAND\_CODE\_REBOOT}:
+439                 \textcolor{keywordflow}{break};
+440             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a7a6bbf67e770674d5d08d8d32c7e890b}{OPENAVB\_AEM\_COMMAND\_CODE\_GET\_AUDIO\_MAP}:
+441                 \textcolor{keywordflow}{break};
+442             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_ae6f2bfb65f62ecaaf0577d628284bf85}{OPENAVB\_AEM\_COMMAND\_CODE\_ADD\_AUDIO\_MAPPINGS}:
+443                 \textcolor{keywordflow}{break};
+444             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_ad73b430bc017fc2880c16b83ff38e64b}{OPENAVB\_AEM\_COMMAND\_CODE\_REMOVE\_AUDIO\_MAPPINGS}
+      :
+445                 \textcolor{keywordflow}{break};
+446             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a76720f81dc796ee203bc45d8e5c829a5}{OPENAVB\_AEM\_COMMAND\_CODE\_GET\_VIDEO\_MAP}:
+447                 \textcolor{keywordflow}{break};
+448             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_aa725afb47946cbdf24869eabc93d9e58}{OPENAVB\_AEM\_COMMAND\_CODE\_ADD\_VIDEO\_MAPPINGS}:
+449                 \textcolor{keywordflow}{break};
+450             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_ab1b807a9b147be838823a0668d25cdfa}{OPENAVB\_AEM\_COMMAND\_CODE\_REMOVE\_VIDEO\_MAPPINGS}
+      :
+451                 \textcolor{keywordflow}{break};
+452             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a4e0d8f6a928789ad755fc53c122a401d}{OPENAVB\_AEM\_COMMAND\_CODE\_GET\_SENSOR\_MAP}:
+453                 \textcolor{keywordflow}{break};
+454             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_aa9e7f93536d4170d3353936d23a84f92}{OPENAVB\_AEM\_COMMAND\_CODE\_ADD\_SENSOR\_MAPPINGS}:
+455                 \textcolor{keywordflow}{break};
+456             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_adb69332233f1a06e9ed847950aea1f69}{OPENAVB\_AEM\_COMMAND\_CODE\_REMOVE\_SENSOR\_MAPPINGS}
+      :
+457                 \textcolor{keywordflow}{break};
+458             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a0f8e692bb4519d683caec4e8c07755b8}{OPENAVB\_AEM\_COMMAND\_CODE\_START\_OPERATION}:
+459                 \textcolor{keywordflow}{break};
+460             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a5d63cec03d56f487d385ed675cae0c36}{OPENAVB\_AEM\_COMMAND\_CODE\_ABORT\_OPERATION}:
+461                 \textcolor{keywordflow}{break};
+462             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a6d27db3b1b1e3903bdb6c6164f450bbd}{OPENAVB\_AEM\_COMMAND\_CODE\_OPERATION\_STATUS}:
+463                 \textcolor{keywordflow}{break};
+464             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a84e5bc6ef2acbae1ce2da7e224aeabe4}{OPENAVB\_AEM\_COMMAND\_CODE\_AUTH\_ADD\_KEY}:
+465                 \textcolor{keywordflow}{break};
+466             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a30d276b7aa0d010959f16c5944489ad7}{OPENAVB\_AEM\_COMMAND\_CODE\_AUTH\_DELETE\_KEY}:
+467                 \textcolor{keywordflow}{break};
+468             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_ab6a9f9c9f7dc94d8f004502c2197d6cc}{OPENAVB\_AEM\_COMMAND\_CODE\_AUTH\_GET\_KEY\_LIST}:
+469                 \textcolor{keywordflow}{break};
+470             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_afbbb170f38153439bab838a68773fc26}{OPENAVB\_AEM\_COMMAND\_CODE\_AUTH\_GET\_KEY}:
+471                 \textcolor{keywordflow}{break};
+472             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a40f01efc77e72e9da788775c5aeba4a8}{OPENAVB\_AEM\_COMMAND\_CODE\_AUTH\_ADD\_KEY\_TO\_CHAIN}
+      :
+473                 \textcolor{keywordflow}{break};
+474             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a07d9233b3229413e7934e29c11c46b79}{OPENAVB\_AEM\_COMMAND\_CODE\_AUTH\_DELETE\_KEY\_FROM\_CHAIN}
+      :
+475                 \textcolor{keywordflow}{break};
+476             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a57a0237b346d952b9505c7ad5071eef9}{OPENAVB\_AEM\_COMMAND\_CODE\_AUTH\_GET\_KEYCHAIN\_LIST}
+      :
+477                 \textcolor{keywordflow}{break};
+478             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a2519d5c01700ec935cc08f8abd1a6ef1}{OPENAVB\_AEM\_COMMAND\_CODE\_AUTH\_GET\_IDENTITY}:
+479                 \textcolor{keywordflow}{break};
+480             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a39559587bc5c6338cefeb18665140b12}{OPENAVB\_AEM\_COMMAND\_CODE\_AUTH\_ADD\_TOKEN}:
+481                 \textcolor{keywordflow}{break};
+482             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a190e5944e350e54d79cfe05589d3a158}{OPENAVB\_AEM\_COMMAND\_CODE\_AUTH\_DELETE\_TOKEN}:
+483                 \textcolor{keywordflow}{break};
+484             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a72d2ec7da96bb4531a02a1d0a3c7d1c6}{OPENAVB\_AEM\_COMMAND\_CODE\_AUTHENTICATE}:
+485                 \textcolor{keywordflow}{break};
+486             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_ae5c53d124593dcd0e7c4407380448e1b}{OPENAVB\_AEM\_COMMAND\_CODE\_DEAUTHENTICATE}:
+487                 \textcolor{keywordflow}{break};
+488             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a574c31cda4d4efe0c4b2308d3bb2ff3e}{OPENAVB\_AEM\_COMMAND\_CODE\_ENABLE\_TRANSPORT\_SECURITY}
+      :
+489                 \textcolor{keywordflow}{break};
+490             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a53d60beca6bda674ccec82fd217ab40a}{OPENAVB\_AEM\_COMMAND\_CODE\_DISABLE\_TRANSPORT\_SECURITY}
+      :
+491                 \textcolor{keywordflow}{break};
+492             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a08bbd0509abbbbe76979212ee9f83ead}{OPENAVB\_AEM\_COMMAND\_CODE\_ENABLE\_STREAM\_ENCRYPTION}
+      :
+493                 \textcolor{keywordflow}{break};
+494             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a07aa874dc8c1edced44b7defcf0bda39}{OPENAVB\_AEM\_COMMAND\_CODE\_DISABLE\_STREAM\_ENCRYPTION}
+      :
+495                 \textcolor{keywordflow}{break};
+496             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_aa82cddb0c0ed1994a8783b3d17310f2c}{OPENAVB\_AEM\_COMMAND\_CODE\_SET\_MEMORY\_OBJECT\_LENGTH}
+      :
+497                 \textcolor{keywordflow}{break};
+498             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a2008c373ae94fdccad66aacdd1206724}{OPENAVB\_AEM\_COMMAND\_CODE\_GET\_MEMORY\_OBJECT\_LENGTH}
+      :
+499                 \textcolor{keywordflow}{break};
+500             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a17683b6ebf28c2cadad3c66f1368bc00}{OPENAVB\_AEM\_COMMAND\_CODE\_SET\_STREAM\_BACKUP}:
+501                 \textcolor{keywordflow}{break};
+502             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_ad2ce8c005c2747eaefc7ff3032466b53}{OPENAVB\_AEM\_COMMAND\_CODE\_GET\_STREAM\_BACKUP}:
+503                 \textcolor{keywordflow}{break};
+504             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_aec461176c5c842d35119c9fe766beda3}{OPENAVB\_AEM\_COMMAND\_CODE\_EXPANSION}:
+505                 \textcolor{keywordflow}{break};
+506             \textcolor{keywordflow}{default}:
+507                 \textcolor{keywordflow}{break};
+508         \}
+509 
+510         \textcolor{keywordflow}{if} (pSrc - payload <= \hyperlink{gstavbsink_8c_afbbc2e77af6298f5550aec6087ba7d32}{payload\_len}) \{
+511             \textcolor{comment}{// Notify the state machine of the command request}
+512             \textcolor{comment}{// The buffer will be deleted once the request is handled.}
+513             \hyperlink{openavb__aecp__sm__entity__model__entity_8c_ae5ce5adf5198bf015fcb9624939a6dba}{openavbAecpSMEntityModelEntitySet\_rcvdCommand}(
+      openavbAecpCommandResponse);
+514         \}
+515         \textcolor{keywordflow}{else} \{
+516             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Expected packet of size %d, but received one of size %d. 
+       Discarding."}, pSrc - payload, \hyperlink{gstavbsink_8c_afbbc2e77af6298f5550aec6087ba7d32}{payload\_len});
+517             \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(openavbAecpCommandResponse);
+518         \}
+519     \}
+520 
+521     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a285a706485bf86a3bfa1aaf03ae676e2}{AVB\_TRACE\_AECP});
+522 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__aecp__message_8c_a9c722284bab1daabf9474185358a4982_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__aecp__message_8c_a9c722284bab1daabf9474185358a4982_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}!openavb\+Aecp\+Message\+Rx\+Frame\+Receive@{openavb\+Aecp\+Message\+Rx\+Frame\+Receive}}
+\index{openavb\+Aecp\+Message\+Rx\+Frame\+Receive@{openavb\+Aecp\+Message\+Rx\+Frame\+Receive}!openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Aecp\+Message\+Rx\+Frame\+Receive(\+U32 timeout\+Usec)}{openavbAecpMessageRxFrameReceive(U32 timeoutUsec)}}]{\setlength{\rightskip}{0pt plus 5cm}static void openavb\+Aecp\+Message\+Rx\+Frame\+Receive (
+\begin{DoxyParamCaption}
+\item[{{\bf U32}}]{timeout\+Usec}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__aecp__message_8c_aac5ea1ff3583bfa2a744da34ad6efaaf}{}\label{openavb__aecp__message_8c_aac5ea1ff3583bfa2a744da34ad6efaaf}
+
+
+openavb\+\_\+aecp\+\_\+message.\+c 파일의 524 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+525 \{
+526     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a285a706485bf86a3bfa1aaf03ae676e2}{AVB\_TRACE\_AECP});
+527 
+528     \hyperlink{structhdr__info__t}{hdr\_info\_t} hdrInfo;
+529     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} offset, len;
+530     \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *pBuf, *pFrame;
+531 
+532     memset(&hdrInfo, 0, \textcolor{keyword}{sizeof}(\hyperlink{structhdr__info__t}{hdr\_info\_t}));
+533 
+534     pBuf = (\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *)\hyperlink{openavb__rawsock_8h_ab4beedf5fcac2ab0b3aaf41095a0dbc1}{openavbRawsockGetRxFrame}(\hyperlink{openavb__aecp__message_8c_a2d8cdd4e3e7124a63509a346ade26a4b}{rxSock}, timeoutUsec, &offset, &
+      len);
+535     \textcolor{keywordflow}{if} (pBuf) \{
+536         pFrame = pBuf + offset;
+537 
+538         offset = \hyperlink{openavb__rawsock_8h_a9e622aafeae5b3aacba4996de08b554a}{openavbRawsockRxParseHdr}(\hyperlink{openavb__aecp__message_8c_a2d8cdd4e3e7124a63509a346ade26a4b}{rxSock}, pBuf, &hdrInfo);
+539         \{
+540 \textcolor{preprocessor}{#ifndef UBUNTU}
+541             \textcolor{keywordflow}{if} (hdrInfo.\hyperlink{structhdr__info__t_a54283e441ba9b75fc494232121266e2c}{ethertype} == \hyperlink{openavb__avtp_8h_a07fb0f2498c8b8dd62cc44da13bb092a}{ETHERTYPE\_8021Q}) \{
+542                 \textcolor{comment}{// Oh!  Need to look past the VLAN tag}
+543                 \hyperlink{openavb__types__base__pub_8h_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16} vlan\_bits = ntohs(*(\hyperlink{openavb__types__base__pub_8h_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16} *)(pFrame + offset));
+544                 hdrInfo.\hyperlink{structhdr__info__t_aae65321fd27fc2507a499a3f00660a93}{vlan} = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+545                 hdrInfo.\hyperlink{structhdr__info__t_aed62b55d4664ac7c198517a01adc4f6b}{vlan\_vid} = vlan\_bits & 0x0FFF;
+546                 hdrInfo.\hyperlink{structhdr__info__t_a394deccdf47e8dd6b4e6329e6fe0f8fc}{vlan\_pcp} = (vlan\_bits >> 13) & 0x0007;
+547                 offset += 2;
+548                 hdrInfo.\hyperlink{structhdr__info__t_a54283e441ba9b75fc494232121266e2c}{ethertype} = ntohs(*(\hyperlink{openavb__types__base__pub_8h_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16} *)(pFrame + offset));
+549                 offset += 2;
+550             \}
+551 \textcolor{preprocessor}{#endif}
+552 
+553             \textcolor{comment}{// Make sure that this is an AVTP packet}
+554             \textcolor{comment}{// (Should always be AVTP if it's to our AVTP-specific multicast address)}
+555             \textcolor{keywordflow}{if} (hdrInfo.\hyperlink{structhdr__info__t_a54283e441ba9b75fc494232121266e2c}{ethertype} == \hyperlink{openavb__avtp_8h_a5e6dfe517d14f65222b866a550498e5f}{ETHERTYPE\_AVTP}) \{
+556                 \textcolor{comment}{// parse the PDU only for AECP messages}
+557                 \textcolor{keywordflow}{if} (*(pFrame + offset) == (0x80 | \hyperlink{openavb__aecp_8h_a6314802625a50178fb54d43242f8aa5d}{OPENAVB\_AECP\_AVTP\_SUBTYPE})) \{
+558                     \hyperlink{openavb__aecp__message_8c_a9c722284bab1daabf9474185358a4982}{openavbAecpMessageRxFrameParse}(pFrame + offset, len - 
+      offset, &hdrInfo);
+559                 \}
+560             \}
+561             \textcolor{keywordflow}{else} \{
+562                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a6e7cd550837a0406e98b81a840d10ea9}{AVB\_LOG\_WARNING}(\textcolor{stringliteral}{"Received non-AVTP frame!"});
+563                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afcf1f0c1d10ae9efe3782eb6cae78355}{AVB\_LOGF\_DEBUG}(\textcolor{stringliteral}{"Unexpected packet data (length %d):"}, len);
+564                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a8d4c50ca73e8a7fbca488128755e5e5c}{AVB\_LOG\_BUFFER}(\hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a35e326523cfad3b35b50459a9e6bf259}{AVB\_LOG\_LEVEL\_DEBUG}, pFrame, len, 16);
+565             \}
+566         \}
+567 
+568         \textcolor{comment}{// Release the frame}
+569         \hyperlink{openavb__rawsock_8h_ab9af76bc21dc0112d657252bd61b1219}{openavbRawsockRelRxFrame}(\hyperlink{openavb__aecp__message_8c_a2d8cdd4e3e7124a63509a346ade26a4b}{rxSock}, pBuf);
+570     \}
+571 
+572     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a285a706485bf86a3bfa1aaf03ae676e2}{AVB\_TRACE\_AECP});
+573 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__aecp__message_8c_aac5ea1ff3583bfa2a744da34ad6efaaf_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__aecp__message_8c_aac5ea1ff3583bfa2a744da34ad6efaaf_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}!openavb\+Aecp\+Message\+Rx\+Thread\+Fn@{openavb\+Aecp\+Message\+Rx\+Thread\+Fn}}
+\index{openavb\+Aecp\+Message\+Rx\+Thread\+Fn@{openavb\+Aecp\+Message\+Rx\+Thread\+Fn}!openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Aecp\+Message\+Rx\+Thread\+Fn(void $\ast$pv)}{openavbAecpMessageRxThreadFn(void *pv)}}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ openavb\+Aecp\+Message\+Rx\+Thread\+Fn (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{pv}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__aecp__message_8c_aa6b51dfd7e73b8c04c06ec00cbec2666}{}\label{openavb__aecp__message_8c_aa6b51dfd7e73b8c04c06ec00cbec2666}
+
+
+openavb\+\_\+aecp\+\_\+message.\+c 파일의 979 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+980 \{
+981     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a285a706485bf86a3bfa1aaf03ae676e2}{AVB\_TRACE\_AECP});
+982 
+983     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a28a4d0350d530ad95c95b8383c00cd9c}{AVB\_LOG\_DEBUG}(\textcolor{stringliteral}{"AECP Thread Started"});
+984     \textcolor{keywordflow}{while} (\hyperlink{openavb__aecp__message_8c_acf182b7b2127314d5d00c6df827734b5}{bRunning}) \{
+985         \textcolor{comment}{// Try to get and process an AECP message.}
+986         \hyperlink{openavb__aecp__message_8c_aac5ea1ff3583bfa2a744da34ad6efaaf}{openavbAecpMessageRxFrameReceive}(
+      \hyperlink{maap__helper__linux_8h_a8a708413d6171e7d86056793abe2cd1a}{MICROSECONDS\_PER\_SECOND});
+987     \}
+988     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a28a4d0350d530ad95c95b8383c00cd9c}{AVB\_LOG\_DEBUG}(\textcolor{stringliteral}{"AECP Thread Done"});
+989 
+990     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a285a706485bf86a3bfa1aaf03ae676e2}{AVB\_TRACE\_AECP});
+991     \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+992 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__aecp__message_8c_aa6b51dfd7e73b8c04c06ec00cbec2666_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__aecp__message_8c_aa6b51dfd7e73b8c04c06ec00cbec2666_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}!openavb\+Aecp\+Message\+Send@{openavb\+Aecp\+Message\+Send}}
+\index{openavb\+Aecp\+Message\+Send@{openavb\+Aecp\+Message\+Send}!openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Aecp\+Message\+Send(openavb\+\_\+aecp\+\_\+\+A\+E\+M\+Command\+Response\+\_\+t $\ast$\+A\+E\+M\+Command\+Response)}{openavbAecpMessageSend(openavb_aecp_AEMCommandResponse_t *AEMCommandResponse)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf openavb\+RC} openavb\+Aecp\+Message\+Send (
+\begin{DoxyParamCaption}
+\item[{{\bf openavb\+\_\+aecp\+\_\+\+A\+E\+M\+Command\+Response\+\_\+t} $\ast$}]{A\+E\+M\+Command\+Response}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__aecp__message_8c_ad8c01ff9f209d985c0540ff693eaf443}{}\label{openavb__aecp__message_8c_ad8c01ff9f209d985c0540ff693eaf443}
+
+
+openavb\+\_\+aecp\+\_\+message.\+c 파일의 1042 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+1043 \{
+1044     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a285a706485bf86a3bfa1aaf03ae676e2}{AVB\_TRACE\_AECP});
+1045     \hyperlink{openavb__aecp__message_8c_a86d4f4099b5def0576c208f649426566}{openavbAecpMessageTxFrame}(AEMCommandResponse);
+1046     \hyperlink{openavb__aecp__message_8c_a660a1b47bec4074d7e18cfc0011deb44}{openavbAecpMessageSendUnsolicitedNotificationIfNeeded}
+      (AEMCommandResponse);
+1047     \hyperlink{openavb__result__codes_8h_a914b1a10e0333e834ea192298c7d9e26}{AVB\_RC\_TRACE\_RET}(\hyperlink{openavb__result__codes_8h_a36a28b5430025e16249854e3e1e74f5e}{OPENAVB\_AVDECC\_SUCCESS}, 
+      \hyperlink{openavb__trace_8h_a285a706485bf86a3bfa1aaf03ae676e2}{AVB\_TRACE\_AECP});
+1048 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__aecp__message_8c_ad8c01ff9f209d985c0540ff693eaf443_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__aecp__message_8c_ad8c01ff9f209d985c0540ff693eaf443_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}!openavb\+Aecp\+Message\+Send\+Unsolicited\+Notification\+If\+Needed@{openavb\+Aecp\+Message\+Send\+Unsolicited\+Notification\+If\+Needed}}
+\index{openavb\+Aecp\+Message\+Send\+Unsolicited\+Notification\+If\+Needed@{openavb\+Aecp\+Message\+Send\+Unsolicited\+Notification\+If\+Needed}!openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Aecp\+Message\+Send\+Unsolicited\+Notification\+If\+Needed(openavb\+\_\+aecp\+\_\+\+A\+E\+M\+Command\+Response\+\_\+t $\ast$\+A\+E\+M\+Command\+Response)}{openavbAecpMessageSendUnsolicitedNotificationIfNeeded(openavb_aecp_AEMCommandResponse_t *AEMCommandResponse)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf openavb\+RC} openavb\+Aecp\+Message\+Send\+Unsolicited\+Notification\+If\+Needed (
+\begin{DoxyParamCaption}
+\item[{{\bf openavb\+\_\+aecp\+\_\+\+A\+E\+M\+Command\+Response\+\_\+t} $\ast$}]{A\+E\+M\+Command\+Response}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__aecp__message_8c_a660a1b47bec4074d7e18cfc0011deb44}{}\label{openavb__aecp__message_8c_a660a1b47bec4074d7e18cfc0011deb44}
+
+
+openavb\+\_\+aecp\+\_\+message.\+c 파일의 1032 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+1033 \{
+1034     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a285a706485bf86a3bfa1aaf03ae676e2}{AVB\_TRACE\_AECP});
+1035     \textcolor{comment}{// AVDECC\_TODO : Currently not implemented. IEEE Std 1722.1-2013 clause 7.5}
+1036     \textcolor{comment}{// The basic idea is to inform interested controllers about a change in state of the Entity Model. This
+       change in state}
+1037     \textcolor{comment}{// could be from a AEM Command or other interfaces into the Entity Model. For AEM Commands this
+       function will check the CommandResponse}
+1038     \textcolor{comment}{// for the Success and correct Message Type and set the Unsolicited flag and sent to interested
+       controllers.}
+1039     \hyperlink{openavb__result__codes_8h_a914b1a10e0333e834ea192298c7d9e26}{AVB\_RC\_TRACE\_RET}(\hyperlink{openavb__result__codes_8h_a36a28b5430025e16249854e3e1e74f5e}{OPENAVB\_AVDECC\_SUCCESS}, 
+      \hyperlink{openavb__trace_8h_a285a706485bf86a3bfa1aaf03ae676e2}{AVB\_TRACE\_AECP});
+1040 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__aecp__message_8c_a660a1b47bec4074d7e18cfc0011deb44_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}!openavb\+Aecp\+Message\+Tx\+Frame@{openavb\+Aecp\+Message\+Tx\+Frame}}
+\index{openavb\+Aecp\+Message\+Tx\+Frame@{openavb\+Aecp\+Message\+Tx\+Frame}!openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Aecp\+Message\+Tx\+Frame(openavb\+\_\+aecp\+\_\+\+A\+E\+M\+Command\+Response\+\_\+t $\ast$\+A\+E\+M\+Command\+Response)}{openavbAecpMessageTxFrame(openavb_aecp_AEMCommandResponse_t *AEMCommandResponse)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Aecp\+Message\+Tx\+Frame (
+\begin{DoxyParamCaption}
+\item[{{\bf openavb\+\_\+aecp\+\_\+\+A\+E\+M\+Command\+Response\+\_\+t} $\ast$}]{A\+E\+M\+Command\+Response}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__aecp__message_8c_a86d4f4099b5def0576c208f649426566}{}\label{openavb__aecp__message_8c_a86d4f4099b5def0576c208f649426566}
+
+
+openavb\+\_\+aecp\+\_\+message.\+c 파일의 576 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+577 \{
+578     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a285a706485bf86a3bfa1aaf03ae676e2}{AVB\_TRACE\_AECP});
+579 
+580     \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *pBuf;
+581     \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *pcontrol\_data\_length;
+582     \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *pcontrol\_data\_length\_start\_marker;
+583     \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} \hyperlink{gst__avb__playbin_8c_a439227feff9d7f55384e8780cfc2eb82}{size};
+584     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} hdrlen = 0;
+585 
+586     pBuf = \hyperlink{openavb__rawsock_8h_a121372984c2c72c3b5872783dbf3dbea}{openavbRawsockGetTxFrame}(\hyperlink{openavb__aecp__message_8c_acc3c897b6f4f88ddba59c97f3178e402}{txSock}, \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, &size);
+587 
+588     \textcolor{keywordflow}{if} (!pBuf) \{
+589         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"No TX buffer"});
+590         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a285a706485bf86a3bfa1aaf03ae676e2}{AVB\_TRACE\_AECP});
+591         \textcolor{keywordflow}{return};
+592     \}
+593 
+594     \textcolor{keywordflow}{if} (size < \hyperlink{openavb__aecp__message_8c_aa79fbe53ba889636a96a256e6e28f6eb}{AECP\_FRAME\_LEN}) \{
+595         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"TX buffer too small"});
+596         \hyperlink{openavb__rawsock_8h_ad8a88781ff68572ec2b3e7605a99c653}{openavbRawsockRelTxFrame}(\hyperlink{openavb__aecp__message_8c_acc3c897b6f4f88ddba59c97f3178e402}{txSock}, pBuf);
+597         pBuf = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+598         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a285a706485bf86a3bfa1aaf03ae676e2}{AVB\_TRACE\_AECP});
+599         \textcolor{keywordflow}{return};
+600     \}
+601 
+602     memset(pBuf, 0, \hyperlink{openavb__aecp__message_8c_aa79fbe53ba889636a96a256e6e28f6eb}{AECP\_FRAME\_LEN});
+603     \hyperlink{openavb__rawsock_8h_a64af44702b6f40bf8932eca5ece06d0c}{openavbRawsockTxFillHdr}(\hyperlink{openavb__aecp__message_8c_acc3c897b6f4f88ddba59c97f3178e402}{txSock}, pBuf, &hdrlen);
+604 
+605     \textcolor{comment}{// Set the destination address}
+606     memcpy(pBuf, AEMCommandResponse->\hyperlink{structopenavb__aecp___a_e_m_command_response__t_af49630bd03e5ae4979e6213e3793876e}{host}, \hyperlink{openavb__avdecc__pub_8h_a9822d89774e0d6ddaa06503950130423}{ETH\_ALEN});
+607 
+608     \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *pDst = pBuf + hdrlen;
+609     \{
+610         \textcolor{comment}{// AVTP Control Header}
+611         \hyperlink{structopenavb__aecp__control__header__t}{openavb\_aecp\_control\_header\_t} *pSrc = &AEMCommandResponse->
+      \hyperlink{structopenavb__aecp___a_e_m_command_response__t_a16afa0982cfd4ce9cdd5bda28d6cebe2}{headers};
+612         \hyperlink{ap__message_8cpp_a96729df4f440a649d696b081c6dfac8b}{BIT\_D2BHTONB}(pDst, pSrc->\hyperlink{structopenavb__aecp__control__header__t_ad2828a59ad0b95e77da38333c0a717de}{cd}, 7, 0);
+613         \hyperlink{ap__message_8cpp_a96729df4f440a649d696b081c6dfac8b}{BIT\_D2BHTONB}(pDst, pSrc->\hyperlink{structopenavb__aecp__control__header__t_ad61c2796f8f447c2ca8979f4aeccf351}{subtype}, 0, 1);
+614         \hyperlink{ap__message_8cpp_a96729df4f440a649d696b081c6dfac8b}{BIT\_D2BHTONB}(pDst, pSrc->\hyperlink{structopenavb__aecp__control__header__t_adc62d14194c9ab3aff5b994caef8bcb0}{sv}, 7, 0);
+615         \hyperlink{ap__message_8cpp_a96729df4f440a649d696b081c6dfac8b}{BIT\_D2BHTONB}(pDst, pSrc->\hyperlink{structopenavb__aecp__control__header__t_ae5d1ca2d5099c6a5f760c897505cb11b}{version}, 4, 0);
+616         \hyperlink{ap__message_8cpp_a96729df4f440a649d696b081c6dfac8b}{BIT\_D2BHTONB}(pDst, pSrc->\hyperlink{structopenavb__aecp__control__header__t_a5e8953d77df4508aa07ed906c5b19beb}{message\_type}, 0, 1);
+617         \hyperlink{ap__message_8cpp_a320aa3b496f6b0356f37f1f09edb0734}{BIT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__aecp__control__header__t_aa2ef32d18f7a5a009b93a17834fe3828}{status}, 11, 0);
+618         pcontrol\_data\_length = pDst;                            \textcolor{comment}{// Set later}
+619         \hyperlink{ap__message_8cpp_a320aa3b496f6b0356f37f1f09edb0734}{BIT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__aecp__control__header__t_a6a26fcf01946013b206d67551ef6eb84}{control\_data\_length}, 0, 2);
+620         \hyperlink{ap__message_8cpp_a84ff71482380e24df395988abd6c768f}{OCT\_D2BMEMCP}(pDst, pSrc->\hyperlink{structopenavb__aecp__control__header__t_ae1b176653a5c7930b960fd063409cf37}{target\_entity\_id});
+621         pcontrol\_data\_length\_start\_marker = pDst;
+622     \}
+623 
+624     \{
+625         \textcolor{comment}{// AECP Common PDU}
+626         \hyperlink{structopenavb__aecp__common__data__unit__t}{openavb\_aecp\_common\_data\_unit\_t} *pSrc = &AEMCommandResponse->
+      \hyperlink{structopenavb__aecp___a_e_m_command_response__t_ad6f02622785f0b6f92ab4329f747e01e}{commonPdu};
+627         \hyperlink{ap__message_8cpp_a84ff71482380e24df395988abd6c768f}{OCT\_D2BMEMCP}(pDst, pSrc->\hyperlink{structopenavb__aecp__common__data__unit__t_a8b74ba582b9c19e1f2e475925f7cfb2f}{controller\_entity\_id});
+628         \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__aecp__common__data__unit__t_ada45e1a0fe13471280842df714983d95}{sequence\_id});
+629     \}
+630 
+631     \textcolor{keywordflow}{if} (AEMCommandResponse->\hyperlink{structopenavb__aecp___a_e_m_command_response__t_a16afa0982cfd4ce9cdd5bda28d6cebe2}{headers}.\hyperlink{structopenavb__aecp__control__header__t_a5e8953d77df4508aa07ed906c5b19beb}{message\_type} == 
+      \hyperlink{openavb__aecp_8h_add61605d26585d83d5fbdf91c5900e6f}{OPENAVB\_AECP\_MESSAGE\_TYPE\_AEM\_RESPONSE}) \{
+632         \textcolor{comment}{// Entity Model PDU Fields}
+633         \hyperlink{structopenavb__aecp__entity__model__data__unit__t}{openavb\_aecp\_entity\_model\_data\_unit\_t} *pSrc = &
+      AEMCommandResponse->\hyperlink{structopenavb__aecp___a_e_m_command_response__t_a837e0716e898f24be1096090abd03bd3}{entityModelPdu};
+634         \hyperlink{ap__message_8cpp_a320aa3b496f6b0356f37f1f09edb0734}{BIT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__aecp__entity__model__data__unit__t_a9dc54b317bbb4de0e9975e4f535f4a62}{u}, 15, 0);
+635         \hyperlink{ap__message_8cpp_a320aa3b496f6b0356f37f1f09edb0734}{BIT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__aecp__entity__model__data__unit__t_a448ca35c15a0f96705a67d23603e61bf}{command\_type}, 0, 2);
+636 
+637         \textcolor{comment}{// Command specific data}
+638         \textcolor{keywordflow}{switch} (AEMCommandResponse->\hyperlink{structopenavb__aecp___a_e_m_command_response__t_a837e0716e898f24be1096090abd03bd3}{entityModelPdu}.\hyperlink{structopenavb__aecp__entity__model__data__unit__t_a448ca35c15a0f96705a67d23603e61bf}{command\_type}) \{
+639             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a2720fe38b1eda7142fd58533f4a12176}{OPENAVB\_AEM\_COMMAND\_CODE\_ACQUIRE\_ENTITY}:
+640                 \{
+641                     \hyperlink{structopenavb__aecp__command__data__acquire__entity__t}{openavb\_aecp\_command\_data\_acquire\_entity\_t} *
+      pSrc = &AEMCommandResponse->\hyperlink{structopenavb__aecp___a_e_m_command_response__t_a837e0716e898f24be1096090abd03bd3}{entityModelPdu}.\hyperlink{structopenavb__aecp__entity__model__data__unit__t_add21940869ac3d681807b8c2f348c449}{command\_data}.
+      \hyperlink{structopenavb__aecp__entity__model__data__unit__t_afffc7245f69418920a026a238d59347b}{acquireEntityRsp};
+642                     \hyperlink{ap__message_8cpp_a600b0c76545a0d0a35a5027518bd797d}{OCT\_D2BHTONL}(pDst, pSrc->\hyperlink{structopenavb__aecp__command__data__acquire__entity__t_a66936d9b1b8185ff2dd6aaee07c22a2b}{flags});
+643                     \hyperlink{ap__message_8cpp_a84ff71482380e24df395988abd6c768f}{OCT\_D2BMEMCP}(pDst, pSrc->\hyperlink{structopenavb__aecp__command__data__acquire__entity__t_ad571ead988eae05d924b81ef361c6047}{owner\_id});
+644                     \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__aecp__command__data__acquire__entity__t_a1e231d7874aada5925b29affc76782cc}{descriptor\_type});
+645                     \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__aecp__command__data__acquire__entity__t_ab26fb363c24b9a2a4391f9171c981b08}{descriptor\_index});
+646                 \}
+647                 \textcolor{keywordflow}{break};
+648             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_ac0afa511ea2e3aecda8b4993326ac2b2}{OPENAVB\_AEM\_COMMAND\_CODE\_LOCK\_ENTITY}:
+649                 \textcolor{comment}{// No command specific data}
+650                 \textcolor{keywordflow}{break};
+651             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_ac926915aa3225cb2b4c3fc5838d27326}{OPENAVB\_AEM\_COMMAND\_CODE\_ENTITY\_AVAILABLE}:
+652                 \textcolor{comment}{// No command specific data}
+653                 \textcolor{keywordflow}{break};
+654             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_aa7c973574de30fd586aaa4a050e37a58}{OPENAVB\_AEM\_COMMAND\_CODE\_CONTROLLER\_AVAILABLE}
+      :
+655                 \textcolor{comment}{// No command specific data}
+656                 \textcolor{keywordflow}{break};
+657             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a2908ff69dcb32d9941374368db7bae3f}{OPENAVB\_AEM\_COMMAND\_CODE\_READ\_DESCRIPTOR}:
+658                 \{
+659                     \hyperlink{structopenavb__aecp__response__data__read__descriptor__t}{openavb\_aecp\_response\_data\_read\_descriptor\_t}
+       *pSrc = &AEMCommandResponse->\hyperlink{structopenavb__aecp___a_e_m_command_response__t_a837e0716e898f24be1096090abd03bd3}{entityModelPdu}.\hyperlink{structopenavb__aecp__entity__model__data__unit__t_add21940869ac3d681807b8c2f348c449}{command\_data}.
+      \hyperlink{structopenavb__aecp__entity__model__data__unit__t_a463e5f6c364c8413f6a6b037d8944741}{readDescriptorRsp};
+660                     \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__aecp__response__data__read__descriptor__t_aa4ea2d17e7732c1a15797c10fa40f9bb}{configuration\_index});
+661                     \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__aecp__response__data__read__descriptor__t_ac15a687d635cc969d1bfab4d96858b77}{reserved});
+662                     \hyperlink{ap__message_8cpp_a80428db14406c9ea6e9a616e8954012c}{OCT\_D2BBUFCP}(pDst, pSrc->\hyperlink{structopenavb__aecp__response__data__read__descriptor__t_ab65704d51b87efd3534c8896de78300e}{descriptor\_data}, pSrc->
+      \hyperlink{structopenavb__aecp__response__data__read__descriptor__t_a991bdb9bb060bb8736e1b2e5fab506e1}{descriptor\_length});
+663                 \}
+664                 \textcolor{keywordflow}{break};
+665             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_af6684f7e8538bfd0113bb954e70cc110}{OPENAVB\_AEM\_COMMAND\_CODE\_WRITE\_DESCRIPTOR}:
+666                 \textcolor{keywordflow}{break};
+667             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_aa8ab05bc9a029627cc5a0830edf44d13}{OPENAVB\_AEM\_COMMAND\_CODE\_SET\_CONFIGURATION}:
+668                 \textcolor{keywordflow}{break};
+669             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a548d0ade9937c042bc9f35a9b727e071}{OPENAVB\_AEM\_COMMAND\_CODE\_GET\_CONFIGURATION}:
+670                 \textcolor{keywordflow}{break};
+671             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a32732ee5ba8855731c4dfe04e5317751}{OPENAVB\_AEM\_COMMAND\_CODE\_SET\_STREAM\_FORMAT}:
+672                 \{
+673                     \hyperlink{structopenavb__aecp__commandresponse__data__set__stream__format__t}{openavb\_aecp\_commandresponse\_data\_set\_stream\_format\_t}
+       *pSrc = &AEMCommandResponse->\hyperlink{structopenavb__aecp___a_e_m_command_response__t_a837e0716e898f24be1096090abd03bd3}{entityModelPdu}.\hyperlink{structopenavb__aecp__entity__model__data__unit__t_add21940869ac3d681807b8c2f348c449}{command\_data}.
+      \hyperlink{structopenavb__aecp__entity__model__data__unit__t_a6f79c4af374044be661f740a174535bc}{setStreamFormatRsp};
+674                     \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__aecp__commandresponse__data__set__stream__format__t_a1e231d7874aada5925b29affc76782cc}{descriptor\_type});
+675                     \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__aecp__commandresponse__data__set__stream__format__t_ab26fb363c24b9a2a4391f9171c981b08}{descriptor\_index});
+676                     \hyperlink{ap__message_8cpp_a84ff71482380e24df395988abd6c768f}{OCT\_D2BMEMCP}(pDst, pSrc->\hyperlink{structopenavb__aecp__commandresponse__data__set__stream__format__t_a574c1a5d46fe953da8f394d622e1da8e}{stream\_format});
+677                 \}
+678                 \textcolor{keywordflow}{break};
+679             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a2afb41b45e5acc2932942af4719f5ce4}{OPENAVB\_AEM\_COMMAND\_CODE\_GET\_STREAM\_FORMAT}:
+680                 \{
+681                     \hyperlink{structopenavb__aecp__response__data__get__stream__format__t}{openavb\_aecp\_response\_data\_get\_stream\_format\_t}
+       *pSrc = &AEMCommandResponse->\hyperlink{structopenavb__aecp___a_e_m_command_response__t_a837e0716e898f24be1096090abd03bd3}{entityModelPdu}.\hyperlink{structopenavb__aecp__entity__model__data__unit__t_add21940869ac3d681807b8c2f348c449}{command\_data}.
+      \hyperlink{structopenavb__aecp__entity__model__data__unit__t_aec44c19ff969e64f903f4b18b60389c6}{getStreamFormatRsp};
+682                     \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__aecp__response__data__get__stream__format__t_a1e231d7874aada5925b29affc76782cc}{descriptor\_type});
+683                     \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__aecp__response__data__get__stream__format__t_ab26fb363c24b9a2a4391f9171c981b08}{descriptor\_index});
+684                     \hyperlink{ap__message_8cpp_a84ff71482380e24df395988abd6c768f}{OCT\_D2BMEMCP}(pDst, pSrc->\hyperlink{structopenavb__aecp__response__data__get__stream__format__t_a574c1a5d46fe953da8f394d622e1da8e}{stream\_format});
+685                 \}
+686                 \textcolor{keywordflow}{break};
+687             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a26943ef28c3994d732992abcc873df9d}{OPENAVB\_AEM\_COMMAND\_CODE\_SET\_VIDEO\_FORMAT}:
+688                 \textcolor{keywordflow}{break};
+689             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_aa9e8436fcdc6baa7896d83a2a2127bda}{OPENAVB\_AEM\_COMMAND\_CODE\_GET\_VIDEO\_FORMAT}:
+690                 \textcolor{keywordflow}{break};
+691             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a98e5862311db638c68b5e2b9fed31683}{OPENAVB\_AEM\_COMMAND\_CODE\_SET\_SENSOR\_FORMAT}:
+692                 \textcolor{keywordflow}{break};
+693             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a8aa18d326f56f72340aed0abfb1fbce1}{OPENAVB\_AEM\_COMMAND\_CODE\_GET\_SENSOR\_FORMAT}:
+694                 \textcolor{keywordflow}{break};
+695             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a05f76983a06ae61a3db3018f101a79cf}{OPENAVB\_AEM\_COMMAND\_CODE\_SET\_STREAM\_INFO}:
+696                 \{
+697                     \hyperlink{structopenavb__aecp__commandresponse__data__set__stream__info__t}{openavb\_aecp\_commandresponse\_data\_set\_stream\_info\_t}
+       *pSrc = &AEMCommandResponse->\hyperlink{structopenavb__aecp___a_e_m_command_response__t_a837e0716e898f24be1096090abd03bd3}{entityModelPdu}.\hyperlink{structopenavb__aecp__entity__model__data__unit__t_add21940869ac3d681807b8c2f348c449}{command\_data}.
+      \hyperlink{structopenavb__aecp__entity__model__data__unit__t_a3db006e013828c95f60760e35fcf62c0}{setStreamInfoRsp};
+698                     \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__aecp__commandresponse__data__set__stream__info__t_a1e231d7874aada5925b29affc76782cc}{descriptor\_type});
+699                     \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__aecp__commandresponse__data__set__stream__info__t_ab26fb363c24b9a2a4391f9171c981b08}{descriptor\_index});
+700                     \hyperlink{ap__message_8cpp_a600b0c76545a0d0a35a5027518bd797d}{OCT\_D2BHTONL}(pDst, pSrc->\hyperlink{structopenavb__aecp__commandresponse__data__set__stream__info__t_a66936d9b1b8185ff2dd6aaee07c22a2b}{flags});
+701                     \hyperlink{ap__message_8cpp_a84ff71482380e24df395988abd6c768f}{OCT\_D2BMEMCP}(pDst, pSrc->\hyperlink{structopenavb__aecp__commandresponse__data__set__stream__info__t_a574c1a5d46fe953da8f394d622e1da8e}{stream\_format});
+702                     \hyperlink{ap__message_8cpp_a84ff71482380e24df395988abd6c768f}{OCT\_D2BMEMCP}(pDst, pSrc->\hyperlink{structopenavb__aecp__commandresponse__data__set__stream__info__t_a75d8c196686b96d97e0a271ac7b70da8}{stream\_id});
+703                     \hyperlink{ap__message_8cpp_a600b0c76545a0d0a35a5027518bd797d}{OCT\_D2BHTONL}(pDst, pSrc->
+      \hyperlink{structopenavb__aecp__commandresponse__data__set__stream__info__t_af23a398fde70d3b5810b24454143b6a8}{msrp\_accumulated\_latency});
+704                     \hyperlink{ap__message_8cpp_a84ff71482380e24df395988abd6c768f}{OCT\_D2BMEMCP}(pDst, pSrc->\hyperlink{structopenavb__aecp__commandresponse__data__set__stream__info__t_a26087f365a751a1415364bfb5e2b8a0e}{stream\_dest\_mac});
+705                     \hyperlink{ap__message_8cpp_a61cc0b8227aa123a21a35310841dbf43}{OCT\_D2BHTONB}(pDst, pSrc->\hyperlink{structopenavb__aecp__commandresponse__data__set__stream__info__t_ada8998fee44c5119858081584b96df9a}{msrp\_failure\_code});
+706                     \hyperlink{ap__message_8cpp_a61cc0b8227aa123a21a35310841dbf43}{OCT\_D2BHTONB}(pDst, pSrc->\hyperlink{structopenavb__aecp__commandresponse__data__set__stream__info__t_a693082fad6a007171d121b1959b46c56}{reserved\_1});
+707                     \hyperlink{ap__message_8cpp_a84ff71482380e24df395988abd6c768f}{OCT\_D2BMEMCP}(pDst, pSrc->\hyperlink{structopenavb__aecp__commandresponse__data__set__stream__info__t_af4f515a13b1ab106e94727f481c3a156}{msrp\_failure\_bridge\_id});
+708                     \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__aecp__commandresponse__data__set__stream__info__t_a31db70d552fc6f5d35875430fca593e6}{stream\_vlan\_id});
+709                     \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__aecp__commandresponse__data__set__stream__info__t_a9886e8bdd009966e2d33176310d1d372}{reserved\_2});
+710                 \}
+711                 \textcolor{keywordflow}{break};
+712             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a3cde1ba2ed87e318c6f37dc509a59717}{OPENAVB\_AEM\_COMMAND\_CODE\_GET\_STREAM\_INFO}:
+713                 \{
+714                     \hyperlink{structopenavb__aecp__response__data__get__stream__info__t}{openavb\_aecp\_response\_data\_get\_stream\_info\_t}
+       *pSrc = &AEMCommandResponse->\hyperlink{structopenavb__aecp___a_e_m_command_response__t_a837e0716e898f24be1096090abd03bd3}{entityModelPdu}.\hyperlink{structopenavb__aecp__entity__model__data__unit__t_add21940869ac3d681807b8c2f348c449}{command\_data}.
+      \hyperlink{structopenavb__aecp__entity__model__data__unit__t_a1f013729708483caec862ffbc28974ef}{getStreamInfoRsp};
+715                     \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__aecp__response__data__get__stream__info__t_a1e231d7874aada5925b29affc76782cc}{descriptor\_type});
+716                     \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__aecp__response__data__get__stream__info__t_ab26fb363c24b9a2a4391f9171c981b08}{descriptor\_index});
+717                     \hyperlink{ap__message_8cpp_a600b0c76545a0d0a35a5027518bd797d}{OCT\_D2BHTONL}(pDst, pSrc->\hyperlink{structopenavb__aecp__response__data__get__stream__info__t_a66936d9b1b8185ff2dd6aaee07c22a2b}{flags});
+718                     \hyperlink{ap__message_8cpp_a84ff71482380e24df395988abd6c768f}{OCT\_D2BMEMCP}(pDst, pSrc->\hyperlink{structopenavb__aecp__response__data__get__stream__info__t_a574c1a5d46fe953da8f394d622e1da8e}{stream\_format});
+719                     \hyperlink{ap__message_8cpp_a84ff71482380e24df395988abd6c768f}{OCT\_D2BMEMCP}(pDst, pSrc->\hyperlink{structopenavb__aecp__response__data__get__stream__info__t_a75d8c196686b96d97e0a271ac7b70da8}{stream\_id});
+720                     \hyperlink{ap__message_8cpp_a600b0c76545a0d0a35a5027518bd797d}{OCT\_D2BHTONL}(pDst, pSrc->
+      \hyperlink{structopenavb__aecp__response__data__get__stream__info__t_af23a398fde70d3b5810b24454143b6a8}{msrp\_accumulated\_latency});
+721                     \hyperlink{ap__message_8cpp_a84ff71482380e24df395988abd6c768f}{OCT\_D2BMEMCP}(pDst, pSrc->\hyperlink{structopenavb__aecp__response__data__get__stream__info__t_a26087f365a751a1415364bfb5e2b8a0e}{stream\_dest\_mac});
+722                     \hyperlink{ap__message_8cpp_a61cc0b8227aa123a21a35310841dbf43}{OCT\_D2BHTONB}(pDst, pSrc->\hyperlink{structopenavb__aecp__response__data__get__stream__info__t_ada8998fee44c5119858081584b96df9a}{msrp\_failure\_code});
+723                     \hyperlink{ap__message_8cpp_a61cc0b8227aa123a21a35310841dbf43}{OCT\_D2BHTONB}(pDst, pSrc->\hyperlink{structopenavb__aecp__response__data__get__stream__info__t_a693082fad6a007171d121b1959b46c56}{reserved\_1});
+724                     \hyperlink{ap__message_8cpp_a84ff71482380e24df395988abd6c768f}{OCT\_D2BMEMCP}(pDst, pSrc->\hyperlink{structopenavb__aecp__response__data__get__stream__info__t_af4f515a13b1ab106e94727f481c3a156}{msrp\_failure\_bridge\_id});
+725                     \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__aecp__response__data__get__stream__info__t_a31db70d552fc6f5d35875430fca593e6}{stream\_vlan\_id});
+726                     \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__aecp__response__data__get__stream__info__t_a9886e8bdd009966e2d33176310d1d372}{reserved\_2});
+727                 \}
+728                 \textcolor{keywordflow}{break};
+729             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_ada2e2a49ab20cad94e099677cd3afcde}{OPENAVB\_AEM\_COMMAND\_CODE\_SET\_NAME}:
+730                 \textcolor{keywordflow}{break};
+731             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_ae58044cabcc0a16a6b29026611127fd3}{OPENAVB\_AEM\_COMMAND\_CODE\_GET\_NAME}:
+732                 \textcolor{keywordflow}{break};
+733             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a98e630f89874b35ab2e44cfbadab8841}{OPENAVB\_AEM\_COMMAND\_CODE\_SET\_ASSOCIATION\_ID}:
+734                 \textcolor{keywordflow}{break};
+735             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a7369b73f37ff8762adf95c99958c0c85}{OPENAVB\_AEM\_COMMAND\_CODE\_GET\_ASSOCIATION\_ID}:
+736                 \textcolor{keywordflow}{break};
+737             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_aa54b2ab1d1774a8704d3d3b8e005ee8a}{OPENAVB\_AEM\_COMMAND\_CODE\_SET\_SAMPLING\_RATE}:
+738                 \{
+739                     \hyperlink{structopenavb__aecp__commandresponse__data__set__sampling__rate__t}{openavb\_aecp\_commandresponse\_data\_set\_sampling\_rate\_t}
+       *pSrc = &AEMCommandResponse->\hyperlink{structopenavb__aecp___a_e_m_command_response__t_a837e0716e898f24be1096090abd03bd3}{entityModelPdu}.\hyperlink{structopenavb__aecp__entity__model__data__unit__t_add21940869ac3d681807b8c2f348c449}{command\_data}.
+      \hyperlink{structopenavb__aecp__entity__model__data__unit__t_ac79342237361c321697b43561a6076aa}{setSamplingRateRsp};
+740                     \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__aecp__commandresponse__data__set__sampling__rate__t_a1e231d7874aada5925b29affc76782cc}{descriptor\_type});
+741                     \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__aecp__commandresponse__data__set__sampling__rate__t_ab26fb363c24b9a2a4391f9171c981b08}{descriptor\_index});
+742                     \hyperlink{ap__message_8cpp_a84ff71482380e24df395988abd6c768f}{OCT\_D2BMEMCP}(pDst, pSrc->\hyperlink{structopenavb__aecp__commandresponse__data__set__sampling__rate__t_a6b09041f69d1e15bd5278514758e680a}{sampling\_rate});
+743                 \}
+744                 \textcolor{keywordflow}{break};
+745             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_af7bb0c7307fcea97694c5fd3d311a8e6}{OPENAVB\_AEM\_COMMAND\_CODE\_GET\_SAMPLING\_RATE}:
+746                 \{
+747                     \hyperlink{structopenavb__aecp__response__data__get__sampling__rate__t}{openavb\_aecp\_response\_data\_get\_sampling\_rate\_t}
+       *pSrc = &AEMCommandResponse->\hyperlink{structopenavb__aecp___a_e_m_command_response__t_a837e0716e898f24be1096090abd03bd3}{entityModelPdu}.\hyperlink{structopenavb__aecp__entity__model__data__unit__t_add21940869ac3d681807b8c2f348c449}{command\_data}.
+      \hyperlink{structopenavb__aecp__entity__model__data__unit__t_a831aec65238bdd15555b165f24239e61}{getSamplingRateRsp};
+748                     \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__aecp__response__data__get__sampling__rate__t_a1e231d7874aada5925b29affc76782cc}{descriptor\_type});
+749                     \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__aecp__response__data__get__sampling__rate__t_ab26fb363c24b9a2a4391f9171c981b08}{descriptor\_index});
+750                     \hyperlink{ap__message_8cpp_a84ff71482380e24df395988abd6c768f}{OCT\_D2BMEMCP}(pDst, pSrc->\hyperlink{structopenavb__aecp__response__data__get__sampling__rate__t_a6b09041f69d1e15bd5278514758e680a}{sampling\_rate});
+751                 \}
+752                 \textcolor{keywordflow}{break};
+753             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a13fe16158755cd2cf595b8965055f8a3}{OPENAVB\_AEM\_COMMAND\_CODE\_SET\_CLOCK\_SOURCE}:
+754                 \{
+755                     \hyperlink{structopenavb__aecp__commandresponse__data__set__clock__source__t}{openavb\_aecp\_commandresponse\_data\_set\_clock\_source\_t}
+       *pSrc = &AEMCommandResponse->\hyperlink{structopenavb__aecp___a_e_m_command_response__t_a837e0716e898f24be1096090abd03bd3}{entityModelPdu}.\hyperlink{structopenavb__aecp__entity__model__data__unit__t_add21940869ac3d681807b8c2f348c449}{command\_data}.
+      \hyperlink{structopenavb__aecp__entity__model__data__unit__t_a1a74f62182260ba79e92a2ebd2021b2c}{setClockSourceRsp};
+756                     \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__aecp__commandresponse__data__set__clock__source__t_a1e231d7874aada5925b29affc76782cc}{descriptor\_type});
+757                     \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__aecp__commandresponse__data__set__clock__source__t_ab26fb363c24b9a2a4391f9171c981b08}{descriptor\_index});
+758                     \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__aecp__commandresponse__data__set__clock__source__t_ab8a3ce0c7efc03bc176997db162ad53f}{clock\_source\_index});
+759                     \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__aecp__commandresponse__data__set__clock__source__t_ac15a687d635cc969d1bfab4d96858b77}{reserved});
+760                 \}
+761                 \textcolor{keywordflow}{break};
+762             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a56156dafb4ac52ad5b0d6eef34921036}{OPENAVB\_AEM\_COMMAND\_CODE\_GET\_CLOCK\_SOURCE}:
+763                 \{
+764                     \hyperlink{structopenavb__aecp__response__data__get__clock__source__t}{openavb\_aecp\_response\_data\_get\_clock\_source\_t}
+       *pSrc = &AEMCommandResponse->\hyperlink{structopenavb__aecp___a_e_m_command_response__t_a837e0716e898f24be1096090abd03bd3}{entityModelPdu}.\hyperlink{structopenavb__aecp__entity__model__data__unit__t_add21940869ac3d681807b8c2f348c449}{command\_data}.
+      \hyperlink{structopenavb__aecp__entity__model__data__unit__t_a9d773a678e80d3c588bed0680d06377c}{getClockSourceRsp};
+765                     \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__aecp__response__data__get__clock__source__t_a1e231d7874aada5925b29affc76782cc}{descriptor\_type});
+766                     \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__aecp__response__data__get__clock__source__t_ab26fb363c24b9a2a4391f9171c981b08}{descriptor\_index});
+767                     \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__aecp__response__data__get__clock__source__t_ab8a3ce0c7efc03bc176997db162ad53f}{clock\_source\_index});
+768                     \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__aecp__response__data__get__clock__source__t_ac15a687d635cc969d1bfab4d96858b77}{reserved});
+769                 \}
+770                 \textcolor{keywordflow}{break};
+771             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a20f52278308a200e972d8e8c27df8645}{OPENAVB\_AEM\_COMMAND\_CODE\_SET\_CONTROL}:
+772                 \{
+773                     \hyperlink{structopenavb__aecp__commandresponse__data__set__control__t}{openavb\_aecp\_commandresponse\_data\_set\_control\_t}
+       *pSrc = &AEMCommandResponse->\hyperlink{structopenavb__aecp___a_e_m_command_response__t_a837e0716e898f24be1096090abd03bd3}{entityModelPdu}.\hyperlink{structopenavb__aecp__entity__model__data__unit__t_add21940869ac3d681807b8c2f348c449}{command\_data}.
+      \hyperlink{structopenavb__aecp__entity__model__data__unit__t_ae8bfd2e7bd449e68dc658e4befef457e}{setControlRsp};
+774                     \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__aecp__commandresponse__data__set__control__t_a1e231d7874aada5925b29affc76782cc}{descriptor\_type});
+775                     \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__aecp__commandresponse__data__set__control__t_ab26fb363c24b9a2a4391f9171c981b08}{descriptor\_index});
+776 
+777                     \hyperlink{structopenavb__aem__descriptor__control__t}{openavb\_aem\_descriptor\_control\_t} *pDescriptorControl = 
+      \hyperlink{openavb__aem_8c_a3a159070b7997da78614075d8a277485}{openavbAemGetDescriptor}(\hyperlink{openavb__aem_8c_aee7700ec752480b25acd0a2c5d854169}{openavbAemGetConfigIdx}(), pSrc->
+      \hyperlink{structopenavb__aecp__commandresponse__data__set__control__t_a1e231d7874aada5925b29affc76782cc}{descriptor\_type}, pSrc->\hyperlink{structopenavb__aecp__commandresponse__data__set__control__t_ab26fb363c24b9a2a4391f9171c981b08}{descriptor\_index});
+778                     \textcolor{keywordflow}{if} (pDescriptorControl) \{
+779                         pSrc->\hyperlink{structopenavb__aecp__commandresponse__data__set__control__t_a264345a5327a88764d6dc9b6ad3abc1f}{valuesCount} = 0;
+780                         \textcolor{keywordtype}{int} i1;
+781                         \textcolor{keywordflow}{for} (i1 = 0; i1 < pSrc->\hyperlink{structopenavb__aecp__commandresponse__data__set__control__t_a264345a5327a88764d6dc9b6ad3abc1f}{valuesCount}; i1++) \{
+782                             \textcolor{keywordflow}{switch} (pDescriptorControl->\hyperlink{structopenavb__aem__descriptor__control__t_ace2d194568aa6de8cab3ef0324f34579}{control\_value\_type}) \{
+783                                 \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_a940bf43b9de754c08c097ef88aa13e70}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_LINEAR\_INT8}:
+784                                 \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_a7452c5b482c90c422e31f9cdcc60bef0}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_LINEAR\_UINT8}:
+785                                     \hyperlink{ap__message_8cpp_a61cc0b8227aa123a21a35310841dbf43}{OCT\_D2BHTONB}(pDst, pSrc->\hyperlink{structopenavb__aecp__commandresponse__data__set__control__t_a7b56a329473e9e0c055e1940df0767a6}{values}.
+      \hyperlink{structopenavb__aecp__commandresponse__data__set__control__t_a45419fbe4bd6ac07e20b168e97eef09c}{linear\_int8}[i1]);
+786                                     \textcolor{keywordflow}{break};
+787                                 \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_ac2f0e4d1db98e9fe00310b17aa417ab3}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_LINEAR\_INT16}:
+788                                 \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_a025aa27a34560cfe44353ac541b5c520}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_LINEAR\_UINT16}:
+789                                     \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__aecp__commandresponse__data__set__control__t_a7b56a329473e9e0c055e1940df0767a6}{values}.
+      \hyperlink{structopenavb__aecp__commandresponse__data__set__control__t_a971e2e30fcd86963178d3445519eccf4}{linear\_int16}[i1]);
+790                                     \textcolor{keywordflow}{break};
+791                                 \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_afb13afd278ae9d68ef68a294c630d0af}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_LINEAR\_INT32}:
+792                                 \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_a536f02b3e28bf75d87b74495f4f5a1f6}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_LINEAR\_UINT32}:
+793                                     \hyperlink{ap__message_8cpp_a600b0c76545a0d0a35a5027518bd797d}{OCT\_D2BHTONL}(pDst, pSrc->\hyperlink{structopenavb__aecp__commandresponse__data__set__control__t_a7b56a329473e9e0c055e1940df0767a6}{values}.
+      \hyperlink{structopenavb__aecp__commandresponse__data__set__control__t_a0f999ad24beb8f01ba18c3059fa0769f}{linear\_int32}[i1]);
+794                                     \textcolor{keywordflow}{break};
+795                                 \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_ac39bd6ca0b1f6b2b5f54374e0506b733}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_LINEAR\_INT64}:
+796                                 \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_a2f63a74e9578e27feca2b09f4c95bb60}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_LINEAR\_UINT64}:
+797                                     \hyperlink{ap__message_8cpp_a84ff71482380e24df395988abd6c768f}{OCT\_D2BMEMCP}(pDst, &pSrc->\hyperlink{structopenavb__aecp__commandresponse__data__set__control__t_a7b56a329473e9e0c055e1940df0767a6}{values}.
+      \hyperlink{structopenavb__aecp__commandresponse__data__set__control__t_a6ecce63e7b6ac372b12a08319d5cfb56}{linear\_int64}[i1]);
+798                                     \textcolor{keywordflow}{break};
+799                                 \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_a159f5dc2ff8c6d2bb3d744b4c898791c}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_LINEAR\_FLOAT}:
+800                                     \hyperlink{ap__message_8cpp_a84ff71482380e24df395988abd6c768f}{OCT\_D2BMEMCP}(pDst, &pSrc->\hyperlink{structopenavb__aecp__commandresponse__data__set__control__t_a7b56a329473e9e0c055e1940df0767a6}{values}.
+      \hyperlink{structopenavb__aecp__commandresponse__data__set__control__t_a5a346af0ca505581807d6ed0ec84a85e}{linear\_float}[i1]);
+801                                     \textcolor{keywordflow}{break};
+802                                 \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_aaba7a16c6fc0d67998072ed1eccb660d}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_LINEAR\_DOUBLE}:
+803                                     \hyperlink{ap__message_8cpp_a84ff71482380e24df395988abd6c768f}{OCT\_D2BMEMCP}(pDst, &pSrc->\hyperlink{structopenavb__aecp__commandresponse__data__set__control__t_a7b56a329473e9e0c055e1940df0767a6}{values}.
+      \hyperlink{structopenavb__aecp__commandresponse__data__set__control__t_a4ac1f60ad606687e4dd294549ff9db69}{linear\_double}[i1]);
+804                                     \textcolor{keywordflow}{break};
+805                                 \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_a02774eb2e978450ff68d9f3302d4cd4e}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_SELECTOR\_INT8}:
+806                                 \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_abceeb34ffcbaa00b8340d67106b35cbd}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_SELECTOR\_UINT8}:
+807                                 \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_aa2f6f73f208b294aed591b0ab119fec0}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_SELECTOR\_INT16}:
+808                                 \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_a6e5ae29b90afaa3ffdc6df33dd2c9033}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_SELECTOR\_UINT16}
+      :
+809                                 \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_aa4639c662f628a5de9392a6e206472fc}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_SELECTOR\_INT32}:
+810                                 \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_a4ca3f3a46d509ec3c2be26b9a594c78c}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_SELECTOR\_UINT32}
+      :
+811                                 \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_a737ef59343fb1376d72cc913934a243a}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_SELECTOR\_INT64}:
+812                                 \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_a47bcb7d27a6d4044ca58e8bb1ba95ae3}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_SELECTOR\_UINT64}
+      :
+813                                 \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_a601dde4a5e72ac54456de27b05e7ab9f}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_SELECTOR\_FLOAT}:
+814                                 \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_a711dec95d11666382c51ff3a15de1fa9}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_SELECTOR\_DOUBLE}
+      :
+815                                 \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_a85aa231c592259dbb0a60e64506d082f}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_SELECTOR\_STRING}
+      :
+816                                 \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_a4bdb9a2339b7caf6a442482ed0cad0b0}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_ARRAY\_INT8}:
+817                                 \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_a6c062eb3050af7b7f367ab670c9708ca}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_ARRAY\_UINT8}:
+818                                 \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_a55447c7fab2a480683547fcc3eedd41d}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_ARRAY\_INT16}:
+819                                 \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_a7e1b24f5cd86201108544173d68aa82c}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_ARRAY\_UINT16}:
+820                                 \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_a96cd270dbff0fef62cb256c6e6c236aa}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_ARRAY\_INT32}:
+821                                 \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_a41c0fc8177c3f58872667a3d1db1286c}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_ARRAY\_UINT32}:
+822                                 \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_a89a6738b6c06f3e54f765c6f0fa8cbc0}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_ARRAY\_INT64}:
+823                                 \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_ac5c96d10ed37654f69d709e857c322d5}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_ARRAY\_UINT64}:
+824                                 \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_af4023e25ea0e85de270005b4cdd54811}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_ARRAY\_FLOAT}:
+825                                 \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_aecc969ea8918a673b0accda002b0f676}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_ARRAY\_DOUBLE}:
+826                                 \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a5baedaf109ff488dfcbd6d861e75273f}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_UTF8}
+      :
+827                                 \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_a72d3ef7519d377c18ec9ab3d3c8bd3e1}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_BODE\_PLOT}:
+828                                 \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_ac1bd93a49d23071f66a222a1f9b31149}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_SMPTE\_TIME}:
+829                                 \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_aa6830cf1824576a6a541d41fc9d3aaf9}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_SAMPLE\_RATE}:
+830                                 \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_ad8f04c91bbfcfbcbd4edb10ba5065c88}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_GPTP\_TIME}:
+831                                 \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__aem__types__pub_8h_a600b7de7a789148fb5a4250a8c8e27d7}{OPENAVB\_AEM\_CONTROL\_VALUE\_TYPE\_CONTROL\_VENDOR}:
+832                                     \textcolor{keywordflow}{break};
+833                             \}
+834                         \}
+835                     \}
+836                 \}
+837                 \textcolor{keywordflow}{break};
+838             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_aff44948bba522df9827cf8d9111c4dac}{OPENAVB\_AEM\_COMMAND\_CODE\_GET\_CONTROL}:
+839                 \textcolor{keywordflow}{break};
+840             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a682a963734688b124c604ca13f6a7452}{OPENAVB\_AEM\_COMMAND\_CODE\_INCREMENT\_CONTROL}:
+841                 \textcolor{keywordflow}{break};
+842             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a6abd5a7dc81255caeaa4f0db31064c43}{OPENAVB\_AEM\_COMMAND\_CODE\_DECREMENT\_CONTROL}:
+843                 \textcolor{keywordflow}{break};
+844             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a09d8575e4d0fa79dcc966f4e55795cc7}{OPENAVB\_AEM\_COMMAND\_CODE\_SET\_SIGNAL\_SELECTOR}:
+845                 \textcolor{keywordflow}{break};
+846             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a7f54a328bc799832d65b025fe6509b96}{OPENAVB\_AEM\_COMMAND\_CODE\_GET\_SIGNAL\_SELECTOR}:
+847                 \textcolor{keywordflow}{break};
+848             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_acb4ff3ba179e3ac91803178f0a74b0fc}{OPENAVB\_AEM\_COMMAND\_CODE\_SET\_MIXER}:
+849                 \textcolor{keywordflow}{break};
+850             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_ae73ad386def07442b1c87264bf7eea91}{OPENAVB\_AEM\_COMMAND\_CODE\_GET\_MIXER}:
+851                 \textcolor{keywordflow}{break};
+852             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a906b6837adf921d8e2104cb0576c35b8}{OPENAVB\_AEM\_COMMAND\_CODE\_SET\_MATRIX}:
+853                 \textcolor{keywordflow}{break};
+854             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_aabb28c0ee9f7c89e5d265e87706f32a4}{OPENAVB\_AEM\_COMMAND\_CODE\_GET\_MATRIX}:
+855                 \textcolor{keywordflow}{break};
+856             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a0140afd7e82e7734fbcf4f4d4d7d910e}{OPENAVB\_AEM\_COMMAND\_CODE\_START\_STREAMING}:
+857                 \{
+858                     \hyperlink{structopenavb__aecp__commandresponse__data__start__streaming__t}{openavb\_aecp\_commandresponse\_data\_start\_streaming\_t}
+       *pSrc = &AEMCommandResponse->\hyperlink{structopenavb__aecp___a_e_m_command_response__t_a837e0716e898f24be1096090abd03bd3}{entityModelPdu}.\hyperlink{structopenavb__aecp__entity__model__data__unit__t_add21940869ac3d681807b8c2f348c449}{command\_data}.
+      \hyperlink{structopenavb__aecp__entity__model__data__unit__t_a3e177ac036dd59b44d060a2667af6e4f}{startStreamingRsp};
+859                     \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__aecp__commandresponse__data__start__streaming__t_a1e231d7874aada5925b29affc76782cc}{descriptor\_type});
+860                     \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__aecp__commandresponse__data__start__streaming__t_ab26fb363c24b9a2a4391f9171c981b08}{descriptor\_index});
+861                 \}
+862                 \textcolor{keywordflow}{break};
+863             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_ab54580902c7ce03f9e8d653802168c72}{OPENAVB\_AEM\_COMMAND\_CODE\_STOP\_STREAMING}:
+864                 \{
+865                     \hyperlink{structopenavb__aecp__commandresponse__data__stop__streaming__t}{openavb\_aecp\_commandresponse\_data\_stop\_streaming\_t}
+       *pSrc = &AEMCommandResponse->\hyperlink{structopenavb__aecp___a_e_m_command_response__t_a837e0716e898f24be1096090abd03bd3}{entityModelPdu}.\hyperlink{structopenavb__aecp__entity__model__data__unit__t_add21940869ac3d681807b8c2f348c449}{command\_data}.
+      \hyperlink{structopenavb__aecp__entity__model__data__unit__t_ab90ef72aa7eeb7b85b42441aa80f5678}{stopStreamingRsp};
+866                     \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__aecp__commandresponse__data__stop__streaming__t_a1e231d7874aada5925b29affc76782cc}{descriptor\_type});
+867                     \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__aecp__commandresponse__data__stop__streaming__t_ab26fb363c24b9a2a4391f9171c981b08}{descriptor\_index});
+868                 \}
+869                 \textcolor{keywordflow}{break};
+870             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_af352ecfb6b11c1f5b192393ba569121b}{OPENAVB\_AEM\_COMMAND\_CODE\_REGISTER\_UNSOLICITED\_NOTIFICATION}
+      :
+871                 \textcolor{keywordflow}{break};
+872             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a9232dc926b07ba703bc5f3a0b1891293}{OPENAVB\_AEM\_COMMAND\_CODE\_DEREGISTER\_UNSOLICITED\_NOTIFICATION}
+      :
+873                 \textcolor{keywordflow}{break};
+874             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a4788cd16b775b30770da92c9b6035210}{OPENAVB\_AEM\_COMMAND\_CODE\_IDENTIFY\_NOTIFICATION}
+      :
+875                 \textcolor{keywordflow}{break};
+876             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a98fdc21e5356460a186963664da9c4de}{OPENAVB\_AEM\_COMMAND\_CODE\_GET\_AVB\_INFO}:
+877                 \textcolor{keywordflow}{break};
+878             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a3931564f7a2bc9a910fbe4dc7a9552b7}{OPENAVB\_AEM\_COMMAND\_CODE\_GET\_AS\_PATH}:
+879                 \textcolor{keywordflow}{break};
+880             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a0ea3ddbf1b8337a0faf93d23d3439bd6}{OPENAVB\_AEM\_COMMAND\_CODE\_GET\_COUNTERS}:
+881                 \{
+882                     \hyperlink{structopenavb__aecp__response__data__get__counters__t}{openavb\_aecp\_response\_data\_get\_counters\_t} *
+      pSrc = &AEMCommandResponse->\hyperlink{structopenavb__aecp___a_e_m_command_response__t_a837e0716e898f24be1096090abd03bd3}{entityModelPdu}.\hyperlink{structopenavb__aecp__entity__model__data__unit__t_add21940869ac3d681807b8c2f348c449}{command\_data}.
+      \hyperlink{structopenavb__aecp__entity__model__data__unit__t_ab562c372f91c79a9fd6c4e321324b142}{getCountersRsp};
+883                     \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__aecp__response__data__get__counters__t_a1e231d7874aada5925b29affc76782cc}{descriptor\_type});
+884                     \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__aecp__response__data__get__counters__t_ab26fb363c24b9a2a4391f9171c981b08}{descriptor\_index});
+885                     \hyperlink{ap__message_8cpp_a600b0c76545a0d0a35a5027518bd797d}{OCT\_D2BHTONL}(pDst, pSrc->\hyperlink{structopenavb__aecp__response__data__get__counters__t_a65aa742a6a13f1f3df23d7f0e50901ec}{counters\_valid});
+886                     \hyperlink{ap__message_8cpp_a80428db14406c9ea6e9a616e8954012c}{OCT\_D2BBUFCP}(pDst, pSrc->\hyperlink{structopenavb__aecp__response__data__get__counters__t_a42270fad37ed864105800158dfdbbf54}{counters\_block}, pSrc->
+      \hyperlink{structopenavb__aecp__response__data__get__counters__t_add41dc90d843d833c149849aabdf1b66}{counters\_block\_length});
+887                 \}
+888                 \textcolor{keywordflow}{break};
+889             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a2205de44ddddbe98f5e32d34924e25d2}{OPENAVB\_AEM\_COMMAND\_CODE\_REBOOT}:
+890                 \textcolor{keywordflow}{break};
+891             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a7a6bbf67e770674d5d08d8d32c7e890b}{OPENAVB\_AEM\_COMMAND\_CODE\_GET\_AUDIO\_MAP}:
+892                 \textcolor{keywordflow}{break};
+893             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_ae6f2bfb65f62ecaaf0577d628284bf85}{OPENAVB\_AEM\_COMMAND\_CODE\_ADD\_AUDIO\_MAPPINGS}:
+894                 \textcolor{keywordflow}{break};
+895             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_ad73b430bc017fc2880c16b83ff38e64b}{OPENAVB\_AEM\_COMMAND\_CODE\_REMOVE\_AUDIO\_MAPPINGS}
+      :
+896                 \textcolor{keywordflow}{break};
+897             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a76720f81dc796ee203bc45d8e5c829a5}{OPENAVB\_AEM\_COMMAND\_CODE\_GET\_VIDEO\_MAP}:
+898                 \textcolor{keywordflow}{break};
+899             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_aa725afb47946cbdf24869eabc93d9e58}{OPENAVB\_AEM\_COMMAND\_CODE\_ADD\_VIDEO\_MAPPINGS}:
+900                 \textcolor{keywordflow}{break};
+901             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_ab1b807a9b147be838823a0668d25cdfa}{OPENAVB\_AEM\_COMMAND\_CODE\_REMOVE\_VIDEO\_MAPPINGS}
+      :
+902                 \textcolor{keywordflow}{break};
+903             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a4e0d8f6a928789ad755fc53c122a401d}{OPENAVB\_AEM\_COMMAND\_CODE\_GET\_SENSOR\_MAP}:
+904                 \textcolor{keywordflow}{break};
+905             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_aa9e7f93536d4170d3353936d23a84f92}{OPENAVB\_AEM\_COMMAND\_CODE\_ADD\_SENSOR\_MAPPINGS}:
+906                 \textcolor{keywordflow}{break};
+907             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_adb69332233f1a06e9ed847950aea1f69}{OPENAVB\_AEM\_COMMAND\_CODE\_REMOVE\_SENSOR\_MAPPINGS}
+      :
+908                 \textcolor{keywordflow}{break};
+909             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a0f8e692bb4519d683caec4e8c07755b8}{OPENAVB\_AEM\_COMMAND\_CODE\_START\_OPERATION}:
+910                 \textcolor{keywordflow}{break};
+911             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a5d63cec03d56f487d385ed675cae0c36}{OPENAVB\_AEM\_COMMAND\_CODE\_ABORT\_OPERATION}:
+912                 \textcolor{keywordflow}{break};
+913             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a6d27db3b1b1e3903bdb6c6164f450bbd}{OPENAVB\_AEM\_COMMAND\_CODE\_OPERATION\_STATUS}:
+914                 \textcolor{keywordflow}{break};
+915             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a84e5bc6ef2acbae1ce2da7e224aeabe4}{OPENAVB\_AEM\_COMMAND\_CODE\_AUTH\_ADD\_KEY}:
+916                 \textcolor{keywordflow}{break};
+917             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a30d276b7aa0d010959f16c5944489ad7}{OPENAVB\_AEM\_COMMAND\_CODE\_AUTH\_DELETE\_KEY}:
+918                 \textcolor{keywordflow}{break};
+919             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_ab6a9f9c9f7dc94d8f004502c2197d6cc}{OPENAVB\_AEM\_COMMAND\_CODE\_AUTH\_GET\_KEY\_LIST}:
+920                 \textcolor{keywordflow}{break};
+921             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_afbbb170f38153439bab838a68773fc26}{OPENAVB\_AEM\_COMMAND\_CODE\_AUTH\_GET\_KEY}:
+922                 \textcolor{keywordflow}{break};
+923             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a40f01efc77e72e9da788775c5aeba4a8}{OPENAVB\_AEM\_COMMAND\_CODE\_AUTH\_ADD\_KEY\_TO\_CHAIN}
+      :
+924                 \textcolor{keywordflow}{break};
+925             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a07d9233b3229413e7934e29c11c46b79}{OPENAVB\_AEM\_COMMAND\_CODE\_AUTH\_DELETE\_KEY\_FROM\_CHAIN}
+      :
+926                 \textcolor{keywordflow}{break};
+927             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a57a0237b346d952b9505c7ad5071eef9}{OPENAVB\_AEM\_COMMAND\_CODE\_AUTH\_GET\_KEYCHAIN\_LIST}
+      :
+928                 \textcolor{keywordflow}{break};
+929             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a2519d5c01700ec935cc08f8abd1a6ef1}{OPENAVB\_AEM\_COMMAND\_CODE\_AUTH\_GET\_IDENTITY}:
+930                 \textcolor{keywordflow}{break};
+931             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a39559587bc5c6338cefeb18665140b12}{OPENAVB\_AEM\_COMMAND\_CODE\_AUTH\_ADD\_TOKEN}:
+932                 \textcolor{keywordflow}{break};
+933             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a190e5944e350e54d79cfe05589d3a158}{OPENAVB\_AEM\_COMMAND\_CODE\_AUTH\_DELETE\_TOKEN}:
+934                 \textcolor{keywordflow}{break};
+935             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a72d2ec7da96bb4531a02a1d0a3c7d1c6}{OPENAVB\_AEM\_COMMAND\_CODE\_AUTHENTICATE}:
+936                 \textcolor{keywordflow}{break};
+937             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_ae5c53d124593dcd0e7c4407380448e1b}{OPENAVB\_AEM\_COMMAND\_CODE\_DEAUTHENTICATE}:
+938                 \textcolor{keywordflow}{break};
+939             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a574c31cda4d4efe0c4b2308d3bb2ff3e}{OPENAVB\_AEM\_COMMAND\_CODE\_ENABLE\_TRANSPORT\_SECURITY}
+      :
+940                 \textcolor{keywordflow}{break};
+941             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a53d60beca6bda674ccec82fd217ab40a}{OPENAVB\_AEM\_COMMAND\_CODE\_DISABLE\_TRANSPORT\_SECURITY}
+      :
+942                 \textcolor{keywordflow}{break};
+943             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a08bbd0509abbbbe76979212ee9f83ead}{OPENAVB\_AEM\_COMMAND\_CODE\_ENABLE\_STREAM\_ENCRYPTION}
+      :
+944                 \textcolor{keywordflow}{break};
+945             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a07aa874dc8c1edced44b7defcf0bda39}{OPENAVB\_AEM\_COMMAND\_CODE\_DISABLE\_STREAM\_ENCRYPTION}
+      :
+946                 \textcolor{keywordflow}{break};
+947             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_aa82cddb0c0ed1994a8783b3d17310f2c}{OPENAVB\_AEM\_COMMAND\_CODE\_SET\_MEMORY\_OBJECT\_LENGTH}
+      :
+948                 \textcolor{keywordflow}{break};
+949             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a2008c373ae94fdccad66aacdd1206724}{OPENAVB\_AEM\_COMMAND\_CODE\_GET\_MEMORY\_OBJECT\_LENGTH}
+      :
+950                 \textcolor{keywordflow}{break};
+951             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_a17683b6ebf28c2cadad3c66f1368bc00}{OPENAVB\_AEM\_COMMAND\_CODE\_SET\_STREAM\_BACKUP}:
+952                 \textcolor{keywordflow}{break};
+953             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_ad2ce8c005c2747eaefc7ff3032466b53}{OPENAVB\_AEM\_COMMAND\_CODE\_GET\_STREAM\_BACKUP}:
+954                 \textcolor{keywordflow}{break};
+955             \textcolor{keywordflow}{case} \hyperlink{openavb__aem__types__pub_8h_aec461176c5c842d35119c9fe766beda3}{OPENAVB\_AEM\_COMMAND\_CODE\_EXPANSION}:
+956                 \textcolor{keywordflow}{break};
+957             \textcolor{keywordflow}{default}:
+958                 \textcolor{keywordflow}{break};
+959         \}
+960     \}
+961 
+962     \textcolor{comment}{// Set length into buffer}
+963     \hyperlink{ap__message_8cpp_a320aa3b496f6b0356f37f1f09edb0734}{BIT\_D2BHTONS}(pcontrol\_data\_length, (pDst - pcontrol\_data\_length\_start\_marker), 0, 2);
+964 
+965     \textcolor{comment}{// Make sure the packet will be at least 64 bytes long.}
+966     \textcolor{keywordflow}{if} (pDst - pBuf < 64) \{ pDst = pBuf + 64; \}
+967 
+968 \textcolor{preprocessor}{#if 0}
+969     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afcf1f0c1d10ae9efe3782eb6cae78355}{AVB\_LOGF\_DEBUG}(\textcolor{stringliteral}{"openavbAecpMessageTxFrame packet data (length %d):"}, pDst - pBuf);
+970     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a8d4c50ca73e8a7fbca488128755e5e5c}{AVB\_LOG\_BUFFER}(\hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a35e326523cfad3b35b50459a9e6bf259}{AVB\_LOG\_LEVEL\_DEBUG}, pBuf, pDst - pBuf, 16);
+971 \textcolor{preprocessor}{#endif}
+972 
+973     \hyperlink{openavb__rawsock_8h_ac04c99d5bc5e7371260b21fc79e7d253}{openavbRawsockTxFrameReady}(\hyperlink{openavb__aecp__message_8c_acc3c897b6f4f88ddba59c97f3178e402}{txSock}, pBuf, pDst - pBuf, 0);
+974     \hyperlink{openavb__rawsock_8h_addc3b3ada9a2ba3695987ce93c571f76}{openavbRawsockSend}(\hyperlink{openavb__aecp__message_8c_acc3c897b6f4f88ddba59c97f3178e402}{txSock});
+975 
+976     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a285a706485bf86a3bfa1aaf03ae676e2}{AVB\_TRACE\_AECP});
+977 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__aecp__message_8c_a86d4f4099b5def0576c208f649426566_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__aecp__message_8c_a86d4f4099b5def0576c208f649426566_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}!openavb\+Aecp\+Open\+Socket@{openavb\+Aecp\+Open\+Socket}}
+\index{openavb\+Aecp\+Open\+Socket@{openavb\+Aecp\+Open\+Socket}!openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Aecp\+Open\+Socket(const char $\ast$ifname, U16 vlan\+I\+D, U8 vlan\+P\+C\+P)}{openavbAecpOpenSocket(const char *ifname, U16 vlanID, U8 vlanPCP)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} openavb\+Aecp\+Open\+Socket (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{ifname, }
+\item[{{\bf U16}}]{vlan\+ID, }
+\item[{{\bf U8}}]{vlan\+P\+CP}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__aecp__message_8c_af9060ee4197d78133e3029f2c52009f7}{}\label{openavb__aecp__message_8c_af9060ee4197d78133e3029f2c52009f7}
+
+
+openavb\+\_\+aecp\+\_\+message.\+c 파일의 97 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+98 \{
+99     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a285a706485bf86a3bfa1aaf03ae676e2}{AVB\_TRACE\_AECP});
+100 
+101     \hyperlink{structhdr__info__t}{hdr\_info\_t} hdr;
+102 
+103 \textcolor{preprocessor}{#ifndef UBUNTU}
+104     \textcolor{comment}{// This is the normal case for most of our supported platforms}
+105     \hyperlink{openavb__aecp__message_8c_a2d8cdd4e3e7124a63509a346ade26a4b}{rxSock} = \hyperlink{openavb__rawsock_8c_a51a8d60253a8bab7c193b36bf743d12f}{openavbRawsockOpen}(\hyperlink{aaf-talker_8c_ac7b430acaa92a7a26fbcdad47d2efc20}{ifname}, \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 
+      \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{openavb__avtp_8h_a07fb0f2498c8b8dd62cc44da13bb092a}{ETHERTYPE\_8021Q}, \hyperlink{openavb__aecp__message_8c_aa79fbe53ba889636a96a256e6e28f6eb}{AECP\_FRAME\_LEN}, 
+      \hyperlink{openavb__aecp__message_8c_a629819b09e912bc787e300afb5af9890}{AECP\_NUM\_BUFFERS});
+106 \textcolor{preprocessor}{#else}
+107     \hyperlink{openavb__aecp__message_8c_a2d8cdd4e3e7124a63509a346ade26a4b}{rxSock} = \hyperlink{openavb__rawsock_8c_a51a8d60253a8bab7c193b36bf743d12f}{openavbRawsockOpen}(\hyperlink{aaf-talker_8c_ac7b430acaa92a7a26fbcdad47d2efc20}{ifname}, \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 
+      \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{openavb__avtp_8h_a5e6dfe517d14f65222b866a550498e5f}{ETHERTYPE\_AVTP}, \hyperlink{openavb__aecp__message_8c_aa79fbe53ba889636a96a256e6e28f6eb}{AECP\_FRAME\_LEN}, 
+      \hyperlink{openavb__aecp__message_8c_a629819b09e912bc787e300afb5af9890}{AECP\_NUM\_BUFFERS});
+108 \textcolor{preprocessor}{#endif}
+109     \hyperlink{openavb__aecp__message_8c_acc3c897b6f4f88ddba59c97f3178e402}{txSock} = \hyperlink{openavb__rawsock_8c_a51a8d60253a8bab7c193b36bf743d12f}{openavbRawsockOpen}(\hyperlink{aaf-talker_8c_ac7b430acaa92a7a26fbcdad47d2efc20}{ifname}, \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, 
+      \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{openavb__avtp_8h_a5e6dfe517d14f65222b866a550498e5f}{ETHERTYPE\_AVTP}, \hyperlink{openavb__aecp__message_8c_aa79fbe53ba889636a96a256e6e28f6eb}{AECP\_FRAME\_LEN}, 
+      \hyperlink{openavb__aecp__message_8c_a629819b09e912bc787e300afb5af9890}{AECP\_NUM\_BUFFERS});
+110 
+111     \textcolor{keywordflow}{if} (\hyperlink{openavb__aecp__message_8c_acc3c897b6f4f88ddba59c97f3178e402}{txSock} && \hyperlink{openavb__aecp__message_8c_a2d8cdd4e3e7124a63509a346ade26a4b}{rxSock}
+112         && \hyperlink{openavb__rawsock_8h_a099e2a46bd9edcba96f26f455fccbdf6}{openavbRawsockGetAddr}(\hyperlink{openavb__aecp__message_8c_acc3c897b6f4f88ddba59c97f3178e402}{txSock}, \hyperlink{openavb__aecp__message_8c_ad937f94043c94bc430c2bb95753bdbcc}{ADDR\_PTR}(&
+      \hyperlink{openavb__aecp__message_8c_ab00d246f71209a6c53d44b0ec45542a8}{intfAddr}))
+113         && \hyperlink{openavb__rawsock_8h_abb439fef4018a616bbf4072cc2382276}{openavbRawsockRxMulticast}(\hyperlink{openavb__aecp__message_8c_a2d8cdd4e3e7124a63509a346ade26a4b}{rxSock}, \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 
+      \hyperlink{openavb__aecp__message_8c_ad937f94043c94bc430c2bb95753bdbcc}{ADDR\_PTR}(&\hyperlink{openavb__aecp__message_8c_ab00d246f71209a6c53d44b0ec45542a8}{intfAddr}))) \textcolor{comment}{// Only accept packets sent directly to this interface}
+114     \{
+115         \textcolor{keywordflow}{if} (!\hyperlink{openavb__rawsock_8h_a59cb802dece1927c5ea78e4a92b4e2be}{openavbRawsockRxAVTPSubtype}(\hyperlink{openavb__aecp__message_8c_a2d8cdd4e3e7124a63509a346ade26a4b}{rxSock}, 
+      \hyperlink{openavb__aecp_8h_a6314802625a50178fb54d43242f8aa5d}{OPENAVB\_AECP\_AVTP\_SUBTYPE} | 0x80)) \{
+116             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a28a4d0350d530ad95c95b8383c00cd9c}{AVB\_LOG\_DEBUG}(\textcolor{stringliteral}{"RX AVTP Subtype not supported"});
+117         \}
+118 
+119         memset(&hdr, 0, \textcolor{keyword}{sizeof}(\hyperlink{structhdr__info__t}{hdr\_info\_t}));
+120         hdr.\hyperlink{structhdr__info__t_a603b5aebe0d4619ae32b09cd6612535f}{shost} = \hyperlink{openavb__aecp__message_8c_ad937f94043c94bc430c2bb95753bdbcc}{ADDR\_PTR}(&\hyperlink{openavb__aecp__message_8c_ab00d246f71209a6c53d44b0ec45542a8}{intfAddr});
+121         \textcolor{comment}{// hdr.dhost; // Set at tx time.}
+122         hdr.\hyperlink{structhdr__info__t_a54283e441ba9b75fc494232121266e2c}{ethertype} = \hyperlink{openavb__avtp_8h_a5e6dfe517d14f65222b866a550498e5f}{ETHERTYPE\_AVTP};
+123         \textcolor{keywordflow}{if} (vlanID != 0 || vlanPCP != 0) \{
+124             hdr.\hyperlink{structhdr__info__t_aae65321fd27fc2507a499a3f00660a93}{vlan} = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+125             hdr.\hyperlink{structhdr__info__t_a394deccdf47e8dd6b4e6329e6fe0f8fc}{vlan\_pcp} = vlanPCP;
+126             hdr.\hyperlink{structhdr__info__t_aed62b55d4664ac7c198517a01adc4f6b}{vlan\_vid} = vlanID;
+127             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afcf1f0c1d10ae9efe3782eb6cae78355}{AVB\_LOGF\_DEBUG}(\textcolor{stringliteral}{"VLAN pcp=%d vid=%d"}, hdr.\hyperlink{structhdr__info__t_a394deccdf47e8dd6b4e6329e6fe0f8fc}{vlan\_pcp}, hdr.
+      \hyperlink{structhdr__info__t_aed62b55d4664ac7c198517a01adc4f6b}{vlan\_vid});
+128         \}
+129         \textcolor{keywordflow}{if} (!\hyperlink{openavb__rawsock_8h_a533478c640918e91d858316a98f26176}{openavbRawsockTxSetHdr}(\hyperlink{openavb__aecp__message_8c_acc3c897b6f4f88ddba59c97f3178e402}{txSock}, &hdr)) \{
+130             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"TX socket Header Failure"});
+131             \hyperlink{openavb__aecp__message_8c_a3d30a49dc34835ea724ea076b9e4a94d}{openavbAecpCloseSocket}();
+132             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a285a706485bf86a3bfa1aaf03ae676e2}{AVB\_TRACE\_AECP});
+133             \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+134         \}
+135 
+136         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a285a706485bf86a3bfa1aaf03ae676e2}{AVB\_TRACE\_AECP});
+137         \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+138     \}
+139 
+140     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Invalid socket"});
+141     \hyperlink{openavb__aecp__message_8c_a3d30a49dc34835ea724ea076b9e4a94d}{openavbAecpCloseSocket}();
+142 
+143     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a285a706485bf86a3bfa1aaf03ae676e2}{AVB\_TRACE\_AECP});
+144     \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+145 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__aecp__message_8c_af9060ee4197d78133e3029f2c52009f7_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__aecp__message_8c_af9060ee4197d78133e3029f2c52009f7_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}!T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+ON@{T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+ON}}
+\index{T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+ON@{T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+ON}!openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+O\+N(openavb\+Aecp\+Message\+Rx\+Thread)}{THREAD_DEFINITON(openavbAecpMessageRxThread)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+ON (
+\begin{DoxyParamCaption}
+\item[{openavb\+Aecp\+Message\+Rx\+Thread}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__aecp__message_8c_adceafd77a218b5b78f067af174a42e2b}{}\label{openavb__aecp__message_8c_adceafd77a218b5b78f067af174a42e2b}
+\index{openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}!T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE@{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE}}
+\index{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE@{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE}!openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+P\+E(openavb\+Aecp\+Message\+Rx\+Thread)}{THREAD_TYPE(openavbAecpMessageRxThread)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE (
+\begin{DoxyParamCaption}
+\item[{openavb\+Aecp\+Message\+Rx\+Thread}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__aecp__message_8c_a2fd635fa139ac4491bd3ac5b36f9d0f5}{}\label{openavb__aecp__message_8c_a2fd635fa139ac4491bd3ac5b36f9d0f5}
+
+
+\subsection{변수 문서화}
+\index{openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}!b\+Running@{b\+Running}}
+\index{b\+Running@{b\+Running}!openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{b\+Running}{bRunning}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} b\+Running = {\bf F\+A\+L\+SE}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__aecp__message_8c_acf182b7b2127314d5d00c6df827734b5}{}\label{openavb__aecp__message_8c_acf182b7b2127314d5d00c6df827734b5}
+
+
+openavb\+\_\+aecp\+\_\+message.\+c 파일의 79 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}!g\+Avdecc\+Cfg@{g\+Avdecc\+Cfg}}
+\index{g\+Avdecc\+Cfg@{g\+Avdecc\+Cfg}!openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{g\+Avdecc\+Cfg}{gAvdeccCfg}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf openavb\+\_\+avdecc\+\_\+cfg\+\_\+t} g\+Avdecc\+Cfg}\hypertarget{openavb__aecp__message_8c_a142e959837c765cd9a1767b886421315}{}\label{openavb__aecp__message_8c_a142e959837c765cd9a1767b886421315}
+
+
+openavb\+\_\+avdecc.\+c 파일의 54 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}!intf\+Addr@{intf\+Addr}}
+\index{intf\+Addr@{intf\+Addr}!openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{intf\+Addr}{intfAddr}}]{\setlength{\rightskip}{0pt plus 5cm}struct ether\+\_\+addr intf\+Addr\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__aecp__message_8c_ab00d246f71209a6c53d44b0ec45542a8}{}\label{openavb__aecp__message_8c_ab00d246f71209a6c53d44b0ec45542a8}
+
+
+openavb\+\_\+aecp\+\_\+message.\+c 파일의 72 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}!openavb\+Aecp\+S\+M\+Global\+Vars@{openavb\+Aecp\+S\+M\+Global\+Vars}}
+\index{openavb\+Aecp\+S\+M\+Global\+Vars@{openavb\+Aecp\+S\+M\+Global\+Vars}!openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Aecp\+S\+M\+Global\+Vars}{openavbAecpSMGlobalVars}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf openavb\+\_\+aecp\+\_\+sm\+\_\+global\+\_\+vars\+\_\+t} openavb\+Aecp\+S\+M\+Global\+Vars}\hypertarget{openavb__aecp__message_8c_a4bc568c3f8d5f659ef6288919a43c770}{}\label{openavb__aecp__message_8c_a4bc568c3f8d5f659ef6288919a43c770}
+
+
+openavb\+\_\+aecp.\+c 파일의 51 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}!rx\+Sock@{rx\+Sock}}
+\index{rx\+Sock@{rx\+Sock}!openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{rx\+Sock}{rxSock}}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ rx\+Sock = {\bf N\+U\+LL}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__aecp__message_8c_a2d8cdd4e3e7124a63509a346ade26a4b}{}\label{openavb__aecp__message_8c_a2d8cdd4e3e7124a63509a346ade26a4b}
+
+
+openavb\+\_\+aecp\+\_\+message.\+c 파일의 70 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}!tx\+Sock@{tx\+Sock}}
+\index{tx\+Sock@{tx\+Sock}!openavb\+\_\+aecp\+\_\+message.\+c@{openavb\+\_\+aecp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{tx\+Sock}{txSock}}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ tx\+Sock = {\bf N\+U\+LL}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__aecp__message_8c_acc3c897b6f4f88ddba59c97f3178e402}{}\label{openavb__aecp__message_8c_acc3c897b6f4f88ddba59c97f3178e402}
+
+
+openavb\+\_\+aecp\+\_\+message.\+c 파일의 71 번째 라인에서 정의되었습니다.
+

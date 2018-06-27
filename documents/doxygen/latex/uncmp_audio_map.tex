@@ -1,0 +1,67 @@
+\section*{Description}
+
+Uncompressed audio mapping module conforming to A\+VB 61883-\/6 encapsulation.
+
+\section*{Mapping module configuration parameters}
+
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*2{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}{\bf Name }&{\bf Description  }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}{\bf Name }&{\bf Description  }\\\cline{1-2}
+\endhead
+map\+\_\+nv\+\_\+item\+\_\+count &The number of media queue elements to hold. \\\cline{1-2}
+map\+\_\+nv\+\_\+tx\+\_\+rate or map\+\_\+nv\+\_\+tx\+\_\+interval &Transmit interval in frames per second. \textbackslash{} \\\cline{1-2}
+\end{longtabu}
+0 = default for talker class. ~\newline
+ The transmit rate for \textbackslash{} the mapping module should be set according to the sample \textbackslash{} rate, so that the transmit interval meets the suggested \textbackslash{} values in 1722a 
+\begin{DoxyItemize}
+\item sample rate which are multiple of \textbackslash{} 8000\+Hz 
+\begin{DoxyItemize}
+\item 8000 for class {\bfseries A}
+\item 4000 for \textbackslash{} class {\bfseries B}
+\end{DoxyItemize}
+\item sample rate which are \textbackslash{} multiple of 44100\+Hz
+\begin{DoxyItemize}
+\item 7350 for class {\bfseries A} \textbackslash{} 
+\item 3675 for class {\bfseries B}
+\end{DoxyItemize}
+\end{DoxyItemize}map\+\_\+nv\+\_\+packing\+\_\+factor$\vert$\+How many frames of audio to accept in one media queue item map\+\_\+nv\+\_\+audio\+\_\+mcr $\vert$\+Media clock recovery,
+\begin{DoxyItemize}
+\item 0 -\/ No Media Clock Recovery \textbackslash{} default option
+\item 1 -\/ M\+CR done using A\+V\+TP timestamps\textbackslash{} 
+\item 2 -\/ M\+CR using Clock Reference Stream
+\end{DoxyItemize}
+
+\section*{Notes}
+
+There are additional parameters that have to be set by intf module during configuration process to make everything calulated properly inside mapping. Those variables have to be set before {\itshape map\+\_\+gen\+\_\+init\+\_\+cb} is being called. One of the approaches might be setting them during reading of the ini configuration and setting of the interface parameters.
+
+Fields of a structure \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t}{media\+\_\+q\+\_\+pub\+\_\+map\+\_\+uncmp\+\_\+audio\+\_\+info\+\_\+t} that have to be set during interface configuration\+: \tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*2{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}{\bf Name }&{\bf Description  }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}{\bf Name }&{\bf Description  }\\\cline{1-2}
+\endhead
+audio\+Rate &Rate of the audio \hyperlink{openavb__audio__pub_8h_a6070f1cfbb6824de6f0b2524cd306903}{avb\+\_\+audio\+\_\+rate\+\_\+t} \\\cline{1-2}
+audio\+Type &How the data is organized -\/ what is the data type of \textbackslash{} \\\cline{1-2}
+\end{longtabu}
+samples \hyperlink{openavb__audio__pub_8h_a680efa0db2b29a63c5a0e8f11975682f}{avb\+\_\+audio\+\_\+type\+\_\+t} audio\+Bit\+Depth $\vert$\+What is the bit depth of audio \hyperlink{openavb__audio__pub_8h_ae64ee32f6ac9a6b2cf607f46ee4160bd}{avb\+\_\+audio\+\_\+bit\+\_\+depth\+\_\+t} audio\+Channels $\vert$\+How many channels there are \hyperlink{openavb__audio__pub_8h_a8cc6b9a1352da050ead620139f49acc4}{avb\+\_\+audio\+\_\+channels\+\_\+t}
+
+Below you can find description of how to set up those variables in interfaces
+\begin{DoxyItemize}
+\item \hyperlink{wav_file_intf}{wav file interface}
+\item \hyperlink{alsa_intf}{alsa interface}
+\end{DoxyItemize}
+
+{\bfseries Note}\+: If one of those fields will not be set, mapping module will not configure media queue correctly.
+
+{\bfseries Note}\+: Both the talker and listner must be configured with matching sample parameters. If the received data does not match the configured parameters on the listener, the stream will still be setup and data will still flow -\/ but no audio will be played. 

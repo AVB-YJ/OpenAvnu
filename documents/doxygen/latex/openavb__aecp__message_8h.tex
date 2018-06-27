@@ -1,0 +1,193 @@
+\hypertarget{openavb__aecp__message_8h}{}\section{lib/avtp\+\_\+pipeline/aecp/openavb\+\_\+aecp\+\_\+message.h 파일 참조}
+\label{openavb__aecp__message_8h}\index{lib/avtp\+\_\+pipeline/aecp/openavb\+\_\+aecp\+\_\+message.\+h@{lib/avtp\+\_\+pipeline/aecp/openavb\+\_\+aecp\+\_\+message.\+h}}
+{\ttfamily \#include \char`\"{}openavb\+\_\+avdecc.\+h\char`\"{}}\\*
+openavb\+\_\+aecp\+\_\+message.\+h에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__aecp__message_8h__incl}
+\end{center}
+\end{figure}
+이 그래프는 이 파일을 직/간접적으로 include 하는 파일들을 보여줍니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__aecp__message_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{openavb__result__codes_8h_a0cb594b7f047b8e4a76be68eca619be5}{openavb\+RC} \hyperlink{openavb__aecp__message_8h_a75ee873cf59fd056d7254bf4b2eba078}{openavb\+Aecp\+Message\+Handler\+Start} (void)
+\item 
+void \hyperlink{openavb__aecp__message_8h_af0e122faafa5bf5c424bedc38f753b26}{openavb\+Aecp\+Message\+Handler\+Stop} (void)
+\item 
+\hyperlink{openavb__result__codes_8h_a0cb594b7f047b8e4a76be68eca619be5}{openavb\+RC} \hyperlink{openavb__aecp__message_8h_ad8c01ff9f209d985c0540ff693eaf443}{openavb\+Aecp\+Message\+Send} (\hyperlink{structopenavb__aecp___a_e_m_command_response__t}{openavb\+\_\+aecp\+\_\+\+A\+E\+M\+Command\+Response\+\_\+t} $\ast$A\+E\+M\+Command\+Response)
+\end{DoxyCompactItemize}
+
+
+\subsection{함수 문서화}
+\index{openavb\+\_\+aecp\+\_\+message.\+h@{openavb\+\_\+aecp\+\_\+message.\+h}!openavb\+Aecp\+Message\+Handler\+Start@{openavb\+Aecp\+Message\+Handler\+Start}}
+\index{openavb\+Aecp\+Message\+Handler\+Start@{openavb\+Aecp\+Message\+Handler\+Start}!openavb\+\_\+aecp\+\_\+message.\+h@{openavb\+\_\+aecp\+\_\+message.\+h}}
+\subsubsection[{\texorpdfstring{openavb\+Aecp\+Message\+Handler\+Start(void)}{openavbAecpMessageHandlerStart(void)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf openavb\+RC} openavb\+Aecp\+Message\+Handler\+Start (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__aecp__message_8h_a75ee873cf59fd056d7254bf4b2eba078}{}\label{openavb__aecp__message_8h_a75ee873cf59fd056d7254bf4b2eba078}
+
+
+openavb\+\_\+aecp\+\_\+message.\+c 파일의 994 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+995 \{
+996     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a285a706485bf86a3bfa1aaf03ae676e2}{AVB\_TRACE\_AECP});
+997 
+998     \hyperlink{openavb__aecp__message_8c_acf182b7b2127314d5d00c6df827734b5}{bRunning} = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+999 
+1000     \textcolor{keywordflow}{if} (\hyperlink{openavb__aecp__message_8c_af9060ee4197d78133e3029f2c52009f7}{openavbAecpOpenSocket}((\textcolor{keyword}{const} \textcolor{keywordtype}{char} *)\hyperlink{openavb__aecp__message_8c_a142e959837c765cd9a1767b886421315}{gAvdeccCfg}.
+      \hyperlink{structopenavb__avdecc__cfg__t_a11d6071e5fa37b0c5776e17651485f11}{ifname}, \hyperlink{openavb__aecp__message_8c_a142e959837c765cd9a1767b886421315}{gAvdeccCfg}.\hyperlink{structopenavb__avdecc__cfg__t_a6f9e150f3345cb797072070d8972aec8}{vlanID}, \hyperlink{openavb__aecp__message_8c_a142e959837c765cd9a1767b886421315}{gAvdeccCfg}.\hyperlink{structopenavb__avdecc__cfg__t_aeceb46fe9886e43a65d96da0339c43fb}{vlanPCP})) \{
+1001 
+1002         \textcolor{comment}{// Start the RX thread}
+1003         \textcolor{keywordtype}{bool} errResult;
+1004         \hyperlink{maap__helper__linux_8h_a153e2ca1dd20bd23c619f8d2bafcc764}{THREAD\_CREATE}(openavbAecpMessageRxThread, openavbAecpMessageRxThread, 
+      \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{openavb__aecp__message_8c_aa6b51dfd7e73b8c04c06ec00cbec2666}{openavbAecpMessageRxThreadFn}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+1005         \hyperlink{maap__helper__linux_8h_a2d61dbf377bb5ab560d4b4bddf49c9c2}{THREAD\_CHECK\_ERROR}(openavbAecpMessageRxThread, \textcolor{stringliteral}{"Thread / task creation failed"}, 
+      errResult);
+1006         \textcolor{keywordflow}{if} (errResult) \{
+1007             \hyperlink{openavb__aecp__message_8c_acf182b7b2127314d5d00c6df827734b5}{bRunning} = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+1008             \hyperlink{openavb__aecp__message_8c_a3d30a49dc34835ea724ea076b9e4a94d}{openavbAecpCloseSocket}();
+1009             \hyperlink{openavb__result__codes_8h_a914b1a10e0333e834ea192298c7d9e26}{AVB\_RC\_TRACE\_RET}(\hyperlink{openavb__result__codes_8h_ae011b3feb6683a50e9a6a566b7bb679d}{OPENAVB\_AVDECC\_FAILURE}, 
+      \hyperlink{openavb__trace_8h_a285a706485bf86a3bfa1aaf03ae676e2}{AVB\_TRACE\_AECP});
+1010         \}
+1011 
+1012         \hyperlink{openavb__result__codes_8h_a914b1a10e0333e834ea192298c7d9e26}{AVB\_RC\_TRACE\_RET}(\hyperlink{openavb__result__codes_8h_a36a28b5430025e16249854e3e1e74f5e}{OPENAVB\_AVDECC\_SUCCESS}, 
+      \hyperlink{openavb__trace_8h_a285a706485bf86a3bfa1aaf03ae676e2}{AVB\_TRACE\_AECP});
+1013     \}
+1014 
+1015     \hyperlink{openavb__aecp__message_8c_acf182b7b2127314d5d00c6df827734b5}{bRunning} = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+1016     \hyperlink{openavb__result__codes_8h_a914b1a10e0333e834ea192298c7d9e26}{AVB\_RC\_TRACE\_RET}(\hyperlink{openavb__result__codes_8h_ae011b3feb6683a50e9a6a566b7bb679d}{OPENAVB\_AVDECC\_FAILURE}, 
+      \hyperlink{openavb__trace_8h_a285a706485bf86a3bfa1aaf03ae676e2}{AVB\_TRACE\_AECP});
+1017 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__aecp__message_8h_a75ee873cf59fd056d7254bf4b2eba078_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__aecp__message_8h_a75ee873cf59fd056d7254bf4b2eba078_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+aecp\+\_\+message.\+h@{openavb\+\_\+aecp\+\_\+message.\+h}!openavb\+Aecp\+Message\+Handler\+Stop@{openavb\+Aecp\+Message\+Handler\+Stop}}
+\index{openavb\+Aecp\+Message\+Handler\+Stop@{openavb\+Aecp\+Message\+Handler\+Stop}!openavb\+\_\+aecp\+\_\+message.\+h@{openavb\+\_\+aecp\+\_\+message.\+h}}
+\subsubsection[{\texorpdfstring{openavb\+Aecp\+Message\+Handler\+Stop(void)}{openavbAecpMessageHandlerStop(void)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Aecp\+Message\+Handler\+Stop (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__aecp__message_8h_af0e122faafa5bf5c424bedc38f753b26}{}\label{openavb__aecp__message_8h_af0e122faafa5bf5c424bedc38f753b26}
+
+
+openavb\+\_\+aecp\+\_\+message.\+c 파일의 1019 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+1020 \{
+1021     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a285a706485bf86a3bfa1aaf03ae676e2}{AVB\_TRACE\_AECP});
+1022 
+1023     \textcolor{keywordflow}{if} (\hyperlink{openavb__aecp__message_8c_acf182b7b2127314d5d00c6df827734b5}{bRunning}) \{
+1024         \hyperlink{openavb__aecp__message_8c_acf182b7b2127314d5d00c6df827734b5}{bRunning} = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+1025         \hyperlink{maap__helper__linux_8h_ab2bcb74112112a2ed181d5784e0530f3}{THREAD\_JOIN}(openavbAecpMessageRxThread, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+1026         \hyperlink{openavb__aecp__message_8c_a3d30a49dc34835ea724ea076b9e4a94d}{openavbAecpCloseSocket}();
+1027     \}
+1028 
+1029     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a285a706485bf86a3bfa1aaf03ae676e2}{AVB\_TRACE\_AECP});
+1030 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__aecp__message_8h_af0e122faafa5bf5c424bedc38f753b26_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__aecp__message_8h_af0e122faafa5bf5c424bedc38f753b26_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+aecp\+\_\+message.\+h@{openavb\+\_\+aecp\+\_\+message.\+h}!openavb\+Aecp\+Message\+Send@{openavb\+Aecp\+Message\+Send}}
+\index{openavb\+Aecp\+Message\+Send@{openavb\+Aecp\+Message\+Send}!openavb\+\_\+aecp\+\_\+message.\+h@{openavb\+\_\+aecp\+\_\+message.\+h}}
+\subsubsection[{\texorpdfstring{openavb\+Aecp\+Message\+Send(openavb\+\_\+aecp\+\_\+\+A\+E\+M\+Command\+Response\+\_\+t $\ast$\+A\+E\+M\+Command\+Response)}{openavbAecpMessageSend(openavb_aecp_AEMCommandResponse_t *AEMCommandResponse)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf openavb\+RC} openavb\+Aecp\+Message\+Send (
+\begin{DoxyParamCaption}
+\item[{{\bf openavb\+\_\+aecp\+\_\+\+A\+E\+M\+Command\+Response\+\_\+t} $\ast$}]{A\+E\+M\+Command\+Response}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__aecp__message_8h_ad8c01ff9f209d985c0540ff693eaf443}{}\label{openavb__aecp__message_8h_ad8c01ff9f209d985c0540ff693eaf443}
+
+
+openavb\+\_\+aecp\+\_\+message.\+c 파일의 1042 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+1043 \{
+1044     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a285a706485bf86a3bfa1aaf03ae676e2}{AVB\_TRACE\_AECP});
+1045     \hyperlink{openavb__aecp__message_8c_a86d4f4099b5def0576c208f649426566}{openavbAecpMessageTxFrame}(AEMCommandResponse);
+1046     \hyperlink{openavb__aecp__message_8c_a660a1b47bec4074d7e18cfc0011deb44}{openavbAecpMessageSendUnsolicitedNotificationIfNeeded}
+      (AEMCommandResponse);
+1047     \hyperlink{openavb__result__codes_8h_a914b1a10e0333e834ea192298c7d9e26}{AVB\_RC\_TRACE\_RET}(\hyperlink{openavb__result__codes_8h_a36a28b5430025e16249854e3e1e74f5e}{OPENAVB\_AVDECC\_SUCCESS}, 
+      \hyperlink{openavb__trace_8h_a285a706485bf86a3bfa1aaf03ae676e2}{AVB\_TRACE\_AECP});
+1048 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__aecp__message_8h_ad8c01ff9f209d985c0540ff693eaf443_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__aecp__message_8h_ad8c01ff9f209d985c0540ff693eaf443_icgraph}
+\end{center}
+\end{figure}
+
+

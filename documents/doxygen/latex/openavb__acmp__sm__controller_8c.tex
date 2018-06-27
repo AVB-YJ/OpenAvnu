@@ -1,0 +1,1070 @@
+\hypertarget{openavb__acmp__sm__controller_8c}{}\section{lib/avtp\+\_\+pipeline/acmp/openavb\+\_\+acmp\+\_\+sm\+\_\+controller.c 파일 참조}
+\label{openavb__acmp__sm__controller_8c}\index{lib/avtp\+\_\+pipeline/acmp/openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{lib/avtp\+\_\+pipeline/acmp/openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}}
+{\ttfamily \#include \char`\"{}openavb\+\_\+log.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+debug.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+time.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+acmp\+\_\+message.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+avdecc\+\_\+pipeline\+\_\+interaction\+\_\+pub.\+h\char`\"{}}\\*
+openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__acmp__sm__controller_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{openavb__acmp__sm__controller_8c_abcfb21b6495585fe36058f57a9fe58fc}{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}~\char`\"{}A\+C\+MP\char`\"{}
+\item 
+\#define \hyperlink{openavb__acmp__sm__controller_8c_a3ce1b398321de047eed27a2eb4a97e99}{A\+C\+M\+P\+\_\+\+L\+O\+CK}()~\{ \hyperlink{openavb__os__services__osal__pub_8h_aee93da9d4ea28eeaa9c64bd938d5549b}{M\+U\+T\+E\+X\+\_\+\+C\+R\+E\+A\+T\+E\+\_\+\+E\+RR}(); \hyperlink{openavb__os__services__osal__pub_8h_aaa0e54e00ca1cc9cb5bf9ac824a5e4ef}{M\+U\+T\+E\+X\+\_\+\+L\+O\+CK}(openavb\+Acmp\+Mutex); \hyperlink{openavb__os__services__osal__pub_8h_a08d33bd2184e24e7676bda0efb5a3e5e}{M\+U\+T\+E\+X\+\_\+\+L\+O\+G\+\_\+\+E\+RR}(\char`\"{}Mutex lock failure\char`\"{}); \}
+\item 
+\#define \hyperlink{openavb__acmp__sm__controller_8c_a9a166efed26b5de58c79dd21c739a23f}{A\+C\+M\+P\+\_\+\+U\+N\+L\+O\+CK}()~\{ \hyperlink{openavb__os__services__osal__pub_8h_aee93da9d4ea28eeaa9c64bd938d5549b}{M\+U\+T\+E\+X\+\_\+\+C\+R\+E\+A\+T\+E\+\_\+\+E\+RR}(); \hyperlink{openavb__os__services__osal__pub_8h_a0945f1588c967fbabfc91ddc7287cb32}{M\+U\+T\+E\+X\+\_\+\+U\+N\+L\+O\+CK}(openavb\+Acmp\+Mutex); \hyperlink{openavb__os__services__osal__pub_8h_a08d33bd2184e24e7676bda0efb5a3e5e}{M\+U\+T\+E\+X\+\_\+\+L\+O\+G\+\_\+\+E\+RR}(\char`\"{}Mutex unlock failure\char`\"{}); \}
+\item 
+\#define \hyperlink{openavb__acmp__sm__controller_8c_a19573f4810ae786e735f8bad20a23b2a}{A\+C\+M\+P\+\_\+\+S\+M\+\_\+\+L\+O\+CK}()~\{ \hyperlink{openavb__os__services__osal__pub_8h_aee93da9d4ea28eeaa9c64bd938d5549b}{M\+U\+T\+E\+X\+\_\+\+C\+R\+E\+A\+T\+E\+\_\+\+E\+RR}(); \hyperlink{openavb__os__services__osal__pub_8h_aaa0e54e00ca1cc9cb5bf9ac824a5e4ef}{M\+U\+T\+E\+X\+\_\+\+L\+O\+CK}(openavb\+Acmp\+S\+M\+Controller\+Mutex); \hyperlink{openavb__os__services__osal__pub_8h_a08d33bd2184e24e7676bda0efb5a3e5e}{M\+U\+T\+E\+X\+\_\+\+L\+O\+G\+\_\+\+E\+RR}(\char`\"{}Mutex lock failure\char`\"{}); \}
+\item 
+\#define \hyperlink{openavb__acmp__sm__controller_8c_aebc94dc918aa7b71e413aaa2070d6d09}{A\+C\+M\+P\+\_\+\+S\+M\+\_\+\+U\+N\+L\+O\+CK}()~\{ \hyperlink{openavb__os__services__osal__pub_8h_aee93da9d4ea28eeaa9c64bd938d5549b}{M\+U\+T\+E\+X\+\_\+\+C\+R\+E\+A\+T\+E\+\_\+\+E\+RR}(); \hyperlink{openavb__os__services__osal__pub_8h_a0945f1588c967fbabfc91ddc7287cb32}{M\+U\+T\+E\+X\+\_\+\+U\+N\+L\+O\+CK}(openavb\+Acmp\+S\+M\+Controller\+Mutex); \hyperlink{openavb__os__services__osal__pub_8h_a08d33bd2184e24e7676bda0efb5a3e5e}{M\+U\+T\+E\+X\+\_\+\+L\+O\+G\+\_\+\+E\+RR}(\char`\"{}Mutex unlock failure\char`\"{}); \}
+\end{DoxyCompactItemize}
+\subsection*{열거형 타입}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{openavb__acmp__sm__controller_8c_aedf32998df2e28b868d0f5cd6901bccd}{openavb\+\_\+acmp\+\_\+sm\+\_\+controller\+\_\+state\+\_\+t} \{ \hyperlink{openavb__acmp__sm__controller_8c_aedf32998df2e28b868d0f5cd6901bccdae57ffb63562cce4854ea9756c18f799c}{O\+P\+E\+N\+A\+V\+B\+\_\+\+A\+C\+M\+P\+\_\+\+S\+M\+\_\+\+C\+O\+N\+T\+R\+O\+L\+L\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+W\+A\+I\+T\+I\+NG}, 
+\hyperlink{openavb__acmp__sm__controller_8c_aedf32998df2e28b868d0f5cd6901bccda2eb5259b87a1e706cb2fa99563fcb576}{O\+P\+E\+N\+A\+V\+B\+\_\+\+A\+C\+M\+P\+\_\+\+S\+M\+\_\+\+C\+O\+N\+T\+R\+O\+L\+L\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+T\+I\+M\+E\+O\+UT}, 
+\hyperlink{openavb__acmp__sm__controller_8c_aedf32998df2e28b868d0f5cd6901bccda467c7ab86d6820e927031f60be959bff}{O\+P\+E\+N\+A\+V\+B\+\_\+\+A\+C\+M\+P\+\_\+\+S\+M\+\_\+\+C\+O\+N\+T\+R\+O\+L\+L\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+R\+E\+S\+P\+O\+N\+SE}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{openavb__acmp__sm__controller_8c_a7ea9ed5f94ea271938dfd4091096cc9a}{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+LE} (openavb\+Acmp\+Mutex)
+\item 
+static \hyperlink{openavb__acmp__sm__controller_8c_a2afcc5ac1fcaa26dda90eb9612c1b56e}{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+LE} (openavb\+Acmp\+S\+M\+Controller\+Mutex)
+\item 
+\hyperlink{openavb__acmp__sm__controller_8c_a57d7cf7666618389df6bd0294847014a}{S\+E\+M\+\_\+T} (openavb\+Acmp\+S\+M\+Controller\+Semaphore)
+\item 
+\hyperlink{openavb__acmp__sm__controller_8c_ae3d00763f28bf14405e7423ddbc60e40}{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE} (openavb\+Acmp\+Sm\+Controller\+Thread)
+\item 
+\hyperlink{openavb__acmp__sm__controller_8c_ae79c583a8f133febb596619d48ac6183}{T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+ON} (openavb\+Acmp\+Sm\+Controller\+Thread)
+\item 
+static \hyperlink{openavb__list_8h_a64023766d95092523c9da1927b31c105}{openavb\+\_\+list\+\_\+node\+\_\+t} \hyperlink{openavb__acmp__sm__controller_8c_a5e3a418571f5696450e06ae188f314d5}{openavb\+Acmp\+S\+M\+Controller\+\_\+find\+Inflight\+Node\+From\+Command} (\hyperlink{structopenavb__acmp___a_c_m_p_command_response__t}{openavb\+\_\+acmp\+\_\+\+A\+C\+M\+P\+Command\+Response\+\_\+t} $\ast$command)
+\item 
+void \hyperlink{openavb__acmp__sm__controller_8c_af097367c68965647c45388e3dff4134f}{openavb\+Acmp\+S\+M\+Controller\+\_\+tx\+Command} (\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} message\+Type, \hyperlink{structopenavb__acmp___a_c_m_p_command_response__t}{openavb\+\_\+acmp\+\_\+\+A\+C\+M\+P\+Command\+Response\+\_\+t} $\ast$command, \hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} retry)
+\item 
+void \hyperlink{openavb__acmp__sm__controller_8c_acbd6843c58d931409c864528b892d443}{openavb\+Acmp\+S\+M\+Controller\+\_\+cancel\+Timeout} (\hyperlink{structopenavb__acmp___a_c_m_p_command_response__t}{openavb\+\_\+acmp\+\_\+\+A\+C\+M\+P\+Command\+Response\+\_\+t} $\ast$command\+Response)
+\item 
+void \hyperlink{openavb__acmp__sm__controller_8c_a4a46e8fb2855bfd05d9b79ba1216dd07}{openavb\+Acmp\+S\+M\+Controller\+\_\+remove\+Inflight} (\hyperlink{structopenavb__acmp___a_c_m_p_command_response__t}{openavb\+\_\+acmp\+\_\+\+A\+C\+M\+P\+Command\+Response\+\_\+t} $\ast$command\+Response)
+\item 
+void \hyperlink{openavb__acmp__sm__controller_8c_aa4174ba24edc7ca77982e76595faffb4}{openavb\+Acmp\+S\+M\+Controller\+\_\+process\+Response} (\hyperlink{structopenavb__acmp___a_c_m_p_command_response__t}{openavb\+\_\+acmp\+\_\+\+A\+C\+M\+P\+Command\+Response\+\_\+t} $\ast$command\+Response)
+\item 
+void \hyperlink{openavb__acmp__sm__controller_8c_ad25c76853ecdcd9999940cda59ed1b96}{openavb\+Acmp\+S\+M\+Controller\+\_\+make\+Command} (\hyperlink{structopenavb__acmp___a_c_m_p_command_params__t}{openavb\+\_\+acmp\+\_\+\+A\+C\+M\+P\+Command\+Params\+\_\+t} $\ast$param)
+\item 
+void \hyperlink{openavb__acmp__sm__controller_8c_af2fefbfaedb6443389e1606a3e1edabd}{openavb\+Acmp\+S\+M\+Controller\+State\+Machine} ()
+\item 
+void $\ast$ \hyperlink{openavb__acmp__sm__controller_8c_a57d3102dd3843270abcb6ec3550c0284}{openavb\+Acmp\+S\+M\+Controller\+Thread\+Fn} (void $\ast$pv)
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__acmp__sm__controller_8c_a29319af0013c521389d8ec1276ecec88}{openavb\+Acmp\+S\+M\+Controller\+Start} ()
+\item 
+void \hyperlink{openavb__acmp__sm__controller_8c_a07dac8efb1cb7091141cdae620d60a64}{openavb\+Acmp\+S\+M\+Controller\+Stop} ()
+\item 
+void \hyperlink{openavb__acmp__sm__controller_8c_a36ef5af4765305a36cbdbf0f0cfdf8df}{openavb\+Acmp\+S\+M\+Controller\+Set\+\_\+rcvd\+Response} (\hyperlink{structopenavb__acmp___a_c_m_p_command_response__t}{openavb\+\_\+acmp\+\_\+\+A\+C\+M\+P\+Command\+Response\+\_\+t} $\ast$command)
+\item 
+void \hyperlink{openavb__acmp__sm__controller_8c_a4dd4e4acfaf2143e87a9c9943c96b47a}{openavb\+Acmp\+S\+M\+Controller\+Set\+\_\+do\+Terminate} (\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} value)
+\end{DoxyCompactItemize}
+\subsection*{변수}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structopenavb__acmp__sm__global__vars__t}{openavb\+\_\+acmp\+\_\+sm\+\_\+global\+\_\+vars\+\_\+t} \hyperlink{openavb__acmp__sm__controller_8c_a3b2bf4fc57f453d3c2c073f0b7637073}{openavb\+Acmp\+S\+M\+Global\+Vars}
+\item 
+static \hyperlink{structopenavb__acmp___a_c_m_p_command_response__t}{openavb\+\_\+acmp\+\_\+\+A\+C\+M\+P\+Command\+Response\+\_\+t} \hyperlink{openavb__acmp__sm__controller_8c_a0fedb04af620923614eb7ec3e6722b63}{rcvd\+Cmd\+Resp}
+\item 
+static \hyperlink{structopenavb__acmp___a_c_m_p_command_response__t}{openavb\+\_\+acmp\+\_\+\+A\+C\+M\+P\+Command\+Response\+\_\+t} $\ast$ \hyperlink{openavb__acmp__sm__controller_8c_acb2c8e3ccc8484d0b08c9c684a84f168}{p\+Rcvd\+Cmd\+Resp} = \&\hyperlink{openavb__acmp__sm__talker_8c_a0fedb04af620923614eb7ec3e6722b63}{rcvd\+Cmd\+Resp}
+\item 
+static \hyperlink{structopenavb__acmp__sm__controller__vars__t}{openavb\+\_\+acmp\+\_\+sm\+\_\+controller\+\_\+vars\+\_\+t} \hyperlink{openavb__acmp__sm__controller_8c_a139331ca51073a89e54f809b0e42a63a}{openavb\+Acmp\+S\+M\+Controller\+Vars} = \{0\}
+\item 
+static \hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__acmp__sm__controller_8c_acf182b7b2127314d5d00c6df827734b5}{b\+Running} = \hyperlink{lib_2igb_2e1000__osdep_8h_aa93f0eb578d23995850d61f7d61c55c1}{F\+A\+L\+SE}
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}!A\+C\+M\+P\+\_\+\+L\+O\+CK@{A\+C\+M\+P\+\_\+\+L\+O\+CK}}
+\index{A\+C\+M\+P\+\_\+\+L\+O\+CK@{A\+C\+M\+P\+\_\+\+L\+O\+CK}!openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}}
+\subsubsection[{\texorpdfstring{A\+C\+M\+P\+\_\+\+L\+O\+CK}{ACMP_LOCK}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+C\+M\+P\+\_\+\+L\+O\+CK(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~\{ {\bf M\+U\+T\+E\+X\+\_\+\+C\+R\+E\+A\+T\+E\+\_\+\+E\+RR}(); {\bf M\+U\+T\+E\+X\+\_\+\+L\+O\+CK}(openavb\+Acmp\+Mutex); {\bf M\+U\+T\+E\+X\+\_\+\+L\+O\+G\+\_\+\+E\+RR}(\char`\"{}Mutex lock failure\char`\"{}); \}}\hypertarget{openavb__acmp__sm__controller_8c_a3ce1b398321de047eed27a2eb4a97e99}{}\label{openavb__acmp__sm__controller_8c_a3ce1b398321de047eed27a2eb4a97e99}
+
+
+openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c 파일의 63 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}!A\+C\+M\+P\+\_\+\+S\+M\+\_\+\+L\+O\+CK@{A\+C\+M\+P\+\_\+\+S\+M\+\_\+\+L\+O\+CK}}
+\index{A\+C\+M\+P\+\_\+\+S\+M\+\_\+\+L\+O\+CK@{A\+C\+M\+P\+\_\+\+S\+M\+\_\+\+L\+O\+CK}!openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}}
+\subsubsection[{\texorpdfstring{A\+C\+M\+P\+\_\+\+S\+M\+\_\+\+L\+O\+CK}{ACMP_SM_LOCK}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+C\+M\+P\+\_\+\+S\+M\+\_\+\+L\+O\+CK(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~\{ {\bf M\+U\+T\+E\+X\+\_\+\+C\+R\+E\+A\+T\+E\+\_\+\+E\+RR}(); {\bf M\+U\+T\+E\+X\+\_\+\+L\+O\+CK}(openavb\+Acmp\+S\+M\+Controller\+Mutex); {\bf M\+U\+T\+E\+X\+\_\+\+L\+O\+G\+\_\+\+E\+RR}(\char`\"{}Mutex lock failure\char`\"{}); \}}\hypertarget{openavb__acmp__sm__controller_8c_a19573f4810ae786e735f8bad20a23b2a}{}\label{openavb__acmp__sm__controller_8c_a19573f4810ae786e735f8bad20a23b2a}
+
+
+openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c 파일의 67 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}!A\+C\+M\+P\+\_\+\+S\+M\+\_\+\+U\+N\+L\+O\+CK@{A\+C\+M\+P\+\_\+\+S\+M\+\_\+\+U\+N\+L\+O\+CK}}
+\index{A\+C\+M\+P\+\_\+\+S\+M\+\_\+\+U\+N\+L\+O\+CK@{A\+C\+M\+P\+\_\+\+S\+M\+\_\+\+U\+N\+L\+O\+CK}!openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}}
+\subsubsection[{\texorpdfstring{A\+C\+M\+P\+\_\+\+S\+M\+\_\+\+U\+N\+L\+O\+CK}{ACMP_SM_UNLOCK}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+C\+M\+P\+\_\+\+S\+M\+\_\+\+U\+N\+L\+O\+CK(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~\{ {\bf M\+U\+T\+E\+X\+\_\+\+C\+R\+E\+A\+T\+E\+\_\+\+E\+RR}(); {\bf M\+U\+T\+E\+X\+\_\+\+U\+N\+L\+O\+CK}(openavb\+Acmp\+S\+M\+Controller\+Mutex); {\bf M\+U\+T\+E\+X\+\_\+\+L\+O\+G\+\_\+\+E\+RR}(\char`\"{}Mutex unlock failure\char`\"{}); \}}\hypertarget{openavb__acmp__sm__controller_8c_aebc94dc918aa7b71e413aaa2070d6d09}{}\label{openavb__acmp__sm__controller_8c_aebc94dc918aa7b71e413aaa2070d6d09}
+
+
+openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c 파일의 68 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}!A\+C\+M\+P\+\_\+\+U\+N\+L\+O\+CK@{A\+C\+M\+P\+\_\+\+U\+N\+L\+O\+CK}}
+\index{A\+C\+M\+P\+\_\+\+U\+N\+L\+O\+CK@{A\+C\+M\+P\+\_\+\+U\+N\+L\+O\+CK}!openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}}
+\subsubsection[{\texorpdfstring{A\+C\+M\+P\+\_\+\+U\+N\+L\+O\+CK}{ACMP_UNLOCK}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+C\+M\+P\+\_\+\+U\+N\+L\+O\+CK(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~\{ {\bf M\+U\+T\+E\+X\+\_\+\+C\+R\+E\+A\+T\+E\+\_\+\+E\+RR}(); {\bf M\+U\+T\+E\+X\+\_\+\+U\+N\+L\+O\+CK}(openavb\+Acmp\+Mutex); {\bf M\+U\+T\+E\+X\+\_\+\+L\+O\+G\+\_\+\+E\+RR}(\char`\"{}Mutex unlock failure\char`\"{}); \}}\hypertarget{openavb__acmp__sm__controller_8c_a9a166efed26b5de58c79dd21c739a23f}{}\label{openavb__acmp__sm__controller_8c_a9a166efed26b5de58c79dd21c739a23f}
+
+
+openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c 파일의 64 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}!A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT@{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}}
+\index{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT@{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}!openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}}
+\subsubsection[{\texorpdfstring{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}{AVB_LOG_COMPONENT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT~\char`\"{}A\+C\+MP\char`\"{}}\hypertarget{openavb__acmp__sm__controller_8c_abcfb21b6495585fe36058f57a9fe58fc}{}\label{openavb__acmp__sm__controller_8c_abcfb21b6495585fe36058f57a9fe58fc}
+
+
+openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c 파일의 40 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{열거형 타입 문서화}
+\index{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}!openavb\+\_\+acmp\+\_\+sm\+\_\+controller\+\_\+state\+\_\+t@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller\+\_\+state\+\_\+t}}
+\index{openavb\+\_\+acmp\+\_\+sm\+\_\+controller\+\_\+state\+\_\+t@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller\+\_\+state\+\_\+t}!openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+\_\+acmp\+\_\+sm\+\_\+controller\+\_\+state\+\_\+t}{openavb_acmp_sm_controller_state_t}}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf openavb\+\_\+acmp\+\_\+sm\+\_\+controller\+\_\+state\+\_\+t}}\hypertarget{openavb__acmp__sm__controller_8c_aedf32998df2e28b868d0f5cd6901bccd}{}\label{openavb__acmp__sm__controller_8c_aedf32998df2e28b868d0f5cd6901bccd}
+\begin{Desc}
+\item[열거형 멤버]\par
+\begin{description}
+\index{O\+P\+E\+N\+A\+V\+B\+\_\+\+A\+C\+M\+P\+\_\+\+S\+M\+\_\+\+C\+O\+N\+T\+R\+O\+L\+L\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+W\+A\+I\+T\+I\+NG@{O\+P\+E\+N\+A\+V\+B\+\_\+\+A\+C\+M\+P\+\_\+\+S\+M\+\_\+\+C\+O\+N\+T\+R\+O\+L\+L\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+W\+A\+I\+T\+I\+NG}!openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}}\index{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}!O\+P\+E\+N\+A\+V\+B\+\_\+\+A\+C\+M\+P\+\_\+\+S\+M\+\_\+\+C\+O\+N\+T\+R\+O\+L\+L\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+W\+A\+I\+T\+I\+NG@{O\+P\+E\+N\+A\+V\+B\+\_\+\+A\+C\+M\+P\+\_\+\+S\+M\+\_\+\+C\+O\+N\+T\+R\+O\+L\+L\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+W\+A\+I\+T\+I\+NG}}\item[{\em 
+O\+P\+E\+N\+A\+V\+B\+\_\+\+A\+C\+M\+P\+\_\+\+S\+M\+\_\+\+C\+O\+N\+T\+R\+O\+L\+L\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+W\+A\+I\+T\+I\+NG\hypertarget{openavb__acmp__sm__controller_8c_aedf32998df2e28b868d0f5cd6901bccdae57ffb63562cce4854ea9756c18f799c}{}\label{openavb__acmp__sm__controller_8c_aedf32998df2e28b868d0f5cd6901bccdae57ffb63562cce4854ea9756c18f799c}
+}]\index{O\+P\+E\+N\+A\+V\+B\+\_\+\+A\+C\+M\+P\+\_\+\+S\+M\+\_\+\+C\+O\+N\+T\+R\+O\+L\+L\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+T\+I\+M\+E\+O\+UT@{O\+P\+E\+N\+A\+V\+B\+\_\+\+A\+C\+M\+P\+\_\+\+S\+M\+\_\+\+C\+O\+N\+T\+R\+O\+L\+L\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+T\+I\+M\+E\+O\+UT}!openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}}\index{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}!O\+P\+E\+N\+A\+V\+B\+\_\+\+A\+C\+M\+P\+\_\+\+S\+M\+\_\+\+C\+O\+N\+T\+R\+O\+L\+L\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+T\+I\+M\+E\+O\+UT@{O\+P\+E\+N\+A\+V\+B\+\_\+\+A\+C\+M\+P\+\_\+\+S\+M\+\_\+\+C\+O\+N\+T\+R\+O\+L\+L\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+T\+I\+M\+E\+O\+UT}}\item[{\em 
+O\+P\+E\+N\+A\+V\+B\+\_\+\+A\+C\+M\+P\+\_\+\+S\+M\+\_\+\+C\+O\+N\+T\+R\+O\+L\+L\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+T\+I\+M\+E\+O\+UT\hypertarget{openavb__acmp__sm__controller_8c_aedf32998df2e28b868d0f5cd6901bccda2eb5259b87a1e706cb2fa99563fcb576}{}\label{openavb__acmp__sm__controller_8c_aedf32998df2e28b868d0f5cd6901bccda2eb5259b87a1e706cb2fa99563fcb576}
+}]\index{O\+P\+E\+N\+A\+V\+B\+\_\+\+A\+C\+M\+P\+\_\+\+S\+M\+\_\+\+C\+O\+N\+T\+R\+O\+L\+L\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+R\+E\+S\+P\+O\+N\+SE@{O\+P\+E\+N\+A\+V\+B\+\_\+\+A\+C\+M\+P\+\_\+\+S\+M\+\_\+\+C\+O\+N\+T\+R\+O\+L\+L\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+R\+E\+S\+P\+O\+N\+SE}!openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}}\index{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}!O\+P\+E\+N\+A\+V\+B\+\_\+\+A\+C\+M\+P\+\_\+\+S\+M\+\_\+\+C\+O\+N\+T\+R\+O\+L\+L\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+R\+E\+S\+P\+O\+N\+SE@{O\+P\+E\+N\+A\+V\+B\+\_\+\+A\+C\+M\+P\+\_\+\+S\+M\+\_\+\+C\+O\+N\+T\+R\+O\+L\+L\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+R\+E\+S\+P\+O\+N\+SE}}\item[{\em 
+O\+P\+E\+N\+A\+V\+B\+\_\+\+A\+C\+M\+P\+\_\+\+S\+M\+\_\+\+C\+O\+N\+T\+R\+O\+L\+L\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+R\+E\+S\+P\+O\+N\+SE\hypertarget{openavb__acmp__sm__controller_8c_aedf32998df2e28b868d0f5cd6901bccda467c7ab86d6820e927031f60be959bff}{}\label{openavb__acmp__sm__controller_8c_aedf32998df2e28b868d0f5cd6901bccda467c7ab86d6820e927031f60be959bff}
+}]\end{description}
+\end{Desc}
+
+
+openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c 파일의 49 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+49              \{
+50     \hyperlink{openavb__acmp__sm__controller_8c_aedf32998df2e28b868d0f5cd6901bccdae57ffb63562cce4854ea9756c18f799c}{OPENAVB\_ACMP\_SM\_CONTROLLER\_STATE\_WAITING},
+51     \hyperlink{openavb__acmp__sm__controller_8c_aedf32998df2e28b868d0f5cd6901bccda2eb5259b87a1e706cb2fa99563fcb576}{OPENAVB\_ACMP\_SM\_CONTROLLER\_STATE\_TIMEOUT},
+52     \hyperlink{openavb__acmp__sm__controller_8c_aedf32998df2e28b868d0f5cd6901bccda467c7ab86d6820e927031f60be959bff}{OPENAVB\_ACMP\_SM\_CONTROLLER\_STATE\_RESPONSE}
+53 \} \hyperlink{openavb__acmp__sm__controller_8c_aedf32998df2e28b868d0f5cd6901bccd}{openavb\_acmp\_sm\_controller\_state\_t};
+\end{DoxyCode}
+
+
+\subsection{함수 문서화}
+\index{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}!M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+LE@{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+LE}}
+\index{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+LE@{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+LE}!openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}}
+\subsubsection[{\texorpdfstring{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+L\+E(openavb\+Acmp\+Mutex)}{MUTEX_HANDLE(openavbAcmpMutex)}}]{\setlength{\rightskip}{0pt plus 5cm}M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+LE (
+\begin{DoxyParamCaption}
+\item[{openavb\+Acmp\+Mutex}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__acmp__sm__controller_8c_a7ea9ed5f94ea271938dfd4091096cc9a}{}\label{openavb__acmp__sm__controller_8c_a7ea9ed5f94ea271938dfd4091096cc9a}
+\index{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}!M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+LE@{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+LE}}
+\index{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+LE@{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+LE}!openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}}
+\subsubsection[{\texorpdfstring{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+L\+E(openavb\+Acmp\+S\+M\+Controller\+Mutex)}{MUTEX_HANDLE(openavbAcmpSMControllerMutex)}}]{\setlength{\rightskip}{0pt plus 5cm}static M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+LE (
+\begin{DoxyParamCaption}
+\item[{openavb\+Acmp\+S\+M\+Controller\+Mutex}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__acmp__sm__controller_8c_a2afcc5ac1fcaa26dda90eb9612c1b56e}{}\label{openavb__acmp__sm__controller_8c_a2afcc5ac1fcaa26dda90eb9612c1b56e}
+\index{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}!openavb\+Acmp\+S\+M\+Controller\+\_\+cancel\+Timeout@{openavb\+Acmp\+S\+M\+Controller\+\_\+cancel\+Timeout}}
+\index{openavb\+Acmp\+S\+M\+Controller\+\_\+cancel\+Timeout@{openavb\+Acmp\+S\+M\+Controller\+\_\+cancel\+Timeout}!openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Acmp\+S\+M\+Controller\+\_\+cancel\+Timeout(openavb\+\_\+acmp\+\_\+\+A\+C\+M\+P\+Command\+Response\+\_\+t $\ast$command\+Response)}{openavbAcmpSMController_cancelTimeout(openavb_acmp_ACMPCommandResponse_t *commandResponse)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Acmp\+S\+M\+Controller\+\_\+cancel\+Timeout (
+\begin{DoxyParamCaption}
+\item[{{\bf openavb\+\_\+acmp\+\_\+\+A\+C\+M\+P\+Command\+Response\+\_\+t} $\ast$}]{command\+Response}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__acmp__sm__controller_8c_acbd6843c58d931409c864528b892d443}{}\label{openavb__acmp__sm__controller_8c_acbd6843c58d931409c864528b892d443}
+
+
+openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c 파일의 187 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+188 \{
+189     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+190     \textcolor{comment}{// Nothing to do since the timer is reset during the wait state and the inFlight entry will have
+       already been removed.}
+191     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+192 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__acmp__sm__controller_8c_acbd6843c58d931409c864528b892d443_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}!openavb\+Acmp\+S\+M\+Controller\+\_\+find\+Inflight\+Node\+From\+Command@{openavb\+Acmp\+S\+M\+Controller\+\_\+find\+Inflight\+Node\+From\+Command}}
+\index{openavb\+Acmp\+S\+M\+Controller\+\_\+find\+Inflight\+Node\+From\+Command@{openavb\+Acmp\+S\+M\+Controller\+\_\+find\+Inflight\+Node\+From\+Command}!openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Acmp\+S\+M\+Controller\+\_\+find\+Inflight\+Node\+From\+Command(openavb\+\_\+acmp\+\_\+\+A\+C\+M\+P\+Command\+Response\+\_\+t $\ast$command)}{openavbAcmpSMController_findInflightNodeFromCommand(openavb_acmp_ACMPCommandResponse_t *command)}}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf openavb\+\_\+list\+\_\+node\+\_\+t} openavb\+Acmp\+S\+M\+Controller\+\_\+find\+Inflight\+Node\+From\+Command (
+\begin{DoxyParamCaption}
+\item[{{\bf openavb\+\_\+acmp\+\_\+\+A\+C\+M\+P\+Command\+Response\+\_\+t} $\ast$}]{command}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__acmp__sm__controller_8c_a5e3a418571f5696450e06ae188f314d5}{}\label{openavb__acmp__sm__controller_8c_a5e3a418571f5696450e06ae188f314d5}
+
+
+openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c 파일의 75 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+76 \{
+77     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+78 
+79     \hyperlink{structopenavb__list__node}{openavb\_list\_node\_t} node = \hyperlink{openavb__list_8c_a2a75eb217cae45b1c2d17b53ef26eab4}{openavbListIterFirst}(
+      \hyperlink{openavb__acmp__sm__controller_8c_a139331ca51073a89e54f809b0e42a63a}{openavbAcmpSMControllerVars}.\hyperlink{structopenavb__acmp__sm__controller__vars__t_a8757a9f120141662b8b4c8b44c502c3c}{inflight});
+80     \textcolor{keywordflow}{while} (node) \{
+81         \hyperlink{structopenavb__acmp___inflight_command__t}{openavb\_acmp\_InflightCommand\_t} *pInFlightCommand = 
+      \hyperlink{openavb__list_8c_a7e38091a32a3b17ea7699c33fd355f84}{openavbListData}(node);
+82         \textcolor{keywordflow}{if} (pInFlightCommand) \{
+83             \textcolor{keywordflow}{if} (memcmp(pInFlightCommand->\hyperlink{structopenavb__acmp___inflight_command__t_ac015290429c34e4109010b42aa36c8b6}{command}.\hyperlink{structopenavb__acmp___a_c_m_p_command_response__t_a8b74ba582b9c19e1f2e475925f7cfb2f}{controller\_entity\_id}, command->
+      \hyperlink{structopenavb__acmp___a_c_m_p_command_response__t_a8b74ba582b9c19e1f2e475925f7cfb2f}{controller\_entity\_id}, \textcolor{keyword}{sizeof}(pInFlightCommand->\hyperlink{structopenavb__acmp___inflight_command__t_ac015290429c34e4109010b42aa36c8b6}{command}.
+      \hyperlink{structopenavb__acmp___a_c_m_p_command_response__t_a8b74ba582b9c19e1f2e475925f7cfb2f}{controller\_entity\_id})) == 0 &&
+84                     pInFlightCommand->\hyperlink{structopenavb__acmp___inflight_command__t_ac015290429c34e4109010b42aa36c8b6}{command}.\hyperlink{structopenavb__acmp___a_c_m_p_command_response__t_ada45e1a0fe13471280842df714983d95}{sequence\_id} == command->
+      \hyperlink{structopenavb__acmp___a_c_m_p_command_response__t_ada45e1a0fe13471280842df714983d95}{sequence\_id}) \{
+85                 \textcolor{keywordflow}{break};
+86             \}
+87         \}
+88         node = \hyperlink{openavb__list_8c_aed248455c016f62a834149c139262ff7}{openavbListIterNext}(
+      \hyperlink{openavb__acmp__sm__controller_8c_a139331ca51073a89e54f809b0e42a63a}{openavbAcmpSMControllerVars}.\hyperlink{structopenavb__acmp__sm__controller__vars__t_a8757a9f120141662b8b4c8b44c502c3c}{inflight});
+89     \}
+90 
+91     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+92     \textcolor{keywordflow}{return} node;
+93 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__acmp__sm__controller_8c_a5e3a418571f5696450e06ae188f314d5_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__acmp__sm__controller_8c_a5e3a418571f5696450e06ae188f314d5_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}!openavb\+Acmp\+S\+M\+Controller\+\_\+make\+Command@{openavb\+Acmp\+S\+M\+Controller\+\_\+make\+Command}}
+\index{openavb\+Acmp\+S\+M\+Controller\+\_\+make\+Command@{openavb\+Acmp\+S\+M\+Controller\+\_\+make\+Command}!openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Acmp\+S\+M\+Controller\+\_\+make\+Command(openavb\+\_\+acmp\+\_\+\+A\+C\+M\+P\+Command\+Params\+\_\+t $\ast$param)}{openavbAcmpSMController_makeCommand(openavb_acmp_ACMPCommandParams_t *param)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Acmp\+S\+M\+Controller\+\_\+make\+Command (
+\begin{DoxyParamCaption}
+\item[{{\bf openavb\+\_\+acmp\+\_\+\+A\+C\+M\+P\+Command\+Params\+\_\+t} $\ast$}]{param}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__acmp__sm__controller_8c_ad25c76853ecdcd9999940cda59ed1b96}{}\label{openavb__acmp__sm__controller_8c_ad25c76853ecdcd9999940cda59ed1b96}
+
+
+openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c 파일의 213 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+214 \{
+215     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+216     \textcolor{comment}{// AVDECC\_TODO:  Fill this in if implementing the doCommand support.}
+217     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+218 \}
+\end{DoxyCode}
+\index{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}!openavb\+Acmp\+S\+M\+Controller\+\_\+process\+Response@{openavb\+Acmp\+S\+M\+Controller\+\_\+process\+Response}}
+\index{openavb\+Acmp\+S\+M\+Controller\+\_\+process\+Response@{openavb\+Acmp\+S\+M\+Controller\+\_\+process\+Response}!openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Acmp\+S\+M\+Controller\+\_\+process\+Response(openavb\+\_\+acmp\+\_\+\+A\+C\+M\+P\+Command\+Response\+\_\+t $\ast$command\+Response)}{openavbAcmpSMController_processResponse(openavb_acmp_ACMPCommandResponse_t *commandResponse)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Acmp\+S\+M\+Controller\+\_\+process\+Response (
+\begin{DoxyParamCaption}
+\item[{{\bf openavb\+\_\+acmp\+\_\+\+A\+C\+M\+P\+Command\+Response\+\_\+t} $\ast$}]{command\+Response}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__acmp__sm__controller_8c_aa4174ba24edc7ca77982e76595faffb4}{}\label{openavb__acmp__sm__controller_8c_aa4174ba24edc7ca77982e76595faffb4}
+
+
+openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c 파일의 206 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+207 \{
+208     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+209     \textcolor{comment}{// AVDECC\_TODO:  Is there anything we need to do here, such as updating the saved state?}
+210     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+211 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__acmp__sm__controller_8c_aa4174ba24edc7ca77982e76595faffb4_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}!openavb\+Acmp\+S\+M\+Controller\+\_\+remove\+Inflight@{openavb\+Acmp\+S\+M\+Controller\+\_\+remove\+Inflight}}
+\index{openavb\+Acmp\+S\+M\+Controller\+\_\+remove\+Inflight@{openavb\+Acmp\+S\+M\+Controller\+\_\+remove\+Inflight}!openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Acmp\+S\+M\+Controller\+\_\+remove\+Inflight(openavb\+\_\+acmp\+\_\+\+A\+C\+M\+P\+Command\+Response\+\_\+t $\ast$command\+Response)}{openavbAcmpSMController_removeInflight(openavb_acmp_ACMPCommandResponse_t *commandResponse)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Acmp\+S\+M\+Controller\+\_\+remove\+Inflight (
+\begin{DoxyParamCaption}
+\item[{{\bf openavb\+\_\+acmp\+\_\+\+A\+C\+M\+P\+Command\+Response\+\_\+t} $\ast$}]{command\+Response}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__acmp__sm__controller_8c_a4a46e8fb2855bfd05d9b79ba1216dd07}{}\label{openavb__acmp__sm__controller_8c_a4a46e8fb2855bfd05d9b79ba1216dd07}
+
+
+openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c 파일의 194 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+195 \{
+196     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+197 
+198     \hyperlink{structopenavb__list__node}{openavb\_list\_node\_t} node = 
+      \hyperlink{openavb__acmp__sm__controller_8c_a5e3a418571f5696450e06ae188f314d5}{openavbAcmpSMController\_findInflightNodeFromCommand}(
+      commandResponse);
+199     \textcolor{keywordflow}{if} (node) \{
+200         \hyperlink{openavb__list_8c_aa14b023ca409b13c73ec96c7cca2be56}{openavbListDelete}(\hyperlink{openavb__acmp__sm__controller_8c_a139331ca51073a89e54f809b0e42a63a}{openavbAcmpSMControllerVars}.
+      \hyperlink{structopenavb__acmp__sm__controller__vars__t_a8757a9f120141662b8b4c8b44c502c3c}{inflight}, node);
+201     \}
+202 
+203     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+204 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__acmp__sm__controller_8c_a4a46e8fb2855bfd05d9b79ba1216dd07_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__acmp__sm__controller_8c_a4a46e8fb2855bfd05d9b79ba1216dd07_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}!openavb\+Acmp\+S\+M\+Controller\+\_\+tx\+Command@{openavb\+Acmp\+S\+M\+Controller\+\_\+tx\+Command}}
+\index{openavb\+Acmp\+S\+M\+Controller\+\_\+tx\+Command@{openavb\+Acmp\+S\+M\+Controller\+\_\+tx\+Command}!openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Acmp\+S\+M\+Controller\+\_\+tx\+Command(\+U8 message\+Type, openavb\+\_\+acmp\+\_\+\+A\+C\+M\+P\+Command\+Response\+\_\+t $\ast$command, bool retry)}{openavbAcmpSMController_txCommand(U8 messageType, openavb_acmp_ACMPCommandResponse_t *command, bool retry)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Acmp\+S\+M\+Controller\+\_\+tx\+Command (
+\begin{DoxyParamCaption}
+\item[{{\bf U8}}]{message\+Type, }
+\item[{{\bf openavb\+\_\+acmp\+\_\+\+A\+C\+M\+P\+Command\+Response\+\_\+t} $\ast$}]{command, }
+\item[{{\bf bool}}]{retry}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__acmp__sm__controller_8c_af097367c68965647c45388e3dff4134f}{}\label{openavb__acmp__sm__controller_8c_af097367c68965647c45388e3dff4134f}
+
+
+openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c 파일의 96 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+97 \{
+98     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+99     \hyperlink{structopenavb__list__node}{openavb\_list\_node\_t} node = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+100 
+101     \hyperlink{openavb__result__codes_8h_a0cb594b7f047b8e4a76be68eca619be5}{openavbRC} rc = \hyperlink{openavb__acmp__message_8c_ab89a2783021019f53544b58d3fd9f715}{openavbAcmpMessageSend}(messageType, command, 
+      \hyperlink{openavb__acmp_8h_a57896c3a4521d56203233e247714ec2a}{OPENAVB\_ACMP\_STATUS\_SUCCESS});
+102     \textcolor{keywordflow}{if} (\hyperlink{openavb__result__codes_8h_a1e25dba7ecf346e5d9bb7b24226270e1}{IS\_OPENAVB\_SUCCESS}(rc)) \{
+103         \textcolor{keywordflow}{if} (!retry) \{
+104             node = \hyperlink{openavb__list_8c_a79c7f32499b34427a0e85fe99c5e4514}{openavbListNew}(\hyperlink{openavb__acmp__sm__controller_8c_a139331ca51073a89e54f809b0e42a63a}{openavbAcmpSMControllerVars}.
+      \hyperlink{structopenavb__acmp__sm__controller__vars__t_a8757a9f120141662b8b4c8b44c502c3c}{inflight}, \textcolor{keyword}{sizeof}(\hyperlink{structopenavb__acmp___inflight_command__t}{openavb\_acmp\_InflightCommand\_t}));
+105             \textcolor{keywordflow}{if} (node) \{
+106                 \hyperlink{structopenavb__acmp___inflight_command__t}{openavb\_acmp\_InflightCommand\_t} *pInFlightCommand = 
+      \hyperlink{openavb__list_8c_a7e38091a32a3b17ea7699c33fd355f84}{openavbListData}(node);
+107                 \textcolor{keywordflow}{if} (pInFlightCommand) \{
+108 
+109                     memcpy(&pInFlightCommand->\hyperlink{structopenavb__acmp___inflight_command__t_ac015290429c34e4109010b42aa36c8b6}{command}, command, \textcolor{keyword}{sizeof}(pInFlightCommand->
+      \hyperlink{structopenavb__acmp___inflight_command__t_ac015290429c34e4109010b42aa36c8b6}{command}));
+110                     pInFlightCommand->\hyperlink{structopenavb__acmp___inflight_command__t_ac015290429c34e4109010b42aa36c8b6}{command}.\hyperlink{structopenavb__acmp___a_c_m_p_command_response__t_a5e8953d77df4508aa07ed906c5b19beb}{message\_type} = messageType;
+111                     pInFlightCommand->\hyperlink{structopenavb__acmp___inflight_command__t_a21ec179e61e9198072d8818797605bd2}{retried} = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+112                     pInFlightCommand->\hyperlink{structopenavb__acmp___inflight_command__t_adfbdfa9aa285b3350f4454bc0bf96cb9}{original\_sequence\_id} = command->
+      \hyperlink{structopenavb__acmp___a_c_m_p_command_response__t_ada45e1a0fe13471280842df714983d95}{sequence\_id}; \textcolor{comment}{// AVDECC\_TODO - is this correct?}
+113 
+114                     \hyperlink{build_2sdk__eavb_2openavb__time__osal__pub_8h_adcbbf5c8513dfa6442d6669d5b190b7e}{CLOCK\_GETTIME}(\hyperlink{build_2sdk__eavb_2openavb__time__osal__pub_8h_a8a087678c40dd3f078c5bce1297a62b8a94d9239257b8a212a60a5dcb7ae1b9bb}{OPENAVB\_CLOCK\_REALTIME}, &
+      pInFlightCommand->\hyperlink{structopenavb__acmp___inflight_command__t_ab749c97f222e4394a7656539ec08c311}{timer});
+115                     \textcolor{keywordflow}{switch} (messageType) \{
+116                         \textcolor{keywordflow}{case} \hyperlink{openavb__acmp_8h_a62647690635195f1ecabca67686f25bb}{OPENAVB\_ACMP\_MESSAGE\_TYPE\_GET\_TX\_STATE\_RESPONSE}
+      :
+117                             \hyperlink{openavb__time_8c_a7b7e16b15efdbf7392626ee7cd38a1f5}{openavbTimeTimespecAddUsec}(&pInFlightCommand->
+      \hyperlink{structopenavb__acmp___inflight_command__t_ab749c97f222e4394a7656539ec08c311}{timer}, \hyperlink{openavb__acmp_8h_ab70862d9263ea20eeda8225600ac2160}{OPENAVB\_ACMP\_COMMAND\_TIMEOUT\_GET\_TX\_STATE\_COMMAND}
+       * \hyperlink{maap__helper__linux_8h_a755c3bf7fe83b64e12bf570117433f93}{MICROSECONDS\_PER\_MSEC});
+118                             \textcolor{keywordflow}{break};
+119                         \textcolor{keywordflow}{case} \hyperlink{openavb__acmp_8h_a1da47834356494c63eda0341d7c29719}{OPENAVB\_ACMP\_MESSAGE\_TYPE\_CONNECT\_RX\_RESPONSE}
+      :
+120                             \hyperlink{openavb__time_8c_a7b7e16b15efdbf7392626ee7cd38a1f5}{openavbTimeTimespecAddUsec}(&pInFlightCommand->
+      \hyperlink{structopenavb__acmp___inflight_command__t_ab749c97f222e4394a7656539ec08c311}{timer}, \hyperlink{openavb__acmp_8h_acc14ced1a596f6f4ff88d4493f3d65a2}{OPENAVB\_ACMP\_COMMAND\_TIMEOUT\_CONNECT\_RX\_COMMAND} 
+      * \hyperlink{maap__helper__linux_8h_a755c3bf7fe83b64e12bf570117433f93}{MICROSECONDS\_PER\_MSEC});
+121                             \textcolor{keywordflow}{break};
+122                         \textcolor{keywordflow}{case} \hyperlink{openavb__acmp_8h_a4f0d3eb0d6eb9496d52dc7be2f3fdab2}{OPENAVB\_ACMP\_MESSAGE\_TYPE\_DISCONNECT\_RX\_RESPONSE}
+      :
+123                             \hyperlink{openavb__time_8c_a7b7e16b15efdbf7392626ee7cd38a1f5}{openavbTimeTimespecAddUsec}(&pInFlightCommand->
+      \hyperlink{structopenavb__acmp___inflight_command__t_ab749c97f222e4394a7656539ec08c311}{timer}, \hyperlink{openavb__acmp_8h_a71a2ae38a741bad8dc6e535086633ecc}{OPENAVB\_ACMP\_COMMAND\_TIMEOUT\_DISCONNECT\_RX\_COMMAND}
+       * \hyperlink{maap__helper__linux_8h_a755c3bf7fe83b64e12bf570117433f93}{MICROSECONDS\_PER\_MSEC});
+124                             \textcolor{keywordflow}{break};
+125                         \textcolor{keywordflow}{case} \hyperlink{openavb__acmp_8h_ab69ccb09b348dbce42faeca9d6a32f0e}{OPENAVB\_ACMP\_MESSAGE\_TYPE\_GET\_RX\_STATE\_RESPONSE}
+      :
+126                             \hyperlink{openavb__time_8c_a7b7e16b15efdbf7392626ee7cd38a1f5}{openavbTimeTimespecAddUsec}(&pInFlightCommand->
+      \hyperlink{structopenavb__acmp___inflight_command__t_ab749c97f222e4394a7656539ec08c311}{timer}, \hyperlink{openavb__acmp_8h_a39cd6dd3c732883b91859a2fe678321e}{OPENAVB\_ACMP\_COMMAND\_TIMEOUT\_GET\_RX\_STATE\_COMMAND}
+       * \hyperlink{maap__helper__linux_8h_a755c3bf7fe83b64e12bf570117433f93}{MICROSECONDS\_PER\_MSEC});
+127                             \textcolor{keywordflow}{break};
+128                         \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__acmp_8h_ac2f907238a3ee0980211ac27cd6db125}{OPENAVB\_ACMP\_MESSAGE\_TYPE\_GET\_TX\_CONNECTION\_RESPONSE}:
+129                             \hyperlink{openavb__time_8c_a7b7e16b15efdbf7392626ee7cd38a1f5}{openavbTimeTimespecAddUsec}(&pInFlightCommand->
+      \hyperlink{structopenavb__acmp___inflight_command__t_ab749c97f222e4394a7656539ec08c311}{timer}, \hyperlink{openavb__acmp_8h_a868c583d97e83f1f698f5ac1b518a3a3}{OPENAVB\_ACMP\_COMMAND\_TIMEOUT\_GET\_TX\_CONNECTION\_COMMAND}
+       * \hyperlink{maap__helper__linux_8h_a755c3bf7fe83b64e12bf570117433f93}{MICROSECONDS\_PER\_MSEC});
+130                             \textcolor{keywordflow}{break};
+131                         \textcolor{keywordflow}{default}:
+132                             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Unsupported command %u in
+       openavbAcmpSMController\_txCommand"}, messageType);
+133                             \hyperlink{openavb__time_8c_a7b7e16b15efdbf7392626ee7cd38a1f5}{openavbTimeTimespecAddUsec}(&pInFlightCommand->
+      \hyperlink{structopenavb__acmp___inflight_command__t_ab749c97f222e4394a7656539ec08c311}{timer}, \hyperlink{openavb__acmp_8h_acc14ced1a596f6f4ff88d4493f3d65a2}{OPENAVB\_ACMP\_COMMAND\_TIMEOUT\_CONNECT\_RX\_COMMAND} 
+      * \hyperlink{maap__helper__linux_8h_a755c3bf7fe83b64e12bf570117433f93}{MICROSECONDS\_PER\_MSEC});
+134                             \textcolor{keywordflow}{break};
+135                     \}
+136                 \}
+137             \}
+138         \}
+139         \textcolor{keywordflow}{else} \{
+140             \textcolor{comment}{// Retry case}
+141             node = \hyperlink{openavb__acmp__sm__controller_8c_a5e3a418571f5696450e06ae188f314d5}{openavbAcmpSMController\_findInflightNodeFromCommand}
+      (command);
+142             \textcolor{keywordflow}{if} (node) \{
+143                 \hyperlink{structopenavb__acmp___inflight_command__t}{openavb\_acmp\_InflightCommand\_t} *pInFlightCommand = 
+      \hyperlink{openavb__list_8c_a7e38091a32a3b17ea7699c33fd355f84}{openavbListData}(node);
+144                 \textcolor{keywordflow}{if} (pInFlightCommand) \{
+145                     pInFlightCommand->\hyperlink{structopenavb__acmp___inflight_command__t_a21ec179e61e9198072d8818797605bd2}{retried} = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+146 
+147                     \hyperlink{build_2sdk__eavb_2openavb__time__osal__pub_8h_adcbbf5c8513dfa6442d6669d5b190b7e}{CLOCK\_GETTIME}(\hyperlink{build_2sdk__eavb_2openavb__time__osal__pub_8h_a8a087678c40dd3f078c5bce1297a62b8a94d9239257b8a212a60a5dcb7ae1b9bb}{OPENAVB\_CLOCK\_REALTIME}, &
+      pInFlightCommand->\hyperlink{structopenavb__acmp___inflight_command__t_ab749c97f222e4394a7656539ec08c311}{timer});
+148                     \textcolor{keywordflow}{switch} (messageType) \{
+149                         \textcolor{keywordflow}{case} \hyperlink{openavb__acmp_8h_a62647690635195f1ecabca67686f25bb}{OPENAVB\_ACMP\_MESSAGE\_TYPE\_GET\_TX\_STATE\_RESPONSE}
+      :
+150                             \hyperlink{openavb__time_8c_a7b7e16b15efdbf7392626ee7cd38a1f5}{openavbTimeTimespecAddUsec}(&pInFlightCommand->
+      \hyperlink{structopenavb__acmp___inflight_command__t_ab749c97f222e4394a7656539ec08c311}{timer}, \hyperlink{openavb__acmp_8h_ab70862d9263ea20eeda8225600ac2160}{OPENAVB\_ACMP\_COMMAND\_TIMEOUT\_GET\_TX\_STATE\_COMMAND}
+       * \hyperlink{maap__helper__linux_8h_a755c3bf7fe83b64e12bf570117433f93}{MICROSECONDS\_PER\_MSEC});
+151                             \textcolor{keywordflow}{break};
+152                         \textcolor{keywordflow}{case} \hyperlink{openavb__acmp_8h_a1da47834356494c63eda0341d7c29719}{OPENAVB\_ACMP\_MESSAGE\_TYPE\_CONNECT\_RX\_RESPONSE}
+      :
+153                             \hyperlink{openavb__time_8c_a7b7e16b15efdbf7392626ee7cd38a1f5}{openavbTimeTimespecAddUsec}(&pInFlightCommand->
+      \hyperlink{structopenavb__acmp___inflight_command__t_ab749c97f222e4394a7656539ec08c311}{timer}, \hyperlink{openavb__acmp_8h_acc14ced1a596f6f4ff88d4493f3d65a2}{OPENAVB\_ACMP\_COMMAND\_TIMEOUT\_CONNECT\_RX\_COMMAND} 
+      * \hyperlink{maap__helper__linux_8h_a755c3bf7fe83b64e12bf570117433f93}{MICROSECONDS\_PER\_MSEC});
+154                             \textcolor{keywordflow}{break};
+155                         \textcolor{keywordflow}{case} \hyperlink{openavb__acmp_8h_a4f0d3eb0d6eb9496d52dc7be2f3fdab2}{OPENAVB\_ACMP\_MESSAGE\_TYPE\_DISCONNECT\_RX\_RESPONSE}
+      :
+156                             \hyperlink{openavb__time_8c_a7b7e16b15efdbf7392626ee7cd38a1f5}{openavbTimeTimespecAddUsec}(&pInFlightCommand->
+      \hyperlink{structopenavb__acmp___inflight_command__t_ab749c97f222e4394a7656539ec08c311}{timer}, \hyperlink{openavb__acmp_8h_a71a2ae38a741bad8dc6e535086633ecc}{OPENAVB\_ACMP\_COMMAND\_TIMEOUT\_DISCONNECT\_RX\_COMMAND}
+       * \hyperlink{maap__helper__linux_8h_a755c3bf7fe83b64e12bf570117433f93}{MICROSECONDS\_PER\_MSEC});
+157                             \textcolor{keywordflow}{break};
+158                         \textcolor{keywordflow}{case} \hyperlink{openavb__acmp_8h_ab69ccb09b348dbce42faeca9d6a32f0e}{OPENAVB\_ACMP\_MESSAGE\_TYPE\_GET\_RX\_STATE\_RESPONSE}
+      :
+159                             \hyperlink{openavb__time_8c_a7b7e16b15efdbf7392626ee7cd38a1f5}{openavbTimeTimespecAddUsec}(&pInFlightCommand->
+      \hyperlink{structopenavb__acmp___inflight_command__t_ab749c97f222e4394a7656539ec08c311}{timer}, \hyperlink{openavb__acmp_8h_a39cd6dd3c732883b91859a2fe678321e}{OPENAVB\_ACMP\_COMMAND\_TIMEOUT\_GET\_RX\_STATE\_COMMAND}
+       * \hyperlink{maap__helper__linux_8h_a755c3bf7fe83b64e12bf570117433f93}{MICROSECONDS\_PER\_MSEC});
+160                             \textcolor{keywordflow}{break};
+161                         \textcolor{keywordflow}{case} 
+      \hyperlink{openavb__acmp_8h_ac2f907238a3ee0980211ac27cd6db125}{OPENAVB\_ACMP\_MESSAGE\_TYPE\_GET\_TX\_CONNECTION\_RESPONSE}:
+162                             \hyperlink{openavb__time_8c_a7b7e16b15efdbf7392626ee7cd38a1f5}{openavbTimeTimespecAddUsec}(&pInFlightCommand->
+      \hyperlink{structopenavb__acmp___inflight_command__t_ab749c97f222e4394a7656539ec08c311}{timer}, \hyperlink{openavb__acmp_8h_a868c583d97e83f1f698f5ac1b518a3a3}{OPENAVB\_ACMP\_COMMAND\_TIMEOUT\_GET\_TX\_CONNECTION\_COMMAND}
+       * \hyperlink{maap__helper__linux_8h_a755c3bf7fe83b64e12bf570117433f93}{MICROSECONDS\_PER\_MSEC});
+163                             \textcolor{keywordflow}{break};
+164                         \textcolor{keywordflow}{default}:
+165                             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Unsupported command %u in
+       openavbAcmpSMController\_txCommand"}, messageType);
+166                             \hyperlink{openavb__time_8c_a7b7e16b15efdbf7392626ee7cd38a1f5}{openavbTimeTimespecAddUsec}(&pInFlightCommand->
+      \hyperlink{structopenavb__acmp___inflight_command__t_ab749c97f222e4394a7656539ec08c311}{timer}, \hyperlink{openavb__acmp_8h_acc14ced1a596f6f4ff88d4493f3d65a2}{OPENAVB\_ACMP\_COMMAND\_TIMEOUT\_CONNECT\_RX\_COMMAND} 
+      * \hyperlink{maap__helper__linux_8h_a755c3bf7fe83b64e12bf570117433f93}{MICROSECONDS\_PER\_MSEC});
+167                             \textcolor{keywordflow}{break};
+168                     \}
+169                 \}
+170             \}
+171         \}
+172     \}
+173     \textcolor{keywordflow}{else} \{
+174         \textcolor{comment}{// Failed to send command}
+175         \hyperlink{openavb__acmp__message_8c_ab89a2783021019f53544b58d3fd9f715}{openavbAcmpMessageSend}(messageType, command, 
+      \hyperlink{openavb__acmp_8h_afe446f73596bca961d5911641c4ab78b}{OPENAVB\_ACMP\_STATUS\_COULD\_NOT\_SEND\_MESSAGE});
+176         \textcolor{keywordflow}{if} (retry) \{
+177             node = \hyperlink{openavb__acmp__sm__controller_8c_a5e3a418571f5696450e06ae188f314d5}{openavbAcmpSMController\_findInflightNodeFromCommand}
+      (command);
+178             \textcolor{keywordflow}{if} (node) \{
+179                 \hyperlink{openavb__list_8c_aa14b023ca409b13c73ec96c7cca2be56}{openavbListDelete}(\hyperlink{openavb__acmp__sm__controller_8c_a139331ca51073a89e54f809b0e42a63a}{openavbAcmpSMControllerVars}.
+      \hyperlink{structopenavb__acmp__sm__controller__vars__t_a8757a9f120141662b8b4c8b44c502c3c}{inflight}, node);
+180             \}
+181         \}
+182     \}
+183 
+184     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+185 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__acmp__sm__controller_8c_af097367c68965647c45388e3dff4134f_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__acmp__sm__controller_8c_af097367c68965647c45388e3dff4134f_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}!openavb\+Acmp\+S\+M\+Controller\+Set\+\_\+do\+Terminate@{openavb\+Acmp\+S\+M\+Controller\+Set\+\_\+do\+Terminate}}
+\index{openavb\+Acmp\+S\+M\+Controller\+Set\+\_\+do\+Terminate@{openavb\+Acmp\+S\+M\+Controller\+Set\+\_\+do\+Terminate}!openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Acmp\+S\+M\+Controller\+Set\+\_\+do\+Terminate(bool value)}{openavbAcmpSMControllerSet_doTerminate(bool value)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Acmp\+S\+M\+Controller\+Set\+\_\+do\+Terminate (
+\begin{DoxyParamCaption}
+\item[{{\bf bool}}]{value}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__acmp__sm__controller_8c_a4dd4e4acfaf2143e87a9c9943c96b47a}{}\label{openavb__acmp__sm__controller_8c_a4dd4e4acfaf2143e87a9c9943c96b47a}
+
+
+openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c 파일의 425 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+426 \{
+427     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+428     \hyperlink{openavb__acmp__sm__controller_8c_a139331ca51073a89e54f809b0e42a63a}{openavbAcmpSMControllerVars}.\hyperlink{structopenavb__acmp__sm__controller__vars__t_a5fc548cdb095393450f28eab966a626f}{doTerminate} = value;
+429 
+430     \hyperlink{maap__helper__linux_8h_add4f36a57028e23387408318ea1bdc21}{SEM\_ERR\_T}(\hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err});
+431     \hyperlink{maap__helper__linux_8h_a4c1a42ac475ca66956659d7bc8445646}{SEM\_POST}(openavbAcmpSMControllerSemaphore, \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err});
+432     \hyperlink{maap__helper__linux_8h_a08ee4f392e8b70afcdf34b9803814d9e}{SEM\_LOG\_ERR}(\hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err});
+433 
+434     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+435 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__acmp__sm__controller_8c_a4dd4e4acfaf2143e87a9c9943c96b47a_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}!openavb\+Acmp\+S\+M\+Controller\+Set\+\_\+rcvd\+Response@{openavb\+Acmp\+S\+M\+Controller\+Set\+\_\+rcvd\+Response}}
+\index{openavb\+Acmp\+S\+M\+Controller\+Set\+\_\+rcvd\+Response@{openavb\+Acmp\+S\+M\+Controller\+Set\+\_\+rcvd\+Response}!openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Acmp\+S\+M\+Controller\+Set\+\_\+rcvd\+Response(openavb\+\_\+acmp\+\_\+\+A\+C\+M\+P\+Command\+Response\+\_\+t $\ast$command)}{openavbAcmpSMControllerSet_rcvdResponse(openavb_acmp_ACMPCommandResponse_t *command)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Acmp\+S\+M\+Controller\+Set\+\_\+rcvd\+Response (
+\begin{DoxyParamCaption}
+\item[{{\bf openavb\+\_\+acmp\+\_\+\+A\+C\+M\+P\+Command\+Response\+\_\+t} $\ast$}]{command}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__acmp__sm__controller_8c_a36ef5af4765305a36cbdbf0f0cfdf8df}{}\label{openavb__acmp__sm__controller_8c_a36ef5af4765305a36cbdbf0f0cfdf8df}
+
+
+openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c 파일의 409 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+410 \{
+411     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+412     \hyperlink{openavb__acmp__sm__controller_8c_a19573f4810ae786e735f8bad20a23b2a}{ACMP\_SM\_LOCK}();
+413 
+414     memcpy(\hyperlink{openavb__acmp__sm__controller_8c_acb2c8e3ccc8484d0b08c9c684a84f168}{pRcvdCmdResp}, command, \textcolor{keyword}{sizeof}(*command));
+415     \hyperlink{openavb__acmp__sm__controller_8c_a139331ca51073a89e54f809b0e42a63a}{openavbAcmpSMControllerVars}.\hyperlink{structopenavb__acmp__sm__controller__vars__t_aed3656b45b6db94eb58f5cec2d2c7323}{rcvdResponse} = 
+      \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+416 
+417     \hyperlink{maap__helper__linux_8h_add4f36a57028e23387408318ea1bdc21}{SEM\_ERR\_T}(\hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err});
+418     \hyperlink{maap__helper__linux_8h_a4c1a42ac475ca66956659d7bc8445646}{SEM\_POST}(openavbAcmpSMControllerSemaphore, \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err});
+419     \hyperlink{maap__helper__linux_8h_a08ee4f392e8b70afcdf34b9803814d9e}{SEM\_LOG\_ERR}(\hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err});
+420 
+421     \hyperlink{openavb__acmp__sm__controller_8c_aebc94dc918aa7b71e413aaa2070d6d09}{ACMP\_SM\_UNLOCK}();
+422     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+423 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__acmp__sm__controller_8c_a36ef5af4765305a36cbdbf0f0cfdf8df_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}!openavb\+Acmp\+S\+M\+Controller\+Start@{openavb\+Acmp\+S\+M\+Controller\+Start}}
+\index{openavb\+Acmp\+S\+M\+Controller\+Start@{openavb\+Acmp\+S\+M\+Controller\+Start}!openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Acmp\+S\+M\+Controller\+Start()}{openavbAcmpSMControllerStart()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} openavb\+Acmp\+S\+M\+Controller\+Start (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__acmp__sm__controller_8c_a29319af0013c521389d8ec1276ecec88}{}\label{openavb__acmp__sm__controller_8c_a29319af0013c521389d8ec1276ecec88}
+
+
+openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c 파일의 352 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+353 \{
+354     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+355 
+356     \hyperlink{openavb__acmp__sm__controller_8c_a139331ca51073a89e54f809b0e42a63a}{openavbAcmpSMControllerVars}.\hyperlink{structopenavb__acmp__sm__controller__vars__t_a8757a9f120141662b8b4c8b44c502c3c}{inflight} = 
+      \hyperlink{openavb__list_8c_ac0f164ce769420a8979c7d6ad2a0bc9a}{openavbListNewList}();
+357     \textcolor{keywordflow}{if} (!\hyperlink{openavb__acmp__sm__controller_8c_a139331ca51073a89e54f809b0e42a63a}{openavbAcmpSMControllerVars}.\hyperlink{structopenavb__acmp__sm__controller__vars__t_a8757a9f120141662b8b4c8b44c502c3c}{inflight}) \{
+358         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Unable to create inflight list. ACMP protocol not started."});
+359         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+360         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+361     \}
+362 
+363     \hyperlink{maap__helper__linux_8h_aa4357bf132bbe882647e5390b6e4c6fd}{MUTEX\_ATTR\_HANDLE}(mta);
+364     \hyperlink{maap__helper__linux_8h_a92469004d3cad1f5c2fc61c27377b960}{MUTEX\_ATTR\_INIT}(mta);
+365     \hyperlink{maap__helper__linux_8h_aa049f137bcdd27b92f47387f3cb8e800}{MUTEX\_ATTR\_SET\_TYPE}(mta, \hyperlink{maap__helper__linux_8h_ac374e7f6cc426fc8b6b85bbf230232e2}{MUTEX\_ATTR\_TYPE\_DEFAULT});
+366     \hyperlink{maap__helper__linux_8h_a910032bc83a960383ec87492342e322b}{MUTEX\_ATTR\_SET\_NAME}(mta, \textcolor{stringliteral}{"openavbAcmpSMControllerMutex"});
+367     \hyperlink{maap__helper__linux_8h_aee93da9d4ea28eeaa9c64bd938d5549b}{MUTEX\_CREATE\_ERR}();
+368     \hyperlink{maap__helper__linux_8h_a3419f7f7cdfd641b4a638bf2eb4e935c}{MUTEX\_CREATE}(openavbAcmpSMControllerMutex, mta);
+369     \hyperlink{maap__helper__linux_8h_a08d33bd2184e24e7676bda0efb5a3e5e}{MUTEX\_LOG\_ERR}(\textcolor{stringliteral}{"Could not create/initialize 'openavbAcmpSMControllerMutex' mutex"});
+370 
+371     \hyperlink{maap__helper__linux_8h_add4f36a57028e23387408318ea1bdc21}{SEM\_ERR\_T}(\hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err});
+372     \hyperlink{maap__helper__linux_8h_ad53fcda7761618d19a05cd5e4fb1d302}{SEM\_INIT}(openavbAcmpSMControllerSemaphore, 1, \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err});
+373     \hyperlink{maap__helper__linux_8h_a08ee4f392e8b70afcdf34b9803814d9e}{SEM\_LOG\_ERR}(\hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err});
+374 
+375     \textcolor{comment}{// Start the State Machine}
+376     \textcolor{keywordtype}{bool} errResult;
+377     \hyperlink{openavb__acmp__sm__controller_8c_acf182b7b2127314d5d00c6df827734b5}{bRunning} = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+378     \hyperlink{maap__helper__linux_8h_a153e2ca1dd20bd23c619f8d2bafcc764}{THREAD\_CREATE}(openavbAcmpSmControllerThread, openavbAcmpSmControllerThread, 
+      \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{openavb__acmp__sm__controller_8c_a57d3102dd3843270abcb6ec3550c0284}{openavbAcmpSMControllerThreadFn}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+379     \hyperlink{maap__helper__linux_8h_a2d61dbf377bb5ab560d4b4bddf49c9c2}{THREAD\_CHECK\_ERROR}(openavbAcmpSmControllerThread, \textcolor{stringliteral}{"Thread / task creation failed"}, 
+      errResult);
+380     \textcolor{keywordflow}{if} (errResult) \{
+381         \hyperlink{openavb__acmp__sm__controller_8c_acf182b7b2127314d5d00c6df827734b5}{bRunning} = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+382         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+383         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+384     \}
+385 
+386     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+387     \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+388 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__acmp__sm__controller_8c_a29319af0013c521389d8ec1276ecec88_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__acmp__sm__controller_8c_a29319af0013c521389d8ec1276ecec88_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}!openavb\+Acmp\+S\+M\+Controller\+State\+Machine@{openavb\+Acmp\+S\+M\+Controller\+State\+Machine}}
+\index{openavb\+Acmp\+S\+M\+Controller\+State\+Machine@{openavb\+Acmp\+S\+M\+Controller\+State\+Machine}!openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Acmp\+S\+M\+Controller\+State\+Machine()}{openavbAcmpSMControllerStateMachine()}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Acmp\+S\+M\+Controller\+State\+Machine (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__acmp__sm__controller_8c_af2fefbfaedb6443389e1606a3e1edabd}{}\label{openavb__acmp__sm__controller_8c_af2fefbfaedb6443389e1606a3e1edabd}
+
+
+openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c 파일의 220 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+221 \{
+222     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+223 
+224     \hyperlink{structopenavb__acmp___inflight_command__t}{openavb\_acmp\_InflightCommand\_t} *pInflightActive = 
+      \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};       \textcolor{comment}{// The inflight command for the current state}
+225     \hyperlink{openavb__acmp__sm__controller_8c_aedf32998df2e28b868d0f5cd6901bccd}{openavb\_acmp\_sm\_controller\_state\_t} state = 
+      \hyperlink{openavb__acmp__sm__controller_8c_aedf32998df2e28b868d0f5cd6901bccdae57ffb63562cce4854ea9756c18f799c}{OPENAVB\_ACMP\_SM\_CONTROLLER\_STATE\_WAITING};
+226 
+227     \textcolor{comment}{// Lock such that the mutex is held unless waiting for a semaphore. Synchronous processing of command
+       responses.}
+228     \hyperlink{openavb__acmp__sm__controller_8c_a19573f4810ae786e735f8bad20a23b2a}{ACMP\_SM\_LOCK}();
+229     \textcolor{keywordflow}{while} (\hyperlink{openavb__acmp__sm__controller_8c_acf182b7b2127314d5d00c6df827734b5}{bRunning}) \{
+230         \textcolor{keywordflow}{switch} (state) \{
+231             \textcolor{keywordflow}{case} \hyperlink{openavb__acmp__sm__controller_8c_aedf32998df2e28b868d0f5cd6901bccdae57ffb63562cce4854ea9756c18f799c}{OPENAVB\_ACMP\_SM\_CONTROLLER\_STATE\_WAITING}:
+232                 \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1ba49b1b3841555131e277b8ab63e782}{AVB\_TRACE\_LINE}(\hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+233                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a28a4d0350d530ad95c95b8383c00cd9c}{AVB\_LOG\_DEBUG}(\textcolor{stringliteral}{"State:  OPENAVB\_ACMP\_SM\_CONTROLLER\_STATE\_WAITING"});
+234 
+235                 \hyperlink{openavb__acmp__sm__controller_8c_a139331ca51073a89e54f809b0e42a63a}{openavbAcmpSMControllerVars}.
+      \hyperlink{structopenavb__acmp__sm__controller__vars__t_aed3656b45b6db94eb58f5cec2d2c7323}{rcvdResponse} = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+236 
+237                 \textcolor{comment}{// Calculate timeout for inflight commands}
+238                 \textcolor{comment}{// Start is a arbitrary large time out.}
+239                 \textcolor{keyword}{struct }timespec \hyperlink{aaf-listener_8c_a869c60cb165af7b6177060c00c5c416c}{timeout};
+240                 \hyperlink{build_2sdk__eavb_2openavb__time__osal__pub_8h_adcbbf5c8513dfa6442d6669d5b190b7e}{CLOCK\_GETTIME}(\hyperlink{build_2sdk__eavb_2openavb__time__osal__pub_8h_a8a087678c40dd3f078c5bce1297a62b8a94d9239257b8a212a60a5dcb7ae1b9bb}{OPENAVB\_CLOCK\_REALTIME}, &
+      \hyperlink{aaf-listener_8c_a869c60cb165af7b6177060c00c5c416c}{timeout});
+241                 \hyperlink{aaf-listener_8c_a869c60cb165af7b6177060c00c5c416c}{timeout}.tv\_sec += 60;    \textcolor{comment}{// At most will timeout after 60 seconds}
+242 
+243                 \textcolor{comment}{// Look for soonest inflight command timeout}
+244                 \hyperlink{structopenavb__list__node}{openavb\_list\_node\_t} node = 
+      \hyperlink{openavb__list_8c_a2a75eb217cae45b1c2d17b53ef26eab4}{openavbListIterFirst}(\hyperlink{openavb__acmp__sm__controller_8c_a139331ca51073a89e54f809b0e42a63a}{openavbAcmpSMControllerVars}.
+      \hyperlink{structopenavb__acmp__sm__controller__vars__t_a8757a9f120141662b8b4c8b44c502c3c}{inflight});
+245                 \textcolor{keywordflow}{while} (node) \{
+246                     \hyperlink{structopenavb__acmp___inflight_command__t}{openavb\_acmp\_InflightCommand\_t} *pInflight = 
+      \hyperlink{openavb__list_8c_a7e38091a32a3b17ea7699c33fd355f84}{openavbListData}(node);
+247                     \textcolor{keywordflow}{if} ((\hyperlink{openavb__time_8c_a23a61cdf66d7645a58057672c5bd9695}{openavbTimeTimespecCmp}(&pInflight->
+      \hyperlink{structopenavb__acmp___inflight_command__t_ab749c97f222e4394a7656539ec08c311}{timer}, &\hyperlink{aaf-listener_8c_a869c60cb165af7b6177060c00c5c416c}{timeout}) < 0)) \{
+248                         \hyperlink{aaf-listener_8c_a869c60cb165af7b6177060c00c5c416c}{timeout}.tv\_sec = pInflight->\hyperlink{structopenavb__acmp___inflight_command__t_ab749c97f222e4394a7656539ec08c311}{timer}.tv\_sec;
+249                         \hyperlink{aaf-listener_8c_a869c60cb165af7b6177060c00c5c416c}{timeout}.tv\_nsec = pInflight->\hyperlink{structopenavb__acmp___inflight_command__t_ab749c97f222e4394a7656539ec08c311}{timer}.tv\_nsec;
+250                     \}
+251                     node = \hyperlink{openavb__list_8c_aed248455c016f62a834149c139262ff7}{openavbListIterNext}(
+      \hyperlink{openavb__acmp__sm__controller_8c_a139331ca51073a89e54f809b0e42a63a}{openavbAcmpSMControllerVars}.\hyperlink{structopenavb__acmp__sm__controller__vars__t_a8757a9f120141662b8b4c8b44c502c3c}{inflight});
+252                 \}
+253 
+254                 \hyperlink{openavb__acmp__sm__controller_8c_aebc94dc918aa7b71e413aaa2070d6d09}{ACMP\_SM\_UNLOCK}();
+255                 \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} timeoutMSec = 0;
+256                 \textcolor{keyword}{struct }timespec now;
+257                 \hyperlink{build_2sdk__eavb_2openavb__time__osal__pub_8h_adcbbf5c8513dfa6442d6669d5b190b7e}{CLOCK\_GETTIME}(\hyperlink{build_2sdk__eavb_2openavb__time__osal__pub_8h_a8a087678c40dd3f078c5bce1297a62b8a94d9239257b8a212a60a5dcb7ae1b9bb}{OPENAVB\_CLOCK\_REALTIME}, &now);
+258                 timeoutMSec = \hyperlink{openavb__time_8c_ab5370e5a41499032e56f1b706d654253}{openavbTimeUntilMSec}(&now, &
+      \hyperlink{aaf-listener_8c_a869c60cb165af7b6177060c00c5c416c}{timeout});
+259                 \hyperlink{maap__helper__linux_8h_add4f36a57028e23387408318ea1bdc21}{SEM\_ERR\_T}(\hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err});
+260                 \hyperlink{openavb__os__services__osal_8h_addb345bd33172ab34c0a14a41cf8f06b}{SEM\_TIMEDWAIT}(openavbAcmpSMControllerSemaphore, timeoutMSec, 
+      \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err});
+261                 \hyperlink{openavb__acmp__sm__controller_8c_a19573f4810ae786e735f8bad20a23b2a}{ACMP\_SM\_LOCK}();
+262 
+263                 \textcolor{keywordflow}{if} (!\hyperlink{maap__helper__linux_8h_ac56ef0866aba0eacf90e851092f6e905}{SEM\_IS\_ERR\_NONE}(\hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err})) \{
+264                     \textcolor{keywordflow}{if} (\hyperlink{maap__helper__linux_8h_a337a9b632d9f02bbd1021ab8f37ce0b9}{SEM\_IS\_ERR\_TIMEOUT}(\hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err})) \{
+265                         \textcolor{keyword}{struct }timespec now;
+266                         \hyperlink{build_2sdk__eavb_2openavb__time__osal__pub_8h_adcbbf5c8513dfa6442d6669d5b190b7e}{CLOCK\_GETTIME}(\hyperlink{build_2sdk__eavb_2openavb__time__osal__pub_8h_a8a087678c40dd3f078c5bce1297a62b8a94d9239257b8a212a60a5dcb7ae1b9bb}{OPENAVB\_CLOCK\_REALTIME}, &now);
+267 
+268                         \textcolor{comment}{// Look for a timed out inflight command}
+269                         \hyperlink{structopenavb__list__node}{openavb\_list\_node\_t} node = 
+      \hyperlink{openavb__list_8c_a2a75eb217cae45b1c2d17b53ef26eab4}{openavbListIterFirst}(\hyperlink{openavb__acmp__sm__controller_8c_a139331ca51073a89e54f809b0e42a63a}{openavbAcmpSMControllerVars}.
+      \hyperlink{structopenavb__acmp__sm__controller__vars__t_a8757a9f120141662b8b4c8b44c502c3c}{inflight});
+270                         \textcolor{keywordflow}{while} (node) \{
+271                             \hyperlink{structopenavb__acmp___inflight_command__t}{openavb\_acmp\_InflightCommand\_t} *pInflight = 
+      \hyperlink{openavb__list_8c_a7e38091a32a3b17ea7699c33fd355f84}{openavbListData}(node);
+272                             \textcolor{keywordflow}{if} ((\hyperlink{openavb__time_8c_a23a61cdf66d7645a58057672c5bd9695}{openavbTimeTimespecCmp}(&now, &pInflight->
+      \hyperlink{structopenavb__acmp___inflight_command__t_ab749c97f222e4394a7656539ec08c311}{timer}) >= 0)) \{
+273                                 \textcolor{comment}{// Found a timed out command}
+274                                 state = \hyperlink{openavb__acmp__sm__controller_8c_aedf32998df2e28b868d0f5cd6901bccda2eb5259b87a1e706cb2fa99563fcb576}{OPENAVB\_ACMP\_SM\_CONTROLLER\_STATE\_TIMEOUT}
+      ;
+275                                 pInflightActive = pInflight;
+276                                 \textcolor{keywordflow}{break};
+277                             \}
+278                             node = \hyperlink{openavb__list_8c_aed248455c016f62a834149c139262ff7}{openavbListIterNext}(
+      \hyperlink{openavb__acmp__sm__controller_8c_a139331ca51073a89e54f809b0e42a63a}{openavbAcmpSMControllerVars}.\hyperlink{structopenavb__acmp__sm__controller__vars__t_a8757a9f120141662b8b4c8b44c502c3c}{inflight});
+279                         \}
+280                     \}
+281                 \}
+282                 \textcolor{keywordflow}{else} \{
+283                     \textcolor{keywordflow}{if} (\hyperlink{openavb__acmp__sm__controller_8c_a139331ca51073a89e54f809b0e42a63a}{openavbAcmpSMControllerVars}.
+      \hyperlink{structopenavb__acmp__sm__controller__vars__t_a5fc548cdb095393450f28eab966a626f}{doTerminate}) \{
+284                         \hyperlink{openavb__acmp__sm__controller_8c_acf182b7b2127314d5d00c6df827734b5}{bRunning} = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+285                     \}
+286                     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{openavb__acmp__sm__controller_8c_a139331ca51073a89e54f809b0e42a63a}{openavbAcmpSMControllerVars}.
+      \hyperlink{structopenavb__acmp__sm__controller__vars__t_aed3656b45b6db94eb58f5cec2d2c7323}{rcvdResponse} &&
+287                             memcmp(\hyperlink{openavb__acmp__sm__controller_8c_acb2c8e3ccc8484d0b08c9c684a84f168}{pRcvdCmdResp}->
+      \hyperlink{structopenavb__acmp___a_c_m_p_command_response__t_a8b74ba582b9c19e1f2e475925f7cfb2f}{controller\_entity\_id}, \hyperlink{openavb__acmp__sm__controller_8c_a3b2bf4fc57f453d3c2c073f0b7637073}{openavbAcmpSMGlobalVars}.
+      \hyperlink{structopenavb__acmp__sm__global__vars__t_abea1c7f5c4a2c027508c48e6e2880bd5}{my\_id}, \textcolor{keyword}{sizeof}(\hyperlink{openavb__acmp__sm__controller_8c_a3b2bf4fc57f453d3c2c073f0b7637073}{openavbAcmpSMGlobalVars}.\hyperlink{structopenavb__acmp__sm__global__vars__t_abea1c7f5c4a2c027508c48e6e2880bd5}{my\_id})) == 0) \{
+288                         \textcolor{comment}{// Look for a corresponding inflight command}
+289                         \hyperlink{structopenavb__list__node}{openavb\_list\_node\_t} node = 
+      \hyperlink{openavb__list_8c_a2a75eb217cae45b1c2d17b53ef26eab4}{openavbListIterFirst}(\hyperlink{openavb__acmp__sm__controller_8c_a139331ca51073a89e54f809b0e42a63a}{openavbAcmpSMControllerVars}.
+      \hyperlink{structopenavb__acmp__sm__controller__vars__t_a8757a9f120141662b8b4c8b44c502c3c}{inflight});
+290                         \textcolor{keywordflow}{while} (node) \{
+291                             \hyperlink{structopenavb__acmp___inflight_command__t}{openavb\_acmp\_InflightCommand\_t} *pInflight = 
+      \hyperlink{openavb__list_8c_a7e38091a32a3b17ea7699c33fd355f84}{openavbListData}(node);
+292                             \textcolor{keywordflow}{if} (\hyperlink{openavb__acmp__sm__controller_8c_acb2c8e3ccc8484d0b08c9c684a84f168}{pRcvdCmdResp}->\hyperlink{structopenavb__acmp___a_c_m_p_command_response__t_ada45e1a0fe13471280842df714983d95}{sequence\_id} == pInflight->
+      \hyperlink{structopenavb__acmp___inflight_command__t_ac015290429c34e4109010b42aa36c8b6}{command}.\hyperlink{structopenavb__acmp___a_c_m_p_command_response__t_ada45e1a0fe13471280842df714983d95}{sequence\_id} &&
+293                                     \hyperlink{openavb__acmp__sm__controller_8c_acb2c8e3ccc8484d0b08c9c684a84f168}{pRcvdCmdResp}->\hyperlink{structopenavb__acmp___a_c_m_p_command_response__t_a5e8953d77df4508aa07ed906c5b19beb}{message\_type} == pInflight->
+      \hyperlink{structopenavb__acmp___inflight_command__t_ac015290429c34e4109010b42aa36c8b6}{command}.\hyperlink{structopenavb__acmp___a_c_m_p_command_response__t_a5e8953d77df4508aa07ed906c5b19beb}{message\_type} + 1) \{
+294                                 \textcolor{comment}{// Found a corresponding command}
+295                                 state = 
+      \hyperlink{openavb__acmp__sm__controller_8c_aedf32998df2e28b868d0f5cd6901bccda467c7ab86d6820e927031f60be959bff}{OPENAVB\_ACMP\_SM\_CONTROLLER\_STATE\_RESPONSE};
+296                                 pInflightActive = pInflight;
+297                                 \textcolor{keywordflow}{break};
+298                             \}
+299                             node = \hyperlink{openavb__list_8c_aed248455c016f62a834149c139262ff7}{openavbListIterNext}(
+      \hyperlink{openavb__acmp__sm__controller_8c_a139331ca51073a89e54f809b0e42a63a}{openavbAcmpSMControllerVars}.\hyperlink{structopenavb__acmp__sm__controller__vars__t_a8757a9f120141662b8b4c8b44c502c3c}{inflight});
+300                         \}
+301                     \}
+302                 \textcolor{keywordflow}{break};
+303 
+304             \textcolor{keywordflow}{case} \hyperlink{openavb__acmp__sm__controller_8c_aedf32998df2e28b868d0f5cd6901bccda2eb5259b87a1e706cb2fa99563fcb576}{OPENAVB\_ACMP\_SM\_CONTROLLER\_STATE\_TIMEOUT}:
+305                 \{
+306                     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1ba49b1b3841555131e277b8ab63e782}{AVB\_TRACE\_LINE}(\hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+307                     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a28a4d0350d530ad95c95b8383c00cd9c}{AVB\_LOG\_DEBUG}(\textcolor{stringliteral}{"State:  OPENAVB\_ACMP\_SM\_CONTROLLER\_STATE\_TIMEOUT"});
+308 
+309                     \textcolor{keywordflow}{if} (pInflightActive) \{
+310                         \textcolor{keywordflow}{if} (pInflightActive->\hyperlink{structopenavb__acmp___inflight_command__t_a21ec179e61e9198072d8818797605bd2}{retried}) \{
+311                             \hyperlink{openavb__acmp__sm__controller_8c_a4a46e8fb2855bfd05d9b79ba1216dd07}{openavbAcmpSMController\_removeInflight}(&
+      pInflightActive->\hyperlink{structopenavb__acmp___inflight_command__t_ac015290429c34e4109010b42aa36c8b6}{command});
+312                         \}
+313                         \textcolor{keywordflow}{else} \{
+314                             \hyperlink{openavb__acmp__sm__controller_8c_af097367c68965647c45388e3dff4134f}{openavbAcmpSMController\_txCommand}(
+      pInflightActive->\hyperlink{structopenavb__acmp___inflight_command__t_ac015290429c34e4109010b42aa36c8b6}{command}.\hyperlink{structopenavb__acmp___a_c_m_p_command_response__t_a5e8953d77df4508aa07ed906c5b19beb}{message\_type}, &pInflightActive->\hyperlink{structopenavb__acmp___inflight_command__t_ac015290429c34e4109010b42aa36c8b6}{command}, 
+      \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+315                         \}
+316                     \}
+317                     pInflightActive = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+318                     state = \hyperlink{openavb__acmp__sm__controller_8c_aedf32998df2e28b868d0f5cd6901bccdae57ffb63562cce4854ea9756c18f799c}{OPENAVB\_ACMP\_SM\_CONTROLLER\_STATE\_WAITING}
+      ;
+319                 \}
+320                 \textcolor{keywordflow}{break};
+321 
+322             \textcolor{keywordflow}{case} \hyperlink{openavb__acmp__sm__controller_8c_aedf32998df2e28b868d0f5cd6901bccda467c7ab86d6820e927031f60be959bff}{OPENAVB\_ACMP\_SM\_CONTROLLER\_STATE\_RESPONSE}:
+323                 \{
+324                     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1ba49b1b3841555131e277b8ab63e782}{AVB\_TRACE\_LINE}(\hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+325                     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a28a4d0350d530ad95c95b8383c00cd9c}{AVB\_LOG\_DEBUG}(\textcolor{stringliteral}{"State:  OPENAVB\_ACMP\_SM\_CONTROLLER\_STATE\_RESPONSE"});
+326 
+327                     \textcolor{keywordflow}{if} (pInflightActive) \{
+328                         \hyperlink{openavb__acmp__sm__controller_8c_acbd6843c58d931409c864528b892d443}{openavbAcmpSMController\_cancelTimeout}(
+      \hyperlink{openavb__acmp__sm__controller_8c_acb2c8e3ccc8484d0b08c9c684a84f168}{pRcvdCmdResp});
+329                         \hyperlink{openavb__acmp__sm__controller_8c_aa4174ba24edc7ca77982e76595faffb4}{openavbAcmpSMController\_processResponse}(
+      \hyperlink{openavb__acmp__sm__controller_8c_acb2c8e3ccc8484d0b08c9c684a84f168}{pRcvdCmdResp});
+330                         \hyperlink{openavb__acmp__sm__controller_8c_a4a46e8fb2855bfd05d9b79ba1216dd07}{openavbAcmpSMController\_removeInflight}(
+      \hyperlink{openavb__acmp__sm__controller_8c_acb2c8e3ccc8484d0b08c9c684a84f168}{pRcvdCmdResp});
+331                     \}
+332                     pInflightActive = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+333                     state = \hyperlink{openavb__acmp__sm__controller_8c_aedf32998df2e28b868d0f5cd6901bccdae57ffb63562cce4854ea9756c18f799c}{OPENAVB\_ACMP\_SM\_CONTROLLER\_STATE\_WAITING}
+      ;
+334                 \}
+335                 \textcolor{keywordflow}{break};
+336             \}
+337         \}
+338     \}
+339     \hyperlink{openavb__acmp__sm__controller_8c_aebc94dc918aa7b71e413aaa2070d6d09}{ACMP\_SM\_UNLOCK}();
+340 
+341     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+342 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__acmp__sm__controller_8c_af2fefbfaedb6443389e1606a3e1edabd_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__acmp__sm__controller_8c_af2fefbfaedb6443389e1606a3e1edabd_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}!openavb\+Acmp\+S\+M\+Controller\+Stop@{openavb\+Acmp\+S\+M\+Controller\+Stop}}
+\index{openavb\+Acmp\+S\+M\+Controller\+Stop@{openavb\+Acmp\+S\+M\+Controller\+Stop}!openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Acmp\+S\+M\+Controller\+Stop()}{openavbAcmpSMControllerStop()}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Acmp\+S\+M\+Controller\+Stop (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__acmp__sm__controller_8c_a07dac8efb1cb7091141cdae620d60a64}{}\label{openavb__acmp__sm__controller_8c_a07dac8efb1cb7091141cdae620d60a64}
+
+
+openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c 파일의 390 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+391 \{
+392     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+393 
+394     \textcolor{keywordflow}{if} (\hyperlink{openavb__acmp__sm__controller_8c_acf182b7b2127314d5d00c6df827734b5}{bRunning}) \{
+395         \hyperlink{openavb__acmp__sm__controller_8c_a4dd4e4acfaf2143e87a9c9943c96b47a}{openavbAcmpSMControllerSet\_doTerminate}(
+      \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+396 
+397         \hyperlink{maap__helper__linux_8h_ab2bcb74112112a2ed181d5784e0530f3}{THREAD\_JOIN}(openavbAcmpSmControllerThread, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+398     \}
+399 
+400     \hyperlink{maap__helper__linux_8h_add4f36a57028e23387408318ea1bdc21}{SEM\_ERR\_T}(\hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err});
+401     \hyperlink{maap__helper__linux_8h_a5da8c88af746155c30c249e0d53c7519}{SEM\_DESTROY}(openavbAcmpSMControllerSemaphore, \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err});
+402     \hyperlink{maap__helper__linux_8h_a08ee4f392e8b70afcdf34b9803814d9e}{SEM\_LOG\_ERR}(\hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err});
+403 
+404     \hyperlink{openavb__list_8c_afc2413ecd4956c24643080fb024147ec}{openavbListDeleteList}(\hyperlink{openavb__acmp__sm__controller_8c_a139331ca51073a89e54f809b0e42a63a}{openavbAcmpSMControllerVars}.
+      \hyperlink{structopenavb__acmp__sm__controller__vars__t_a8757a9f120141662b8b4c8b44c502c3c}{inflight});
+405 
+406     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+407 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__acmp__sm__controller_8c_a07dac8efb1cb7091141cdae620d60a64_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__acmp__sm__controller_8c_a07dac8efb1cb7091141cdae620d60a64_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}!openavb\+Acmp\+S\+M\+Controller\+Thread\+Fn@{openavb\+Acmp\+S\+M\+Controller\+Thread\+Fn}}
+\index{openavb\+Acmp\+S\+M\+Controller\+Thread\+Fn@{openavb\+Acmp\+S\+M\+Controller\+Thread\+Fn}!openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Acmp\+S\+M\+Controller\+Thread\+Fn(void $\ast$pv)}{openavbAcmpSMControllerThreadFn(void *pv)}}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ openavb\+Acmp\+S\+M\+Controller\+Thread\+Fn (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{pv}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__acmp__sm__controller_8c_a57d3102dd3843270abcb6ec3550c0284}{}\label{openavb__acmp__sm__controller_8c_a57d3102dd3843270abcb6ec3550c0284}
+
+
+openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c 파일의 344 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+345 \{
+346     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+347     \hyperlink{openavb__acmp__sm__controller_8c_af2fefbfaedb6443389e1606a3e1edabd}{openavbAcmpSMControllerStateMachine}();
+348     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a0f95b86dacb039bd53b6a47fa671f088}{AVB\_TRACE\_ACMP});
+349     \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+350 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__acmp__sm__controller_8c_a57d3102dd3843270abcb6ec3550c0284_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__acmp__sm__controller_8c_a57d3102dd3843270abcb6ec3550c0284_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}!S\+E\+M\+\_\+T@{S\+E\+M\+\_\+T}}
+\index{S\+E\+M\+\_\+T@{S\+E\+M\+\_\+T}!openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}}
+\subsubsection[{\texorpdfstring{S\+E\+M\+\_\+\+T(openavb\+Acmp\+S\+M\+Controller\+Semaphore)}{SEM_T(openavbAcmpSMControllerSemaphore)}}]{\setlength{\rightskip}{0pt plus 5cm}S\+E\+M\+\_\+T (
+\begin{DoxyParamCaption}
+\item[{openavb\+Acmp\+S\+M\+Controller\+Semaphore}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__acmp__sm__controller_8c_a57d7cf7666618389df6bd0294847014a}{}\label{openavb__acmp__sm__controller_8c_a57d7cf7666618389df6bd0294847014a}
+\index{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}!T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+ON@{T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+ON}}
+\index{T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+ON@{T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+ON}!openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}}
+\subsubsection[{\texorpdfstring{T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+O\+N(openavb\+Acmp\+Sm\+Controller\+Thread)}{THREAD_DEFINITON(openavbAcmpSmControllerThread)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+ON (
+\begin{DoxyParamCaption}
+\item[{openavb\+Acmp\+Sm\+Controller\+Thread}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__acmp__sm__controller_8c_ae79c583a8f133febb596619d48ac6183}{}\label{openavb__acmp__sm__controller_8c_ae79c583a8f133febb596619d48ac6183}
+\index{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}!T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE@{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE}}
+\index{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE@{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE}!openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}}
+\subsubsection[{\texorpdfstring{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+P\+E(openavb\+Acmp\+Sm\+Controller\+Thread)}{THREAD_TYPE(openavbAcmpSmControllerThread)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE (
+\begin{DoxyParamCaption}
+\item[{openavb\+Acmp\+Sm\+Controller\+Thread}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__acmp__sm__controller_8c_ae3d00763f28bf14405e7423ddbc60e40}{}\label{openavb__acmp__sm__controller_8c_ae3d00763f28bf14405e7423ddbc60e40}
+
+
+\subsection{변수 문서화}
+\index{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}!b\+Running@{b\+Running}}
+\index{b\+Running@{b\+Running}!openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}}
+\subsubsection[{\texorpdfstring{b\+Running}{bRunning}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} b\+Running = {\bf F\+A\+L\+SE}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__acmp__sm__controller_8c_acf182b7b2127314d5d00c6df827734b5}{}\label{openavb__acmp__sm__controller_8c_acf182b7b2127314d5d00c6df827734b5}
+
+
+openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c 파일의 60 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}!openavb\+Acmp\+S\+M\+Controller\+Vars@{openavb\+Acmp\+S\+M\+Controller\+Vars}}
+\index{openavb\+Acmp\+S\+M\+Controller\+Vars@{openavb\+Acmp\+S\+M\+Controller\+Vars}!openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Acmp\+S\+M\+Controller\+Vars}{openavbAcmpSMControllerVars}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf openavb\+\_\+acmp\+\_\+sm\+\_\+controller\+\_\+vars\+\_\+t} openavb\+Acmp\+S\+M\+Controller\+Vars = \{0\}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__acmp__sm__controller_8c_a139331ca51073a89e54f809b0e42a63a}{}\label{openavb__acmp__sm__controller_8c_a139331ca51073a89e54f809b0e42a63a}
+
+
+openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c 파일의 59 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}!openavb\+Acmp\+S\+M\+Global\+Vars@{openavb\+Acmp\+S\+M\+Global\+Vars}}
+\index{openavb\+Acmp\+S\+M\+Global\+Vars@{openavb\+Acmp\+S\+M\+Global\+Vars}!openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Acmp\+S\+M\+Global\+Vars}{openavbAcmpSMGlobalVars}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf openavb\+\_\+acmp\+\_\+sm\+\_\+global\+\_\+vars\+\_\+t} openavb\+Acmp\+S\+M\+Global\+Vars}\hypertarget{openavb__acmp__sm__controller_8c_a3b2bf4fc57f453d3c2c073f0b7637073}{}\label{openavb__acmp__sm__controller_8c_a3b2bf4fc57f453d3c2c073f0b7637073}
+
+
+openavb\+\_\+acmp.\+c 파일의 54 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}!p\+Rcvd\+Cmd\+Resp@{p\+Rcvd\+Cmd\+Resp}}
+\index{p\+Rcvd\+Cmd\+Resp@{p\+Rcvd\+Cmd\+Resp}!openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}}
+\subsubsection[{\texorpdfstring{p\+Rcvd\+Cmd\+Resp}{pRcvdCmdResp}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf openavb\+\_\+acmp\+\_\+\+A\+C\+M\+P\+Command\+Response\+\_\+t}$\ast$ p\+Rcvd\+Cmd\+Resp = \&{\bf rcvd\+Cmd\+Resp}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__acmp__sm__controller_8c_acb2c8e3ccc8484d0b08c9c684a84f168}{}\label{openavb__acmp__sm__controller_8c_acb2c8e3ccc8484d0b08c9c684a84f168}
+
+
+openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c 파일의 58 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}!rcvd\+Cmd\+Resp@{rcvd\+Cmd\+Resp}}
+\index{rcvd\+Cmd\+Resp@{rcvd\+Cmd\+Resp}!openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c@{openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c}}
+\subsubsection[{\texorpdfstring{rcvd\+Cmd\+Resp}{rcvdCmdResp}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf openavb\+\_\+acmp\+\_\+\+A\+C\+M\+P\+Command\+Response\+\_\+t} rcvd\+Cmd\+Resp\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__acmp__sm__controller_8c_a0fedb04af620923614eb7ec3e6722b63}{}\label{openavb__acmp__sm__controller_8c_a0fedb04af620923614eb7ec3e6722b63}
+
+
+openavb\+\_\+acmp\+\_\+sm\+\_\+controller.\+c 파일의 57 번째 라인에서 정의되었습니다.
+

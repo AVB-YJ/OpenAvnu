@@ -1,0 +1,27 @@
+var group__get__counters__entity__bits =
+[
+    [ "JDKSAVDECC_GET_COUNTERS_ENTITY_BITS_ENTITY_SPECIFIC_1", "group__get__counters__entity__bits.html#ga920998263d90f279185df8842c199443", null ],
+    [ "JDKSAVDECC_GET_COUNTERS_ENTITY_BITS_ENTITY_SPECIFIC_1_BIT", "group__get__counters__entity__bits.html#ga1e75be3ac64395352cb672e25ca65dd8", null ],
+    [ "JDKSAVDECC_GET_COUNTERS_ENTITY_BITS_ENTITY_SPECIFIC_1_MASK", "group__get__counters__entity__bits.html#ga059c9c6e392090eb71b4ff582f999e16", null ],
+    [ "JDKSAVDECC_GET_COUNTERS_ENTITY_BITS_ENTITY_SPECIFIC_2", "group__get__counters__entity__bits.html#gad42a23392bc9486b90039b6c8be053f1", null ],
+    [ "JDKSAVDECC_GET_COUNTERS_ENTITY_BITS_ENTITY_SPECIFIC_2_BIT", "group__get__counters__entity__bits.html#gae1fbed20c93a00e31717f2a564c2e0bc", null ],
+    [ "JDKSAVDECC_GET_COUNTERS_ENTITY_BITS_ENTITY_SPECIFIC_2_MASK", "group__get__counters__entity__bits.html#gab694a45660dcf133b164d9f96dd39310", null ],
+    [ "JDKSAVDECC_GET_COUNTERS_ENTITY_BITS_ENTITY_SPECIFIC_3", "group__get__counters__entity__bits.html#gabf947619e9a2964895a5fac0a404e423", null ],
+    [ "JDKSAVDECC_GET_COUNTERS_ENTITY_BITS_ENTITY_SPECIFIC_3_BIT", "group__get__counters__entity__bits.html#gaae1afcdcd31615df604e8fc7e32a0aa6", null ],
+    [ "JDKSAVDECC_GET_COUNTERS_ENTITY_BITS_ENTITY_SPECIFIC_3_MASK", "group__get__counters__entity__bits.html#ga46429c8faca58317a3a5ea6cee460623", null ],
+    [ "JDKSAVDECC_GET_COUNTERS_ENTITY_BITS_ENTITY_SPECIFIC_4", "group__get__counters__entity__bits.html#ga9ac9395df8bc53ed9d0663c568ea225c", null ],
+    [ "JDKSAVDECC_GET_COUNTERS_ENTITY_BITS_ENTITY_SPECIFIC_4_BIT", "group__get__counters__entity__bits.html#ga53578a5eb782a4c4691114081521864c", null ],
+    [ "JDKSAVDECC_GET_COUNTERS_ENTITY_BITS_ENTITY_SPECIFIC_4_MASK", "group__get__counters__entity__bits.html#ga34874414b1ed0b7a7af578aa53ce1f88", null ],
+    [ "JDKSAVDECC_GET_COUNTERS_ENTITY_BITS_ENTITY_SPECIFIC_5", "group__get__counters__entity__bits.html#ga3c6c1ad68eca57ffe46b4d0b08f99f21", null ],
+    [ "JDKSAVDECC_GET_COUNTERS_ENTITY_BITS_ENTITY_SPECIFIC_5_BIT", "group__get__counters__entity__bits.html#ga00ad2600ac1ca6b885848b8e128b8138", null ],
+    [ "JDKSAVDECC_GET_COUNTERS_ENTITY_BITS_ENTITY_SPECIFIC_5_MASK", "group__get__counters__entity__bits.html#ga2ba49ff7d1973d24ffc6a0467c89c4c3", null ],
+    [ "JDKSAVDECC_GET_COUNTERS_ENTITY_BITS_ENTITY_SPECIFIC_6", "group__get__counters__entity__bits.html#ga06e2f12b7a9277de2983669861dd62ae", null ],
+    [ "JDKSAVDECC_GET_COUNTERS_ENTITY_BITS_ENTITY_SPECIFIC_6_BIT", "group__get__counters__entity__bits.html#gafdf64987257d977c0fbc5a4ec04d1988", null ],
+    [ "JDKSAVDECC_GET_COUNTERS_ENTITY_BITS_ENTITY_SPECIFIC_6_MASK", "group__get__counters__entity__bits.html#ga98cee20852134b90dea4a42fc4ebb8e1", null ],
+    [ "JDKSAVDECC_GET_COUNTERS_ENTITY_BITS_ENTITY_SPECIFIC_7", "group__get__counters__entity__bits.html#ga80b7d05035af61f599935d8ffcab4df2", null ],
+    [ "JDKSAVDECC_GET_COUNTERS_ENTITY_BITS_ENTITY_SPECIFIC_7_BIT", "group__get__counters__entity__bits.html#ga4dbf381feb4d14be4660dc8969b1ff20", null ],
+    [ "JDKSAVDECC_GET_COUNTERS_ENTITY_BITS_ENTITY_SPECIFIC_7_MASK", "group__get__counters__entity__bits.html#gadeb3fe9573b064a5166c75fd582b3054", null ],
+    [ "JDKSAVDECC_GET_COUNTERS_ENTITY_BITS_ENTITY_SPECIFIC_8", "group__get__counters__entity__bits.html#ga6753e2c4fd4199de402de12c72b5d383", null ],
+    [ "JDKSAVDECC_GET_COUNTERS_ENTITY_BITS_ENTITY_SPECIFIC_8_BIT", "group__get__counters__entity__bits.html#gaba6a78de69c812112a85f25bdcd2271f", null ],
+    [ "JDKSAVDECC_GET_COUNTERS_ENTITY_BITS_ENTITY_SPECIFIC_8_MASK", "group__get__counters__entity__bits.html#ga649324a1b11e43040f95a6459654c02a", null ]
+];

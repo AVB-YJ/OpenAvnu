@@ -1,0 +1,855 @@
+\hypertarget{sendmmsg__rawsock_8c}{}\section{lib/avtp\+\_\+pipeline/platform/\+Linux/rawsock/sendmmsg\+\_\+rawsock.c 파일 참조}
+\label{sendmmsg__rawsock_8c}\index{lib/avtp\+\_\+pipeline/platform/\+Linux/rawsock/sendmmsg\+\_\+rawsock.\+c@{lib/avtp\+\_\+pipeline/platform/\+Linux/rawsock/sendmmsg\+\_\+rawsock.\+c}}
+{\ttfamily \#include \char`\"{}sendmmsg\+\_\+rawsock.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}simple\+\_\+rawsock.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$sys/socket.\+h$>$}\\*
+{\ttfamily \#include $<$sys/ioctl.\+h$>$}\\*
+{\ttfamily \#include $<$linux/if\+\_\+packet.\+h$>$}\\*
+{\ttfamily \#include $<$linux/filter.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+trace.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+log.\+h\char`\"{}}\\*
+sendmmsg\+\_\+rawsock.\+c에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sendmmsg__rawsock_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{sendmmsg__rawsock_8c_a4b52c36ef056fab988091c5c45d65e8b}{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+L\+E\+V\+EL}~\hyperlink{include_2openavb__log__pub_8h_aa21f8d7fdd439abe87a73e1db34029ed}{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+L\+E\+V\+E\+L\+\_\+\+I\+N\+FO}
+\item 
+\#define \hyperlink{sendmmsg__rawsock_8c_abcfb21b6495585fe36058f57a9fe58fc}{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}~\char`\"{}Raw Socket\char`\"{}
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{sendmmsg__rawsock_8c_a30102b93da286d88e78bfaf022a87014}{fillmsghdr} (struct msghdr $\ast$\hyperlink{openavb__log_8c_a0c7e58a50354c4a4d6dad428d0e47029}{msg}, struct iovec $\ast$iov, void $\ast$pktdata, size\+\_\+t pktlen)
+\item 
+void $\ast$ \hyperlink{sendmmsg__rawsock_8c_abc3aad8ba3050f276a72877f94eff882}{sendmmsg\+Rawsock\+Open} (\hyperlink{structsendmmsg__rawsock__t}{sendmmsg\+\_\+rawsock\+\_\+t} $\ast$rawsock, const char $\ast$\hyperlink{aaf-talker_8c_ac7b430acaa92a7a26fbcdad47d2efc20}{ifname}, \hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} rx\+\_\+mode, \hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} tx\+\_\+mode, \hyperlink{openavb__types__base__pub_8h_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16} \hyperlink{rawsock__tx_8c_af3d6d4ec5b93edfddc9de51233ae9f7e}{ethertype}, \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} \hyperlink{gstavbsink_8c_ad662aa56c1696f09c0ac6b97abafac6d}{frame\+\_\+size}, \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} num\+\_\+frames)
+\item 
+void \hyperlink{sendmmsg__rawsock_8c_ab9f2bcb5674c8b1070b7fc9dfe0ab833}{sendmmsg\+Rawsock\+Close} (void $\ast$pv\+Rawsock)
+\item 
+\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} $\ast$ \hyperlink{sendmmsg__rawsock_8c_a5a5b5828f46a9ea96645201fe1f93b36}{sendmmsg\+Rawsock\+Get\+Tx\+Frame} (void $\ast$pv\+Rawsock, \hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} blocking, unsigned int $\ast$len)
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{sendmmsg__rawsock_8c_acb6cafdbddc6c54dcbeb38dc7bbe3047}{sendmmsg\+Rawsock\+Tx\+Set\+Mark} (void $\ast$pv\+Rawsock, int mark)
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{sendmmsg__rawsock_8c_a343592b0f0ce77bcf88e48998eee14d9}{sendmmsg\+Rawsock\+Tx\+Set\+Hdr} (void $\ast$pv\+Rawsock, \hyperlink{structhdr__info__t}{hdr\+\_\+info\+\_\+t} $\ast$p\+Hdr)
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{sendmmsg__rawsock_8c_a34a317340364455f71c74b02ed2f6db9}{sendmmsg\+Rawsock\+Tx\+Frame\+Ready} (void $\ast$pv\+Rawsock, \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} $\ast$p\+Buffer, unsigned int len, \hyperlink{openavb__types__base__pub_8h_a25809e0734a149248fcf5831efa4e33d}{U64} time\+Nsec)
+\item 
+int \hyperlink{sendmmsg__rawsock_8c_a74ae1973c786f9b2e1be7c2509f5cfdb}{sendmmsg\+Rawsock\+Send} (void $\ast$pv\+Rawsock)
+\item 
+\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} $\ast$ \hyperlink{sendmmsg__rawsock_8c_ae8868a3d80fc630600fb98ba93fd64bf}{sendmmsg\+Rawsock\+Get\+Rx\+Frame} (void $\ast$pv\+Rawsock, \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} \hyperlink{aaf-listener_8c_a869c60cb165af7b6177060c00c5c416c}{timeout}, unsigned int $\ast$offset, unsigned int $\ast$len)
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{sendmmsg__rawsock_8c_ab744fed00b543a7a0224f2d1d282a395}{sendmmsg\+Rawsock\+Rx\+Multicast} (void $\ast$pv\+Rawsock, \hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} add\+\_\+membership, const \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} addr\mbox{[}\hyperlink{avb__avtp_8h_a9822d89774e0d6ddaa06503950130423}{E\+T\+H\+\_\+\+A\+L\+EN}\mbox{]})
+\item 
+int \hyperlink{sendmmsg__rawsock_8c_aae2b5d39308b8d3e2223a5f33c61f398}{sendmmsg\+Rawsock\+Get\+Socket} (void $\ast$pv\+Rawsock)
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{sendmmsg\+\_\+rawsock.\+c@{sendmmsg\+\_\+rawsock.\+c}!A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT@{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}}
+\index{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT@{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}!sendmmsg\+\_\+rawsock.\+c@{sendmmsg\+\_\+rawsock.\+c}}
+\subsubsection[{\texorpdfstring{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}{AVB_LOG_COMPONENT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT~\char`\"{}Raw Socket\char`\"{}}\hypertarget{sendmmsg__rawsock_8c_abcfb21b6495585fe36058f57a9fe58fc}{}\label{sendmmsg__rawsock_8c_abcfb21b6495585fe36058f57a9fe58fc}
+
+
+sendmmsg\+\_\+rawsock.\+c 파일의 44 번째 라인에서 정의되었습니다.
+
+\index{sendmmsg\+\_\+rawsock.\+c@{sendmmsg\+\_\+rawsock.\+c}!A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+L\+E\+V\+EL@{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+L\+E\+V\+EL}}
+\index{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+L\+E\+V\+EL@{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+L\+E\+V\+EL}!sendmmsg\+\_\+rawsock.\+c@{sendmmsg\+\_\+rawsock.\+c}}
+\subsubsection[{\texorpdfstring{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+L\+E\+V\+EL}{AVB_LOG_LEVEL}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+L\+E\+V\+EL~{\bf A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+L\+E\+V\+E\+L\+\_\+\+I\+N\+FO}}\hypertarget{sendmmsg__rawsock_8c_a4b52c36ef056fab988091c5c45d65e8b}{}\label{sendmmsg__rawsock_8c_a4b52c36ef056fab988091c5c45d65e8b}
+
+
+sendmmsg\+\_\+rawsock.\+c 파일의 40 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{함수 문서화}
+\index{sendmmsg\+\_\+rawsock.\+c@{sendmmsg\+\_\+rawsock.\+c}!fillmsghdr@{fillmsghdr}}
+\index{fillmsghdr@{fillmsghdr}!sendmmsg\+\_\+rawsock.\+c@{sendmmsg\+\_\+rawsock.\+c}}
+\subsubsection[{\texorpdfstring{fillmsghdr(struct msghdr $\ast$msg, struct iovec $\ast$iov, void $\ast$pktdata, size\+\_\+t pktlen)}{fillmsghdr(struct msghdr *msg, struct iovec *iov, void *pktdata, size_t pktlen)}}]{\setlength{\rightskip}{0pt plus 5cm}static void fillmsghdr (
+\begin{DoxyParamCaption}
+\item[{struct msghdr $\ast$}]{msg, }
+\item[{struct iovec $\ast$}]{iov, }
+\item[{void $\ast$}]{pktdata, }
+\item[{size\+\_\+t}]{pktlen}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{sendmmsg__rawsock_8c_a30102b93da286d88e78bfaf022a87014}{}\label{sendmmsg__rawsock_8c_a30102b93da286d88e78bfaf022a87014}
+
+
+sendmmsg\+\_\+rawsock.\+c 파일의 57 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+62 \{
+63     \hyperlink{maap__log__linux_8c_a0c7e58a50354c4a4d6dad428d0e47029}{msg}->msg\_name = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+64     \hyperlink{maap__log__linux_8c_a0c7e58a50354c4a4d6dad428d0e47029}{msg}->msg\_namelen = 0;
+65 
+66     iov->iov\_base = pktdata;
+67     iov->iov\_len = pktlen;
+68     \hyperlink{maap__log__linux_8c_a0c7e58a50354c4a4d6dad428d0e47029}{msg}->msg\_iov = iov;
+69     \hyperlink{maap__log__linux_8c_a0c7e58a50354c4a4d6dad428d0e47029}{msg}->msg\_iovlen = 1;
+70 
+71 \textcolor{preprocessor}{#if USE\_LAUNCHTIME}
+72     \{
+73         \textcolor{keyword}{struct }cmsghdr *cmsg;
+74         \hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\_t} *tsptr;
+75 
+76         \hyperlink{maap__log__linux_8c_a0c7e58a50354c4a4d6dad428d0e47029}{msg}->msg\_control = cmsgbuf;
+77         \hyperlink{maap__log__linux_8c_a0c7e58a50354c4a4d6dad428d0e47029}{msg}->msg\_controllen = CMSG\_LEN(\textcolor{keyword}{sizeof} time);
+78 
+79         cmsg = CMSG\_FIRSTHDR(\hyperlink{maap__log__linux_8c_a0c7e58a50354c4a4d6dad428d0e47029}{msg});
+80         cmsg->cmsg\_level = SOL\_SOCKET;
+81         cmsg->cmsg\_type = SCM\_TIMEDLAUNCH;
+82         cmsg->cmsg\_len = CMSG\_LEN(\textcolor{keyword}{sizeof} time);
+83 
+84         tsptr = (\hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\_t} *)CMSG\_DATA(cmsg);
+85         *tsptr = time;
+86     \}
+87 \textcolor{preprocessor}{#else}
+88     \hyperlink{maap__log__linux_8c_a0c7e58a50354c4a4d6dad428d0e47029}{msg}->msg\_control = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+89     \hyperlink{maap__log__linux_8c_a0c7e58a50354c4a4d6dad428d0e47029}{msg}->msg\_controllen = 0;
+90 \textcolor{preprocessor}{#endif}
+91 
+92     \hyperlink{maap__log__linux_8c_a0c7e58a50354c4a4d6dad428d0e47029}{msg}->msg\_flags = 0;
+93 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sendmmsg__rawsock_8c_a30102b93da286d88e78bfaf022a87014_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{sendmmsg\+\_\+rawsock.\+c@{sendmmsg\+\_\+rawsock.\+c}!sendmmsg\+Rawsock\+Close@{sendmmsg\+Rawsock\+Close}}
+\index{sendmmsg\+Rawsock\+Close@{sendmmsg\+Rawsock\+Close}!sendmmsg\+\_\+rawsock.\+c@{sendmmsg\+\_\+rawsock.\+c}}
+\subsubsection[{\texorpdfstring{sendmmsg\+Rawsock\+Close(void $\ast$pv\+Rawsock)}{sendmmsgRawsockClose(void *pvRawsock)}}]{\setlength{\rightskip}{0pt plus 5cm}void sendmmsg\+Rawsock\+Close (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{pv\+Rawsock}
+\end{DoxyParamCaption}
+)}\hypertarget{sendmmsg__rawsock_8c_ab9f2bcb5674c8b1070b7fc9dfe0ab833}{}\label{sendmmsg__rawsock_8c_ab9f2bcb5674c8b1070b7fc9dfe0ab833}
+
+
+sendmmsg\+\_\+rawsock.\+c 파일의 196 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+197 \{
+198     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a8fb2c92eb64f80cb2ecb22d129df5a95}{AVB\_TRACE\_RAWSOCK});
+199     \hyperlink{structsendmmsg__rawsock__t}{sendmmsg\_rawsock\_t} *rawsock = (\hyperlink{structsendmmsg__rawsock__t}{sendmmsg\_rawsock\_t}*)pvRawsock;
+200 
+201     \textcolor{keywordflow}{if} (rawsock) \{
+202         \textcolor{keywordflow}{if} (rawsock->\hyperlink{structsendmmsg__rawsock__t_a5903d0b282fc5eae503de618f896b5e1}{sock} != -1) \{
+203             close(rawsock->\hyperlink{structsendmmsg__rawsock__t_a5903d0b282fc5eae503de618f896b5e1}{sock});
+204             rawsock->\hyperlink{structsendmmsg__rawsock__t_a5903d0b282fc5eae503de618f896b5e1}{sock} = -1;
+205         \}
+206     \}
+207 
+208     \hyperlink{rawsock__impl_8c_a4b868d77584899fedc55c42e223df585}{baseRawsockClose}(rawsock);
+209 
+210     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a8fb2c92eb64f80cb2ecb22d129df5a95}{AVB\_TRACE\_RAWSOCK});
+211 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sendmmsg__rawsock_8c_ab9f2bcb5674c8b1070b7fc9dfe0ab833_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sendmmsg__rawsock_8c_ab9f2bcb5674c8b1070b7fc9dfe0ab833_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{sendmmsg\+\_\+rawsock.\+c@{sendmmsg\+\_\+rawsock.\+c}!sendmmsg\+Rawsock\+Get\+Rx\+Frame@{sendmmsg\+Rawsock\+Get\+Rx\+Frame}}
+\index{sendmmsg\+Rawsock\+Get\+Rx\+Frame@{sendmmsg\+Rawsock\+Get\+Rx\+Frame}!sendmmsg\+\_\+rawsock.\+c@{sendmmsg\+\_\+rawsock.\+c}}
+\subsubsection[{\texorpdfstring{sendmmsg\+Rawsock\+Get\+Rx\+Frame(void $\ast$pv\+Rawsock, U32 timeout, unsigned int $\ast$offset, unsigned int $\ast$len)}{sendmmsgRawsockGetRxFrame(void *pvRawsock, U32 timeout, unsigned int *offset, unsigned int *len)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf U8}$\ast$ sendmmsg\+Rawsock\+Get\+Rx\+Frame (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{pv\+Rawsock, }
+\item[{{\bf U32}}]{timeout, }
+\item[{unsigned int $\ast$}]{offset, }
+\item[{unsigned int $\ast$}]{len}
+\end{DoxyParamCaption}
+)}\hypertarget{sendmmsg__rawsock_8c_ae8868a3d80fc630600fb98ba93fd64bf}{}\label{sendmmsg__rawsock_8c_ae8868a3d80fc630600fb98ba93fd64bf}
+
+
+sendmmsg\+\_\+rawsock.\+c 파일의 372 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+373 \{
+374     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+375     \hyperlink{structsendmmsg__rawsock__t}{sendmmsg\_rawsock\_t} *rawsock = (\hyperlink{structsendmmsg__rawsock__t}{sendmmsg\_rawsock\_t}*)pvRawsock;
+376     \textcolor{keywordflow}{if} (!\hyperlink{rawsock__impl_8h_a0215ee9cb615329e13dfb6b2f28107ff}{VALID\_RX\_RAWSOCK}(rawsock)) \{
+377         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Getting RX frame; invalid arguments"});
+378         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+379         \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+380     \}
+381 \textcolor{comment}{// For switching to recvmmsg eventually}
+382 \textcolor{comment}{//  if (rawsock->rxbuffersOut >= rawsock->rxframeCount) \{}
+383 \textcolor{comment}{//      AVB\_LOG\_ERROR("Too many RX buffers in use");}
+384 \textcolor{comment}{//      AVB\_TRACE\_EXIT(AVB\_TRACE\_RAWSOCK\_DETAIL);}
+385 \textcolor{comment}{//      return NULL;}
+386 \textcolor{comment}{//  \}}
+387 
+388     \textcolor{keywordtype}{int} \hyperlink{namespaceavdecc__lib_ab6b306ef981f5e21bb41ea2c2dbe8cd9}{flags} = 0;
+389 
+390     \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *pBuffer = rawsock->\hyperlink{structsendmmsg__rawsock__t_a60a36f98faf9efc0f3447c6014c822ce}{rxBuffer};
+391     *offset = 0;
+392     *len = recv(rawsock->\hyperlink{structsendmmsg__rawsock__t_a5903d0b282fc5eae503de618f896b5e1}{sock}, pBuffer, rawsock->\hyperlink{structsendmmsg__rawsock__t_a1507c5af4508d59cb0a730a852763e94}{base}.\hyperlink{structbase__rawsock_aa3dad37bb3b3c95138a96b2668936923}{frameSize}, flags);
+393 
+394     \textcolor{keywordflow}{if} (*len == (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int})(-1)) \{
+395         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"%s %s"}, \_\_func\_\_, strerror(errno));
+396         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+397         \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+398     \}
+399 
+400     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+401     \textcolor{keywordflow}{return} pBuffer;
+402 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sendmmsg__rawsock_8c_ae8868a3d80fc630600fb98ba93fd64bf_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{sendmmsg\+\_\+rawsock.\+c@{sendmmsg\+\_\+rawsock.\+c}!sendmmsg\+Rawsock\+Get\+Socket@{sendmmsg\+Rawsock\+Get\+Socket}}
+\index{sendmmsg\+Rawsock\+Get\+Socket@{sendmmsg\+Rawsock\+Get\+Socket}!sendmmsg\+\_\+rawsock.\+c@{sendmmsg\+\_\+rawsock.\+c}}
+\subsubsection[{\texorpdfstring{sendmmsg\+Rawsock\+Get\+Socket(void $\ast$pv\+Rawsock)}{sendmmsgRawsockGetSocket(void *pvRawsock)}}]{\setlength{\rightskip}{0pt plus 5cm}int sendmmsg\+Rawsock\+Get\+Socket (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{pv\+Rawsock}
+\end{DoxyParamCaption}
+)}\hypertarget{sendmmsg__rawsock_8c_aae2b5d39308b8d3e2223a5f33c61f398}{}\label{sendmmsg__rawsock_8c_aae2b5d39308b8d3e2223a5f33c61f398}
+
+
+sendmmsg\+\_\+rawsock.\+c 파일의 491 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+492 \{
+493     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a8fb2c92eb64f80cb2ecb22d129df5a95}{AVB\_TRACE\_RAWSOCK});
+494     \hyperlink{structsendmmsg__rawsock__t}{sendmmsg\_rawsock\_t} *rawsock = (\hyperlink{structsendmmsg__rawsock__t}{sendmmsg\_rawsock\_t}*)pvRawsock;
+495     \textcolor{keywordflow}{if} (!rawsock) \{
+496         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Getting socket; invalid arguments"});
+497         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a8fb2c92eb64f80cb2ecb22d129df5a95}{AVB\_TRACE\_RAWSOCK});
+498         \textcolor{keywordflow}{return} -1;
+499     \}
+500 
+501     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a8fb2c92eb64f80cb2ecb22d129df5a95}{AVB\_TRACE\_RAWSOCK});
+502     \textcolor{keywordflow}{return} rawsock->\hyperlink{structsendmmsg__rawsock__t_a5903d0b282fc5eae503de618f896b5e1}{sock};
+503 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sendmmsg__rawsock_8c_aae2b5d39308b8d3e2223a5f33c61f398_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{sendmmsg\+\_\+rawsock.\+c@{sendmmsg\+\_\+rawsock.\+c}!sendmmsg\+Rawsock\+Get\+Tx\+Frame@{sendmmsg\+Rawsock\+Get\+Tx\+Frame}}
+\index{sendmmsg\+Rawsock\+Get\+Tx\+Frame@{sendmmsg\+Rawsock\+Get\+Tx\+Frame}!sendmmsg\+\_\+rawsock.\+c@{sendmmsg\+\_\+rawsock.\+c}}
+\subsubsection[{\texorpdfstring{sendmmsg\+Rawsock\+Get\+Tx\+Frame(void $\ast$pv\+Rawsock, bool blocking, unsigned int $\ast$len)}{sendmmsgRawsockGetTxFrame(void *pvRawsock, bool blocking, unsigned int *len)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf U8}$\ast$ sendmmsg\+Rawsock\+Get\+Tx\+Frame (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{pv\+Rawsock, }
+\item[{{\bf bool}}]{blocking, }
+\item[{unsigned int $\ast$}]{len}
+\end{DoxyParamCaption}
+)}\hypertarget{sendmmsg__rawsock_8c_a5a5b5828f46a9ea96645201fe1f93b36}{}\label{sendmmsg__rawsock_8c_a5a5b5828f46a9ea96645201fe1f93b36}
+
+
+sendmmsg\+\_\+rawsock.\+c 파일의 214 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+215 \{
+216     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+217     \hyperlink{structsendmmsg__rawsock__t}{sendmmsg\_rawsock\_t} *rawsock = (\hyperlink{structsendmmsg__rawsock__t}{sendmmsg\_rawsock\_t}*)pvRawsock;
+218 
+219     \textcolor{keywordflow}{if} (!\hyperlink{rawsock__impl_8h_a4b69291961256f36eefc280eb2d3e447}{VALID\_TX\_RAWSOCK}(rawsock)) \{
+220         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Getting TX frame; bad arguments"});
+221         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+222         \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+223     \}
+224     \textcolor{keywordflow}{if} (rawsock->\hyperlink{structsendmmsg__rawsock__t_aeda5b51f8dc77d9f2012426b2e4d87aa}{buffersOut} >= rawsock->\hyperlink{structsendmmsg__rawsock__t_abaf7d77bd2fc7eb6125fa605bd645b67}{frameCount}) \{
+225         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Getting TX frame; too many TX buffers in use"});
+226         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+227         \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+228     \}
+229 
+230     \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *pBuffer = rawsock->\hyperlink{structsendmmsg__rawsock__t_af18aae0e23cde1425d996e84b62c8829}{pktbuf}[rawsock->\hyperlink{structsendmmsg__rawsock__t_aeda5b51f8dc77d9f2012426b2e4d87aa}{buffersOut}];
+231     rawsock->\hyperlink{structsendmmsg__rawsock__t_aeda5b51f8dc77d9f2012426b2e4d87aa}{buffersOut} += 1;
+232 
+233     \textcolor{comment}{// Remind client how big the frame buffer is}
+234     \textcolor{keywordflow}{if} (len)
+235         *len = rawsock->\hyperlink{structsendmmsg__rawsock__t_a1507c5af4508d59cb0a730a852763e94}{base}.\hyperlink{structbase__rawsock_aa3dad37bb3b3c95138a96b2668936923}{frameSize};
+236 
+237     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+238     \textcolor{keywordflow}{return}  pBuffer;
+239 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sendmmsg__rawsock_8c_a5a5b5828f46a9ea96645201fe1f93b36_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{sendmmsg\+\_\+rawsock.\+c@{sendmmsg\+\_\+rawsock.\+c}!sendmmsg\+Rawsock\+Open@{sendmmsg\+Rawsock\+Open}}
+\index{sendmmsg\+Rawsock\+Open@{sendmmsg\+Rawsock\+Open}!sendmmsg\+\_\+rawsock.\+c@{sendmmsg\+\_\+rawsock.\+c}}
+\subsubsection[{\texorpdfstring{sendmmsg\+Rawsock\+Open(sendmmsg\+\_\+rawsock\+\_\+t $\ast$rawsock, const char $\ast$ifname, bool rx\+\_\+mode, bool tx\+\_\+mode, U16 ethertype, U32 frame\+\_\+size, U32 num\+\_\+frames)}{sendmmsgRawsockOpen(sendmmsg_rawsock_t *rawsock, const char *ifname, bool rx_mode, bool tx_mode, U16 ethertype, U32 frame_size, U32 num_frames)}}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ sendmmsg\+Rawsock\+Open (
+\begin{DoxyParamCaption}
+\item[{{\bf sendmmsg\+\_\+rawsock\+\_\+t} $\ast$}]{rawsock, }
+\item[{const char $\ast$}]{ifname, }
+\item[{{\bf bool}}]{rx\+\_\+mode, }
+\item[{{\bf bool}}]{tx\+\_\+mode, }
+\item[{{\bf U16}}]{ethertype, }
+\item[{{\bf U32}}]{frame\+\_\+size, }
+\item[{{\bf U32}}]{num\+\_\+frames}
+\end{DoxyParamCaption}
+)}\hypertarget{sendmmsg__rawsock_8c_abc3aad8ba3050f276a72877f94eff882}{}\label{sendmmsg__rawsock_8c_abc3aad8ba3050f276a72877f94eff882}
+
+
+sendmmsg\+\_\+rawsock.\+c 파일의 96 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+97 \{
+98     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a8fb2c92eb64f80cb2ecb22d129df5a95}{AVB\_TRACE\_RAWSOCK});
+99 
+100     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afcf1f0c1d10ae9efe3782eb6cae78355}{AVB\_LOGF\_DEBUG}(\textcolor{stringliteral}{"Open, ifname=%s, rx=%d, tx=%d, ethertype=%x size=%d, num=%d"},
+101                    \hyperlink{aaf-talker_8c_ac7b430acaa92a7a26fbcdad47d2efc20}{ifname}, rx\_mode, tx\_mode, \hyperlink{avtp__rx_8c_af3d6d4ec5b93edfddc9de51233ae9f7e}{ethertype}, 
+      \hyperlink{gstavbsink_8c_ad662aa56c1696f09c0ac6b97abafac6d}{frame\_size}, num\_frames);
+102 
+103     \hyperlink{rawsock__impl_8c_a63d234ca58178da0dbe635962b70846d}{baseRawsockOpen}(&rawsock->\hyperlink{structsendmmsg__rawsock__t_a1507c5af4508d59cb0a730a852763e94}{base}, \hyperlink{aaf-talker_8c_ac7b430acaa92a7a26fbcdad47d2efc20}{ifname}, rx\_mode, tx\_mode, 
+      \hyperlink{avtp__rx_8c_af3d6d4ec5b93edfddc9de51233ae9f7e}{ethertype}, \hyperlink{gstavbsink_8c_ad662aa56c1696f09c0ac6b97abafac6d}{frame\_size}, num\_frames);
+104 
+105     rawsock->\hyperlink{structsendmmsg__rawsock__t_a5903d0b282fc5eae503de618f896b5e1}{sock} = -1;
+106 
+107     \textcolor{comment}{// Get info about the network device}
+108     \textcolor{keywordflow}{if} (!\hyperlink{simple__rawsock_8c_a4a74553012375bcbfc02684b3381f183}{simpleAvbCheckInterface}(\hyperlink{aaf-talker_8c_ac7b430acaa92a7a26fbcdad47d2efc20}{ifname}, &(rawsock->
+      \hyperlink{structsendmmsg__rawsock__t_a1507c5af4508d59cb0a730a852763e94}{base}.\hyperlink{structbase__rawsock_a854c8024bff83a6b215a4897ac1d8944}{ifInfo}))) \{
+109         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Creating rawsock; bad interface name: %s"}, 
+      \hyperlink{aaf-talker_8c_ac7b430acaa92a7a26fbcdad47d2efc20}{ifname});
+110         \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(rawsock);
+111         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a8fb2c92eb64f80cb2ecb22d129df5a95}{AVB\_TRACE\_RAWSOCK});
+112         \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+113     \}
+114 
+115     \textcolor{comment}{// Deal with frame size.}
+116     \textcolor{keywordflow}{if} (rawsock->\hyperlink{structsendmmsg__rawsock__t_a1507c5af4508d59cb0a730a852763e94}{base}.\hyperlink{structbase__rawsock_aa3dad37bb3b3c95138a96b2668936923}{frameSize} == 0) \{
+117         \textcolor{comment}{// use interface MTU as max frames size, if none specified}
+118         rawsock->\hyperlink{structsendmmsg__rawsock__t_a1507c5af4508d59cb0a730a852763e94}{base}.\hyperlink{structbase__rawsock_aa3dad37bb3b3c95138a96b2668936923}{frameSize} = rawsock->\hyperlink{structsendmmsg__rawsock__t_a1507c5af4508d59cb0a730a852763e94}{base}.\hyperlink{structbase__rawsock_a854c8024bff83a6b215a4897ac1d8944}{ifInfo}.
+      \hyperlink{structif__info__t_a5f8594e356005c64e4a2625755b6c849}{mtu} + ETH\_HLEN + \hyperlink{kcompat_8h_a0a381d2534972044eccae2ab96806991}{VLAN\_HLEN};
+119     \}
+120     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (rawsock->\hyperlink{structsendmmsg__rawsock__t_a1507c5af4508d59cb0a730a852763e94}{base}.\hyperlink{structbase__rawsock_aa3dad37bb3b3c95138a96b2668936923}{frameSize} > rawsock->\hyperlink{structsendmmsg__rawsock__t_a1507c5af4508d59cb0a730a852763e94}{base}.\hyperlink{structbase__rawsock_a854c8024bff83a6b215a4897ac1d8944}{ifInfo}.
+      \hyperlink{structif__info__t_a5f8594e356005c64e4a2625755b6c849}{mtu} + ETH\_HLEN + \hyperlink{kcompat_8h_a0a381d2534972044eccae2ab96806991}{VLAN\_HLEN}) \{
+121         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Creating raswsock; requested frame size exceeds MTU"});
+122         \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(rawsock);
+123         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a8fb2c92eb64f80cb2ecb22d129df5a95}{AVB\_TRACE\_RAWSOCK});
+124         \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+125     \}
+126     rawsock->\hyperlink{structsendmmsg__rawsock__t_a1507c5af4508d59cb0a730a852763e94}{base}.\hyperlink{structbase__rawsock_aa3dad37bb3b3c95138a96b2668936923}{frameSize} = TPACKET\_ALIGN(rawsock->\hyperlink{structsendmmsg__rawsock__t_a1507c5af4508d59cb0a730a852763e94}{base}.
+      \hyperlink{structbase__rawsock_aa3dad37bb3b3c95138a96b2668936923}{frameSize});
+127     assert(rawsock->\hyperlink{structsendmmsg__rawsock__t_a1507c5af4508d59cb0a730a852763e94}{base}.\hyperlink{structbase__rawsock_aa3dad37bb3b3c95138a96b2668936923}{frameSize} <= \hyperlink{packet_8cpp_ad15d35a0d29a9dbf9324e3859ce3b008}{MAX\_FRAME\_SIZE});
+128 
+129     \textcolor{comment}{// Prepare default Ethernet header.}
+130     rawsock->\hyperlink{structsendmmsg__rawsock__t_a1507c5af4508d59cb0a730a852763e94}{base}.\hyperlink{structbase__rawsock_aa718a737f571d39dde84a733a7dc08b3}{ethHdrLen} = \textcolor{keyword}{sizeof}(\hyperlink{mrpd_8h_adb02009b0d416a4c7ba2f427dbf0e5cb}{eth\_hdr\_t});
+131     memset(&(rawsock->\hyperlink{structsendmmsg__rawsock__t_a1507c5af4508d59cb0a730a852763e94}{base}.\hyperlink{structbase__rawsock_a96ca5b853db73607106ccfb108196547}{ethHdr}.\hyperlink{structbase__rawsock_a53fa4eb792bc48ddf828aa079f555c15}{notag}.dhost), 0xFF, \hyperlink{openavb__avdecc__pub_8h_a9822d89774e0d6ddaa06503950130423}{ETH\_ALEN});
+132     memcpy(&(rawsock->\hyperlink{structsendmmsg__rawsock__t_a1507c5af4508d59cb0a730a852763e94}{base}.\hyperlink{structbase__rawsock_a96ca5b853db73607106ccfb108196547}{ethHdr}.\hyperlink{structbase__rawsock_a53fa4eb792bc48ddf828aa079f555c15}{notag}.shost), &(rawsock->\hyperlink{structsendmmsg__rawsock__t_a1507c5af4508d59cb0a730a852763e94}{base}.
+      \hyperlink{structbase__rawsock_a854c8024bff83a6b215a4897ac1d8944}{ifInfo}.\hyperlink{structif__info__t_a42d8b5e2d1a2c12771953cdf097f7173}{mac}), \hyperlink{openavb__avdecc__pub_8h_a9822d89774e0d6ddaa06503950130423}{ETH\_ALEN});
+133     rawsock->\hyperlink{structsendmmsg__rawsock__t_a1507c5af4508d59cb0a730a852763e94}{base}.\hyperlink{structbase__rawsock_a96ca5b853db73607106ccfb108196547}{ethHdr}.\hyperlink{structbase__rawsock_a53fa4eb792bc48ddf828aa079f555c15}{notag}.ethertype = htons(rawsock->\hyperlink{structsendmmsg__rawsock__t_a1507c5af4508d59cb0a730a852763e94}{base}.
+      \hyperlink{structbase__rawsock_a71d9329c840aa95ce42cc15d25219bfb}{ethertype});
+134 
+135     \textcolor{comment}{// Create socket}
+136     rawsock->\hyperlink{structsendmmsg__rawsock__t_a5903d0b282fc5eae503de618f896b5e1}{sock} = socket(PF\_PACKET, SOCK\_RAW, htons(rawsock->\hyperlink{structsendmmsg__rawsock__t_a1507c5af4508d59cb0a730a852763e94}{base}.
+      \hyperlink{structbase__rawsock_a71d9329c840aa95ce42cc15d25219bfb}{ethertype}));
+137     \textcolor{keywordflow}{if} (rawsock->\hyperlink{structsendmmsg__rawsock__t_a5903d0b282fc5eae503de618f896b5e1}{sock} == -1) \{
+138         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Creating rawsock; opening socket: %s"}, strerror(errno));
+139         \hyperlink{sendmmsg__rawsock_8c_ab9f2bcb5674c8b1070b7fc9dfe0ab833}{sendmmsgRawsockClose}(rawsock);
+140         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a8fb2c92eb64f80cb2ecb22d129df5a95}{AVB\_TRACE\_RAWSOCK});
+141         \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+142     \}
+143 
+144     \textcolor{comment}{// Allow address reuse}
+145     \textcolor{keywordtype}{int} temp = 1;
+146     \textcolor{keywordflow}{if}(setsockopt(rawsock->\hyperlink{structsendmmsg__rawsock__t_a5903d0b282fc5eae503de618f896b5e1}{sock}, SOL\_SOCKET, SO\_REUSEADDR, &temp, \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int})) < 0) \{
+147         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Creating rawsock; failed to set reuseaddr"});
+148         \hyperlink{sendmmsg__rawsock_8c_ab9f2bcb5674c8b1070b7fc9dfe0ab833}{sendmmsgRawsockClose}(rawsock);
+149         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a8fb2c92eb64f80cb2ecb22d129df5a95}{AVB\_TRACE\_RAWSOCK});
+150         \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+151     \}
+152 
+153     \textcolor{comment}{// Bind to interface}
+154     \textcolor{keyword}{struct }sockaddr\_ll my\_addr;
+155     memset(&my\_addr, 0, \textcolor{keyword}{sizeof}(my\_addr));
+156     my\_addr.sll\_family = PF\_PACKET;
+157     my\_addr.sll\_protocol = htons(rawsock->\hyperlink{structsendmmsg__rawsock__t_a1507c5af4508d59cb0a730a852763e94}{base}.\hyperlink{structbase__rawsock_a71d9329c840aa95ce42cc15d25219bfb}{ethertype});
+158     my\_addr.sll\_ifindex = rawsock->\hyperlink{structsendmmsg__rawsock__t_a1507c5af4508d59cb0a730a852763e94}{base}.\hyperlink{structbase__rawsock_a854c8024bff83a6b215a4897ac1d8944}{ifInfo}.\hyperlink{structif__info__t_a750b5d744c39a06bfb13e6eb010e35d0}{index};
+159 
+160     \textcolor{keywordflow}{if} (bind(rawsock->\hyperlink{structsendmmsg__rawsock__t_a5903d0b282fc5eae503de618f896b5e1}{sock}, (\textcolor{keyword}{struct} sockaddr*)&my\_addr, \textcolor{keyword}{sizeof}(my\_addr)) == -1) \{
+161         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Creating rawsock; bind socket: %s"}, strerror(errno));
+162         \hyperlink{sendmmsg__rawsock_8c_ab9f2bcb5674c8b1070b7fc9dfe0ab833}{sendmmsgRawsockClose}(rawsock);
+163         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a8fb2c92eb64f80cb2ecb22d129df5a95}{AVB\_TRACE\_RAWSOCK});
+164         \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+165     \}
+166 
+167     \textcolor{comment}{// Clear our buffers and other tracking data}
+168     memset(rawsock->\hyperlink{structsendmmsg__rawsock__t_a1ead7275d486440c363373a4eb650597}{mmsg}, 0, \textcolor{keyword}{sizeof}(rawsock->\hyperlink{structsendmmsg__rawsock__t_a1ead7275d486440c363373a4eb650597}{mmsg}));
+169     memset(rawsock->\hyperlink{structsendmmsg__rawsock__t_af6a33764c240d3fc43bebf771c1d86f0}{miov}, 0, \textcolor{keyword}{sizeof}(rawsock->\hyperlink{structsendmmsg__rawsock__t_af6a33764c240d3fc43bebf771c1d86f0}{miov}));
+170     memset(rawsock->\hyperlink{structsendmmsg__rawsock__t_af18aae0e23cde1425d996e84b62c8829}{pktbuf}, 0, \textcolor{keyword}{sizeof}(rawsock->\hyperlink{structsendmmsg__rawsock__t_af18aae0e23cde1425d996e84b62c8829}{pktbuf}));
+171 \textcolor{preprocessor}{#if USE\_LAUNCHTIME}
+172     memset(rawsock->cmsgbuf, 0, \textcolor{keyword}{sizeof}(rawsock->cmsgbuf));
+173 \textcolor{preprocessor}{#endif}
+174 
+175     rawsock->\hyperlink{structsendmmsg__rawsock__t_aeda5b51f8dc77d9f2012426b2e4d87aa}{buffersOut} = 0;
+176     rawsock->\hyperlink{structsendmmsg__rawsock__t_a06dd59c797f7aa0ca9f888304888f2a0}{buffersReady} = 0;
+177     rawsock->\hyperlink{structsendmmsg__rawsock__t_abaf7d77bd2fc7eb6125fa605bd645b67}{frameCount} = \hyperlink{sendmmsg__rawsock_8h_ae6348da7257102c066e4718116ed4f4d}{MSG\_COUNT};
+178 
+179     \textcolor{comment}{// fill virtual functions table}
+180     \hyperlink{structrawsock__cb__t}{rawsock\_cb\_t} *cb = &rawsock->\hyperlink{structsendmmsg__rawsock__t_a1507c5af4508d59cb0a730a852763e94}{base}.\hyperlink{structbase__rawsock_a2b12273a224877b0bbbe5e7f774c7568}{cb};
+181     cb->\hyperlink{structrawsock__cb__t_a985e065be665d4efc528911317edb3fa}{close} = \hyperlink{sendmmsg__rawsock_8c_ab9f2bcb5674c8b1070b7fc9dfe0ab833}{sendmmsgRawsockClose};
+182     cb->\hyperlink{structrawsock__cb__t_abac4c30aae337d681176b220b37237fc}{getTxFrame} = \hyperlink{sendmmsg__rawsock_8c_a5a5b5828f46a9ea96645201fe1f93b36}{sendmmsgRawsockGetTxFrame};
+183     cb->\hyperlink{structrawsock__cb__t_a926003e5137976663821b27ace9c3dbf}{txSetMark} = \hyperlink{sendmmsg__rawsock_8c_acb6cafdbddc6c54dcbeb38dc7bbe3047}{sendmmsgRawsockTxSetMark};
+184     cb->\hyperlink{structrawsock__cb__t_ab875aa95ffb8d23ba35bd17d44e0bbb0}{txSetHdr} = \hyperlink{sendmmsg__rawsock_8c_a343592b0f0ce77bcf88e48998eee14d9}{sendmmsgRawsockTxSetHdr};
+185     cb->\hyperlink{structrawsock__cb__t_ae06401a7fdbf21f6bfd7fd65d8e760d0}{txFrameReady} = \hyperlink{sendmmsg__rawsock_8c_a34a317340364455f71c74b02ed2f6db9}{sendmmsgRawsockTxFrameReady};
+186     cb->\hyperlink{structrawsock__cb__t_ae6202a72f83a5d92e126344ed22470a1}{send} = \hyperlink{sendmmsg__rawsock_8c_a74ae1973c786f9b2e1be7c2509f5cfdb}{sendmmsgRawsockSend};
+187     cb->\hyperlink{structrawsock__cb__t_ae9c0b8e9e26d88a6d7ef3191fec6cd5a}{getRxFrame} = \hyperlink{sendmmsg__rawsock_8c_ae8868a3d80fc630600fb98ba93fd64bf}{sendmmsgRawsockGetRxFrame};
+188     cb->\hyperlink{structrawsock__cb__t_a0683e53a5342e7e7aa9755ffcccb49cb}{rxMulticast} = \hyperlink{sendmmsg__rawsock_8c_ab744fed00b543a7a0224f2d1d282a395}{sendmmsgRawsockRxMulticast};
+189     cb->\hyperlink{structrawsock__cb__t_a07a3216facf720770cc7a9f92d86496c}{getSocket} = \hyperlink{sendmmsg__rawsock_8c_aae2b5d39308b8d3e2223a5f33c61f398}{sendmmsgRawsockGetSocket};
+190 
+191     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a8fb2c92eb64f80cb2ecb22d129df5a95}{AVB\_TRACE\_RAWSOCK});
+192     \textcolor{keywordflow}{return} rawsock;
+193 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sendmmsg__rawsock_8c_abc3aad8ba3050f276a72877f94eff882_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sendmmsg__rawsock_8c_abc3aad8ba3050f276a72877f94eff882_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{sendmmsg\+\_\+rawsock.\+c@{sendmmsg\+\_\+rawsock.\+c}!sendmmsg\+Rawsock\+Rx\+Multicast@{sendmmsg\+Rawsock\+Rx\+Multicast}}
+\index{sendmmsg\+Rawsock\+Rx\+Multicast@{sendmmsg\+Rawsock\+Rx\+Multicast}!sendmmsg\+\_\+rawsock.\+c@{sendmmsg\+\_\+rawsock.\+c}}
+\subsubsection[{\texorpdfstring{sendmmsg\+Rawsock\+Rx\+Multicast(void $\ast$pv\+Rawsock, bool add\+\_\+membership, const U8 addr[E\+T\+H\+\_\+\+A\+L\+EN])}{sendmmsgRawsockRxMulticast(void *pvRawsock, bool add_membership, const U8 addr[ETH_ALEN])}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} sendmmsg\+Rawsock\+Rx\+Multicast (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{pv\+Rawsock, }
+\item[{{\bf bool}}]{add\+\_\+membership, }
+\item[{const {\bf U8}}]{addr\mbox{[}\+E\+T\+H\+\_\+\+A\+L\+E\+N\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{sendmmsg__rawsock_8c_ab744fed00b543a7a0224f2d1d282a395}{}\label{sendmmsg__rawsock_8c_ab744fed00b543a7a0224f2d1d282a395}
+
+
+sendmmsg\+\_\+rawsock.\+c 파일의 405 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+406 \{
+407     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+408 
+409     \hyperlink{structsendmmsg__rawsock__t}{sendmmsg\_rawsock\_t} *rawsock = (\hyperlink{structsendmmsg__rawsock__t}{sendmmsg\_rawsock\_t}*)pvRawsock;
+410     \textcolor{keywordflow}{if} (!\hyperlink{rawsock__impl_8h_a0215ee9cb615329e13dfb6b2f28107ff}{VALID\_RX\_RAWSOCK}(rawsock)) \{
+411         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Setting multicast; invalid arguments"});
+412         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+413         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+414     \}
+415 
+416     \textcolor{keyword}{struct }ether\_addr mcast\_addr;
+417     memcpy(mcast\_addr.ether\_addr\_octet, addr, \hyperlink{openavb__avdecc__pub_8h_a9822d89774e0d6ddaa06503950130423}{ETH\_ALEN});
+418 
+419     \textcolor{comment}{// Fill in the structure for the multicast ioctl}
+420     \textcolor{keyword}{struct }packet\_mreq mreq;
+421     memset(&mreq, 0, \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} packet\_mreq));
+422     mreq.mr\_ifindex = rawsock->\hyperlink{structsendmmsg__rawsock__t_a1507c5af4508d59cb0a730a852763e94}{base}.\hyperlink{structbase__rawsock_a854c8024bff83a6b215a4897ac1d8944}{ifInfo}.\hyperlink{structif__info__t_a750b5d744c39a06bfb13e6eb010e35d0}{index};
+423     mreq.mr\_type = PACKET\_MR\_MULTICAST;
+424     mreq.mr\_alen = \hyperlink{openavb__avdecc__pub_8h_a9822d89774e0d6ddaa06503950130423}{ETH\_ALEN};
+425     memcpy(&mreq.mr\_address, &mcast\_addr.ether\_addr\_octet, \hyperlink{openavb__avdecc__pub_8h_a9822d89774e0d6ddaa06503950130423}{ETH\_ALEN});
+426 
+427     \textcolor{comment}{// And call the ioctl to add/drop the multicast address}
+428     \textcolor{keywordtype}{int} \hyperlink{namespaceastime__fitline_a2f4ab7bf743142dae2e459aa18f9f1d4}{action} = (add\_membership ? PACKET\_ADD\_MEMBERSHIP : PACKET\_DROP\_MEMBERSHIP);
+429     \textcolor{keywordflow}{if} (setsockopt(rawsock->\hyperlink{structsendmmsg__rawsock__t_a5903d0b282fc5eae503de618f896b5e1}{sock}, SOL\_PACKET, action,
+430                     (\textcolor{keywordtype}{void}*)&mreq, \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} packet\_mreq)) < 0) \{
+431         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Setting multicast; setsockopt(%s) failed: %s"},
+432                        (add\_membership ? \textcolor{stringliteral}{"PACKET\_ADD\_MEMBERSHIP"} : \textcolor{stringliteral}{"PACKET\_DROP\_MEMBERSHIP"}),
+433                        strerror(errno));
+434 
+435         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+436         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+437     \}
+438 
+439     \textcolor{comment}{// In addition to adding the multicast membership, we also want to}
+440     \textcolor{comment}{//  add a packet filter to restrict the packets that we'll receive}
+441     \textcolor{comment}{//  on this socket.  Multicast memeberships are global - not}
+442     \textcolor{comment}{//  per-socket, so without the filter, this socket would receieve}
+443     \textcolor{comment}{//  packets for all the multicast addresses added by all other}
+444     \textcolor{comment}{//  sockets.}
+445     \textcolor{comment}{//}
+446     \textcolor{keywordflow}{if} (add\_membership)
+447     \{
+448         \textcolor{comment}{// Here's the template packet filter code.}
+449         \textcolor{comment}{// It was produced by running:}
+450         \textcolor{comment}{//   tcpdump -dd ether dest host 91:e0:01:02:03:04}
+451         \textcolor{keyword}{struct }sock\_filter bpfCode[] = \{
+452             \{ 0x20, 0, 0, 0x00000002 \},
+453             \{ 0x15, 0, 3, 0x01020304 \},   \textcolor{comment}{// last 4 bytes of dest mac}
+454             \{ 0x28, 0, 0, 0x00000000 \},
+455             \{ 0x15, 0, 1, 0x000091e0 \},   \textcolor{comment}{// first 2 bytes of dest mac}
+456             \{ 0x06, 0, 0, 0x0000ffff \},
+457             \{ 0x06, 0, 0, 0x00000000 \}
+458         \};
+459 
+460         \textcolor{comment}{// We need to graft our multicast dest address into bpfCode}
+461         \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} tmp; \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *buf = (\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8}*)&tmp;
+462         memcpy(buf, mcast\_addr.ether\_addr\_octet + 2, 4);
+463         bpfCode[1].k = ntohl(tmp);
+464         memset(buf, 0, 4);
+465         memcpy(buf + 2, mcast\_addr.ether\_addr\_octet, 2);
+466         bpfCode[3].k = ntohl(tmp);
+467 
+468         \textcolor{comment}{// Now wrap the filter code in the appropriate structure}
+469         \textcolor{keyword}{struct }sock\_fprog filter;
+470         memset(&filter, 0, \textcolor{keyword}{sizeof}(filter));
+471         filter.len = 6;
+472         filter.filter = bpfCode;
+473 
+474         \textcolor{comment}{// And attach it to our socket}
+475         \textcolor{keywordflow}{if} (setsockopt(rawsock->\hyperlink{structsendmmsg__rawsock__t_a5903d0b282fc5eae503de618f896b5e1}{sock}, SOL\_SOCKET, SO\_ATTACH\_FILTER,
+476                         &filter, \textcolor{keyword}{sizeof}(filter)) < 0) \{
+477             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Setting multicast; setsockopt(SO\_ATTACH\_FILTER) failed: %s"}, 
+      strerror(errno));
+478         \}
+479     \}
+480     \textcolor{keywordflow}{else} \{
+481         \textcolor{keywordflow}{if} (setsockopt(rawsock->\hyperlink{structsendmmsg__rawsock__t_a5903d0b282fc5eae503de618f896b5e1}{sock}, SOL\_SOCKET, SO\_DETACH\_FILTER, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, 0) < 0) \{
+482             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Setting multicast; setsockopt(SO\_DETACH\_FILTER) failed: %s"}, 
+      strerror(errno));
+483         \}
+484     \}
+485 
+486     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+487     \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+488 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sendmmsg__rawsock_8c_ab744fed00b543a7a0224f2d1d282a395_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{sendmmsg\+\_\+rawsock.\+c@{sendmmsg\+\_\+rawsock.\+c}!sendmmsg\+Rawsock\+Send@{sendmmsg\+Rawsock\+Send}}
+\index{sendmmsg\+Rawsock\+Send@{sendmmsg\+Rawsock\+Send}!sendmmsg\+\_\+rawsock.\+c@{sendmmsg\+\_\+rawsock.\+c}}
+\subsubsection[{\texorpdfstring{sendmmsg\+Rawsock\+Send(void $\ast$pv\+Rawsock)}{sendmmsgRawsockSend(void *pvRawsock)}}]{\setlength{\rightskip}{0pt plus 5cm}int sendmmsg\+Rawsock\+Send (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{pv\+Rawsock}
+\end{DoxyParamCaption}
+)}\hypertarget{sendmmsg__rawsock_8c_a74ae1973c786f9b2e1be7c2509f5cfdb}{}\label{sendmmsg__rawsock_8c_a74ae1973c786f9b2e1be7c2509f5cfdb}
+
+
+sendmmsg\+\_\+rawsock.\+c 파일의 332 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+333 \{
+334     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+335     \hyperlink{structsendmmsg__rawsock__t}{sendmmsg\_rawsock\_t} *rawsock = (\hyperlink{structsendmmsg__rawsock__t}{sendmmsg\_rawsock\_t}*)pvRawsock;
+336     \textcolor{keywordtype}{int} sz, bytes;
+337 
+338     \textcolor{keywordflow}{if} (!\hyperlink{rawsock__impl_8h_a4b69291961256f36eefc280eb2d3e447}{VALID\_TX\_RAWSOCK}(rawsock)) \{
+339             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Marking TX frame ready; invalid argument"});
+340             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+341             \textcolor{keywordflow}{return} -1;
+342     \}
+343 
+344     \textcolor{keywordflow}{if} (rawsock->\hyperlink{structsendmmsg__rawsock__t_aeda5b51f8dc77d9f2012426b2e4d87aa}{buffersOut} != rawsock->\hyperlink{structsendmmsg__rawsock__t_a06dd59c797f7aa0ca9f888304888f2a0}{buffersReady}) \{
+345         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Tried to send with %d bufs out, %d bufs ready"}, rawsock->
+      \hyperlink{structsendmmsg__rawsock__t_aeda5b51f8dc77d9f2012426b2e4d87aa}{buffersOut}, rawsock->\hyperlink{structsendmmsg__rawsock__t_a06dd59c797f7aa0ca9f888304888f2a0}{buffersReady});
+346         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+347         \textcolor{keywordflow}{return} -1;
+348     \}
+349 
+350     \hyperlink{maap__log_8h_ae9decd5440c360a6d0ab5175c9cf08be}{IF\_LOG\_INTERVAL}(1000) \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afcf1f0c1d10ae9efe3782eb6cae78355}{AVB\_LOGF\_DEBUG}("Send with %d of %d buffers 
+      \hyperlink{jack__listener_8c_a0edac4e53c3aadf34e162f7dbd4654b5}{ready}", rawsock->buffersReady, rawsock->frameCount);
+351     sz = sendmmsg(rawsock->sock, rawsock->mmsg, rawsock->buffersReady, 0);
+352     if (sz < 0) \{
+353         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Call to sendmmsg failed! Error code was %d"}, sz);
+354         bytes = sz;
+355     \} \textcolor{keywordflow}{else} \{
+356         \textcolor{keywordtype}{int} i;
+357         \textcolor{keywordflow}{for} (i = 0, bytes = 0; i < sz; i++) \{
+358             bytes += rawsock->\hyperlink{structsendmmsg__rawsock__t_a1ead7275d486440c363373a4eb650597}{mmsg}[i].msg\_len;
+359         \}
+360         \textcolor{keywordflow}{if} (sz < rawsock->buffersReady) \{
+361             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a6b02336e691e2e0579d2a5bb06367296}{AVB\_LOGF\_WARNING}(\textcolor{stringliteral}{"Only sent %ld of %d messages; dropping others"}, sz, rawsock->
+      \hyperlink{structsendmmsg__rawsock__t_a06dd59c797f7aa0ca9f888304888f2a0}{buffersReady});
+362         \}
+363     \}
+364 
+365     rawsock->\hyperlink{structsendmmsg__rawsock__t_aeda5b51f8dc77d9f2012426b2e4d87aa}{buffersOut} = rawsock->\hyperlink{structsendmmsg__rawsock__t_a06dd59c797f7aa0ca9f888304888f2a0}{buffersReady} = 0;
+366 
+367     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+368     \textcolor{keywordflow}{return} bytes;
+369 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sendmmsg__rawsock_8c_a74ae1973c786f9b2e1be7c2509f5cfdb_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{sendmmsg\+\_\+rawsock.\+c@{sendmmsg\+\_\+rawsock.\+c}!sendmmsg\+Rawsock\+Tx\+Frame\+Ready@{sendmmsg\+Rawsock\+Tx\+Frame\+Ready}}
+\index{sendmmsg\+Rawsock\+Tx\+Frame\+Ready@{sendmmsg\+Rawsock\+Tx\+Frame\+Ready}!sendmmsg\+\_\+rawsock.\+c@{sendmmsg\+\_\+rawsock.\+c}}
+\subsubsection[{\texorpdfstring{sendmmsg\+Rawsock\+Tx\+Frame\+Ready(void $\ast$pv\+Rawsock, U8 $\ast$p\+Buffer, unsigned int len, U64 time\+Nsec)}{sendmmsgRawsockTxFrameReady(void *pvRawsock, U8 *pBuffer, unsigned int len, U64 timeNsec)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} sendmmsg\+Rawsock\+Tx\+Frame\+Ready (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{pv\+Rawsock, }
+\item[{{\bf U8} $\ast$}]{p\+Buffer, }
+\item[{unsigned int}]{len, }
+\item[{{\bf U64}}]{time\+Nsec}
+\end{DoxyParamCaption}
+)}\hypertarget{sendmmsg__rawsock_8c_a34a317340364455f71c74b02ed2f6db9}{}\label{sendmmsg__rawsock_8c_a34a317340364455f71c74b02ed2f6db9}
+
+
+sendmmsg\+\_\+rawsock.\+c 파일의 291 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+292 \{
+293     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+294     \hyperlink{structsendmmsg__rawsock__t}{sendmmsg\_rawsock\_t} *rawsock = (\hyperlink{structsendmmsg__rawsock__t}{sendmmsg\_rawsock\_t}*)pvRawsock;
+295     \textcolor{keywordtype}{int} bufidx;
+296 
+297     \textcolor{keywordflow}{if} (!\hyperlink{rawsock__impl_8h_a4b69291961256f36eefc280eb2d3e447}{VALID\_TX\_RAWSOCK}(rawsock)) \{
+298         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Marking TX frame ready; invalid argument"});
+299         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+300         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+301     \}
+302 
+303     bufidx = rawsock->\hyperlink{structsendmmsg__rawsock__t_a06dd59c797f7aa0ca9f888304888f2a0}{buffersReady};
+304     assert(pBuffer == rawsock->\hyperlink{structsendmmsg__rawsock__t_af18aae0e23cde1425d996e84b62c8829}{pktbuf}[bufidx]);
+305 
+306 \textcolor{preprocessor}{#if USE\_LAUNCHTIME}
+307     \textcolor{keywordflow}{if} (!timeNsec) \{
+308         \hyperlink{maap__log_8h_ae9decd5440c360a6d0ab5175c9cf08be}{IF\_LOG\_INTERVAL}(1000) \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a6e7cd550837a0406e98b81a840d10ea9}{AVB\_LOG\_WARNING}("launch time is enabled but not
+       passed to TxFrameReady");
+309     \}
+310     \hyperlink{sendmmsg__rawsock_8c_a30102b93da286d88e78bfaf022a87014}{fillmsghdr}(&(rawsock->mmsg[bufidx].msg\_hdr), &(rawsock->miov[bufidx]), rawsock->cmsgbuf[
+      bufidx],
+311                timeNsec, rawsock->pktbuf[bufidx], len);
+312 \textcolor{preprocessor}{#else}
+313     \textcolor{keywordflow}{if} (timeNsec) \{
+314         \hyperlink{maap__log_8h_ae9decd5440c360a6d0ab5175c9cf08be}{IF\_LOG\_INTERVAL}(1000) \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a6e7cd550837a0406e98b81a840d10ea9}{AVB\_LOG\_WARNING}("launch time is not enabled but
+       was passed to TxFrameReady");
+315     \}
+316     \hyperlink{sendmmsg__rawsock_8c_a30102b93da286d88e78bfaf022a87014}{fillmsghdr}(&(rawsock->mmsg[bufidx].msg\_hdr), &(rawsock->miov[bufidx]), rawsock->pktbuf[bufidx
+      ], len);
+317 \textcolor{preprocessor}{#endif}
+318 
+319 
+320     rawsock->\hyperlink{structsendmmsg__rawsock__t_a06dd59c797f7aa0ca9f888304888f2a0}{buffersReady} += 1;
+321 
+322     \textcolor{keywordflow}{if} (rawsock->\hyperlink{structsendmmsg__rawsock__t_a06dd59c797f7aa0ca9f888304888f2a0}{buffersReady} >= rawsock->\hyperlink{structsendmmsg__rawsock__t_abaf7d77bd2fc7eb6125fa605bd645b67}{frameCount}) \{
+323         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a28a4d0350d530ad95c95b8383c00cd9c}{AVB\_LOG\_DEBUG}(\textcolor{stringliteral}{"All TxFrame slots marked ready"});
+324         \textcolor{comment}{//sendmmsgRawsockSend(rawsock);}
+325     \}
+326 
+327     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+328     \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+329 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=348pt]{sendmmsg__rawsock_8c_a34a317340364455f71c74b02ed2f6db9_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sendmmsg__rawsock_8c_a34a317340364455f71c74b02ed2f6db9_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{sendmmsg\+\_\+rawsock.\+c@{sendmmsg\+\_\+rawsock.\+c}!sendmmsg\+Rawsock\+Tx\+Set\+Hdr@{sendmmsg\+Rawsock\+Tx\+Set\+Hdr}}
+\index{sendmmsg\+Rawsock\+Tx\+Set\+Hdr@{sendmmsg\+Rawsock\+Tx\+Set\+Hdr}!sendmmsg\+\_\+rawsock.\+c@{sendmmsg\+\_\+rawsock.\+c}}
+\subsubsection[{\texorpdfstring{sendmmsg\+Rawsock\+Tx\+Set\+Hdr(void $\ast$pv\+Rawsock, hdr\+\_\+info\+\_\+t $\ast$p\+Hdr)}{sendmmsgRawsockTxSetHdr(void *pvRawsock, hdr_info_t *pHdr)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} sendmmsg\+Rawsock\+Tx\+Set\+Hdr (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{pv\+Rawsock, }
+\item[{{\bf hdr\+\_\+info\+\_\+t} $\ast$}]{p\+Hdr}
+\end{DoxyParamCaption}
+)}\hypertarget{sendmmsg__rawsock_8c_a343592b0f0ce77bcf88e48998eee14d9}{}\label{sendmmsg__rawsock_8c_a343592b0f0ce77bcf88e48998eee14d9}
+
+
+sendmmsg\+\_\+rawsock.\+c 파일의 269 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+270 \{
+271     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+272     \hyperlink{structsendmmsg__rawsock__t}{sendmmsg\_rawsock\_t} *rawsock = (\hyperlink{structsendmmsg__rawsock__t}{sendmmsg\_rawsock\_t}*)pvRawsock;
+273 
+274     \textcolor{keywordtype}{bool} ret = \hyperlink{rawsock__impl_8c_add65f99e1a5bbc1dec151b6b12ef59c1}{baseRawsockTxSetHdr}(pvRawsock, pHdr);
+275     \textcolor{keywordflow}{if} (ret && pHdr->\hyperlink{structhdr__info__t_aae65321fd27fc2507a499a3f00660a93}{vlan}) \{
+276         \textcolor{comment}{// set the class'es priority on the TX socket}
+277         \textcolor{comment}{// (required by Telechips platform for FQTSS Credit Based Shaper to work)}
+278         \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} pcp = pHdr->\hyperlink{structhdr__info__t_a394deccdf47e8dd6b4e6329e6fe0f8fc}{vlan\_pcp};
+279         \textcolor{keywordflow}{if} (setsockopt(rawsock->\hyperlink{structsendmmsg__rawsock__t_a5903d0b282fc5eae503de618f896b5e1}{sock}, SOL\_SOCKET, SO\_PRIORITY, (\textcolor{keywordtype}{char} *)&pcp, \textcolor{keyword}{sizeof}(pcp)) < 0) \{
+280             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"openavbRawsockTxSetHdr; SO\_PRIORITY setsockopt failed (%d: %s)\(\backslash\)n"}
+      , errno, strerror(errno));
+281             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+282             \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+283         \}
+284     \}
+285 
+286     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+287     \textcolor{keywordflow}{return} ret;
+288 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sendmmsg__rawsock_8c_a343592b0f0ce77bcf88e48998eee14d9_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sendmmsg__rawsock_8c_a343592b0f0ce77bcf88e48998eee14d9_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{sendmmsg\+\_\+rawsock.\+c@{sendmmsg\+\_\+rawsock.\+c}!sendmmsg\+Rawsock\+Tx\+Set\+Mark@{sendmmsg\+Rawsock\+Tx\+Set\+Mark}}
+\index{sendmmsg\+Rawsock\+Tx\+Set\+Mark@{sendmmsg\+Rawsock\+Tx\+Set\+Mark}!sendmmsg\+\_\+rawsock.\+c@{sendmmsg\+\_\+rawsock.\+c}}
+\subsubsection[{\texorpdfstring{sendmmsg\+Rawsock\+Tx\+Set\+Mark(void $\ast$pv\+Rawsock, int mark)}{sendmmsgRawsockTxSetMark(void *pvRawsock, int mark)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} sendmmsg\+Rawsock\+Tx\+Set\+Mark (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{pv\+Rawsock, }
+\item[{int}]{mark}
+\end{DoxyParamCaption}
+)}\hypertarget{sendmmsg__rawsock_8c_acb6cafdbddc6c54dcbeb38dc7bbe3047}{}\label{sendmmsg__rawsock_8c_acb6cafdbddc6c54dcbeb38dc7bbe3047}
+
+
+sendmmsg\+\_\+rawsock.\+c 파일의 244 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+245 \{
+246     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+247     \hyperlink{structsendmmsg__rawsock__t}{sendmmsg\_rawsock\_t} *rawsock = (\hyperlink{structsendmmsg__rawsock__t}{sendmmsg\_rawsock\_t}*)pvRawsock;
+248     \textcolor{keywordtype}{bool} retval = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+249 
+250     \textcolor{keywordflow}{if} (!\hyperlink{rawsock__impl_8h_a4b69291961256f36eefc280eb2d3e447}{VALID\_TX\_RAWSOCK}(rawsock)) \{
+251         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Setting TX mark; invalid argument passed"});
+252         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+253         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+254     \}
+255 
+256     \textcolor{keywordflow}{if} (setsockopt(rawsock->\hyperlink{structsendmmsg__rawsock__t_a5903d0b282fc5eae503de618f896b5e1}{sock}, SOL\_SOCKET, SO\_MARK, &mark, \textcolor{keyword}{sizeof}(mark)) < 0) \{
+257         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Setting TX mark; setsockopt failed: %s"}, strerror(errno));
+258     \}
+259     \textcolor{keywordflow}{else} \{
+260         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afcf1f0c1d10ae9efe3782eb6cae78355}{AVB\_LOGF\_DEBUG}(\textcolor{stringliteral}{"SO\_MARK=%d OK"}, mark);
+261         retval = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+262     \}
+263 
+264     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+265     \textcolor{keywordflow}{return} retval;
+266 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sendmmsg__rawsock_8c_acb6cafdbddc6c54dcbeb38dc7bbe3047_icgraph}
+\end{center}
+\end{figure}
+
+

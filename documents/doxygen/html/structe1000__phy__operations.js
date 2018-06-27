@@ -1,0 +1,27 @@
+var structe1000__phy__operations =
+[
+    [ "acquire", "structe1000__phy__operations.html#a8509a9e3db6050cb00cecc1a855a70ed", null ],
+    [ "check_polarity", "structe1000__phy__operations.html#adf880b61cb2c5833fbb8e01e8d277fde", null ],
+    [ "check_reset_block", "structe1000__phy__operations.html#a7803e367ac5c93cfef01ab5b87b0faf4", null ],
+    [ "commit", "structe1000__phy__operations.html#aa09068659dd86c6ac8c8eaf206c848b4", null ],
+    [ "force_speed_duplex", "structe1000__phy__operations.html#ab64c7048c4bdefd4c8b2d7a2ef740fa7", null ],
+    [ "get_cable_length", "structe1000__phy__operations.html#a5aefa6c2cf34fccb05ae967035ddcbb2", null ],
+    [ "get_cfg_done", "structe1000__phy__operations.html#a0b4b4b03c09f1cf6f965ce87c2603ddf", null ],
+    [ "get_info", "structe1000__phy__operations.html#a06c5e946bbaf7e58c07cf9cdf4693d86", null ],
+    [ "init_params", "structe1000__phy__operations.html#a9697a81cd453237323e05ff88409b12e", null ],
+    [ "power_down", "structe1000__phy__operations.html#a80d000e104f62b199036f3ef2c6155cc", null ],
+    [ "power_up", "structe1000__phy__operations.html#ada8867e1826b125dcba1f902d0e4c336", null ],
+    [ "read_i2c_byte", "structe1000__phy__operations.html#abedfb928b1c7d903c0ccd7d418d01bbf", null ],
+    [ "read_reg", "structe1000__phy__operations.html#af44e212061c26684f96a0ebad95b082d", null ],
+    [ "read_reg_locked", "structe1000__phy__operations.html#ab13c897f42cd1f5047442afb74a848db", null ],
+    [ "read_reg_page", "structe1000__phy__operations.html#a9d7027e7ea07b9dda55cf8864bbd0e6a", null ],
+    [ "release", "structe1000__phy__operations.html#a057bf49d5a21aeee7fcfd364257cb772", null ],
+    [ "reset", "structe1000__phy__operations.html#aef9d6fbe479defb756ad67276bedfdc6", null ],
+    [ "set_d0_lplu_state", "structe1000__phy__operations.html#ac776eb575de99b291031dd2d4dff5f4a", null ],
+    [ "set_d3_lplu_state", "structe1000__phy__operations.html#a78ba346712f4dac43d90c15532953540", null ],
+    [ "set_page", "structe1000__phy__operations.html#a891054739d07decd52a06100c6fbbd61", null ],
+    [ "write_i2c_byte", "structe1000__phy__operations.html#a89ea2eace6a337da0420dcaea019fbcb", null ],
+    [ "write_reg", "structe1000__phy__operations.html#a00dd285f09f84ed5253d2900fd0d8abc", null ],
+    [ "write_reg_locked", "structe1000__phy__operations.html#a06ffb29c1c44bab3efdb6284f824ab6d", null ],
+    [ "write_reg_page", "structe1000__phy__operations.html#ae80ed9cf707fab7457236e9f99e20874", null ]
+];

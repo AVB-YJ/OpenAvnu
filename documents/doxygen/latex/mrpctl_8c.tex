@@ -1,0 +1,399 @@
+\hypertarget{mrpctl_8c}{}\section{daemons/mrpd/mrpctl.c 파일 참조}
+\label{mrpctl_8c}\index{daemons/mrpd/mrpctl.\+c@{daemons/mrpd/mrpctl.\+c}}
+{\ttfamily \#include $<$fcntl.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$sys/socket.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}mrpd.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}mrpdclient.\+h\char`\"{}}\\*
+mrpctl.\+c에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrpctl_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{mrpctl_8c_acfc1668731750cb1ee8974b8a7c133ef}{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR}~\char`\"{}0.\+0\char`\"{}
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{mrpctl_8c_ab633e3764b94c7df226459c01c7d4b2c}{process\+\_\+ctl\+\_\+msg} (char $\ast$buf, int buflen)
+\item 
+void \hyperlink{mrpctl_8c_ae8605e2b78cd4a81b6c6b5c30cb7366a}{usage} (void)
+\item 
+int \hyperlink{mrpctl_8c_a0ddf1224851353fc92bfbff6f499fa97}{main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\subsection*{변수}
+\begin{DoxyCompactItemize}
+\item 
+static const char $\ast$ \hyperlink{mrpctl_8c_ae724265d048ace6b96a1e977ea11c1c7}{version\+\_\+str}
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{mrpctl.\+c@{mrpctl.\+c}!V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR@{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR}}
+\index{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR@{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR}!mrpctl.\+c@{mrpctl.\+c}}
+\subsubsection[{\texorpdfstring{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR}{VERSION_STR}}]{\setlength{\rightskip}{0pt plus 5cm}\#define V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR~\char`\"{}0.\+0\char`\"{}}\hypertarget{mrpctl_8c_acfc1668731750cb1ee8974b8a7c133ef}{}\label{mrpctl_8c_acfc1668731750cb1ee8974b8a7c133ef}
+
+
+mrpctl.\+c 파일의 43 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{함수 문서화}
+\index{mrpctl.\+c@{mrpctl.\+c}!main@{main}}
+\index{main@{main}!mrpctl.\+c@{mrpctl.\+c}}
+\subsubsection[{\texorpdfstring{main(int argc, char $\ast$argv[])}{main(int argc, char *argv[])}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{mrpctl_8c_a0ddf1224851353fc92bfbff6f499fa97}{}\label{mrpctl_8c_a0ddf1224851353fc92bfbff6f499fa97}
+
+
+mrpctl.\+c 파일의 88 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+89 \{
+90     \textcolor{keywordtype}{int} \hyperlink{shaper__daemon_8c_a4e1e0e72dd773439e333c84dd762a9c3}{c};
+91     SOCKET \hyperlink{mrp_validate_8c_a7c6126ba8f26829f864321a56ba52389}{mrpd\_sock} = SOCKET\_ERROR;
+92     \textcolor{keywordtype}{int} rc = 0;
+93     \textcolor{keywordtype}{char} *\hyperlink{mrp_validate_8c_a3820841c4bbf28f04505bea65d6b84f7}{msgbuf};
+94 
+95     \textcolor{keywordflow}{for} (;;) \{
+96         c = \hyperlink{getopt_8c_a5b4d105808f29eef11f1a690ccc4e04a}{getopt}(argc, argv, \textcolor{stringliteral}{"h"});
+97         \textcolor{keywordflow}{if} (c < 0)
+98             \textcolor{keywordflow}{break};
+99         \textcolor{keywordflow}{switch} (c) \{
+100         \textcolor{keywordflow}{case} \textcolor{charliteral}{'h'}:
+101             \hyperlink{mrpctl_8c_ae8605e2b78cd4a81b6c6b5c30cb7366a}{usage}();
+102             \textcolor{keywordflow}{break};
+103         \}
+104     \}
+105     \textcolor{keywordflow}{if} (\hyperlink{getopt_8c_ad5e1c16213bbee2d5e8cc363309f418c}{optind} < argc)
+106         \hyperlink{mrpctl_8c_ae8605e2b78cd4a81b6c6b5c30cb7366a}{usage}();
+107 
+108     mrpd\_sock = \hyperlink{mrpdclient_8c_a86398ff28353622452f6cb48917cc6ef}{mrpdclient\_init}();
+109     \textcolor{keywordflow}{if} (mrpd\_sock == SOCKET\_ERROR) \{
+110         printf(\textcolor{stringliteral}{"mrpdclient\_init failed\(\backslash\)n"});
+111         \textcolor{keywordflow}{return} EXIT\_FAILURE;
+112     \}
+113 
+114     msgbuf = \hyperlink{_memory_leak_detector_malloc_macros_8h_ab8b25cd8f16d4a6552afe4e65c4f082d}{malloc}(\hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+115     \textcolor{keywordflow}{if} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} == msgbuf) \{
+116         printf(\textcolor{stringliteral}{"malloc failed\(\backslash\)n"});
+117         \textcolor{keywordflow}{return} EXIT\_FAILURE;
+118     \}
+119 
+120 \textcolor{preprocessor}{#ifdef XXX}
+121     memset(msgbuf,0,\hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+122     sprintf(msgbuf,\textcolor{stringliteral}{"M++:M=010203040506"});
+123     rc = \hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(mrpd\_sock, msgbuf, 
+      \hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+124     \textcolor{keywordflow}{if} (-1 == rc) \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+125     
+126     memset(msgbuf,0,\hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+127     sprintf(msgbuf,\textcolor{stringliteral}{"M++:M=ffffffffffff"});
+128     rc = \hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(mrpd\_sock, msgbuf, 
+      \hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+129     \textcolor{keywordflow}{if} (-1 == rc) \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+130 
+131     memset(msgbuf,0,\hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+132     sprintf(msgbuf,\textcolor{stringliteral}{"V++:I=0002"});
+133     rc = \hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(mrpd\_sock, msgbuf, 
+      \hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+134     \textcolor{keywordflow}{if} (-1 == rc) \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+135 
+136     memset(msgbuf,0,\hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+137     sprintf(msgbuf,\textcolor{stringliteral}{"M++:M=060504030201"});
+138     rc = \hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(mrpd\_sock, msgbuf, 
+      \hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+139     \textcolor{keywordflow}{if} (-1 == rc) \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+140 
+141     memset(msgbuf,0,\hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+142     sprintf(msgbuf,\textcolor{stringliteral}{"M++:S=1"});
+143     rc = \hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(mrpd\_sock, msgbuf, 
+      \hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+144     \textcolor{keywordflow}{if} (-1 == rc) \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+145 
+146     memset(msgbuf,0,\hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+147     sprintf(msgbuf,\textcolor{stringliteral}{"M--:M=060504030201"});
+148     rc = \hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(mrpd\_sock, msgbuf, 
+      \hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+149     \textcolor{keywordflow}{if} (-1 == rc) \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+150 
+151     memset(msgbuf,0,\hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+152     sprintf(msgbuf,\textcolor{stringliteral}{"M--:S=1"});
+153     rc = \hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(mrpd\_sock, msgbuf, 
+      \hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+154     \textcolor{keywordflow}{if} (-1 == rc) \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+155 
+156     memset(msgbuf,0,\hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+157     sprintf(msgbuf,\textcolor{stringliteral}{"M+?:M=060504030201"});
+158     rc = \hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(mrpd\_sock, msgbuf, 
+      \hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+159     \textcolor{keywordflow}{if} (-1 == rc) \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+160 
+161     memset(msgbuf,0,\hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+162     sprintf(msgbuf,\textcolor{stringliteral}{"M+?:S=1"});
+163     rc = \hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(mrpd\_sock, msgbuf, 
+      \hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+164     \textcolor{keywordflow}{if} (-1 == rc) \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+165 
+166     memset(msgbuf,0,\hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+167     sprintf(msgbuf,\textcolor{stringliteral}{"M--:M=060504030201"});
+168     rc = \hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(mrpd\_sock, msgbuf, 
+      \hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+169     \textcolor{keywordflow}{if} (-1 == rc) \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+170 
+171     memset(msgbuf,0,\hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+172     sprintf(msgbuf,\textcolor{stringliteral}{"M--:S=1"});
+173     rc = \hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(mrpd\_sock, msgbuf, 
+      \hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+174     \textcolor{keywordflow}{if} (-1 == rc) \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+175 
+176     memset(msgbuf,0,\hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+177     sprintf(msgbuf,\textcolor{stringliteral}{"V--:I=0002"});
+178     rc = \hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(mrpd\_sock, msgbuf, 
+      \hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+179     \textcolor{keywordflow}{if} (-1 == rc) \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+180 
+181     memset(msgbuf,0,\hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+182     sprintf(msgbuf,\textcolor{stringliteral}{"V+?:I=0002"});
+183     rc = \hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(mrpd\_sock, msgbuf, 
+      \hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+184     \textcolor{keywordflow}{if} (-1 == rc) \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+185 
+186     memset(msgbuf,0,\hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+187     sprintf(msgbuf,\textcolor{stringliteral}{"V--:I=0002"});
+188     rc = \hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(mrpd\_sock, msgbuf, 
+      \hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+189     \textcolor{keywordflow}{if} (-1 == rc) \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+190 
+191     memset(msgbuf,0,\hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+192     sprintf(msgbuf,\textcolor{stringliteral}{"S+?:S=DEADBEEFBADFCA11,A=112233445566,V=0002,Z=576,I=8000,P=96,L=1000"});
+193     rc = \hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(mrpd\_sock, msgbuf, 
+      \hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+194     \textcolor{keywordflow}{if} (-1 == rc) \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+195 
+196     memset(msgbuf,0,\hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+197     sprintf(msgbuf,\textcolor{stringliteral}{"S--:S=DEADBEEFBADFCA11"});
+198     rc = \hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(mrpd\_sock, msgbuf, 
+      \hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+199     \textcolor{keywordflow}{if} (-1 == rc) \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+200 
+201     memset(msgbuf,0,\hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+202     sprintf(msgbuf,\textcolor{stringliteral}{"S++:S=FFEEDDCCBBAA9988,A=112233445567,V=0002,Z=576,I=8000,P=96,L=1000"});
+203     rc = \hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(mrpd\_sock, msgbuf, 
+      \hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+204     \textcolor{keywordflow}{if} (-1 == rc) \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+205 
+206     memset(msgbuf,0,\hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+207     sprintf(msgbuf,\textcolor{stringliteral}{"S+L:L=DEADBEEFBADFCA11,D=2"});
+208     rc = \hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(mrpd\_sock, msgbuf, 
+      \hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+209     \textcolor{keywordflow}{if} (-1 == rc) \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+210 
+211     memset(msgbuf,0,\hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+212     sprintf(msgbuf,\textcolor{stringliteral}{"S+L:L=F00F00F00F00F000,D=2"});
+213     rc = \hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(mrpd\_sock, msgbuf, 
+      \hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+214     \textcolor{keywordflow}{if} (-1 == rc) \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+215 
+216     memset(msgbuf,0,\hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+217     sprintf(msgbuf, \textcolor{stringliteral}{"S+D:C=6,P=3,V=0002"});
+218     rc = \hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(mrpd\_sock, msgbuf, 
+      \hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+219     \textcolor{keywordflow}{if} (-1 == rc) \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+220 
+221     memset(msgbuf,0,\hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+222     sprintf(msgbuf, \textcolor{stringliteral}{"S-D:C=6,P=3,V=0002"});
+223     rc = \hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(mrpd\_sock, msgbuf, 
+      \hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+224     \textcolor{keywordflow}{if} (-1 == rc) \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+225 
+226     memset(msgbuf,0,\hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+227     sprintf(msgbuf,\textcolor{stringliteral}{"S-L:L=F00F00F00F00F000"});
+228     rc = \hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(mrpd\_sock, msgbuf, 
+      \hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+229     \textcolor{keywordflow}{if} (-1 == rc) \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+230 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* XXX */}\textcolor{preprocessor}{}
+231 
+232     memset(msgbuf,0,\hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+233     sprintf(msgbuf,\textcolor{stringliteral}{"V++:I=0002"}); \textcolor{comment}{/* JOIN\_IN VID 2: SR\_PVID, SRP traffic */}
+234     rc = \hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(mrpd\_sock, msgbuf, 
+      \hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+235     \textcolor{keywordflow}{if} (-1 == rc) \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+236 
+237 \textcolor{preprocessor}{#ifdef YYYY }
+238     memset(msgbuf,0,\hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+239     sprintf(msgbuf,\textcolor{stringliteral}{"S+L:L=0050c24edb0a0001,D=2"});
+240     rc = \hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(mrpd\_sock, msgbuf, 
+      \hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+241     \textcolor{keywordflow}{if} (-1 == rc) \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+242 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* YYYY */}\textcolor{preprocessor}{}
+243 
+244     \textcolor{keywordflow}{do} \{
+245         \textcolor{comment}{/* query MMRP Registrar MAC Address database */}
+246         memset(msgbuf,0,\hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+247         sprintf(msgbuf,\textcolor{stringliteral}{"M??"});
+248         rc = \hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(mrpd\_sock, msgbuf, 
+      \hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+249         \textcolor{keywordflow}{if} (-1 == rc) \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+250 
+251         \textcolor{comment}{/* query MVRP Registrar VID database */}
+252         memset(msgbuf,0,\hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+253         sprintf(msgbuf,\textcolor{stringliteral}{"V??"});
+254         rc = \hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(mrpd\_sock, msgbuf, 
+      \hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+255         \textcolor{keywordflow}{if} (-1 == rc) \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+256 
+257         \textcolor{comment}{/* query MSRP Registrar database */}
+258         memset(msgbuf,0,\hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+259         sprintf(msgbuf,\textcolor{stringliteral}{"S??"});
+260         rc = \hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(mrpd\_sock, msgbuf, 
+      \hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+261         \textcolor{keywordflow}{if} (-1 == rc) \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+262 
+263         \textcolor{comment}{/* yield replies */}
+264         \textcolor{keywordflow}{do} \{
+265             rc = \hyperlink{mrpdclient_8c_aa06f3394689317153319bfcfc7a0b768}{mrpdclient\_recv}(mrpd\_sock, \hyperlink{mrpctl_8c_ab633e3764b94c7df226459c01c7d4b2c}{process\_ctl\_msg});
+266             \textcolor{keywordflow}{if} (-1 == rc) \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+267         \} \textcolor{keywordflow}{while} (rc >=0);
+268 
+269         sleep(1);
+270     \} \textcolor{keywordflow}{while} (1);
+271 
+272     \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(msgbuf);
+273     rc = \hyperlink{mrpdclient_8c_aa4b8e8554b0dd71a41dab7280373d736}{mrpdclient\_close}(&mrpd\_sock);
+274 
+275 \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out}:
+276     \textcolor{keywordflow}{if} (-1 == rc)
+277         \textcolor{keywordflow}{return} EXIT\_FAILURE;
+278     \textcolor{keywordflow}{else}
+279         \textcolor{keywordflow}{return} EXIT\_SUCCESS;
+280 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrpctl_8c_a0ddf1224851353fc92bfbff6f499fa97_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrpctl.\+c@{mrpctl.\+c}!process\+\_\+ctl\+\_\+msg@{process\+\_\+ctl\+\_\+msg}}
+\index{process\+\_\+ctl\+\_\+msg@{process\+\_\+ctl\+\_\+msg}!mrpctl.\+c@{mrpctl.\+c}}
+\subsubsection[{\texorpdfstring{process\+\_\+ctl\+\_\+msg(char $\ast$buf, int buflen)}{process_ctl_msg(char *buf, int buflen)}}]{\setlength{\rightskip}{0pt plus 5cm}int process\+\_\+ctl\+\_\+msg (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{buf, }
+\item[{int}]{buflen}
+\end{DoxyParamCaption}
+)}\hypertarget{mrpctl_8c_ab633e3764b94c7df226459c01c7d4b2c}{}\label{mrpctl_8c_ab633e3764b94c7df226459c01c7d4b2c}
+
+
+mrpctl.\+c 파일의 48 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+49 \{
+50     (void)buflen; \textcolor{comment}{/* unused */}
+51 
+52     \textcolor{comment}{/*}
+53 \textcolor{comment}{     * M?? - query MMRP Registrar MAC Address database}
+54 \textcolor{comment}{     * M+? - JOIN\_MT a MAC address}
+55 \textcolor{comment}{     * -- note M++ doesn't exist apparently- MMRP doesn't use 'New' --}
+56 \textcolor{comment}{     * M-- - LV a MAC address}
+57 \textcolor{comment}{     * V?? - query MVRP Registrar VID database}
+58 \textcolor{comment}{     * V++ - JOIN\_IN a VID (VLAN ID)}
+59 \textcolor{comment}{     * V+? - JOIN\_MT a VID (VLAN ID)}
+60 \textcolor{comment}{     * V-- - LV a VID (VLAN ID)}
+61 \textcolor{comment}{     */}
+62 
+63     \textcolor{keywordflow}{if} (buf[1] == \textcolor{charliteral}{':'})
+64         printf(\textcolor{stringliteral}{"?? RESP:\(\backslash\)n%s"}, buf);
+65     \textcolor{keywordflow}{else}
+66         printf(\textcolor{stringliteral}{"MRPD ---> %s"}, buf);
+67     fflush(stdout);
+68     \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(buf);
+69 
+70     \textcolor{keywordflow}{return} 0;
+71 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=245pt]{mrpctl_8c_ab633e3764b94c7df226459c01c7d4b2c_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrpctl.\+c@{mrpctl.\+c}!usage@{usage}}
+\index{usage@{usage}!mrpctl.\+c@{mrpctl.\+c}}
+\subsubsection[{\texorpdfstring{usage(void)}{usage(void)}}]{\setlength{\rightskip}{0pt plus 5cm}void usage (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{mrpctl_8c_ae8605e2b78cd4a81b6c6b5c30cb7366a}{}\label{mrpctl_8c_ae8605e2b78cd4a81b6c6b5c30cb7366a}
+
+
+mrpctl.\+c 파일의 73 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+74 \{
+75     fprintf(stderr, 
+76         \textcolor{stringliteral}{"\(\backslash\)n"}
+77         \textcolor{stringliteral}{"usage: mrpctl [-h]"}
+78         \textcolor{stringliteral}{"\(\backslash\)n"}
+79         \textcolor{stringliteral}{"options:\(\backslash\)n"}
+80         \textcolor{stringliteral}{"    -h  show this message\(\backslash\)n"}
+81         \textcolor{stringliteral}{"\(\backslash\)n"}
+82         \textcolor{stringliteral}{"%s"}
+83         \textcolor{stringliteral}{"\(\backslash\)n"}, \hyperlink{mrpctl_8c_ae724265d048ace6b96a1e977ea11c1c7}{version\_str});
+84     exit(1);
+85 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=197pt]{mrpctl_8c_ae8605e2b78cd4a81b6c6b5c30cb7366a_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{변수 문서화}
+\index{mrpctl.\+c@{mrpctl.\+c}!version\+\_\+str@{version\+\_\+str}}
+\index{version\+\_\+str@{version\+\_\+str}!mrpctl.\+c@{mrpctl.\+c}}
+\subsubsection[{\texorpdfstring{version\+\_\+str}{version_str}}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ version\+\_\+str\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{mrpctl_8c_ae724265d048ace6b96a1e977ea11c1c7}{}\label{mrpctl_8c_ae724265d048ace6b96a1e977ea11c1c7}
+{\bfseries 초기값\+:}
+\begin{DoxyCode}
+=
+    \textcolor{stringliteral}{"mrpctl v"} \hyperlink{mrpctl_8c_acfc1668731750cb1ee8974b8a7c133ef}{VERSION\_STR} \textcolor{stringliteral}{"\(\backslash\)n"}
+    \textcolor{stringliteral}{"Copyright (c) 2012, Intel Corporation\(\backslash\)n"}
+\end{DoxyCode}
+
+
+mrpctl.\+c 파일의 44 번째 라인에서 정의되었습니다.
+

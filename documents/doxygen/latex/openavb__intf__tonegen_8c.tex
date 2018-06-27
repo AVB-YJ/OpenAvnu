@@ -1,0 +1,1129 @@
+\hypertarget{openavb__intf__tonegen_8c}{}\section{lib/avtp\+\_\+pipeline/intf\+\_\+tonegen/openavb\+\_\+intf\+\_\+tonegen.c 파일 참조}
+\label{openavb__intf__tonegen_8c}\index{lib/avtp\+\_\+pipeline/intf\+\_\+tonegen/openavb\+\_\+intf\+\_\+tonegen.\+c@{lib/avtp\+\_\+pipeline/intf\+\_\+tonegen/openavb\+\_\+intf\+\_\+tonegen.\+c}}
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$endian.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+platform\+\_\+pub.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+osal\+\_\+pub.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+types\+\_\+pub.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+trace\+\_\+pub.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+mediaq\+\_\+pub.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+map\+\_\+uncmp\+\_\+audio\+\_\+pub.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+map\+\_\+aaf\+\_\+audio\+\_\+pub.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+intf\+\_\+pub.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+mcs.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+log\+\_\+pub.\+h\char`\"{}}\\*
+openavb\+\_\+intf\+\_\+tonegen.\+c에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__tonegen_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{데이타 구조}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structpvt__data__t}{pvt\+\_\+data\+\_\+t}
+\end{DoxyCompactItemize}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{openavb__intf__tonegen_8c_abcfb21b6495585fe36058f57a9fe58fc}{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}~\char`\"{}Tone Gen Interface\char`\"{}
+\item 
+\#define \hyperlink{openavb__intf__tonegen_8c_a598a3330b3c21701223ee0ca14316eca}{PI}~3.\+14159265358979f
+\item 
+\#define \hyperlink{openavb__intf__tonegen_8c_ad7df45bd162706f545c1836c7f9a45d0}{M\+S\+E\+C\+\_\+\+P\+E\+R\+\_\+\+C\+O\+U\+NT}~250
+\item 
+\#define \hyperlink{openavb__intf__tonegen_8c_a45ba83aa3454d3bfa4133c2a2ae218ca}{S\+W\+A\+P\+U16}(x)~(((x) $>$$>$ 8) $\vert$ ((x) $<$$<$ 8))
+\item 
+\#define \hyperlink{openavb__intf__tonegen_8c_a6186cb28851336e9e6a8c75bb47ff07b}{S\+W\+A\+P\+U32}(x)~(((x) $>$$>$ 24) $\vert$ (((x) \& 0x00\+F\+F0000) $>$$>$ 8) $\vert$ (((x) \& 0x0000\+F\+F00) $<$$<$ 8) $\vert$ ((x) $<$$<$ 24))
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{openavb__intf__tonegen_8c_a4184cd82013828b945b58cd136ff86d2}{x\+Get\+Melody\+Tone\+And\+Duration} (char note, char count, \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} $\ast$freq, \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} $\ast$sample\+M\+Sec)
+\item 
+static \hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__intf__tonegen_8c_a9f03e68f083c9d64d9d0ceaee29a19cf}{x\+Supported\+Mapping\+Format} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ)
+\item 
+void \hyperlink{openavb__intf__tonegen_8c_aa48a33825639f0644d783b73d30f601f}{openavb\+Intf\+Tone\+Gen\+Cfg\+CB} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ, const char $\ast$name, const char $\ast$value)
+\item 
+void \hyperlink{openavb__intf__tonegen_8c_ad6941183997d7c3b5933ad326e9f484a}{openavb\+Intf\+Tone\+Gen\+Gen\+Init\+CB} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ)
+\item 
+void \hyperlink{openavb__intf__tonegen_8c_a369d96d28aedd953f9f7afbd6b0a882c}{openavb\+Intf\+Tone\+Gen\+Tx\+Init\+CB} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ)
+\item 
+static \hyperlink{openavb__types__base__pub_8h_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16} \hyperlink{openavb__intf__tonegen_8c_a42650cfc8c97d65e8d437f2a4342555d}{convert\+To\+Desired\+Endian\+Order16} (\hyperlink{openavb__types__base__pub_8h_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16} host\+Data, \hyperlink{openavb__audio__pub_8h_a945c53b1886540f6c50d0720b3befc23}{avb\+\_\+audio\+\_\+endian\+\_\+t} audio\+Endian)
+\item 
+static \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} \hyperlink{openavb__intf__tonegen_8c_a1c23409d37011937d198e20a9b9408a2}{convert\+To\+Desired\+Endian\+Order32} (\hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} host\+Data, \hyperlink{openavb__audio__pub_8h_a945c53b1886540f6c50d0720b3befc23}{avb\+\_\+audio\+\_\+endian\+\_\+t} audio\+Endian)
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__intf__tonegen_8c_ab09df4912bb681092312f597c767b6d3}{openavb\+Intf\+Tone\+Gen\+Tx\+CB} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ)
+\item 
+void \hyperlink{openavb__intf__tonegen_8c_a2a8e6e8acf6adc086131e25f573757d8}{openavb\+Intf\+Tone\+Gen\+Rx\+Init\+CB} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ)
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__intf__tonegen_8c_a769ac781d50eba6ebcb2bd2d3e849e0f}{openavb\+Intf\+Tone\+Gen\+Rx\+CB} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ)
+\item 
+void \hyperlink{openavb__intf__tonegen_8c_aaa8c32def72dc240d67a78154072f006}{openavb\+Intf\+Tone\+Gen\+End\+CB} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ)
+\item 
+void \hyperlink{openavb__intf__tonegen_8c_ab80b0cc4005d6fec7dff6b73c572b848}{openavb\+Intf\+Tone\+Gen\+Gen\+End\+CB} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ)
+\item 
+void \hyperlink{openavb__intf__tonegen_8c_ac1e7b349d846370f4b37f42fe2d801a4}{openavb\+Intf\+Tone\+Gen\+Enable\+Fixed\+Timestamp} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ, \hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} enabled, \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} transmit\+Interval, \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} batch\+Factor)
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{include_2openavb__types__pub_8h_a1ca888bd091694c05472e1b91df1a97b}{D\+L\+L\+\_\+\+E\+X\+P\+O\+RT} \hyperlink{openavb__intf__tonegen_8c_ad792236ee5588a1449b476289d2e6004}{openavb\+Intf\+Tone\+Gen\+Initialize} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ, \hyperlink{structopenavb__intf__cb__t}{openavb\+\_\+intf\+\_\+cb\+\_\+t} $\ast$p\+Intf\+CB)
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{openavb\+\_\+intf\+\_\+tonegen.\+c@{openavb\+\_\+intf\+\_\+tonegen.\+c}!A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT@{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}}
+\index{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT@{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}!openavb\+\_\+intf\+\_\+tonegen.\+c@{openavb\+\_\+intf\+\_\+tonegen.\+c}}
+\subsubsection[{\texorpdfstring{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}{AVB_LOG_COMPONENT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT~\char`\"{}Tone Gen Interface\char`\"{}}\hypertarget{openavb__intf__tonegen_8c_abcfb21b6495585fe36058f57a9fe58fc}{}\label{openavb__intf__tonegen_8c_abcfb21b6495585fe36058f57a9fe58fc}
+
+
+openavb\+\_\+intf\+\_\+tonegen.\+c 파일의 53 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+intf\+\_\+tonegen.\+c@{openavb\+\_\+intf\+\_\+tonegen.\+c}!M\+S\+E\+C\+\_\+\+P\+E\+R\+\_\+\+C\+O\+U\+NT@{M\+S\+E\+C\+\_\+\+P\+E\+R\+\_\+\+C\+O\+U\+NT}}
+\index{M\+S\+E\+C\+\_\+\+P\+E\+R\+\_\+\+C\+O\+U\+NT@{M\+S\+E\+C\+\_\+\+P\+E\+R\+\_\+\+C\+O\+U\+NT}!openavb\+\_\+intf\+\_\+tonegen.\+c@{openavb\+\_\+intf\+\_\+tonegen.\+c}}
+\subsubsection[{\texorpdfstring{M\+S\+E\+C\+\_\+\+P\+E\+R\+\_\+\+C\+O\+U\+NT}{MSEC_PER_COUNT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+S\+E\+C\+\_\+\+P\+E\+R\+\_\+\+C\+O\+U\+NT~250}\hypertarget{openavb__intf__tonegen_8c_ad7df45bd162706f545c1836c7f9a45d0}{}\label{openavb__intf__tonegen_8c_ad7df45bd162706f545c1836c7f9a45d0}
+
+
+openavb\+\_\+intf\+\_\+tonegen.\+c 파일의 128 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+intf\+\_\+tonegen.\+c@{openavb\+\_\+intf\+\_\+tonegen.\+c}!PI@{PI}}
+\index{PI@{PI}!openavb\+\_\+intf\+\_\+tonegen.\+c@{openavb\+\_\+intf\+\_\+tonegen.\+c}}
+\subsubsection[{\texorpdfstring{PI}{PI}}]{\setlength{\rightskip}{0pt plus 5cm}\#define PI~3.\+14159265358979f}\hypertarget{openavb__intf__tonegen_8c_a598a3330b3c21701223ee0ca14316eca}{}\label{openavb__intf__tonegen_8c_a598a3330b3c21701223ee0ca14316eca}
+
+
+openavb\+\_\+intf\+\_\+tonegen.\+c 파일의 56 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+intf\+\_\+tonegen.\+c@{openavb\+\_\+intf\+\_\+tonegen.\+c}!S\+W\+A\+P\+U16@{S\+W\+A\+P\+U16}}
+\index{S\+W\+A\+P\+U16@{S\+W\+A\+P\+U16}!openavb\+\_\+intf\+\_\+tonegen.\+c@{openavb\+\_\+intf\+\_\+tonegen.\+c}}
+\subsubsection[{\texorpdfstring{S\+W\+A\+P\+U16}{SWAPU16}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+W\+A\+P\+U16(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~(((x) $>$$>$ 8) $\vert$ ((x) $<$$<$ 8))}\hypertarget{openavb__intf__tonegen_8c_a45ba83aa3454d3bfa4133c2a2ae218ca}{}\label{openavb__intf__tonegen_8c_a45ba83aa3454d3bfa4133c2a2ae218ca}
+
+
+openavb\+\_\+intf\+\_\+tonegen.\+c 파일의 402 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+intf\+\_\+tonegen.\+c@{openavb\+\_\+intf\+\_\+tonegen.\+c}!S\+W\+A\+P\+U32@{S\+W\+A\+P\+U32}}
+\index{S\+W\+A\+P\+U32@{S\+W\+A\+P\+U32}!openavb\+\_\+intf\+\_\+tonegen.\+c@{openavb\+\_\+intf\+\_\+tonegen.\+c}}
+\subsubsection[{\texorpdfstring{S\+W\+A\+P\+U32}{SWAPU32}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+W\+A\+P\+U32(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~(((x) $>$$>$ 24) $\vert$ (((x) \& 0x00\+F\+F0000) $>$$>$ 8) $\vert$ (((x) \& 0x0000\+F\+F00) $<$$<$ 8) $\vert$ ((x) $<$$<$ 24))}\hypertarget{openavb__intf__tonegen_8c_a6186cb28851336e9e6a8c75bb47ff07b}{}\label{openavb__intf__tonegen_8c_a6186cb28851336e9e6a8c75bb47ff07b}
+
+
+openavb\+\_\+intf\+\_\+tonegen.\+c 파일의 429 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{함수 문서화}
+\index{openavb\+\_\+intf\+\_\+tonegen.\+c@{openavb\+\_\+intf\+\_\+tonegen.\+c}!convert\+To\+Desired\+Endian\+Order16@{convert\+To\+Desired\+Endian\+Order16}}
+\index{convert\+To\+Desired\+Endian\+Order16@{convert\+To\+Desired\+Endian\+Order16}!openavb\+\_\+intf\+\_\+tonegen.\+c@{openavb\+\_\+intf\+\_\+tonegen.\+c}}
+\subsubsection[{\texorpdfstring{convert\+To\+Desired\+Endian\+Order16(\+U16 host\+Data, avb\+\_\+audio\+\_\+endian\+\_\+t audio\+Endian)}{convertToDesiredEndianOrder16(U16 hostData, avb_audio_endian_t audioEndian)}}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf U16} convert\+To\+Desired\+Endian\+Order16 (
+\begin{DoxyParamCaption}
+\item[{{\bf U16}}]{host\+Data, }
+\item[{{\bf avb\+\_\+audio\+\_\+endian\+\_\+t}}]{audio\+Endian}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__intf__tonegen_8c_a42650cfc8c97d65e8d437f2a4342555d}{}\label{openavb__intf__tonegen_8c_a42650cfc8c97d65e8d437f2a4342555d}
+
+
+openavb\+\_\+intf\+\_\+tonegen.\+c 파일의 403 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+404 \{
+405 \textcolor{preprocessor}{#if defined \_\_BYTE\_ORDER && defined \_\_BIG\_ENDIAN && defined \_\_LITTLE\_ENDIAN}
+406 \textcolor{preprocessor}{#if \_\_BYTE\_ORDER == \_\_BIG\_ENDIAN}
+407     \textcolor{keywordflow}{if} (audioEndian == \hyperlink{openavb__audio__pub_8h_a945c53b1886540f6c50d0720b3befc23acec0ee573ca39ae4985e89711de33fba}{AVB\_AUDIO\_ENDIAN\_LITTLE}) \{ hostData = 
+      \hyperlink{openavb__intf__tonegen_8c_a45ba83aa3454d3bfa4133c2a2ae218ca}{SWAPU16}(hostData); \}
+408     \textcolor{keywordflow}{return} hostData;
+409 \textcolor{preprocessor}{#elif \_\_BYTE\_ORDER == \_\_LITTLE\_ENDIAN}
+410     \textcolor{keywordflow}{if} (audioEndian == \hyperlink{openavb__audio__pub_8h_a945c53b1886540f6c50d0720b3befc23affa208ef1f573de5f20848d9996dca16}{AVB\_AUDIO\_ENDIAN\_BIG}) \{ hostData = 
+      \hyperlink{openavb__intf__tonegen_8c_a45ba83aa3454d3bfa4133c2a2ae218ca}{SWAPU16}(hostData); \}
+411     \textcolor{keywordflow}{return} hostData;
+412 \textcolor{preprocessor}{#else}
+413 \textcolor{preprocessor}{    #error Unsupported Endian format}
+414 \textcolor{preprocessor}{#endif}
+415 \textcolor{preprocessor}{#else}
+416     \hyperlink{openavb__types__base__pub_8h_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16} test\_var = 1;
+417     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} test\_endian* = (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}*)&test\_var;
+418     \textcolor{keywordflow}{if} (test\_endian[0] == 0) \{
+419         \textcolor{comment}{// This is big-endian.}
+420         \textcolor{keywordflow}{if} (audioEndian == \hyperlink{openavb__audio__pub_8h_a945c53b1886540f6c50d0720b3befc23acec0ee573ca39ae4985e89711de33fba}{AVB\_AUDIO\_ENDIAN\_LITTLE}) \{ hostData = 
+      \hyperlink{openavb__intf__tonegen_8c_a45ba83aa3454d3bfa4133c2a2ae218ca}{SWAPU16}(hostData); \}
+421     \} \textcolor{keywordflow}{else} \{
+422         \textcolor{comment}{// This is little-endian.}
+423         \textcolor{keywordflow}{if} (audioEndian == \hyperlink{openavb__audio__pub_8h_a945c53b1886540f6c50d0720b3befc23affa208ef1f573de5f20848d9996dca16}{AVB\_AUDIO\_ENDIAN\_BIG}) \{ hostData = 
+      \hyperlink{openavb__intf__tonegen_8c_a45ba83aa3454d3bfa4133c2a2ae218ca}{SWAPU16}(hostData); \}
+424     \}
+425     \textcolor{keywordflow}{return} hostData;
+426 \textcolor{preprocessor}{#endif}
+427 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__tonegen_8c_a42650cfc8c97d65e8d437f2a4342555d_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+intf\+\_\+tonegen.\+c@{openavb\+\_\+intf\+\_\+tonegen.\+c}!convert\+To\+Desired\+Endian\+Order32@{convert\+To\+Desired\+Endian\+Order32}}
+\index{convert\+To\+Desired\+Endian\+Order32@{convert\+To\+Desired\+Endian\+Order32}!openavb\+\_\+intf\+\_\+tonegen.\+c@{openavb\+\_\+intf\+\_\+tonegen.\+c}}
+\subsubsection[{\texorpdfstring{convert\+To\+Desired\+Endian\+Order32(\+U32 host\+Data, avb\+\_\+audio\+\_\+endian\+\_\+t audio\+Endian)}{convertToDesiredEndianOrder32(U32 hostData, avb_audio_endian_t audioEndian)}}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf U32} convert\+To\+Desired\+Endian\+Order32 (
+\begin{DoxyParamCaption}
+\item[{{\bf U32}}]{host\+Data, }
+\item[{{\bf avb\+\_\+audio\+\_\+endian\+\_\+t}}]{audio\+Endian}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__intf__tonegen_8c_a1c23409d37011937d198e20a9b9408a2}{}\label{openavb__intf__tonegen_8c_a1c23409d37011937d198e20a9b9408a2}
+
+
+openavb\+\_\+intf\+\_\+tonegen.\+c 파일의 430 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+431 \{
+432 \textcolor{preprocessor}{#if defined \_\_BYTE\_ORDER && defined \_\_BIG\_ENDIAN && defined \_\_LITTLE\_ENDIAN}
+433 \textcolor{preprocessor}{#if \_\_BYTE\_ORDER == \_\_BIG\_ENDIAN}
+434     \textcolor{keywordflow}{if} (audioEndian == \hyperlink{openavb__audio__pub_8h_a945c53b1886540f6c50d0720b3befc23acec0ee573ca39ae4985e89711de33fba}{AVB\_AUDIO\_ENDIAN\_LITTLE}) \{ hostData = 
+      \hyperlink{openavb__intf__tonegen_8c_a6186cb28851336e9e6a8c75bb47ff07b}{SWAPU32}(hostData); \}
+435     \textcolor{keywordflow}{return} hostData;
+436 \textcolor{preprocessor}{#elif \_\_BYTE\_ORDER == \_\_LITTLE\_ENDIAN}
+437     \textcolor{keywordflow}{if} (audioEndian == \hyperlink{openavb__audio__pub_8h_a945c53b1886540f6c50d0720b3befc23affa208ef1f573de5f20848d9996dca16}{AVB\_AUDIO\_ENDIAN\_BIG}) \{ hostData = 
+      \hyperlink{openavb__intf__tonegen_8c_a6186cb28851336e9e6a8c75bb47ff07b}{SWAPU32}(hostData); \}
+438     \textcolor{keywordflow}{return} hostData;
+439 \textcolor{preprocessor}{#else}
+440 \textcolor{preprocessor}{    #error Unsupported Endian format}
+441 \textcolor{preprocessor}{#endif}
+442 \textcolor{preprocessor}{#else}
+443     \hyperlink{openavb__types__base__pub_8h_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16} test\_var = 1;
+444     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} test\_endian* = (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}*)&test\_var;
+445     \textcolor{keywordflow}{if} (test\_endian[0] == 0) \{
+446         \textcolor{comment}{// This is big-endian.}
+447         \textcolor{keywordflow}{if} (audioEndian == \hyperlink{openavb__audio__pub_8h_a945c53b1886540f6c50d0720b3befc23acec0ee573ca39ae4985e89711de33fba}{AVB\_AUDIO\_ENDIAN\_LITTLE}) \{ hostData = 
+      \hyperlink{openavb__intf__tonegen_8c_a6186cb28851336e9e6a8c75bb47ff07b}{SWAPU32}(hostData); \}
+448     \} \textcolor{keywordflow}{else} \{
+449         \textcolor{comment}{// This is little-endian.}
+450         \textcolor{keywordflow}{if} (audioEndian == \hyperlink{openavb__audio__pub_8h_a945c53b1886540f6c50d0720b3befc23affa208ef1f573de5f20848d9996dca16}{AVB\_AUDIO\_ENDIAN\_BIG}) \{ hostData = 
+      \hyperlink{openavb__intf__tonegen_8c_a6186cb28851336e9e6a8c75bb47ff07b}{SWAPU32}(hostData); \}
+451     \}
+452     \textcolor{keywordflow}{return} hostData;
+453 \textcolor{preprocessor}{#endif}
+454 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__tonegen_8c_a1c23409d37011937d198e20a9b9408a2_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+intf\+\_\+tonegen.\+c@{openavb\+\_\+intf\+\_\+tonegen.\+c}!openavb\+Intf\+Tone\+Gen\+Cfg\+CB@{openavb\+Intf\+Tone\+Gen\+Cfg\+CB}}
+\index{openavb\+Intf\+Tone\+Gen\+Cfg\+CB@{openavb\+Intf\+Tone\+Gen\+Cfg\+CB}!openavb\+\_\+intf\+\_\+tonegen.\+c@{openavb\+\_\+intf\+\_\+tonegen.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Intf\+Tone\+Gen\+Cfg\+C\+B(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q, const char $\ast$name, const char $\ast$value)}{openavbIntfToneGenCfgCB(media_q_t *pMediaQ, const char *name, const char *value)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Intf\+Tone\+Gen\+Cfg\+CB (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ, }
+\item[{const char $\ast$}]{name, }
+\item[{const char $\ast$}]{value}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__intf__tonegen_8c_aa48a33825639f0644d783b73d30f601f}{}\label{openavb__intf__tonegen_8c_aa48a33825639f0644d783b73d30f601f}
+
+
+openavb\+\_\+intf\+\_\+tonegen.\+c 파일의 212 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+213 \{
+214     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+215     
+216     \textcolor{keywordtype}{char} *pEnd;
+217     \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} val;
+218 
+219     \textcolor{keywordflow}{if} (pMediaQ) \{
+220         \hyperlink{structpvt__data__t}{pvt\_data\_t} *pPvtData = pMediaQ->\hyperlink{structmedia__q__t_a453af4755f0cf9b8fe035e62ecea845f}{pPvtIntfInfo};
+221         \textcolor{keywordflow}{if} (!pPvtData) \{
+222             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Private interface module data not allocated."});
+223             \textcolor{keywordflow}{return};
+224         \}
+225 
+226         \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t}{media\_q\_pub\_map\_uncmp\_audio\_info\_t} *pPubMapUncmpAudioInfo;
+227         pPubMapUncmpAudioInfo = (\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t}{media\_q\_pub\_map\_uncmp\_audio\_info\_t} *)
+      pMediaQ->\hyperlink{structmedia__q__t_a0226ccb90fbafac84294a908013853b4}{pPubMapInfo};
+228         if (!pPubMapUncmpAudioInfo) \{
+229             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Public map data for audio info not allocated."});
+230             \textcolor{keywordflow}{return};
+231         \}
+232 
+233         \textcolor{keywordflow}{if} (strcmp(name, \textcolor{stringliteral}{"intf\_nv\_tone\_hz"}) == 0) \{
+234             pPvtData->\hyperlink{structpvt__data__t_a96e806731a7839f056148b8e0d11d167}{toneHz} = strtol(value, &pEnd, 10);
+235         \}
+236 
+237         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strcmp(name, \textcolor{stringliteral}{"intf\_nv\_on\_off\_interval\_msec"}) == 0) \{
+238             pPvtData->\hyperlink{structpvt__data__t_a81da92af9cf46efd1630f7ec1329759f}{onOffIntervalMSec} = strtol(value, &pEnd, 10);
+239         \}
+240 
+241         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strcmp(name, \textcolor{stringliteral}{"intf\_nv\_melody\_string"}) == 0) \{
+242             \textcolor{keywordflow}{if} (pPvtData->\hyperlink{structpvt__data__t_a304e613c569011f1202e4a95ae5f5372}{pMelodyString})
+243                 \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(pPvtData->\hyperlink{structpvt__data__t_a304e613c569011f1202e4a95ae5f5372}{pMelodyString});
+244             pPvtData->\hyperlink{structpvt__data__t_a304e613c569011f1202e4a95ae5f5372}{pMelodyString} = strdup(value);
+245             \textcolor{keywordflow}{if} (pPvtData->\hyperlink{structpvt__data__t_a304e613c569011f1202e4a95ae5f5372}{pMelodyString}) \{
+246                 pPvtData->\hyperlink{structpvt__data__t_a8a601d1e0523a72fef56a827cf93dd77}{melodyLen} = strlen(pPvtData->\hyperlink{structpvt__data__t_a304e613c569011f1202e4a95ae5f5372}{pMelodyString});
+247             \}
+248         \}
+249 
+250         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strcmp(name, \textcolor{stringliteral}{"intf\_nv\_audio\_rate"}) == 0) \{
+251             val = strtol(value, &pEnd, 10);
+252             \textcolor{comment}{// TODO: Should check for specific values}
+253             \textcolor{keywordflow}{if} (val >= \hyperlink{openavb__audio__pub_8h_a6070f1cfbb6824de6f0b2524cd306903a7ff6c7e26057bbaebf51b13f2e72d669}{AVB\_AUDIO\_RATE\_8KHZ} && val <= 
+      \hyperlink{openavb__audio__pub_8h_a6070f1cfbb6824de6f0b2524cd306903a3ee3a238ee6d8277331dc48448edecdc}{AVB\_AUDIO\_RATE\_192KHZ}) \{
+254                 pPvtData->\hyperlink{structpvt__data__t_a98636b12c3c9cafdc6992d03d6f86852}{audioRate} = (\hyperlink{openavb__audio__pub_8h_a6070f1cfbb6824de6f0b2524cd306903}{avb\_audio\_rate\_t})val;
+255             \}
+256             \textcolor{keywordflow}{else} \{
+257                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Invalid audio rate configured for intf\_nv\_audio\_rate."});
+258                 pPvtData->\hyperlink{structpvt__data__t_a98636b12c3c9cafdc6992d03d6f86852}{audioRate} = \hyperlink{openavb__audio__pub_8h_a6070f1cfbb6824de6f0b2524cd306903ab222297c088f8d3f72e73c434a8a1dd0}{AVB\_AUDIO\_RATE\_44\_1KHZ};
+259             \}
+260 
+261             \textcolor{comment}{// Give the audio parameters to the mapping module.}
+262             \textcolor{keywordflow}{if} (\hyperlink{openavb__intf__tonegen_8c_a9f03e68f083c9d64d9d0ceaee29a19cf}{xSupportedMappingFormat}(pMediaQ)) \{
+263                 pPubMapUncmpAudioInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a98636b12c3c9cafdc6992d03d6f86852}{audioRate} = pPvtData->\hyperlink{structpvt__data__t_a98636b12c3c9cafdc6992d03d6f86852}{audioRate};
+264             \}
+265         \}
+266 
+267         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strcmp(name, \textcolor{stringliteral}{"intf\_nv\_audio\_bit\_depth"}) == 0) \{
+268             val = strtol(value, &pEnd, 10);
+269             \textcolor{comment}{// TODO: Should check for specific values}
+270             \textcolor{keywordflow}{if} (val >= \hyperlink{openavb__audio__pub_8h_ae64ee32f6ac9a6b2cf607f46ee4160bda2b24bda8ea62113e139f01c63a5bba81}{AVB\_AUDIO\_BIT\_DEPTH\_1BIT} && val <= 
+      \hyperlink{openavb__audio__pub_8h_ae64ee32f6ac9a6b2cf607f46ee4160bda083798250b1bb11001779958832a82e8}{AVB\_AUDIO\_BIT\_DEPTH\_64BIT}) \{
+271                 pPvtData->\hyperlink{structpvt__data__t_a868321a19830c5c46ed52c007dfdedb9}{audioBitDepth} = (\hyperlink{openavb__audio__pub_8h_ae64ee32f6ac9a6b2cf607f46ee4160bd}{avb\_audio\_bit\_depth\_t})val;
+272             \}
+273             \textcolor{keywordflow}{else} \{
+274                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Invalid audio type configured for intf\_nv\_audio\_bits."});
+275                 pPvtData->\hyperlink{structpvt__data__t_a868321a19830c5c46ed52c007dfdedb9}{audioBitDepth} = \hyperlink{openavb__audio__pub_8h_ae64ee32f6ac9a6b2cf607f46ee4160bdaf6a3127cc5c4b6ad52c5c972c15d5387}{AVB\_AUDIO\_BIT\_DEPTH\_24BIT};
+276             \}
+277 
+278             \textcolor{comment}{// Give the audio parameters to the mapping module.}
+279             \textcolor{keywordflow}{if} (\hyperlink{openavb__intf__tonegen_8c_a9f03e68f083c9d64d9d0ceaee29a19cf}{xSupportedMappingFormat}(pMediaQ)) \{
+280                 pPubMapUncmpAudioInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a868321a19830c5c46ed52c007dfdedb9}{audioBitDepth} = pPvtData->
+      \hyperlink{structpvt__data__t_a868321a19830c5c46ed52c007dfdedb9}{audioBitDepth};
+281             \}
+282         \}
+283 
+284         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strcmp(name, \textcolor{stringliteral}{"intf\_nv\_audio\_type"}) == 0) \{
+285             \textcolor{keywordflow}{if} (strncasecmp(value, \textcolor{stringliteral}{"float"}, 5) == 0)
+286                 pPvtData->\hyperlink{structpvt__data__t_abc6ed39d478764b05a886d64d104ce4b}{audioType} = \hyperlink{openavb__audio__pub_8h_a680efa0db2b29a63c5a0e8f11975682fa7664e80ad56a5f47d92920771cdff86a}{AVB\_AUDIO\_TYPE\_FLOAT};
+287             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strncasecmp(value, \textcolor{stringliteral}{"sign"}, 4) == 0 || strncasecmp(value, \textcolor{stringliteral}{"int"}, 4) == 0)
+288                 pPvtData->\hyperlink{structpvt__data__t_abc6ed39d478764b05a886d64d104ce4b}{audioType} = \hyperlink{openavb__audio__pub_8h_a680efa0db2b29a63c5a0e8f11975682fa53b99bda35f0676e606e013a0d9b2ccd}{AVB\_AUDIO\_TYPE\_INT};
+289             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strncasecmp(value, \textcolor{stringliteral}{"unsign"}, 6) == 0 || strncasecmp(value, \textcolor{stringliteral}{"uint"}, 4) == 0)
+290                 pPvtData->\hyperlink{structpvt__data__t_abc6ed39d478764b05a886d64d104ce4b}{audioType} = \hyperlink{openavb__audio__pub_8h_a680efa0db2b29a63c5a0e8f11975682fa92b37ee6a06f61c65fa5b145bda0446d}{AVB\_AUDIO\_TYPE\_UINT};
+291             \textcolor{keywordflow}{else} \{
+292                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Invalid audio type configured for intf\_nv\_audio\_type."});
+293                 pPvtData->\hyperlink{structpvt__data__t_abc6ed39d478764b05a886d64d104ce4b}{audioType} = \hyperlink{openavb__audio__pub_8h_a680efa0db2b29a63c5a0e8f11975682fac96f789fab1ef2816c64499f918b326a}{AVB\_AUDIO\_TYPE\_UNSPEC};
+294             \}
+295 
+296             \textcolor{comment}{// Give the audio parameters to the mapping module.}
+297             \textcolor{keywordflow}{if} (\hyperlink{openavb__intf__tonegen_8c_a9f03e68f083c9d64d9d0ceaee29a19cf}{xSupportedMappingFormat}(pMediaQ)) \{
+298                 pPubMapUncmpAudioInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_abc6ed39d478764b05a886d64d104ce4b}{audioType} = pPvtData->\hyperlink{structpvt__data__t_abc6ed39d478764b05a886d64d104ce4b}{audioType};
+299             \}
+300         \}
+301 
+302         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strcmp(name, \textcolor{stringliteral}{"intf\_nv\_audio\_endian"}) == 0) \{
+303             \textcolor{keywordflow}{if} (strncasecmp(value, \textcolor{stringliteral}{"big"}, 3) == 0)
+304                 pPvtData->\hyperlink{structpvt__data__t_a2737fc6ab5107802c9fa03d74c967794}{audioEndian} = \hyperlink{openavb__audio__pub_8h_a945c53b1886540f6c50d0720b3befc23affa208ef1f573de5f20848d9996dca16}{AVB\_AUDIO\_ENDIAN\_BIG};
+305             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strncasecmp(value, \textcolor{stringliteral}{"little"}, 6) == 0)
+306                 pPvtData->\hyperlink{structpvt__data__t_a2737fc6ab5107802c9fa03d74c967794}{audioEndian} = \hyperlink{openavb__audio__pub_8h_a945c53b1886540f6c50d0720b3befc23acec0ee573ca39ae4985e89711de33fba}{AVB\_AUDIO\_ENDIAN\_LITTLE};
+307             \textcolor{keywordflow}{else} \{
+308                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Invalid audio type configured for intf\_nv\_audio\_endian."});
+309                 pPvtData->\hyperlink{structpvt__data__t_a2737fc6ab5107802c9fa03d74c967794}{audioEndian} = \hyperlink{openavb__audio__pub_8h_a945c53b1886540f6c50d0720b3befc23a04bd8a746404b914776c7e83b6cc739f}{AVB\_AUDIO\_ENDIAN\_UNSPEC};
+310             \}
+311 
+312             \textcolor{comment}{// Give the audio parameters to the mapping module.}
+313             \textcolor{keywordflow}{if} (\hyperlink{openavb__intf__tonegen_8c_a9f03e68f083c9d64d9d0ceaee29a19cf}{xSupportedMappingFormat}(pMediaQ)) \{
+314                 pPubMapUncmpAudioInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a2737fc6ab5107802c9fa03d74c967794}{audioEndian} = pPvtData->
+      \hyperlink{structpvt__data__t_a2737fc6ab5107802c9fa03d74c967794}{audioEndian};
+315             \}
+316         \}
+317 
+318         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strcmp(name, \textcolor{stringliteral}{"intf\_nv\_audio\_channels"}) == 0) \{
+319             val = strtol(value, &pEnd, 10);
+320             \textcolor{comment}{// TODO: Should check for specific values}
+321             \textcolor{keywordflow}{if} (val >= \hyperlink{openavb__audio__pub_8h_a8cc6b9a1352da050ead620139f49acc4a3ade387626675c4a97b126654369f71a}{AVB\_AUDIO\_CHANNELS\_1}) \{
+322                 pPvtData->\hyperlink{structpvt__data__t_ad8a7767f3583795147d57c7252554dd9}{audioChannels} = (\hyperlink{openavb__audio__pub_8h_a8cc6b9a1352da050ead620139f49acc4}{avb\_audio\_channels\_t})val;
+323             \}
+324             \textcolor{keywordflow}{else} \{
+325                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Invalid audio channels configured for intf\_nv\_audio\_channels."})
+      ;
+326                 pPvtData->\hyperlink{structpvt__data__t_ad8a7767f3583795147d57c7252554dd9}{audioChannels} = (\hyperlink{openavb__audio__pub_8h_a8cc6b9a1352da050ead620139f49acc4}{avb\_audio\_channels\_t})
+      \hyperlink{openavb__audio__pub_8h_a8cc6b9a1352da050ead620139f49acc4ae8dea24b969d4cc3d08e41457a224016}{AVB\_AUDIO\_CHANNELS\_2};
+327             \}
+328 
+329             \textcolor{comment}{// Give the audio parameters to the mapping module.}
+330             \textcolor{keywordflow}{if} (\hyperlink{openavb__intf__tonegen_8c_a9f03e68f083c9d64d9d0ceaee29a19cf}{xSupportedMappingFormat}(pMediaQ)) \{
+331                 pPubMapUncmpAudioInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_ad8a7767f3583795147d57c7252554dd9}{audioChannels} = pPvtData->
+      \hyperlink{structpvt__data__t_ad8a7767f3583795147d57c7252554dd9}{audioChannels};
+332             \}
+333         \}
+334 
+335         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strcmp(name, \textcolor{stringliteral}{"intf\_nv\_volume"}) == 0) \{
+336             \hyperlink{openavb__types__base__pub_8h_a39c786017723555afb9e8b85accec0de}{S32} vol = strtol(value, &pEnd, 10);
+337             pPvtData->\hyperlink{structpvt__data__t_a016abda2855c77dcc1630f9d2f9f8d18}{volume} = pow(10.0, vol/10.0);
+338         \}
+339 
+340         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strcmp(name, \textcolor{stringliteral}{"intf\_nv\_fv1"}) == 0) \{
+341             pPvtData->\hyperlink{structpvt__data__t_af0d968d4212147c6c8f84d8bfaa1de61}{fv1} = strtol(value, &pEnd, 10);
+342             pPvtData->\hyperlink{structpvt__data__t_aeb60b20626751ef7c9c0046ed026a681}{fv1Enabled} = \textcolor{keyword}{true};
+343             pPvtData->\hyperlink{structpvt__data__t_a726c75c30e70594b870fea648d2b5a89}{fvChannels}++;
+344         \}
+345 
+346         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strcmp(name, \textcolor{stringliteral}{"intf\_nv\_fv2"}) == 0) \{
+347             pPvtData->\hyperlink{structpvt__data__t_a7cc03784ca8e5c2407ffcf0b9ee62236}{fv2} = strtol(value, &pEnd, 10);
+348             pPvtData->\hyperlink{structpvt__data__t_a27b884756b6fc446de19b96a3fab08cd}{fv2Enabled} = \textcolor{keyword}{true};
+349             pPvtData->\hyperlink{structpvt__data__t_a726c75c30e70594b870fea648d2b5a89}{fvChannels}++;
+350         \}
+351 
+352     \}
+353 
+354     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+355 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__tonegen_8c_aa48a33825639f0644d783b73d30f601f_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__tonegen_8c_aa48a33825639f0644d783b73d30f601f_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+intf\+\_\+tonegen.\+c@{openavb\+\_\+intf\+\_\+tonegen.\+c}!openavb\+Intf\+Tone\+Gen\+Enable\+Fixed\+Timestamp@{openavb\+Intf\+Tone\+Gen\+Enable\+Fixed\+Timestamp}}
+\index{openavb\+Intf\+Tone\+Gen\+Enable\+Fixed\+Timestamp@{openavb\+Intf\+Tone\+Gen\+Enable\+Fixed\+Timestamp}!openavb\+\_\+intf\+\_\+tonegen.\+c@{openavb\+\_\+intf\+\_\+tonegen.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Intf\+Tone\+Gen\+Enable\+Fixed\+Timestamp(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q, bool enabled, U32 transmit\+Interval, U32 batch\+Factor)}{openavbIntfToneGenEnableFixedTimestamp(media_q_t *pMediaQ, bool enabled, U32 transmitInterval, U32 batchFactor)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Intf\+Tone\+Gen\+Enable\+Fixed\+Timestamp (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ, }
+\item[{{\bf bool}}]{enabled, }
+\item[{{\bf U32}}]{transmit\+Interval, }
+\item[{{\bf U32}}]{batch\+Factor}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__intf__tonegen_8c_ac1e7b349d846370f4b37f42fe2d801a4}{}\label{openavb__intf__tonegen_8c_ac1e7b349d846370f4b37f42fe2d801a4}
+
+
+openavb\+\_\+intf\+\_\+tonegen.\+c 파일의 631 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+632 \{
+633     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+634     \textcolor{keywordflow}{if} (pMediaQ && pMediaQ->\hyperlink{structmedia__q__t_a453af4755f0cf9b8fe035e62ecea845f}{pPvtIntfInfo} && pMediaQ->\hyperlink{structmedia__q__t_a0226ccb90fbafac84294a908013853b4}{pPubMapInfo}) \{
+635         \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t}{media\_q\_pub\_map\_uncmp\_audio\_info\_t} *pPubMapUncmpAudioInfo = 
+      pMediaQ->\hyperlink{structmedia__q__t_a0226ccb90fbafac84294a908013853b4}{pPubMapInfo};
+636         \hyperlink{structpvt__data__t}{pvt\_data\_t} *pPvtData = (\hyperlink{structpvt__data__t}{pvt\_data\_t} *)pMediaQ->
+      \hyperlink{structmedia__q__t_a453af4755f0cf9b8fe035e62ecea845f}{pPvtIntfInfo};
+637 
+638         pPvtData->\hyperlink{structpvt__data__t_a0d8529515d357f9b3faa35f1f2ede2c0}{fixedTimestampEnabled} = enabled;
+639         if (pPvtData->\hyperlink{structpvt__data__t_a0d8529515d357f9b3faa35f1f2ede2c0}{fixedTimestampEnabled}) \{
+640             \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} per, rate, rem;
+641             \textcolor{comment}{/* Ignore passed in transmit interval and use framesPerItem and audioRate so}
+642 \textcolor{comment}{               we work with both AAF and 61883-6 */}
+643             \textcolor{comment}{/* Carefully scale values to avoid U32 overflow or loss of precision */}
+644             per = \hyperlink{maap__helper__linux_8h_a8a708413d6171e7d86056793abe2cd1a}{MICROSECONDS\_PER\_SECOND} * pPubMapUncmpAudioInfo->
+      \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a584c8e40420ea0739971d02cefc8dd93}{framesPerItem} * 10;
+645             rate = pPvtData->\hyperlink{structpvt__data__t_a98636b12c3c9cafdc6992d03d6f86852}{audioRate}/100;
+646             transmitInterval = per/rate;
+647             rem = per % rate;
+648             \textcolor{keywordflow}{if} (rem != 0) \{
+649                 rem *= 10;
+650                 rem /= rate;
+651             \}
+652             \hyperlink{openavb__mcs_8c_a9d876fb11dbb009c006fdde8bfc94a7b}{openavbMcsInit}(&pPvtData->\hyperlink{structpvt__data__t_aeae67b5199bbd13cc6ba11f25244aca4}{mcs}, transmitInterval, rem, 10);
+653             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a2be7e90c7cb63f12b221ed1cd4999185}{AVB\_LOGF\_INFO}(\textcolor{stringliteral}{"Fixed timestamping enabled: %d %d/%d"}, transmitInterval, rem, 10);
+654         \}
+655 
+656         \textcolor{keywordflow}{if} (batchFactor != 1) \{
+657             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a6b02336e691e2e0579d2a5bb06367296}{AVB\_LOGF\_WARNING}(\textcolor{stringliteral}{"batchFactor of %d ignored (must be 1)"}, batchFactor);
+658         \}
+659     \}
+660 
+661     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+662 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=339pt]{openavb__intf__tonegen_8c_ac1e7b349d846370f4b37f42fe2d801a4_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__tonegen_8c_ac1e7b349d846370f4b37f42fe2d801a4_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+intf\+\_\+tonegen.\+c@{openavb\+\_\+intf\+\_\+tonegen.\+c}!openavb\+Intf\+Tone\+Gen\+End\+CB@{openavb\+Intf\+Tone\+Gen\+End\+CB}}
+\index{openavb\+Intf\+Tone\+Gen\+End\+CB@{openavb\+Intf\+Tone\+Gen\+End\+CB}!openavb\+\_\+intf\+\_\+tonegen.\+c@{openavb\+\_\+intf\+\_\+tonegen.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Intf\+Tone\+Gen\+End\+C\+B(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q)}{openavbIntfToneGenEndCB(media_q_t *pMediaQ)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Intf\+Tone\+Gen\+End\+CB (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__intf__tonegen_8c_aaa8c32def72dc240d67a78154072f006}{}\label{openavb__intf__tonegen_8c_aaa8c32def72dc240d67a78154072f006}
+
+
+openavb\+\_\+intf\+\_\+tonegen.\+c 파일의 619 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+620 \{
+621     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+622     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+623 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__tonegen_8c_aaa8c32def72dc240d67a78154072f006_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+intf\+\_\+tonegen.\+c@{openavb\+\_\+intf\+\_\+tonegen.\+c}!openavb\+Intf\+Tone\+Gen\+Gen\+End\+CB@{openavb\+Intf\+Tone\+Gen\+Gen\+End\+CB}}
+\index{openavb\+Intf\+Tone\+Gen\+Gen\+End\+CB@{openavb\+Intf\+Tone\+Gen\+Gen\+End\+CB}!openavb\+\_\+intf\+\_\+tonegen.\+c@{openavb\+\_\+intf\+\_\+tonegen.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Intf\+Tone\+Gen\+Gen\+End\+C\+B(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q)}{openavbIntfToneGenGenEndCB(media_q_t *pMediaQ)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Intf\+Tone\+Gen\+Gen\+End\+CB (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__intf__tonegen_8c_ab80b0cc4005d6fec7dff6b73c572b848}{}\label{openavb__intf__tonegen_8c_ab80b0cc4005d6fec7dff6b73c572b848}
+
+
+openavb\+\_\+intf\+\_\+tonegen.\+c 파일의 625 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+626 \{
+627     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+628     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+629 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__tonegen_8c_ab80b0cc4005d6fec7dff6b73c572b848_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+intf\+\_\+tonegen.\+c@{openavb\+\_\+intf\+\_\+tonegen.\+c}!openavb\+Intf\+Tone\+Gen\+Gen\+Init\+CB@{openavb\+Intf\+Tone\+Gen\+Gen\+Init\+CB}}
+\index{openavb\+Intf\+Tone\+Gen\+Gen\+Init\+CB@{openavb\+Intf\+Tone\+Gen\+Gen\+Init\+CB}!openavb\+\_\+intf\+\_\+tonegen.\+c@{openavb\+\_\+intf\+\_\+tonegen.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Intf\+Tone\+Gen\+Gen\+Init\+C\+B(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q)}{openavbIntfToneGenGenInitCB(media_q_t *pMediaQ)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Intf\+Tone\+Gen\+Gen\+Init\+CB (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__intf__tonegen_8c_ad6941183997d7c3b5933ad326e9f484a}{}\label{openavb__intf__tonegen_8c_ad6941183997d7c3b5933ad326e9f484a}
+
+
+openavb\+\_\+intf\+\_\+tonegen.\+c 파일의 357 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+358 \{
+359     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+360     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+361 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__tonegen_8c_ad6941183997d7c3b5933ad326e9f484a_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+intf\+\_\+tonegen.\+c@{openavb\+\_\+intf\+\_\+tonegen.\+c}!openavb\+Intf\+Tone\+Gen\+Initialize@{openavb\+Intf\+Tone\+Gen\+Initialize}}
+\index{openavb\+Intf\+Tone\+Gen\+Initialize@{openavb\+Intf\+Tone\+Gen\+Initialize}!openavb\+\_\+intf\+\_\+tonegen.\+c@{openavb\+\_\+intf\+\_\+tonegen.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Intf\+Tone\+Gen\+Initialize(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q, openavb\+\_\+intf\+\_\+cb\+\_\+t $\ast$p\+Intf\+C\+B)}{openavbIntfToneGenInitialize(media_q_t *pMediaQ, openavb_intf_cb_t *pIntfCB)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} {\bf D\+L\+L\+\_\+\+E\+X\+P\+O\+RT} openavb\+Intf\+Tone\+Gen\+Initialize (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ, }
+\item[{{\bf openavb\+\_\+intf\+\_\+cb\+\_\+t} $\ast$}]{p\+Intf\+CB}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__intf__tonegen_8c_ad792236ee5588a1449b476289d2e6004}{}\label{openavb__intf__tonegen_8c_ad792236ee5588a1449b476289d2e6004}
+
+
+openavb\+\_\+intf\+\_\+tonegen.\+c 파일의 666 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+667 \{
+668     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+669 
+670     \textcolor{keywordflow}{if} (pMediaQ) \{
+671         pMediaQ->\hyperlink{structmedia__q__t_a453af4755f0cf9b8fe035e62ecea845f}{pPvtIntfInfo} = \hyperlink{_memory_leak_detector_malloc_macros_8h_a7cbb7b79af9d539af55b59dfc3598390}{calloc}(1, \textcolor{keyword}{sizeof}(\hyperlink{structpvt__data__t}{pvt\_data\_t}));      \textcolor{comment}{// Memory
+       freed by the media queue when the media queue is destroyed.}
+672 
+673         \textcolor{keywordflow}{if} (!pMediaQ->\hyperlink{structmedia__q__t_a453af4755f0cf9b8fe035e62ecea845f}{pPvtIntfInfo}) \{
+674             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Unable to allocate memory for AVTP interface module."});
+675             \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+676         \}
+677 
+678         \hyperlink{structpvt__data__t}{pvt\_data\_t} *pPvtData = pMediaQ->\hyperlink{structmedia__q__t_a453af4755f0cf9b8fe035e62ecea845f}{pPvtIntfInfo};
+679 
+680         pIntfCB->\hyperlink{structopenavb__intf__cb__t_ac399da5e32ebb5e311f3c2fefc7c53e2}{intf\_cfg\_cb} = \hyperlink{openavb__intf__tonegen_8c_aa48a33825639f0644d783b73d30f601f}{openavbIntfToneGenCfgCB};
+681         pIntfCB->\hyperlink{structopenavb__intf__cb__t_abdfcb6b35075220160046e97e8c51b34}{intf\_gen\_init\_cb} = \hyperlink{openavb__intf__tonegen_8c_ad6941183997d7c3b5933ad326e9f484a}{openavbIntfToneGenGenInitCB};
+682         pIntfCB->\hyperlink{structopenavb__intf__cb__t_a8c4365e897d7567f363435819ed2c795}{intf\_tx\_init\_cb} = \hyperlink{openavb__intf__tonegen_8c_a369d96d28aedd953f9f7afbd6b0a882c}{openavbIntfToneGenTxInitCB};
+683         pIntfCB->\hyperlink{structopenavb__intf__cb__t_a697ca0e024c5d38ae52fba581741c255}{intf\_tx\_cb} = \hyperlink{openavb__intf__tonegen_8c_ab09df4912bb681092312f597c767b6d3}{openavbIntfToneGenTxCB};
+684         pIntfCB->\hyperlink{structopenavb__intf__cb__t_a9657b542d4ff314437568bd9566d7519}{intf\_rx\_init\_cb} = \hyperlink{openavb__intf__tonegen_8c_a2a8e6e8acf6adc086131e25f573757d8}{openavbIntfToneGenRxInitCB};
+685         pIntfCB->\hyperlink{structopenavb__intf__cb__t_aa29c6a7d59d3dba57131b157f5634040}{intf\_rx\_cb} = \hyperlink{openavb__intf__tonegen_8c_a769ac781d50eba6ebcb2bd2d3e849e0f}{openavbIntfToneGenRxCB};
+686         pIntfCB->\hyperlink{structopenavb__intf__cb__t_a438129d3c775eb25b490437fb5d43fbe}{intf\_end\_cb} = \hyperlink{openavb__intf__tonegen_8c_aaa8c32def72dc240d67a78154072f006}{openavbIntfToneGenEndCB};
+687         pIntfCB->\hyperlink{structopenavb__intf__cb__t_af5c808e5bf832dc6f7d8314c80892171}{intf\_gen\_end\_cb} = \hyperlink{openavb__intf__tonegen_8c_ab80b0cc4005d6fec7dff6b73c572b848}{openavbIntfToneGenGenEndCB};
+688         pIntfCB->\hyperlink{structopenavb__intf__cb__t_a610720587e0f5f8e56e6359b3638cef9}{intf\_enable\_fixed\_timestamp} = 
+      \hyperlink{openavb__intf__tonegen_8c_ac1e7b349d846370f4b37f42fe2d801a4}{openavbIntfToneGenEnableFixedTimestamp};
+689 
+690         pPvtData->\hyperlink{structpvt__data__t_a21c6933b90f224d67ff83bf224c7d313}{intervalCounter} = 0;
+691         pPvtData->\hyperlink{structpvt__data__t_a4076c3857ea8e7812c5d51caab0c961e}{melodyIdx} = 0;
+692         pPvtData->\hyperlink{structpvt__data__t_abc6ed39d478764b05a886d64d104ce4b}{audioType} = \hyperlink{openavb__audio__pub_8h_a680efa0db2b29a63c5a0e8f11975682fa53b99bda35f0676e606e013a0d9b2ccd}{AVB\_AUDIO\_TYPE\_INT};
+693         pPvtData->\hyperlink{structpvt__data__t_a2737fc6ab5107802c9fa03d74c967794}{audioEndian} = \hyperlink{openavb__audio__pub_8h_a945c53b1886540f6c50d0720b3befc23affa208ef1f573de5f20848d9996dca16}{AVB\_AUDIO\_ENDIAN\_BIG};
+694 
+695         pPvtData->\hyperlink{structpvt__data__t_a016abda2855c77dcc1630f9d2f9f8d18}{volume} = 1.0f;
+696         pPvtData->\hyperlink{structpvt__data__t_aeb60b20626751ef7c9c0046ed026a681}{fv1Enabled} = \textcolor{keyword}{false};
+697         pPvtData->\hyperlink{structpvt__data__t_af0d968d4212147c6c8f84d8bfaa1de61}{fv1} = 0;
+698         pPvtData->\hyperlink{structpvt__data__t_a27b884756b6fc446de19b96a3fab08cd}{fv2Enabled} = \textcolor{keyword}{false};
+699         pPvtData->\hyperlink{structpvt__data__t_a7cc03784ca8e5c2407ffcf0b9ee62236}{fv2} = 0;
+700         pPvtData->\hyperlink{structpvt__data__t_a726c75c30e70594b870fea648d2b5a89}{fvChannels} = 0;
+701 
+702         pPvtData->\hyperlink{structpvt__data__t_a0d8529515d357f9b3faa35f1f2ede2c0}{fixedTimestampEnabled} = \textcolor{keyword}{false};
+703     \}
+704 
+705     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+706     \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+707 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__tonegen_8c_ad792236ee5588a1449b476289d2e6004_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=297pt]{openavb__intf__tonegen_8c_ad792236ee5588a1449b476289d2e6004_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+intf\+\_\+tonegen.\+c@{openavb\+\_\+intf\+\_\+tonegen.\+c}!openavb\+Intf\+Tone\+Gen\+Rx\+CB@{openavb\+Intf\+Tone\+Gen\+Rx\+CB}}
+\index{openavb\+Intf\+Tone\+Gen\+Rx\+CB@{openavb\+Intf\+Tone\+Gen\+Rx\+CB}!openavb\+\_\+intf\+\_\+tonegen.\+c@{openavb\+\_\+intf\+\_\+tonegen.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Intf\+Tone\+Gen\+Rx\+C\+B(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q)}{openavbIntfToneGenRxCB(media_q_t *pMediaQ)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} openavb\+Intf\+Tone\+Gen\+Rx\+CB (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__intf__tonegen_8c_a769ac781d50eba6ebcb2bd2d3e849e0f}{}\label{openavb__intf__tonegen_8c_a769ac781d50eba6ebcb2bd2d3e849e0f}
+
+
+openavb\+\_\+intf\+\_\+tonegen.\+c 파일의 610 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+611 \{
+612     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a315e143b4a452e660d7bde93c3d1647d}{AVB\_TRACE\_INTF\_DETAIL});
+613     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a315e143b4a452e660d7bde93c3d1647d}{AVB\_TRACE\_INTF\_DETAIL});
+614     \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+615 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__tonegen_8c_a769ac781d50eba6ebcb2bd2d3e849e0f_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+intf\+\_\+tonegen.\+c@{openavb\+\_\+intf\+\_\+tonegen.\+c}!openavb\+Intf\+Tone\+Gen\+Rx\+Init\+CB@{openavb\+Intf\+Tone\+Gen\+Rx\+Init\+CB}}
+\index{openavb\+Intf\+Tone\+Gen\+Rx\+Init\+CB@{openavb\+Intf\+Tone\+Gen\+Rx\+Init\+CB}!openavb\+\_\+intf\+\_\+tonegen.\+c@{openavb\+\_\+intf\+\_\+tonegen.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Intf\+Tone\+Gen\+Rx\+Init\+C\+B(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q)}{openavbIntfToneGenRxInitCB(media_q_t *pMediaQ)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Intf\+Tone\+Gen\+Rx\+Init\+CB (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__intf__tonegen_8c_a2a8e6e8acf6adc086131e25f573757d8}{}\label{openavb__intf__tonegen_8c_a2a8e6e8acf6adc086131e25f573757d8}
+
+
+openavb\+\_\+intf\+\_\+tonegen.\+c 파일의 603 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+604 \{
+605     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+606     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+607 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__tonegen_8c_a2a8e6e8acf6adc086131e25f573757d8_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+intf\+\_\+tonegen.\+c@{openavb\+\_\+intf\+\_\+tonegen.\+c}!openavb\+Intf\+Tone\+Gen\+Tx\+CB@{openavb\+Intf\+Tone\+Gen\+Tx\+CB}}
+\index{openavb\+Intf\+Tone\+Gen\+Tx\+CB@{openavb\+Intf\+Tone\+Gen\+Tx\+CB}!openavb\+\_\+intf\+\_\+tonegen.\+c@{openavb\+\_\+intf\+\_\+tonegen.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Intf\+Tone\+Gen\+Tx\+C\+B(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q)}{openavbIntfToneGenTxCB(media_q_t *pMediaQ)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} openavb\+Intf\+Tone\+Gen\+Tx\+CB (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__intf__tonegen_8c_ab09df4912bb681092312f597c767b6d3}{}\label{openavb__intf__tonegen_8c_ab09df4912bb681092312f597c767b6d3}
+
+
+openavb\+\_\+intf\+\_\+tonegen.\+c 파일의 458 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+459 \{
+460     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a315e143b4a452e660d7bde93c3d1647d}{AVB\_TRACE\_INTF\_DETAIL});
+461 
+462     \textcolor{keywordflow}{if} (pMediaQ) \{
+463         \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t}{media\_q\_pub\_map\_uncmp\_audio\_info\_t} *pPubMapUncmpAudioInfo = 
+      pMediaQ->\hyperlink{structmedia__q__t_a0226ccb90fbafac84294a908013853b4}{pPubMapInfo};
+464         \hyperlink{structpvt__data__t}{pvt\_data\_t} *pPvtData = pMediaQ->\hyperlink{structmedia__q__t_a453af4755f0cf9b8fe035e62ecea845f}{pPvtIntfInfo};
+465         \textcolor{keywordflow}{if} (!pPvtData) \{
+466             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Private interface module data not allocated."});
+467             \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+468         \}
+469 
+470         \textcolor{keywordflow}{if} (pPvtData->\hyperlink{structpvt__data__t_a21c6933b90f224d67ff83bf224c7d313}{intervalCounter}++ % pPubMapUncmpAudioInfo->
+      \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_af54e12a5e4f46ccf41a32ff0ea9b3405}{packingFactor} != 0)
+471             \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+472 
+473         \hyperlink{structmedia__q__item__t}{media\_q\_item\_t} *pMediaQItem = \hyperlink{build_2sdk__eavb_2openavb__mediaq__pub_8h_ae2ce807451447ec2dab9a4284ac61b99}{openavbMediaQHeadLock}(pMediaQ);
+474         \textcolor{keywordflow}{if} (pMediaQItem) \{
+475             \textcolor{keywordflow}{if} (pMediaQItem->\hyperlink{structmedia__q__item__t_a91e248b2730fbe7951ac5d9d3aae1752}{itemSize} < pPubMapUncmpAudioInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a91e248b2730fbe7951ac5d9d3aae1752}{itemSize}) \{
+476                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Media queue item not large enough for samples"});
+477             \}
+478 
+479             \textcolor{comment}{// Tone on}
+480             \textcolor{keyword}{static} \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} runningFrameCnt = 0;
+481             \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} frameCnt;
+482             \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} channelCnt;
+483             \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *pData = pMediaQItem->\hyperlink{structmedia__q__item__t_ac27724ac74fd97e91418f1539eccdfb0}{pPubData};
+484 
+485             \textcolor{keywordflow}{for} (frameCnt = 0; frameCnt < pPubMapUncmpAudioInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a584c8e40420ea0739971d02cefc8dd93}{framesPerItem}; frameCnt++) \{
+486 
+487                 \textcolor{comment}{// Check for tone on / off toggle}
+488                 \textcolor{keywordflow}{if} (!pPvtData->\hyperlink{structpvt__data__t_afb4d211f6a7e2be34887605bd2cbe5be}{freqCountdown}) \{
+489                     \textcolor{keywordflow}{if} (pPvtData->\hyperlink{structpvt__data__t_a304e613c569011f1202e4a95ae5f5372}{pMelodyString}) \{
+490                         \textcolor{comment}{// Melody logic}
+491                         \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} intervalMSec;
+492                         \hyperlink{openavb__intf__tonegen_8c_a4184cd82013828b945b58cd136ff86d2}{xGetMelodyToneAndDuration}(
+493                             pPvtData->\hyperlink{structpvt__data__t_a304e613c569011f1202e4a95ae5f5372}{pMelodyString}[pPvtData->
+      \hyperlink{structpvt__data__t_a4076c3857ea8e7812c5d51caab0c961e}{melodyIdx}],
+494                             pPvtData->\hyperlink{structpvt__data__t_a304e613c569011f1202e4a95ae5f5372}{pMelodyString}[pPvtData->
+      \hyperlink{structpvt__data__t_a4076c3857ea8e7812c5d51caab0c961e}{melodyIdx} + 1],
+495                             &pPvtData->\hyperlink{structpvt__data__t_ab5856fa4ff4ce7d9aff90cd3f36a1724}{freq}, &intervalMSec);
+496                             pPvtData->\hyperlink{structpvt__data__t_a4076c3857ea8e7812c5d51caab0c961e}{melodyIdx} += 2;
+497                             
+498                             pPvtData->\hyperlink{structpvt__data__t_afb4d211f6a7e2be34887605bd2cbe5be}{freqCountdown} = (pPubMapUncmpAudioInfo->
+      \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a98636b12c3c9cafdc6992d03d6f86852}{audioRate} / 1000) * intervalMSec;
+499                             \textcolor{keywordflow}{if} (pPvtData->\hyperlink{structpvt__data__t_a4076c3857ea8e7812c5d51caab0c961e}{melodyIdx} >= pPvtData->
+      \hyperlink{structpvt__data__t_a8a601d1e0523a72fef56a827cf93dd77}{melodyLen})
+500                                 pPvtData->\hyperlink{structpvt__data__t_a4076c3857ea8e7812c5d51caab0c961e}{melodyIdx} = 0;
+501                     \}
+502                     \textcolor{keywordflow}{else} \{
+503                         \textcolor{comment}{// Fixed tone}
+504                         \textcolor{keywordflow}{if} (pPvtData->\hyperlink{structpvt__data__t_a81da92af9cf46efd1630f7ec1329759f}{onOffIntervalMSec} > 0) \{
+505                             \textcolor{keywordflow}{if} (pPvtData->\hyperlink{structpvt__data__t_ab5856fa4ff4ce7d9aff90cd3f36a1724}{freq} == 0) \{
+506                                 pPvtData->\hyperlink{structpvt__data__t_ab5856fa4ff4ce7d9aff90cd3f36a1724}{freq} = pPvtData->\hyperlink{structpvt__data__t_a96e806731a7839f056148b8e0d11d167}{toneHz};
+507                             \} \textcolor{keywordflow}{else} \{
+508                                 pPvtData->\hyperlink{structpvt__data__t_ab5856fa4ff4ce7d9aff90cd3f36a1724}{freq} = 0;
+509                             \}
+510                             pPvtData->\hyperlink{structpvt__data__t_afb4d211f6a7e2be34887605bd2cbe5be}{freqCountdown} = (pPubMapUncmpAudioInfo->
+      \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a98636b12c3c9cafdc6992d03d6f86852}{audioRate} / 1000) * pPvtData->\hyperlink{structpvt__data__t_a81da92af9cf46efd1630f7ec1329759f}{onOffIntervalMSec};
+511                         \}
+512                         \textcolor{keywordflow}{else} \{
+513                             pPvtData->\hyperlink{structpvt__data__t_afb4d211f6a7e2be34887605bd2cbe5be}{freqCountdown} = pPubMapUncmpAudioInfo->
+      \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a98636b12c3c9cafdc6992d03d6f86852}{audioRate};     \textcolor{comment}{// Just run steady for 1 sec}
+514                             pPvtData->\hyperlink{structpvt__data__t_ab5856fa4ff4ce7d9aff90cd3f36a1724}{freq} = pPvtData->\hyperlink{structpvt__data__t_a96e806731a7839f056148b8e0d11d167}{toneHz};
+515                         \}
+516                     \}
+517                     pPvtData->\hyperlink{structpvt__data__t_a207ad05f99cc72068a92358861ff5e71}{ratio} = (float)pPvtData->\hyperlink{structpvt__data__t_ab5856fa4ff4ce7d9aff90cd3f36a1724}{freq} / (\textcolor{keywordtype}{float})pPubMapUncmpAudioInfo->
+      \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a98636b12c3c9cafdc6992d03d6f86852}{audioRate};
+518                 \}
+519                 pPvtData->\hyperlink{structpvt__data__t_afb4d211f6a7e2be34887605bd2cbe5be}{freqCountdown}--;
+520 
+521                 \textcolor{keywordtype}{float} value = \hyperlink{openavb__os__services__osal__pub_8h_a208fb187e27a3ce7286922f79bf56f30}{SIN}(2 * \hyperlink{openavb__intf__tonegen_8c_a598a3330b3c21701223ee0ca14316eca}{PI} * (runningFrameCnt++ % pPubMapUncmpAudioInfo->
+      \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a98636b12c3c9cafdc6992d03d6f86852}{audioRate}) * pPvtData->\hyperlink{structpvt__data__t_a207ad05f99cc72068a92358861ff5e71}{ratio}) * pPvtData->\hyperlink{structpvt__data__t_a016abda2855c77dcc1630f9d2f9f8d18}{volume};
+522 
+523                 \textcolor{keywordflow}{for} (channelCnt = 0; channelCnt < pPubMapUncmpAudioInfo->
+      \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_ad8a7767f3583795147d57c7252554dd9}{audioChannels} - pPvtData->\hyperlink{structpvt__data__t_a726c75c30e70594b870fea648d2b5a89}{fvChannels}; channelCnt++) \{
+524                     \textcolor{keywordflow}{if} (pPvtData->\hyperlink{structpvt__data__t_abc6ed39d478764b05a886d64d104ce4b}{audioType} == \hyperlink{openavb__audio__pub_8h_a680efa0db2b29a63c5a0e8f11975682fa53b99bda35f0676e606e013a0d9b2ccd}{AVB\_AUDIO\_TYPE\_INT}) \{
+525                         \textcolor{keywordflow}{if} (pPvtData->\hyperlink{structpvt__data__t_a868321a19830c5c46ed52c007dfdedb9}{audioBitDepth} == 32) \{
+526                             \hyperlink{openavb__types__base__pub_8h_a39c786017723555afb9e8b85accec0de}{S32} sample32 = (\hyperlink{openavb__types__base__pub_8h_a39c786017723555afb9e8b85accec0de}{S32})(value * (32000 << 16));
+527                             \hyperlink{openavb__types__base__pub_8h_a39c786017723555afb9e8b85accec0de}{S32} tmp32 = \hyperlink{openavb__intf__tonegen_8c_a1c23409d37011937d198e20a9b9408a2}{convertToDesiredEndianOrder32}(
+      sample32, pPvtData->\hyperlink{structpvt__data__t_a2737fc6ab5107802c9fa03d74c967794}{audioEndian});
+528                             memcpy(pData, (\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *)&tmp32, 4);
+529                             pData += 4;
+530                         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (pPvtData->\hyperlink{structpvt__data__t_a868321a19830c5c46ed52c007dfdedb9}{audioBitDepth} == 24) \{
+531                             \hyperlink{openavb__types__base__pub_8h_a39c786017723555afb9e8b85accec0de}{S32} sample24 = (\hyperlink{openavb__types__base__pub_8h_a39c786017723555afb9e8b85accec0de}{S32})(value * (32000 << 16));
+532                             \hyperlink{openavb__types__base__pub_8h_a39c786017723555afb9e8b85accec0de}{S32} tmp24 = \hyperlink{openavb__intf__tonegen_8c_a1c23409d37011937d198e20a9b9408a2}{convertToDesiredEndianOrder32}(
+      sample24, pPvtData->\hyperlink{structpvt__data__t_a2737fc6ab5107802c9fa03d74c967794}{audioEndian});
+533                             \textcolor{keywordflow}{if} (pPvtData->\hyperlink{structpvt__data__t_a2737fc6ab5107802c9fa03d74c967794}{audioEndian} == 
+      \hyperlink{openavb__audio__pub_8h_a945c53b1886540f6c50d0720b3befc23affa208ef1f573de5f20848d9996dca16}{AVB\_AUDIO\_ENDIAN\_BIG}) \{
+534                                 memcpy(pData, (\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *)&tmp24, 3);
+535                             \} \textcolor{keywordflow}{else} \{
+536                                 memcpy(pData, ((\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *)&tmp24) + 1, 3);
+537                             \}
+538                             pData += 3;
+539                         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (pPvtData->\hyperlink{structpvt__data__t_a868321a19830c5c46ed52c007dfdedb9}{audioBitDepth} == 16) \{
+540                             \hyperlink{openavb__types__base__pub_8h_a6d241ad21a823c90d4835380787db5d4}{S16} sample16 = (\hyperlink{openavb__types__base__pub_8h_a39c786017723555afb9e8b85accec0de}{S32})(value * 32000);
+541                             \hyperlink{openavb__types__base__pub_8h_a6d241ad21a823c90d4835380787db5d4}{S16} tmp16 = \hyperlink{openavb__intf__tonegen_8c_a42650cfc8c97d65e8d437f2a4342555d}{convertToDesiredEndianOrder16}(
+      sample16, pPvtData->\hyperlink{structpvt__data__t_a2737fc6ab5107802c9fa03d74c967794}{audioEndian});
+542                             memcpy(pData, (\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *)&tmp16, 2);
+543                             pData += 2;
+544                         \}
+545                     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (pPvtData->\hyperlink{structpvt__data__t_abc6ed39d478764b05a886d64d104ce4b}{audioType} == 
+      \hyperlink{openavb__audio__pub_8h_a680efa0db2b29a63c5a0e8f11975682fa7664e80ad56a5f47d92920771cdff86a}{AVB\_AUDIO\_TYPE\_FLOAT}) \{
+546                         \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} tmp32f;
+547                         \textcolor{comment}{// value *= .75; // attenuate value}
+548                         memcpy((\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *)&tmp32f, (\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *)&value, 4);  \textcolor{comment}{// done so no warning with
+       -Wstrict-aliasing}
+549                         tmp32f = \hyperlink{openavb__intf__tonegen_8c_a1c23409d37011937d198e20a9b9408a2}{convertToDesiredEndianOrder32}(tmp32f, 
+      pPvtData->\hyperlink{structpvt__data__t_a2737fc6ab5107802c9fa03d74c967794}{audioEndian});
+550                         memcpy(pData, (\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *)&tmp32f, 4);
+551                         pData += 4;
+552                     \} \textcolor{keywordflow}{else} \{
+553                         \textcolor{comment}{// CORE\_TODO}
+554                         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Audio sample size format not implemented yet for tone
+       generator interface module"});
+555                     \}
+556                 \}
+557 
+558                 \textcolor{keywordflow}{if} (pPvtData->\hyperlink{structpvt__data__t_a726c75c30e70594b870fea648d2b5a89}{fvChannels} > 0) \{
+559                     \textcolor{keywordflow}{if} (pPvtData->\hyperlink{structpvt__data__t_abc6ed39d478764b05a886d64d104ce4b}{audioType} == \hyperlink{openavb__audio__pub_8h_a680efa0db2b29a63c5a0e8f11975682fa53b99bda35f0676e606e013a0d9b2ccd}{AVB\_AUDIO\_TYPE\_INT}) \{
+560                         \textcolor{keywordflow}{if} (pPvtData->\hyperlink{structpvt__data__t_a868321a19830c5c46ed52c007dfdedb9}{audioBitDepth} == 32) \{
+561                             \textcolor{keywordflow}{if} (pPvtData->\hyperlink{structpvt__data__t_aeb60b20626751ef7c9c0046ed026a681}{fv1Enabled}) \{
+562                                 \hyperlink{openavb__types__base__pub_8h_a39c786017723555afb9e8b85accec0de}{S32} tmp32 = \hyperlink{openavb__intf__tonegen_8c_a1c23409d37011937d198e20a9b9408a2}{convertToDesiredEndianOrder32}(
+      pPvtData->\hyperlink{structpvt__data__t_af0d968d4212147c6c8f84d8bfaa1de61}{fv1}, pPvtData->\hyperlink{structpvt__data__t_a2737fc6ab5107802c9fa03d74c967794}{audioEndian});
+563                                 memcpy(pData, (\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *)&tmp32, 4);
+564                                 pData += 4;
+565                             \}
+566 
+567                             \textcolor{keywordflow}{if} (pPvtData->\hyperlink{structpvt__data__t_a27b884756b6fc446de19b96a3fab08cd}{fv2Enabled}) \{
+568                                 \hyperlink{openavb__types__base__pub_8h_a39c786017723555afb9e8b85accec0de}{S32} tmp32 = \hyperlink{openavb__intf__tonegen_8c_a1c23409d37011937d198e20a9b9408a2}{convertToDesiredEndianOrder32}(
+      pPvtData->\hyperlink{structpvt__data__t_a7cc03784ca8e5c2407ffcf0b9ee62236}{fv2}, pPvtData->\hyperlink{structpvt__data__t_a2737fc6ab5107802c9fa03d74c967794}{audioEndian});
+569                                 memcpy(pData, (\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *)&tmp32, 4);
+570                                 pData += 4;
+571                             \}
+572                         \}
+573                     \}
+574                 \}
+575             \}
+576             
+577             pMediaQItem->\hyperlink{structmedia__q__item__t_a1dfc68b1003d0c64f82d4c19649c2c52}{dataLen} = pPubMapUncmpAudioInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a91e248b2730fbe7951ac5d9d3aae1752}{itemSize};
+578 
+579             \textcolor{keywordflow}{if} (!pPvtData->\hyperlink{structpvt__data__t_a0d8529515d357f9b3faa35f1f2ede2c0}{fixedTimestampEnabled}) \{
+580                 \hyperlink{openavb__avtp__time_8c_a56b2ae4c29078846b941284d161f7d88}{openavbAvtpTimeSetToWallTime}(pMediaQItem->
+      \hyperlink{structmedia__q__item__t_aa7a475459f9c1a43c64ed85ff1c758cc}{pAvtpTime});
+581             \} \textcolor{keywordflow}{else} \{
+582                 \hyperlink{openavb__mcs_8c_afbae383f110ec2ad1379e7751c2ef329}{openavbMcsAdvance}(&pPvtData->\hyperlink{structpvt__data__t_aeae67b5199bbd13cc6ba11f25244aca4}{mcs});
+583                 \hyperlink{openavb__avtp__time_8c_a7ce613779ddf5c8954300d7c4e417ed0}{openavbAvtpTimeSetToTimestampNS}(pMediaQItem->
+      \hyperlink{structmedia__q__item__t_aa7a475459f9c1a43c64ed85ff1c758cc}{pAvtpTime}, pPvtData->\hyperlink{structpvt__data__t_aeae67b5199bbd13cc6ba11f25244aca4}{mcs}.\hyperlink{structmcs__t_a99b06b68590b7637eacd45776c7fc77b}{edgeTime});
+584             \}
+585 
+586             \hyperlink{build_2sdk__eavb_2openavb__mediaq__pub_8h_a0a57c275ac213fdd14c944741c6e9250}{openavbMediaQHeadPush}(pMediaQ);
+587 
+588             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a315e143b4a452e660d7bde93c3d1647d}{AVB\_TRACE\_INTF\_DETAIL});
+589             \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+590         \}
+591         \textcolor{keywordflow}{else} \{
+592             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a315e143b4a452e660d7bde93c3d1647d}{AVB\_TRACE\_INTF\_DETAIL});
+593             \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};  \textcolor{comment}{// Media queue full}
+594         \}
+595     \}
+596     
+597     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a315e143b4a452e660d7bde93c3d1647d}{AVB\_TRACE\_INTF\_DETAIL});
+598     \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+599 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__tonegen_8c_ab09df4912bb681092312f597c767b6d3_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__tonegen_8c_ab09df4912bb681092312f597c767b6d3_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+intf\+\_\+tonegen.\+c@{openavb\+\_\+intf\+\_\+tonegen.\+c}!openavb\+Intf\+Tone\+Gen\+Tx\+Init\+CB@{openavb\+Intf\+Tone\+Gen\+Tx\+Init\+CB}}
+\index{openavb\+Intf\+Tone\+Gen\+Tx\+Init\+CB@{openavb\+Intf\+Tone\+Gen\+Tx\+Init\+CB}!openavb\+\_\+intf\+\_\+tonegen.\+c@{openavb\+\_\+intf\+\_\+tonegen.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Intf\+Tone\+Gen\+Tx\+Init\+C\+B(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q)}{openavbIntfToneGenTxInitCB(media_q_t *pMediaQ)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Intf\+Tone\+Gen\+Tx\+Init\+CB (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__intf__tonegen_8c_a369d96d28aedd953f9f7afbd6b0a882c}{}\label{openavb__intf__tonegen_8c_a369d96d28aedd953f9f7afbd6b0a882c}
+
+
+openavb\+\_\+intf\+\_\+tonegen.\+c 파일의 365 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+366 \{
+367     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+368 
+369     \textcolor{keywordflow}{if} (pMediaQ) \{
+370         
+371         \textcolor{comment}{// U8 b;}
+372         \hyperlink{structpvt__data__t}{pvt\_data\_t} *pPvtData = pMediaQ->\hyperlink{structmedia__q__t_a453af4755f0cf9b8fe035e62ecea845f}{pPvtIntfInfo};
+373         \textcolor{keywordflow}{if} (!pPvtData) \{
+374             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Private interface module data not allocated."});
+375             \textcolor{keywordflow}{return};
+376         \}
+377 
+378         \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t}{media\_q\_pub\_map\_uncmp\_audio\_info\_t} *pPubMapUncmpAudioInfo;
+379         pPubMapUncmpAudioInfo = (\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t}{media\_q\_pub\_map\_uncmp\_audio\_info\_t} *)
+      pMediaQ->\hyperlink{structmedia__q__t_a0226ccb90fbafac84294a908013853b4}{pPubMapInfo};
+380         if (!pPubMapUncmpAudioInfo) \{
+381             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Public map data for audio info not allocated."});
+382             \textcolor{keywordflow}{return};
+383         \}
+384         
+385         \textcolor{comment}{// Will get toggle on at the first tx cb}
+386         \textcolor{keywordflow}{if} (pPvtData->\hyperlink{structpvt__data__t_a81da92af9cf46efd1630f7ec1329759f}{onOffIntervalMSec} > 0) \{
+387             pPvtData->\hyperlink{structpvt__data__t_ab5856fa4ff4ce7d9aff90cd3f36a1724}{freq} = pPvtData->\hyperlink{structpvt__data__t_a96e806731a7839f056148b8e0d11d167}{toneHz};
+388             pPvtData->\hyperlink{structpvt__data__t_afb4d211f6a7e2be34887605bd2cbe5be}{freqCountdown} = 0;
+389         \}
+390         \textcolor{keywordflow}{else} \{
+391             pPvtData->\hyperlink{structpvt__data__t_ab5856fa4ff4ce7d9aff90cd3f36a1724}{freq} = 0;
+392             pPvtData->\hyperlink{structpvt__data__t_afb4d211f6a7e2be34887605bd2cbe5be}{freqCountdown} = 0;
+393         \}
+394         
+395         pPvtData->\hyperlink{structpvt__data__t_a4076c3857ea8e7812c5d51caab0c961e}{melodyIdx} = 0;
+396     \}
+397 
+398     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+399 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__tonegen_8c_a369d96d28aedd953f9f7afbd6b0a882c_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+intf\+\_\+tonegen.\+c@{openavb\+\_\+intf\+\_\+tonegen.\+c}!x\+Get\+Melody\+Tone\+And\+Duration@{x\+Get\+Melody\+Tone\+And\+Duration}}
+\index{x\+Get\+Melody\+Tone\+And\+Duration@{x\+Get\+Melody\+Tone\+And\+Duration}!openavb\+\_\+intf\+\_\+tonegen.\+c@{openavb\+\_\+intf\+\_\+tonegen.\+c}}
+\subsubsection[{\texorpdfstring{x\+Get\+Melody\+Tone\+And\+Duration(char note, char count, U32 $\ast$freq, U32 $\ast$sample\+M\+Sec)}{xGetMelodyToneAndDuration(char note, char count, U32 *freq, U32 *sampleMSec)}}]{\setlength{\rightskip}{0pt plus 5cm}static void x\+Get\+Melody\+Tone\+And\+Duration (
+\begin{DoxyParamCaption}
+\item[{char}]{note, }
+\item[{char}]{count, }
+\item[{{\bf U32} $\ast$}]{freq, }
+\item[{{\bf U32} $\ast$}]{sample\+M\+Sec}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__intf__tonegen_8c_a4184cd82013828b945b58cd136ff86d2}{}\label{openavb__intf__tonegen_8c_a4184cd82013828b945b58cd136ff86d2}
+
+
+openavb\+\_\+intf\+\_\+tonegen.\+c 파일의 129 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+130 \{
+131     \textcolor{keywordflow}{switch} (note) \{
+132         \textcolor{keywordflow}{case} \textcolor{charliteral}{'A'}:
+133             *freq = 220;
+134             \textcolor{keywordflow}{break};
+135         \textcolor{keywordflow}{case} \textcolor{charliteral}{'B'}:
+136             *freq = 246;
+137             \textcolor{keywordflow}{break};
+138         \textcolor{keywordflow}{case} \textcolor{charliteral}{'C'}:
+139             *freq = 261;
+140             \textcolor{keywordflow}{break};
+141         \textcolor{keywordflow}{case} \textcolor{charliteral}{'D'}:
+142             *freq = 293;
+143             \textcolor{keywordflow}{break};
+144         \textcolor{keywordflow}{case} \textcolor{charliteral}{'E'}:
+145             *freq = 329;
+146             \textcolor{keywordflow}{break};
+147         \textcolor{keywordflow}{case} \textcolor{charliteral}{'F'}:
+148             *freq = 349;
+149             \textcolor{keywordflow}{break};
+150         \textcolor{keywordflow}{case} \textcolor{charliteral}{'G'}:
+151             *freq = 391;
+152             \textcolor{keywordflow}{break};
+153         \textcolor{keywordflow}{case} \textcolor{charliteral}{'a'}:
+154             *freq = 440;
+155             \textcolor{keywordflow}{break};
+156         \textcolor{keywordflow}{case} \textcolor{charliteral}{'b'}:
+157             *freq = 493;
+158             \textcolor{keywordflow}{break};
+159         \textcolor{keywordflow}{case} \textcolor{charliteral}{'c'}:
+160             *freq = 523;
+161             \textcolor{keywordflow}{break};
+162         \textcolor{keywordflow}{case} \textcolor{charliteral}{'d'}:
+163             *freq = 587;
+164             \textcolor{keywordflow}{break};
+165         \textcolor{keywordflow}{case} \textcolor{charliteral}{'e'}:
+166             *freq = 659;
+167             \textcolor{keywordflow}{break};
+168         \textcolor{keywordflow}{case} \textcolor{charliteral}{'f'}:
+169             *freq = 698;
+170             \textcolor{keywordflow}{break};
+171         \textcolor{keywordflow}{case} \textcolor{charliteral}{'g'}:
+172             *freq = 783;
+173             \textcolor{keywordflow}{break};
+174         \textcolor{keywordflow}{case} \textcolor{charliteral}{'-'}:
+175         \textcolor{keywordflow}{default}:
+176             *freq = 0;          
+177             \textcolor{keywordflow}{break};
+178     \}
+179     
+180     \textcolor{keywordflow}{switch} (count) \{
+181         \textcolor{keywordflow}{case} \textcolor{charliteral}{'1'}:
+182             *sampleMSec = \hyperlink{openavb__intf__tonegen_8c_ad7df45bd162706f545c1836c7f9a45d0}{MSEC\_PER\_COUNT} * 1;
+183             \textcolor{keywordflow}{break};
+184         \textcolor{keywordflow}{case} \textcolor{charliteral}{'2'}:
+185             *sampleMSec = \hyperlink{openavb__intf__tonegen_8c_ad7df45bd162706f545c1836c7f9a45d0}{MSEC\_PER\_COUNT} * 2;
+186             \textcolor{keywordflow}{break};
+187         \textcolor{keywordflow}{case} \textcolor{charliteral}{'3'}:
+188             *sampleMSec = \hyperlink{openavb__intf__tonegen_8c_ad7df45bd162706f545c1836c7f9a45d0}{MSEC\_PER\_COUNT} * 3;
+189             \textcolor{keywordflow}{break};
+190         \textcolor{keywordflow}{case} \textcolor{charliteral}{'4'}:
+191             *sampleMSec = \hyperlink{openavb__intf__tonegen_8c_ad7df45bd162706f545c1836c7f9a45d0}{MSEC\_PER\_COUNT} * 4;
+192             \textcolor{keywordflow}{break};
+193         \textcolor{keywordflow}{default}:
+194             *sampleMSec = \hyperlink{openavb__intf__tonegen_8c_ad7df45bd162706f545c1836c7f9a45d0}{MSEC\_PER\_COUNT} * 4;
+195             \textcolor{keywordflow}{break};
+196     \}
+197 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__tonegen_8c_a4184cd82013828b945b58cd136ff86d2_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+intf\+\_\+tonegen.\+c@{openavb\+\_\+intf\+\_\+tonegen.\+c}!x\+Supported\+Mapping\+Format@{x\+Supported\+Mapping\+Format}}
+\index{x\+Supported\+Mapping\+Format@{x\+Supported\+Mapping\+Format}!openavb\+\_\+intf\+\_\+tonegen.\+c@{openavb\+\_\+intf\+\_\+tonegen.\+c}}
+\subsubsection[{\texorpdfstring{x\+Supported\+Mapping\+Format(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q)}{xSupportedMappingFormat(media_q_t *pMediaQ)}}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf bool} x\+Supported\+Mapping\+Format (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__intf__tonegen_8c_a9f03e68f083c9d64d9d0ceaee29a19cf}{}\label{openavb__intf__tonegen_8c_a9f03e68f083c9d64d9d0ceaee29a19cf}
+
+
+openavb\+\_\+intf\+\_\+tonegen.\+c 파일의 199 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+200 \{
+201     \textcolor{keywordflow}{if} (pMediaQ) \{
+202         \textcolor{keywordflow}{if} (pMediaQ->\hyperlink{structmedia__q__t_a3f16216bd90b1b04cca7fbb4766cb5ff}{pMediaQDataFormat}) \{
+203             \textcolor{keywordflow}{if} (strcmp(pMediaQ->\hyperlink{structmedia__q__t_a3f16216bd90b1b04cca7fbb4766cb5ff}{pMediaQDataFormat}, 
+      \hyperlink{openavb__map__uncmp__audio__pub_8h_a4736a8cfd6189ed6e01a633a4fa23fc3}{MapUncmpAudioMediaQDataFormat}) == 0 || strcmp(pMediaQ->
+      \hyperlink{structmedia__q__t_a3f16216bd90b1b04cca7fbb4766cb5ff}{pMediaQDataFormat}, \hyperlink{openavb__map__aaf__audio__pub_8h_a4f6041ee46ece5e7d55192b9a51d2957}{MapAVTPAudioMediaQDataFormat}) == 0) \{
+204                 \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+205             \}
+206         \}
+207     \}
+208     \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+209 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__tonegen_8c_a9f03e68f083c9d64d9d0ceaee29a19cf_icgraph}
+\end{center}
+\end{figure}
+
+

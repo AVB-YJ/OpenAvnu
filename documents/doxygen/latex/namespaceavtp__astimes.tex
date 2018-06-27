@@ -1,0 +1,258 @@
+\hypertarget{namespaceavtp__astimes}{}\section{avtp\+\_\+astimes 네임스페이스 참조}
+\label{namespaceavtp__astimes}\index{avtp\+\_\+astimes@{avtp\+\_\+astimes}}
+\subsection*{데이타 구조}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classavtp__astimes_1_1_a_v_t_p}{A\+V\+TP}
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{namespaceavtp__astimes_a71c89e27ea4d1ec1581b04e71cdb6ae2}{pkt\+\_\+avtp} (pkt, fout, pkt\+\_\+count, info)
+\item 
+def \hyperlink{namespaceavtp__astimes_a8ee95d891b3aa8e8887bc86fb3ccd3f4}{main} (count, input\+\_\+cap)
+\end{DoxyCompactItemize}
+\subsection*{변수}
+\begin{DoxyCompactItemize}
+\item 
+string \hyperlink{namespaceavtp__astimes_a61e5f066c879e5430d8f713c2c3a8b31}{usage}
+\item 
+\hyperlink{namespaceavtp__astimes_a90eee7a4677ca8b1ed116364a24367f9}{parser} = Option\+Parser(\hyperlink{namespaceavtp__astimes_a61e5f066c879e5430d8f713c2c3a8b31}{usage} = \hyperlink{namespaceavtp__astimes_a61e5f066c879e5430d8f713c2c3a8b31}{usage})
+\item 
+\hyperlink{namespaceavtp__astimes_a7aead736a07eaf25623ad7bfa1f0ee2d}{type}
+\item 
+\hyperlink{namespaceavtp__astimes_ab0bede79c5f4cbed9c2cd932a0ace201}{dest}
+\item 
+\hyperlink{namespaceavtp__astimes_a81ae9faedaa69e3e28e2960a0548df8d}{help}
+\item 
+\hyperlink{namespaceavtp__astimes_affb1327b18bf08a379d19eef89cf1ed1}{default}
+\item 
+\hyperlink{namespaceavtp__astimes_aa17b9f50d41f0a8e95659986136435dd}{opts}
+\item 
+\hyperlink{namespaceavtp__astimes_a8187411843a6284ffb964ef3fb9fcab3}{args}
+\end{DoxyCompactItemize}
+
+
+\subsection{함수 문서화}
+\index{avtp\+\_\+astimes@{avtp\+\_\+astimes}!main@{main}}
+\index{main@{main}!avtp\+\_\+astimes@{avtp\+\_\+astimes}}
+\subsubsection[{\texorpdfstring{main(count, input\+\_\+cap)}{main(count, input_cap)}}]{\setlength{\rightskip}{0pt plus 5cm}def avtp\+\_\+astimes.\+main (
+\begin{DoxyParamCaption}
+\item[{}]{count, }
+\item[{}]{input\+\_\+cap}
+\end{DoxyParamCaption}
+)}\hypertarget{namespaceavtp__astimes_a8ee95d891b3aa8e8887bc86fb3ccd3f4}{}\label{namespaceavtp__astimes_a8ee95d891b3aa8e8887bc86fb3ccd3f4}
+
+
+avtp\+\_\+astimes.\+py 파일의 107 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+107 \textcolor{keyword}{def }\hyperlink{namespaceavtp__astimes_a8ee95d891b3aa8e8887bc86fb3ccd3f4}{main}(count, input\_cap):
+108     mac\_data = \{\}
+109     n\_avtp\_streams = 0
+110     foutput = []
+111     pkt\_count = 0
+112     ts\_good = 0
+113     capture = s.rdpcap(input\_cap)
+114     \textcolor{keywordflow}{for} pkt \textcolor{keywordflow}{in} capture:
+115         n = 0;
+116         pkt\_count += 1
+117         \textcolor{keywordflow}{try}:
+118             \textcolor{comment}{# Deal with AVTP packets}
+119             \textcolor{keywordflow}{if} (pkt[s.Ether].type == 0x8100 \textcolor{keywordflow}{and} pkt[s.Dot1Q].type == 0x22f0):
+120                 avtp = pkt[AVTP]
+121                 \textcolor{keywordflow}{if} avtp.controlData == 0x0:
+122                     \textcolor{keywordflow}{if} pkt[s.Ether].dst \textcolor{keywordflow}{in} mac\_data:
+123                         mac\_data[pkt[s.Ether].dst][\textcolor{stringliteral}{'avtp\_count'}] = mac\_data[pkt[s.Ether].dst][\textcolor{stringliteral}{'avtp\_count'}]
+       + 1
+124                     \textcolor{keywordflow}{else}:
+125                         \textcolor{keywordflow}{print} \textcolor{stringliteral}{"Packet %d, found AVTP stream with destination MAC %s"} % (pkt\_count, pkt[
+      s.Ether].dst)
+126                         mac\_data[pkt[s.Ether].dst] = \{\}
+127                         mac\_data[pkt[s.Ether].dst][\textcolor{stringliteral}{'this\_mac'}] = pkt[s.Ether].dst
+128                         mac\_data[pkt[s.Ether].dst][\textcolor{stringliteral}{'avtp\_count'}] = 1
+129                         mac\_data[pkt[s.Ether].dst][\textcolor{stringliteral}{'fname'}] = \textcolor{stringliteral}{'seq%d.csv'} % n\_avtp\_streams
+130                         mac\_data[pkt[s.Ether].dst][\textcolor{stringliteral}{'fout'}] = open(mac\_data[pkt[s.Ether].dst][\textcolor{stringliteral}{'fname'}], \textcolor{stringliteral}{'wt'}
+      )
+131                         mac\_data[pkt[s.Ether].dst][\textcolor{stringliteral}{'seq'}] = \{\}
+132                         mac\_data[pkt[s.Ether].dst][\textcolor{stringliteral}{'seq'}][\textcolor{stringliteral}{'last'}] = 0
+133                         mac\_data[pkt[s.Ether].dst][\textcolor{stringliteral}{'seq'}][\textcolor{stringliteral}{'init'}] = \textcolor{keyword}{False}
+134                         mac\_data[pkt[s.Ether].dst][\textcolor{stringliteral}{'wraps'}] = 0
+135                         mac\_data[pkt[s.Ether].dst][\textcolor{stringliteral}{'prev\_pkt\_ts'}] = 0
+136                         mac\_data[pkt[s.Ether].dst][\textcolor{stringliteral}{'ts\_count'}] = 0
+137                         mac\_data[pkt[s.Ether].dst][\textcolor{stringliteral}{'ts\_accum'}] = 0
+138                         mac\_data[pkt[s.Ether].dst][\textcolor{stringliteral}{'ts\_uncertain\_count'}] = 0
+139                         n\_avtp\_streams = n\_avtp\_streams + 1
+140                     
+141                     \textcolor{keywordflow}{if} avtp.timestampUncertain:
+142                         ts\_good = 0
+143                         mac\_data[pkt[s.Ether].dst][\textcolor{stringliteral}{'ts\_uncertain\_count'}] = mac\_data[pkt[s.Ether].dst][\textcolor{stringliteral}{'
+      ts\_uncertain\_count'}] + 1
+144                     \textcolor{keywordflow}{else}:
+145                         ts\_good = ts\_good + 1
+146 
+147                     \textcolor{comment}{# when we have 2 MACs, process the packet}
+148                     \textcolor{keywordflow}{if} n\_avtp\_streams == 2 \textcolor{keywordflow}{and} ts\_good > 2:
+149                         \textcolor{keywordflow}{if} mac\_data[pkt[s.Ether].dst][\textcolor{stringliteral}{'ts\_count'}] == 0:
+150                             \textcolor{keywordflow}{print} \textcolor{stringliteral}{"At packet %d start unpacking AVTP dest MAC %s"} % (pkt\_count, pkt[s.Ether
+      ].dst)
+151                         n = \hyperlink{namespaceavtp__astimes_a71c89e27ea4d1ec1581b04e71cdb6ae2}{pkt\_avtp}(pkt, mac\_data[pkt[s.Ether].dst][\textcolor{stringliteral}{'fout'}], pkt\_count, mac\_data[
+      pkt[s.Ether].dst])
+152         \textcolor{keywordflow}{except} IndexError:
+153             \textcolor{keywordflow}{print} \textcolor{stringliteral}{"Unknown ethernet type packet %d"} % pkt\_count
+154         count = count - n
+155         \textcolor{keywordflow}{if} count == 0:
+156             \textcolor{keywordflow}{break}
+157     \textcolor{keywordflow}{for} k, v \textcolor{keywordflow}{in} mac\_data.items():
+158         v[\textcolor{stringliteral}{'fout'}].close();
+159         \textcolor{keywordflow}{print} \textcolor{stringliteral}{"MAC %s %d AVTP timestamps stored to %s"} % (k, v[\textcolor{stringliteral}{'ts\_count'}], v[\textcolor{stringliteral}{'fname'}])
+160         \textcolor{keywordflow}{print} \textcolor{stringliteral}{"         Timestamp uncertain count: %d"} % v[\textcolor{stringliteral}{'ts\_uncertain\_count'}]
+161 
+162     \textcolor{keywordflow}{if} count != 0:
+163         \textcolor{keywordflow}{print} \textcolor{stringliteral}{"Could not find the specified packets counts"}
+164     
+165     \textcolor{keywordflow}{print} \textcolor{stringliteral}{"Complete"}
+166 
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=208pt]{namespaceavtp__astimes_a8ee95d891b3aa8e8887bc86fb3ccd3f4_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{avtp\+\_\+astimes@{avtp\+\_\+astimes}!pkt\+\_\+avtp@{pkt\+\_\+avtp}}
+\index{pkt\+\_\+avtp@{pkt\+\_\+avtp}!avtp\+\_\+astimes@{avtp\+\_\+astimes}}
+\subsubsection[{\texorpdfstring{pkt\+\_\+avtp(pkt, fout, pkt\+\_\+count, info)}{pkt_avtp(pkt, fout, pkt_count, info)}}]{\setlength{\rightskip}{0pt plus 5cm}def avtp\+\_\+astimes.\+pkt\+\_\+avtp (
+\begin{DoxyParamCaption}
+\item[{}]{pkt, }
+\item[{}]{fout, }
+\item[{}]{pkt\+\_\+count, }
+\item[{}]{info}
+\end{DoxyParamCaption}
+)}\hypertarget{namespaceavtp__astimes_a71c89e27ea4d1ec1581b04e71cdb6ae2}{}\label{namespaceavtp__astimes_a71c89e27ea4d1ec1581b04e71cdb6ae2}
+
+
+avtp\+\_\+astimes.\+py 파일의 76 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+76 \textcolor{keyword}{def }\hyperlink{namespaceavtp__astimes_a71c89e27ea4d1ec1581b04e71cdb6ae2}{pkt\_avtp}(pkt, fout, pkt\_count, info):
+77     
+78     n = 0
+79     avtp = pkt[AVTP]
+80     \textcolor{keywordflow}{if} info[\textcolor{stringliteral}{'seq'}][\textcolor{stringliteral}{'init'}] == \textcolor{keyword}{False}:
+81         info[\textcolor{stringliteral}{'seq'}][\textcolor{stringliteral}{'last'}] = avtp.sequence
+82         info[\textcolor{stringliteral}{'seq'}][\textcolor{stringliteral}{'init'}] = \textcolor{keyword}{True}
+83     \textcolor{keywordflow}{else}:
+84         \textcolor{keywordflow}{if} avtp.sequence < info[\textcolor{stringliteral}{'seq'}][\textcolor{stringliteral}{'last'}]:
+85             \textcolor{keywordflow}{if} avtp.sequence != 0:
+86                 \textcolor{keywordflow}{print} \textcolor{stringliteral}{"Sequence wrap error at packet number %d"} % (pkt\_count)
+87         \textcolor{keywordflow}{else}:
+88             \textcolor{keywordflow}{if} avtp.sequence - info[\textcolor{stringliteral}{'seq'}][\textcolor{stringliteral}{'last'}] != 1:
+89                 \textcolor{keywordflow}{print} \textcolor{stringliteral}{"Sequence error at packet number %d (MAC %s)"} % (pkt\_count, info[\textcolor{stringliteral}{'this\_mac'}])
+90         info[\textcolor{stringliteral}{'seq'}][\textcolor{stringliteral}{'last'}] = avtp.sequence
+91             
+92     \textcolor{keywordflow}{if} avtp.flags == 0x81:
+93         \textcolor{keywordflow}{if} info[\textcolor{stringliteral}{'ts\_count'}] == 0:
+94             info[\textcolor{stringliteral}{'ts\_accum'}] = avtp.ptpTimestamp
+95         \textcolor{keywordflow}{else}:
+96             \textcolor{keywordflow}{if} avtp.ptpTimestamp > info[\textcolor{stringliteral}{'prev\_pkt\_ts'}]:
+97                 ts\_delta = avtp.ptpTimestamp - info[\textcolor{stringliteral}{'prev\_pkt\_ts'}]
+98             \textcolor{keywordflow}{else}:
+99                 ts\_delta = avtp.ptpTimestamp + 0x100000000 - info[\textcolor{stringliteral}{'prev\_pkt\_ts'}]
+100             info[\textcolor{stringliteral}{'ts\_accum'}] = info[\textcolor{stringliteral}{'ts\_accum'}] + ts\_delta
+101             fout.write(\textcolor{stringliteral}{"%d, %d\(\backslash\)n"} % (info[\textcolor{stringliteral}{'ts\_count'}], info[\textcolor{stringliteral}{'ts\_accum'}]))
+102             n = 1
+103         info[\textcolor{stringliteral}{'prev\_pkt\_ts'}] = avtp.ptpTimestamp
+104         info[\textcolor{stringliteral}{'ts\_count'}] = info[\textcolor{stringliteral}{'ts\_count'}] + 1
+105     \textcolor{keywordflow}{return} n
+106 
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=208pt]{namespaceavtp__astimes_a71c89e27ea4d1ec1581b04e71cdb6ae2_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{변수 문서화}
+\index{avtp\+\_\+astimes@{avtp\+\_\+astimes}!args@{args}}
+\index{args@{args}!avtp\+\_\+astimes@{avtp\+\_\+astimes}}
+\subsubsection[{\texorpdfstring{args}{args}}]{\setlength{\rightskip}{0pt plus 5cm}args}\hypertarget{namespaceavtp__astimes_a8187411843a6284ffb964ef3fb9fcab3}{}\label{namespaceavtp__astimes_a8187411843a6284ffb964ef3fb9fcab3}
+
+
+avtp\+\_\+astimes.\+py 파일의 174 번째 라인에서 정의되었습니다.
+
+\index{avtp\+\_\+astimes@{avtp\+\_\+astimes}!default@{default}}
+\index{default@{default}!avtp\+\_\+astimes@{avtp\+\_\+astimes}}
+\subsubsection[{\texorpdfstring{default}{default}}]{\setlength{\rightskip}{0pt plus 5cm}default}\hypertarget{namespaceavtp__astimes_affb1327b18bf08a379d19eef89cf1ed1}{}\label{namespaceavtp__astimes_affb1327b18bf08a379d19eef89cf1ed1}
+
+
+avtp\+\_\+astimes.\+py 파일의 172 번째 라인에서 정의되었습니다.
+
+\index{avtp\+\_\+astimes@{avtp\+\_\+astimes}!dest@{dest}}
+\index{dest@{dest}!avtp\+\_\+astimes@{avtp\+\_\+astimes}}
+\subsubsection[{\texorpdfstring{dest}{dest}}]{\setlength{\rightskip}{0pt plus 5cm}dest}\hypertarget{namespaceavtp__astimes_ab0bede79c5f4cbed9c2cd932a0ace201}{}\label{namespaceavtp__astimes_ab0bede79c5f4cbed9c2cd932a0ace201}
+
+
+avtp\+\_\+astimes.\+py 파일의 171 번째 라인에서 정의되었습니다.
+
+\index{avtp\+\_\+astimes@{avtp\+\_\+astimes}!help@{help}}
+\index{help@{help}!avtp\+\_\+astimes@{avtp\+\_\+astimes}}
+\subsubsection[{\texorpdfstring{help}{help}}]{\setlength{\rightskip}{0pt plus 5cm}help}\hypertarget{namespaceavtp__astimes_a81ae9faedaa69e3e28e2960a0548df8d}{}\label{namespaceavtp__astimes_a81ae9faedaa69e3e28e2960a0548df8d}
+
+
+avtp\+\_\+astimes.\+py 파일의 172 번째 라인에서 정의되었습니다.
+
+\index{avtp\+\_\+astimes@{avtp\+\_\+astimes}!opts@{opts}}
+\index{opts@{opts}!avtp\+\_\+astimes@{avtp\+\_\+astimes}}
+\subsubsection[{\texorpdfstring{opts}{opts}}]{\setlength{\rightskip}{0pt plus 5cm}opts}\hypertarget{namespaceavtp__astimes_aa17b9f50d41f0a8e95659986136435dd}{}\label{namespaceavtp__astimes_aa17b9f50d41f0a8e95659986136435dd}
+
+
+avtp\+\_\+astimes.\+py 파일의 174 번째 라인에서 정의되었습니다.
+
+\index{avtp\+\_\+astimes@{avtp\+\_\+astimes}!parser@{parser}}
+\index{parser@{parser}!avtp\+\_\+astimes@{avtp\+\_\+astimes}}
+\subsubsection[{\texorpdfstring{parser}{parser}}]{\setlength{\rightskip}{0pt plus 5cm}parser = Option\+Parser({\bf usage} = {\bf usage})}\hypertarget{namespaceavtp__astimes_a90eee7a4677ca8b1ed116364a24367f9}{}\label{namespaceavtp__astimes_a90eee7a4677ca8b1ed116364a24367f9}
+
+
+avtp\+\_\+astimes.\+py 파일의 170 번째 라인에서 정의되었습니다.
+
+\index{avtp\+\_\+astimes@{avtp\+\_\+astimes}!type@{type}}
+\index{type@{type}!avtp\+\_\+astimes@{avtp\+\_\+astimes}}
+\subsubsection[{\texorpdfstring{type}{type}}]{\setlength{\rightskip}{0pt plus 5cm}type}\hypertarget{namespaceavtp__astimes_a7aead736a07eaf25623ad7bfa1f0ee2d}{}\label{namespaceavtp__astimes_a7aead736a07eaf25623ad7bfa1f0ee2d}
+
+
+avtp\+\_\+astimes.\+py 파일의 171 번째 라인에서 정의되었습니다.
+
+\index{avtp\+\_\+astimes@{avtp\+\_\+astimes}!usage@{usage}}
+\index{usage@{usage}!avtp\+\_\+astimes@{avtp\+\_\+astimes}}
+\subsubsection[{\texorpdfstring{usage}{usage}}]{\setlength{\rightskip}{0pt plus 5cm}string usage}\hypertarget{namespaceavtp__astimes_a61e5f066c879e5430d8f713c2c3a8b31}{}\label{namespaceavtp__astimes_a61e5f066c879e5430d8f713c2c3a8b31}
+{\bfseries 초기값\+:}
+\begin{DoxyCode}
+1 = \textcolor{stringliteral}{"""avtp\_astimes.py [options] input.libpcap}
+2 \textcolor{stringliteral}{}
+3 \textcolor{stringliteral}{This script extracts AVTP packet timestamps and writes them}
+4 \textcolor{stringliteral}{in a text file for later processing. Timestamps are modified}
+5 \textcolor{stringliteral}{so as to be always incrementing (ie the 4s wrap is removed).}
+6 \textcolor{stringliteral}{}
+7 \textcolor{stringliteral}{"""}
+\end{DoxyCode}
+
+
+avtp\+\_\+astimes.\+py 파일의 43 번째 라인에서 정의되었습니다.
+

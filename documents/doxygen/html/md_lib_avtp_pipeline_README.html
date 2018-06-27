@@ -1,0 +1,306 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.11"/>
+<title>OpenAvnu: STC/Harman AVTP Pipeline Contribution Notes</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">OpenAvnu
+   &#160;<span id="projectnumber">0.1</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 다음에 의해 생성됨 :  Doxygen 1.8.11 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'검색');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>메인&#160;페이지</span></a></li>
+      <li class="current"><a href="pages.html"><span>관련된&#160;페이지</span></a></li>
+      <li><a href="modules.html"><span>모듈</span></a></li>
+      <li><a href="namespaces.html"><span>네임스페이스</span></a></li>
+      <li><a href="annotated.html"><span>데이타&#160;구조</span></a></li>
+      <li><a href="files.html"><span>파일들</span></a></li>
+      <li><a href="examples.html"><span>예제</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="검색" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('md_lib_avtp_pipeline_README.html','');});
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">STC/Harman AVTP Pipeline Contribution Notes </div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><h2>General Status</h2>
+<ul>
+<li>Consider the AVTP Pipeline a work in progress.</li>
+<li>Integrated with OpenAvnu:<ul>
+<li>gPTP</li>
+<li>MAAP</li>
+<li>MSRP</li>
+<li>credit based shaper</li>
+<li>build system</li>
+</ul>
+</li>
+<li>Credit-based shaper algorithm is not used for individual streams.</li>
+<li>Testing of various mappings and benchmarking has been performed. Look at the end of this file for benchmark results.</li>
+<li>Documentation and doc generation has not been fully updated.</li>
+</ul>
+<h2>Building Current OpenAvnu</h2>
+<h3>Tool chain and libraries</h3>
+<ul>
+<li>Ubuntu 14.04</li>
+<li>Install dependencies for OpenAvnu ($ sudo apt-get install ...)<ul>
+<li>$ sudo apt-get install build-essential</li>
+<li>$ sudo apt-get install libpcap-dev</li>
+<li>$ sudo apt-get install libpci-dev</li>
+<li>$ sudo apt-get install libsndfile1-dev</li>
+<li>$ sudo apt-get install libjack-dev</li>
+<li>$ sudo apt-get install linux-headers-generic<ul>
+<li>linux-headers (same version as the kernel you're building for)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Additional install dependencies for AVTP pipeline<ul>
+<li>$ sudo apt-get install libglib2.0-dev</li>
+<li>$ sudo apt-get install libasound2-dev</li>
+</ul>
+</li>
+<li>Additional install dependencies for AVTP pipeline if GStreamer support is enabled<ul>
+<li>$ sudo apt-get install libgstreamer0.10-dev</li>
+<li>$ sudo apt-get install libgstreamer-plugins-base0.10-dev</li>
+</ul>
+</li>
+</ul>
+<h3>Building everything</h3>
+<ul>
+<li>Building from the repo root</li>
+<li>$ make all</li>
+</ul>
+<h3>Building just AVTP pipeline</h3>
+<ul>
+<li>$ make avtp_pipeline</li>
+</ul>
+<p>Binaries will be installed in lib/avtp_pipeline/build/bin.</p>
+<h3>Building AVTP pipeline without SRP or MAAP support</h3>
+<ul>
+<li>$ AVB_FEATURE_ENDPOINT=0 make avtp_pipeline</li>
+</ul>
+<p>Make sure to call <code>make avtp_pipeline_clean</code> before.</p>
+<h3>Building AVTP pipeline documentation</h3>
+<ul>
+<li>$ make avtp_pipeline_doc</li>
+</ul>
+<h3>Building just AVTP AVDECC support</h3>
+<ul>
+<li>$ make avtp_avdecc</li>
+</ul>
+<p>Binaries will be installed in lib/avtp_pipeline/build/bin. Build files will be in the lib/avtp_pipeline/build_avdecc directory, to avoid interfering with the AVTP Pipeline build files.</p>
+<p>The openavb_avdecc binary needs to be run in addition to the AVTP pipeline binary (openavb_harness or openavb_host) for AVDECC to be supported.</p>
+<h3>Building AVTP AVDECC documentation</h3>
+<ul>
+<li>$ make avtp_avdecc_doc</li>
+</ul>
+<h2>Running OpenAvnu daemons</h2>
+<ul>
+<li>Helper scripts in the repo root.</li>
+<li><code>$ sudo ./run_igb.sh eth1</code><ul>
+<li>Load the igb driver. Supply the interface name (ethx) as parameter. Only needed if using IGB support for the Intel i210 adapter.</li>
+</ul>
+</li>
+<li><code>$ sudo ./run_daemons.sh eth1</code><ul>
+<li>Start the gptp, msrp, maap, and shaper daemons. Supply the interface name (ethx) as parameter.</li>
+<li>Daemons can also be started individually using the run_gptp.sh, run_srp.sh, run_maap.sh, and run_shaper.sh scripts.</li>
+</ul>
+</li>
+<li><code>$ sudo ./stop_daemons.sh</code><ul>
+<li>Stop the gptp, msrp, maap, and shaper daemons. Don't use this command while AVTP Pipeline is running.</li>
+</ul>
+</li>
+</ul>
+<h2>Running OpenAvnu AVTP Pipeline example</h2>
+<ul>
+<li><code>$ sudo ./run_avtp_pipeline.sh eth1</code><ul>
+<li>Run the current OpenAvnu AVTP Pipeline example. Supply the interface name (ethx) as parameter.</li>
+</ul>
+</li>
+<li><code>$ sudo ./stop_avtp_pipeline.sh eth1</code><ul>
+<li>Stop the current OpenAvnu AVTP Pipeline example. The script will also attempt to cleanly recover if the AVTP pipeline binaries crashed.</li>
+</ul>
+</li>
+</ul>
+<p>The AVTP Pipeline example is expected to be run simultaneously on two or more different Linux computers, with the network interfaces connected using AVB-capable switches. (The daemons do not currently support using two different network interfaces on the same computer, so different computers must be used.) You can refer to the list of <a href="http://avnu.org/certified-products/">Avnu Certified Products</a> for switches with AVB/TSN support.</p>
+<p>To connect the Talker and Listener with the example implementation, you need to use an AVDECC controller. (These are also referred to as 1722.1 or ATDECC controllers. AVDECC was renamed to ATDECC by the IEEE P1722.1 work group in 2017.) This will tell the Listener(s) which stream to listen to, and allow the Talker and Listener(s) to coordinate when they should start streaming. There are several AVDECC controllers available, including one in the OpenAvnu avdecc-lib/controller folder.</p>
+<p>The AVTP Pipeline example Talker and Listener should also be compatible with other AVB/TSN products that support 8-channel, 48K/24-bit <a href="https://webstore.iec.ch/preview/info_iec61883-6%7Bed2.0%7Den.pdf">IEC 61883-6</a> audio and AVDECC management. The list of <a href="http://avnu.org/certified-products/">Avnu Certified Products</a> includes some of them. The example Talker and Listener has also been used successfully to stream audio to and from Apple Macbooks running macOS version 10.12 (Sierra) and later, and controlled with the Apple Macbook built-in AVDECC controller (avbutil).</p>
+<h2>Benchmark results</h2>
+<p>All test done on DELL Optiplex 755 with Intel Core 2 Duo CPU E8400 @ 3.00GHz</p>
+<table class="doxtable">
+<tr>
+<th align="center">Type </th><th>Comment </th><th align="center">Class </th><th align="right">Streams </th><th align="right">CPU Talker </th><th align="right">CPU Listener  </th></tr>
+<tr>
+<td align="center">61883-6 </td><td>48kHz stereo </td><td align="center">A </td><td align="right">1 </td><td align="right">3.2%</td><td align="right">4.9% </td></tr>
+<tr>
+<td align="center"></td><td></td><td align="center"></td><td align="right">2 </td><td align="right">22.8%</td><td align="right">9.3% </td></tr>
+<tr>
+<td align="center"></td><td></td><td align="center"></td><td align="right">4 </td><td align="right">28.2%</td><td align="right">20.3% </td></tr>
+<tr>
+<td align="center"></td><td></td><td align="center"></td><td align="right">8 </td><td align="right">39.7%</td><td align="right">35.0% </td></tr>
+<tr>
+<td align="center"></td><td></td><td align="center"></td><td align="right">16 </td><td align="right">60.8%</td><td align="right">73.1% </td></tr>
+<tr>
+<td align="center">aaf </td><td>48kHz stereo </td><td align="center">A </td><td align="right">1 </td><td align="right">3.4%</td><td align="right">4.8% </td></tr>
+<tr>
+<td align="center"></td><td></td><td align="center"></td><td align="right">2 </td><td align="right">22.7%</td><td align="right">8.9% </td></tr>
+<tr>
+<td align="center"></td><td></td><td align="center"></td><td align="right">4 </td><td align="right">28.7%</td><td align="right">19.4% </td></tr>
+<tr>
+<td align="center"></td><td></td><td align="center"></td><td align="right">8 </td><td align="right">40.5%</td><td align="right">35.7% </td></tr>
+<tr>
+<td align="center"></td><td></td><td align="center"></td><td align="right">16 </td><td align="right">63.0%</td><td align="right">74.8% </td></tr>
+<tr>
+<td align="center">h264 </td><td>4675 Kbps vbr</td><td align="center">A </td><td align="right">1 </td><td align="right">3.2%</td><td align="right">27.0% </td></tr>
+<tr>
+<td align="center"></td><td></td><td align="center"></td><td align="right">2 </td><td align="right">6.4%</td><td align="right">59.8% </td></tr>
+<tr>
+<td align="center"></td><td></td><td align="center"></td><td align="right">4 </td><td align="right">10.5%</td><td align="right">108.1% </td></tr>
+<tr>
+<td align="center"></td><td></td><td align="center"></td><td align="right">6 </td><td align="right">15.6%</td><td align="right">149.9% </td></tr>
+<tr>
+<td align="center">mpeg2ts </td><td>1405 Kbps vbr</td><td align="center">A </td><td align="right">1 </td><td align="right">2.5%</td><td align="right">14.7% </td></tr>
+<tr>
+<td align="center"></td><td></td><td align="center"></td><td align="right">2 </td><td align="right">5.0%</td><td align="right">40.9% </td></tr>
+<tr>
+<td align="center"></td><td></td><td align="center"></td><td align="right">4 </td><td align="right">7.6%</td><td align="right">86.3% </td></tr>
+<tr>
+<td align="center"></td><td></td><td align="center"></td><td align="right">6 </td><td align="right">10.7%</td><td align="right">123.5% </td></tr>
+<tr>
+<td align="center">mjpeg </td><td>live camera </td><td align="center">A </td><td align="right">1 </td><td align="right">11.5%</td><td align="right">10.2% </td></tr>
+<tr>
+<td align="center">mjpeg </td><td>videotestsrc </td><td align="center">A </td><td align="right">1 </td><td align="right">10.0%</td><td align="right">6.4% </td></tr>
+<tr>
+<td align="center"></td><td></td><td align="center"></td><td align="right">2 </td><td align="right">21.4%</td><td align="right">13.0% </td></tr>
+<tr>
+<td align="center"></td><td></td><td align="center"></td><td align="right">4 </td><td align="right">40.5%</td><td align="right">26.9% </td></tr>
+<tr>
+<td align="center"></td><td></td><td align="center"></td><td align="right">6 </td><td align="right">57.7%</td><td align="right">42.0% </td></tr>
+<tr>
+<td align="center"></td><td></td><td align="center">B </td><td align="right">12 </td><td align="right">113.0%</td><td align="right">79.0% </td></tr>
+</table>
+<h2>More examples</h2>
+<p>Below are examples of AVTP pipeline usage with various stream types (mappings). These commands were used for generating benchmark results above. AVTP pipeline was compiled without SRP support (<code>AVB_FEATURE_ENDPOINT=0 make avtp_pipeline</code>). </p><pre class="fragment">IFNAME=eth0
+STREAMS=7
+CLASS=A
+RATE=8000
+TRANSIT_USEC=2000
+REPORT=0 # statistics display interval in seconds (0 turns off statistics)
+
+# AAF talker
+sudo ./openavb_harness -I $IFNAME -s $STREAMS -d 0 -a a0:36:9f:2d:01:ad aaf_file_talker.ini,sr_class=$CLASS,map_nv_tx_rate=$RATE,max_transit_usec=$TRANSIT_USEC,map_nv_sparse_mode=0,intf_nv_file_name=test01.wav,report_seconds=$REPORT
+# AAF listener
+sudo ./openavb_harness -I $IFNAME -s $STREAMS -d 0 -a a0:36:9f:2d:01:ad aaf_listener_auto.ini,sr_class=$CLASS,map_nv_tx_rate=$RATE,max_transit_usec=$TRANSIT_USEC,map_nv_sparse_mode=0,intf_nv_audio_endian=big,report_seconds=$REPORT
+
+# 61883-6 talker
+sudo ./openavb_harness -I $IFNAME -s $STREAMS -d 0 -a a0:36:9f:2d:01:ad wav_file_talker.ini,sr_class=$CLASS,map_nv_tx_rate=$RATE,max_transit_usec=$TRANSIT_USEC,intf_nv_file_name=test01.wav,report_seconds=$REPORT
+# 61883-6 listener
+sudo ./openavb_harness -I $IFNAME -s $STREAMS -d 0 -a a0:36:9f:2d:01:ad alsa_listener.ini,sr_class=$CLASS,map_nv_tx_rate=$RATE,max_transit_usec=$TRANSIT_USEC,report_seconds=$REPORT
+
+# H264 talker
+sudo ./openavb_harness -I $IFNAME -s $STREAMS -d 0 -a a0:36:9f:2d:01:ad h264_gst_talker.ini,sr_class=$CLASS,map_nv_tx_rate=$RATE,max_transit_usec=$TRANSIT_USEC,report_seconds=$REPORT
+# H264 listener
+sudo ./openavb_harness -I $IFNAME -s $STREAMS -d 0 -a a0:36:9f:2d:01:ad h264_gst_listener.ini,sr_class=$CLASS,map_nv_tx_rate=$RATE,max_transit_usec=$TRANSIT_USEC,report_seconds=$REPORT
+
+# MJPEG talker
+sudo ./openavb_harness -I $IFNAME -s $STREAMS -d 0 -a a0:36:9f:2d:01:ad mjpeg_gst_talker.ini,sr_class=$CLASS,map_nv_tx_rate=$RATE,max_transit_usec=$TRANSIT_USEC,report_seconds=$REPORT
+# MJPEG listener
+sudo ./openavb_harness -I $IFNAME -s $STREAMS -d 0 -a a0:36:9f:2d:01:ad mjpeg_gst_listener.ini,sr_class=$CLASS,map_nv_tx_rate=$RATE,max_transit_usec=$TRANSIT_USEC,report_seconds=$REPORT
+
+# MPEG2TS talker
+sudo ./openavb_harness -I $IFNAME -s $STREAMS -d 0 -a a0:36:9f:2d:01:ad mpeg2ts_file_talker.ini,sr_class=$CLASS,map_nv_tx_rate=$RATE,max_transit_usec=$TRANSIT_USEC,report_seconds=$REPORT
+# MPEG2TS listener
+sudo ./openavb_harness -I $IFNAME -s $STREAMS -d 0 -a a0:36:9f:2d:01:ad mpeg2ts_gst_listener.ini,sr_class=$CLASS,map_nv_tx_rate=$RATE,max_transit_usec=$TRANSIT_USEC,report_seconds=$REPORT</pre> </div></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">다음에 의해 생성됨 : 
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.11 </li>
+  </ul>
+</div>
+</body>
+</html>

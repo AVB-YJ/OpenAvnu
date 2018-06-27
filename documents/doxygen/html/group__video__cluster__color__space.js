@@ -1,0 +1,25 @@
+var group__video__cluster__color__space =
+[
+    [ "JDKSAVDECC_VIDEO_CLUSTER_COLOR_SPACE_BAYERBG12_PACKED", "group__video__cluster__color__space.html#ga223cd49c15bb803fcfb5cc464acc5cb5", null ],
+    [ "JDKSAVDECC_VIDEO_CLUSTER_COLOR_SPACE_BAYERBG16", "group__video__cluster__color__space.html#gac21ff75ba68e55f3e30cca461c9f42a0", null ],
+    [ "JDKSAVDECC_VIDEO_CLUSTER_COLOR_SPACE_BAYERBG8", "group__video__cluster__color__space.html#gab2e73fd714c1dae94892bf47b42e2150", null ],
+    [ "JDKSAVDECC_VIDEO_CLUSTER_COLOR_SPACE_BAYERGB12_PACKED", "group__video__cluster__color__space.html#ga0bbb5a259633146c6a4feddf5bdd4ac4", null ],
+    [ "JDKSAVDECC_VIDEO_CLUSTER_COLOR_SPACE_BAYERGB16", "group__video__cluster__color__space.html#ga3b1cbc6beacfba5e9cabe24fc736de5c", null ],
+    [ "JDKSAVDECC_VIDEO_CLUSTER_COLOR_SPACE_BAYERGB8", "group__video__cluster__color__space.html#gac3f9c08c97386c1ec7aea9f4a20aa5eb", null ],
+    [ "JDKSAVDECC_VIDEO_CLUSTER_COLOR_SPACE_BAYERGR12_PACKED", "group__video__cluster__color__space.html#ga7cf0989191db299ea9332edcbcc49da6", null ],
+    [ "JDKSAVDECC_VIDEO_CLUSTER_COLOR_SPACE_BAYERGR16", "group__video__cluster__color__space.html#gac8aa87242f4a3a0b1495931183d17586", null ],
+    [ "JDKSAVDECC_VIDEO_CLUSTER_COLOR_SPACE_BAYERGR8", "group__video__cluster__color__space.html#gac8ea820315760eac4a19bcd8c12655f8", null ],
+    [ "JDKSAVDECC_VIDEO_CLUSTER_COLOR_SPACE_BAYERRG12_PACKED", "group__video__cluster__color__space.html#gac99ddf5787e9a221f8a40e95e98bee89", null ],
+    [ "JDKSAVDECC_VIDEO_CLUSTER_COLOR_SPACE_BAYERRG16", "group__video__cluster__color__space.html#ga60ca7fa49e3f6ab22dee47d2cbea561d", null ],
+    [ "JDKSAVDECC_VIDEO_CLUSTER_COLOR_SPACE_BAYERRG8", "group__video__cluster__color__space.html#gae3bff09b4fca02b48eb4e9df350103b8", null ],
+    [ "JDKSAVDECC_VIDEO_CLUSTER_COLOR_SPACE_MONO12_PACKED", "group__video__cluster__color__space.html#ga6e70754d789518b3c6f8db6838584cce", null ],
+    [ "JDKSAVDECC_VIDEO_CLUSTER_COLOR_SPACE_MONO16", "group__video__cluster__color__space.html#gaeb618e42905123dc51b75972e5b5747f", null ],
+    [ "JDKSAVDECC_VIDEO_CLUSTER_COLOR_SPACE_MONO16_SIGNED", "group__video__cluster__color__space.html#ga5de8613eed05d16ba97f0b754b07c2ba", null ],
+    [ "JDKSAVDECC_VIDEO_CLUSTER_COLOR_SPACE_MONO8", "group__video__cluster__color__space.html#ga92427a3fa1b84c83421a5212e02e80c5", null ],
+    [ "JDKSAVDECC_VIDEO_CLUSTER_COLOR_SPACE_RGB16", "group__video__cluster__color__space.html#gaf33cfa5b359efab9bcc244d360cc4510", null ],
+    [ "JDKSAVDECC_VIDEO_CLUSTER_COLOR_SPACE_RGB16_SIGNED", "group__video__cluster__color__space.html#ga45feda4f7d5d508006bd7982eb5555c6", null ],
+    [ "JDKSAVDECC_VIDEO_CLUSTER_COLOR_SPACE_RGB_PACKED", "group__video__cluster__color__space.html#ga7db23794f595b8f0491337d8866fa6d2", null ],
+    [ "JDKSAVDECC_VIDEO_CLUSTER_COLOR_SPACE_YUV411_PACKED", "group__video__cluster__color__space.html#ga5baa7ae9603f7cd3352ea26b7007f7e5", null ],
+    [ "JDKSAVDECC_VIDEO_CLUSTER_COLOR_SPACE_YUV422_PACKED", "group__video__cluster__color__space.html#gaec2344e1f01e20f9d068d3b5d024989e", null ],
+    [ "JDKSAVDECC_VIDEO_CLUSTER_COLOR_SPACE_YUV444_PACKED", "group__video__cluster__color__space.html#ga8042d3b9ebc557058ba76df35887e2f7", null ]
+];

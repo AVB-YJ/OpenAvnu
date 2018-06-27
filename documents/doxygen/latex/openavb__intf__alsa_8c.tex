@@ -1,0 +1,1511 @@
+\hypertarget{openavb__intf__alsa_8c}{}\section{lib/avtp\+\_\+pipeline/platform/\+Linux/intf\+\_\+alsa/openavb\+\_\+intf\+\_\+alsa.c 파일 참조}
+\label{openavb__intf__alsa_8c}\index{lib/avtp\+\_\+pipeline/platform/\+Linux/intf\+\_\+alsa/openavb\+\_\+intf\+\_\+alsa.\+c@{lib/avtp\+\_\+pipeline/platform/\+Linux/intf\+\_\+alsa/openavb\+\_\+intf\+\_\+alsa.\+c}}
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+types\+\_\+pub.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+audio\+\_\+pub.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+trace\+\_\+pub.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+mediaq\+\_\+pub.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+map\+\_\+uncmp\+\_\+audio\+\_\+pub.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+map\+\_\+aaf\+\_\+audio\+\_\+pub.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+intf\+\_\+pub.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+mcs.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+log\+\_\+pub.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$alsa/asoundlib.\+h$>$}\\*
+openavb\+\_\+intf\+\_\+alsa.\+c에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__alsa_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{데이타 구조}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structpvt__data__t}{pvt\+\_\+data\+\_\+t}
+\end{DoxyCompactItemize}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{openavb__intf__alsa_8c_abcfb21b6495585fe36058f57a9fe58fc}{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}~\char`\"{}A\+L\+SA Interface\char`\"{}
+\item 
+\#define \hyperlink{openavb__intf__alsa_8c_a72646fc9c755fe74d3c5bab11a0d5780}{P\+C\+M\+\_\+\+D\+E\+V\+I\+C\+E\+\_\+\+N\+A\+M\+E\+\_\+\+D\+E\+F\+A\+U\+LT}~\char`\"{}default\char`\"{}
+\item 
+\#define \hyperlink{openavb__intf__alsa_8c_aaceb600c19178a16785bd3e9fde7b672}{P\+C\+M\+\_\+\+A\+C\+C\+E\+S\+S\+\_\+\+T\+Y\+PE}~S\+N\+D\+\_\+\+P\+C\+M\+\_\+\+A\+C\+C\+E\+S\+S\+\_\+\+R\+W\+\_\+\+I\+N\+T\+E\+R\+L\+E\+A\+V\+ED
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+static snd\+\_\+pcm\+\_\+format\+\_\+t \hyperlink{openavb__intf__alsa_8c_a7a9562ff43a53c2871f6c0a3a13a1a29}{x\+\_\+\+A\+V\+B\+Audio\+Format\+To\+Alsa\+Format} (\hyperlink{openavb__audio__pub_8h_a680efa0db2b29a63c5a0e8f11975682f}{avb\+\_\+audio\+\_\+type\+\_\+t} type, \hyperlink{openavb__audio__pub_8h_ae64ee32f6ac9a6b2cf607f46ee4160bd}{avb\+\_\+audio\+\_\+bit\+\_\+depth\+\_\+t} bit\+Depth, \hyperlink{openavb__audio__pub_8h_a945c53b1886540f6c50d0720b3befc23}{avb\+\_\+audio\+\_\+endian\+\_\+t} endian, char const $\ast$p\+Media\+Q\+Data\+Format)
+\item 
+void \hyperlink{openavb__intf__alsa_8c_a2c18a317d97b0df51e3f7a57e5252da1}{openavb\+Intf\+Alsa\+Cfg\+CB} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ, const char $\ast$name, const char $\ast$value)
+\item 
+void \hyperlink{openavb__intf__alsa_8c_a6de26957365e59f6d1191a0a0c5334d7}{openavb\+Intf\+Alsa\+Gen\+Init\+CB} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ)
+\item 
+void \hyperlink{openavb__intf__alsa_8c_a839a1053bb3098bdc421a956097af114}{openavb\+Intf\+Alsa\+Tx\+Init\+CB} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ)
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__intf__alsa_8c_a3f47d07e074f8d78283865718ef121bd}{openavb\+Intf\+Alsa\+Tx\+CB} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ)
+\item 
+void \hyperlink{openavb__intf__alsa_8c_ad16e86a78731e4b8ec1974d910fb9b9d}{openavb\+Intf\+Alsa\+Rx\+Init\+CB} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ)
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__intf__alsa_8c_a03f2e95f68da614565556fd9106ddac8}{openavb\+Intf\+Alsa\+Rx\+CB} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ)
+\item 
+void \hyperlink{openavb__intf__alsa_8c_a33d4008fafccc8b0bcb1d38d8b640c37}{openavb\+Intf\+Alsa\+End\+CB} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ)
+\item 
+void \hyperlink{openavb__intf__alsa_8c_af7714389f4a83f567cbe111caabc6b4e}{openavb\+Intf\+Alsa\+Gen\+End\+CB} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ)
+\item 
+void \hyperlink{openavb__intf__alsa_8c_a46110e0a0cbb50c14a3b49a6c661d504}{openavb\+Intf\+Alsa\+Enable\+Fixed\+Timestamp} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ, \hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} enabled, \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} transmit\+Interval, \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} batch\+Factor)
+\item 
+\hyperlink{include_2openavb__types__pub_8h_a1ca888bd091694c05472e1b91df1a97b}{D\+L\+L\+\_\+\+E\+X\+P\+O\+RT} \hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__intf__alsa_8c_a963a5ae0768d2382f0c943f221b24851}{openavb\+Intf\+Alsa\+Initialize} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ, \hyperlink{structopenavb__intf__cb__t}{openavb\+\_\+intf\+\_\+cb\+\_\+t} $\ast$p\+Intf\+CB)
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{openavb\+\_\+intf\+\_\+alsa.\+c@{openavb\+\_\+intf\+\_\+alsa.\+c}!A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT@{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}}
+\index{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT@{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}!openavb\+\_\+intf\+\_\+alsa.\+c@{openavb\+\_\+intf\+\_\+alsa.\+c}}
+\subsubsection[{\texorpdfstring{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}{AVB_LOG_COMPONENT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT~\char`\"{}A\+L\+SA Interface\char`\"{}}\hypertarget{openavb__intf__alsa_8c_abcfb21b6495585fe36058f57a9fe58fc}{}\label{openavb__intf__alsa_8c_abcfb21b6495585fe36058f57a9fe58fc}
+
+
+openavb\+\_\+intf\+\_\+alsa.\+c 파일의 48 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+intf\+\_\+alsa.\+c@{openavb\+\_\+intf\+\_\+alsa.\+c}!P\+C\+M\+\_\+\+A\+C\+C\+E\+S\+S\+\_\+\+T\+Y\+PE@{P\+C\+M\+\_\+\+A\+C\+C\+E\+S\+S\+\_\+\+T\+Y\+PE}}
+\index{P\+C\+M\+\_\+\+A\+C\+C\+E\+S\+S\+\_\+\+T\+Y\+PE@{P\+C\+M\+\_\+\+A\+C\+C\+E\+S\+S\+\_\+\+T\+Y\+PE}!openavb\+\_\+intf\+\_\+alsa.\+c@{openavb\+\_\+intf\+\_\+alsa.\+c}}
+\subsubsection[{\texorpdfstring{P\+C\+M\+\_\+\+A\+C\+C\+E\+S\+S\+\_\+\+T\+Y\+PE}{PCM_ACCESS_TYPE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+C\+M\+\_\+\+A\+C\+C\+E\+S\+S\+\_\+\+T\+Y\+PE~S\+N\+D\+\_\+\+P\+C\+M\+\_\+\+A\+C\+C\+E\+S\+S\+\_\+\+R\+W\+\_\+\+I\+N\+T\+E\+R\+L\+E\+A\+V\+ED}\hypertarget{openavb__intf__alsa_8c_aaceb600c19178a16785bd3e9fde7b672}{}\label{openavb__intf__alsa_8c_aaceb600c19178a16785bd3e9fde7b672}
+
+
+openavb\+\_\+intf\+\_\+alsa.\+c 파일의 55 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+intf\+\_\+alsa.\+c@{openavb\+\_\+intf\+\_\+alsa.\+c}!P\+C\+M\+\_\+\+D\+E\+V\+I\+C\+E\+\_\+\+N\+A\+M\+E\+\_\+\+D\+E\+F\+A\+U\+LT@{P\+C\+M\+\_\+\+D\+E\+V\+I\+C\+E\+\_\+\+N\+A\+M\+E\+\_\+\+D\+E\+F\+A\+U\+LT}}
+\index{P\+C\+M\+\_\+\+D\+E\+V\+I\+C\+E\+\_\+\+N\+A\+M\+E\+\_\+\+D\+E\+F\+A\+U\+LT@{P\+C\+M\+\_\+\+D\+E\+V\+I\+C\+E\+\_\+\+N\+A\+M\+E\+\_\+\+D\+E\+F\+A\+U\+LT}!openavb\+\_\+intf\+\_\+alsa.\+c@{openavb\+\_\+intf\+\_\+alsa.\+c}}
+\subsubsection[{\texorpdfstring{P\+C\+M\+\_\+\+D\+E\+V\+I\+C\+E\+\_\+\+N\+A\+M\+E\+\_\+\+D\+E\+F\+A\+U\+LT}{PCM_DEVICE_NAME_DEFAULT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+C\+M\+\_\+\+D\+E\+V\+I\+C\+E\+\_\+\+N\+A\+M\+E\+\_\+\+D\+E\+F\+A\+U\+LT~\char`\"{}default\char`\"{}}\hypertarget{openavb__intf__alsa_8c_a72646fc9c755fe74d3c5bab11a0d5780}{}\label{openavb__intf__alsa_8c_a72646fc9c755fe74d3c5bab11a0d5780}
+
+
+openavb\+\_\+intf\+\_\+alsa.\+c 파일의 54 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{함수 문서화}
+\index{openavb\+\_\+intf\+\_\+alsa.\+c@{openavb\+\_\+intf\+\_\+alsa.\+c}!openavb\+Intf\+Alsa\+Cfg\+CB@{openavb\+Intf\+Alsa\+Cfg\+CB}}
+\index{openavb\+Intf\+Alsa\+Cfg\+CB@{openavb\+Intf\+Alsa\+Cfg\+CB}!openavb\+\_\+intf\+\_\+alsa.\+c@{openavb\+\_\+intf\+\_\+alsa.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Intf\+Alsa\+Cfg\+C\+B(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q, const char $\ast$name, const char $\ast$value)}{openavbIntfAlsaCfgCB(media_q_t *pMediaQ, const char *name, const char *value)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Intf\+Alsa\+Cfg\+CB (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ, }
+\item[{const char $\ast$}]{name, }
+\item[{const char $\ast$}]{value}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__intf__alsa_8c_a2c18a317d97b0df51e3f7a57e5252da1}{}\label{openavb__intf__alsa_8c_a2c18a317d97b0df51e3f7a57e5252da1}
+
+
+openavb\+\_\+intf\+\_\+alsa.\+c 파일의 231 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+232 \{
+233     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+234     \textcolor{keywordflow}{if} (pMediaQ) \{
+235         \textcolor{keywordtype}{char} *pEnd;
+236         \textcolor{keywordtype}{long} tmp;
+237         \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} val;
+238 
+239         \hyperlink{structpvt__data__t}{pvt\_data\_t} *pPvtData = pMediaQ->\hyperlink{structmedia__q__t_a453af4755f0cf9b8fe035e62ecea845f}{pPvtIntfInfo};
+240         \textcolor{keywordflow}{if} (!pPvtData) \{
+241             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Private interface module data not allocated."});
+242             \textcolor{keywordflow}{return};
+243         \}
+244 
+245         \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t}{media\_q\_pub\_map\_uncmp\_audio\_info\_t} *pPubMapUncmpAudioInfo;
+246         pPubMapUncmpAudioInfo = (\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t}{media\_q\_pub\_map\_uncmp\_audio\_info\_t} *)
+      pMediaQ->\hyperlink{structmedia__q__t_a0226ccb90fbafac84294a908013853b4}{pPubMapInfo};
+247         if (!pPubMapUncmpAudioInfo) \{
+248             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Public map data for audio info not allocated."});
+249             \textcolor{keywordflow}{return};
+250         \}
+251 
+252 
+253         \textcolor{keywordflow}{if} (strcmp(name, \textcolor{stringliteral}{"intf\_nv\_ignore\_timestamp"}) == 0) \{
+254             tmp = strtol(value, &pEnd, 10);
+255             \textcolor{keywordflow}{if} (*pEnd == \textcolor{charliteral}{'\(\backslash\)0'} && tmp == 1) \{
+256                 pPvtData->\hyperlink{structpvt__data__t_a2a0aac103e25975d0ba22350a71e70ae}{ignoreTimestamp} = (tmp == 1);
+257             \}
+258         \}
+259 
+260         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strcmp(name, \textcolor{stringliteral}{"intf\_nv\_device\_name"}) == 0) \{
+261             \textcolor{keywordflow}{if} (pPvtData->\hyperlink{structpvt__data__t_ac8d9dc6d5b5eae731c087605a3780cc7}{pDeviceName})
+262                 \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(pPvtData->\hyperlink{structpvt__data__t_ac8d9dc6d5b5eae731c087605a3780cc7}{pDeviceName});
+263             pPvtData->\hyperlink{structpvt__data__t_ac8d9dc6d5b5eae731c087605a3780cc7}{pDeviceName} = strdup(value);
+264         \}
+265 
+266         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strcmp(name, \textcolor{stringliteral}{"intf\_nv\_audio\_rate"}) == 0) \{
+267             val = strtol(value, &pEnd, 10);
+268             \textcolor{comment}{// TODO: Should check for specific values}
+269             \textcolor{keywordflow}{if} (val >= \hyperlink{openavb__audio__pub_8h_a6070f1cfbb6824de6f0b2524cd306903a7ff6c7e26057bbaebf51b13f2e72d669}{AVB\_AUDIO\_RATE\_8KHZ} && val <= 
+      \hyperlink{openavb__audio__pub_8h_a6070f1cfbb6824de6f0b2524cd306903a3ee3a238ee6d8277331dc48448edecdc}{AVB\_AUDIO\_RATE\_192KHZ}) \{
+270                 pPvtData->\hyperlink{structpvt__data__t_a98636b12c3c9cafdc6992d03d6f86852}{audioRate} = val;
+271             \}
+272             \textcolor{keywordflow}{else} \{
+273                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Invalid audio rate configured for intf\_nv\_audio\_rate."});
+274                 pPvtData->\hyperlink{structpvt__data__t_a98636b12c3c9cafdc6992d03d6f86852}{audioRate} = \hyperlink{openavb__audio__pub_8h_a6070f1cfbb6824de6f0b2524cd306903ab222297c088f8d3f72e73c434a8a1dd0}{AVB\_AUDIO\_RATE\_44\_1KHZ};
+275             \}
+276 
+277             \textcolor{comment}{// Give the audio parameters to the mapping module.}
+278             \textcolor{keywordflow}{if} (pMediaQ->\hyperlink{structmedia__q__t_a3f16216bd90b1b04cca7fbb4766cb5ff}{pMediaQDataFormat}) \{
+279                 \textcolor{keywordflow}{if} (strcmp(pMediaQ->\hyperlink{structmedia__q__t_a3f16216bd90b1b04cca7fbb4766cb5ff}{pMediaQDataFormat}, 
+      \hyperlink{openavb__map__uncmp__audio__pub_8h_a4736a8cfd6189ed6e01a633a4fa23fc3}{MapUncmpAudioMediaQDataFormat}) == 0
+280                     || strcmp(pMediaQ->\hyperlink{structmedia__q__t_a3f16216bd90b1b04cca7fbb4766cb5ff}{pMediaQDataFormat}, 
+      \hyperlink{openavb__map__aaf__audio__pub_8h_a4f6041ee46ece5e7d55192b9a51d2957}{MapAVTPAudioMediaQDataFormat}) == 0) \{
+281                     pPubMapUncmpAudioInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a98636b12c3c9cafdc6992d03d6f86852}{audioRate} = pPvtData->
+      \hyperlink{structpvt__data__t_a98636b12c3c9cafdc6992d03d6f86852}{audioRate};
+282                 \}
+283                 \textcolor{comment}{//else if (pMediaQ->pMediaQDataFormat == MapSAFMediaQDataFormat) \{}
+284                 \textcolor{comment}{//\}}
+285             \}
+286         \}
+287 
+288         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strcmp(name, \textcolor{stringliteral}{"intf\_nv\_audio\_bit\_depth"}) == 0) \{
+289             val = strtol(value, &pEnd, 10);
+290             \textcolor{comment}{// TODO: Should check for specific values}
+291             \textcolor{keywordflow}{if} (val >= \hyperlink{openavb__audio__pub_8h_ae64ee32f6ac9a6b2cf607f46ee4160bda2b24bda8ea62113e139f01c63a5bba81}{AVB\_AUDIO\_BIT\_DEPTH\_1BIT} && val <= 
+      \hyperlink{openavb__audio__pub_8h_ae64ee32f6ac9a6b2cf607f46ee4160bda083798250b1bb11001779958832a82e8}{AVB\_AUDIO\_BIT\_DEPTH\_64BIT}) \{
+292                 pPvtData->\hyperlink{structpvt__data__t_a868321a19830c5c46ed52c007dfdedb9}{audioBitDepth} = val;
+293             \}
+294             \textcolor{keywordflow}{else} \{
+295                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Invalid audio type configured for intf\_nv\_audio\_bits."});
+296                 pPvtData->\hyperlink{structpvt__data__t_a868321a19830c5c46ed52c007dfdedb9}{audioBitDepth} = \hyperlink{openavb__audio__pub_8h_ae64ee32f6ac9a6b2cf607f46ee4160bdaf6a3127cc5c4b6ad52c5c972c15d5387}{AVB\_AUDIO\_BIT\_DEPTH\_24BIT};
+297             \}
+298 
+299             \textcolor{comment}{// Give the audio parameters to the mapping module.}
+300             \textcolor{keywordflow}{if} (pMediaQ->\hyperlink{structmedia__q__t_a3f16216bd90b1b04cca7fbb4766cb5ff}{pMediaQDataFormat}) \{
+301                 \textcolor{keywordflow}{if} (strcmp(pMediaQ->\hyperlink{structmedia__q__t_a3f16216bd90b1b04cca7fbb4766cb5ff}{pMediaQDataFormat}, 
+      \hyperlink{openavb__map__uncmp__audio__pub_8h_a4736a8cfd6189ed6e01a633a4fa23fc3}{MapUncmpAudioMediaQDataFormat}) == 0
+302                     || strcmp(pMediaQ->\hyperlink{structmedia__q__t_a3f16216bd90b1b04cca7fbb4766cb5ff}{pMediaQDataFormat}, 
+      \hyperlink{openavb__map__aaf__audio__pub_8h_a4f6041ee46ece5e7d55192b9a51d2957}{MapAVTPAudioMediaQDataFormat}) == 0) \{
+303                     pPubMapUncmpAudioInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a868321a19830c5c46ed52c007dfdedb9}{audioBitDepth} = pPvtData->
+      \hyperlink{structpvt__data__t_a868321a19830c5c46ed52c007dfdedb9}{audioBitDepth};
+304                 \}
+305                 \textcolor{comment}{//else if (pMediaQ->pMediaQDataFormat == MapSAFMediaQDataFormat) \{}
+306                 \textcolor{comment}{//\}}
+307             \}
+308         \}
+309 
+310         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strcmp(name, \textcolor{stringliteral}{"intf\_nv\_audio\_type"}) == 0) \{
+311             \textcolor{keywordflow}{if} (strncasecmp(value, \textcolor{stringliteral}{"float"}, 5) == 0)
+312                 pPvtData->\hyperlink{structpvt__data__t_abc6ed39d478764b05a886d64d104ce4b}{audioType} = \hyperlink{openavb__audio__pub_8h_a680efa0db2b29a63c5a0e8f11975682fa7664e80ad56a5f47d92920771cdff86a}{AVB\_AUDIO\_TYPE\_FLOAT};
+313             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strncasecmp(value, \textcolor{stringliteral}{"sign"}, 4) == 0
+314                      || strncasecmp(value, \textcolor{stringliteral}{"int"}, 4) == 0)
+315                 pPvtData->\hyperlink{structpvt__data__t_abc6ed39d478764b05a886d64d104ce4b}{audioType} = \hyperlink{openavb__audio__pub_8h_a680efa0db2b29a63c5a0e8f11975682fa53b99bda35f0676e606e013a0d9b2ccd}{AVB\_AUDIO\_TYPE\_INT};
+316             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strncasecmp(value, \textcolor{stringliteral}{"unsign"}, 6) == 0
+317                      || strncasecmp(value, \textcolor{stringliteral}{"uint"}, 4) == 0)
+318                 pPvtData->\hyperlink{structpvt__data__t_abc6ed39d478764b05a886d64d104ce4b}{audioType} = \hyperlink{openavb__audio__pub_8h_a680efa0db2b29a63c5a0e8f11975682fa92b37ee6a06f61c65fa5b145bda0446d}{AVB\_AUDIO\_TYPE\_UINT};
+319             \textcolor{keywordflow}{else} \{
+320                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Invalid audio type configured for intf\_nv\_audio\_type."});
+321                 pPvtData->\hyperlink{structpvt__data__t_abc6ed39d478764b05a886d64d104ce4b}{audioType} = \hyperlink{openavb__audio__pub_8h_a680efa0db2b29a63c5a0e8f11975682fac96f789fab1ef2816c64499f918b326a}{AVB\_AUDIO\_TYPE\_UNSPEC};
+322             \}
+323 
+324             \textcolor{comment}{// Give the audio parameters to the mapping module.}
+325             \textcolor{keywordflow}{if} (pMediaQ->\hyperlink{structmedia__q__t_a3f16216bd90b1b04cca7fbb4766cb5ff}{pMediaQDataFormat}) \{
+326                 \textcolor{keywordflow}{if} (strcmp(pMediaQ->\hyperlink{structmedia__q__t_a3f16216bd90b1b04cca7fbb4766cb5ff}{pMediaQDataFormat}, 
+      \hyperlink{openavb__map__uncmp__audio__pub_8h_a4736a8cfd6189ed6e01a633a4fa23fc3}{MapUncmpAudioMediaQDataFormat}) == 0
+327                     || strcmp(pMediaQ->\hyperlink{structmedia__q__t_a3f16216bd90b1b04cca7fbb4766cb5ff}{pMediaQDataFormat}, 
+      \hyperlink{openavb__map__aaf__audio__pub_8h_a4f6041ee46ece5e7d55192b9a51d2957}{MapAVTPAudioMediaQDataFormat}) == 0) \{
+328                     pPubMapUncmpAudioInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_abc6ed39d478764b05a886d64d104ce4b}{audioType} = pPvtData->
+      \hyperlink{structpvt__data__t_abc6ed39d478764b05a886d64d104ce4b}{audioType};
+329                 \}
+330                 \textcolor{comment}{//else if (pMediaQ->pMediaQDataFormat == MapSAFMediaQDataFormat) \{}
+331                 \textcolor{comment}{//\}}
+332             \}
+333         \}
+334 
+335         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strcmp(name, \textcolor{stringliteral}{"intf\_nv\_audio\_endian"}) == 0) \{
+336             \textcolor{keywordflow}{if} (strncasecmp(value, \textcolor{stringliteral}{"big"}, 3) == 0)
+337                 pPvtData->\hyperlink{structpvt__data__t_a2737fc6ab5107802c9fa03d74c967794}{audioEndian} = \hyperlink{openavb__audio__pub_8h_a945c53b1886540f6c50d0720b3befc23affa208ef1f573de5f20848d9996dca16}{AVB\_AUDIO\_ENDIAN\_BIG};
+338             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strncasecmp(value, \textcolor{stringliteral}{"little"}, 6) == 0)
+339                 pPvtData->\hyperlink{structpvt__data__t_a2737fc6ab5107802c9fa03d74c967794}{audioEndian} = \hyperlink{openavb__audio__pub_8h_a945c53b1886540f6c50d0720b3befc23acec0ee573ca39ae4985e89711de33fba}{AVB\_AUDIO\_ENDIAN\_LITTLE};
+340             \textcolor{keywordflow}{else} \{
+341                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Invalid audio type configured for intf\_nv\_audio\_endian."});
+342                 pPvtData->\hyperlink{structpvt__data__t_a2737fc6ab5107802c9fa03d74c967794}{audioEndian} = \hyperlink{openavb__audio__pub_8h_a945c53b1886540f6c50d0720b3befc23a04bd8a746404b914776c7e83b6cc739f}{AVB\_AUDIO\_ENDIAN\_UNSPEC};
+343             \}
+344 
+345             \textcolor{comment}{// Give the audio parameters to the mapping module.}
+346             \textcolor{keywordflow}{if} (pMediaQ->\hyperlink{structmedia__q__t_a3f16216bd90b1b04cca7fbb4766cb5ff}{pMediaQDataFormat}) \{
+347                 \textcolor{keywordflow}{if} (strcmp(pMediaQ->\hyperlink{structmedia__q__t_a3f16216bd90b1b04cca7fbb4766cb5ff}{pMediaQDataFormat}, 
+      \hyperlink{openavb__map__uncmp__audio__pub_8h_a4736a8cfd6189ed6e01a633a4fa23fc3}{MapUncmpAudioMediaQDataFormat}) == 0
+348                     || strcmp(pMediaQ->\hyperlink{structmedia__q__t_a3f16216bd90b1b04cca7fbb4766cb5ff}{pMediaQDataFormat}, 
+      \hyperlink{openavb__map__aaf__audio__pub_8h_a4f6041ee46ece5e7d55192b9a51d2957}{MapAVTPAudioMediaQDataFormat}) == 0) \{
+349                     pPubMapUncmpAudioInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a2737fc6ab5107802c9fa03d74c967794}{audioEndian} = pPvtData->
+      \hyperlink{structpvt__data__t_a2737fc6ab5107802c9fa03d74c967794}{audioEndian};
+350                 \}
+351                 \textcolor{comment}{//else if (pMediaQ->pMediaQDataFormat == MapSAFMediaQDataFormat) \{}
+352                 \textcolor{comment}{//\}}
+353             \}
+354         \}
+355 
+356         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strcmp(name, \textcolor{stringliteral}{"intf\_nv\_audio\_channels"}) == 0) \{
+357             val = strtol(value, &pEnd, 10);
+358             \textcolor{comment}{// TODO: Should check for specific values}
+359             \textcolor{keywordflow}{if} (val >= \hyperlink{openavb__audio__pub_8h_a8cc6b9a1352da050ead620139f49acc4a3ade387626675c4a97b126654369f71a}{AVB\_AUDIO\_CHANNELS\_1} && val <= 
+      \hyperlink{openavb__audio__pub_8h_a8cc6b9a1352da050ead620139f49acc4aac7faac17cb630651fecf1bd9f0ac7a1}{AVB\_AUDIO\_CHANNELS\_8}) \{
+360                 pPvtData->\hyperlink{structpvt__data__t_ad8a7767f3583795147d57c7252554dd9}{audioChannels} = val;
+361             \}
+362             \textcolor{keywordflow}{else} \{
+363                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Invalid audio channels configured for intf\_nv\_audio\_channels."})
+      ;
+364                 pPvtData->\hyperlink{structpvt__data__t_ad8a7767f3583795147d57c7252554dd9}{audioChannels} = \hyperlink{openavb__audio__pub_8h_a8cc6b9a1352da050ead620139f49acc4ae8dea24b969d4cc3d08e41457a224016}{AVB\_AUDIO\_CHANNELS\_2};
+365             \}
+366 
+367             \textcolor{comment}{// Give the audio parameters to the mapping module.}
+368             \textcolor{keywordflow}{if} (pMediaQ->\hyperlink{structmedia__q__t_a3f16216bd90b1b04cca7fbb4766cb5ff}{pMediaQDataFormat}) \{
+369                 \textcolor{keywordflow}{if} (strcmp(pMediaQ->\hyperlink{structmedia__q__t_a3f16216bd90b1b04cca7fbb4766cb5ff}{pMediaQDataFormat}, 
+      \hyperlink{openavb__map__uncmp__audio__pub_8h_a4736a8cfd6189ed6e01a633a4fa23fc3}{MapUncmpAudioMediaQDataFormat}) == 0
+370                     || strcmp(pMediaQ->\hyperlink{structmedia__q__t_a3f16216bd90b1b04cca7fbb4766cb5ff}{pMediaQDataFormat}, 
+      \hyperlink{openavb__map__aaf__audio__pub_8h_a4f6041ee46ece5e7d55192b9a51d2957}{MapAVTPAudioMediaQDataFormat}) == 0) \{
+371                     pPubMapUncmpAudioInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_ad8a7767f3583795147d57c7252554dd9}{audioChannels} = pPvtData->
+      \hyperlink{structpvt__data__t_ad8a7767f3583795147d57c7252554dd9}{audioChannels};
+372                 \}
+373                 \textcolor{comment}{//else if (pMediaQ->pMediaQDataFormat == MapSAFMediaQDataFormat) \{}
+374                 \textcolor{comment}{//\}}
+375             \}
+376 
+377         \}
+378 
+379         \textcolor{keywordflow}{if} (strcmp(name, \textcolor{stringliteral}{"intf\_nv\_allow\_resampling"}) == 0) \{
+380             tmp = strtol(value, &pEnd, 10);
+381             \textcolor{keywordflow}{if} (*pEnd == \textcolor{charliteral}{'\(\backslash\)0'} && tmp == 1) \{
+382                 pPvtData->\hyperlink{structpvt__data__t_a7e6b568c4e7243f345d1b67c1c2ac14d}{allowResampling} = (tmp == 1);
+383             \}
+384         \}
+385 
+386         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strcmp(name, \textcolor{stringliteral}{"intf\_nv\_start\_threshold\_periods"}) == 0) \{
+387             pPvtData->\hyperlink{structpvt__data__t_a3655c38e7d48f6551138d29f0651fd9d}{startThresholdPeriods} = strtol(value, &pEnd, 10);
+388         \}
+389 
+390         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strcmp(name, \textcolor{stringliteral}{"intf\_nv\_period\_time"}) == 0) \{
+391             pPvtData->\hyperlink{structpvt__data__t_a69ce66331b71bec8c96ed76d23b3ce1e}{periodTimeUsec} = strtol(value, &pEnd, 10);
+392         \}
+393 
+394         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strcmp(name, \textcolor{stringliteral}{"intf\_nv\_clock\_skew\_ppb"}) == 0) \{
+395             pPvtData->\hyperlink{structpvt__data__t_a6d2532ea1bdd6efc2c3169f155371167}{clockSkewPPB} = strtol(value, &pEnd, 10);
+396         \}
+397 
+398     \}
+399 
+400     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+401 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__alsa_8c_a2c18a317d97b0df51e3f7a57e5252da1_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+intf\+\_\+alsa.\+c@{openavb\+\_\+intf\+\_\+alsa.\+c}!openavb\+Intf\+Alsa\+Enable\+Fixed\+Timestamp@{openavb\+Intf\+Alsa\+Enable\+Fixed\+Timestamp}}
+\index{openavb\+Intf\+Alsa\+Enable\+Fixed\+Timestamp@{openavb\+Intf\+Alsa\+Enable\+Fixed\+Timestamp}!openavb\+\_\+intf\+\_\+alsa.\+c@{openavb\+\_\+intf\+\_\+alsa.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Intf\+Alsa\+Enable\+Fixed\+Timestamp(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q, bool enabled, U32 transmit\+Interval, U32 batch\+Factor)}{openavbIntfAlsaEnableFixedTimestamp(media_q_t *pMediaQ, bool enabled, U32 transmitInterval, U32 batchFactor)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Intf\+Alsa\+Enable\+Fixed\+Timestamp (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ, }
+\item[{{\bf bool}}]{enabled, }
+\item[{{\bf U32}}]{transmit\+Interval, }
+\item[{{\bf U32}}]{batch\+Factor}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__intf__alsa_8c_a46110e0a0cbb50c14a3b49a6c661d504}{}\label{openavb__intf__alsa_8c_a46110e0a0cbb50c14a3b49a6c661d504}
+
+
+openavb\+\_\+intf\+\_\+alsa.\+c 파일의 1054 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+1055 \{
+1056     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+1057     \textcolor{keywordflow}{if} (pMediaQ && pMediaQ->\hyperlink{structmedia__q__t_a453af4755f0cf9b8fe035e62ecea845f}{pPvtIntfInfo} && pMediaQ->\hyperlink{structmedia__q__t_a0226ccb90fbafac84294a908013853b4}{pPubMapInfo}) \{
+1058         \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t}{media\_q\_pub\_map\_uncmp\_audio\_info\_t} *pPubMapUncmpAudioInfo = 
+      pMediaQ->\hyperlink{structmedia__q__t_a0226ccb90fbafac84294a908013853b4}{pPubMapInfo};
+1059         \hyperlink{structpvt__data__t}{pvt\_data\_t} *pPvtData = (\hyperlink{structpvt__data__t}{pvt\_data\_t} *)pMediaQ->
+      \hyperlink{structmedia__q__t_a453af4755f0cf9b8fe035e62ecea845f}{pPvtIntfInfo};
+1060 
+1061         pPvtData->\hyperlink{structpvt__data__t_a0d8529515d357f9b3faa35f1f2ede2c0}{fixedTimestampEnabled} = enabled;
+1062         if (pPvtData->\hyperlink{structpvt__data__t_a0d8529515d357f9b3faa35f1f2ede2c0}{fixedTimestampEnabled}) \{
+1063             \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} per, rate, rem;
+1064             \hyperlink{openavb__types__base__pub_8h_a39c786017723555afb9e8b85accec0de}{S32} skewEst = pPvtData->\hyperlink{structpvt__data__t_a6d2532ea1bdd6efc2c3169f155371167}{clockSkewPPB};
+1065             \textcolor{comment}{/* Ignore passed in transmit interval and use framesPerItem and audioRate so}
+1066 \textcolor{comment}{               we work with both AAF and 61883-6 */}
+1067             \textcolor{comment}{/* Carefully scale values to avoid U32 overflow or loss of precision */}
+1068             per = \hyperlink{maap__helper__linux_8h_a8a708413d6171e7d86056793abe2cd1a}{MICROSECONDS\_PER\_SECOND} * pPubMapUncmpAudioInfo->
+      \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a584c8e40420ea0739971d02cefc8dd93}{framesPerItem} * 10;
+1069             per += (skewEst/10);
+1070             rate = pPvtData->\hyperlink{structpvt__data__t_a98636b12c3c9cafdc6992d03d6f86852}{audioRate}/100;
+1071             transmitInterval = per/rate;
+1072             rem = per % rate;
+1073             \textcolor{keywordflow}{if} (rem != 0) \{
+1074                 rem *= 10;
+1075                 rem /= rate;
+1076             \}
+1077             \hyperlink{openavb__mcs_8c_a9d876fb11dbb009c006fdde8bfc94a7b}{openavbMcsInit}(&pPvtData->\hyperlink{structpvt__data__t_aeae67b5199bbd13cc6ba11f25244aca4}{mcs}, transmitInterval, rem, 10);
+1078             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a2be7e90c7cb63f12b221ed1cd4999185}{AVB\_LOGF\_INFO}(\textcolor{stringliteral}{"Fixed timestamping enabled: %d %d/%d"}, transmitInterval, rem, 10);
+1079         \}
+1080 
+1081     \}
+1082 
+1083 
+1084     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+1085 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=343pt]{openavb__intf__alsa_8c_a46110e0a0cbb50c14a3b49a6c661d504_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__alsa_8c_a46110e0a0cbb50c14a3b49a6c661d504_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+intf\+\_\+alsa.\+c@{openavb\+\_\+intf\+\_\+alsa.\+c}!openavb\+Intf\+Alsa\+End\+CB@{openavb\+Intf\+Alsa\+End\+CB}}
+\index{openavb\+Intf\+Alsa\+End\+CB@{openavb\+Intf\+Alsa\+End\+CB}!openavb\+\_\+intf\+\_\+alsa.\+c@{openavb\+\_\+intf\+\_\+alsa.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Intf\+Alsa\+End\+C\+B(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q)}{openavbIntfAlsaEndCB(media_q_t *pMediaQ)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Intf\+Alsa\+End\+CB (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__intf__alsa_8c_a33d4008fafccc8b0bcb1d38d8b640c37}{}\label{openavb__intf__alsa_8c_a33d4008fafccc8b0bcb1d38d8b640c37}
+
+
+openavb\+\_\+intf\+\_\+alsa.\+c 파일의 1023 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+1024 \{
+1025     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+1026 
+1027     \textcolor{keywordflow}{if} (pMediaQ) \{
+1028         \hyperlink{structpvt__data__t}{pvt\_data\_t} *pPvtData = pMediaQ->\hyperlink{structmedia__q__t_a453af4755f0cf9b8fe035e62ecea845f}{pPvtIntfInfo};
+1029         \textcolor{keywordflow}{if} (!pPvtData) \{
+1030             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Private interface module data not allocated."});
+1031             \textcolor{keywordflow}{return};
+1032         \}
+1033 
+1034         \textcolor{keywordflow}{if} (pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle}) \{
+1035             snd\_pcm\_close(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle});
+1036             pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+1037 
+1038 \textcolor{preprocessor}{#if 0}
+1039             \textcolor{comment}{// Optional call when using Valgrind to stop reports of memory leaks.}
+1040             snd\_config\_update\_free\_global();
+1041 \textcolor{preprocessor}{#endif}
+1042         \}
+1043     \}
+1044 
+1045     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+1046 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__alsa_8c_a33d4008fafccc8b0bcb1d38d8b640c37_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+intf\+\_\+alsa.\+c@{openavb\+\_\+intf\+\_\+alsa.\+c}!openavb\+Intf\+Alsa\+Gen\+End\+CB@{openavb\+Intf\+Alsa\+Gen\+End\+CB}}
+\index{openavb\+Intf\+Alsa\+Gen\+End\+CB@{openavb\+Intf\+Alsa\+Gen\+End\+CB}!openavb\+\_\+intf\+\_\+alsa.\+c@{openavb\+\_\+intf\+\_\+alsa.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Intf\+Alsa\+Gen\+End\+C\+B(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q)}{openavbIntfAlsaGenEndCB(media_q_t *pMediaQ)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Intf\+Alsa\+Gen\+End\+CB (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__intf__alsa_8c_af7714389f4a83f567cbe111caabc6b4e}{}\label{openavb__intf__alsa_8c_af7714389f4a83f567cbe111caabc6b4e}
+
+
+openavb\+\_\+intf\+\_\+alsa.\+c 파일의 1048 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+1049 \{
+1050     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+1051     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+1052 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__alsa_8c_af7714389f4a83f567cbe111caabc6b4e_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+intf\+\_\+alsa.\+c@{openavb\+\_\+intf\+\_\+alsa.\+c}!openavb\+Intf\+Alsa\+Gen\+Init\+CB@{openavb\+Intf\+Alsa\+Gen\+Init\+CB}}
+\index{openavb\+Intf\+Alsa\+Gen\+Init\+CB@{openavb\+Intf\+Alsa\+Gen\+Init\+CB}!openavb\+\_\+intf\+\_\+alsa.\+c@{openavb\+\_\+intf\+\_\+alsa.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Intf\+Alsa\+Gen\+Init\+C\+B(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q)}{openavbIntfAlsaGenInitCB(media_q_t *pMediaQ)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Intf\+Alsa\+Gen\+Init\+CB (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__intf__alsa_8c_a6de26957365e59f6d1191a0a0c5334d7}{}\label{openavb__intf__alsa_8c_a6de26957365e59f6d1191a0a0c5334d7}
+
+
+openavb\+\_\+intf\+\_\+alsa.\+c 파일의 403 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+404 \{
+405     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+406     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+407 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__alsa_8c_a6de26957365e59f6d1191a0a0c5334d7_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+intf\+\_\+alsa.\+c@{openavb\+\_\+intf\+\_\+alsa.\+c}!openavb\+Intf\+Alsa\+Initialize@{openavb\+Intf\+Alsa\+Initialize}}
+\index{openavb\+Intf\+Alsa\+Initialize@{openavb\+Intf\+Alsa\+Initialize}!openavb\+\_\+intf\+\_\+alsa.\+c@{openavb\+\_\+intf\+\_\+alsa.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Intf\+Alsa\+Initialize(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q, openavb\+\_\+intf\+\_\+cb\+\_\+t $\ast$p\+Intf\+C\+B)}{openavbIntfAlsaInitialize(media_q_t *pMediaQ, openavb_intf_cb_t *pIntfCB)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf D\+L\+L\+\_\+\+E\+X\+P\+O\+RT} {\bf bool} openavb\+Intf\+Alsa\+Initialize (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ, }
+\item[{{\bf openavb\+\_\+intf\+\_\+cb\+\_\+t} $\ast$}]{p\+Intf\+CB}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__intf__alsa_8c_a963a5ae0768d2382f0c943f221b24851}{}\label{openavb__intf__alsa_8c_a963a5ae0768d2382f0c943f221b24851}
+
+
+openavb\+\_\+intf\+\_\+alsa.\+c 파일의 1088 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+1089 \{
+1090     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+1091 
+1092     \textcolor{keywordflow}{if} (pMediaQ) \{
+1093         pMediaQ->\hyperlink{structmedia__q__t_a453af4755f0cf9b8fe035e62ecea845f}{pPvtIntfInfo} = \hyperlink{_memory_leak_detector_malloc_macros_8h_a7cbb7b79af9d539af55b59dfc3598390}{calloc}(1, \textcolor{keyword}{sizeof}(\hyperlink{structpvt__data__t}{pvt\_data\_t}));      \textcolor{comment}{// Memory
+       freed by the media queue when the media queue is destroyed.}
+1094 
+1095         \textcolor{keywordflow}{if} (!pMediaQ->\hyperlink{structmedia__q__t_a453af4755f0cf9b8fe035e62ecea845f}{pPvtIntfInfo}) \{
+1096             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Unable to allocate memory for AVTP interface module."});
+1097             \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+1098         \}
+1099 
+1100         \hyperlink{structpvt__data__t}{pvt\_data\_t} *pPvtData = pMediaQ->\hyperlink{structmedia__q__t_a453af4755f0cf9b8fe035e62ecea845f}{pPvtIntfInfo};
+1101 
+1102         pIntfCB->\hyperlink{structopenavb__intf__cb__t_ac399da5e32ebb5e311f3c2fefc7c53e2}{intf\_cfg\_cb} = \hyperlink{openavb__intf__alsa_8c_a2c18a317d97b0df51e3f7a57e5252da1}{openavbIntfAlsaCfgCB};
+1103         pIntfCB->\hyperlink{structopenavb__intf__cb__t_abdfcb6b35075220160046e97e8c51b34}{intf\_gen\_init\_cb} = \hyperlink{openavb__intf__alsa_8c_a6de26957365e59f6d1191a0a0c5334d7}{openavbIntfAlsaGenInitCB};
+1104         pIntfCB->\hyperlink{structopenavb__intf__cb__t_a8c4365e897d7567f363435819ed2c795}{intf\_tx\_init\_cb} = \hyperlink{openavb__intf__alsa_8c_a839a1053bb3098bdc421a956097af114}{openavbIntfAlsaTxInitCB};
+1105         pIntfCB->\hyperlink{structopenavb__intf__cb__t_a697ca0e024c5d38ae52fba581741c255}{intf\_tx\_cb} = \hyperlink{openavb__intf__alsa_8c_a3f47d07e074f8d78283865718ef121bd}{openavbIntfAlsaTxCB};
+1106         pIntfCB->\hyperlink{structopenavb__intf__cb__t_a9657b542d4ff314437568bd9566d7519}{intf\_rx\_init\_cb} = \hyperlink{openavb__intf__alsa_8c_ad16e86a78731e4b8ec1974d910fb9b9d}{openavbIntfAlsaRxInitCB};
+1107         pIntfCB->\hyperlink{structopenavb__intf__cb__t_aa29c6a7d59d3dba57131b157f5634040}{intf\_rx\_cb} = \hyperlink{openavb__intf__alsa_8c_a03f2e95f68da614565556fd9106ddac8}{openavbIntfAlsaRxCB};
+1108         pIntfCB->\hyperlink{structopenavb__intf__cb__t_a438129d3c775eb25b490437fb5d43fbe}{intf\_end\_cb} = \hyperlink{openavb__intf__alsa_8c_a33d4008fafccc8b0bcb1d38d8b640c37}{openavbIntfAlsaEndCB};
+1109         pIntfCB->\hyperlink{structopenavb__intf__cb__t_af5c808e5bf832dc6f7d8314c80892171}{intf\_gen\_end\_cb} = \hyperlink{openavb__intf__alsa_8c_af7714389f4a83f567cbe111caabc6b4e}{openavbIntfAlsaGenEndCB};
+1110         pIntfCB->\hyperlink{structopenavb__intf__cb__t_a610720587e0f5f8e56e6359b3638cef9}{intf\_enable\_fixed\_timestamp} = 
+      \hyperlink{openavb__intf__alsa_8c_a46110e0a0cbb50c14a3b49a6c661d504}{openavbIntfAlsaEnableFixedTimestamp};
+1111 
+1112         pPvtData->\hyperlink{structpvt__data__t_a2a0aac103e25975d0ba22350a71e70ae}{ignoreTimestamp} = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+1113         pPvtData->\hyperlink{structpvt__data__t_ac8d9dc6d5b5eae731c087605a3780cc7}{pDeviceName} = strdup(\hyperlink{openavb__intf__alsa_8c_a72646fc9c755fe74d3c5bab11a0d5780}{PCM\_DEVICE\_NAME\_DEFAULT});
+1114         pPvtData->\hyperlink{structpvt__data__t_a7e6b568c4e7243f345d1b67c1c2ac14d}{allowResampling} = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+1115         pPvtData->\hyperlink{structpvt__data__t_a21c6933b90f224d67ff83bf224c7d313}{intervalCounter} = 0;
+1116         pPvtData->\hyperlink{structpvt__data__t_a3655c38e7d48f6551138d29f0651fd9d}{startThresholdPeriods} = 2;   \textcolor{comment}{// Default to 2 periods of frames as
+       the start threshold}
+1117         pPvtData->\hyperlink{structpvt__data__t_a69ce66331b71bec8c96ed76d23b3ce1e}{periodTimeUsec} = 100000;
+1118 
+1119         pPvtData->\hyperlink{structpvt__data__t_a0d8529515d357f9b3faa35f1f2ede2c0}{fixedTimestampEnabled} = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+1120         pPvtData->\hyperlink{structpvt__data__t_a6d2532ea1bdd6efc2c3169f155371167}{clockSkewPPB} = 0;
+1121     \}
+1122 
+1123     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+1124     \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+1125 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__alsa_8c_a963a5ae0768d2382f0c943f221b24851_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=277pt]{openavb__intf__alsa_8c_a963a5ae0768d2382f0c943f221b24851_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+intf\+\_\+alsa.\+c@{openavb\+\_\+intf\+\_\+alsa.\+c}!openavb\+Intf\+Alsa\+Rx\+CB@{openavb\+Intf\+Alsa\+Rx\+CB}}
+\index{openavb\+Intf\+Alsa\+Rx\+CB@{openavb\+Intf\+Alsa\+Rx\+CB}!openavb\+\_\+intf\+\_\+alsa.\+c@{openavb\+\_\+intf\+\_\+alsa.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Intf\+Alsa\+Rx\+C\+B(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q)}{openavbIntfAlsaRxCB(media_q_t *pMediaQ)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} openavb\+Intf\+Alsa\+Rx\+CB (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__intf__alsa_8c_a03f2e95f68da614565556fd9106ddac8}{}\label{openavb__intf__alsa_8c_a03f2e95f68da614565556fd9106ddac8}
+
+
+openavb\+\_\+intf\+\_\+alsa.\+c 파일의 968 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+969 \{
+970     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a315e143b4a452e660d7bde93c3d1647d}{AVB\_TRACE\_INTF\_DETAIL});
+971 
+972     \textcolor{keywordflow}{if} (pMediaQ) \{
+973         \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t}{media\_q\_pub\_map\_uncmp\_audio\_info\_t} *pPubMapUncmpAudioInfo = 
+      pMediaQ->\hyperlink{structmedia__q__t_a0226ccb90fbafac84294a908013853b4}{pPubMapInfo};
+974         \hyperlink{structpvt__data__t}{pvt\_data\_t} *pPvtData = pMediaQ->\hyperlink{structmedia__q__t_a453af4755f0cf9b8fe035e62ecea845f}{pPvtIntfInfo};
+975         \textcolor{keywordflow}{if} (!pPvtData) \{
+976             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Private interface module data not allocated."});
+977             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a315e143b4a452e660d7bde93c3d1647d}{AVB\_TRACE\_INTF\_DETAIL});
+978             \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+979         \}
+980 
+981         \textcolor{keywordtype}{bool} moreItems = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+982 
+983         \textcolor{keywordflow}{while} (moreItems) \{
+984             \hyperlink{structmedia__q__item__t}{media\_q\_item\_t} *pMediaQItem = \hyperlink{build_2sdk__eavb_2openavb__mediaq__pub_8h_aafa1645c7e234bd011a70063d368b995}{openavbMediaQTailLock}(pMediaQ,
+       pPvtData->\hyperlink{structpvt__data__t_a2a0aac103e25975d0ba22350a71e70ae}{ignoreTimestamp});
+985             \textcolor{keywordflow}{if} (pMediaQItem) \{
+986                 \textcolor{keywordflow}{if} (pMediaQItem->\hyperlink{structmedia__q__item__t_a1dfc68b1003d0c64f82d4c19649c2c52}{dataLen}) \{
+987                     \hyperlink{openavb__types__base__pub_8h_a39c786017723555afb9e8b85accec0de}{S32} rslt;
+988 
+989                     rslt = snd\_pcm\_writei(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle}, pMediaQItem->
+      \hyperlink{structmedia__q__item__t_ac27724ac74fd97e91418f1539eccdfb0}{pPubData}, pPubMapUncmpAudioInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a584c8e40420ea0739971d02cefc8dd93}{framesPerItem});
+990                     \textcolor{keywordflow}{if} (rslt < 0) \{
+991                         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"snd\_pcm\_writei: %s"}, snd\_strerror(rslt));
+992                         rslt = snd\_pcm\_recover(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle}, rslt, 0);
+993                         \textcolor{keywordflow}{if} (rslt < 0) \{
+994                             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"snd\_pcm\_recover: %s"}, snd\_strerror(rslt));
+995                         \}
+996                         rslt = snd\_pcm\_writei(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle}, pMediaQItem->
+      \hyperlink{structmedia__q__item__t_ac27724ac74fd97e91418f1539eccdfb0}{pPubData}, pPubMapUncmpAudioInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a584c8e40420ea0739971d02cefc8dd93}{framesPerItem});
+997                     \}
+998                     \textcolor{keywordflow}{if} (rslt != pPubMapUncmpAudioInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a584c8e40420ea0739971d02cefc8dd93}{framesPerItem}) \{
+999                         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a6b02336e691e2e0579d2a5bb06367296}{AVB\_LOGF\_WARNING}(\textcolor{stringliteral}{"Not all pcm data consumed written:%u  consumed:%u
+      "}, pMediaQItem->\hyperlink{structmedia__q__item__t_a1dfc68b1003d0c64f82d4c19649c2c52}{dataLen}, rslt * pPubMapUncmpAudioInfo->\hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_ad8a7767f3583795147d57c7252554dd9}{audioChannels});
+1000                     \}
+1001 
+1002                     \textcolor{comment}{// DEBUG}
+1003                     \textcolor{comment}{// rslt = snd\_pcm\_avail(pPvtData->pcmHandle);}
+1004                     \textcolor{comment}{// AVB\_LOGF\_INFO("%d\(\backslash\)n", rslt);}
+1005 
+1006                 \}
+1007                 \textcolor{keywordflow}{else} \{
+1008                 \}
+1009                 \hyperlink{build_2sdk__eavb_2openavb__mediaq__pub_8h_ab0525761a2b45c4c14d4fdc80fa24c47}{openavbMediaQTailPull}(pMediaQ);
+1010             \}
+1011             \textcolor{keywordflow}{else} \{
+1012                 moreItems = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+1013             \}
+1014         \}
+1015     \}
+1016 
+1017     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a315e143b4a452e660d7bde93c3d1647d}{AVB\_TRACE\_INTF\_DETAIL});
+1018     \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+1019 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__alsa_8c_a03f2e95f68da614565556fd9106ddac8_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__alsa_8c_a03f2e95f68da614565556fd9106ddac8_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+intf\+\_\+alsa.\+c@{openavb\+\_\+intf\+\_\+alsa.\+c}!openavb\+Intf\+Alsa\+Rx\+Init\+CB@{openavb\+Intf\+Alsa\+Rx\+Init\+CB}}
+\index{openavb\+Intf\+Alsa\+Rx\+Init\+CB@{openavb\+Intf\+Alsa\+Rx\+Init\+CB}!openavb\+\_\+intf\+\_\+alsa.\+c@{openavb\+\_\+intf\+\_\+alsa.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Intf\+Alsa\+Rx\+Init\+C\+B(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q)}{openavbIntfAlsaRxInitCB(media_q_t *pMediaQ)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Intf\+Alsa\+Rx\+Init\+CB (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__intf__alsa_8c_ad16e86a78731e4b8ec1974d910fb9b9d}{}\label{openavb__intf__alsa_8c_ad16e86a78731e4b8ec1974d910fb9b9d}
+
+
+openavb\+\_\+intf\+\_\+alsa.\+c 파일의 652 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+653 \{
+654     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+655 
+656     \hyperlink{openavb__types__base__pub_8h_a39c786017723555afb9e8b85accec0de}{S32} rslt;
+657 
+658     \textcolor{comment}{// Holds the hardware parameters}
+659     snd\_pcm\_hw\_params\_t *hwParams;
+660     snd\_pcm\_sw\_params\_t *swParams;
+661 
+662     \textcolor{keywordflow}{if} (pMediaQ) \{
+663         \hyperlink{structpvt__data__t}{pvt\_data\_t} *pPvtData = pMediaQ->\hyperlink{structmedia__q__t_a453af4755f0cf9b8fe035e62ecea845f}{pPvtIntfInfo};
+664         \textcolor{keywordflow}{if} (!pPvtData) \{
+665             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Private interface module data not allocated."});
+666             \textcolor{keywordflow}{return};
+667         \}
+668 
+669         \textcolor{comment}{// Open the pcm device.}
+670         rslt = snd\_pcm\_open(&pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle}, pPvtData->\hyperlink{structpvt__data__t_ac8d9dc6d5b5eae731c087605a3780cc7}{pDeviceName}, 
+      SND\_PCM\_STREAM\_PLAYBACK, 0);
+671 
+672         \textcolor{keywordflow}{if} (rslt < 0) \{
+673             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"snd\_pcm\_open error(): %s"}, snd\_strerror(rslt));
+674             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+675             \textcolor{keywordflow}{return};
+676         \}
+677 
+678         \textcolor{comment}{// Allocate the parameter structure}
+679         rslt = snd\_pcm\_hw\_params\_malloc(&hwParams);
+680         \textcolor{keywordflow}{if} (rslt < 0) \{
+681             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"snd\_pcm\_hw\_params\_malloc error(): %s"}, snd\_strerror(rslt));
+682             snd\_pcm\_close(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle});
+683             pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+684             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+685             \textcolor{keywordflow}{return};
+686         \}
+687 
+688         \textcolor{comment}{// Initialize the hardware parameters}
+689         rslt = snd\_pcm\_hw\_params\_any(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle}, hwParams);
+690         \textcolor{keywordflow}{if} (rslt < 0) \{
+691             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"snd\_pcm\_hw\_params\_any() error: %s"}, snd\_strerror(rslt));
+692             snd\_pcm\_close(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle});
+693             pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+694             snd\_pcm\_hw\_params\_free(hwParams);
+695             hwParams = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+696             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+697             \textcolor{keywordflow}{return};
+698         \}
+699 
+700         \textcolor{comment}{// Set if resampling allowed.}
+701         rslt = snd\_pcm\_hw\_params\_set\_rate\_resample(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle}, hwParams, pPvtData->
+      \hyperlink{structpvt__data__t_a7e6b568c4e7243f345d1b67c1c2ac14d}{allowResampling});
+702         \textcolor{keywordflow}{if} (rslt < 0) \{
+703             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"snd\_pcm\_hw\_params\_set\_rate\_resample() error: %s"}, snd\_strerror(
+      rslt));
+704             snd\_pcm\_close(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle});
+705             pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+706             snd\_pcm\_hw\_params\_free(hwParams);
+707             hwParams = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+708             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+709             \textcolor{keywordflow}{return};
+710         \}
+711 
+712         \textcolor{comment}{// Set the access type}
+713         rslt = snd\_pcm\_hw\_params\_set\_access(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle}, hwParams, 
+      \hyperlink{openavb__intf__alsa_8c_aaceb600c19178a16785bd3e9fde7b672}{PCM\_ACCESS\_TYPE});
+714         \textcolor{keywordflow}{if} (rslt < 0) \{
+715             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"snd\_pcm\_hw\_params\_set\_access() error: %s"}, snd\_strerror(rslt));
+716             snd\_pcm\_close(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle});
+717             pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+718             snd\_pcm\_hw\_params\_free(hwParams);
+719             hwParams = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+720             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+721             \textcolor{keywordflow}{return};
+722         \}
+723 
+724         \textcolor{comment}{// Set the sample format}
+725         \textcolor{keywordtype}{int} fmt = \hyperlink{openavb__intf__alsa_8c_a7a9562ff43a53c2871f6c0a3a13a1a29}{x\_AVBAudioFormatToAlsaFormat}(pPvtData->
+      \hyperlink{structpvt__data__t_abc6ed39d478764b05a886d64d104ce4b}{audioType},
+726                                                pPvtData->\hyperlink{structpvt__data__t_a868321a19830c5c46ed52c007dfdedb9}{audioBitDepth},
+727                                                pPvtData->\hyperlink{structpvt__data__t_a2737fc6ab5107802c9fa03d74c967794}{audioEndian},
+728                                                pMediaQ->\hyperlink{structmedia__q__t_a3f16216bd90b1b04cca7fbb4766cb5ff}{pMediaQDataFormat});
+729         rslt = snd\_pcm\_hw\_params\_set\_format(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle}, hwParams, fmt);
+730         \textcolor{keywordflow}{if} (rslt < 0) \{
+731             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"snd\_pcm\_hw\_params\_set\_format() error: %s"}, snd\_strerror(rslt));
+732             snd\_pcm\_close(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle});
+733             pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+734             snd\_pcm\_hw\_params\_free(hwParams);
+735             hwParams = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+736             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+737             \textcolor{keywordflow}{return};
+738         \}
+739 
+740         \textcolor{comment}{// Set the sample rate}
+741         \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} rate = pPvtData->\hyperlink{structpvt__data__t_a98636b12c3c9cafdc6992d03d6f86852}{audioRate};
+742         rslt = snd\_pcm\_hw\_params\_set\_rate\_near(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle}, hwParams, &rate, 0);
+743         \textcolor{keywordflow}{if} (rslt < 0) \{
+744             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"snd\_pcm\_hw\_params\_set\_rate\_near() error: %s"}, snd\_strerror(rslt))
+      ;
+745             snd\_pcm\_close(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle});
+746             pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+747             snd\_pcm\_hw\_params\_free(hwParams);
+748             hwParams = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+749             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+750             \textcolor{keywordflow}{return};
+751         \}
+752         \textcolor{keywordflow}{if} (rate != pPvtData->\hyperlink{structpvt__data__t_a98636b12c3c9cafdc6992d03d6f86852}{audioRate}) \{
+753             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Could not set the exact rate. Requested: %u  Using: %u"}, pPvtData
+      ->\hyperlink{structpvt__data__t_a98636b12c3c9cafdc6992d03d6f86852}{audioRate}, rate);
+754         \}
+755 
+756         \textcolor{comment}{// Set the number of channels}
+757         rslt = snd\_pcm\_hw\_params\_set\_channels(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle}, hwParams, pPvtData->
+      \hyperlink{structpvt__data__t_ad8a7767f3583795147d57c7252554dd9}{audioChannels});
+758         \textcolor{keywordflow}{if} (rslt < 0) \{
+759             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"snd\_pcm\_hw\_params\_set\_channels() error: %s"}, snd\_strerror(rslt));
+760             snd\_pcm\_close(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle});
+761             pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+762             snd\_pcm\_hw\_params\_free(hwParams);
+763             hwParams = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+764             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+765             \textcolor{keywordflow}{return};
+766         \}
+767 
+768 
+769         \textcolor{comment}{// Time based buffer and period setup}
+770         \textcolor{keywordtype}{int} dir;
+771 
+772         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} buffer\_time = 500000;                      \textcolor{comment}{// ring buffer length in us}
+773         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} period\_time = pPvtData->\hyperlink{structpvt__data__t_a69ce66331b71bec8c96ed76d23b3ce1e}{periodTimeUsec};  \textcolor{comment}{// period time in us}
+774         \textcolor{keywordtype}{int} period\_event = 1;                                   \textcolor{comment}{// produce poll event after each period}
+775         snd\_pcm\_uframes\_t buffer\_size;
+776         snd\_pcm\_uframes\_t period\_size;
+777         \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} usec\_round = 10000;
+778         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} max;
+779 
+780         \textcolor{comment}{// Hard-coded buffer and period times were failing for 192KHz.}
+781         \textcolor{comment}{// Check for maximum buffer time and adjust ours down if necessary}
+782         rslt = snd\_pcm\_hw\_params\_get\_buffer\_time\_max(hwParams, &max, &dir);
+783         \textcolor{keywordflow}{if} (rslt < 0) \{
+784             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"snd\_pcm\_hw\_params\_get\_buffer\_time\_max() error: %s"}, snd\_strerror(
+      rslt));
+785             snd\_pcm\_close(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle});
+786             pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+787             snd\_pcm\_hw\_params\_free(hwParams);
+788             hwParams = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+789             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+790             \textcolor{keywordflow}{return};
+791         \}
+792         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (max < buffer\_time) \{
+793             buffer\_time = (max / usec\_round) * usec\_round;
+794         \}
+795 
+796         \textcolor{comment}{// Check for maximum period time and adjust ours down if necessary}
+797         rslt = snd\_pcm\_hw\_params\_get\_period\_time\_max(hwParams, &max, &dir);
+798         \textcolor{keywordflow}{if} (rslt < 0) \{
+799             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"snd\_pcm\_hw\_params\_get\_period\_time\_max() error: %s"}, snd\_strerror(
+      rslt));
+800             snd\_pcm\_close(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle});
+801             pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+802             snd\_pcm\_hw\_params\_free(hwParams);
+803             hwParams = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+804             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+805             \textcolor{keywordflow}{return};
+806         \}
+807         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (max < period\_time) \{
+808             period\_time = (max / usec\_round) * usec\_round;
+809         \}
+810 
+811         rslt = snd\_pcm\_hw\_params\_set\_buffer\_time\_near(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle}, hwParams, &buffer\_time,
+       &dir);
+812         \textcolor{keywordflow}{if} (rslt < 0) \{
+813             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"snd\_pcm\_hw\_params\_set\_buffer\_time\_near() error: %s"}, snd\_strerror
+      (rslt));
+814             snd\_pcm\_close(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle});
+815             pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+816             snd\_pcm\_hw\_params\_free(hwParams);
+817             hwParams = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+818             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+819             \textcolor{keywordflow}{return};
+820         \}
+821 
+822         rslt = snd\_pcm\_hw\_params\_get\_buffer\_size(hwParams, &buffer\_size);
+823         \textcolor{keywordflow}{if} (rslt < 0) \{
+824             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"snd\_pcm\_hw\_params\_get\_buffer\_size() error: %s"}, snd\_strerror(rslt
+      ));
+825             snd\_pcm\_close(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle});
+826             pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+827             snd\_pcm\_hw\_params\_free(hwParams);
+828             hwParams = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+829             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+830             \textcolor{keywordflow}{return};
+831         \}
+832 
+833         rslt = snd\_pcm\_hw\_params\_set\_period\_time\_near(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle}, hwParams, &period\_time,
+       &dir);
+834         \textcolor{keywordflow}{if} (rslt < 0) \{
+835             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"snd\_pcm\_hw\_params\_set\_period\_time\_near() error: %s"}, snd\_strerror
+      (rslt));
+836             snd\_pcm\_close(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle});
+837             pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+838             snd\_pcm\_hw\_params\_free(hwParams);
+839             hwParams = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+840             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+841             \textcolor{keywordflow}{return};
+842         \}
+843         pPvtData->\hyperlink{structpvt__data__t_a69ce66331b71bec8c96ed76d23b3ce1e}{periodTimeUsec} = period\_time;
+844 
+845         rslt = snd\_pcm\_hw\_params\_get\_period\_size(hwParams, &period\_size, &dir);
+846         \textcolor{keywordflow}{if} (rslt < 0) \{
+847             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"snd\_pcm\_hw\_params\_get\_period\_size() error: %s"}, snd\_strerror(rslt
+      ));
+848             snd\_pcm\_close(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle});
+849             pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+850             snd\_pcm\_hw\_params\_free(hwParams);
+851             hwParams = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+852             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+853             \textcolor{keywordflow}{return};
+854         \}
+855 
+856         \textcolor{comment}{// Give the hardware parameters to ALSA}
+857         rslt = snd\_pcm\_hw\_params(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle}, hwParams);
+858         \textcolor{keywordflow}{if} (rslt < 0) \{
+859             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"snd\_pcm\_hw\_params() error: %s"}, snd\_strerror(rslt));
+860             snd\_pcm\_close(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle});
+861             pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+862             snd\_pcm\_hw\_params\_free(hwParams);
+863             hwParams = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+864             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+865             \textcolor{keywordflow}{return};
+866         \}
+867 
+868         \textcolor{comment}{// Free the hardware parameters}
+869         snd\_pcm\_hw\_params\_free(hwParams);
+870         hwParams = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+871 
+872 
+873         \textcolor{comment}{// Set software parameters}
+874 
+875         \textcolor{comment}{// Allocate the parameter structure}
+876         rslt = snd\_pcm\_sw\_params\_malloc(&swParams);
+877         \textcolor{keywordflow}{if} (rslt < 0) \{
+878             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"snd\_pcm\_sw\_params\_malloc error(): %s"}, snd\_strerror(rslt));
+879             snd\_pcm\_close(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle});
+880             pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+881             snd\_pcm\_sw\_params\_free(swParams);
+882             swParams = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+883             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+884             \textcolor{keywordflow}{return};
+885         \}
+886 
+887         rslt = snd\_pcm\_sw\_params\_current(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle}, swParams);
+888         \textcolor{keywordflow}{if} (rslt < 0) \{
+889             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"snd\_pcm\_sw\_params\_current error(): %s"}, snd\_strerror(rslt));
+890             snd\_pcm\_close(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle});
+891             pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+892             snd\_pcm\_sw\_params\_free(swParams);
+893             swParams = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+894             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+895             \textcolor{keywordflow}{return};
+896         \}
+897 
+898         rslt = snd\_pcm\_sw\_params\_set\_start\_threshold(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle}, swParams, period\_size * 
+      pPvtData->\hyperlink{structpvt__data__t_a3655c38e7d48f6551138d29f0651fd9d}{startThresholdPeriods});
+899         \textcolor{keywordflow}{if} (rslt < 0) \{
+900             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"snd\_pcm\_sw\_params\_set\_start\_threshold error(): %s"}, snd\_strerror(
+      rslt));
+901             snd\_pcm\_close(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle});
+902             pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+903             snd\_pcm\_sw\_params\_free(swParams);
+904             swParams = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+905             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+906             \textcolor{keywordflow}{return};
+907         \}
+908 
+909         rslt = snd\_pcm\_sw\_params\_set\_avail\_min(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle}, swParams, period\_event ? 
+      buffer\_size : period\_size);
+910         \textcolor{keywordflow}{if} (rslt < 0) \{
+911             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"snd\_pcm\_sw\_params\_set\_avail\_min error(): %s"}, snd\_strerror(rslt))
+      ;
+912             snd\_pcm\_close(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle});
+913             pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+914             snd\_pcm\_sw\_params\_free(swParams);
+915             swParams = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+916             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+917             \textcolor{keywordflow}{return};
+918         \}
+919 
+920         rslt = snd\_pcm\_sw\_params\_set\_period\_event(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle}, swParams, 1);
+921         \textcolor{keywordflow}{if} (rslt < 0) \{
+922             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"snd\_pcm\_sw\_params\_set\_period\_event error(): %s"}, snd\_strerror(
+      rslt));
+923             snd\_pcm\_close(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle});
+924             pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+925             snd\_pcm\_sw\_params\_free(swParams);
+926             swParams = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+927             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+928             \textcolor{keywordflow}{return};
+929         \}
+930 
+931         rslt = snd\_pcm\_sw\_params(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle}, swParams);
+932         \textcolor{keywordflow}{if} (rslt < 0) \{
+933             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"snd\_pcm\_sw\_params error(): %s"}, snd\_strerror(rslt));
+934             snd\_pcm\_close(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle});
+935             pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+936             snd\_pcm\_sw\_params\_free(swParams);
+937             swParams = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+938             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+939             \textcolor{keywordflow}{return};
+940         \}
+941 
+942         \textcolor{comment}{// Free the hardware parameters}
+943         snd\_pcm\_sw\_params\_free(swParams);
+944         swParams = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+945 
+946 
+947         \textcolor{comment}{// Get ready for playback}
+948         rslt = snd\_pcm\_prepare(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle});
+949         \textcolor{keywordflow}{if} (rslt < 0) \{
+950             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"snd\_pcm\_prepare() error: %s"}, snd\_strerror(rslt));
+951             snd\_pcm\_close(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle});
+952             pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+953             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+954             \textcolor{keywordflow}{return};
+955         \}
+956 
+957         \textcolor{comment}{// Dump settings}
+958         snd\_output\_t* \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+959         snd\_output\_stdio\_attach(&out, stderr, 0);
+960         snd\_pcm\_dump(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle}, out);
+961         snd\_output\_close(out);
+962     \}
+963 
+964     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+965 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__alsa_8c_ad16e86a78731e4b8ec1974d910fb9b9d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__alsa_8c_ad16e86a78731e4b8ec1974d910fb9b9d_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+intf\+\_\+alsa.\+c@{openavb\+\_\+intf\+\_\+alsa.\+c}!openavb\+Intf\+Alsa\+Tx\+CB@{openavb\+Intf\+Alsa\+Tx\+CB}}
+\index{openavb\+Intf\+Alsa\+Tx\+CB@{openavb\+Intf\+Alsa\+Tx\+CB}!openavb\+\_\+intf\+\_\+alsa.\+c@{openavb\+\_\+intf\+\_\+alsa.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Intf\+Alsa\+Tx\+C\+B(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q)}{openavbIntfAlsaTxCB(media_q_t *pMediaQ)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} openavb\+Intf\+Alsa\+Tx\+CB (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__intf__alsa_8c_a3f47d07e074f8d78283865718ef121bd}{}\label{openavb__intf__alsa_8c_a3f47d07e074f8d78283865718ef121bd}
+
+
+openavb\+\_\+intf\+\_\+alsa.\+c 파일의 569 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+570 \{
+571     \textcolor{keywordtype}{bool} moreItems = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+572     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a315e143b4a452e660d7bde93c3d1647d}{AVB\_TRACE\_INTF\_DETAIL});
+573 
+574     \hyperlink{openavb__types__base__pub_8h_a39c786017723555afb9e8b85accec0de}{S32} rslt;
+575 
+576     \textcolor{keywordflow}{if} (pMediaQ) \{
+577         \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t}{media\_q\_pub\_map\_uncmp\_audio\_info\_t} *pPubMapUncmpAudioInfo = 
+      pMediaQ->\hyperlink{structmedia__q__t_a0226ccb90fbafac84294a908013853b4}{pPubMapInfo};
+578         \hyperlink{structpvt__data__t}{pvt\_data\_t} *pPvtData = pMediaQ->\hyperlink{structmedia__q__t_a453af4755f0cf9b8fe035e62ecea845f}{pPvtIntfInfo};
+579         \hyperlink{structmedia__q__item__t}{media\_q\_item\_t} *pMediaQItem = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+580         \textcolor{keywordflow}{if} (!pPvtData) \{
+581             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Private interface module data not allocated."});
+582             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a315e143b4a452e660d7bde93c3d1647d}{AVB\_TRACE\_INTF\_DETAIL});
+583             \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+584         \}
+585 
+586         \textcolor{keywordflow}{if} (pPvtData->\hyperlink{structpvt__data__t_a21c6933b90f224d67ff83bf224c7d313}{intervalCounter}++ % pPubMapUncmpAudioInfo->
+      \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_af54e12a5e4f46ccf41a32ff0ea9b3405}{packingFactor} != 0) \{
+587             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a315e143b4a452e660d7bde93c3d1647d}{AVB\_TRACE\_INTF\_DETAIL});
+588             \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+589         \}
+590 
+591         \textcolor{keywordflow}{while} (moreItems) \{
+592             pMediaQItem = \hyperlink{build_2sdk__eavb_2openavb__mediaq__pub_8h_ae2ce807451447ec2dab9a4284ac61b99}{openavbMediaQHeadLock}(pMediaQ);
+593             \textcolor{keywordflow}{if} (pMediaQItem) \{
+594                 \textcolor{keywordflow}{if} (pMediaQItem->\hyperlink{structmedia__q__item__t_a91e248b2730fbe7951ac5d9d3aae1752}{itemSize} < pPubMapUncmpAudioInfo->
+      \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a91e248b2730fbe7951ac5d9d3aae1752}{itemSize}) \{
+595                     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Media queue item not large enough for samples"});
+596                     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a315e143b4a452e660d7bde93c3d1647d}{AVB\_TRACE\_INTF\_DETAIL});
+597                     \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+598                 \}
+599 
+600                 rslt = snd\_pcm\_readi(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle}, pMediaQItem->
+      \hyperlink{structmedia__q__item__t_ac27724ac74fd97e91418f1539eccdfb0}{pPubData} + pMediaQItem->\hyperlink{structmedia__q__item__t_a1dfc68b1003d0c64f82d4c19649c2c52}{dataLen}, pPubMapUncmpAudioInfo->
+      \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a584c8e40420ea0739971d02cefc8dd93}{framesPerItem} - (pMediaQItem->\hyperlink{structmedia__q__item__t_a1dfc68b1003d0c64f82d4c19649c2c52}{dataLen} / pPubMapUncmpAudioInfo->
+      \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a5e067b4fe2d5bde1db69eb4a8899f808}{itemFrameSizeBytes}));
+601 
+602                 \textcolor{keywordflow}{if} (rslt < 0) \{
+603                     \textcolor{keywordflow}{switch}(rslt) \{
+604                     \textcolor{keywordflow}{case} -EPIPE:
+605                         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"snd\_pcm\_readi() error: %s"}, snd\_strerror(rslt));
+606                         rslt = snd\_pcm\_recover(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle}, rslt, 0);
+607                         \textcolor{keywordflow}{if} (rslt < 0) \{
+608                             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"snd\_pcm\_recover: %s"}, snd\_strerror(rslt));
+609                         \}
+610                         \textcolor{keywordflow}{break};
+611                     \textcolor{keywordflow}{case} -EAGAIN:
+612                         \{ \hyperlink{maap__log_8h_ae9decd5440c360a6d0ab5175c9cf08be}{IF\_LOG\_INTERVAL}(1000) \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a28a4d0350d530ad95c95b8383c00cd9c}{AVB\_LOG\_DEBUG}("snd\_pcm\_readi() 
+      had no data available"); \}
+613                         break;
+614                     \hyperlink{namespaceastime__fitline_affb1327b18bf08a379d19eef89cf1ed1}{default}:
+615                         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}("Unhandled snd\_pcm\_readi() error: %s", snd\_strerror(
+      rslt));
+616                         break;
+617                     \}
+618 
+619                     if (rslt < 0) \{
+620                         \hyperlink{build_2sdk__eavb_2openavb__mediaq__pub_8h_ac73b08d1568f13b634e2a0f1ef35e11a}{openavbMediaQHeadUnlock}(pMediaQ);
+621                         \textcolor{keywordflow}{break};
+622                     \}
+623                 \}
+624 
+625                 pMediaQItem->\hyperlink{structmedia__q__item__t_a1dfc68b1003d0c64f82d4c19649c2c52}{dataLen} += rslt * pPubMapUncmpAudioInfo->
+      \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a5e067b4fe2d5bde1db69eb4a8899f808}{itemFrameSizeBytes};
+626                 \textcolor{keywordflow}{if} (pMediaQItem->\hyperlink{structmedia__q__item__t_a1dfc68b1003d0c64f82d4c19649c2c52}{dataLen} != pPubMapUncmpAudioInfo->
+      \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_a91e248b2730fbe7951ac5d9d3aae1752}{itemSize}) \{
+627                     \hyperlink{build_2sdk__eavb_2openavb__mediaq__pub_8h_ac73b08d1568f13b634e2a0f1ef35e11a}{openavbMediaQHeadUnlock}(pMediaQ);
+628                 \}
+629                 \textcolor{keywordflow}{else} \{
+630                     \textcolor{comment}{// Always get the timestamp.  Protocols such as AAF can choose to ignore them if not
+       needed.}
+631                     \textcolor{keywordflow}{if} (!pPvtData->\hyperlink{structpvt__data__t_a0d8529515d357f9b3faa35f1f2ede2c0}{fixedTimestampEnabled}) \{
+632                         \hyperlink{openavb__avtp__time_8c_a56b2ae4c29078846b941284d161f7d88}{openavbAvtpTimeSetToWallTime}(pMediaQItem->
+      \hyperlink{structmedia__q__item__t_aa7a475459f9c1a43c64ed85ff1c758cc}{pAvtpTime});
+633                     \} \textcolor{keywordflow}{else} \{
+634                         \hyperlink{openavb__mcs_8c_afbae383f110ec2ad1379e7751c2ef329}{openavbMcsAdvance}(&pPvtData->\hyperlink{structpvt__data__t_aeae67b5199bbd13cc6ba11f25244aca4}{mcs});
+635                         \hyperlink{openavb__avtp__time_8c_a7ce613779ddf5c8954300d7c4e417ed0}{openavbAvtpTimeSetToTimestampNS}(pMediaQItem->
+      \hyperlink{structmedia__q__item__t_aa7a475459f9c1a43c64ed85ff1c758cc}{pAvtpTime}, pPvtData->\hyperlink{structpvt__data__t_aeae67b5199bbd13cc6ba11f25244aca4}{mcs}.\hyperlink{structmcs__t_a99b06b68590b7637eacd45776c7fc77b}{edgeTime});
+636                     \}
+637                     \hyperlink{build_2sdk__eavb_2openavb__mediaq__pub_8h_a0a57c275ac213fdd14c944741c6e9250}{openavbMediaQHeadPush}(pMediaQ);
+638                 \}
+639             \}
+640             \textcolor{keywordflow}{else} \{
+641                 moreItems = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+642             \}
+643         \}
+644     \}
+645 
+646     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a315e143b4a452e660d7bde93c3d1647d}{AVB\_TRACE\_INTF\_DETAIL});
+647     \textcolor{keywordflow}{return} !moreItems;
+648 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__alsa_8c_a3f47d07e074f8d78283865718ef121bd_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__alsa_8c_a3f47d07e074f8d78283865718ef121bd_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+intf\+\_\+alsa.\+c@{openavb\+\_\+intf\+\_\+alsa.\+c}!openavb\+Intf\+Alsa\+Tx\+Init\+CB@{openavb\+Intf\+Alsa\+Tx\+Init\+CB}}
+\index{openavb\+Intf\+Alsa\+Tx\+Init\+CB@{openavb\+Intf\+Alsa\+Tx\+Init\+CB}!openavb\+\_\+intf\+\_\+alsa.\+c@{openavb\+\_\+intf\+\_\+alsa.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Intf\+Alsa\+Tx\+Init\+C\+B(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q)}{openavbIntfAlsaTxInitCB(media_q_t *pMediaQ)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Intf\+Alsa\+Tx\+Init\+CB (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__intf__alsa_8c_a839a1053bb3098bdc421a956097af114}{}\label{openavb__intf__alsa_8c_a839a1053bb3098bdc421a956097af114}
+
+
+openavb\+\_\+intf\+\_\+alsa.\+c 파일의 411 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+412 \{
+413     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+414 
+415     \textcolor{keywordflow}{if} (pMediaQ) \{
+416         \hyperlink{openavb__types__base__pub_8h_a39c786017723555afb9e8b85accec0de}{S32} rslt;
+417         \hyperlink{structpvt__data__t}{pvt\_data\_t} *pPvtData = pMediaQ->\hyperlink{structmedia__q__t_a453af4755f0cf9b8fe035e62ecea845f}{pPvtIntfInfo};
+418         \textcolor{keywordflow}{if} (!pPvtData) \{
+419             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Private interface module data not allocated."});
+420             \textcolor{keywordflow}{return};
+421         \}
+422 
+423         \textcolor{comment}{// Holds the hardware parameters}
+424         snd\_pcm\_hw\_params\_t *hwParams;
+425 
+426         \textcolor{comment}{// Open the pcm device.}
+427         rslt = snd\_pcm\_open(&pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle}, pPvtData->\hyperlink{structpvt__data__t_ac8d9dc6d5b5eae731c087605a3780cc7}{pDeviceName}, 
+      SND\_PCM\_STREAM\_CAPTURE, SND\_PCM\_NONBLOCK);
+428 
+429         \textcolor{keywordflow}{if} (rslt < 0) \{
+430             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"snd\_pcm\_open error(): %s"}, snd\_strerror(rslt));
+431             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+432             \textcolor{keywordflow}{return};
+433         \}
+434 
+435         \textcolor{comment}{// Allocate the parameter structure}
+436         rslt = snd\_pcm\_hw\_params\_malloc(&hwParams);
+437         \textcolor{keywordflow}{if} (rslt < 0) \{
+438             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"snd\_pcm\_hw\_params\_malloc error(): %s"}, snd\_strerror(rslt));
+439             snd\_pcm\_close(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle});
+440             pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+441             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+442             \textcolor{keywordflow}{return};
+443         \}
+444 
+445         \textcolor{comment}{// Initialize the hardware parameters}
+446         rslt = snd\_pcm\_hw\_params\_any(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle}, hwParams);
+447         \textcolor{keywordflow}{if} (rslt < 0) \{
+448             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"snd\_pcm\_hw\_params\_any() error: %s"}, snd\_strerror(rslt));
+449             snd\_pcm\_close(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle});
+450             pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+451             snd\_pcm\_hw\_params\_free(hwParams);
+452             hwParams = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+453             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+454             \textcolor{keywordflow}{return};
+455         \}
+456 
+457         \textcolor{comment}{// Set if resampling allowed.}
+458         rslt = snd\_pcm\_hw\_params\_set\_rate\_resample(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle}, hwParams, pPvtData->
+      \hyperlink{structpvt__data__t_a7e6b568c4e7243f345d1b67c1c2ac14d}{allowResampling});
+459         \textcolor{keywordflow}{if} (rslt < 0) \{
+460             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"snd\_pcm\_hw\_params\_set\_rate\_resample() error: %s"}, snd\_strerror(
+      rslt));
+461             snd\_pcm\_close(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle});
+462             pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+463             snd\_pcm\_hw\_params\_free(hwParams);
+464             hwParams = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+465             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+466             \textcolor{keywordflow}{return};
+467         \}
+468 
+469         \textcolor{comment}{// Set the access type}
+470         rslt = snd\_pcm\_hw\_params\_set\_access(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle}, hwParams, 
+      \hyperlink{openavb__intf__alsa_8c_aaceb600c19178a16785bd3e9fde7b672}{PCM\_ACCESS\_TYPE});
+471         \textcolor{keywordflow}{if} (rslt < 0) \{
+472             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"snd\_pcm\_hw\_params\_set\_access() error: %s"}, snd\_strerror(rslt));
+473             snd\_pcm\_close(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle});
+474             pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+475             snd\_pcm\_hw\_params\_free(hwParams);
+476             hwParams = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+477             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+478             \textcolor{keywordflow}{return};
+479         \}
+480 
+481         \textcolor{comment}{// Set the sample format}
+482         \textcolor{keywordtype}{int} fmt = \hyperlink{openavb__intf__alsa_8c_a7a9562ff43a53c2871f6c0a3a13a1a29}{x\_AVBAudioFormatToAlsaFormat}(pPvtData->
+      \hyperlink{structpvt__data__t_abc6ed39d478764b05a886d64d104ce4b}{audioType},
+483                                                pPvtData->\hyperlink{structpvt__data__t_a868321a19830c5c46ed52c007dfdedb9}{audioBitDepth},
+484                                                pPvtData->\hyperlink{structpvt__data__t_a2737fc6ab5107802c9fa03d74c967794}{audioEndian},
+485                                                pMediaQ->\hyperlink{structmedia__q__t_a3f16216bd90b1b04cca7fbb4766cb5ff}{pMediaQDataFormat});
+486         rslt = snd\_pcm\_hw\_params\_set\_format(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle}, hwParams, fmt);
+487         \textcolor{keywordflow}{if} (rslt < 0) \{
+488             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"snd\_pcm\_hw\_params\_set\_format() error: %s"}, snd\_strerror(rslt));
+489             snd\_pcm\_close(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle});
+490             pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+491             snd\_pcm\_hw\_params\_free(hwParams);
+492             hwParams = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+493             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+494             \textcolor{keywordflow}{return};
+495         \}
+496 
+497         \textcolor{comment}{// Set the sample rate}
+498         \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} rate = pPvtData->\hyperlink{structpvt__data__t_a98636b12c3c9cafdc6992d03d6f86852}{audioRate};
+499         rslt = snd\_pcm\_hw\_params\_set\_rate\_near(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle}, hwParams, &rate, 0);
+500         \textcolor{keywordflow}{if} (rslt < 0) \{
+501             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"snd\_pcm\_hw\_params\_set\_rate\_near() error: %s"}, snd\_strerror(rslt))
+      ;
+502             snd\_pcm\_close(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle});
+503             pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+504             snd\_pcm\_hw\_params\_free(hwParams);
+505             hwParams = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+506             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+507             \textcolor{keywordflow}{return};
+508         \}
+509         \textcolor{keywordflow}{if} (rate != pPvtData->\hyperlink{structpvt__data__t_a98636b12c3c9cafdc6992d03d6f86852}{audioRate}) \{
+510             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Could not set the exact rate. Requested: %u  Using: %u"}, pPvtData
+      ->\hyperlink{structpvt__data__t_a98636b12c3c9cafdc6992d03d6f86852}{audioRate}, rate);
+511         \}
+512 
+513         \textcolor{comment}{// Set the number of channels}
+514         rslt = snd\_pcm\_hw\_params\_set\_channels(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle}, hwParams, pPvtData->
+      \hyperlink{structpvt__data__t_ad8a7767f3583795147d57c7252554dd9}{audioChannels});
+515         \textcolor{keywordflow}{if} (rslt < 0) \{
+516             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"snd\_pcm\_hw\_params\_set\_channels() error: %s"}, snd\_strerror(rslt));
+517             snd\_pcm\_close(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle});
+518             pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+519             snd\_pcm\_hw\_params\_free(hwParams);
+520             hwParams = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+521             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+522             \textcolor{keywordflow}{return};
+523         \}
+524 
+525         \textcolor{comment}{// Give the hardware parameters to ALSA}
+526         rslt = snd\_pcm\_hw\_params(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle}, hwParams);
+527         \textcolor{keywordflow}{if} (rslt < 0) \{
+528             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"snd\_pcm\_hw\_params() error: %s"}, snd\_strerror(rslt));
+529             snd\_pcm\_close(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle});
+530             pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+531             snd\_pcm\_hw\_params\_free(hwParams);
+532             hwParams = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+533             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+534             \textcolor{keywordflow}{return};
+535         \}
+536 
+537         \textcolor{comment}{// Free the hardware parameters}
+538         snd\_pcm\_hw\_params\_free(hwParams);
+539         hwParams = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+540 
+541         \textcolor{comment}{// Get ready for playback}
+542         rslt = snd\_pcm\_prepare(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle});
+543         \textcolor{keywordflow}{if} (rslt < 0) \{
+544             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"snd\_pcm\_prepare() error: %s"}, snd\_strerror(rslt));
+545             snd\_pcm\_close(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle});
+546             pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+547             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+548             \textcolor{keywordflow}{return};
+549         \}
+550 
+551         \textcolor{comment}{// Dump settings}
+552         snd\_output\_t* \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+553         snd\_output\_stdio\_attach(&out, stderr, 0);
+554         snd\_pcm\_dump(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle}, out);
+555         snd\_output\_close(out);
+556 
+557         \textcolor{comment}{// Start capture}
+558         snd\_pcm\_start(pPvtData->\hyperlink{structpvt__data__t_a1b42323846f53777096f18d2f5ec8b04}{pcmHandle});
+559         \{
+560             \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t}{media\_q\_pub\_map\_uncmp\_audio\_info\_t} *pPubMapUncmpAudioInfo = 
+      pMediaQ->\hyperlink{structmedia__q__t_a0226ccb90fbafac84294a908013853b4}{pPubMapInfo};
+561 
+562             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a2be7e90c7cb63f12b221ed1cd4999185}{AVB\_LOGF\_INFO}(\textcolor{stringliteral}{"Finished ALSA Setup: packingFactor %d"}, pPubMapUncmpAudioInfo->
+      \hyperlink{structmedia__q__pub__map__uncmp__audio__info__t_af54e12a5e4f46ccf41a32ff0ea9b3405}{packingFactor});
+563         \}
+564     \}
+565     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+566 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__alsa_8c_a839a1053bb3098bdc421a956097af114_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__alsa_8c_a839a1053bb3098bdc421a956097af114_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+intf\+\_\+alsa.\+c@{openavb\+\_\+intf\+\_\+alsa.\+c}!x\+\_\+\+A\+V\+B\+Audio\+Format\+To\+Alsa\+Format@{x\+\_\+\+A\+V\+B\+Audio\+Format\+To\+Alsa\+Format}}
+\index{x\+\_\+\+A\+V\+B\+Audio\+Format\+To\+Alsa\+Format@{x\+\_\+\+A\+V\+B\+Audio\+Format\+To\+Alsa\+Format}!openavb\+\_\+intf\+\_\+alsa.\+c@{openavb\+\_\+intf\+\_\+alsa.\+c}}
+\subsubsection[{\texorpdfstring{x\+\_\+\+A\+V\+B\+Audio\+Format\+To\+Alsa\+Format(avb\+\_\+audio\+\_\+type\+\_\+t type, avb\+\_\+audio\+\_\+bit\+\_\+depth\+\_\+t bit\+Depth, avb\+\_\+audio\+\_\+endian\+\_\+t endian, char const $\ast$p\+Media\+Q\+Data\+Format)}{x_AVBAudioFormatToAlsaFormat(avb_audio_type_t type, avb_audio_bit_depth_t bitDepth, avb_audio_endian_t endian, char const *pMediaQDataFormat)}}]{\setlength{\rightskip}{0pt plus 5cm}static snd\+\_\+pcm\+\_\+format\+\_\+t x\+\_\+\+A\+V\+B\+Audio\+Format\+To\+Alsa\+Format (
+\begin{DoxyParamCaption}
+\item[{{\bf avb\+\_\+audio\+\_\+type\+\_\+t}}]{type, }
+\item[{{\bf avb\+\_\+audio\+\_\+bit\+\_\+depth\+\_\+t}}]{bit\+Depth, }
+\item[{{\bf avb\+\_\+audio\+\_\+endian\+\_\+t}}]{endian, }
+\item[{char const $\ast$}]{p\+Media\+Q\+Data\+Format}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__intf__alsa_8c_a7a9562ff43a53c2871f6c0a3a13a1a29}{}\label{openavb__intf__alsa_8c_a7a9562ff43a53c2871f6c0a3a13a1a29}
+
+
+openavb\+\_\+intf\+\_\+alsa.\+c 파일의 112 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+116 \{
+117     \textcolor{keywordtype}{bool} tight = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+118     \textcolor{keywordflow}{if} (bitDepth == \hyperlink{openavb__audio__pub_8h_ae64ee32f6ac9a6b2cf607f46ee4160bdaf6a3127cc5c4b6ad52c5c972c15d5387}{AVB\_AUDIO\_BIT\_DEPTH\_24BIT}) \{
+119         \textcolor{keywordflow}{if} (pMediaQDataFormat != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}
+120             && (strcmp(pMediaQDataFormat, \hyperlink{openavb__map__aaf__audio__pub_8h_a4f6041ee46ece5e7d55192b9a51d2957}{MapAVTPAudioMediaQDataFormat}) == 0
+121             || strcmp(pMediaQDataFormat, \hyperlink{openavb__map__uncmp__audio__pub_8h_a4736a8cfd6189ed6e01a633a4fa23fc3}{MapUncmpAudioMediaQDataFormat}) == 0))
+       \{
+122             tight = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+123         \}
+124     \}
+125 
+126     \textcolor{keywordflow}{if} (\hyperlink{namespaceastime__fitline_a7aead736a07eaf25623ad7bfa1f0ee2d}{type} == \hyperlink{openavb__audio__pub_8h_a680efa0db2b29a63c5a0e8f11975682fa7664e80ad56a5f47d92920771cdff86a}{AVB\_AUDIO\_TYPE\_FLOAT}) \{
+127         \textcolor{keywordflow}{switch} (bitDepth) \{
+128             \textcolor{keywordflow}{case} \hyperlink{openavb__audio__pub_8h_ae64ee32f6ac9a6b2cf607f46ee4160bdae4b6d584ff74b100f7ecd3c6472eb232}{AVB\_AUDIO\_BIT\_DEPTH\_32BIT}:
+129                 \textcolor{keywordflow}{if} (endian == \hyperlink{openavb__audio__pub_8h_a945c53b1886540f6c50d0720b3befc23affa208ef1f573de5f20848d9996dca16}{AVB\_AUDIO\_ENDIAN\_BIG})
+130                     \textcolor{keywordflow}{return} SND\_PCM\_FORMAT\_FLOAT\_BE;
+131                 \textcolor{keywordflow}{else}
+132                     \textcolor{keywordflow}{return} SND\_PCM\_FORMAT\_FLOAT\_LE;
+133             \textcolor{keywordflow}{default}:
+134                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Unsupported audio bit depth for float: %d"}, bitDepth);
+135             \textcolor{keywordflow}{break};
+136         \}
+137     \}
+138     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{namespaceastime__fitline_a7aead736a07eaf25623ad7bfa1f0ee2d}{type} == \hyperlink{openavb__audio__pub_8h_a680efa0db2b29a63c5a0e8f11975682fa92b37ee6a06f61c65fa5b145bda0446d}{AVB\_AUDIO\_TYPE\_UINT}) \{
+139         \textcolor{keywordflow}{switch} (bitDepth) \{
+140         \textcolor{keywordflow}{case} \hyperlink{openavb__audio__pub_8h_ae64ee32f6ac9a6b2cf607f46ee4160bda576f485705fbc2cf9ea092a5d47e6932}{AVB\_AUDIO\_BIT\_DEPTH\_8BIT}:
+141             \textcolor{keywordflow}{return} SND\_PCM\_FORMAT\_U8;
+142         \textcolor{keywordflow}{case} \hyperlink{openavb__audio__pub_8h_ae64ee32f6ac9a6b2cf607f46ee4160bda67e5ba1cfde8d53b3f4daff5fda2dca0}{AVB\_AUDIO\_BIT\_DEPTH\_16BIT}:
+143                 \textcolor{keywordflow}{if} (endian == \hyperlink{openavb__audio__pub_8h_a945c53b1886540f6c50d0720b3befc23affa208ef1f573de5f20848d9996dca16}{AVB\_AUDIO\_ENDIAN\_BIG})
+144                     \textcolor{keywordflow}{return} SND\_PCM\_FORMAT\_U16\_BE;
+145                 \textcolor{keywordflow}{else}
+146                     \textcolor{keywordflow}{return} SND\_PCM\_FORMAT\_U16\_LE;
+147         \textcolor{keywordflow}{case} \hyperlink{openavb__audio__pub_8h_ae64ee32f6ac9a6b2cf607f46ee4160bda894075c835f04541f7f640e04830edbc}{AVB\_AUDIO\_BIT\_DEPTH\_20BIT}:
+148                 \textcolor{keywordflow}{if} (endian == \hyperlink{openavb__audio__pub_8h_a945c53b1886540f6c50d0720b3befc23affa208ef1f573de5f20848d9996dca16}{AVB\_AUDIO\_ENDIAN\_BIG})
+149                     \textcolor{keywordflow}{return} SND\_PCM\_FORMAT\_U20\_3BE;
+150                 \textcolor{keywordflow}{else}
+151                     \textcolor{keywordflow}{return} SND\_PCM\_FORMAT\_U20\_3LE;
+152         \textcolor{keywordflow}{case} \hyperlink{openavb__audio__pub_8h_ae64ee32f6ac9a6b2cf607f46ee4160bdaf6a3127cc5c4b6ad52c5c972c15d5387}{AVB\_AUDIO\_BIT\_DEPTH\_24BIT}:
+153             \textcolor{keywordflow}{if} (tight) \{
+154                 \textcolor{keywordflow}{if} (endian == \hyperlink{openavb__audio__pub_8h_a945c53b1886540f6c50d0720b3befc23affa208ef1f573de5f20848d9996dca16}{AVB\_AUDIO\_ENDIAN\_BIG})
+155                     \textcolor{keywordflow}{return} SND\_PCM\_FORMAT\_U24\_3BE;
+156                 \textcolor{keywordflow}{else}
+157                     \textcolor{keywordflow}{return} SND\_PCM\_FORMAT\_U24\_3LE;
+158             \}
+159             \textcolor{keywordflow}{else} \{
+160                 \textcolor{keywordflow}{if} (endian == \hyperlink{openavb__audio__pub_8h_a945c53b1886540f6c50d0720b3befc23affa208ef1f573de5f20848d9996dca16}{AVB\_AUDIO\_ENDIAN\_BIG})
+161                     \textcolor{keywordflow}{return} SND\_PCM\_FORMAT\_U24\_BE;
+162                 \textcolor{keywordflow}{else}
+163                     \textcolor{keywordflow}{return} SND\_PCM\_FORMAT\_U24\_LE;
+164             \}
+165         \textcolor{keywordflow}{case} \hyperlink{openavb__audio__pub_8h_ae64ee32f6ac9a6b2cf607f46ee4160bdae4b6d584ff74b100f7ecd3c6472eb232}{AVB\_AUDIO\_BIT\_DEPTH\_32BIT}:
+166                 \textcolor{keywordflow}{if} (endian == \hyperlink{openavb__audio__pub_8h_a945c53b1886540f6c50d0720b3befc23affa208ef1f573de5f20848d9996dca16}{AVB\_AUDIO\_ENDIAN\_BIG})
+167                     \textcolor{keywordflow}{return} SND\_PCM\_FORMAT\_U32\_BE;
+168                 \textcolor{keywordflow}{else}
+169                     \textcolor{keywordflow}{return} SND\_PCM\_FORMAT\_U32\_LE;
+170             \textcolor{keywordflow}{case} \hyperlink{openavb__audio__pub_8h_ae64ee32f6ac9a6b2cf607f46ee4160bda2b24bda8ea62113e139f01c63a5bba81}{AVB\_AUDIO\_BIT\_DEPTH\_1BIT}:
+171         \textcolor{keywordflow}{case} \hyperlink{openavb__audio__pub_8h_ae64ee32f6ac9a6b2cf607f46ee4160bda27e8b031791760cc35163fdae89dbee3}{AVB\_AUDIO\_BIT\_DEPTH\_48BIT}:
+172         \textcolor{keywordflow}{case} \hyperlink{openavb__audio__pub_8h_ae64ee32f6ac9a6b2cf607f46ee4160bda083798250b1bb11001779958832a82e8}{AVB\_AUDIO\_BIT\_DEPTH\_64BIT}:
+173         \textcolor{keywordflow}{default}:
+174                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Unsupported integer audio bit depth: %d"}, bitDepth);
+175             \textcolor{keywordflow}{break};
+176         \}
+177     \}
+178     \textcolor{keywordflow}{else} \{
+179         \textcolor{comment}{// AVB\_AUDIO\_TYPE\_INT}
+180         \textcolor{comment}{// or unspecified (defaults to signed int)}
+181         \textcolor{keywordflow}{switch} (bitDepth) \{
+182             \textcolor{keywordflow}{case} \hyperlink{openavb__audio__pub_8h_ae64ee32f6ac9a6b2cf607f46ee4160bda576f485705fbc2cf9ea092a5d47e6932}{AVB\_AUDIO\_BIT\_DEPTH\_8BIT}:
+183                 \textcolor{comment}{// 8bit samples don't worry about endianness,}
+184                 \textcolor{comment}{// but default to unsigned instead of signed.}
+185                 \textcolor{keywordflow}{if} (\hyperlink{namespaceastime__fitline_a7aead736a07eaf25623ad7bfa1f0ee2d}{type} == \hyperlink{openavb__audio__pub_8h_a680efa0db2b29a63c5a0e8f11975682fa53b99bda35f0676e606e013a0d9b2ccd}{AVB\_AUDIO\_TYPE\_INT})
+186                     \textcolor{keywordflow}{return} SND\_PCM\_FORMAT\_S8;
+187                 \textcolor{keywordflow}{else} \textcolor{comment}{// default}
+188                     \textcolor{keywordflow}{return} SND\_PCM\_FORMAT\_U8;
+189             \textcolor{keywordflow}{case} \hyperlink{openavb__audio__pub_8h_ae64ee32f6ac9a6b2cf607f46ee4160bda67e5ba1cfde8d53b3f4daff5fda2dca0}{AVB\_AUDIO\_BIT\_DEPTH\_16BIT}:
+190                 \textcolor{keywordflow}{if} (endian == \hyperlink{openavb__audio__pub_8h_a945c53b1886540f6c50d0720b3befc23affa208ef1f573de5f20848d9996dca16}{AVB\_AUDIO\_ENDIAN\_BIG})
+191                     \textcolor{keywordflow}{return} SND\_PCM\_FORMAT\_S16\_BE;
+192                 \textcolor{keywordflow}{else}
+193                     \textcolor{keywordflow}{return} SND\_PCM\_FORMAT\_S16\_LE;
+194             \textcolor{keywordflow}{case} \hyperlink{openavb__audio__pub_8h_ae64ee32f6ac9a6b2cf607f46ee4160bda894075c835f04541f7f640e04830edbc}{AVB\_AUDIO\_BIT\_DEPTH\_20BIT}:
+195                 \textcolor{keywordflow}{if} (endian == \hyperlink{openavb__audio__pub_8h_a945c53b1886540f6c50d0720b3befc23affa208ef1f573de5f20848d9996dca16}{AVB\_AUDIO\_ENDIAN\_BIG})
+196                     \textcolor{keywordflow}{return} SND\_PCM\_FORMAT\_S20\_3BE;
+197                 \textcolor{keywordflow}{else}
+198                     \textcolor{keywordflow}{return} SND\_PCM\_FORMAT\_S20\_3LE;
+199             \textcolor{keywordflow}{case} \hyperlink{openavb__audio__pub_8h_ae64ee32f6ac9a6b2cf607f46ee4160bdaf6a3127cc5c4b6ad52c5c972c15d5387}{AVB\_AUDIO\_BIT\_DEPTH\_24BIT}:
+200                 \textcolor{keywordflow}{if} (tight) \{
+201                     \textcolor{keywordflow}{if} (endian == \hyperlink{openavb__audio__pub_8h_a945c53b1886540f6c50d0720b3befc23affa208ef1f573de5f20848d9996dca16}{AVB\_AUDIO\_ENDIAN\_BIG})
+202                         \textcolor{keywordflow}{return} SND\_PCM\_FORMAT\_S24\_3BE;
+203                     \textcolor{keywordflow}{else}
+204                         \textcolor{keywordflow}{return} SND\_PCM\_FORMAT\_S24\_3LE;
+205                 \}
+206                 \textcolor{keywordflow}{else} \{
+207                     \textcolor{keywordflow}{if} (endian == \hyperlink{openavb__audio__pub_8h_a945c53b1886540f6c50d0720b3befc23affa208ef1f573de5f20848d9996dca16}{AVB\_AUDIO\_ENDIAN\_BIG})
+208                         \textcolor{keywordflow}{return} SND\_PCM\_FORMAT\_S24\_BE;
+209                     \textcolor{keywordflow}{else}
+210                         \textcolor{keywordflow}{return} SND\_PCM\_FORMAT\_S24\_LE;
+211                 \}
+212             \textcolor{keywordflow}{case} \hyperlink{openavb__audio__pub_8h_ae64ee32f6ac9a6b2cf607f46ee4160bdae4b6d584ff74b100f7ecd3c6472eb232}{AVB\_AUDIO\_BIT\_DEPTH\_32BIT}:
+213                 \textcolor{keywordflow}{if} (endian == \hyperlink{openavb__audio__pub_8h_a945c53b1886540f6c50d0720b3befc23affa208ef1f573de5f20848d9996dca16}{AVB\_AUDIO\_ENDIAN\_BIG})
+214                     \textcolor{keywordflow}{return} SND\_PCM\_FORMAT\_S32\_BE;
+215                 \textcolor{keywordflow}{else}
+216                     \textcolor{keywordflow}{return} SND\_PCM\_FORMAT\_S32\_LE;
+217             \textcolor{keywordflow}{case} \hyperlink{openavb__audio__pub_8h_ae64ee32f6ac9a6b2cf607f46ee4160bda2b24bda8ea62113e139f01c63a5bba81}{AVB\_AUDIO\_BIT\_DEPTH\_1BIT}:
+218             \textcolor{keywordflow}{case} \hyperlink{openavb__audio__pub_8h_ae64ee32f6ac9a6b2cf607f46ee4160bda27e8b031791760cc35163fdae89dbee3}{AVB\_AUDIO\_BIT\_DEPTH\_48BIT}:
+219             \textcolor{keywordflow}{case} \hyperlink{openavb__audio__pub_8h_ae64ee32f6ac9a6b2cf607f46ee4160bda083798250b1bb11001779958832a82e8}{AVB\_AUDIO\_BIT\_DEPTH\_64BIT}:
+220             \textcolor{keywordflow}{default}:
+221                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Unsupported audio bit depth: %d"}, bitDepth);
+222                 \textcolor{keywordflow}{break};
+223         \}
+224     \}
+225 
+226     \textcolor{keywordflow}{return} SND\_PCM\_FORMAT\_UNKNOWN;
+227 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__alsa_8c_a7a9562ff43a53c2871f6c0a3a13a1a29_icgraph}
+\end{center}
+\end{figure}
+
+

@@ -1,0 +1,27 @@
+var group__adp__listener__capability =
+[
+    [ "JDKSAVDECC_ADP_LISTENER_CAPABILITY_AUDIO_SINK", "group__adp__listener__capability.html#ga1d953a7125b51bbf4ea7ef484e4c4c48", null ],
+    [ "JDKSAVDECC_ADP_LISTENER_CAPABILITY_AUDIO_SINK_BIT", "group__adp__listener__capability.html#ga1465f1039a92965fb8b3d052ef59d7e9", null ],
+    [ "JDKSAVDECC_ADP_LISTENER_CAPABILITY_AUDIO_SINK_MASK", "group__adp__listener__capability.html#gaa2123d2e970ed020f4c9cd5effaf9799", null ],
+    [ "JDKSAVDECC_ADP_LISTENER_CAPABILITY_CONTROL_SINK", "group__adp__listener__capability.html#gae34db60ff01123f8d796c0d231c0f1ac", null ],
+    [ "JDKSAVDECC_ADP_LISTENER_CAPABILITY_CONTROL_SINK_BIT", "group__adp__listener__capability.html#ga193e4ecba3b72a6a792b3e490b0773c0", null ],
+    [ "JDKSAVDECC_ADP_LISTENER_CAPABILITY_CONTROL_SINK_MASK", "group__adp__listener__capability.html#ga17b31b0f0007ea6ded9b8b838f4ef289", null ],
+    [ "JDKSAVDECC_ADP_LISTENER_CAPABILITY_IMPLEMENTED", "group__adp__listener__capability.html#ga59ffa603272755d23a2a1073a689a371", null ],
+    [ "JDKSAVDECC_ADP_LISTENER_CAPABILITY_IMPLEMENTED_BIT", "group__adp__listener__capability.html#gaeb6be6079a96fe1b38647afc8441fb52", null ],
+    [ "JDKSAVDECC_ADP_LISTENER_CAPABILITY_IMPLEMENTED_MASK", "group__adp__listener__capability.html#ga710ce83229a051afbbb2a89c4df01b9e", null ],
+    [ "JDKSAVDECC_ADP_LISTENER_CAPABILITY_MEDIA_CLOCK_SINK", "group__adp__listener__capability.html#gaedb053103f2f07279e932d1aec93b618", null ],
+    [ "JDKSAVDECC_ADP_LISTENER_CAPABILITY_MEDIA_CLOCK_SINK_BIT", "group__adp__listener__capability.html#ga6a9b4feafe1ad0b7d38524e2bc2b76d5", null ],
+    [ "JDKSAVDECC_ADP_LISTENER_CAPABILITY_MEDIA_CLOCK_SINK_MASK", "group__adp__listener__capability.html#gab42b0531876556e296553afba0b577bc", null ],
+    [ "JDKSAVDECC_ADP_LISTENER_CAPABILITY_MIDI_SINK", "group__adp__listener__capability.html#ga5ac8b2cdfb49100980ac442752a31ead", null ],
+    [ "JDKSAVDECC_ADP_LISTENER_CAPABILITY_MIDI_SINK_BIT", "group__adp__listener__capability.html#gae419404cabda8b3525ce64ea4844df3a", null ],
+    [ "JDKSAVDECC_ADP_LISTENER_CAPABILITY_MIDI_SINK_MASK", "group__adp__listener__capability.html#gaffe8a468a8f23c5be14b42fc84098749", null ],
+    [ "JDKSAVDECC_ADP_LISTENER_CAPABILITY_OTHER_SINK", "group__adp__listener__capability.html#gadd3df42b7e3473ea9984d5a21aebf3bc", null ],
+    [ "JDKSAVDECC_ADP_LISTENER_CAPABILITY_OTHER_SINK_BIT", "group__adp__listener__capability.html#ga2b79303b3832bed76ba90fa8c84e0bd3", null ],
+    [ "JDKSAVDECC_ADP_LISTENER_CAPABILITY_OTHER_SINK_MASK", "group__adp__listener__capability.html#gab96a1d20c03244625a0ae31900720897", null ],
+    [ "JDKSAVDECC_ADP_LISTENER_CAPABILITY_SMPTE_SINK", "group__adp__listener__capability.html#gad895d691e062153da8519c80c42d0036", null ],
+    [ "JDKSAVDECC_ADP_LISTENER_CAPABILITY_SMPTE_SINK_BIT", "group__adp__listener__capability.html#ga145dfa99abfbb70b8615a1da91ada06e", null ],
+    [ "JDKSAVDECC_ADP_LISTENER_CAPABILITY_SMPTE_SINK_MASK", "group__adp__listener__capability.html#ga3dc76c513b89d347ebb4f97339c92968", null ],
+    [ "JDKSAVDECC_ADP_LISTENER_CAPABILITY_VIDEO_SINK", "group__adp__listener__capability.html#ga6092eeeb768f98276f9d7984d83ecae9", null ],
+    [ "JDKSAVDECC_ADP_LISTENER_CAPABILITY_VIDEO_SINK_BIT", "group__adp__listener__capability.html#ga961d214be29c513d30615bd9ca84a8b4", null ],
+    [ "JDKSAVDECC_ADP_LISTENER_CAPABILITY_VIDEO_SINK_MASK", "group__adp__listener__capability.html#gaddefcbfb3932dba0f2553ed9adc74db6", null ]
+];

@@ -1,0 +1,718 @@
+\hypertarget{linux_2src_2daemon__cl_8cpp}{}\section{daemons/gptp/linux/src/daemon\+\_\+cl.cpp 파일 참조}
+\label{linux_2src_2daemon__cl_8cpp}\index{daemons/gptp/linux/src/daemon\+\_\+cl.\+cpp@{daemons/gptp/linux/src/daemon\+\_\+cl.\+cpp}}
+{\ttfamily \#include \char`\"{}ieee1588.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}avbts\+\_\+clock.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}avbts\+\_\+osnet.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}avbts\+\_\+oslock.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}avbts\+\_\+persist.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}gptp\+\_\+cfg.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}ether\+\_\+port.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}linux\+\_\+hal\+\_\+generic.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}linux\+\_\+hal\+\_\+persist\+\_\+file.\+hpp\char`\"{}}\\*
+{\ttfamily \#include $<$ctype.\+h$>$}\\*
+{\ttfamily \#include $<$inttypes.\+h$>$}\\*
+{\ttfamily \#include $<$signal.\+h$>$}\\*
+{\ttfamily \#include $<$fcntl.\+h$>$}\\*
+{\ttfamily \#include $<$sys/mman.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$errno.\+h$>$}\\*
+{\ttfamily \#include $<$sys/stat.\+h$>$}\\*
+{\ttfamily \#include $<$unistd.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+daemon\+\_\+cl.\+cpp에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{linux_2src_2daemon__cl_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{linux_2src_2daemon__cl_8cpp_a1c3a45a696a8edf385ebaf66206f60c2}{P\+H\+Y\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+G\+B\+\_\+\+T\+X\+\_\+\+I20}~184
+\item 
+\#define \hyperlink{linux_2src_2daemon__cl_8cpp_a7703fa9a1d560e869b09b89e68fd73a4}{P\+H\+Y\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+G\+B\+\_\+\+R\+X\+\_\+\+I20}~382
+\item 
+\#define \hyperlink{linux_2src_2daemon__cl_8cpp_a48b90a53ec81d3eee54881a81cbe9f9b}{P\+H\+Y\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+M\+B\+\_\+\+T\+X\+\_\+\+I20}~1044
+\item 
+\#define \hyperlink{linux_2src_2daemon__cl_8cpp_a52ab5e42e40e13b0ae4ced784c9efc2b}{P\+H\+Y\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+M\+B\+\_\+\+R\+X\+\_\+\+I20}~2133
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{linux_2src_2daemon__cl_8cpp_a3c2cbf4d8ff3d796accc3d9352a14eb6}{g\+P\+T\+P\+Persist\+Write\+CB} (char $\ast$buf\+Ptr, \hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\+\_\+t} buf\+Size)
+\item 
+void \hyperlink{linux_2src_2daemon__cl_8cpp_a39c46a5fc72592ba1851f58681283591}{print\+\_\+usage} (char $\ast$arg0)
+\item 
+int \hyperlink{linux_2src_2daemon__cl_8cpp_a7b397efb51316b2dfa48185687ab672f}{watchdog\+\_\+setup} (\hyperlink{class_o_s_thread_factory}{O\+S\+Thread\+Factory} $\ast$thread\+\_\+factory)
+\item 
+int \hyperlink{linux_2src_2daemon__cl_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main} (int argc, char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+\subsection*{변수}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{class_i_e_e_e1588_clock}{I\+E\+E\+E1588\+Clock} $\ast$ \hyperlink{linux_2src_2daemon__cl_8cpp_a2b3b2bceac683df91552be3feb4c0d03}{p\+Clock} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{N\+U\+LL}
+\item 
+static \hyperlink{class_ether_port}{Ether\+Port} $\ast$ \hyperlink{linux_2src_2daemon__cl_8cpp_aca059781ed4d0e5fca3b46246d5c5ad3}{p\+Port} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{N\+U\+LL}
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{linux/src/daemon\+\_\+cl.\+cpp@{linux/src/daemon\+\_\+cl.\+cpp}!P\+H\+Y\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+G\+B\+\_\+\+R\+X\+\_\+\+I20@{P\+H\+Y\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+G\+B\+\_\+\+R\+X\+\_\+\+I20}}
+\index{P\+H\+Y\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+G\+B\+\_\+\+R\+X\+\_\+\+I20@{P\+H\+Y\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+G\+B\+\_\+\+R\+X\+\_\+\+I20}!linux/src/daemon\+\_\+cl.\+cpp@{linux/src/daemon\+\_\+cl.\+cpp}}
+\subsubsection[{\texorpdfstring{P\+H\+Y\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+G\+B\+\_\+\+R\+X\+\_\+\+I20}{PHY_DELAY_GB_RX_I20}}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+H\+Y\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+G\+B\+\_\+\+R\+X\+\_\+\+I20~382}\hypertarget{linux_2src_2daemon__cl_8cpp_a7703fa9a1d560e869b09b89e68fd73a4}{}\label{linux_2src_2daemon__cl_8cpp_a7703fa9a1d560e869b09b89e68fd73a4}
+
+
+daemon\+\_\+cl.\+cpp 파일의 65 번째 라인에서 정의되었습니다.
+
+\index{linux/src/daemon\+\_\+cl.\+cpp@{linux/src/daemon\+\_\+cl.\+cpp}!P\+H\+Y\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+G\+B\+\_\+\+T\+X\+\_\+\+I20@{P\+H\+Y\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+G\+B\+\_\+\+T\+X\+\_\+\+I20}}
+\index{P\+H\+Y\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+G\+B\+\_\+\+T\+X\+\_\+\+I20@{P\+H\+Y\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+G\+B\+\_\+\+T\+X\+\_\+\+I20}!linux/src/daemon\+\_\+cl.\+cpp@{linux/src/daemon\+\_\+cl.\+cpp}}
+\subsubsection[{\texorpdfstring{P\+H\+Y\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+G\+B\+\_\+\+T\+X\+\_\+\+I20}{PHY_DELAY_GB_TX_I20}}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+H\+Y\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+G\+B\+\_\+\+T\+X\+\_\+\+I20~184}\hypertarget{linux_2src_2daemon__cl_8cpp_a1c3a45a696a8edf385ebaf66206f60c2}{}\label{linux_2src_2daemon__cl_8cpp_a1c3a45a696a8edf385ebaf66206f60c2}
+
+
+daemon\+\_\+cl.\+cpp 파일의 64 번째 라인에서 정의되었습니다.
+
+\index{linux/src/daemon\+\_\+cl.\+cpp@{linux/src/daemon\+\_\+cl.\+cpp}!P\+H\+Y\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+M\+B\+\_\+\+R\+X\+\_\+\+I20@{P\+H\+Y\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+M\+B\+\_\+\+R\+X\+\_\+\+I20}}
+\index{P\+H\+Y\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+M\+B\+\_\+\+R\+X\+\_\+\+I20@{P\+H\+Y\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+M\+B\+\_\+\+R\+X\+\_\+\+I20}!linux/src/daemon\+\_\+cl.\+cpp@{linux/src/daemon\+\_\+cl.\+cpp}}
+\subsubsection[{\texorpdfstring{P\+H\+Y\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+M\+B\+\_\+\+R\+X\+\_\+\+I20}{PHY_DELAY_MB_RX_I20}}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+H\+Y\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+M\+B\+\_\+\+R\+X\+\_\+\+I20~2133}\hypertarget{linux_2src_2daemon__cl_8cpp_a52ab5e42e40e13b0ae4ced784c9efc2b}{}\label{linux_2src_2daemon__cl_8cpp_a52ab5e42e40e13b0ae4ced784c9efc2b}
+
+
+daemon\+\_\+cl.\+cpp 파일의 67 번째 라인에서 정의되었습니다.
+
+\index{linux/src/daemon\+\_\+cl.\+cpp@{linux/src/daemon\+\_\+cl.\+cpp}!P\+H\+Y\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+M\+B\+\_\+\+T\+X\+\_\+\+I20@{P\+H\+Y\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+M\+B\+\_\+\+T\+X\+\_\+\+I20}}
+\index{P\+H\+Y\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+M\+B\+\_\+\+T\+X\+\_\+\+I20@{P\+H\+Y\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+M\+B\+\_\+\+T\+X\+\_\+\+I20}!linux/src/daemon\+\_\+cl.\+cpp@{linux/src/daemon\+\_\+cl.\+cpp}}
+\subsubsection[{\texorpdfstring{P\+H\+Y\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+M\+B\+\_\+\+T\+X\+\_\+\+I20}{PHY_DELAY_MB_TX_I20}}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+H\+Y\+\_\+\+D\+E\+L\+A\+Y\+\_\+\+M\+B\+\_\+\+T\+X\+\_\+\+I20~1044}\hypertarget{linux_2src_2daemon__cl_8cpp_a48b90a53ec81d3eee54881a81cbe9f9b}{}\label{linux_2src_2daemon__cl_8cpp_a48b90a53ec81d3eee54881a81cbe9f9b}
+
+
+daemon\+\_\+cl.\+cpp 파일의 66 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{함수 문서화}
+\index{linux/src/daemon\+\_\+cl.\+cpp@{linux/src/daemon\+\_\+cl.\+cpp}!g\+P\+T\+P\+Persist\+Write\+CB@{g\+P\+T\+P\+Persist\+Write\+CB}}
+\index{g\+P\+T\+P\+Persist\+Write\+CB@{g\+P\+T\+P\+Persist\+Write\+CB}!linux/src/daemon\+\_\+cl.\+cpp@{linux/src/daemon\+\_\+cl.\+cpp}}
+\subsubsection[{\texorpdfstring{g\+P\+T\+P\+Persist\+Write\+C\+B(char $\ast$buf\+Ptr, uint32\+\_\+t buf\+Size)}{gPTPPersistWriteCB(char *bufPtr, uint32_t bufSize)}}]{\setlength{\rightskip}{0pt plus 5cm}void g\+P\+T\+P\+Persist\+Write\+CB (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{buf\+Ptr, }
+\item[{{\bf uint32\+\_\+t}}]{buf\+Size}
+\end{DoxyParamCaption}
+)}\hypertarget{linux_2src_2daemon__cl_8cpp_a3c2cbf4d8ff3d796accc3d9352a14eb6}{}\label{linux_2src_2daemon__cl_8cpp_a3c2cbf4d8ff3d796accc3d9352a14eb6}
+
+
+daemon\+\_\+cl.\+cpp 파일의 530 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+531 \{
+532     off\_t restoredatalength = bufSize;
+533     off\_t restoredatacount = restoredatalength;
+534     \textcolor{keywordtype}{char} *restoredataptr = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+535 
+536     \hyperlink{gptp__log_8hpp_ad59a6cd6d661bc3a4d13aaef2b0705a3}{GPTP\_LOG\_INFO}(\textcolor{stringliteral}{"Signal received to write restore data"});
+537 
+538     restoredataptr = (\textcolor{keywordtype}{char} *)bufPtr;
+539     \hyperlink{linux_2src_2daemon__cl_8cpp_a2b3b2bceac683df91552be3feb4c0d03}{pClock}->\hyperlink{class_i_e_e_e1588_clock_a7ae77a9c4cc2f66b95fe47a58b571113}{serializeState}(restoredataptr, &restoredatacount);
+540     restoredataptr = ((\textcolor{keywordtype}{char} *)bufPtr) + (restoredatalength - restoredatacount);
+541     \hyperlink{linux_2src_2daemon__cl_8cpp_aca059781ed4d0e5fca3b46246d5c5ad3}{pPort}->\hyperlink{class_common_port_a7ae77a9c4cc2f66b95fe47a58b571113}{serializeState}(restoredataptr, &restoredatacount);
+542     restoredataptr = ((\textcolor{keywordtype}{char} *)bufPtr) + (restoredatalength - restoredatacount);
+543 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{linux_2src_2daemon__cl_8cpp_a3c2cbf4d8ff3d796accc3d9352a14eb6_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=264pt]{linux_2src_2daemon__cl_8cpp_a3c2cbf4d8ff3d796accc3d9352a14eb6_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{linux/src/daemon\+\_\+cl.\+cpp@{linux/src/daemon\+\_\+cl.\+cpp}!main@{main}}
+\index{main@{main}!linux/src/daemon\+\_\+cl.\+cpp@{linux/src/daemon\+\_\+cl.\+cpp}}
+\subsubsection[{\texorpdfstring{main(int argc, char $\ast$$\ast$argv)}{main(int argc, char **argv)}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$$\ast$}]{argv}
+\end{DoxyParamCaption}
+)}\hypertarget{linux_2src_2daemon__cl_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{}\label{linux_2src_2daemon__cl_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}
+
+
+daemon\+\_\+cl.\+cpp 파일의 131 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+132 \{
+133     \hyperlink{struct_port_init__t}{PortInit\_t} portInit;
+134 
+135     sigset\_t \textcolor{keyword}{set};
+136     \hyperlink{class_interface_name}{InterfaceName} *\hyperlink{aaf-talker_8c_ac7b430acaa92a7a26fbcdad47d2efc20}{ifname};
+137     \textcolor{keywordtype}{int} sig;
+138 
+139     \textcolor{keywordtype}{bool} syntonize = \textcolor{keyword}{false};
+140     \textcolor{keywordtype}{int} i;
+141     \textcolor{keywordtype}{bool} pps = \textcolor{keyword}{false};
+142     \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} priority1 = 248;
+143     \textcolor{keywordtype}{bool} override\_portstate = \textcolor{keyword}{false};
+144     \hyperlink{ptptypes_8hpp_a679431f1afc75d7bb9e972c022e53672}{PortState} port\_state = \hyperlink{ptptypes_8hpp_a679431f1afc75d7bb9e972c022e53672a55a1a2eb4b93c65e3bba86278510cb04}{PTP\_SLAVE};
+145     \textcolor{keywordtype}{char} *restoredata = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+146     \textcolor{keywordtype}{char} *restoredataptr = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+147     off\_t restoredatalength = 0;
+148     off\_t restoredatacount = 0;
+149     \textcolor{keywordtype}{bool} restorefailed = \textcolor{keyword}{false};
+150     \hyperlink{class_linux_i_p_c_arg}{LinuxIPCArg} *ipc\_arg = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+151     \textcolor{keywordtype}{bool} use\_config\_file = \textcolor{keyword}{false};
+152     \textcolor{keywordtype}{char} config\_file\_path[512];
+153     memset(config\_file\_path, 0, 512);
+154 
+155     \hyperlink{class_g_p_t_p_persist}{GPTPPersist} *pGPTPPersist = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+156     \hyperlink{class_linux_thread_factory}{LinuxThreadFactory} *thread\_factory = \textcolor{keyword}{new} 
+      \hyperlink{class_linux_thread_factory}{LinuxThreadFactory}();
+157 
+158     \textcolor{comment}{// Block SIGUSR1}
+159     \{
+160         sigset\_t block;
+161         sigemptyset( &block );
+162         sigaddset( &block, SIGUSR1 );
+163         \textcolor{keywordflow}{if}( pthread\_sigmask( SIG\_BLOCK, &block, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} ) != 0 ) \{
+164             \hyperlink{gptp__log_8hpp_afefbb1009717c128012bfeed94842987}{GPTP\_LOG\_ERROR}(\textcolor{stringliteral}{"Failed to block SIGUSR1"});
+165             \textcolor{keywordflow}{return} -1;
+166         \}
+167     \}
+168 
+169     \hyperlink{gptp__log_8hpp_ada8e7637580048e2c9a147cf88f1cf74}{GPTP\_LOG\_REGISTER}();
+170     \hyperlink{gptp__log_8hpp_ad59a6cd6d661bc3a4d13aaef2b0705a3}{GPTP\_LOG\_INFO}(\textcolor{stringliteral}{"gPTP starting"});
+171     \textcolor{keywordflow}{if} (\hyperlink{linux_2src_2daemon__cl_8cpp_a7b397efb51316b2dfa48185687ab672f}{watchdog\_setup}(thread\_factory) != 0) \{
+172         \hyperlink{gptp__log_8hpp_afefbb1009717c128012bfeed94842987}{GPTP\_LOG\_ERROR}(\textcolor{stringliteral}{"Watchdog handler setup error"});
+173         \textcolor{keywordflow}{return} -1;
+174     \}
+175     \hyperlink{common__port_8hpp_a3fdbc1f6eb18af9243571ba14c1e1f63}{phy\_delay\_map\_t} ether\_phy\_delay;
+176     \textcolor{keywordtype}{bool} input\_delay=\textcolor{keyword}{false};
+177 
+178     portInit.\hyperlink{struct_port_init__t_aeea9361231f8c60d763d5f74cf822f2b}{clock} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+179     portInit.\hyperlink{struct_port_init__t_a852b86a2eaee9852ada7a43e61e311a2}{index} = 0;
+180     portInit.\hyperlink{struct_port_init__t_ae8d86c3dced7beda53b1d1e7db68c002}{timestamper} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+181     portInit.\hyperlink{struct_port_init__t_a5885d7a835513edd0bbb0a170b4c9f01}{net\_label} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+182     portInit.\hyperlink{struct_port_init__t_a915ce34888736844c056a811c96a9e9f}{automotive\_profile} = \textcolor{keyword}{false};
+183     portInit.\hyperlink{struct_port_init__t_ac1d89714b4aa7aa5414b44238e26d5a2}{isGM} = \textcolor{keyword}{false};
+184     portInit.\hyperlink{struct_port_init__t_a4ca1649b0fc050ca483e5dd8996ac80d}{testMode} = \textcolor{keyword}{false};
+185     portInit.\hyperlink{struct_port_init__t_a3e5a0a3ec08db1c42b0f090083c8818d}{linkUp} = \textcolor{keyword}{false};
+186     portInit.\hyperlink{struct_port_init__t_af64dc42272c346cc5f6f400c0e7d7088}{initialLogSyncInterval} = 
+      \hyperlink{common__port_8hpp_abe9784f98a314213bf6ca39d08775257}{LOG2\_INTERVAL\_INVALID};
+187     portInit.\hyperlink{struct_port_init__t_a7595d62409f4880035eb20c62b64ea7c}{initialLogPdelayReqInterval} = 
+      \hyperlink{common__port_8hpp_abe9784f98a314213bf6ca39d08775257}{LOG2\_INTERVAL\_INVALID};
+188     portInit.\hyperlink{struct_port_init__t_a3062b4f36651db612ae70061510ccefb}{operLogPdelayReqInterval} = 
+      \hyperlink{common__port_8hpp_abe9784f98a314213bf6ca39d08775257}{LOG2\_INTERVAL\_INVALID};
+189     portInit.\hyperlink{struct_port_init__t_a5b06dd259daf4e1dd5c6b8d15f9bcabf}{operLogSyncInterval} = \hyperlink{common__port_8hpp_abe9784f98a314213bf6ca39d08775257}{LOG2\_INTERVAL\_INVALID};
+190     portInit.\hyperlink{struct_port_init__t_add9d8cd27f9135b6f5ded06c01a930f2}{condition\_factory} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+191     portInit.\hyperlink{struct_port_init__t_ab7b7aac8859366c067298afbdd810722}{thread\_factory} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+192     portInit.\hyperlink{struct_port_init__t_a985e15d90d12d2c643111f32fa01e07a}{timer\_factory} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+193     portInit.\hyperlink{struct_port_init__t_a58729cd56552f6d66559abd63d013426}{lock\_factory} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+194     portInit.\hyperlink{struct_port_init__t_a503c299642c8353010c3421808b23dc9}{syncReceiptThreshold} =
+195         \hyperlink{class_common_port_a60ff1c9798251f4f4be45dfb8ea91614}{CommonPort::DEFAULT\_SYNC\_RECEIPT\_THRESH};
+196     portInit.\hyperlink{struct_port_init__t_a96819f2beeb4656c9450bb283845e391}{neighborPropDelayThreshold} =
+197         \hyperlink{class_common_port_ad2b817903e69443f936de3f2d195184d}{CommonPort::NEIGHBOR\_PROP\_DELAY\_THRESH};
+198 
+199     \hyperlink{class_linux_network_interface_factory}{LinuxNetworkInterfaceFactory} *default\_factory =
+200         \textcolor{keyword}{new} \hyperlink{class_linux_network_interface_factory}{LinuxNetworkInterfaceFactory};
+201     \hyperlink{class_o_s_network_interface_factory_a31c35b66fcf0061135c152be8e602acd}{OSNetworkInterfaceFactory::registerFactory}
+202         (\hyperlink{classfactory__name__t}{factory\_name\_t}(\textcolor{stringliteral}{"default"}), default\_factory);
+203     \hyperlink{class_linux_timer_queue_factory}{LinuxTimerQueueFactory} *timerq\_factory = \textcolor{keyword}{new} 
+      \hyperlink{class_linux_timer_queue_factory}{LinuxTimerQueueFactory}();
+204     \hyperlink{class_linux_lock_factory}{LinuxLockFactory} *lock\_factory = \textcolor{keyword}{new} \hyperlink{class_linux_lock_factory}{LinuxLockFactory}();
+205     \hyperlink{class_linux_timer_factory}{LinuxTimerFactory} *timer\_factory = \textcolor{keyword}{new} \hyperlink{class_linux_timer_factory}{LinuxTimerFactory}();
+206     \hyperlink{class_linux_condition_factory}{LinuxConditionFactory} *condition\_factory = \textcolor{keyword}{new} 
+      \hyperlink{class_linux_condition_factory}{LinuxConditionFactory}();
+207     \hyperlink{class_linux_shared_memory_i_p_c}{LinuxSharedMemoryIPC} *ipc = \textcolor{keyword}{new} \hyperlink{class_linux_shared_memory_i_p_c}{LinuxSharedMemoryIPC}();
+208     \textcolor{comment}{/* Create Low level network interface object */}
+209     \textcolor{keywordflow}{if}( argc < 2 ) \{
+210         printf( \textcolor{stringliteral}{"Interface name required\(\backslash\)n"} );
+211         \hyperlink{linux_2src_2daemon__cl_8cpp_a39c46a5fc72592ba1851f58681283591}{print\_usage}( argv[0] );
+212         \textcolor{keywordflow}{return} -1;
+213     \}
+214     ifname = \textcolor{keyword}{new} \hyperlink{class_interface_name}{InterfaceName}( argv[1], strlen(argv[1]) );
+215 
+216     \textcolor{comment}{/* Process optional arguments */}
+217     \textcolor{keywordflow}{for}( i = 2; i < argc; ++i ) \{
+218 
+219         \textcolor{keywordflow}{if}( argv[i][0] == \textcolor{charliteral}{'-'} ) \{
+220             \textcolor{keywordflow}{if}( strcmp(argv[i] + 1,  \textcolor{stringliteral}{"S"}) == 0 ) \{
+221                 \textcolor{comment}{// Get syntonize directive from command line}
+222                 syntonize = \textcolor{keyword}{true};
+223             \}
+224             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}( strcmp(argv[i] + 1,  \textcolor{stringliteral}{"T"} ) == 0 ) \{
+225                 override\_portstate = \textcolor{keyword}{true};
+226                 port\_state = \hyperlink{ptptypes_8hpp_a679431f1afc75d7bb9e972c022e53672ab4c763cac238b6403615a62111b64aa4}{PTP\_MASTER};
+227             \}
+228             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}( strcmp(argv[i] + 1,  \textcolor{stringliteral}{"L"} ) == 0 ) \{
+229                 override\_portstate = \textcolor{keyword}{true};
+230                 port\_state = \hyperlink{ptptypes_8hpp_a679431f1afc75d7bb9e972c022e53672a55a1a2eb4b93c65e3bba86278510cb04}{PTP\_SLAVE};
+231             \}
+232             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}( strcmp(argv[i] + 1,  \textcolor{stringliteral}{"M"} )  == 0 ) \{
+233                 \textcolor{comment}{// Open file}
+234                 \textcolor{keywordflow}{if}( i+1 < argc ) \{
+235                     pGPTPPersist = \hyperlink{linux__hal__persist__file_8cpp_a885c3a1cf329ec645c6987e60dfae032}{makeLinuxGPTPPersistFile}();
+236                     \textcolor{keywordflow}{if} (pGPTPPersist) \{
+237                         pGPTPPersist->\hyperlink{class_g_p_t_p_persist_ac74276c8d879ac7c9196d649d2936220}{initStorage}(argv[i + 1]);
+238                   \}
+239                 \}
+240                 \textcolor{keywordflow}{else} \{
+241                     printf( \textcolor{stringliteral}{"Restore file must be specified on "}
+242                             \textcolor{stringliteral}{"command line\(\backslash\)n"} );
+243                 \}
+244             \}
+245             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}( strcmp(argv[i] + 1,  \textcolor{stringliteral}{"G"}) == 0 ) \{
+246                 \textcolor{keywordflow}{if}( i+1 < argc ) \{
+247                     ipc\_arg = \textcolor{keyword}{new} \hyperlink{class_linux_i_p_c_arg}{LinuxIPCArg}(argv[++i]);
+248                 \} \textcolor{keywordflow}{else} \{
+249                     printf( \textcolor{stringliteral}{"Must specify group name on the command line\(\backslash\)n"} );
+250                 \}
+251             \}
+252             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}( strcmp(argv[i] + 1,  \textcolor{stringliteral}{"P"}) == 0 ) \{
+253                 pps = \textcolor{keyword}{true};
+254             \}
+255             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}( strcmp(argv[i] + 1,  \textcolor{stringliteral}{"H"}) == 0 ) \{
+256                 \hyperlink{linux_2src_2daemon__cl_8cpp_a39c46a5fc72592ba1851f58681283591}{print\_usage}( argv[0] );
+257                 \hyperlink{gptp__log_8hpp_a85c97f8a678076165694f1e85de132fd}{GPTP\_LOG\_UNREGISTER}();
+258                 \textcolor{keywordflow}{return} 0;
+259             \}
+260             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}( strcmp(argv[i] + 1,  \textcolor{stringliteral}{"R"}) == 0 ) \{
+261                 \textcolor{keywordflow}{if}( i+1 >= argc ) \{
+262                     printf( \textcolor{stringliteral}{"Priority 1 value must be specified on "}
+263                             \textcolor{stringliteral}{"command line, using default value\(\backslash\)n"} );
+264                 \} \textcolor{keywordflow}{else} \{
+265                     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} tmp = strtoul( argv[i+1], \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, 0 ); ++i;
+266                     \textcolor{keywordflow}{if}( tmp == 0 ) \{
+267                         printf( \textcolor{stringliteral}{"Invalid priority 1 value, using "}
+268                                 \textcolor{stringliteral}{"default value\(\backslash\)n"} );
+269                     \} \textcolor{keywordflow}{else} \{
+270                         priority1 = (\hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t}) tmp;
+271                     \}
+272                 \}
+273             \}
+274             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strcmp(argv[i] + 1, \textcolor{stringliteral}{"D"}) == 0) \{
+275                 \textcolor{keywordtype}{int} phy\_delay[4];
+276                 input\_delay=\textcolor{keyword}{true};
+277                 \textcolor{keywordtype}{int} delay\_count=0;
+278                 \textcolor{keywordtype}{char} *cli\_inp\_delay = strtok(argv[i+1],\textcolor{stringliteral}{","});
+279                 \textcolor{keywordflow}{while} (cli\_inp\_delay != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL})
+280                 \{
+281                     \textcolor{keywordflow}{if}(delay\_count>3)
+282                     \{
+283                         printf(\textcolor{stringliteral}{"Too many values\(\backslash\)n"});
+284                         \hyperlink{linux_2src_2daemon__cl_8cpp_a39c46a5fc72592ba1851f58681283591}{print\_usage}( argv[0] );
+285                         \hyperlink{gptp__log_8hpp_a85c97f8a678076165694f1e85de132fd}{GPTP\_LOG\_UNREGISTER}();
+286                         \textcolor{keywordflow}{return} 0;
+287                     \}
+288                     phy\_delay[delay\_count]=atoi(cli\_inp\_delay);
+289                     delay\_count++;
+290                     cli\_inp\_delay = strtok(\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL},\textcolor{stringliteral}{","});
+291                 \}
+292                 \textcolor{keywordflow}{if} (delay\_count != 4)
+293                 \{
+294                     printf(\textcolor{stringliteral}{"All four delay values must be specified\(\backslash\)n"});
+295                     \hyperlink{linux_2src_2daemon__cl_8cpp_a39c46a5fc72592ba1851f58681283591}{print\_usage}( argv[0] );
+296                     \hyperlink{gptp__log_8hpp_a85c97f8a678076165694f1e85de132fd}{GPTP\_LOG\_UNREGISTER}();
+297                     \textcolor{keywordflow}{return} 0;
+298                 \}
+299                 ether\_phy\_delay[\hyperlink{gptp__cfg_8hpp_a42bd5d531a29e5c8a1be5ded1cf27cb3}{LINKSPEED\_1G}].set\_delay
+300                     ( phy\_delay[0], phy\_delay[1] );
+301                 ether\_phy\_delay[\hyperlink{gptp__cfg_8hpp_ad245f9b93c7c5e8f4f5dcde5abae05f2}{LINKSPEED\_100MB}].set\_delay
+302                     ( phy\_delay[2], phy\_delay[3] );
+303             \}
+304             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strcmp(argv[i] + 1, \textcolor{stringliteral}{"V"}) == 0) \{
+305                 portInit.\hyperlink{struct_port_init__t_a915ce34888736844c056a811c96a9e9f}{automotive\_profile} = \textcolor{keyword}{true};
+306             \}
+307             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strcmp(argv[i] + 1, \textcolor{stringliteral}{"GM"}) == 0) \{
+308                 portInit.\hyperlink{struct_port_init__t_ac1d89714b4aa7aa5414b44238e26d5a2}{isGM} = \textcolor{keyword}{true};
+309             \}
+310             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strcmp(argv[i] + 1, \textcolor{stringliteral}{"E"}) == 0) \{
+311                 portInit.\hyperlink{struct_port_init__t_a4ca1649b0fc050ca483e5dd8996ac80d}{testMode} = \textcolor{keyword}{true};
+312             \}
+313             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strcmp(argv[i] + 1, \textcolor{stringliteral}{"INITSYNC"}) == 0) \{
+314                 portInit.\hyperlink{struct_port_init__t_af64dc42272c346cc5f6f400c0e7d7088}{initialLogSyncInterval} = atoi(argv[++i]);
+315             \}
+316             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strcmp(argv[i] + 1, \textcolor{stringliteral}{"OPERSYNC"}) == 0) \{
+317                 portInit.\hyperlink{struct_port_init__t_a5b06dd259daf4e1dd5c6b8d15f9bcabf}{operLogSyncInterval} = atoi(argv[++i]);
+318             \}
+319             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strcmp(argv[i] + 1, \textcolor{stringliteral}{"INITPDELAY"}) == 0) \{
+320                 portInit.\hyperlink{struct_port_init__t_a7595d62409f4880035eb20c62b64ea7c}{initialLogPdelayReqInterval} = atoi(argv[++i]);
+321             \}
+322             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strcmp(argv[i] + 1, \textcolor{stringliteral}{"OPERPDELAY"}) == 0) \{
+323                 portInit.\hyperlink{struct_port_init__t_a3062b4f36651db612ae70061510ccefb}{operLogPdelayReqInterval} = atoi(argv[++i]);
+324             \}
+325             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strcmp(argv[i] + 1, \textcolor{stringliteral}{"F"}) == 0)
+326             \{
+327                 \textcolor{keywordflow}{if}( i+1 < argc ) \{
+328                     use\_config\_file = \textcolor{keyword}{true};
+329                     strcpy(config\_file\_path, argv[i+1]);
+330                 \} \textcolor{keywordflow}{else} \{
+331                     fprintf(stderr, \textcolor{stringliteral}{"config file must be specified.\(\backslash\)n"});
+332                 \}
+333             \}
+334         \}
+335     \}
+336 
+337     \textcolor{keywordflow}{if} (!input\_delay)
+338     \{
+339         ether\_phy\_delay[\hyperlink{gptp__cfg_8hpp_a42bd5d531a29e5c8a1be5ded1cf27cb3}{LINKSPEED\_1G}].set\_delay
+340             ( \hyperlink{linux_2src_2daemon__cl_8cpp_a1c3a45a696a8edf385ebaf66206f60c2}{PHY\_DELAY\_GB\_TX\_I20}, \hyperlink{linux_2src_2daemon__cl_8cpp_a7703fa9a1d560e869b09b89e68fd73a4}{PHY\_DELAY\_GB\_RX\_I20} );
+341         ether\_phy\_delay[\hyperlink{gptp__cfg_8hpp_ad245f9b93c7c5e8f4f5dcde5abae05f2}{LINKSPEED\_100MB}].set\_delay
+342             ( \hyperlink{linux_2src_2daemon__cl_8cpp_a48b90a53ec81d3eee54881a81cbe9f9b}{PHY\_DELAY\_MB\_TX\_I20}, \hyperlink{linux_2src_2daemon__cl_8cpp_a52ab5e42e40e13b0ae4ced784c9efc2b}{PHY\_DELAY\_MB\_RX\_I20} );
+343     \}
+344     portInit.\hyperlink{struct_port_init__t_a58af31938106f0270af088b7e552d125}{phy\_delay} = &ether\_phy\_delay;
+345 
+346     \textcolor{keywordflow}{if}( !ipc->\hyperlink{class_linux_shared_memory_i_p_c_a85bbef59c73cce4fa55073cbe8b33e48}{init}( ipc\_arg ) ) \{
+347         \textcolor{keyword}{delete} ipc;
+348         ipc = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+349     \}
+350     \textcolor{keywordflow}{if}( ipc\_arg != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} ) \textcolor{keyword}{delete} ipc\_arg;
+351 
+352     \textcolor{keywordflow}{if}( pGPTPPersist ) \{
+353         \hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\_t} bufSize = 0;
+354         \textcolor{keywordflow}{if} (!pGPTPPersist->\hyperlink{class_g_p_t_p_persist_a5fac60570858ffddec27c8c848b198f1}{readStorage}(&restoredata, &bufSize))
+355             \hyperlink{gptp__log_8hpp_afefbb1009717c128012bfeed94842987}{GPTP\_LOG\_ERROR}(\textcolor{stringliteral}{"Failed to stat restore file"});
+356         restoredatalength = bufSize;
+357         restoredatacount = restoredatalength;
+358         restoredataptr = (\textcolor{keywordtype}{char} *)restoredata;
+359     \}
+360 
+361 \textcolor{preprocessor}{#ifdef ARCH\_INTELCE}
+362     \hyperlink{class_ether_timestamper}{EtherTimestamper} *timestamper = \textcolor{keyword}{new} \hyperlink{class_linux_timestamper_intel_c_e}{LinuxTimestamperIntelCE}();
+363 \textcolor{preprocessor}{#else}
+364     \hyperlink{class_ether_timestamper}{EtherTimestamper} *timestamper = \textcolor{keyword}{new} \hyperlink{class_linux_timestamper_generic}{LinuxTimestamperGeneric}();
+365 \textcolor{preprocessor}{#endif}
+366 
+367     sigemptyset(&\textcolor{keyword}{set});
+368     sigaddset(&\textcolor{keyword}{set}, SIGINT);
+369     sigaddset( &\textcolor{keyword}{set}, SIGTERM );
+370     sigaddset(&\textcolor{keyword}{set}, SIGHUP);
+371     sigaddset(&\textcolor{keyword}{set}, SIGUSR2);
+372     \textcolor{keywordflow}{if} (pthread\_sigmask(SIG\_BLOCK, &\textcolor{keyword}{set}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) != 0) \{
+373         perror(\textcolor{stringliteral}{"pthread\_sigmask()"});
+374         \hyperlink{gptp__log_8hpp_a85c97f8a678076165694f1e85de132fd}{GPTP\_LOG\_UNREGISTER}();
+375         \textcolor{keywordflow}{return} -1;
+376     \}
+377 
+378     \hyperlink{linux_2src_2daemon__cl_8cpp_a2b3b2bceac683df91552be3feb4c0d03}{pClock} = \textcolor{keyword}{new} \hyperlink{class_i_e_e_e1588_clock}{IEEE1588Clock}
+379         ( \textcolor{keyword}{false}, syntonize, priority1, timerq\_factory, ipc,
+380           lock\_factory );
+381 
+382     \textcolor{keywordflow}{if}( restoredataptr != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} ) \{
+383         \textcolor{keywordflow}{if}( !restorefailed )
+384             restorefailed =
+385                 !\hyperlink{linux_2src_2daemon__cl_8cpp_a2b3b2bceac683df91552be3feb4c0d03}{pClock}->\hyperlink{class_i_e_e_e1588_clock_a383669aeae1b1eeaa021267a0041d163}{restoreSerializedState}( restoredataptr, &
+      restoredatacount );
+386         restoredataptr = ((\textcolor{keywordtype}{char} *)restoredata) + (restoredatalength - restoredatacount);
+387     \}
+388 
+389     \textcolor{comment}{// TODO: The setting of values into temporary variables should be changed to}
+390     \textcolor{comment}{// just set directly into the portInit struct.}
+391     portInit.\hyperlink{struct_port_init__t_aeea9361231f8c60d763d5f74cf822f2b}{clock} = \hyperlink{linux_2src_2daemon__cl_8cpp_a2b3b2bceac683df91552be3feb4c0d03}{pClock};
+392     portInit.\hyperlink{struct_port_init__t_a852b86a2eaee9852ada7a43e61e311a2}{index} = 1;
+393     portInit.\hyperlink{struct_port_init__t_ae8d86c3dced7beda53b1d1e7db68c002}{timestamper} = timestamper;
+394     portInit.\hyperlink{struct_port_init__t_a5885d7a835513edd0bbb0a170b4c9f01}{net\_label} = \hyperlink{aaf-talker_8c_ac7b430acaa92a7a26fbcdad47d2efc20}{ifname};
+395     portInit.\hyperlink{struct_port_init__t_add9d8cd27f9135b6f5ded06c01a930f2}{condition\_factory} = condition\_factory;
+396     portInit.\hyperlink{struct_port_init__t_ab7b7aac8859366c067298afbdd810722}{thread\_factory} = thread\_factory;
+397     portInit.\hyperlink{struct_port_init__t_a985e15d90d12d2c643111f32fa01e07a}{timer\_factory} = timer\_factory;
+398     portInit.\hyperlink{struct_port_init__t_a58729cd56552f6d66559abd63d013426}{lock\_factory} = lock\_factory;
+399 
+400     \textcolor{keywordflow}{if}(use\_config\_file)
+401     \{
+402         \hyperlink{class_gptp_ini_parser}{GptpIniParser} iniParser(config\_file\_path);
+403 
+404         \textcolor{keywordflow}{if} (iniParser.parserError() < 0) \{
+405             \hyperlink{gptp__log_8hpp_afefbb1009717c128012bfeed94842987}{GPTP\_LOG\_ERROR}(\textcolor{stringliteral}{"Cant parse ini file. Aborting file reading."});
+406         \}
+407         \textcolor{keywordflow}{else}
+408         \{
+409             \hyperlink{gptp__log_8hpp_ad59a6cd6d661bc3a4d13aaef2b0705a3}{GPTP\_LOG\_INFO}(\textcolor{stringliteral}{"priority1 = %d"}, iniParser.getPriority1());
+410             \hyperlink{gptp__log_8hpp_ad59a6cd6d661bc3a4d13aaef2b0705a3}{GPTP\_LOG\_INFO}(\textcolor{stringliteral}{"announceReceiptTimeout: %d"}, iniParser.getAnnounceReceiptTimeout())
+      ;
+411             \hyperlink{gptp__log_8hpp_ad59a6cd6d661bc3a4d13aaef2b0705a3}{GPTP\_LOG\_INFO}(\textcolor{stringliteral}{"syncReceiptTimeout: %d"}, iniParser.getSyncReceiptTimeout());
+412             iniParser.print\_phy\_delay();
+413             \hyperlink{gptp__log_8hpp_ad59a6cd6d661bc3a4d13aaef2b0705a3}{GPTP\_LOG\_INFO}(\textcolor{stringliteral}{"neighborPropDelayThresh: %ld"}, iniParser.getNeighborPropDelayThresh
+      ());
+414             \hyperlink{gptp__log_8hpp_ad59a6cd6d661bc3a4d13aaef2b0705a3}{GPTP\_LOG\_INFO}(\textcolor{stringliteral}{"syncReceiptThreshold: %d"}, iniParser.getSyncReceiptThresh());
+415 
+416             \textcolor{comment}{/* If using config file, set the neighborPropDelayThresh.}
+417 \textcolor{comment}{             * Otherwise it will use its default value (800ns) */}
+418             portInit.\hyperlink{struct_port_init__t_a96819f2beeb4656c9450bb283845e391}{neighborPropDelayThreshold} =
+419                 iniParser.getNeighborPropDelayThresh();
+420 
+421             \textcolor{comment}{/* If using config file, set the syncReceiptThreshold, otherwise}
+422 \textcolor{comment}{             * it will use the default value (SYNC\_RECEIPT\_THRESH)}
+423 \textcolor{comment}{             */}
+424             portInit.\hyperlink{struct_port_init__t_a503c299642c8353010c3421808b23dc9}{syncReceiptThreshold} =
+425                 iniParser.getSyncReceiptThresh();
+426 
+427             \textcolor{comment}{/*Only overwrites phy\_delay default values if not input\_delay switch enabled*/}
+428             \textcolor{keywordflow}{if}(!input\_delay)
+429             \{
+430                 ether\_phy\_delay = iniParser.getPhyDelay();
+431             \}
+432         \}
+433 
+434     \}
+435 
+436     \hyperlink{linux_2src_2daemon__cl_8cpp_aca059781ed4d0e5fca3b46246d5c5ad3}{pPort} = \textcolor{keyword}{new} \hyperlink{class_ether_port}{EtherPort}(&portInit);
+437 
+438     \textcolor{keywordflow}{if} (!\hyperlink{linux_2src_2daemon__cl_8cpp_aca059781ed4d0e5fca3b46246d5c5ad3}{pPort}->\hyperlink{class_common_port_ae2f86408116b0a551da01c6f92f03ff9}{init\_port}()) \{
+439         \hyperlink{gptp__log_8hpp_afefbb1009717c128012bfeed94842987}{GPTP\_LOG\_ERROR}(\textcolor{stringliteral}{"failed to initialize port"});
+440         \hyperlink{gptp__log_8hpp_a85c97f8a678076165694f1e85de132fd}{GPTP\_LOG\_UNREGISTER}();
+441         \textcolor{keywordflow}{return} -1;
+442     \}
+443 
+444     \textcolor{keywordflow}{if}( restoredataptr != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} ) \{
+445         \textcolor{keywordflow}{if}( !restorefailed ) \{
+446             restorefailed = !\hyperlink{linux_2src_2daemon__cl_8cpp_aca059781ed4d0e5fca3b46246d5c5ad3}{pPort}->\hyperlink{class_common_port_a383669aeae1b1eeaa021267a0041d163}{restoreSerializedState}( restoredataptr, &
+      restoredatacount );
+447             \hyperlink{gptp__log_8hpp_ad59a6cd6d661bc3a4d13aaef2b0705a3}{GPTP\_LOG\_INFO}(\textcolor{stringliteral}{"Persistent port data restored: asCapable:%d, port\_state:%d,
+       one\_way\_delay:%lld"},
+448                           \hyperlink{linux_2src_2daemon__cl_8cpp_aca059781ed4d0e5fca3b46246d5c5ad3}{pPort}->\hyperlink{class_common_port_a329f27c73986ce1901d7e1064e2a5af1}{getAsCapable}(), \hyperlink{linux_2src_2daemon__cl_8cpp_aca059781ed4d0e5fca3b46246d5c5ad3}{pPort}->
+      \hyperlink{class_common_port_aa4182d914fdb9a27fb875d8495e0289c}{getPortState}(), \hyperlink{linux_2src_2daemon__cl_8cpp_aca059781ed4d0e5fca3b46246d5c5ad3}{pPort}->\hyperlink{class_common_port_a62887d159222a2b222fb9cf7c97a3218}{getLinkDelay}());
+449         \}
+450         restoredataptr = ((\textcolor{keywordtype}{char} *)restoredata) + (restoredatalength - restoredatacount);
+451     \}
+452 
+453     \textcolor{keywordflow}{if} (portInit.\hyperlink{struct_port_init__t_a915ce34888736844c056a811c96a9e9f}{automotive\_profile}) \{
+454         \textcolor{keywordflow}{if} (portInit.\hyperlink{struct_port_init__t_ac1d89714b4aa7aa5414b44238e26d5a2}{isGM}) \{
+455             port\_state = \hyperlink{ptptypes_8hpp_a679431f1afc75d7bb9e972c022e53672ab4c763cac238b6403615a62111b64aa4}{PTP\_MASTER};
+456         \}
+457         \textcolor{keywordflow}{else} \{
+458             port\_state = \hyperlink{ptptypes_8hpp_a679431f1afc75d7bb9e972c022e53672a55a1a2eb4b93c65e3bba86278510cb04}{PTP\_SLAVE};
+459         \}
+460         override\_portstate = \textcolor{keyword}{true};
+461     \}
+462 
+463     \textcolor{keywordflow}{if}( override\_portstate ) \{
+464         \hyperlink{linux_2src_2daemon__cl_8cpp_aca059781ed4d0e5fca3b46246d5c5ad3}{pPort}->\hyperlink{class_common_port_a8e4a7a3f199cde3540ed0d1ab10386e5}{setPortState}( port\_state );
+465     \}
+466 
+467     \textcolor{comment}{// Start PPS if requested}
+468     \textcolor{keywordflow}{if}( pps ) \{
+469         \textcolor{keywordflow}{if}( !timestamper->\hyperlink{class_common_timestamper_a2cbaeb84807ca61af0bc56bcc475468d}{HWTimestamper\_PPS\_start}()) \{
+470             \hyperlink{gptp__log_8hpp_afefbb1009717c128012bfeed94842987}{GPTP\_LOG\_ERROR}(\textcolor{stringliteral}{"Failed to start pulse per second I/O"});
+471         \}
+472     \}
+473 
+474     \textcolor{comment}{// Configure persistent write}
+475     \textcolor{keywordflow}{if} (pGPTPPersist) \{
+476         off\_t len = 0;
+477         restoredatacount = 0;
+478         \hyperlink{linux_2src_2daemon__cl_8cpp_a2b3b2bceac683df91552be3feb4c0d03}{pClock}->\hyperlink{class_i_e_e_e1588_clock_a7ae77a9c4cc2f66b95fe47a58b571113}{serializeState}(\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, &len);
+479         restoredatacount += len;
+480         \hyperlink{linux_2src_2daemon__cl_8cpp_aca059781ed4d0e5fca3b46246d5c5ad3}{pPort}->\hyperlink{class_common_port_a7ae77a9c4cc2f66b95fe47a58b571113}{serializeState}(\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, &len);
+481         restoredatacount += len;
+482         pGPTPPersist->\hyperlink{class_g_p_t_p_persist_aed84eb3f99897b1a77cebbf1a9f7f7b6}{setWriteSize}((\hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\_t})restoredatacount);
+483         pGPTPPersist->\hyperlink{class_g_p_t_p_persist_a555f71de9acef16c5cd2eaf2b34f68ec}{registerWriteCB}(\hyperlink{linux_2src_2daemon__cl_8cpp_a3c2cbf4d8ff3d796accc3d9352a14eb6}{gPTPPersistWriteCB});
+484     \}
+485 
+486     \hyperlink{linux_2src_2daemon__cl_8cpp_aca059781ed4d0e5fca3b46246d5c5ad3}{pPort}->\hyperlink{class_common_port_ac0536467e749cb4bb6b561f562857413}{processEvent}(\hyperlink{ieee1588_8hpp_a5667b805d857c6d28f83f6038a0272d3a406cd6aebc015d1776ef6cf24aa6ec76}{POWERUP});
+487 
+488     \textcolor{keywordflow}{do} \{
+489         sig = 0;
+490 
+491         \textcolor{keywordflow}{if} (sigwait(&\textcolor{keyword}{set}, &sig) != 0) \{
+492             perror(\textcolor{stringliteral}{"sigwait()"});
+493             \hyperlink{gptp__log_8hpp_a85c97f8a678076165694f1e85de132fd}{GPTP\_LOG\_UNREGISTER}();
+494             \textcolor{keywordflow}{return} -1;
+495         \}
+496 
+497         \textcolor{keywordflow}{if} (sig == SIGHUP) \{
+498             \textcolor{keywordflow}{if} (pGPTPPersist) \{
+499               \textcolor{comment}{// If port is either master or slave, save clock and then port state}
+500               \textcolor{keywordflow}{if} (\hyperlink{linux_2src_2daemon__cl_8cpp_aca059781ed4d0e5fca3b46246d5c5ad3}{pPort}->\hyperlink{class_common_port_aa4182d914fdb9a27fb875d8495e0289c}{getPortState}() == \hyperlink{ptptypes_8hpp_a679431f1afc75d7bb9e972c022e53672ab4c763cac238b6403615a62111b64aa4}{PTP\_MASTER} || 
+      \hyperlink{linux_2src_2daemon__cl_8cpp_aca059781ed4d0e5fca3b46246d5c5ad3}{pPort}->\hyperlink{class_common_port_aa4182d914fdb9a27fb875d8495e0289c}{getPortState}() == \hyperlink{ptptypes_8hpp_a679431f1afc75d7bb9e972c022e53672a55a1a2eb4b93c65e3bba86278510cb04}{PTP\_SLAVE}) \{
+501                 pGPTPPersist->\hyperlink{class_g_p_t_p_persist_a0c61d64e8f30bb455de1b406c1236052}{triggerWriteStorage}();
+502               \}
+503             \}
+504         \}
+505 
+506         \textcolor{keywordflow}{if} (sig == SIGUSR2) \{
+507             \hyperlink{linux_2src_2daemon__cl_8cpp_aca059781ed4d0e5fca3b46246d5c5ad3}{pPort}->\hyperlink{class_common_port_a90b2bf70ecdd2df54ce464d19aa921a8}{logIEEEPortCounters}();
+508         \}
+509     \} \textcolor{keywordflow}{while} (sig == SIGHUP || sig == SIGUSR2);
+510 
+511     \hyperlink{gptp__log_8hpp_afefbb1009717c128012bfeed94842987}{GPTP\_LOG\_ERROR}(\textcolor{stringliteral}{"Exiting on %d"}, sig);
+512 
+513     \textcolor{keywordflow}{if} (pGPTPPersist) \{
+514         pGPTPPersist->\hyperlink{class_g_p_t_p_persist_a5cb33a278c6eb0c2aacffeb4ef06f7b5}{closeStorage}();
+515     \}
+516 
+517     \textcolor{comment}{// Stop PPS if previously started}
+518     \textcolor{keywordflow}{if}( pps ) \{
+519         \textcolor{keywordflow}{if}( !timestamper->\hyperlink{class_common_timestamper_ac5d9f1e5eb402dffaa8897367e9fd7d3}{HWTimestamper\_PPS\_stop}()) \{
+520             \hyperlink{gptp__log_8hpp_afefbb1009717c128012bfeed94842987}{GPTP\_LOG\_ERROR}(\textcolor{stringliteral}{"Failed to stop pulse per second I/O"});
+521         \}
+522     \}
+523 
+524     \textcolor{keywordflow}{if}( ipc ) \textcolor{keyword}{delete} ipc;
+525 
+526     \hyperlink{gptp__log_8hpp_a85c97f8a678076165694f1e85de132fd}{GPTP\_LOG\_UNREGISTER}();
+527     \textcolor{keywordflow}{return} 0;
+528 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{linux_2src_2daemon__cl_8cpp_a3c04138a5bfe5d72780bb7e82a18e627_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{linux/src/daemon\+\_\+cl.\+cpp@{linux/src/daemon\+\_\+cl.\+cpp}!print\+\_\+usage@{print\+\_\+usage}}
+\index{print\+\_\+usage@{print\+\_\+usage}!linux/src/daemon\+\_\+cl.\+cpp@{linux/src/daemon\+\_\+cl.\+cpp}}
+\subsubsection[{\texorpdfstring{print\+\_\+usage(char $\ast$arg0)}{print_usage(char *arg0)}}]{\setlength{\rightskip}{0pt plus 5cm}void print\+\_\+usage (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{arg0}
+\end{DoxyParamCaption}
+)}\hypertarget{linux_2src_2daemon__cl_8cpp_a39c46a5fc72592ba1851f58681283591}{}\label{linux_2src_2daemon__cl_8cpp_a39c46a5fc72592ba1851f58681283591}
+
+
+daemon\+\_\+cl.\+cpp 파일의 71 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+71                                \{
+72     fprintf( stderr,
+73             \textcolor{stringliteral}{"%s <network interface> [-S] [-P] [-M <filename>] "}
+74             \textcolor{stringliteral}{"[-G <group>] [-R <priority 1>] "}
+75             \textcolor{stringliteral}{"[-D <gb\_tx\_delay,gb\_rx\_delay,mb\_tx\_delay,mb\_rx\_delay>] "}
+76             \textcolor{stringliteral}{"[-T] [-L] [-E] [-GM] [-INITSYNC <value>] [-OPERSYNC <value>] "}
+77             \textcolor{stringliteral}{"[-INITPDELAY <value>] [-OPERPDELAY <value>] "}
+78             \textcolor{stringliteral}{"[-F <path to gptp\_cfg.ini file>] "}
+79             \textcolor{stringliteral}{"\(\backslash\)n"},
+80             arg0 );
+81     fprintf
+82         ( stderr,
+83           \textcolor{stringliteral}{"\(\backslash\)t-S start syntonization\(\backslash\)n"}
+84           \textcolor{stringliteral}{"\(\backslash\)t-P pulse per second\(\backslash\)n"}
+85           \textcolor{stringliteral}{"\(\backslash\)t-M <filename> save/restore state\(\backslash\)n"}
+86           \textcolor{stringliteral}{"\(\backslash\)t-G <group> group id for shared memory\(\backslash\)n"}
+87           \textcolor{stringliteral}{"\(\backslash\)t-R <priority 1> priority 1 value\(\backslash\)n"}
+88           \textcolor{stringliteral}{"\(\backslash\)t-D Phy Delay <gb\_tx\_delay,gb\_rx\_delay,mb\_tx\_delay,mb\_rx\_delay>\(\backslash\)n"}
+89           \textcolor{stringliteral}{"\(\backslash\)t-T force master (ignored when Automotive Profile set)\(\backslash\)n"}
+90           \textcolor{stringliteral}{"\(\backslash\)t-L force slave (ignored when Automotive Profile set)\(\backslash\)n"}
+91           \textcolor{stringliteral}{"\(\backslash\)t-E enable test mode (as defined in AVnu automotive profile)\(\backslash\)n"}
+92           \textcolor{stringliteral}{"\(\backslash\)t-V enable AVnu Automotive Profile\(\backslash\)n"}
+93           \textcolor{stringliteral}{"\(\backslash\)t-GM set grandmaster for Automotive Profile\(\backslash\)n"}
+94           \textcolor{stringliteral}{"\(\backslash\)t-INITSYNC <value> initial sync interval (Log base 2. 0 = 1 second)\(\backslash\)n"}
+95           \textcolor{stringliteral}{"\(\backslash\)t-OPERSYNC <value> operational sync interval (Log base 2. 0 = 1 second)\(\backslash\)n"}
+96           \textcolor{stringliteral}{"\(\backslash\)t-INITPDELAY <value> initial pdelay interval (Log base 2. 0 = 1 second)\(\backslash\)n"}
+97           \textcolor{stringliteral}{"\(\backslash\)t-OPERPDELAY <value> operational pdelay interval (Log base 2. 0 = 1 sec)\(\backslash\)n"}
+98           \textcolor{stringliteral}{"\(\backslash\)t-F <path-to-ini-file>\(\backslash\)n"}
+99         );
+100 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=229pt]{linux_2src_2daemon__cl_8cpp_a39c46a5fc72592ba1851f58681283591_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{linux/src/daemon\+\_\+cl.\+cpp@{linux/src/daemon\+\_\+cl.\+cpp}!watchdog\+\_\+setup@{watchdog\+\_\+setup}}
+\index{watchdog\+\_\+setup@{watchdog\+\_\+setup}!linux/src/daemon\+\_\+cl.\+cpp@{linux/src/daemon\+\_\+cl.\+cpp}}
+\subsubsection[{\texorpdfstring{watchdog\+\_\+setup(\+O\+S\+Thread\+Factory $\ast$thread\+\_\+factory)}{watchdog_setup(OSThreadFactory *thread_factory)}}]{\setlength{\rightskip}{0pt plus 5cm}int watchdog\+\_\+setup (
+\begin{DoxyParamCaption}
+\item[{{\bf O\+S\+Thread\+Factory} $\ast$}]{thread\+\_\+factory}
+\end{DoxyParamCaption}
+)}\hypertarget{linux_2src_2daemon__cl_8cpp_a7b397efb51316b2dfa48185687ab672f}{}\label{linux_2src_2daemon__cl_8cpp_a7b397efb51316b2dfa48185687ab672f}
+
+
+daemon\+\_\+cl.\+cpp 파일의 102 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+103 \{
+104 \textcolor{preprocessor}{#ifdef SYSTEMD\_WATCHDOG}
+105     \hyperlink{class_systemd_watchdog_handler}{SystemdWatchdogHandler} *watchdog = \textcolor{keyword}{new} 
+      \hyperlink{class_systemd_watchdog_handler}{SystemdWatchdogHandler}();
+106     \hyperlink{class_o_s_thread}{OSThread} *watchdog\_thread = thread\_factory->\hyperlink{class_o_s_thread_factory_a1ba27e729a53bb92e06ac43b87b755fd}{createThread}();
+107     \textcolor{keywordtype}{int} watchdog\_result;
+108     \textcolor{keywordtype}{long} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} watchdog\_interval;
+109     watchdog\_interval = watchdog->\hyperlink{class_systemd_watchdog_handler_a82224f14cd51cc5cc7d0b708b2e94e46}{getSystemdWatchdogInterval}(&watchdog\_result);
+110     \textcolor{keywordflow}{if} (watchdog\_result) \{
+111         \hyperlink{gptp__log_8hpp_ad59a6cd6d661bc3a4d13aaef2b0705a3}{GPTP\_LOG\_INFO}(\textcolor{stringliteral}{"Watchtog interval read from service file: %lu us"}, watchdog\_interval);
+112         watchdog->\hyperlink{class_systemd_watchdog_handler_a2804381da4d285ba95ca3e5736956731}{update\_interval} = watchdog\_interval / 2;
+113         \hyperlink{gptp__log_8hpp_a9bcf107d6f77d335b92bbc4825ea85a3}{GPTP\_LOG\_STATUS}(\textcolor{stringliteral}{"Starting watchdog handler (Update every: %lu us)"}, watchdog->
+      \hyperlink{class_systemd_watchdog_handler_a2804381da4d285ba95ca3e5736956731}{update\_interval});
+114         watchdog\_thread->\hyperlink{class_o_s_thread_a016d9f5a1958871bb32efd99100dcbc3}{start}(\hyperlink{watchdog_8cpp_a89d151cab41e0fbaa4fa846cf468f696}{watchdogUpdateThreadFunction}, watchdog);
+115         \textcolor{keywordflow}{return} 0;
+116     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (watchdog\_result < 0) \{
+117         \hyperlink{gptp__log_8hpp_afefbb1009717c128012bfeed94842987}{GPTP\_LOG\_ERROR}(\textcolor{stringliteral}{"Watchdog settings read error."});
+118         \textcolor{keywordflow}{return} -1;
+119     \} \textcolor{keywordflow}{else} \{
+120         \hyperlink{gptp__log_8hpp_a9bcf107d6f77d335b92bbc4825ea85a3}{GPTP\_LOG\_STATUS}(\textcolor{stringliteral}{"Watchdog disabled"});
+121         \textcolor{keywordflow}{return} 0;
+122     \}
+123 \textcolor{preprocessor}{#else}
+124     \textcolor{keywordflow}{return} 0;
+125 \textcolor{preprocessor}{#endif}
+126 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{linux_2src_2daemon__cl_8cpp_a7b397efb51316b2dfa48185687ab672f_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=242pt]{linux_2src_2daemon__cl_8cpp_a7b397efb51316b2dfa48185687ab672f_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{변수 문서화}
+\index{linux/src/daemon\+\_\+cl.\+cpp@{linux/src/daemon\+\_\+cl.\+cpp}!p\+Clock@{p\+Clock}}
+\index{p\+Clock@{p\+Clock}!linux/src/daemon\+\_\+cl.\+cpp@{linux/src/daemon\+\_\+cl.\+cpp}}
+\subsubsection[{\texorpdfstring{p\+Clock}{pClock}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf I\+E\+E\+E1588\+Clock}$\ast$ p\+Clock = {\bf N\+U\+LL}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{linux_2src_2daemon__cl_8cpp_a2b3b2bceac683df91552be3feb4c0d03}{}\label{linux_2src_2daemon__cl_8cpp_a2b3b2bceac683df91552be3feb4c0d03}
+
+
+daemon\+\_\+cl.\+cpp 파일의 128 번째 라인에서 정의되었습니다.
+
+\index{linux/src/daemon\+\_\+cl.\+cpp@{linux/src/daemon\+\_\+cl.\+cpp}!p\+Port@{p\+Port}}
+\index{p\+Port@{p\+Port}!linux/src/daemon\+\_\+cl.\+cpp@{linux/src/daemon\+\_\+cl.\+cpp}}
+\subsubsection[{\texorpdfstring{p\+Port}{pPort}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Ether\+Port}$\ast$ p\+Port = {\bf N\+U\+LL}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{linux_2src_2daemon__cl_8cpp_aca059781ed4d0e5fca3b46246d5c5ad3}{}\label{linux_2src_2daemon__cl_8cpp_aca059781ed4d0e5fca3b46246d5c5ad3}
+
+
+daemon\+\_\+cl.\+cpp 파일의 129 번째 라인에서 정의되었습니다.
+

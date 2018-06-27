@@ -1,0 +1,26 @@
+var struct__kc__ethtool__coalesce =
+[
+    [ "cmd", "struct__kc__ethtool__coalesce.html#a62fe2a1dbf17d5a8561a5a7f5a97a9ba", null ],
+    [ "pkt_rate_high", "struct__kc__ethtool__coalesce.html#a524c1b2ef35b9f59e9d42884ba3a4dae", null ],
+    [ "pkt_rate_low", "struct__kc__ethtool__coalesce.html#ab7bbeafb9648b54d22dc16520aeddc99", null ],
+    [ "rate_sample_interval", "struct__kc__ethtool__coalesce.html#a1ee61858b1c217d798bce8a4b3f65719", null ],
+    [ "rx_coalesce_usecs", "struct__kc__ethtool__coalesce.html#a4a030810e1171d53587e2fabd2486b8a", null ],
+    [ "rx_coalesce_usecs_high", "struct__kc__ethtool__coalesce.html#acc5474199cdc965948203e89e951dde3", null ],
+    [ "rx_coalesce_usecs_irq", "struct__kc__ethtool__coalesce.html#ac1a1735e40c38c2b7aa45fe1d06906ac", null ],
+    [ "rx_coalesce_usecs_low", "struct__kc__ethtool__coalesce.html#a8f2c98691171ba61cea6b2364af461c3", null ],
+    [ "rx_max_coalesced_frames", "struct__kc__ethtool__coalesce.html#a90f7914eb3fff34dccbd3cde31cf9b41", null ],
+    [ "rx_max_coalesced_frames_high", "struct__kc__ethtool__coalesce.html#a7d72d2cd357dfb55e691ff2041adea86", null ],
+    [ "rx_max_coalesced_frames_irq", "struct__kc__ethtool__coalesce.html#abfbae229553686e48ef58e0088d463ff", null ],
+    [ "rx_max_coalesced_frames_low", "struct__kc__ethtool__coalesce.html#a02ebc8c585a82298e59ee50f4a954252", null ],
+    [ "stats_block_coalesce_usecs", "struct__kc__ethtool__coalesce.html#abdf4e6d5e11b0e3d253616ca4061d565", null ],
+    [ "tx_coalesce_usecs", "struct__kc__ethtool__coalesce.html#a25d1780eccadadadc150ebedfa3fa65c", null ],
+    [ "tx_coalesce_usecs_high", "struct__kc__ethtool__coalesce.html#ab42905ae1da0cbca97cd9a15dc4475bd", null ],
+    [ "tx_coalesce_usecs_irq", "struct__kc__ethtool__coalesce.html#aca909082edf7b46b408d81a5e829337c", null ],
+    [ "tx_coalesce_usecs_low", "struct__kc__ethtool__coalesce.html#a4a00927e7c402641d8f1ed2e2d32f772", null ],
+    [ "tx_max_coalesced_frames", "struct__kc__ethtool__coalesce.html#ac129f1597444ff16b904ebb8fae4959b", null ],
+    [ "tx_max_coalesced_frames_high", "struct__kc__ethtool__coalesce.html#a73b191fe237938e38870c8c13e85a644", null ],
+    [ "tx_max_coalesced_frames_irq", "struct__kc__ethtool__coalesce.html#a18ee0ee1e62ef0153344bdc48ec8adb9", null ],
+    [ "tx_max_coalesced_frames_low", "struct__kc__ethtool__coalesce.html#a47957fc67fcad8f4ba13553bbc90ec19", null ],
+    [ "use_adaptive_rx_coalesce", "struct__kc__ethtool__coalesce.html#aeb83e036868e69a26d6811b1305aa23e", null ],
+    [ "use_adaptive_tx_coalesce", "struct__kc__ethtool__coalesce.html#acfd26d0701b5c6c601bd75ff89f81b9c", null ]
+];

@@ -1,0 +1,17 @@
+\hypertarget{sdk_integration_sdk_integration_introduction}{}\section{Introduction }\label{sdk_integration_sdk_integration_introduction}
+Integrating the O\+P\+E\+N\+A\+VB A\+VB stack into a larger solution can be conceptually divided into 2 parts. The first is the configuration and start up of the A\+VB components such as g\+P\+TP and A\+V\+TP. The second part is the configuration of the streams that will be active. The details of stream configuration is described in another section.
+
+~\newline
+\hypertarget{sdk_integration_sdk_integration_avtp_control}{}\section{A\+V\+T\+P Control }\label{sdk_integration_sdk_integration_avtp_control}
+Only a handful of functions are needed to control the A\+V\+TP component. This is done indirectly when opening, running and closing talkers and listeners. The general flow is\+:
+\begin{DoxyEnumerate}
+\item \hyperlink{build_2sdk__eavb_2openavb__tl__pub_8h_aefac1b8343b87d569a38ecbfc87de883}{openavb\+T\+L\+Initialize()} is called to initialize the openavb\+\_\+tl module.
+\item \hyperlink{build_2sdk__eavb_2openavb__tl__pub_8h_a4952af6d10075781ffb320af2ff1665b}{openavb\+T\+L\+Open()} is called one or more times to load talkers and listeners.
+\item \hyperlink{build_2sdk__eavb_2openavb__tl__pub_8h_af3f5f9270f359618de3497ab9a469b83}{openavb\+T\+L\+Configure()} is called for each talker or listener.
+\item \hyperlink{build_2sdk__eavb_2openavb__tl__pub_8h_a7af14e9b869ab4c29a4d7f51ab78a28a}{openavb\+T\+L\+Run()} is called for each talker and listener to start their stream.
+\item \hyperlink{build_2sdk__eavb_2openavb__tl__pub_8h_ae373dc0cd3617f44e3205bbc2f6d84f4}{openavb\+T\+L\+Close()} is called for each talker and listener to stop the stream and close.
+\end{DoxyEnumerate}
+
+~\newline
+\hypertarget{sdk_integration_sdk_integration_host_app}{}\section{Host Application Integration }\label{sdk_integration_sdk_integration_host_app}
+Controlling the non-\/\+A\+V\+TP components of the A\+VB stack are platform dependent. Release notes for the specific port should be referenced for those details. 

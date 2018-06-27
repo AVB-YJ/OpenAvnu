@@ -1,0 +1,92 @@
+\hypertarget{sdk_avtp_interface_module_dev_sdk_avtp_intf_module_introduction}{}\section{Introduction }\label{sdk_avtp_interface_module_dev_sdk_avtp_intf_module_introduction}
+Interface modules are the components that sit between the core A\+VB stack and the platform device drivers that supply access to media hardware.
+
+~\newline
+\hypertarget{sdk_avtp_interface_module_dev_sdk_avtp_intf_module_plugin}{}\section{The Plug-\/in Architecture }\label{sdk_avtp_interface_module_dev_sdk_avtp_intf_module_plugin}
+The O\+P\+E\+N\+A\+VB A\+VB stack has a plug-\/in architecture for the A\+V\+TP implementation in the form of interface modules. This allows for easily hooking into the A\+VB stack to extend it for interfacing to media specific hardware.
+
+Mapping modules, which are mentioned through-\/out these guides, are also plug-\/ins. These implement the various A\+V\+TP encapsulations and require a deep understanding of A\+V\+TP and therefore are developed internally by O\+P\+E\+N\+A\+VB.
+
+Interface modules are discovered at runtime using configuration information that is passed to the \hyperlink{build_2sdk__eavb_2openavb__tl__pub_8h_a4952af6d10075781ffb320af2ff1665b}{openavb\+T\+L\+Open()} function. Below is an example of a section of the configuration information with interface module values.
+
+
+\begin{DoxyCode}
+1 // pIntfInitFn : Interface module initialization function.
+2 // openavb\_intf\_initialize\_fn\_t)
+3 cfg->osalCfg.pIntfInitFn = openavbIntfJ6Video;
+4 
+5 ///////////////////
+6 // Interface module
+7 ///////////////////
+8 
+9 // intf\_nv\_blocking\_tx\_callback : A talker only option. When set packet pacing
+10 // is expected to be handled in the interface module.
+11 // Commonly the TL configuration option tx\_blocking\_in\_intf needs to be set
+12 // to match this.
+13 // cfg->libCfgNames[cfgIdx] = "intf\_nv\_blocking\_tx\_callback";
+14 // cfg->libCfgValues[cfgIdx++] = "1";
+15 
+16 // intf\_nv\_ignore\_timestamp : If set the listener will ignore the timestamp
+17 // on media queue items.
+18 cfg->libCfgNames[cfgIdx] = "intf\_nv\_ignore\_timestamp";
+19 cfg->libCfgValues[cfgIdx++] = "0";
+\end{DoxyCode}
+
+
+The function pointer variable {\ttfamily p\+Intf\+Init\+Fn} points to the interface module initialization function.
+
+When the talker/listener module calls the interface module initialization function it passes in a callback structure as a parameter that must get filled with the required callback function addresses by the interface module.
+
+After initialization the talker/listener module will call directly into the interface module via these callbacks. See the A\+PI reference section for details and examples of these callbacks.
+
+The callback functions in an interface module, aside from the initialization call, receives a pointer to a media queue structure. This structure is self-\/contained, similar to an object in C++, in that it includes a function callback list for the interface module to call into the media queue to access and work with the media queue.
+
+~\newline
+\hypertarget{sdk_avtp_interface_module_dev_sdk_avtp_intf_module_task}{}\section{Task / Thread Model }\label{sdk_avtp_interface_module_dev_sdk_avtp_intf_module_task}
+In the general case the task / threading (hereafter referred to as task) model for interface modules is very simple. All callbacks will occur on the same task and therefore there are no synchronization concerns. However, access to media sources and media sinks can have demanding timing and processing requirements and it may be necessary for an interface module to have complete control over an execution task to ensure timely pulling or pushing data into the media hardware or driver. In those cases the interface module may find it a benefit to create its own task or tasks.
+
+When an interface module has its own task the point of synchronization between the callback thread and the interface module private thread would be the sharing of a media queue item pointer. When a head or tail item is locked a pointer to that media queue item is returned. At that point the data area for that item remains locked and can be used by another task beyond the scope of the callback into the interface module. The media queue item will remain locked until unlocked (or pushed or pulled). The media queue itself can\textquotesingle{}t be locked, it can only be accessed within the scope of a callback into the interface module.
+
+~\newline
+\hypertarget{sdk_avtp_interface_module_dev_sdk_avtp_intf_module_building}{}\section{Building an Interface Module }\label{sdk_avtp_interface_module_dev_sdk_avtp_intf_module_building}
+There should be minimal dependencies for creation of an interface module. The interface module can be built as a static library and include all the required callbacks as defined in the reference section of this document.
+
+Access to all functionality in the A\+VB stack from an interface module is also handled via callbacks that are available to the interface module in the media queue structure it receives as a parameter on its own callbacks.
+
+~\newline
+\hypertarget{sdk_avtp_interface_module_dev_sdk_avtp_intf_module_talker}{}\section{Interface Module in a Talker }\label{sdk_avtp_interface_module_dev_sdk_avtp_intf_module_talker}
+An interface module when used in a talker pulls data from a media source and pushes it onto the media queue in the format expected by the mapping module configured for that stream.
+
+~\newline
+\hypertarget{sdk_avtp_interface_module_dev_sdk_avtp_intf_module_listener}{}\section{Interface Module in a Listener }\label{sdk_avtp_interface_module_dev_sdk_avtp_intf_module_listener}
+When called from a listener it pulls data from the media queue and pushes it to the media sink for presentation.
+
+~\newline
+\hypertarget{sdk_avtp_interface_module_dev_working_with_mediaq}{}\section{Working With the Media Queue }\label{sdk_avtp_interface_module_dev_working_with_mediaq}
+The media queue is the conduit between interface modules and mapping modules. The media queue is the only entry point for interface modules to call into the A\+VB stack and allows for pushing or pulling media data though it as well as access to time functionality in the A\+V\+TP time structure.
+
+The media queue is internally implemented as a circular F\+I\+FO container. The format of the data for items in the media queue is defined by the mapping module being used in the talker/listener. For some mapping modules the data format of an item will match the defined A\+VB encapsulation. For example the M\+P\+E\+G2-\/\+TS (61883-\/4) mapping module data format of media queue items are simple 192 byte M\+P\+E\+G2-\/\+TS source packets. Each media queue item contains one or more M\+P\+E\+G2-\/\+TS source packet. The actual M\+P\+E\+G2-\/\+TS mapping may combine multiple source packets into one A\+V\+TP packet but that is hidden from the interface module.
+
+The media queue functions are accessed as A\+PI calls.
+
+For example, the \hyperlink{build_2sdk__eavb_2openavb__mediaq__pub_8h_ae2ce807451447ec2dab9a4284ac61b99}{openavb\+Media\+Q\+Head\+Lock()} function is called as\+: 
+\begin{DoxyCode}
+1 openavbMediaQHeadLock(pMediaQ);
+\end{DoxyCode}
+ The p\+MediaQ pointer is passed to all of the interface module callbacks.
+
+Access to the queue items is accomplished with the Head functions for pushing data into the media queue. These are used by interface modules running in a talker. To read items from the media queue the Tail functions are used by interface modules running in a listener.
+
+At any one time only 2 items are accessible in the media queue. These are the head item and tail item. Care must be taken to always match up the \hyperlink{build_2sdk__eavb_2openavb__mediaq__pub_8h_ae2ce807451447ec2dab9a4284ac61b99}{openavb\+Media\+Q\+Head\+Lock()} with a \hyperlink{build_2sdk__eavb_2openavb__mediaq__pub_8h_ac73b08d1568f13b634e2a0f1ef35e11a}{openavb\+Media\+Q\+Head\+Unlock()} or \hyperlink{build_2sdk__eavb_2openavb__mediaq__pub_8h_a0a57c275ac213fdd14c944741c6e9250}{openavb\+Media\+Q\+Head\+Push()} functions. The same applies that the \hyperlink{build_2sdk__eavb_2openavb__mediaq__pub_8h_aafa1645c7e234bd011a70063d368b995}{openavb\+Media\+Q\+Tail\+Lock()} must be paired with either a \hyperlink{build_2sdk__eavb_2openavb__mediaq__pub_8h_ab0525761a2b45c4c14d4fdc80fa24c47}{openavb\+Media\+Q\+Tail\+Pull()} or \hyperlink{build_2sdk__eavb_2openavb__mediaq__pub_8h_a9b57c7a2cfb99521a7e460bd29b3b31a}{openavb\+Media\+Q\+Tail\+Unlock()} functions. This means a new item can not be added to the media queue until a \hyperlink{build_2sdk__eavb_2openavb__mediaq__pub_8h_a0a57c275ac213fdd14c944741c6e9250}{openavb\+Media\+Q\+Head\+Push()} is called and a new item can not be pulled from the media queue until \hyperlink{build_2sdk__eavb_2openavb__mediaq__pub_8h_ab0525761a2b45c4c14d4fdc80fa24c47}{openavb\+Media\+Q\+Tail\+Pull()} is called.
+
+For a detailed work flow please visit \hyperlink{sdk_notes_media_queue_usage}{Media Queue Usage}
+
+~\newline
+\hypertarget{sdk_avtp_interface_module_dev_sdk_avtp_intf_module_timestamps}{}\section{Timestamps }\label{sdk_avtp_interface_module_dev_sdk_avtp_intf_module_timestamps}
+For interface modules often the only requirement for timestamps is to assign a P\+TP time to the items added to the media queue when running as a talker. For example\+: 
+\begin{DoxyCode}
+1 openavbAvtpTimeSetToWallTime(pMediaQItem->pAvtpTime);
+\end{DoxyCode}
+ In most cases the mapping modules and media queue take care of the rest of the requirements for A\+V\+TP.
+
+\hyperlink{openavb_intf_echo_8c-example}{Source code} 

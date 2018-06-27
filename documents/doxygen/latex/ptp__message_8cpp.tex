@@ -1,0 +1,633 @@
+\hypertarget{ptp__message_8cpp}{}\section{daemons/gptp/common/ptp\+\_\+message.cpp 파일 참조}
+\label{ptp__message_8cpp}\index{daemons/gptp/common/ptp\+\_\+message.\+cpp@{daemons/gptp/common/ptp\+\_\+message.\+cpp}}
+{\ttfamily \#include $<$ieee1588.\+hpp$>$}\\*
+{\ttfamily \#include $<$avbts\+\_\+clock.\+hpp$>$}\\*
+{\ttfamily \#include $<$avbts\+\_\+message.\+hpp$>$}\\*
+{\ttfamily \#include $<$ether\+\_\+port.\+hpp$>$}\\*
+{\ttfamily \#include $<$avbts\+\_\+ostimer.\+hpp$>$}\\*
+{\ttfamily \#include $<$ether\+\_\+tstamper.\+hpp$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$math.\+h$>$}\\*
+ptp\+\_\+message.\+cpp에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ptp__message_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{ptp__message_8cpp_a63a377676c26adf4e7f641f98c78fc13}{U\+S\+\_\+\+P\+E\+R\+\_\+\+S\+EC}~1000000
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_p_t_p_message_common}{P\+T\+P\+Message\+Common} $\ast$ \hyperlink{ptp__message_8cpp_a3f587ce328a50a9f7af19f9822579d0d}{build\+P\+T\+P\+Message} (char $\ast$buf, int \hyperlink{gst__avb__playbin_8c_a439227feff9d7f55384e8780cfc2eb82}{size}, \hyperlink{class_link_layer_address}{Link\+Layer\+Address} $\ast$remote, \hyperlink{class_common_port}{Common\+Port} $\ast$\hyperlink{gst__avb__playbin_8c_a63c89c04d1feae07ca35558055155ffb}{port})
+\begin{DoxyCompactList}\small\item\em Builds P\+TP message from buffer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{ptp\+\_\+message.\+cpp@{ptp\+\_\+message.\+cpp}!U\+S\+\_\+\+P\+E\+R\+\_\+\+S\+EC@{U\+S\+\_\+\+P\+E\+R\+\_\+\+S\+EC}}
+\index{U\+S\+\_\+\+P\+E\+R\+\_\+\+S\+EC@{U\+S\+\_\+\+P\+E\+R\+\_\+\+S\+EC}!ptp\+\_\+message.\+cpp@{ptp\+\_\+message.\+cpp}}
+\subsubsection[{\texorpdfstring{U\+S\+\_\+\+P\+E\+R\+\_\+\+S\+EC}{US_PER_SEC}}]{\setlength{\rightskip}{0pt plus 5cm}\#define U\+S\+\_\+\+P\+E\+R\+\_\+\+S\+EC~1000000}\hypertarget{ptp__message_8cpp_a63a377676c26adf4e7f641f98c78fc13}{}\label{ptp__message_8cpp_a63a377676c26adf4e7f641f98c78fc13}
+
+
+ptp\+\_\+message.\+cpp 파일의 1556 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{함수 문서화}
+\index{ptp\+\_\+message.\+cpp@{ptp\+\_\+message.\+cpp}!build\+P\+T\+P\+Message@{build\+P\+T\+P\+Message}}
+\index{build\+P\+T\+P\+Message@{build\+P\+T\+P\+Message}!ptp\+\_\+message.\+cpp@{ptp\+\_\+message.\+cpp}}
+\subsubsection[{\texorpdfstring{build\+P\+T\+P\+Message(char $\ast$buf, int size, Link\+Layer\+Address $\ast$remote, Common\+Port $\ast$port)}{buildPTPMessage(char *buf, int size, LinkLayerAddress *remote, CommonPort *port)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf P\+T\+P\+Message\+Common}$\ast$ build\+P\+T\+P\+Message (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{buf, }
+\item[{int}]{size, }
+\item[{{\bf Link\+Layer\+Address} $\ast$}]{remote, }
+\item[{{\bf Common\+Port} $\ast$}]{port}
+\end{DoxyParamCaption}
+)}\hypertarget{ptp__message_8cpp_a3f587ce328a50a9f7af19f9822579d0d}{}\label{ptp__message_8cpp_a3f587ce328a50a9f7af19f9822579d0d}
+
+
+Builds P\+TP message from buffer. 
+
+
+\begin{DoxyParams}{매개변수}
+{\em buf} & \mbox{[}in\mbox{]} byte buffer containing P\+TP message \\
+\hline
+{\em size} & \mbox{[}in\mbox{]} length of buffer in bytes \\
+\hline
+{\em remote} & \mbox{[}in\mbox{]} address from where message was received \\
+\hline
+{\em port} & \mbox{[}in\mbox{]} port object that message was recieved on \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+P\+TP message object 
+\end{DoxyReturn}
+
+
+ptp\+\_\+message.\+cpp 파일의 69 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+71 \{
+72     \hyperlink{class_o_s_timer}{OSTimer} *timer = port->\hyperlink{class_common_port_ae659108ab426a2d9e8e3c84b63ac6cdc}{getTimerFactory}()->\hyperlink{class_o_s_timer_factory_a93317f4dabe911276934eeb0a18591a5}{createTimer}();
+73     \hyperlink{class_p_t_p_message_common}{PTPMessageCommon} *\hyperlink{maap__log__linux_8c_a0c7e58a50354c4a4d6dad428d0e47029}{msg} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+74     \hyperlink{class_p_t_p_message_id}{PTPMessageId} messageId;
+75     \hyperlink{avbts__message_8hpp_ac6606ebe91c8ac66a2c314c79f5ab013}{MessageType} messageType;
+76     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} tspec\_msg\_t = 0;
+77     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} transportSpecific = 0;
+78 
+79     uint16\_t sequenceId;
+80     \hyperlink{class_port_identity}{PortIdentity} *sourcePortIdentity;
+81     \hyperlink{class_timestamp}{Timestamp} timestamp(0, 0, 0);
+82     \textcolor{keywordtype}{unsigned} counter\_value = 0;
+83     \hyperlink{class_ether_port}{EtherPort} *eport = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+84 
+85 \textcolor{preprocessor}{#if PTP\_DEBUG}
+86     \{
+87         \textcolor{keywordtype}{int} i;
+88         \hyperlink{gptp__log_8hpp_add03384a2a8099b27e07d041cce77e6f}{GPTP\_LOG\_VERBOSE}(\textcolor{stringliteral}{"Packet Dump:\(\backslash\)n"});
+89         \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{gst__avb__playbin_8c_a439227feff9d7f55384e8780cfc2eb82}{size}; ++i) \{
+90             \hyperlink{gptp__log_8hpp_add03384a2a8099b27e07d041cce77e6f}{GPTP\_LOG\_VERBOSE}(\textcolor{stringliteral}{"%hhx\(\backslash\)t"}, buf[i]);
+91             \textcolor{keywordflow}{if} (i % 8 == 7)
+92                 \hyperlink{gptp__log_8hpp_add03384a2a8099b27e07d041cce77e6f}{GPTP\_LOG\_VERBOSE}(\textcolor{stringliteral}{"\(\backslash\)n"});
+93         \}
+94         \textcolor{keywordflow}{if} (i % 8 != 0)
+95             \hyperlink{gptp__log_8hpp_add03384a2a8099b27e07d041cce77e6f}{GPTP\_LOG\_VERBOSE}(\textcolor{stringliteral}{"\(\backslash\)n"});
+96     \}
+97 \textcolor{preprocessor}{#endif}
+98 
+99     memcpy(&tspec\_msg\_t,
+100            buf + \hyperlink{avbts__message_8hpp_a102fc939e55e08eadb9bf42508fb65d2}{PTP\_COMMON\_HDR\_TRANSSPEC\_MSGTYPE}(
+      \hyperlink{avbts__message_8hpp_a330dd502b6e19949d74c8f3a96dd5667}{PTP\_COMMON\_HDR\_OFFSET}),
+101            \textcolor{keyword}{sizeof}(tspec\_msg\_t));
+102     messageType = (\hyperlink{avbts__message_8hpp_ac6606ebe91c8ac66a2c314c79f5ab013}{MessageType}) (tspec\_msg\_t & 0xF);
+103     transportSpecific = (tspec\_msg\_t >> 4) & 0x0F;
+104 
+105     sourcePortIdentity = \textcolor{keyword}{new} \hyperlink{class_port_identity}{PortIdentity}
+106         ((\hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} *)
+107          (buf + \hyperlink{avbts__message_8hpp_ac56d471778da7bf419e64ecf2103ad9b}{PTP\_COMMON\_HDR\_SOURCE\_CLOCK\_ID}
+108           (\hyperlink{avbts__message_8hpp_a330dd502b6e19949d74c8f3a96dd5667}{PTP\_COMMON\_HDR\_OFFSET})),
+109          (uint16\_t *)
+110          (buf + \hyperlink{avbts__message_8hpp_a53a15a915e51af626e90665cbcc6c443}{PTP\_COMMON\_HDR\_SOURCE\_PORT\_ID}
+111           (\hyperlink{avbts__message_8hpp_a330dd502b6e19949d74c8f3a96dd5667}{PTP\_COMMON\_HDR\_OFFSET})));
+112 
+113     memcpy
+114         (&(sequenceId),
+115          buf + \hyperlink{avbts__message_8hpp_af717ee08477f9388e66fc5451971e6af}{PTP\_COMMON\_HDR\_SEQUENCE\_ID}(
+      \hyperlink{avbts__message_8hpp_a330dd502b6e19949d74c8f3a96dd5667}{PTP\_COMMON\_HDR\_OFFSET}),
+116          \textcolor{keyword}{sizeof}(sequenceId));
+117     sequenceId = \hyperlink{linux_2src_2platform_8cpp_a6b8f3e7b87b66fa774a07ddc67f883a7}{PLAT\_ntohs}(sequenceId);
+118 
+119     \hyperlink{gptp__log_8hpp_add03384a2a8099b27e07d041cce77e6f}{GPTP\_LOG\_VERBOSE}(\textcolor{stringliteral}{"Captured Sequence Id: %u"}, sequenceId);
+120     messageId.\hyperlink{class_p_t_p_message_id_a48ce86c4dfba93d4cf533b53f6c8ee86}{setMessageType}(messageType);
+121     messageId.\hyperlink{class_p_t_p_message_id_a1a24ddc853c27de51012c1904f4181fe}{setSequenceId}(sequenceId);
+122 
+123 
+124     \textcolor{keywordflow}{if} (!(messageType >> 3)) \{
+125         \textcolor{keywordtype}{int} iter = 5;
+126         \textcolor{keywordtype}{long} req = 4000;    \textcolor{comment}{// = 1 ms}
+127 
+128         eport = dynamic\_cast <\hyperlink{class_ether_port}{EtherPort} *> ( \hyperlink{gst__avb__playbin_8c_a63c89c04d1feae07ca35558055155ffb}{port} );
+129         \textcolor{keywordflow}{if} (eport == \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL})
+130         \{
+131             \hyperlink{gptp__log_8hpp_afefbb1009717c128012bfeed94842987}{GPTP\_LOG\_ERROR}
+132                 ( \textcolor{stringliteral}{"Received Event Message, but port type "}
+133                   \textcolor{stringliteral}{"doesn't support timestamping\(\backslash\)n"} );
+134             \textcolor{keywordflow}{goto} abort;
+135         \}
+136 
+137         \textcolor{keywordtype}{int} ts\_good =
+138             eport->\hyperlink{class_ether_port_a27ce3ecc12474bcac4e8a59cda91a953}{getRxTimestamp}
+139             (sourcePortIdentity, messageId, timestamp, counter\_value, \textcolor{keyword}{false});
+140         \textcolor{keywordflow}{while} (ts\_good != \hyperlink{ieee1588_8hpp_a57ed3a54df25c6db88b00f685f517920}{GPTP\_EC\_SUCCESS} && iter-- != 0) \{
+141             \textcolor{comment}{// Waits at least 1 time slice regardless of size of 'req'}
+142             timer->\hyperlink{class_o_s_timer_a1f92d99fa856da853c92acd11302b9cb}{sleep}(req);
+143             \textcolor{keywordflow}{if} (ts\_good != \hyperlink{ieee1588_8hpp_aee74e806e4f7deb78c6adee61f5dac87}{GPTP\_EC\_EAGAIN})
+144                 \hyperlink{gptp__log_8hpp_afefbb1009717c128012bfeed94842987}{GPTP\_LOG\_ERROR}(
+145                     \textcolor{stringliteral}{"Error (RX) timestamping RX event packet (Retrying), error=%d"},
+146                       ts\_good );
+147             ts\_good =
+148                 eport->\hyperlink{class_ether_port_a27ce3ecc12474bcac4e8a59cda91a953}{getRxTimestamp}(sourcePortIdentity, messageId,
+149                          timestamp, counter\_value,
+150                          iter == 0);
+151             req *= 2;
+152         \}
+153         \textcolor{keywordflow}{if} (ts\_good != \hyperlink{ieee1588_8hpp_a57ed3a54df25c6db88b00f685f517920}{GPTP\_EC\_SUCCESS}) \{
+154             \textcolor{keywordtype}{char} err\_msg[\hyperlink{common__tstamper_8hpp_a825b17484d3389f1b80f383a6ea4ee56}{HWTIMESTAMPER\_EXTENDED\_MESSAGE\_SIZE}];
+155             port->\hyperlink{class_common_port_a8bcdf3d304abf916ea33264ef3e5af39}{getExtendedError}(err\_msg);
+156             \hyperlink{gptp__log_8hpp_afefbb1009717c128012bfeed94842987}{GPTP\_LOG\_ERROR}
+157                 (\textcolor{stringliteral}{"*** Received an event packet but cannot retrieve timestamp, discarding.
+       messageType=%u,error=%d\(\backslash\)n%s"},
+158                  messageType, ts\_good, msg);
+159             \textcolor{comment}{//\_exit(-1);}
+160             \textcolor{keywordflow}{goto} abort;
+161         \}
+162 
+163         \textcolor{keywordflow}{else} \{
+164             \hyperlink{gptp__log_8hpp_add03384a2a8099b27e07d041cce77e6f}{GPTP\_LOG\_VERBOSE}(\textcolor{stringliteral}{"Timestamping event packet"});
+165         \}
+166 
+167     \}
+168 
+169     \textcolor{keywordflow}{if} (1 != transportSpecific) \{
+170         \hyperlink{gptp__log_8hpp_a5c9d2f25d8d69eb2e585b35c72896357}{GPTP\_LOG\_EXCEPTION}(\textcolor{stringliteral}{"*** Received message with unsupported transportSpecific
+       type=%d"}, transportSpecific);
+171         \textcolor{keywordflow}{goto} abort;
+172     \}
+173  
+174     \textcolor{keywordflow}{switch} (messageType) \{
+175     \textcolor{keywordflow}{case} \hyperlink{avbts__message_8hpp_ac6606ebe91c8ac66a2c314c79f5ab013abcf409793602aceef94c1a1f1992791d}{SYNC\_MESSAGE}:
+176 
+177         \hyperlink{gptp__log_8hpp_ae4c6efe7c9cf6d7d3bbd28a0fd087d61}{GPTP\_LOG\_DEBUG}(\textcolor{stringliteral}{"*** Received Sync message"} );
+178         \hyperlink{gptp__log_8hpp_add03384a2a8099b27e07d041cce77e6f}{GPTP\_LOG\_VERBOSE}(\textcolor{stringliteral}{"Sync RX timestamp = %hu,%u,%u"}, timestamp.seconds\_ms, timestamp.
+      seconds\_ls, timestamp.nanoseconds );
+179 
+180         \textcolor{comment}{// Be sure buffer is the correction size}
+181         \textcolor{keywordflow}{if} (size < \hyperlink{avbts__message_8hpp_a8ec4d965b7b1e83844f1c17f12e9b8e4}{PTP\_COMMON\_HDR\_LENGTH} + \hyperlink{avbts__message_8hpp_abc05850b50cf6dd916977904496f83fb}{PTP\_SYNC\_LENGTH}) \{
+182             \textcolor{keywordflow}{goto} abort;
+183         \}
+184         \{
+185             \hyperlink{class_p_t_p_message_sync}{PTPMessageSync} *sync\_msg = \textcolor{keyword}{new} \hyperlink{class_p_t_p_message_sync}{PTPMessageSync}();
+186             sync\_msg->\hyperlink{class_p_t_p_message_common_adb32627aa5b0e2dbad3ccd88aab07c05}{messageType} = messageType;
+187             \textcolor{comment}{// Copy in v2 sync specific fields}
+188             memcpy(&(sync\_msg->\hyperlink{class_p_t_p_message_sync_a57a4bfcce938833de582c2ed5138aa3b}{originTimestamp}.\hyperlink{class_timestamp_a5d98378d782519e6f9c17db70f1620f0}{seconds\_ms}),
+189                    buf + \hyperlink{avbts__message_8hpp_ab4368be583f1d1f36862ad5ba43a8d66}{PTP\_SYNC\_SEC\_MS}(\hyperlink{avbts__message_8hpp_a6306aedd2fe6dbaf36910d15e9dadbfd}{PTP\_SYNC\_OFFSET}),
+190                    \textcolor{keyword}{sizeof}(sync\_msg->\hyperlink{class_p_t_p_message_sync_a57a4bfcce938833de582c2ed5138aa3b}{originTimestamp}.\hyperlink{class_timestamp_a5d98378d782519e6f9c17db70f1620f0}{seconds\_ms}));
+191             memcpy(&(sync\_msg->\hyperlink{class_p_t_p_message_sync_a57a4bfcce938833de582c2ed5138aa3b}{originTimestamp}.\hyperlink{class_timestamp_a2bf200e58cd268d8b86cf93c51500a44}{seconds\_ls}),
+192                    buf + \hyperlink{avbts__message_8hpp_a81fc69086c8c0eb7d87926abb4b6434f}{PTP\_SYNC\_SEC\_LS}(\hyperlink{avbts__message_8hpp_a6306aedd2fe6dbaf36910d15e9dadbfd}{PTP\_SYNC\_OFFSET}),
+193                    \textcolor{keyword}{sizeof}(sync\_msg->\hyperlink{class_p_t_p_message_sync_a57a4bfcce938833de582c2ed5138aa3b}{originTimestamp}.\hyperlink{class_timestamp_a2bf200e58cd268d8b86cf93c51500a44}{seconds\_ls}));
+194             memcpy(&(sync\_msg->\hyperlink{class_p_t_p_message_sync_a57a4bfcce938833de582c2ed5138aa3b}{originTimestamp}.\hyperlink{class_timestamp_a78ae11d98fcfe738239d0a853d82c84a}{nanoseconds}),
+195                    buf + \hyperlink{avbts__message_8hpp_af15f1cc9fd51ec5b1b4bd604f70292d0}{PTP\_SYNC\_NSEC}(\hyperlink{avbts__message_8hpp_a6306aedd2fe6dbaf36910d15e9dadbfd}{PTP\_SYNC\_OFFSET}),
+196                    \textcolor{keyword}{sizeof}(sync\_msg->\hyperlink{class_p_t_p_message_sync_a57a4bfcce938833de582c2ed5138aa3b}{originTimestamp}.\hyperlink{class_timestamp_a78ae11d98fcfe738239d0a853d82c84a}{nanoseconds}));
+197             msg = sync\_msg;
+198         \}
+199         \textcolor{keywordflow}{break};
+200     \textcolor{keywordflow}{case} \hyperlink{avbts__message_8hpp_ac6606ebe91c8ac66a2c314c79f5ab013a9a003449758340b855b445c50b6c3b0d}{FOLLOWUP\_MESSAGE}:
+201 
+202         \hyperlink{gptp__log_8hpp_ae4c6efe7c9cf6d7d3bbd28a0fd087d61}{GPTP\_LOG\_DEBUG}(\textcolor{stringliteral}{"*** Received Follow Up message"});
+203 
+204         \textcolor{comment}{// Be sure buffer is the correction size}
+205         \textcolor{keywordflow}{if} (size < (\textcolor{keywordtype}{int})(\hyperlink{avbts__message_8hpp_a8ec4d965b7b1e83844f1c17f12e9b8e4}{PTP\_COMMON\_HDR\_LENGTH} + 
+      \hyperlink{avbts__message_8hpp_a7db8f880133691145b633e681fea9d27}{PTP\_FOLLOWUP\_LENGTH} + \textcolor{keyword}{sizeof}(\hyperlink{class_follow_up_t_l_v}{FollowUpTLV}))) \{
+206             \textcolor{keywordflow}{goto} abort;
+207         \}
+208         \{
+209             \hyperlink{class_p_t_p_message_follow_up}{PTPMessageFollowUp} *followup\_msg =
+210                 \textcolor{keyword}{new} \hyperlink{class_p_t_p_message_follow_up}{PTPMessageFollowUp}();
+211             followup\_msg->\hyperlink{class_p_t_p_message_common_adb32627aa5b0e2dbad3ccd88aab07c05}{messageType} = messageType;
+212             \textcolor{comment}{// Copy in v2 sync specific fields}
+213             memcpy(&
+214                    (followup\_msg->
+215                 preciseOriginTimestamp.seconds\_ms),
+216                    buf + \hyperlink{avbts__message_8hpp_a8bc5c60f52c4f491a6e86c43ec5ddc66}{PTP\_FOLLOWUP\_SEC\_MS}(
+      \hyperlink{avbts__message_8hpp_af54dd338e8c2b906b028746fbecdb74d}{PTP\_FOLLOWUP\_OFFSET}),
+217                    \textcolor{keyword}{sizeof}(followup\_msg->
+218                       preciseOriginTimestamp.seconds\_ms));
+219             memcpy(&
+220                    (followup\_msg->
+221                 preciseOriginTimestamp.seconds\_ls),
+222                    buf + \hyperlink{avbts__message_8hpp_a470982eacf33272b811d30ffc5643355}{PTP\_FOLLOWUP\_SEC\_LS}(
+      \hyperlink{avbts__message_8hpp_af54dd338e8c2b906b028746fbecdb74d}{PTP\_FOLLOWUP\_OFFSET}),
+223                    \textcolor{keyword}{sizeof}(followup\_msg->
+224                       preciseOriginTimestamp.seconds\_ls));
+225             memcpy(&
+226                    (followup\_msg->
+227                 preciseOriginTimestamp.nanoseconds),
+228                    buf + \hyperlink{avbts__message_8hpp_a0cc3e393e41f74bf9befbca3c62cbcdb}{PTP\_FOLLOWUP\_NSEC}(\hyperlink{avbts__message_8hpp_af54dd338e8c2b906b028746fbecdb74d}{PTP\_FOLLOWUP\_OFFSET}),
+229                    \textcolor{keyword}{sizeof}(followup\_msg->
+230                       preciseOriginTimestamp.nanoseconds));
+231 
+232             followup\_msg->\hyperlink{class_p_t_p_message_follow_up_ab410646215c0bcbaf124d5923f22e2ca}{preciseOriginTimestamp}.
+      \hyperlink{class_timestamp_a5d98378d782519e6f9c17db70f1620f0}{seconds\_ms} =
+233                 \hyperlink{linux_2src_2platform_8cpp_a6b8f3e7b87b66fa774a07ddc67f883a7}{PLAT\_ntohs}(followup\_msg->
+234                        preciseOriginTimestamp.seconds\_ms);
+235             followup\_msg->\hyperlink{class_p_t_p_message_follow_up_ab410646215c0bcbaf124d5923f22e2ca}{preciseOriginTimestamp}.
+      \hyperlink{class_timestamp_a2bf200e58cd268d8b86cf93c51500a44}{seconds\_ls} =
+236                 \hyperlink{linux_2src_2platform_8cpp_ad335681c3444e0406899693a6f782173}{PLAT\_ntohl}(followup\_msg->
+237                        preciseOriginTimestamp.seconds\_ls);
+238             followup\_msg->\hyperlink{class_p_t_p_message_follow_up_ab410646215c0bcbaf124d5923f22e2ca}{preciseOriginTimestamp}.
+      \hyperlink{class_timestamp_a78ae11d98fcfe738239d0a853d82c84a}{nanoseconds} =
+239                 \hyperlink{linux_2src_2platform_8cpp_ad335681c3444e0406899693a6f782173}{PLAT\_ntohl}(followup\_msg->
+240                        preciseOriginTimestamp.nanoseconds);
+241 
+242             memcpy( &(followup\_msg->\hyperlink{class_p_t_p_message_follow_up_adb3aa00a5c7072f30af7374ea54c158c}{tlv}),
+243                 buf+\hyperlink{avbts__message_8hpp_af54dd338e8c2b906b028746fbecdb74d}{PTP\_FOLLOWUP\_OFFSET}+\hyperlink{avbts__message_8hpp_a7db8f880133691145b633e681fea9d27}{PTP\_FOLLOWUP\_LENGTH},
+244                 \textcolor{keyword}{sizeof}(followup\_msg->\hyperlink{class_p_t_p_message_follow_up_adb3aa00a5c7072f30af7374ea54c158c}{tlv}) );
+245 
+246             msg = followup\_msg;
+247         \}
+248 
+249         \textcolor{keywordflow}{break};
+250     \textcolor{keywordflow}{case} \hyperlink{avbts__message_8hpp_ac6606ebe91c8ac66a2c314c79f5ab013ac4aa576969ecdd82afe82721e94ba36f}{PATH\_DELAY\_REQ\_MESSAGE}:
+251 
+252         \hyperlink{gptp__log_8hpp_ae4c6efe7c9cf6d7d3bbd28a0fd087d61}{GPTP\_LOG\_DEBUG}(\textcolor{stringliteral}{"*** Received PDelay Request message"});
+253 
+254         \textcolor{comment}{// Be sure buffer is the correction size}
+255         \textcolor{keywordflow}{if} (size < \hyperlink{avbts__message_8hpp_a8ec4d965b7b1e83844f1c17f12e9b8e4}{PTP\_COMMON\_HDR\_LENGTH} + 
+      \hyperlink{avbts__message_8hpp_a7116d339377bcb1fbb2f4276aa9b3f70}{PTP\_PDELAY\_REQ\_LENGTH}
+256             && \textcolor{comment}{/* For Broadcom compatibility */} size != 46) \{
+257             \textcolor{keywordflow}{goto} abort;
+258         \}
+259         \{
+260             \hyperlink{class_p_t_p_message_path_delay_req}{PTPMessagePathDelayReq} *pdelay\_req\_msg =
+261                 \textcolor{keyword}{new} \hyperlink{class_p_t_p_message_path_delay_req}{PTPMessagePathDelayReq}();
+262             pdelay\_req\_msg->\hyperlink{class_p_t_p_message_common_adb32627aa5b0e2dbad3ccd88aab07c05}{messageType} = messageType;
+263 
+264 \textcolor{preprocessor}{#if 0}
+265             \textcolor{comment}{/*TODO: Do we need the code below? Can we remove it?*/}
+266             \textcolor{comment}{// The origin timestamp for PDelay Request packets has been eliminated since it is unused}
+267             \textcolor{comment}{// Copy in v2 PDelay Request specific fields}
+268             memcpy(&(pdelay\_req\_msg->\hyperlink{class_p_t_p_message_path_delay_req_a57a4bfcce938833de582c2ed5138aa3b}{originTimestamp}.\hyperlink{class_timestamp_a5d98378d782519e6f9c17db70f1620f0}{seconds\_ms}),
+269                    buf +
+270                    \hyperlink{avbts__message_8hpp_a6bca65c57b0e9a4c479d03f73fd91c02}{PTP\_PDELAY\_REQ\_SEC\_MS}(
+      \hyperlink{avbts__message_8hpp_a11afdce162945d7ec2f0083eecbd53bd}{PTP\_PDELAY\_REQ\_OFFSET}),
+271                    \textcolor{keyword}{sizeof}(pdelay\_req\_msg->
+272                       originTimestamp.seconds\_ms));
+273             memcpy(&(pdelay\_req\_msg->\hyperlink{class_p_t_p_message_path_delay_req_a57a4bfcce938833de582c2ed5138aa3b}{originTimestamp}.\hyperlink{class_timestamp_a2bf200e58cd268d8b86cf93c51500a44}{seconds\_ls}),
+274                    buf +
+275                    \hyperlink{avbts__message_8hpp_abc2070b7298e07fa08e983ea488237e4}{PTP\_PDELAY\_REQ\_SEC\_LS}(
+      \hyperlink{avbts__message_8hpp_a11afdce162945d7ec2f0083eecbd53bd}{PTP\_PDELAY\_REQ\_OFFSET}),
+276                    \textcolor{keyword}{sizeof}(pdelay\_req\_msg->
+277                       originTimestamp.seconds\_ls));
+278             memcpy(&(pdelay\_req\_msg->\hyperlink{class_p_t_p_message_path_delay_req_a57a4bfcce938833de582c2ed5138aa3b}{originTimestamp}.\hyperlink{class_timestamp_a78ae11d98fcfe738239d0a853d82c84a}{nanoseconds}),
+279                    buf + \hyperlink{avbts__message_8hpp_ae113dfd103ed7c7eeea9adecb0a40633}{PTP\_PDELAY\_REQ\_NSEC}(
+      \hyperlink{avbts__message_8hpp_a11afdce162945d7ec2f0083eecbd53bd}{PTP\_PDELAY\_REQ\_OFFSET}),
+280                    \textcolor{keyword}{sizeof}(pdelay\_req\_msg->
+281                       originTimestamp.nanoseconds));
+282 
+283             pdelay\_req\_msg->\hyperlink{class_p_t_p_message_path_delay_req_a57a4bfcce938833de582c2ed5138aa3b}{originTimestamp}.\hyperlink{class_timestamp_a5d98378d782519e6f9c17db70f1620f0}{seconds\_ms} =
+284                 \hyperlink{linux_2src_2platform_8cpp_a6b8f3e7b87b66fa774a07ddc67f883a7}{PLAT\_ntohs}(pdelay\_req\_msg->
+285                        originTimestamp.seconds\_ms);
+286             pdelay\_req\_msg->\hyperlink{class_p_t_p_message_path_delay_req_a57a4bfcce938833de582c2ed5138aa3b}{originTimestamp}.\hyperlink{class_timestamp_a2bf200e58cd268d8b86cf93c51500a44}{seconds\_ls} =
+287                 \hyperlink{linux_2src_2platform_8cpp_ad335681c3444e0406899693a6f782173}{PLAT\_ntohl}(pdelay\_req\_msg->
+288                        originTimestamp.seconds\_ls);
+289             pdelay\_req\_msg->\hyperlink{class_p_t_p_message_path_delay_req_a57a4bfcce938833de582c2ed5138aa3b}{originTimestamp}.\hyperlink{class_timestamp_a78ae11d98fcfe738239d0a853d82c84a}{nanoseconds} =
+290                 \hyperlink{linux_2src_2platform_8cpp_ad335681c3444e0406899693a6f782173}{PLAT\_ntohl}(pdelay\_req\_msg->
+291                        originTimestamp.nanoseconds);
+292 \textcolor{preprocessor}{#endif}
+293 
+294             msg = pdelay\_req\_msg;
+295         \}
+296         \textcolor{keywordflow}{break};
+297     \textcolor{keywordflow}{case} \hyperlink{avbts__message_8hpp_ac6606ebe91c8ac66a2c314c79f5ab013a34726fb5c993d42c4928bfb41941f22c}{PATH\_DELAY\_RESP\_MESSAGE}:
+298 
+299         \hyperlink{gptp__log_8hpp_ae4c6efe7c9cf6d7d3bbd28a0fd087d61}{GPTP\_LOG\_DEBUG}(\textcolor{stringliteral}{"*** Received PDelay Response message, Timestamp %u (sec) %u (ns),
+       seqID %u"},
+300                timestamp.seconds\_ls, timestamp.nanoseconds,
+301                sequenceId);
+302 
+303         \textcolor{comment}{// Be sure buffer is the correction size}
+304         \textcolor{keywordflow}{if} (size < \hyperlink{avbts__message_8hpp_a8ec4d965b7b1e83844f1c17f12e9b8e4}{PTP\_COMMON\_HDR\_LENGTH} + 
+      \hyperlink{avbts__message_8hpp_ac0ec5cb983cc66ad538676830d3fb8a4}{PTP\_PDELAY\_RESP\_LENGTH}) \{
+305             \textcolor{keywordflow}{goto} abort;
+306         \}
+307         \{
+308             \hyperlink{class_p_t_p_message_path_delay_resp}{PTPMessagePathDelayResp} *pdelay\_resp\_msg =
+309                 \textcolor{keyword}{new} \hyperlink{class_p_t_p_message_path_delay_resp}{PTPMessagePathDelayResp}();
+310             pdelay\_resp\_msg->\hyperlink{class_p_t_p_message_common_adb32627aa5b0e2dbad3ccd88aab07c05}{messageType} = messageType;
+311             \textcolor{comment}{// Copy in v2 PDelay Response specific fields}
+312             pdelay\_resp\_msg->\hyperlink{class_p_t_p_message_path_delay_resp_a27e69c7fb521ebffca13229a7c4658ce}{requestingPortIdentity} =
+313                 \textcolor{keyword}{new} \hyperlink{class_port_identity}{PortIdentity}((\hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} *) buf +
+314                          \hyperlink{avbts__message_8hpp_a9c01e5eff56f505aca3f6f3deb6c34f1}{PTP\_PDELAY\_RESP\_REQ\_CLOCK\_ID}
+315                          (\hyperlink{avbts__message_8hpp_a7c20f0e32d4408c124fa9e115ab32cf3}{PTP\_PDELAY\_RESP\_OFFSET}),
+316                          (uint16\_t *) (buf +
+317                                \hyperlink{avbts__message_8hpp_a1c5ac861894d1195aa57f60ef085798d}{PTP\_PDELAY\_RESP\_REQ\_PORT\_ID}
+318                                (\hyperlink{avbts__message_8hpp_a7c20f0e32d4408c124fa9e115ab32cf3}{PTP\_PDELAY\_RESP\_OFFSET})));
+319 
+320 \textcolor{preprocessor}{#ifdef DEBUG}
+321             \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} n = 0; n < \hyperlink{ptptypes_8hpp_afd1566058ed7927c2b790c9d4a0051ec}{PTP\_CLOCK\_IDENTITY\_LENGTH}; ++n) \{  \textcolor{comment}{// MMM}
+322                 \hyperlink{gptp__log_8hpp_add03384a2a8099b27e07d041cce77e6f}{GPTP\_LOG\_VERBOSE}(\textcolor{stringliteral}{"%c"},
+323                     pdelay\_resp\_msg->
+324                     requestingPortIdentity.clockIdentity
+325                     [n]);
+326             \}
+327 \textcolor{preprocessor}{#endif}
+328 
+329             memcpy(& (pdelay\_resp\_msg->\hyperlink{class_p_t_p_message_path_delay_resp_a981c3fe148ecddf9f1091675650ccd48}{requestReceiptTimestamp}.
+      \hyperlink{class_timestamp_a5d98378d782519e6f9c17db70f1620f0}{seconds\_ms}),
+330                    buf + \hyperlink{avbts__message_8hpp_a5afc93370bc70d23f95f2acbe53749d8}{PTP\_PDELAY\_RESP\_SEC\_MS}(
+      \hyperlink{avbts__message_8hpp_a7c20f0e32d4408c124fa9e115ab32cf3}{PTP\_PDELAY\_RESP\_OFFSET}),
+331                    \textcolor{keyword}{sizeof}
+332                    (pdelay\_resp\_msg->\hyperlink{class_p_t_p_message_path_delay_resp_a981c3fe148ecddf9f1091675650ccd48}{requestReceiptTimestamp}.
+      \hyperlink{class_timestamp_a5d98378d782519e6f9c17db70f1620f0}{seconds\_ms}));
+333             memcpy(&
+334                    (pdelay\_resp\_msg->
+335                 requestReceiptTimestamp.seconds\_ls),
+336                    buf +
+337                    \hyperlink{avbts__message_8hpp_a8a6d2e369c19399ba34d40de83e3d318}{PTP\_PDELAY\_RESP\_SEC\_LS}(
+      \hyperlink{avbts__message_8hpp_a7c20f0e32d4408c124fa9e115ab32cf3}{PTP\_PDELAY\_RESP\_OFFSET}),
+338                    \textcolor{keyword}{sizeof}(pdelay\_resp\_msg->
+339                       requestReceiptTimestamp.seconds\_ls));
+340             memcpy(&
+341                    (pdelay\_resp\_msg->
+342                 requestReceiptTimestamp.nanoseconds),
+343                    buf +
+344                    \hyperlink{avbts__message_8hpp_aa670bfeed173fa1a7937337fb6210f69}{PTP\_PDELAY\_RESP\_NSEC}(
+      \hyperlink{avbts__message_8hpp_a7c20f0e32d4408c124fa9e115ab32cf3}{PTP\_PDELAY\_RESP\_OFFSET}),
+345                    \textcolor{keyword}{sizeof}(pdelay\_resp\_msg->
+346                       requestReceiptTimestamp.nanoseconds));
+347 
+348             pdelay\_resp\_msg->\hyperlink{class_p_t_p_message_path_delay_resp_a981c3fe148ecddf9f1091675650ccd48}{requestReceiptTimestamp}.
+      \hyperlink{class_timestamp_a5d98378d782519e6f9c17db70f1620f0}{seconds\_ms} =
+349                 \hyperlink{linux_2src_2platform_8cpp_a6b8f3e7b87b66fa774a07ddc67f883a7}{PLAT\_ntohs}(pdelay\_resp\_msg->\hyperlink{class_p_t_p_message_path_delay_resp_a981c3fe148ecddf9f1091675650ccd48}{requestReceiptTimestamp}.
+      \hyperlink{class_timestamp_a5d98378d782519e6f9c17db70f1620f0}{seconds\_ms});
+350             pdelay\_resp\_msg->\hyperlink{class_p_t_p_message_path_delay_resp_a981c3fe148ecddf9f1091675650ccd48}{requestReceiptTimestamp}.
+      \hyperlink{class_timestamp_a2bf200e58cd268d8b86cf93c51500a44}{seconds\_ls} =
+351                 \hyperlink{linux_2src_2platform_8cpp_ad335681c3444e0406899693a6f782173}{PLAT\_ntohl}(pdelay\_resp\_msg->\hyperlink{class_p_t_p_message_path_delay_resp_a981c3fe148ecddf9f1091675650ccd48}{requestReceiptTimestamp}.
+      \hyperlink{class_timestamp_a2bf200e58cd268d8b86cf93c51500a44}{seconds\_ls});
+352             pdelay\_resp\_msg->\hyperlink{class_p_t_p_message_path_delay_resp_a981c3fe148ecddf9f1091675650ccd48}{requestReceiptTimestamp}.
+      \hyperlink{class_timestamp_a78ae11d98fcfe738239d0a853d82c84a}{nanoseconds} =
+353                 \hyperlink{linux_2src_2platform_8cpp_ad335681c3444e0406899693a6f782173}{PLAT\_ntohl}(pdelay\_resp\_msg->\hyperlink{class_p_t_p_message_path_delay_resp_a981c3fe148ecddf9f1091675650ccd48}{requestReceiptTimestamp}.
+      \hyperlink{class_timestamp_a78ae11d98fcfe738239d0a853d82c84a}{nanoseconds});
+354 
+355             msg = pdelay\_resp\_msg;
+356         \}
+357         \textcolor{keywordflow}{break};
+358     \textcolor{keywordflow}{case} \hyperlink{avbts__message_8hpp_ac6606ebe91c8ac66a2c314c79f5ab013adda4323fc121fba997bb5aa704a9dde8}{PATH\_DELAY\_FOLLOWUP\_MESSAGE}:
+359 
+360         \hyperlink{gptp__log_8hpp_ae4c6efe7c9cf6d7d3bbd28a0fd087d61}{GPTP\_LOG\_DEBUG}(\textcolor{stringliteral}{"*** Received PDelay Response FollowUp message"});
+361 
+362         \textcolor{comment}{// Be sure buffer is the correction size}
+363 \textcolor{comment}{//     if( size < PTP\_COMMON\_HDR\_LENGTH + PTP\_PDELAY\_FOLLOWUP\_LENGTH ) \{}
+364 \textcolor{comment}{//       goto abort;}
+365 \textcolor{comment}{//     \}}
+366         \{
+367             \hyperlink{class_p_t_p_message_path_delay_resp_follow_up}{PTPMessagePathDelayRespFollowUp} *pdelay\_resp\_fwup\_msg =
+368                 \textcolor{keyword}{new} \hyperlink{class_p_t_p_message_path_delay_resp_follow_up}{PTPMessagePathDelayRespFollowUp}();
+369             pdelay\_resp\_fwup\_msg->\hyperlink{class_p_t_p_message_common_adb32627aa5b0e2dbad3ccd88aab07c05}{messageType} = messageType;
+370             \textcolor{comment}{// Copy in v2 PDelay Response specific fields}
+371             pdelay\_resp\_fwup\_msg->\hyperlink{class_p_t_p_message_path_delay_resp_follow_up_a27e69c7fb521ebffca13229a7c4658ce}{requestingPortIdentity} =
+372                 \textcolor{keyword}{new} \hyperlink{class_port_identity}{PortIdentity}((\hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} *) buf +
+373                          \hyperlink{avbts__message_8hpp_a888c4d23c6d7221b962cdb21af1c9919}{PTP\_PDELAY\_FOLLOWUP\_REQ\_CLOCK\_ID}
+374                          (\hyperlink{avbts__message_8hpp_a7c20f0e32d4408c124fa9e115ab32cf3}{PTP\_PDELAY\_RESP\_OFFSET}),
+375                          (uint16\_t *) (buf +
+376                                \hyperlink{avbts__message_8hpp_a255d563aa29bae40a58b1855d33155fc}{PTP\_PDELAY\_FOLLOWUP\_REQ\_PORT\_ID}
+377                                (\hyperlink{avbts__message_8hpp_af0f41aa83b1011ea5b8c42abddd8cd50}{PTP\_PDELAY\_FOLLOWUP\_OFFSET})));
+378 
+379             memcpy(&
+380                    (pdelay\_resp\_fwup\_msg->
+381                 responseOriginTimestamp.seconds\_ms),
+382                    buf +
+383                    \hyperlink{avbts__message_8hpp_a64120f45af2cdc57df2a73e8867ec2dd}{PTP\_PDELAY\_FOLLOWUP\_SEC\_MS}
+384                    (\hyperlink{avbts__message_8hpp_af0f41aa83b1011ea5b8c42abddd8cd50}{PTP\_PDELAY\_FOLLOWUP\_OFFSET}),
+385                    \textcolor{keyword}{sizeof}
+386                    (pdelay\_resp\_fwup\_msg->\hyperlink{class_p_t_p_message_path_delay_resp_follow_up_ace95ddb3f03eb3b4fcf8f73281dc0ee3}{responseOriginTimestamp}.
+387                 seconds\_ms));
+388             memcpy(&
+389                    (pdelay\_resp\_fwup\_msg->
+390                 responseOriginTimestamp.seconds\_ls),
+391                    buf +
+392                    \hyperlink{avbts__message_8hpp_a9a1f675eb7706c235c9d3bb050683da2}{PTP\_PDELAY\_FOLLOWUP\_SEC\_LS}
+393                    (\hyperlink{avbts__message_8hpp_af0f41aa83b1011ea5b8c42abddd8cd50}{PTP\_PDELAY\_FOLLOWUP\_OFFSET}),
+394                    \textcolor{keyword}{sizeof}
+395                    (pdelay\_resp\_fwup\_msg->\hyperlink{class_p_t_p_message_path_delay_resp_follow_up_ace95ddb3f03eb3b4fcf8f73281dc0ee3}{responseOriginTimestamp}.
+396                 seconds\_ls));
+397             memcpy(&
+398                    (pdelay\_resp\_fwup\_msg->
+399                 responseOriginTimestamp.nanoseconds),
+400                    buf +
+401                    \hyperlink{avbts__message_8hpp_a405e85b9d79337d889c22e4b7959aa84}{PTP\_PDELAY\_FOLLOWUP\_NSEC}
+402                    (\hyperlink{avbts__message_8hpp_af0f41aa83b1011ea5b8c42abddd8cd50}{PTP\_PDELAY\_FOLLOWUP\_OFFSET}),
+403                    \textcolor{keyword}{sizeof}
+404                    (pdelay\_resp\_fwup\_msg->\hyperlink{class_p_t_p_message_path_delay_resp_follow_up_ace95ddb3f03eb3b4fcf8f73281dc0ee3}{responseOriginTimestamp}.
+405                 nanoseconds));
+406 
+407             pdelay\_resp\_fwup\_msg->
+408                 responseOriginTimestamp.seconds\_ms =
+409                 \hyperlink{linux_2src_2platform_8cpp_a6b8f3e7b87b66fa774a07ddc67f883a7}{PLAT\_ntohs}
+410                 (pdelay\_resp\_fwup\_msg->\hyperlink{class_p_t_p_message_path_delay_resp_follow_up_ace95ddb3f03eb3b4fcf8f73281dc0ee3}{responseOriginTimestamp}.
+411                  seconds\_ms);
+412             pdelay\_resp\_fwup\_msg->
+413                 responseOriginTimestamp.seconds\_ls =
+414                 \hyperlink{linux_2src_2platform_8cpp_ad335681c3444e0406899693a6f782173}{PLAT\_ntohl}
+415                 (pdelay\_resp\_fwup\_msg->\hyperlink{class_p_t_p_message_path_delay_resp_follow_up_ace95ddb3f03eb3b4fcf8f73281dc0ee3}{responseOriginTimestamp}.
+416                  seconds\_ls);
+417             pdelay\_resp\_fwup\_msg->
+418                 responseOriginTimestamp.nanoseconds =
+419                 \hyperlink{linux_2src_2platform_8cpp_ad335681c3444e0406899693a6f782173}{PLAT\_ntohl}
+420                 (pdelay\_resp\_fwup\_msg->\hyperlink{class_p_t_p_message_path_delay_resp_follow_up_ace95ddb3f03eb3b4fcf8f73281dc0ee3}{responseOriginTimestamp}.
+421                  nanoseconds);
+422 
+423             msg = pdelay\_resp\_fwup\_msg;
+424         \}
+425         \textcolor{keywordflow}{break};
+426     \textcolor{keywordflow}{case} \hyperlink{avbts__message_8hpp_ac6606ebe91c8ac66a2c314c79f5ab013a4c8d615c4de8a7fc2ea24b5eff2811ef}{ANNOUNCE\_MESSAGE}:
+427 
+428         \hyperlink{gptp__log_8hpp_add03384a2a8099b27e07d041cce77e6f}{GPTP\_LOG\_VERBOSE}(\textcolor{stringliteral}{"*** Received Announce message"});
+429 
+430         \{
+431             \hyperlink{class_p_t_p_message_announce}{PTPMessageAnnounce} *annc = \textcolor{keyword}{new} \hyperlink{class_p_t_p_message_announce}{PTPMessageAnnounce}();
+432             annc->\hyperlink{class_p_t_p_message_common_adb32627aa5b0e2dbad3ccd88aab07c05}{messageType} = messageType;
+433             \textcolor{keywordtype}{int} tlv\_length = size - \hyperlink{avbts__message_8hpp_a8ec4d965b7b1e83844f1c17f12e9b8e4}{PTP\_COMMON\_HDR\_LENGTH} + 
+      \hyperlink{avbts__message_8hpp_ad800b5cd5359d021054af8e902100ba7}{PTP\_ANNOUNCE\_LENGTH};
+434 
+435             memcpy(&(annc->\hyperlink{class_p_t_p_message_announce_a4ee8eca04b1ccd7d8eaae5f0dd3a11fa}{currentUtcOffset}),
+436                    buf +
+437                    \hyperlink{avbts__message_8hpp_acd887e469bb001b97f8eef87a997ae59}{PTP\_ANNOUNCE\_CURRENT\_UTC\_OFFSET}
+438                    (\hyperlink{avbts__message_8hpp_aaa3da4fa4e9e4cfe49477cd7f6b95bca}{PTP\_ANNOUNCE\_OFFSET}),
+439                    \textcolor{keyword}{sizeof}(annc->\hyperlink{class_p_t_p_message_announce_a4ee8eca04b1ccd7d8eaae5f0dd3a11fa}{currentUtcOffset}));
+440             annc->\hyperlink{class_p_t_p_message_announce_a4ee8eca04b1ccd7d8eaae5f0dd3a11fa}{currentUtcOffset} =
+441                 \hyperlink{linux_2src_2platform_8cpp_a6b8f3e7b87b66fa774a07ddc67f883a7}{PLAT\_ntohs}(annc->\hyperlink{class_p_t_p_message_announce_a4ee8eca04b1ccd7d8eaae5f0dd3a11fa}{currentUtcOffset});
+442             memcpy(&(annc->\hyperlink{class_p_t_p_message_announce_a93988c82dd819cc976c32f9e006b97e3}{grandmasterPriority1}),
+443                    buf +
+444                    \hyperlink{avbts__message_8hpp_acd2f076b6ef0a6a45ac42baf1aecd300}{PTP\_ANNOUNCE\_GRANDMASTER\_PRIORITY1}
+445                    (\hyperlink{avbts__message_8hpp_aaa3da4fa4e9e4cfe49477cd7f6b95bca}{PTP\_ANNOUNCE\_OFFSET}),
+446                    \textcolor{keyword}{sizeof}(annc->\hyperlink{class_p_t_p_message_announce_a93988c82dd819cc976c32f9e006b97e3}{grandmasterPriority1}));
+447             memcpy( annc->\hyperlink{class_p_t_p_message_announce_aa67cf6cb88ed67b2850993312a7cd5f2}{grandmasterClockQuality},
+448                 buf+
+449                 \hyperlink{avbts__message_8hpp_a972816df3b21a89930e21ac6a9617408}{PTP\_ANNOUNCE\_GRANDMASTER\_CLOCK\_QUALITY}
+450                 (\hyperlink{avbts__message_8hpp_aaa3da4fa4e9e4cfe49477cd7f6b95bca}{PTP\_ANNOUNCE\_OFFSET}),
+451                 \textcolor{keyword}{sizeof}( *annc->\hyperlink{class_p_t_p_message_announce_aa67cf6cb88ed67b2850993312a7cd5f2}{grandmasterClockQuality} ));
+452             annc->
+453               grandmasterClockQuality->offsetScaledLogVariance =
+454               \hyperlink{linux_2src_2platform_8cpp_a6b8f3e7b87b66fa774a07ddc67f883a7}{PLAT\_ntohs}
+455               ( annc->\hyperlink{class_p_t_p_message_announce_aa67cf6cb88ed67b2850993312a7cd5f2}{grandmasterClockQuality}->
+456                 offsetScaledLogVariance );
+457             memcpy(&(annc->\hyperlink{class_p_t_p_message_announce_a1e9e3c7867bf9eb557e5cf6edbd7f54a}{grandmasterPriority2}),
+458                    buf +
+459                    \hyperlink{avbts__message_8hpp_ad08230d0bcb3b40a12153ace07e585f9}{PTP\_ANNOUNCE\_GRANDMASTER\_PRIORITY2}
+460                    (\hyperlink{avbts__message_8hpp_aaa3da4fa4e9e4cfe49477cd7f6b95bca}{PTP\_ANNOUNCE\_OFFSET}),
+461                    \textcolor{keyword}{sizeof}(annc->\hyperlink{class_p_t_p_message_announce_a1e9e3c7867bf9eb557e5cf6edbd7f54a}{grandmasterPriority2}));
+462             memcpy(&(annc->\hyperlink{class_p_t_p_message_announce_aac45d13272e7f5bd9b06d2bf44c012af}{grandmasterIdentity}),
+463                    buf +
+464                    \hyperlink{avbts__message_8hpp_a822a74880e223c13025df7bbfa545b63}{PTP\_ANNOUNCE\_GRANDMASTER\_IDENTITY}
+465                    (\hyperlink{avbts__message_8hpp_aaa3da4fa4e9e4cfe49477cd7f6b95bca}{PTP\_ANNOUNCE\_OFFSET}),
+466                    PTP\_CLOCK\_IDENTITY\_LENGTH);
+467             memcpy(&(annc->\hyperlink{class_p_t_p_message_announce_ab24df4cccbede4b07586878ef0d47395}{stepsRemoved}),
+468                    buf +
+469                    \hyperlink{avbts__message_8hpp_ad9e2d7ce4d1384fad376314924fa4cea}{PTP\_ANNOUNCE\_STEPS\_REMOVED}(
+      \hyperlink{avbts__message_8hpp_aaa3da4fa4e9e4cfe49477cd7f6b95bca}{PTP\_ANNOUNCE\_OFFSET}),
+470                    \textcolor{keyword}{sizeof}(annc->\hyperlink{class_p_t_p_message_announce_ab24df4cccbede4b07586878ef0d47395}{stepsRemoved}));
+471             annc->\hyperlink{class_p_t_p_message_announce_ab24df4cccbede4b07586878ef0d47395}{stepsRemoved} = \hyperlink{linux_2src_2platform_8cpp_a6b8f3e7b87b66fa774a07ddc67f883a7}{PLAT\_ntohs}(annc->
+      \hyperlink{class_p_t_p_message_announce_ab24df4cccbede4b07586878ef0d47395}{stepsRemoved});
+472             memcpy(&(annc->\hyperlink{class_p_t_p_message_announce_a56fd97f48cb931b2450032650f82ef17}{timeSource}),
+473                    buf +
+474                    \hyperlink{avbts__message_8hpp_ac69e2a9341554bbbf10612cd50b5f181}{PTP\_ANNOUNCE\_TIME\_SOURCE}(
+      \hyperlink{avbts__message_8hpp_aaa3da4fa4e9e4cfe49477cd7f6b95bca}{PTP\_ANNOUNCE\_OFFSET}),
+475                    \textcolor{keyword}{sizeof}(annc->\hyperlink{class_p_t_p_message_announce_a56fd97f48cb931b2450032650f82ef17}{timeSource}));
+476 
+477             \textcolor{comment}{// Parse TLV if it exists}
+478             buf += \hyperlink{avbts__message_8hpp_a8ec4d965b7b1e83844f1c17f12e9b8e4}{PTP\_COMMON\_HDR\_LENGTH} + 
+      \hyperlink{avbts__message_8hpp_ad800b5cd5359d021054af8e902100ba7}{PTP\_ANNOUNCE\_LENGTH};
+479             \textcolor{keywordflow}{if}( tlv\_length > (\textcolor{keywordtype}{int}) (2*\textcolor{keyword}{sizeof}(uint16\_t)) && \hyperlink{linux_2src_2platform_8cpp_a6b8f3e7b87b66fa774a07ddc67f883a7}{PLAT\_ntohs}(*((uint16\_t *)buf)) == 
+      \hyperlink{avbts__message_8hpp_a10ec0e6a0943853c9deaf56616dbebf7}{PATH\_TRACE\_TLV\_TYPE})  \{
+480                 buf += \textcolor{keyword}{sizeof}(uint16\_t);
+481                 tlv\_length -= \textcolor{keyword}{sizeof}(uint16\_t);
+482                 annc->\hyperlink{class_p_t_p_message_announce_ac7b185260086ad357ff7a9c29f468936}{tlv}.\hyperlink{class_path_trace_t_l_v_a66b71b1178893f98ba403e961e8fb6cf}{parseClockIdentity}((\hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} *)buf, tlv\_length);
+483             \}
+484 
+485             msg = annc;
+486         \}
+487         \textcolor{keywordflow}{break};
+488 
+489     \textcolor{keywordflow}{case} \hyperlink{avbts__message_8hpp_ac6606ebe91c8ac66a2c314c79f5ab013a126e822073ff23ccb061021926a152a3}{SIGNALLING\_MESSAGE}:
+490         \{
+491             \hyperlink{class_p_t_p_message_signalling}{PTPMessageSignalling} *signallingMsg = \textcolor{keyword}{new} 
+      \hyperlink{class_p_t_p_message_signalling}{PTPMessageSignalling}();
+492             signallingMsg->\hyperlink{class_p_t_p_message_common_adb32627aa5b0e2dbad3ccd88aab07c05}{messageType} = messageType;
+493 
+494             memcpy(&(signallingMsg->\hyperlink{class_p_t_p_message_signalling_a1d4353212906ed7366ffbf01cb56bdab}{targetPortIdentify}),
+495                    buf + \hyperlink{avbts__message_8hpp_a068292a37a4f0716f4b6ba81222fb9a5}{PTP\_SIGNALLING\_TARGET\_PORT\_IDENTITY}(
+      \hyperlink{avbts__message_8hpp_a3528ebe88df8c782038079cb1165d540}{PTP\_SIGNALLING\_OFFSET}),
+496                    \textcolor{keyword}{sizeof}(signallingMsg->\hyperlink{class_p_t_p_message_signalling_a1d4353212906ed7366ffbf01cb56bdab}{targetPortIdentify}));
+497 
+498             memcpy( &(signallingMsg->\hyperlink{class_p_t_p_message_signalling_ab458dc952682abd8077ce12fbff3d1d6}{tlv}), buf + \hyperlink{avbts__message_8hpp_a3528ebe88df8c782038079cb1165d540}{PTP\_SIGNALLING\_OFFSET} + 
+      \hyperlink{avbts__message_8hpp_ac728b0caa27d25b33564be179caa3ffd}{PTP\_SIGNALLING\_LENGTH}, \textcolor{keyword}{sizeof}(signallingMsg->\hyperlink{class_p_t_p_message_signalling_ab458dc952682abd8077ce12fbff3d1d6}{tlv}) );
+499 
+500             msg = signallingMsg;
+501         \}
+502         \textcolor{keywordflow}{break};
+503 
+504     \textcolor{keywordflow}{default}:
+505 
+506         \hyperlink{gptp__log_8hpp_a5c9d2f25d8d69eb2e585b35c72896357}{GPTP\_LOG\_EXCEPTION}(\textcolor{stringliteral}{"Received unsupported message type, %d"},
+507                     (\textcolor{keywordtype}{int})messageType);
+508         port->\hyperlink{class_common_port_ab127287dc3c8d4bed5595b456ba4b17d}{incCounter\_ieee8021AsPortStatRxPTPPacketDiscard}
+      ();
+509 
+510         \textcolor{keywordflow}{goto} abort;
+511     \}
+512 
+513     msg->\hyperlink{class_p_t_p_message_common_a1b15d1687680708819ead19f82a970a9}{\_gc} = \textcolor{keyword}{false};
+514 
+515     \textcolor{comment}{// Copy in common header fields}
+516     memcpy(&(msg->\hyperlink{class_p_t_p_message_common_aebd1e0693c6170ff1b08b2471db92a80}{versionPTP}),
+517            buf + \hyperlink{avbts__message_8hpp_a4b78a578ef002737321ef5c6def6593e}{PTP\_COMMON\_HDR\_PTP\_VERSION}(
+      \hyperlink{avbts__message_8hpp_a330dd502b6e19949d74c8f3a96dd5667}{PTP\_COMMON\_HDR\_OFFSET}),
+518            \textcolor{keyword}{sizeof}(msg->\hyperlink{class_p_t_p_message_common_aebd1e0693c6170ff1b08b2471db92a80}{versionPTP}));
+519     memcpy(&(msg->\hyperlink{class_p_t_p_message_common_a6c490faee54bca860c4d897aae50990f}{messageLength}),
+520            buf + \hyperlink{avbts__message_8hpp_a6db27d50a88956a08a99f2eb7b020247}{PTP\_COMMON\_HDR\_MSG\_LENGTH}(
+      \hyperlink{avbts__message_8hpp_a330dd502b6e19949d74c8f3a96dd5667}{PTP\_COMMON\_HDR\_OFFSET}),
+521            \textcolor{keyword}{sizeof}(msg->\hyperlink{class_p_t_p_message_common_a6c490faee54bca860c4d897aae50990f}{messageLength}));
+522     msg->\hyperlink{class_p_t_p_message_common_a6c490faee54bca860c4d897aae50990f}{messageLength} = \hyperlink{linux_2src_2platform_8cpp_a6b8f3e7b87b66fa774a07ddc67f883a7}{PLAT\_ntohs}(msg->\hyperlink{class_p_t_p_message_common_a6c490faee54bca860c4d897aae50990f}{messageLength});
+523     memcpy(&(msg->\hyperlink{class_p_t_p_message_common_a0443527ff087aecea2cac4f6e84d189c}{domainNumber}),
+524            buf + \hyperlink{avbts__message_8hpp_aeba19234aadc9ec2ce3ec7b439a79c54}{PTP\_COMMON\_HDR\_DOMAIN\_NUMBER}(
+      \hyperlink{avbts__message_8hpp_a330dd502b6e19949d74c8f3a96dd5667}{PTP\_COMMON\_HDR\_OFFSET}),
+525            \textcolor{keyword}{sizeof}(msg->\hyperlink{class_p_t_p_message_common_a0443527ff087aecea2cac4f6e84d189c}{domainNumber}));
+526     memcpy(&(msg->\hyperlink{class_p_t_p_message_common_a8c2f6104634deb80d932fa0cd9166fba}{flags}), buf + \hyperlink{avbts__message_8hpp_a60148b9c4d7f51e723a3ae8dd73e7851}{PTP\_COMMON\_HDR\_FLAGS}(
+      \hyperlink{avbts__message_8hpp_a330dd502b6e19949d74c8f3a96dd5667}{PTP\_COMMON\_HDR\_OFFSET}),
+527            \hyperlink{avbts__message_8hpp_ad8b20c17c21a3024f129fc556d5382c2}{PTP\_FLAGS\_LENGTH});
+528     memcpy(&(msg->\hyperlink{class_p_t_p_message_common_a635b707dac6610b5b159be5c8ec1891e}{correctionField}),
+529            buf + \hyperlink{avbts__message_8hpp_a86a729fd44989d68c1ebe5c385839743}{PTP\_COMMON\_HDR\_CORRECTION}(
+      \hyperlink{avbts__message_8hpp_a330dd502b6e19949d74c8f3a96dd5667}{PTP\_COMMON\_HDR\_OFFSET}),
+530            \textcolor{keyword}{sizeof}(msg->\hyperlink{class_p_t_p_message_common_a635b707dac6610b5b159be5c8ec1891e}{correctionField}));
+531     msg->\hyperlink{class_p_t_p_message_common_a635b707dac6610b5b159be5c8ec1891e}{correctionField} = \hyperlink{linux_2src_2platform_8cpp_ac83360d6774b1f7aee4267184ce6e974}{PLAT\_ntohll}(msg->
+      \hyperlink{class_p_t_p_message_common_a635b707dac6610b5b159be5c8ec1891e}{correctionField});
+532     msg->\hyperlink{class_p_t_p_message_common_a415b5544bdd3ea41dae460fa1af900d9}{sourcePortIdentity} = sourcePortIdentity;
+533     msg->\hyperlink{class_p_t_p_message_common_a189710d5cff10c03f77d72a276a5f58e}{sequenceId} = sequenceId;
+534     memcpy(&(msg->\hyperlink{class_p_t_p_message_common_a7de6f8422e6ca5ade1aeac73a44ec6f0}{control}),
+535            buf + \hyperlink{avbts__message_8hpp_a57eb3ca9235cff4177a75bb7c0b8d6a2}{PTP\_COMMON\_HDR\_CONTROL}(
+      \hyperlink{avbts__message_8hpp_a330dd502b6e19949d74c8f3a96dd5667}{PTP\_COMMON\_HDR\_OFFSET}),
+536            \textcolor{keyword}{sizeof}(msg->\hyperlink{class_p_t_p_message_common_a7de6f8422e6ca5ade1aeac73a44ec6f0}{control}));
+537     memcpy(&(msg->\hyperlink{class_p_t_p_message_common_a2f897c329a52f79528d1b1248254dd1b}{logMeanMessageInterval}),
+538            buf + \hyperlink{avbts__message_8hpp_ab8a37036dd3b60f652126b933294c4f7}{PTP\_COMMON\_HDR\_LOG\_MSG\_INTRVL}(
+      \hyperlink{avbts__message_8hpp_a330dd502b6e19949d74c8f3a96dd5667}{PTP\_COMMON\_HDR\_OFFSET}),
+539            \textcolor{keyword}{sizeof}(msg->\hyperlink{class_p_t_p_message_common_a2f897c329a52f79528d1b1248254dd1b}{logMeanMessageInterval}));
+540 
+541     \textcolor{keywordflow}{if}( eport != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} )
+542         eport->\hyperlink{class_ether_port_abcd8e41ae423bd02824183b2e97b73f0}{addSockAddrMap}( msg->\hyperlink{class_p_t_p_message_common_a415b5544bdd3ea41dae460fa1af900d9}{sourcePortIdentity}, remote );
+543 
+544     msg->\hyperlink{class_p_t_p_message_common_aeafd115d5626f0602ab067a502d83d3e}{\_timestamp} = timestamp;
+545     msg->\hyperlink{class_p_t_p_message_common_a9d90ca571f84fe3633c7539e24783190}{\_timestamp\_counter\_value} = counter\_value;
+546 
+547     \textcolor{keyword}{delete} timer;
+548 
+549     \textcolor{keywordflow}{return} \hyperlink{maap__log__linux_8c_a0c7e58a50354c4a4d6dad428d0e47029}{msg};
+550 
+551 abort:
+552     \textcolor{keyword}{delete} sourcePortIdentity;
+553     \textcolor{keyword}{delete} timer;
+554 
+555     \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+556 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ptp__message_8cpp_a3f587ce328a50a9f7af19f9822579d0d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ptp__message_8cpp_a3f587ce328a50a9f7af19f9822579d0d_icgraph}
+\end{center}
+\end{figure}
+
+

@@ -1,0 +1,415 @@
+\hypertarget{openavb__grandmaster__osal_8c}{}\section{lib/avtp\+\_\+pipeline/platform/\+Linux/openavb\+\_\+grandmaster\+\_\+osal.c 파일 참조}
+\label{openavb__grandmaster__osal_8c}\index{lib/avtp\+\_\+pipeline/platform/\+Linux/openavb\+\_\+grandmaster\+\_\+osal.\+c@{lib/avtp\+\_\+pipeline/platform/\+Linux/openavb\+\_\+grandmaster\+\_\+osal.\+c}}
+{\ttfamily \#include $<$inttypes.\+h$>$}\\*
+{\ttfamily \#include $<$linux/ptp\+\_\+clock.\+h$>$}\\*
+{\ttfamily \#include $<$sys/mman.\+h$>$}\\*
+{\ttfamily \#include $<$sys/ioctl.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}avb\+\_\+gptp.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+platform.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+grandmaster\+\_\+osal.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+trace.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+pub.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+log.\+h\char`\"{}}\\*
+openavb\+\_\+grandmaster\+\_\+osal.\+c에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__grandmaster__osal_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{openavb__grandmaster__osal_8c_abcfb21b6495585fe36058f57a9fe58fc}{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}~\char`\"{}osal\+Grandmaster\char`\"{}
+\item 
+\#define \hyperlink{openavb__grandmaster__osal_8c_aefb7db7456a848e7cefe90816a5aaa88}{L\+O\+CK}()~pthread\+\_\+mutex\+\_\+lock(\&\hyperlink{openavb__grandmaster__osal_8c_a5f5d0b49c901e4f85f8cb2d3df2b0040}{g\+O\+S\+A\+L\+Grandmaster\+Init\+Mutex})
+\item 
+\#define \hyperlink{openavb__grandmaster__osal_8c_a19b1665d85404627bdc076a60e21d926}{U\+N\+L\+O\+CK}()~pthread\+\_\+mutex\+\_\+unlock(\&\hyperlink{openavb__grandmaster__osal_8c_a5f5d0b49c901e4f85f8cb2d3df2b0040}{g\+O\+S\+A\+L\+Grandmaster\+Init\+Mutex})
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__grandmaster__osal_8c_a6700bc3be70c7371c03941252047100f}{x\+\_\+grandmaster\+Init} (void)
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__grandmaster__osal_8c_a3e23bc459e18523d2225e00788bac740}{osal\+A\+V\+B\+Grandmaster\+Init} (void)
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__grandmaster__osal_8c_a18826f7ce2d70089e2a3309688a5bdcb}{osal\+A\+V\+B\+Grandmaster\+Close} (void)
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__grandmaster__osal_8c_a78bcc090ab7afc987a68a113b16a02db}{osal\+A\+V\+B\+Grandmaster\+Get\+Current} (\hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\+\_\+t} gptp\+\_\+grandmaster\+\_\+id\mbox{[}$\,$\mbox{]}, \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\+\_\+t} $\ast$gptp\+\_\+domain\+\_\+number)
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__grandmaster__osal_8c_a38fc3f545bb16e520b83add41e864b5a}{osal\+Clock\+Grandmaster\+Get\+Interface} (\hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\+\_\+t} clock\+\_\+identity\mbox{[}$\,$\mbox{]}, \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\+\_\+t} $\ast$priority1, \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\+\_\+t} $\ast$clock\+\_\+class, int16\+\_\+t $\ast$offset\+\_\+scaled\+\_\+log\+\_\+variance, \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\+\_\+t} $\ast$clock\+\_\+accuracy, \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\+\_\+t} $\ast$priority2, \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\+\_\+t} $\ast$domain\+\_\+number, int8\+\_\+t $\ast$log\+\_\+sync\+\_\+interval, int8\+\_\+t $\ast$log\+\_\+announce\+\_\+interval, int8\+\_\+t $\ast$log\+\_\+pdelay\+\_\+interval, uint16\+\_\+t $\ast$port\+\_\+number)
+\end{DoxyCompactItemize}
+\subsection*{변수}
+\begin{DoxyCompactItemize}
+\item 
+static pthread\+\_\+mutex\+\_\+t \hyperlink{openavb__grandmaster__osal_8c_a5f5d0b49c901e4f85f8cb2d3df2b0040}{g\+O\+S\+A\+L\+Grandmaster\+Init\+Mutex} = P\+T\+H\+R\+E\+A\+D\+\_\+\+M\+U\+T\+E\+X\+\_\+\+I\+N\+I\+T\+I\+A\+L\+I\+Z\+ER
+\item 
+static \hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__grandmaster__osal_8c_a92fb290e0a0f0b329bccab2b2622ab94}{b\+Initialized} = \hyperlink{lib_2igb_2e1000__osdep_8h_aa93f0eb578d23995850d61f7d61c55c1}{F\+A\+L\+SE}
+\item 
+static int \hyperlink{openavb__grandmaster__osal_8c_a129cba2012a7c1e74ad5c8959b984418}{g\+Shm\+Fd} = -\/1
+\item 
+static char $\ast$ \hyperlink{openavb__grandmaster__osal_8c_ade8e6b7a09a9e468653f4b087e4c11d9}{g\+Mmap} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{N\+U\+LL}
+\item 
+\hyperlink{structg_ptp_time_data}{g\+Ptp\+Time\+Data} \hyperlink{openavb__grandmaster__osal_8c_ae3364a243b46072b387b802771184fdc}{g\+Ptp\+TD}
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{openavb\+\_\+grandmaster\+\_\+osal.\+c@{openavb\+\_\+grandmaster\+\_\+osal.\+c}!A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT@{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}}
+\index{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT@{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}!openavb\+\_\+grandmaster\+\_\+osal.\+c@{openavb\+\_\+grandmaster\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}{AVB_LOG_COMPONENT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT~\char`\"{}osal\+Grandmaster\char`\"{}}\hypertarget{openavb__grandmaster__osal_8c_abcfb21b6495585fe36058f57a9fe58fc}{}\label{openavb__grandmaster__osal_8c_abcfb21b6495585fe36058f57a9fe58fc}
+
+
+openavb\+\_\+grandmaster\+\_\+osal.\+c 파일의 43 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+grandmaster\+\_\+osal.\+c@{openavb\+\_\+grandmaster\+\_\+osal.\+c}!L\+O\+CK@{L\+O\+CK}}
+\index{L\+O\+CK@{L\+O\+CK}!openavb\+\_\+grandmaster\+\_\+osal.\+c@{openavb\+\_\+grandmaster\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{L\+O\+CK}{LOCK}}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\+O\+CK(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~pthread\+\_\+mutex\+\_\+lock(\&{\bf g\+O\+S\+A\+L\+Grandmaster\+Init\+Mutex})}\hypertarget{openavb__grandmaster__osal_8c_aefb7db7456a848e7cefe90816a5aaa88}{}\label{openavb__grandmaster__osal_8c_aefb7db7456a848e7cefe90816a5aaa88}
+
+
+openavb\+\_\+grandmaster\+\_\+osal.\+c 파일의 48 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+grandmaster\+\_\+osal.\+c@{openavb\+\_\+grandmaster\+\_\+osal.\+c}!U\+N\+L\+O\+CK@{U\+N\+L\+O\+CK}}
+\index{U\+N\+L\+O\+CK@{U\+N\+L\+O\+CK}!openavb\+\_\+grandmaster\+\_\+osal.\+c@{openavb\+\_\+grandmaster\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{U\+N\+L\+O\+CK}{UNLOCK}}]{\setlength{\rightskip}{0pt plus 5cm}\#define U\+N\+L\+O\+CK(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~pthread\+\_\+mutex\+\_\+unlock(\&{\bf g\+O\+S\+A\+L\+Grandmaster\+Init\+Mutex})}\hypertarget{openavb__grandmaster__osal_8c_a19b1665d85404627bdc076a60e21d926}{}\label{openavb__grandmaster__osal_8c_a19b1665d85404627bdc076a60e21d926}
+
+
+openavb\+\_\+grandmaster\+\_\+osal.\+c 파일의 49 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{함수 문서화}
+\index{openavb\+\_\+grandmaster\+\_\+osal.\+c@{openavb\+\_\+grandmaster\+\_\+osal.\+c}!osal\+A\+V\+B\+Grandmaster\+Close@{osal\+A\+V\+B\+Grandmaster\+Close}}
+\index{osal\+A\+V\+B\+Grandmaster\+Close@{osal\+A\+V\+B\+Grandmaster\+Close}!openavb\+\_\+grandmaster\+\_\+osal.\+c@{openavb\+\_\+grandmaster\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{osal\+A\+V\+B\+Grandmaster\+Close(void)}{osalAVBGrandmasterClose(void)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} osal\+A\+V\+B\+Grandmaster\+Close (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__grandmaster__osal_8c_a18826f7ce2d70089e2a3309688a5bdcb}{}\label{openavb__grandmaster__osal_8c_a18826f7ce2d70089e2a3309688a5bdcb}
+
+
+openavb\+\_\+grandmaster\+\_\+osal.\+c 파일의 89 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+89                                    \{
+90     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(AVB\_TRACE\_GRANDMASTER);
+91 
+92     \hyperlink{avb__gptp_8c_ae4b9f53a01f896212e0c982fd10ce4c5}{gptpdeinit}(&\hyperlink{openavb__grandmaster__osal_8c_a129cba2012a7c1e74ad5c8959b984418}{gShmFd}, &\hyperlink{openavb__grandmaster__osal_8c_ade8e6b7a09a9e468653f4b087e4c11d9}{gMmap});
+93 
+94     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(AVB\_TRACE\_GRANDMASTER);
+95     \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+96 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=312pt]{openavb__grandmaster__osal_8c_a18826f7ce2d70089e2a3309688a5bdcb_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__grandmaster__osal_8c_a18826f7ce2d70089e2a3309688a5bdcb_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+grandmaster\+\_\+osal.\+c@{openavb\+\_\+grandmaster\+\_\+osal.\+c}!osal\+A\+V\+B\+Grandmaster\+Get\+Current@{osal\+A\+V\+B\+Grandmaster\+Get\+Current}}
+\index{osal\+A\+V\+B\+Grandmaster\+Get\+Current@{osal\+A\+V\+B\+Grandmaster\+Get\+Current}!openavb\+\_\+grandmaster\+\_\+osal.\+c@{openavb\+\_\+grandmaster\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{osal\+A\+V\+B\+Grandmaster\+Get\+Current(uint8\+\_\+t gptp\+\_\+grandmaster\+\_\+id[], uint8\+\_\+t $\ast$gptp\+\_\+domain\+\_\+number)}{osalAVBGrandmasterGetCurrent(uint8_t gptp_grandmaster_id[], uint8_t *gptp_domain_number)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} osal\+A\+V\+B\+Grandmaster\+Get\+Current (
+\begin{DoxyParamCaption}
+\item[{{\bf uint8\+\_\+t}}]{gptp\+\_\+grandmaster\+\_\+id\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf uint8\+\_\+t} $\ast$}]{gptp\+\_\+domain\+\_\+number}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__grandmaster__osal_8c_a78bcc090ab7afc987a68a113b16a02db}{}\label{openavb__grandmaster__osal_8c_a78bcc090ab7afc987a68a113b16a02db}
+
+
+openavb\+\_\+grandmaster\+\_\+osal.\+c 파일의 98 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+101 \{
+102     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(AVB\_TRACE\_GRANDMASTER);
+103 
+104     \textcolor{keywordflow}{if} (\hyperlink{avb__gptp_8c_a8296f89653e0277070dcff8b6ae0d445}{gptpgetdata}(\hyperlink{openavb__grandmaster__osal_8c_ade8e6b7a09a9e468653f4b087e4c11d9}{gMmap}, &\hyperlink{openavb__grandmaster__osal_8c_ae3364a243b46072b387b802771184fdc}{gPtpTD}) < 0) \{
+105         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Grandmaster data fetch failed"});
+106         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a1b4287ce3f8a848371f8d5cf837d8035}{AVB\_TRACE\_TIME});
+107         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+108     \}
+109 
+110     \textcolor{keywordflow}{if} (gptp\_grandmaster\_id != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \{ memcpy(gptp\_grandmaster\_id, \hyperlink{openavb__grandmaster__osal_8c_ae3364a243b46072b387b802771184fdc}{gPtpTD}.
+      \hyperlink{structg_ptp_time_data_a91da646ac8f2da272fe3b8941c3f4d54}{gptp\_grandmaster\_id}, 8); \}
+111     \textcolor{keywordflow}{if} (gptp\_domain\_number != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \{ *gptp\_domain\_number = \hyperlink{openavb__grandmaster__osal_8c_ae3364a243b46072b387b802771184fdc}{gPtpTD}.
+      \hyperlink{structg_ptp_time_data_ac53b4e61c0f960e16c86cfe678ca256d}{gptp\_domain\_number}; \}
+112 
+113     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(AVB\_TRACE\_GRANDMASTER);
+114     \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+115 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=343pt]{openavb__grandmaster__osal_8c_a78bcc090ab7afc987a68a113b16a02db_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__grandmaster__osal_8c_a78bcc090ab7afc987a68a113b16a02db_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+grandmaster\+\_\+osal.\+c@{openavb\+\_\+grandmaster\+\_\+osal.\+c}!osal\+A\+V\+B\+Grandmaster\+Init@{osal\+A\+V\+B\+Grandmaster\+Init}}
+\index{osal\+A\+V\+B\+Grandmaster\+Init@{osal\+A\+V\+B\+Grandmaster\+Init}!openavb\+\_\+grandmaster\+\_\+osal.\+c@{openavb\+\_\+grandmaster\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{osal\+A\+V\+B\+Grandmaster\+Init(void)}{osalAVBGrandmasterInit(void)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} osal\+A\+V\+B\+Grandmaster\+Init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__grandmaster__osal_8c_a3e23bc459e18523d2225e00788bac740}{}\label{openavb__grandmaster__osal_8c_a3e23bc459e18523d2225e00788bac740}
+
+
+openavb\+\_\+grandmaster\+\_\+osal.\+c 파일의 75 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+75                                   \{
+76     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(AVB\_TRACE\_GRANDMASTER);
+77 
+78     \hyperlink{openavb__grandmaster__osal_8c_aefb7db7456a848e7cefe90816a5aaa88}{LOCK}();
+79     \textcolor{keywordflow}{if} (!\hyperlink{openavb__grandmaster__osal_8c_a92fb290e0a0f0b329bccab2b2622ab94}{bInitialized}) \{
+80         \textcolor{keywordflow}{if} (\hyperlink{openavb__grandmaster__osal_8c_a6700bc3be70c7371c03941252047100f}{x\_grandmasterInit}())
+81             \hyperlink{openavb__grandmaster__osal_8c_a92fb290e0a0f0b329bccab2b2622ab94}{bInitialized} = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+82     \}
+83     \hyperlink{openavb__grandmaster__osal_8c_a19b1665d85404627bdc076a60e21d926}{UNLOCK}();
+84 
+85     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(AVB\_TRACE\_GRANDMASTER);
+86     \textcolor{keywordflow}{return} \hyperlink{openavb__grandmaster__osal_8c_a92fb290e0a0f0b329bccab2b2622ab94}{bInitialized};
+87 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__grandmaster__osal_8c_a3e23bc459e18523d2225e00788bac740_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=345pt]{openavb__grandmaster__osal_8c_a3e23bc459e18523d2225e00788bac740_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+grandmaster\+\_\+osal.\+c@{openavb\+\_\+grandmaster\+\_\+osal.\+c}!osal\+Clock\+Grandmaster\+Get\+Interface@{osal\+Clock\+Grandmaster\+Get\+Interface}}
+\index{osal\+Clock\+Grandmaster\+Get\+Interface@{osal\+Clock\+Grandmaster\+Get\+Interface}!openavb\+\_\+grandmaster\+\_\+osal.\+c@{openavb\+\_\+grandmaster\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{osal\+Clock\+Grandmaster\+Get\+Interface(uint8\+\_\+t clock\+\_\+identity[], uint8\+\_\+t $\ast$priority1, uint8\+\_\+t $\ast$clock\+\_\+class, int16\+\_\+t $\ast$offset\+\_\+scaled\+\_\+log\+\_\+variance, uint8\+\_\+t $\ast$clock\+\_\+accuracy, uint8\+\_\+t $\ast$priority2, uint8\+\_\+t $\ast$domain\+\_\+number, int8\+\_\+t $\ast$log\+\_\+sync\+\_\+interval, int8\+\_\+t $\ast$log\+\_\+announce\+\_\+interval, int8\+\_\+t $\ast$log\+\_\+pdelay\+\_\+interval, uint16\+\_\+t $\ast$port\+\_\+number)}{osalClockGrandmasterGetInterface(uint8_t clock_identity[], uint8_t *priority1, uint8_t *clock_class, int16_t *offset_scaled_log_variance, uint8_t *clock_accuracy, uint8_t *priority2, uint8_t *domain_number, int8_t *log_sync_interval, int8_t *log_announce_interval, int8_t *log_pdelay_interval, uint16_t *port_number)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} osal\+Clock\+Grandmaster\+Get\+Interface (
+\begin{DoxyParamCaption}
+\item[{{\bf uint8\+\_\+t}}]{clock\+\_\+identity\mbox{[}$\,$\mbox{]}, }
+\item[{{\bf uint8\+\_\+t} $\ast$}]{priority1, }
+\item[{{\bf uint8\+\_\+t} $\ast$}]{clock\+\_\+class, }
+\item[{int16\+\_\+t $\ast$}]{offset\+\_\+scaled\+\_\+log\+\_\+variance, }
+\item[{{\bf uint8\+\_\+t} $\ast$}]{clock\+\_\+accuracy, }
+\item[{{\bf uint8\+\_\+t} $\ast$}]{priority2, }
+\item[{{\bf uint8\+\_\+t} $\ast$}]{domain\+\_\+number, }
+\item[{int8\+\_\+t $\ast$}]{log\+\_\+sync\+\_\+interval, }
+\item[{int8\+\_\+t $\ast$}]{log\+\_\+announce\+\_\+interval, }
+\item[{int8\+\_\+t $\ast$}]{log\+\_\+pdelay\+\_\+interval, }
+\item[{uint16\+\_\+t $\ast$}]{port\+\_\+number}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__grandmaster__osal_8c_a38fc3f545bb16e520b83add41e864b5a}{}\label{openavb__grandmaster__osal_8c_a38fc3f545bb16e520b83add41e864b5a}
+
+
+openavb\+\_\+grandmaster\+\_\+osal.\+c 파일의 117 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+129 \{
+130     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(AVB\_TRACE\_GRANDMASTER);
+131 
+132     \textcolor{keywordflow}{if} (\hyperlink{avb__gptp_8c_a8296f89653e0277070dcff8b6ae0d445}{gptpgetdata}(\hyperlink{openavb__grandmaster__osal_8c_ade8e6b7a09a9e468653f4b087e4c11d9}{gMmap}, &\hyperlink{openavb__grandmaster__osal_8c_ae3364a243b46072b387b802771184fdc}{gPtpTD}) < 0) \{
+133         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Grandmaster data fetch failed"});
+134         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a1b4287ce3f8a848371f8d5cf837d8035}{AVB\_TRACE\_TIME});
+135         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+136     \}
+137 
+138     \textcolor{keywordflow}{if} (clock\_identity != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \{ memcpy(clock\_identity, \hyperlink{openavb__grandmaster__osal_8c_ae3364a243b46072b387b802771184fdc}{gPtpTD}.
+      \hyperlink{structg_ptp_time_data_af57b2186850d88240e6095da54758a2e}{clock\_identity}, 8); \}
+139     \textcolor{keywordflow}{if} (priority1 != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \{ *priority1 = \hyperlink{openavb__grandmaster__osal_8c_ae3364a243b46072b387b802771184fdc}{gPtpTD}.\hyperlink{structg_ptp_time_data_af98f08e3d1b016cd549310197ba8673c}{priority1}; \}
+140     \textcolor{keywordflow}{if} (clock\_class != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \{ *clock\_class = \hyperlink{openavb__grandmaster__osal_8c_ae3364a243b46072b387b802771184fdc}{gPtpTD}.\hyperlink{structg_ptp_time_data_aafe98ca785cdce0ce5eaa26f2930d2fe}{clock\_class}; \}
+141     \textcolor{keywordflow}{if} (offset\_scaled\_log\_variance != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \{ *offset\_scaled\_log\_variance = 
+      \hyperlink{openavb__grandmaster__osal_8c_ae3364a243b46072b387b802771184fdc}{gPtpTD}.\hyperlink{structg_ptp_time_data_a022841cfc4d83dc906f116eec53f1d9a}{offset\_scaled\_log\_variance}; \}
+142     \textcolor{keywordflow}{if} (clock\_accuracy != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \{ *clock\_accuracy = \hyperlink{openavb__grandmaster__osal_8c_ae3364a243b46072b387b802771184fdc}{gPtpTD}.
+      \hyperlink{structg_ptp_time_data_a708d6d971b6be997cf8d3e683951ceb0}{clock\_accuracy}; \}
+143     \textcolor{keywordflow}{if} (priority2 != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \{ *priority2 = \hyperlink{openavb__grandmaster__osal_8c_ae3364a243b46072b387b802771184fdc}{gPtpTD}.\hyperlink{structg_ptp_time_data_ac04b889463a96b43985cb82020e3c39b}{priority2}; \}
+144     \textcolor{keywordflow}{if} (domain\_number != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \{ *domain\_number = \hyperlink{openavb__grandmaster__osal_8c_ae3364a243b46072b387b802771184fdc}{gPtpTD}.\hyperlink{structg_ptp_time_data_a96702548f5b9222af26319c695764b29}{domain\_number}; \}
+145     \textcolor{keywordflow}{if} (log\_sync\_interval != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \{ *log\_sync\_interval = \hyperlink{openavb__grandmaster__osal_8c_ae3364a243b46072b387b802771184fdc}{gPtpTD}.
+      \hyperlink{structg_ptp_time_data_a2d4950b4c6da4dfa67688dcaf6139c9d}{log\_sync\_interval}; \}
+146     \textcolor{keywordflow}{if} (log\_announce\_interval != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \{ *log\_announce\_interval = \hyperlink{openavb__grandmaster__osal_8c_ae3364a243b46072b387b802771184fdc}{gPtpTD}.
+      \hyperlink{structg_ptp_time_data_a15bb50a04ecd3ec11563012afc7e24a7}{log\_announce\_interval}; \}
+147     \textcolor{keywordflow}{if} (log\_pdelay\_interval != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \{ *log\_pdelay\_interval = \hyperlink{openavb__grandmaster__osal_8c_ae3364a243b46072b387b802771184fdc}{gPtpTD}.
+      \hyperlink{structg_ptp_time_data_a26544b553c0b251da8e632533f260a5d}{log\_pdelay\_interval}; \}
+148     \textcolor{keywordflow}{if} (port\_number != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \{ *port\_number = \hyperlink{openavb__grandmaster__osal_8c_ae3364a243b46072b387b802771184fdc}{gPtpTD}.\hyperlink{structg_ptp_time_data_af0afa7bb85d49ac5ff873fad86a48ec5}{port\_number}; \}
+149 
+150     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(AVB\_TRACE\_GRANDMASTER);
+151     \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+152 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__grandmaster__osal_8c_a38fc3f545bb16e520b83add41e864b5a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__grandmaster__osal_8c_a38fc3f545bb16e520b83add41e864b5a_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+grandmaster\+\_\+osal.\+c@{openavb\+\_\+grandmaster\+\_\+osal.\+c}!x\+\_\+grandmaster\+Init@{x\+\_\+grandmaster\+Init}}
+\index{x\+\_\+grandmaster\+Init@{x\+\_\+grandmaster\+Init}!openavb\+\_\+grandmaster\+\_\+osal.\+c@{openavb\+\_\+grandmaster\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{x\+\_\+grandmaster\+Init(void)}{x_grandmasterInit(void)}}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf bool} x\+\_\+grandmaster\+Init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__grandmaster__osal_8c_a6700bc3be70c7371c03941252047100f}{}\label{openavb__grandmaster__osal_8c_a6700bc3be70c7371c03941252047100f}
+
+
+openavb\+\_\+grandmaster\+\_\+osal.\+c 파일의 56 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+56                                     \{
+57     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(AVB\_TRACE\_GRANDMASTER);
+58 
+59     \textcolor{keywordflow}{if} (\hyperlink{avb__gptp_8c_a05ec877d6b574ac18e0d773f37958865}{gptpinit}(&\hyperlink{openavb__grandmaster__osal_8c_a129cba2012a7c1e74ad5c8959b984418}{gShmFd}, &\hyperlink{openavb__grandmaster__osal_8c_ade8e6b7a09a9e468653f4b087e4c11d9}{gMmap}) < 0) \{
+60         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Grandmaster init failed"});
+61         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(AVB\_TRACE\_GRANDMASTER);
+62         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+63     \}
+64 
+65     \textcolor{keywordflow}{if} (\hyperlink{avb__gptp_8c_a8296f89653e0277070dcff8b6ae0d445}{gptpgetdata}(\hyperlink{openavb__grandmaster__osal_8c_ade8e6b7a09a9e468653f4b087e4c11d9}{gMmap}, &\hyperlink{openavb__grandmaster__osal_8c_ae3364a243b46072b387b802771184fdc}{gPtpTD}) < 0) \{
+66         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Grandmaster data fetch failed"});
+67         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(AVB\_TRACE\_GRANDMASTER);
+68         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+69     \}
+70 
+71     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(AVB\_TRACE\_GRANDMASTER);
+72     \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+73 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=279pt]{openavb__grandmaster__osal_8c_a6700bc3be70c7371c03941252047100f_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__grandmaster__osal_8c_a6700bc3be70c7371c03941252047100f_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{변수 문서화}
+\index{openavb\+\_\+grandmaster\+\_\+osal.\+c@{openavb\+\_\+grandmaster\+\_\+osal.\+c}!b\+Initialized@{b\+Initialized}}
+\index{b\+Initialized@{b\+Initialized}!openavb\+\_\+grandmaster\+\_\+osal.\+c@{openavb\+\_\+grandmaster\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{b\+Initialized}{bInitialized}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} b\+Initialized = {\bf F\+A\+L\+SE}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__grandmaster__osal_8c_a92fb290e0a0f0b329bccab2b2622ab94}{}\label{openavb__grandmaster__osal_8c_a92fb290e0a0f0b329bccab2b2622ab94}
+
+
+openavb\+\_\+grandmaster\+\_\+osal.\+c 파일의 51 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+grandmaster\+\_\+osal.\+c@{openavb\+\_\+grandmaster\+\_\+osal.\+c}!g\+Mmap@{g\+Mmap}}
+\index{g\+Mmap@{g\+Mmap}!openavb\+\_\+grandmaster\+\_\+osal.\+c@{openavb\+\_\+grandmaster\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{g\+Mmap}{gMmap}}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ g\+Mmap = {\bf N\+U\+LL}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__grandmaster__osal_8c_ade8e6b7a09a9e468653f4b087e4c11d9}{}\label{openavb__grandmaster__osal_8c_ade8e6b7a09a9e468653f4b087e4c11d9}
+
+
+openavb\+\_\+grandmaster\+\_\+osal.\+c 파일의 53 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+grandmaster\+\_\+osal.\+c@{openavb\+\_\+grandmaster\+\_\+osal.\+c}!g\+O\+S\+A\+L\+Grandmaster\+Init\+Mutex@{g\+O\+S\+A\+L\+Grandmaster\+Init\+Mutex}}
+\index{g\+O\+S\+A\+L\+Grandmaster\+Init\+Mutex@{g\+O\+S\+A\+L\+Grandmaster\+Init\+Mutex}!openavb\+\_\+grandmaster\+\_\+osal.\+c@{openavb\+\_\+grandmaster\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{g\+O\+S\+A\+L\+Grandmaster\+Init\+Mutex}{gOSALGrandmasterInitMutex}}]{\setlength{\rightskip}{0pt plus 5cm}pthread\+\_\+mutex\+\_\+t g\+O\+S\+A\+L\+Grandmaster\+Init\+Mutex = P\+T\+H\+R\+E\+A\+D\+\_\+\+M\+U\+T\+E\+X\+\_\+\+I\+N\+I\+T\+I\+A\+L\+I\+Z\+ER\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__grandmaster__osal_8c_a5f5d0b49c901e4f85f8cb2d3df2b0040}{}\label{openavb__grandmaster__osal_8c_a5f5d0b49c901e4f85f8cb2d3df2b0040}
+
+
+openavb\+\_\+grandmaster\+\_\+osal.\+c 파일의 47 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+grandmaster\+\_\+osal.\+c@{openavb\+\_\+grandmaster\+\_\+osal.\+c}!g\+Ptp\+TD@{g\+Ptp\+TD}}
+\index{g\+Ptp\+TD@{g\+Ptp\+TD}!openavb\+\_\+grandmaster\+\_\+osal.\+c@{openavb\+\_\+grandmaster\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{g\+Ptp\+TD}{gPtpTD}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf g\+Ptp\+Time\+Data} g\+Ptp\+TD}\hypertarget{openavb__grandmaster__osal_8c_ae3364a243b46072b387b802771184fdc}{}\label{openavb__grandmaster__osal_8c_ae3364a243b46072b387b802771184fdc}
+
+
+openavb\+\_\+grandmaster\+\_\+osal.\+c 파일의 54 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+grandmaster\+\_\+osal.\+c@{openavb\+\_\+grandmaster\+\_\+osal.\+c}!g\+Shm\+Fd@{g\+Shm\+Fd}}
+\index{g\+Shm\+Fd@{g\+Shm\+Fd}!openavb\+\_\+grandmaster\+\_\+osal.\+c@{openavb\+\_\+grandmaster\+\_\+osal.\+c}}
+\subsubsection[{\texorpdfstring{g\+Shm\+Fd}{gShmFd}}]{\setlength{\rightskip}{0pt plus 5cm}int g\+Shm\+Fd = -\/1\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__grandmaster__osal_8c_a129cba2012a7c1e74ad5c8959b984418}{}\label{openavb__grandmaster__osal_8c_a129cba2012a7c1e74ad5c8959b984418}
+
+
+openavb\+\_\+grandmaster\+\_\+osal.\+c 파일의 52 번째 라인에서 정의되었습니다.
+

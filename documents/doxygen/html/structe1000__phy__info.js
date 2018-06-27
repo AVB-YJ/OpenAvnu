@@ -1,0 +1,28 @@
+var structe1000__phy__info =
+[
+    [ "addr", "structe1000__phy__info.html#a9ac6ce0ce824ca84feafe5837fc9aa9a", null ],
+    [ "autoneg_advertised", "structe1000__phy__info.html#a88fccf5fe9b00f99f2f018d60c11501f", null ],
+    [ "autoneg_mask", "structe1000__phy__info.html#a9b6660d966c8741c0807b053f309d139", null ],
+    [ "autoneg_wait_to_complete", "structe1000__phy__info.html#a217f0b0993e254ae50aa41a789cb0137", null ],
+    [ "cable_length", "structe1000__phy__info.html#a7cf9918bf68220a6f080b7f35c5c95bb", null ],
+    [ "cable_polarity", "structe1000__phy__info.html#a8aaf615dd6cbdaf0d13656ea0edd61ce", null ],
+    [ "disable_polarity_correction", "structe1000__phy__info.html#a108c815b940fec6b18966e46aed3892b", null ],
+    [ "id", "structe1000__phy__info.html#a76f8ba65ce8f902c0657233adee58698", null ],
+    [ "is_mdix", "structe1000__phy__info.html#a89841b638b0d063fac30ed2f712905b0", null ],
+    [ "local_rx", "structe1000__phy__info.html#ad7e8f7fab63d6d04eabcdf2007662073", null ],
+    [ "max_cable_length", "structe1000__phy__info.html#a15f3c3e10e8d5fdb46385202e8cf1f8c", null ],
+    [ "mdix", "structe1000__phy__info.html#a40f0303bb287bcde723a46b57efb9ca1", null ],
+    [ "media_type", "structe1000__phy__info.html#a6746876596daee9682d6aaba1a4b65fc", null ],
+    [ "min_cable_length", "structe1000__phy__info.html#ac4841f23f526b1ae761416e51dbb03b0", null ],
+    [ "ms_type", "structe1000__phy__info.html#ae903e4f11d17a2c115411d89a6816398", null ],
+    [ "ops", "structe1000__phy__info.html#a60c9cd1642eed1c082fd37283740fdc9", null ],
+    [ "original_ms_type", "structe1000__phy__info.html#a7786be3a20936ae07e10797f5dc0c0ed", null ],
+    [ "polarity_correction", "structe1000__phy__info.html#ac84e408da2be489fc2710ee5d83e0c89", null ],
+    [ "remote_rx", "structe1000__phy__info.html#a55d14440fe8866da55bdfd5af6392813", null ],
+    [ "reset_delay_us", "structe1000__phy__info.html#a4f6536113c0430432056bb36bd390e12", null ],
+    [ "reset_disable", "structe1000__phy__info.html#a66f1a4e3487cf19972c344ec3c269d14", null ],
+    [ "revision", "structe1000__phy__info.html#ad09d98d987b5a93c1d0f0c57f53f1608", null ],
+    [ "smart_speed", "structe1000__phy__info.html#a3708e71dff26bfbdcdfa0ef3b5d2f869", null ],
+    [ "speed_downgraded", "structe1000__phy__info.html#a5e4357dfafcd48b939df2512da585d78", null ],
+    [ "type", "structe1000__phy__info.html#aac926af1392edf6d37cc0a5ad3795e1c", null ]
+];

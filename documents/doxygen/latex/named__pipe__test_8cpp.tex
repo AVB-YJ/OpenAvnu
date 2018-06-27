@@ -1,0 +1,208 @@
+\hypertarget{named__pipe__test_8cpp}{}\section{daemons/gptp/windows/named\+\_\+pipe\+\_\+test/named\+\_\+pipe\+\_\+test.cpp 파일 참조}
+\label{named__pipe__test_8cpp}\index{daemons/gptp/windows/named\+\_\+pipe\+\_\+test/named\+\_\+pipe\+\_\+test.\+cpp@{daemons/gptp/windows/named\+\_\+pipe\+\_\+test/named\+\_\+pipe\+\_\+test.\+cpp}}
+{\ttfamily \#include \char`\"{}stdafx.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}windows\+\_\+ipc.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}tsc.\+hpp\char`\"{}}\\*
+named\+\_\+pipe\+\_\+test.\+cpp에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{named__pipe__test_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+B\+O\+OL W\+I\+N\+A\+PI \hyperlink{named__pipe__test_8cpp_a88a20a0a60ed9347b695d80b001276d7}{ctrl\+\_\+handler} (D\+W\+O\+RD ctrl\+\_\+type)
+\item 
+\hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\+\_\+t} \hyperlink{named__pipe__test_8cpp_ac0bd775511a6beb331f11742303a7d66}{scale\+T\+S\+C\+Clock\+To\+Nanoseconds} (\hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\+\_\+t} tsc\+\_\+value, \hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\+\_\+t} tsc\+\_\+frequency)
+\item 
+int \hyperlink{named__pipe__test_8cpp_a353674c5af92be7fb389265cde4e5e03}{\+\_\+tmain} (int argc, \+\_\+\+T\+C\+H\+AR $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\subsection*{변수}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{named__pipe__test_8cpp_a3e0b46f40d0899dc69c71535875d00b9}{exit\+\_\+flag}
+\end{DoxyCompactItemize}
+
+
+\subsection{함수 문서화}
+\index{named\+\_\+pipe\+\_\+test.\+cpp@{named\+\_\+pipe\+\_\+test.\+cpp}!\+\_\+tmain@{\+\_\+tmain}}
+\index{\+\_\+tmain@{\+\_\+tmain}!named\+\_\+pipe\+\_\+test.\+cpp@{named\+\_\+pipe\+\_\+test.\+cpp}}
+\subsubsection[{\texorpdfstring{\+\_\+tmain(int argc, \+\_\+\+T\+C\+H\+A\+R $\ast$argv[])}{_tmain(int argc, _TCHAR *argv[])}}]{\setlength{\rightskip}{0pt plus 5cm}int \+\_\+tmain (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{\+\_\+\+T\+C\+H\+AR $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{named__pipe__test_8cpp_a353674c5af92be7fb389265cde4e5e03}{}\label{named__pipe__test_8cpp_a353674c5af92be7fb389265cde4e5e03}
+
+
+named\+\_\+pipe\+\_\+test.\+cpp 파일의 57 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+58 \{
+59     \textcolor{keywordtype}{char} pipename[64];
+60     strcpy\_s( pipename, 64, \hyperlink{windows__ipc_8hpp_ae95469fea7cc97edfa1e2d02a45a2c25}{PIPE\_PREFIX} );
+61     strcat\_s( pipename, 64-strlen(pipename), \hyperlink{windows__ipc_8hpp_ab5e537c0bda471d560b869b99671ac80}{P802\_1AS\_PIPENAME} );
+62     HANDLE pipe;
+63     \hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\_t} tsc\_frequency = \hyperlink{tsc_8hpp_a9da55c09944ef0da0cd43fcd0a5a3ee3}{getTSCFrequency}( \textcolor{keyword}{true} );
+64 
+65    \textcolor{comment}{// Wait for Ctrl-C}
+66     \textcolor{keywordflow}{if}( !SetConsoleCtrlHandler( \hyperlink{named__pipe__test_8cpp_a88a20a0a60ed9347b695d80b001276d7}{ctrl\_handler}, \textcolor{keyword}{true} )) \{
+67         printf( \textcolor{stringliteral}{"Unable to register Ctrl-C handler\(\backslash\)n"} );
+68         \textcolor{keywordflow}{return} -1;
+69     \}
+70 
+71     pipe = CreateFile( pipename, GENERIC\_READ | GENERIC\_WRITE, FILE\_SHARE\_READ | FILE\_SHARE\_WRITE, 
+      \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, OPEN\_EXISTING, FILE\_ATTRIBUTE\_NORMAL, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} );
+72     \textcolor{keywordflow}{if}( pipe == INVALID\_HANDLE\_VALUE ) \{
+73         printf( \textcolor{stringliteral}{"Failed to open gptp handle, %d\(\backslash\)n"}, GetLastError() );
+74     \}
+75 
+76     printf( \textcolor{stringliteral}{"TSC Frequency: %llu\(\backslash\)n"}, tsc\_frequency );
+77     \textcolor{keywordflow}{while}( !\hyperlink{named__pipe__test_8cpp_a3e0b46f40d0899dc69c71535875d00b9}{exit\_flag} ) \{
+78         \hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\_t} now\_tscns, now\_8021as;
+79         \hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\_t} update\_tscns, update\_8021as;
+80         \textcolor{keywordtype}{unsigned} delta\_tscns, delta\_8021as;
+81         \textcolor{keywordtype}{long} \textcolor{keywordtype}{double} ml\_ratio, ls\_ratio;
+82         \hyperlink{class_win_n_pipe_query_message}{WinNPipeQueryMessage} qmsg;
+83         \hyperlink{class_win_n_pipe_offset_update_message}{WinNPipeOffsetUpdateMessage} omsg;
+84         \textcolor{keywordtype}{bool} ret;
+85         \textcolor{keywordtype}{long} offset;
+86 
+87         qmsg.\hyperlink{class_win_n_pipe_query_message_a02fd73d861ef2e4aabb38c0c9ff82947}{init}();
+88         ret = qmsg.\hyperlink{class_windows_n_pipe_message_a1a6e0ed523a40350e1e0c44510d9caab}{write}( pipe );
+89         \textcolor{keywordflow}{if}( ret != \textcolor{keyword}{true} ) \{
+90             printf( \textcolor{stringliteral}{"Failed to send query message\(\backslash\)n"} );
+91             \textcolor{keywordflow}{break};
+92         \}
+93 
+94         omsg.\hyperlink{class_win_n_pipe_offset_update_message_a02fd73d861ef2e4aabb38c0c9ff82947}{init}();
+95         offset = omsg.\hyperlink{class_windows_n_pipe_message_aefaf53a62a09b658795b4bff415c8c68}{read}( pipe, 0 );
+96 
+97         printf( \textcolor{stringliteral}{"Master-Local Offset = %lld\(\backslash\)n"}, omsg.\hyperlink{class_win_n_pipe_offset_update_message_abc42aafd6dffc7141dee491743476718}{getMasterLocalOffset}() );
+98         printf( \textcolor{stringliteral}{"Master-Local Frequency Offset = %Lf\(\backslash\)n"}, omsg.
+      \hyperlink{class_win_n_pipe_offset_update_message_ad014a34d775f3de042b7b75430c69669}{getMasterLocalFreqOffset}() );
+99         printf( \textcolor{stringliteral}{"Local-System Offset = %lld\(\backslash\)n"}, omsg.\hyperlink{class_win_n_pipe_offset_update_message_ac0d8f13703d20f096163197fb0e2b165}{getLocalSystemOffset}() );
+100         printf( \textcolor{stringliteral}{"Local-System Frequency Offset = %Lf\(\backslash\)n"}, omsg.
+      \hyperlink{class_win_n_pipe_offset_update_message_a921c47366f1d2bc72191d6b5043c2678}{getLocalSystemFreqOffset}() );
+101         printf( \textcolor{stringliteral}{"Local Time = %llu\(\backslash\)n\(\backslash\)n"}, omsg.\hyperlink{class_win_n_pipe_offset_update_message_a12ab10ecfaff3e387c466956e0f5fe0b}{getLocalTime}() );
+102 
+103         now\_tscns = \hyperlink{named__pipe__test_8cpp_ac0bd775511a6beb331f11742303a7d66}{scaleTSCClockToNanoseconds}( 
+      \hyperlink{tsc_8hpp_ac5e5054685820d7572f9b663f0d7aad6}{PLAT\_rdtsc}(), tsc\_frequency );
+104         update\_tscns = omsg.\hyperlink{class_win_n_pipe_offset_update_message_a12ab10ecfaff3e387c466956e0f5fe0b}{getLocalTime}() + omsg.
+      \hyperlink{class_win_n_pipe_offset_update_message_ac0d8f13703d20f096163197fb0e2b165}{getLocalSystemOffset}();
+105         delta\_tscns = (unsigned)(now\_tscns - update\_tscns);
+106         printf( \textcolor{stringliteral}{"Time now in terms of TSC scaled to nanoseconds time: %llu\(\backslash\)n"}, now\_tscns );
+107         printf( \textcolor{stringliteral}{"TSC delta scaled to ns: %u\(\backslash\)n"}, delta\_tscns );
+108         ml\_ratio = omsg.\hyperlink{class_win_n_pipe_offset_update_message_ad014a34d775f3de042b7b75430c69669}{getMasterLocalFreqOffset}();
+109         ls\_ratio = omsg.\hyperlink{class_win_n_pipe_offset_update_message_a921c47366f1d2bc72191d6b5043c2678}{getLocalSystemFreqOffset}();
+110         delta\_8021as = (unsigned)(ml\_ratio*ls\_ratio*delta\_tscns);
+111         printf( \textcolor{stringliteral}{"8021as delta scaled: %u\(\backslash\)n"}, delta\_8021as );
+112         update\_8021as = omsg.\hyperlink{class_win_n_pipe_offset_update_message_a12ab10ecfaff3e387c466956e0f5fe0b}{getLocalTime}() - omsg.
+      \hyperlink{class_win_n_pipe_offset_update_message_abc42aafd6dffc7141dee491743476718}{getMasterLocalOffset}();
+113         now\_8021as = update\_8021as + delta\_8021as;
+114         printf( \textcolor{stringliteral}{"Last update time in terms of 802.1AS time: %llu\(\backslash\)n"}, update\_8021as );
+115         printf( \textcolor{stringliteral}{"Time now in terms of 802.1AS time: %llu\(\backslash\)n"}, now\_8021as );
+116 
+117         \hyperlink{named__pipe__test_8cpp_a3e0b46f40d0899dc69c71535875d00b9}{exit\_flag} = \textcolor{keyword}{true};
+118     \}
+119 
+120     printf( \textcolor{stringliteral}{"Closing pipe\(\backslash\)n"} );
+121     CloseHandle( pipe );
+122 
+123     \textcolor{keywordflow}{return} 0;
+124 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{named__pipe__test_8cpp_a353674c5af92be7fb389265cde4e5e03_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{named\+\_\+pipe\+\_\+test.\+cpp@{named\+\_\+pipe\+\_\+test.\+cpp}!ctrl\+\_\+handler@{ctrl\+\_\+handler}}
+\index{ctrl\+\_\+handler@{ctrl\+\_\+handler}!named\+\_\+pipe\+\_\+test.\+cpp@{named\+\_\+pipe\+\_\+test.\+cpp}}
+\subsubsection[{\texorpdfstring{ctrl\+\_\+handler(\+D\+W\+O\+R\+D ctrl\+\_\+type)}{ctrl_handler(DWORD ctrl_type)}}]{\setlength{\rightskip}{0pt plus 5cm}B\+O\+OL W\+I\+N\+A\+PI ctrl\+\_\+handler (
+\begin{DoxyParamCaption}
+\item[{D\+W\+O\+RD}]{ctrl\+\_\+type}
+\end{DoxyParamCaption}
+)}\hypertarget{named__pipe__test_8cpp_a88a20a0a60ed9347b695d80b001276d7}{}\label{named__pipe__test_8cpp_a88a20a0a60ed9347b695d80b001276d7}
+
+
+named\+\_\+pipe\+\_\+test.\+cpp 파일의 40 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+40                                             \{
+41     \textcolor{keywordtype}{bool} ret;
+42     \textcolor{keywordflow}{if}( ctrl\_type == CTRL\_C\_EVENT ) \{
+43         \hyperlink{named__pipe__test_8cpp_a3e0b46f40d0899dc69c71535875d00b9}{exit\_flag} = \textcolor{keyword}{true};
+44         ret = \textcolor{keyword}{true};
+45     \} \textcolor{keywordflow}{else} \{
+46         ret = \textcolor{keyword}{false};
+47     \}
+48     \textcolor{keywordflow}{return} ret;
+49 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=229pt]{named__pipe__test_8cpp_a88a20a0a60ed9347b695d80b001276d7_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{named\+\_\+pipe\+\_\+test.\+cpp@{named\+\_\+pipe\+\_\+test.\+cpp}!scale\+T\+S\+C\+Clock\+To\+Nanoseconds@{scale\+T\+S\+C\+Clock\+To\+Nanoseconds}}
+\index{scale\+T\+S\+C\+Clock\+To\+Nanoseconds@{scale\+T\+S\+C\+Clock\+To\+Nanoseconds}!named\+\_\+pipe\+\_\+test.\+cpp@{named\+\_\+pipe\+\_\+test.\+cpp}}
+\subsubsection[{\texorpdfstring{scale\+T\+S\+C\+Clock\+To\+Nanoseconds(uint64\+\_\+t tsc\+\_\+value, uint64\+\_\+t tsc\+\_\+frequency)}{scaleTSCClockToNanoseconds(uint64_t tsc_value, uint64_t tsc_frequency)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint64\+\_\+t} scale\+T\+S\+C\+Clock\+To\+Nanoseconds (
+\begin{DoxyParamCaption}
+\item[{{\bf uint64\+\_\+t}}]{tsc\+\_\+value, }
+\item[{{\bf uint64\+\_\+t}}]{tsc\+\_\+frequency}
+\end{DoxyParamCaption}
+)}\hypertarget{named__pipe__test_8cpp_ac0bd775511a6beb331f11742303a7d66}{}\label{named__pipe__test_8cpp_ac0bd775511a6beb331f11742303a7d66}
+
+
+named\+\_\+pipe\+\_\+test.\+cpp 파일의 51 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+51                                                                                   \{
+52     \textcolor{keywordtype}{long} \textcolor{keywordtype}{double} scaled\_output = ((\textcolor{keywordtype}{long} double)tsc\_frequency)/1000000000;
+53     scaled\_output = ((\textcolor{keywordtype}{long} double) tsc\_value)/scaled\_output;
+54     \textcolor{keywordflow}{return} (\hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\_t}) scaled\_output;
+55 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{named__pipe__test_8cpp_ac0bd775511a6beb331f11742303a7d66_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{변수 문서화}
+\index{named\+\_\+pipe\+\_\+test.\+cpp@{named\+\_\+pipe\+\_\+test.\+cpp}!exit\+\_\+flag@{exit\+\_\+flag}}
+\index{exit\+\_\+flag@{exit\+\_\+flag}!named\+\_\+pipe\+\_\+test.\+cpp@{named\+\_\+pipe\+\_\+test.\+cpp}}
+\subsubsection[{\texorpdfstring{exit\+\_\+flag}{exit_flag}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} exit\+\_\+flag\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{named__pipe__test_8cpp_a3e0b46f40d0899dc69c71535875d00b9}{}\label{named__pipe__test_8cpp_a3e0b46f40d0899dc69c71535875d00b9}
+
+
+named\+\_\+pipe\+\_\+test.\+cpp 파일의 38 번째 라인에서 정의되었습니다.
+

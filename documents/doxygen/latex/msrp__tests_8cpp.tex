@@ -1,0 +1,1078 @@
+\hypertarget{msrp__tests_8cpp}{}\section{daemons/mrpd/tests/simple/msrp\+\_\+tests.cpp 파일 참조}
+\label{msrp__tests_8cpp}\index{daemons/mrpd/tests/simple/msrp\+\_\+tests.\+cpp@{daemons/mrpd/tests/simple/msrp\+\_\+tests.\+cpp}}
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$stdint.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}Cpp\+U\+Test/\+Test\+Harness.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}mrp\+\_\+doubles.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}msrp\+\_\+tests.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}mrp.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}msrp.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}parse.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}eui64set.\+h\char`\"{}}\\*
+msrp\+\_\+tests.\+cpp에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{msrp__tests_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{msrp__tests_8cpp_ac582131d7a7c8ee57e73180d1714f9d5}{P\+R\+Iu64}~\char`\"{}I64u\char`\"{}
+\item 
+\#define \hyperlink{msrp__tests_8cpp_aba38357387a474f439428dee1984fc5a}{P\+R\+Ix64}~\char`\"{}I64x\char`\"{}
+\item 
+\#define \hyperlink{msrp__tests_8cpp_ad67d7637234f1ca513d2366dd8a66854}{S\+T\+R\+E\+A\+M\+\_\+\+DA}~\char`\"{}010203040506\char`\"{}
+\item 
+\#define \hyperlink{msrp__tests_8cpp_ade86a80a3d067dece1f7e7cf957e3e92}{S\+T\+R\+E\+A\+M\+\_\+\+ID}~\char`\"{}D\+E\+A\+D\+B\+E\+E\+F\+B\+A\+D\+F\+C\+A11\char`\"{}
+\item 
+\#define \hyperlink{msrp__tests_8cpp_ac23326adfc4e624044916cc85d9bac2f}{V\+L\+A\+N\+\_\+\+ID}~\char`\"{}0002\char`\"{}
+\item 
+\#define \hyperlink{msrp__tests_8cpp_a8ad1ebec324e399a1fafe44e201f2f54}{T\+S\+P\+E\+C\+\_\+\+M\+A\+X\+\_\+\+F\+R\+A\+M\+E\+\_\+\+S\+I\+ZE}~\char`\"{}576\char`\"{}
+\item 
+\#define \hyperlink{msrp__tests_8cpp_a2f0ec09eab10749c9eb3c3da0de95949}{T\+S\+P\+E\+C\+\_\+\+M\+A\+X\+\_\+\+F\+R\+A\+M\+E\+\_\+\+I\+N\+T\+E\+R\+V\+AL}~\char`\"{}8000\char`\"{}
+\item 
+\#define \hyperlink{msrp__tests_8cpp_a21c9558f4a2da68c70811d70dd32151f}{P\+R\+I\+O\+R\+I\+T\+Y\+\_\+\+A\+N\+D\+\_\+\+R\+A\+NK}~\char`\"{}96\char`\"{}
+\item 
+\#define \hyperlink{msrp__tests_8cpp_aa87d70cd9ed0517369bd6eaf64fa4a96}{A\+C\+C\+U\+M\+U\+L\+A\+T\+E\+D\+\_\+\+L\+A\+T\+E\+N\+CY}~\char`\"{}1000\char`\"{}
+\item 
+\#define \hyperlink{msrp__tests_8cpp_a517651d0e939360fc119ca27bee2fa8c}{S\+R\+\_\+\+C\+L\+A\+S\+S\+\_\+\+ID}~\char`\"{}6\char`\"{}
+\item 
+\#define \hyperlink{msrp__tests_8cpp_af9dc616a7814cee63adee9d59839f959}{S\+R\+\_\+\+C\+L\+A\+S\+S\+\_\+\+P\+R\+I\+O\+R\+I\+TY}~\char`\"{}3\char`\"{}
+\item 
+\#define \hyperlink{msrp__tests_8cpp_a7d391ef7f173a04213e662964ca1f4cd}{B\+R\+I\+D\+G\+E\+\_\+\+ID}~\char`\"{}B\+A\+D\+C0\+F\+F\+E\+E\+C0\+F\+F\+E\+E0\char`\"{}
+\item 
+\#define \hyperlink{msrp__tests_8cpp_a410934913d5189847c3ffc568d7fe385}{F\+A\+I\+L\+U\+R\+E\+\_\+\+C\+O\+DE}~\char`\"{}1\char`\"{}
+\item 
+\#define \hyperlink{msrp__tests_8cpp_a4af04818bc78580d3ddce8c7f289911c}{S\+T\+\_\+\+P\+L\+U\+S\+\_\+\+P\+L\+US}
+\end{DoxyCompactItemize}
+\subsection*{타입정의}
+\begin{DoxyCompactItemize}
+\item 
+typedef \+\_\+\+\_\+int32 \hyperlink{msrp__tests_8cpp_a37994e3b11c72957c6f454c6ec96d43d}{int32\+\_\+t}
+\item 
+typedef unsigned \+\_\+\+\_\+int32 \hyperlink{msrp__tests_8cpp_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\+\_\+t}
+\item 
+typedef \+\_\+\+\_\+int64 \hyperlink{msrp__tests_8cpp_a67a9885ef4908cb72ce26d75b694386c}{int64\+\_\+t}
+\item 
+typedef unsigned \+\_\+\+\_\+int64 \hyperlink{msrp__tests_8cpp_aec6fcb673ff035718c238c8c9d544c47}{uint64\+\_\+t}
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{msrp__tests_8cpp_a43449fe478c6edded03350fc4f5070c1}{msrp\+\_\+event\+\_\+observer} (int event, struct \hyperlink{structmsrp__attribute}{msrp\+\_\+attribute} $\ast$attr)
+\item 
+char $\ast$ \hyperlink{msrp__tests_8cpp_a1bb60497e2ea2912eab455d90ce4b301}{msrp\+\_\+attrib\+\_\+type\+\_\+string} (int t)
+\item 
+char $\ast$ \hyperlink{msrp__tests_8cpp_a8ad26350e490db2481e870532f2c2433}{mrp\+\_\+event\+\_\+string} (int e)
+\item 
+int \hyperlink{msrp__tests_8cpp_a3ef8750fda71bf69438cd2ad60ec8d56}{msrp\+\_\+tests\+\_\+event\+\_\+counts\+\_\+per\+\_\+type} (int the\+\_\+type, int the\+\_\+event)
+\item 
+int \hyperlink{msrp__tests_8cpp_a330b08dc8711256d2361477f62fecffa}{msrp\+\_\+tests\+\_\+cmd\+\_\+ok} (const char $\ast$zstr)
+\item 
+\hyperlink{msrp__tests_8cpp_ac465625ea12dcf1c02adc85b8e5d5e7f}{T\+E\+S\+T\+\_\+\+G\+R\+O\+UP} (Msrp\+Test\+Group)
+\item 
+\hyperlink{msrp__tests_8cpp_a736b256cc8a59775cf7d52f8ad90b9e9}{T\+E\+ST} (Msrp\+Test\+Group, Register\+Talker\+Adv)
+\item 
+\hyperlink{msrp__tests_8cpp_a39580fc312916e8acdd4ef6198e5a049}{T\+E\+ST} (Msrp\+Test\+Group, Tx\+L\+V\+A\+\_\+\+Talker\+Adv\+\_\+clear\+\_\+tx\+\_\+flag)
+\item 
+\hyperlink{msrp__tests_8cpp_a9ce040d0ab6ede4d7acc112bd7e70d10}{T\+E\+ST} (Msrp\+Test\+Group, Tx\+L\+V\+A\+\_\+\+Talker\+Failed\+\_\+clear\+\_\+tx\+\_\+flag)
+\item 
+\hyperlink{msrp__tests_8cpp_a2650bdf2654115acb7d858856983f7ae}{T\+E\+ST} (Msrp\+Test\+Group, Tx\+L\+V\+A\+\_\+\+Listener\+\_\+clear\+\_\+tx\+\_\+flag)
+\item 
+\hyperlink{msrp__tests_8cpp_aa5494bcc2abeb8dbd5e6c1a445f23972}{T\+E\+ST} (Msrp\+Test\+Group, Tx\+L\+V\+A\+\_\+\+Domain\+\_\+clear\+\_\+tx\+\_\+flag)
+\item 
+\hyperlink{msrp__tests_8cpp_a747c746bc5f625e41b83e11e9e301b42}{T\+E\+ST} (Msrp\+Test\+Group, Tx\+L\+V\+A\+\_\+\+Talker\+Adv\+\_\+count\+\_\+64)
+\item 
+\hyperlink{msrp__tests_8cpp_a9daa6f2c770b4cc66883e9b7de2601c5}{T\+E\+ST} (Msrp\+Test\+Group, Multiple\+\_\+\+Clients)
+\item 
+\hyperlink{msrp__tests_8cpp_a251b6b0ec0e912ec2576737a49cd3e5c}{T\+E\+ST} (Msrp\+Test\+Group, Pruning\+\_\+\+Commands\+\_\+\+Fail)
+\item 
+\hyperlink{msrp__tests_8cpp_a2dc0e9607d6ac106ff5926dc3eada420}{T\+E\+ST} (Msrp\+Test\+Group, Listener\+\_\+\+State\+\_\+\+Transition\+\_\+\+With\+\_\+\+Rx\+\_\+r\+In)
+\item 
+\hyperlink{msrp__tests_8cpp_ae844dee823e413e6687f9e07b0115804}{T\+E\+ST} (Msrp\+Test\+Group, Talker\+Advertise\+\_\+\+To\+\_\+\+Failed\+\_\+\+Transition\+\_\+\+With\+\_\+\+Rx\+\_\+r\+In)
+\end{DoxyCompactItemize}
+\subsection*{변수}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structmsrp__database}{msrp\+\_\+database} $\ast$ \hyperlink{msrp__tests_8cpp_a2632449b508d61015863de936e0f902c}{M\+S\+R\+P\+\_\+db}
+\item 
+static unsigned char \hyperlink{msrp__tests_8cpp_a8d0a93df8552a146bc4c12b58f3e10d5}{pkt2} \mbox{[}$\,$\mbox{]}
+\item 
+static struct sockaddr\+\_\+in \hyperlink{msrp__tests_8cpp_abf7df3c8f5ff035f1843f41668a2168c}{client}
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}!A\+C\+C\+U\+M\+U\+L\+A\+T\+E\+D\+\_\+\+L\+A\+T\+E\+N\+CY@{A\+C\+C\+U\+M\+U\+L\+A\+T\+E\+D\+\_\+\+L\+A\+T\+E\+N\+CY}}
+\index{A\+C\+C\+U\+M\+U\+L\+A\+T\+E\+D\+\_\+\+L\+A\+T\+E\+N\+CY@{A\+C\+C\+U\+M\+U\+L\+A\+T\+E\+D\+\_\+\+L\+A\+T\+E\+N\+CY}!msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}}
+\subsubsection[{\texorpdfstring{A\+C\+C\+U\+M\+U\+L\+A\+T\+E\+D\+\_\+\+L\+A\+T\+E\+N\+CY}{ACCUMULATED_LATENCY}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+C\+C\+U\+M\+U\+L\+A\+T\+E\+D\+\_\+\+L\+A\+T\+E\+N\+CY~\char`\"{}1000\char`\"{}}\hypertarget{msrp__tests_8cpp_aa87d70cd9ed0517369bd6eaf64fa4a96}{}\label{msrp__tests_8cpp_aa87d70cd9ed0517369bd6eaf64fa4a96}
+
+
+msrp\+\_\+tests.\+cpp 파일의 231 번째 라인에서 정의되었습니다.
+
+\index{msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}!B\+R\+I\+D\+G\+E\+\_\+\+ID@{B\+R\+I\+D\+G\+E\+\_\+\+ID}}
+\index{B\+R\+I\+D\+G\+E\+\_\+\+ID@{B\+R\+I\+D\+G\+E\+\_\+\+ID}!msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}}
+\subsubsection[{\texorpdfstring{B\+R\+I\+D\+G\+E\+\_\+\+ID}{BRIDGE_ID}}]{\setlength{\rightskip}{0pt plus 5cm}\#define B\+R\+I\+D\+G\+E\+\_\+\+ID~\char`\"{}B\+A\+D\+C0\+F\+F\+E\+E\+C0\+F\+F\+E\+E0\char`\"{}}\hypertarget{msrp__tests_8cpp_a7d391ef7f173a04213e662964ca1f4cd}{}\label{msrp__tests_8cpp_a7d391ef7f173a04213e662964ca1f4cd}
+
+
+msrp\+\_\+tests.\+cpp 파일의 234 번째 라인에서 정의되었습니다.
+
+\index{msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}!F\+A\+I\+L\+U\+R\+E\+\_\+\+C\+O\+DE@{F\+A\+I\+L\+U\+R\+E\+\_\+\+C\+O\+DE}}
+\index{F\+A\+I\+L\+U\+R\+E\+\_\+\+C\+O\+DE@{F\+A\+I\+L\+U\+R\+E\+\_\+\+C\+O\+DE}!msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}}
+\subsubsection[{\texorpdfstring{F\+A\+I\+L\+U\+R\+E\+\_\+\+C\+O\+DE}{FAILURE_CODE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+A\+I\+L\+U\+R\+E\+\_\+\+C\+O\+DE~\char`\"{}1\char`\"{}}\hypertarget{msrp__tests_8cpp_a410934913d5189847c3ffc568d7fe385}{}\label{msrp__tests_8cpp_a410934913d5189847c3ffc568d7fe385}
+
+
+msrp\+\_\+tests.\+cpp 파일의 235 번째 라인에서 정의되었습니다.
+
+\index{msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}!P\+R\+I\+O\+R\+I\+T\+Y\+\_\+\+A\+N\+D\+\_\+\+R\+A\+NK@{P\+R\+I\+O\+R\+I\+T\+Y\+\_\+\+A\+N\+D\+\_\+\+R\+A\+NK}}
+\index{P\+R\+I\+O\+R\+I\+T\+Y\+\_\+\+A\+N\+D\+\_\+\+R\+A\+NK@{P\+R\+I\+O\+R\+I\+T\+Y\+\_\+\+A\+N\+D\+\_\+\+R\+A\+NK}!msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}}
+\subsubsection[{\texorpdfstring{P\+R\+I\+O\+R\+I\+T\+Y\+\_\+\+A\+N\+D\+\_\+\+R\+A\+NK}{PRIORITY_AND_RANK}}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+R\+I\+O\+R\+I\+T\+Y\+\_\+\+A\+N\+D\+\_\+\+R\+A\+NK~\char`\"{}96\char`\"{}}\hypertarget{msrp__tests_8cpp_a21c9558f4a2da68c70811d70dd32151f}{}\label{msrp__tests_8cpp_a21c9558f4a2da68c70811d70dd32151f}
+
+
+msrp\+\_\+tests.\+cpp 파일의 230 번째 라인에서 정의되었습니다.
+
+\index{msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}!P\+R\+Iu64@{P\+R\+Iu64}}
+\index{P\+R\+Iu64@{P\+R\+Iu64}!msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}}
+\subsubsection[{\texorpdfstring{P\+R\+Iu64}{PRIu64}}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+R\+Iu64~\char`\"{}I64u\char`\"{}}\hypertarget{msrp__tests_8cpp_ac582131d7a7c8ee57e73180d1714f9d5}{}\label{msrp__tests_8cpp_ac582131d7a7c8ee57e73180d1714f9d5}
+
+
+msrp\+\_\+tests.\+cpp 파일의 46 번째 라인에서 정의되었습니다.
+
+\index{msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}!P\+R\+Ix64@{P\+R\+Ix64}}
+\index{P\+R\+Ix64@{P\+R\+Ix64}!msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}}
+\subsubsection[{\texorpdfstring{P\+R\+Ix64}{PRIx64}}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+R\+Ix64~\char`\"{}I64x\char`\"{}}\hypertarget{msrp__tests_8cpp_aba38357387a474f439428dee1984fc5a}{}\label{msrp__tests_8cpp_aba38357387a474f439428dee1984fc5a}
+
+
+msrp\+\_\+tests.\+cpp 파일의 47 번째 라인에서 정의되었습니다.
+
+\index{msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}!S\+R\+\_\+\+C\+L\+A\+S\+S\+\_\+\+ID@{S\+R\+\_\+\+C\+L\+A\+S\+S\+\_\+\+ID}}
+\index{S\+R\+\_\+\+C\+L\+A\+S\+S\+\_\+\+ID@{S\+R\+\_\+\+C\+L\+A\+S\+S\+\_\+\+ID}!msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}}
+\subsubsection[{\texorpdfstring{S\+R\+\_\+\+C\+L\+A\+S\+S\+\_\+\+ID}{SR_CLASS_ID}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+R\+\_\+\+C\+L\+A\+S\+S\+\_\+\+ID~\char`\"{}6\char`\"{}}\hypertarget{msrp__tests_8cpp_a517651d0e939360fc119ca27bee2fa8c}{}\label{msrp__tests_8cpp_a517651d0e939360fc119ca27bee2fa8c}
+
+
+msrp\+\_\+tests.\+cpp 파일의 232 번째 라인에서 정의되었습니다.
+
+\index{msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}!S\+R\+\_\+\+C\+L\+A\+S\+S\+\_\+\+P\+R\+I\+O\+R\+I\+TY@{S\+R\+\_\+\+C\+L\+A\+S\+S\+\_\+\+P\+R\+I\+O\+R\+I\+TY}}
+\index{S\+R\+\_\+\+C\+L\+A\+S\+S\+\_\+\+P\+R\+I\+O\+R\+I\+TY@{S\+R\+\_\+\+C\+L\+A\+S\+S\+\_\+\+P\+R\+I\+O\+R\+I\+TY}!msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}}
+\subsubsection[{\texorpdfstring{S\+R\+\_\+\+C\+L\+A\+S\+S\+\_\+\+P\+R\+I\+O\+R\+I\+TY}{SR_CLASS_PRIORITY}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+R\+\_\+\+C\+L\+A\+S\+S\+\_\+\+P\+R\+I\+O\+R\+I\+TY~\char`\"{}3\char`\"{}}\hypertarget{msrp__tests_8cpp_af9dc616a7814cee63adee9d59839f959}{}\label{msrp__tests_8cpp_af9dc616a7814cee63adee9d59839f959}
+
+
+msrp\+\_\+tests.\+cpp 파일의 233 번째 라인에서 정의되었습니다.
+
+\index{msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}!S\+T\+\_\+\+P\+L\+U\+S\+\_\+\+P\+L\+US@{S\+T\+\_\+\+P\+L\+U\+S\+\_\+\+P\+L\+US}}
+\index{S\+T\+\_\+\+P\+L\+U\+S\+\_\+\+P\+L\+US@{S\+T\+\_\+\+P\+L\+U\+S\+\_\+\+P\+L\+US}!msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}}
+\subsubsection[{\texorpdfstring{S\+T\+\_\+\+P\+L\+U\+S\+\_\+\+P\+L\+US}{ST_PLUS_PLUS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+T\+\_\+\+P\+L\+U\+S\+\_\+\+P\+L\+US}\hypertarget{msrp__tests_8cpp_a4af04818bc78580d3ddce8c7f289911c}{}\label{msrp__tests_8cpp_a4af04818bc78580d3ddce8c7f289911c}
+{\bfseries 값\+:}
+\begin{DoxyCode}
+\textcolor{stringliteral}{"S++:S="} \hyperlink{msrp__tests_8cpp_ade86a80a3d067dece1f7e7cf957e3e92}{STREAM\_ID} \(\backslash\)
+                     \textcolor{stringliteral}{",A="} \hyperlink{msrp__tests_8cpp_ad67d7637234f1ca513d2366dd8a66854}{STREAM\_DA} \(\backslash\)
+                     \textcolor{stringliteral}{",V="} \hyperlink{msrp__tests_8cpp_ac23326adfc4e624044916cc85d9bac2f}{VLAN\_ID} \(\backslash\)
+                     \textcolor{stringliteral}{",Z="} \hyperlink{msrp__tests_8cpp_a8ad1ebec324e399a1fafe44e201f2f54}{TSPEC\_MAX\_FRAME\_SIZE} \(\backslash\)
+                     \textcolor{stringliteral}{",I="} \hyperlink{msrp__tests_8cpp_a2f0ec09eab10749c9eb3c3da0de95949}{TSPEC\_MAX\_FRAME\_INTERVAL} \(\backslash\)
+                     \textcolor{stringliteral}{",P="} \hyperlink{msrp__tests_8cpp_a21c9558f4a2da68c70811d70dd32151f}{PRIORITY\_AND\_RANK} \(\backslash\)
+                     \textcolor{stringliteral}{",L="} \hyperlink{msrp__tests_8cpp_aa87d70cd9ed0517369bd6eaf64fa4a96}{ACCUMULATED\_LATENCY}
+\end{DoxyCode}
+
+
+msrp\+\_\+tests.\+cpp 파일의 237 번째 라인에서 정의되었습니다.
+
+\index{msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}!S\+T\+R\+E\+A\+M\+\_\+\+DA@{S\+T\+R\+E\+A\+M\+\_\+\+DA}}
+\index{S\+T\+R\+E\+A\+M\+\_\+\+DA@{S\+T\+R\+E\+A\+M\+\_\+\+DA}!msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}}
+\subsubsection[{\texorpdfstring{S\+T\+R\+E\+A\+M\+\_\+\+DA}{STREAM_DA}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+T\+R\+E\+A\+M\+\_\+\+DA~\char`\"{}010203040506\char`\"{}}\hypertarget{msrp__tests_8cpp_ad67d7637234f1ca513d2366dd8a66854}{}\label{msrp__tests_8cpp_ad67d7637234f1ca513d2366dd8a66854}
+
+
+msrp\+\_\+tests.\+cpp 파일의 225 번째 라인에서 정의되었습니다.
+
+\index{msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}!S\+T\+R\+E\+A\+M\+\_\+\+ID@{S\+T\+R\+E\+A\+M\+\_\+\+ID}}
+\index{S\+T\+R\+E\+A\+M\+\_\+\+ID@{S\+T\+R\+E\+A\+M\+\_\+\+ID}!msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}}
+\subsubsection[{\texorpdfstring{S\+T\+R\+E\+A\+M\+\_\+\+ID}{STREAM_ID}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+T\+R\+E\+A\+M\+\_\+\+ID~\char`\"{}D\+E\+A\+D\+B\+E\+E\+F\+B\+A\+D\+F\+C\+A11\char`\"{}}\hypertarget{msrp__tests_8cpp_ade86a80a3d067dece1f7e7cf957e3e92}{}\label{msrp__tests_8cpp_ade86a80a3d067dece1f7e7cf957e3e92}
+
+
+msrp\+\_\+tests.\+cpp 파일의 226 번째 라인에서 정의되었습니다.
+
+\index{msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}!T\+S\+P\+E\+C\+\_\+\+M\+A\+X\+\_\+\+F\+R\+A\+M\+E\+\_\+\+I\+N\+T\+E\+R\+V\+AL@{T\+S\+P\+E\+C\+\_\+\+M\+A\+X\+\_\+\+F\+R\+A\+M\+E\+\_\+\+I\+N\+T\+E\+R\+V\+AL}}
+\index{T\+S\+P\+E\+C\+\_\+\+M\+A\+X\+\_\+\+F\+R\+A\+M\+E\+\_\+\+I\+N\+T\+E\+R\+V\+AL@{T\+S\+P\+E\+C\+\_\+\+M\+A\+X\+\_\+\+F\+R\+A\+M\+E\+\_\+\+I\+N\+T\+E\+R\+V\+AL}!msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}}
+\subsubsection[{\texorpdfstring{T\+S\+P\+E\+C\+\_\+\+M\+A\+X\+\_\+\+F\+R\+A\+M\+E\+\_\+\+I\+N\+T\+E\+R\+V\+AL}{TSPEC_MAX_FRAME_INTERVAL}}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+S\+P\+E\+C\+\_\+\+M\+A\+X\+\_\+\+F\+R\+A\+M\+E\+\_\+\+I\+N\+T\+E\+R\+V\+AL~\char`\"{}8000\char`\"{}}\hypertarget{msrp__tests_8cpp_a2f0ec09eab10749c9eb3c3da0de95949}{}\label{msrp__tests_8cpp_a2f0ec09eab10749c9eb3c3da0de95949}
+
+
+msrp\+\_\+tests.\+cpp 파일의 229 번째 라인에서 정의되었습니다.
+
+\index{msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}!T\+S\+P\+E\+C\+\_\+\+M\+A\+X\+\_\+\+F\+R\+A\+M\+E\+\_\+\+S\+I\+ZE@{T\+S\+P\+E\+C\+\_\+\+M\+A\+X\+\_\+\+F\+R\+A\+M\+E\+\_\+\+S\+I\+ZE}}
+\index{T\+S\+P\+E\+C\+\_\+\+M\+A\+X\+\_\+\+F\+R\+A\+M\+E\+\_\+\+S\+I\+ZE@{T\+S\+P\+E\+C\+\_\+\+M\+A\+X\+\_\+\+F\+R\+A\+M\+E\+\_\+\+S\+I\+ZE}!msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}}
+\subsubsection[{\texorpdfstring{T\+S\+P\+E\+C\+\_\+\+M\+A\+X\+\_\+\+F\+R\+A\+M\+E\+\_\+\+S\+I\+ZE}{TSPEC_MAX_FRAME_SIZE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+S\+P\+E\+C\+\_\+\+M\+A\+X\+\_\+\+F\+R\+A\+M\+E\+\_\+\+S\+I\+ZE~\char`\"{}576\char`\"{}}\hypertarget{msrp__tests_8cpp_a8ad1ebec324e399a1fafe44e201f2f54}{}\label{msrp__tests_8cpp_a8ad1ebec324e399a1fafe44e201f2f54}
+
+
+msrp\+\_\+tests.\+cpp 파일의 228 번째 라인에서 정의되었습니다.
+
+\index{msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}!V\+L\+A\+N\+\_\+\+ID@{V\+L\+A\+N\+\_\+\+ID}}
+\index{V\+L\+A\+N\+\_\+\+ID@{V\+L\+A\+N\+\_\+\+ID}!msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}}
+\subsubsection[{\texorpdfstring{V\+L\+A\+N\+\_\+\+ID}{VLAN_ID}}]{\setlength{\rightskip}{0pt plus 5cm}\#define V\+L\+A\+N\+\_\+\+ID~\char`\"{}0002\char`\"{}}\hypertarget{msrp__tests_8cpp_ac23326adfc4e624044916cc85d9bac2f}{}\label{msrp__tests_8cpp_ac23326adfc4e624044916cc85d9bac2f}
+
+
+msrp\+\_\+tests.\+cpp 파일의 227 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{타입정의 문서화}
+\index{msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}!int32\+\_\+t@{int32\+\_\+t}}
+\index{int32\+\_\+t@{int32\+\_\+t}!msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}}
+\subsubsection[{\texorpdfstring{int32\+\_\+t}{int32_t}}]{\setlength{\rightskip}{0pt plus 5cm}typedef \+\_\+\+\_\+int32 {\bf int32\+\_\+t}}\hypertarget{msrp__tests_8cpp_a37994e3b11c72957c6f454c6ec96d43d}{}\label{msrp__tests_8cpp_a37994e3b11c72957c6f454c6ec96d43d}
+
+
+msrp\+\_\+tests.\+cpp 파일의 42 번째 라인에서 정의되었습니다.
+
+\index{msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}!int64\+\_\+t@{int64\+\_\+t}}
+\index{int64\+\_\+t@{int64\+\_\+t}!msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}}
+\subsubsection[{\texorpdfstring{int64\+\_\+t}{int64_t}}]{\setlength{\rightskip}{0pt plus 5cm}typedef \+\_\+\+\_\+int64 {\bf int64\+\_\+t}}\hypertarget{msrp__tests_8cpp_a67a9885ef4908cb72ce26d75b694386c}{}\label{msrp__tests_8cpp_a67a9885ef4908cb72ce26d75b694386c}
+
+
+msrp\+\_\+tests.\+cpp 파일의 44 번째 라인에서 정의되었습니다.
+
+\index{msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}!uint32\+\_\+t@{uint32\+\_\+t}}
+\index{uint32\+\_\+t@{uint32\+\_\+t}!msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}}
+\subsubsection[{\texorpdfstring{uint32\+\_\+t}{uint32_t}}]{\setlength{\rightskip}{0pt plus 5cm}typedef unsigned \+\_\+\+\_\+int32 {\bf uint32\+\_\+t}}\hypertarget{msrp__tests_8cpp_a6eb1e68cc391dd753bc8ce896dbb8315}{}\label{msrp__tests_8cpp_a6eb1e68cc391dd753bc8ce896dbb8315}
+
+
+msrp\+\_\+tests.\+cpp 파일의 43 번째 라인에서 정의되었습니다.
+
+\index{msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}!uint64\+\_\+t@{uint64\+\_\+t}}
+\index{uint64\+\_\+t@{uint64\+\_\+t}!msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}}
+\subsubsection[{\texorpdfstring{uint64\+\_\+t}{uint64_t}}]{\setlength{\rightskip}{0pt plus 5cm}typedef unsigned \+\_\+\+\_\+int64 {\bf uint64\+\_\+t}}\hypertarget{msrp__tests_8cpp_aec6fcb673ff035718c238c8c9d544c47}{}\label{msrp__tests_8cpp_aec6fcb673ff035718c238c8c9d544c47}
+
+
+msrp\+\_\+tests.\+cpp 파일의 45 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{함수 문서화}
+\index{msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}!mrp\+\_\+event\+\_\+string@{mrp\+\_\+event\+\_\+string}}
+\index{mrp\+\_\+event\+\_\+string@{mrp\+\_\+event\+\_\+string}!msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}}
+\subsubsection[{\texorpdfstring{mrp\+\_\+event\+\_\+string(int e)}{mrp_event_string(int e)}}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ mrp\+\_\+event\+\_\+string (
+\begin{DoxyParamCaption}
+\item[{int}]{e}
+\end{DoxyParamCaption}
+)}\hypertarget{msrp__tests_8cpp_a8ad26350e490db2481e870532f2c2433}{}\label{msrp__tests_8cpp_a8ad26350e490db2481e870532f2c2433}
+\index{msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}!msrp\+\_\+attrib\+\_\+type\+\_\+string@{msrp\+\_\+attrib\+\_\+type\+\_\+string}}
+\index{msrp\+\_\+attrib\+\_\+type\+\_\+string@{msrp\+\_\+attrib\+\_\+type\+\_\+string}!msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}}
+\subsubsection[{\texorpdfstring{msrp\+\_\+attrib\+\_\+type\+\_\+string(int t)}{msrp_attrib_type_string(int t)}}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ msrp\+\_\+attrib\+\_\+type\+\_\+string (
+\begin{DoxyParamCaption}
+\item[{int}]{t}
+\end{DoxyParamCaption}
+)}\hypertarget{msrp__tests_8cpp_a1bb60497e2ea2912eab455d90ce4b301}{}\label{msrp__tests_8cpp_a1bb60497e2ea2912eab455d90ce4b301}
+
+
+msrp.\+c 파일의 69 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+70 \{
+71     \textcolor{keywordflow}{switch} (t) \{
+72     \textcolor{keywordflow}{case} \hyperlink{msrp_8h_a4251d2276eb968bf519a08c0c9e63ba6}{MSRP\_TALKER\_ADV\_TYPE}:
+73         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"Talker Advertise"};
+74     \textcolor{keywordflow}{case} \hyperlink{msrp_8h_ad2f7477046437e0bd42e95ad93dc540d}{MSRP\_TALKER\_FAILED\_TYPE}:
+75         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"Talker Failed"};
+76     \textcolor{keywordflow}{case} \hyperlink{msrp_8h_af7da4416cc2e710a02cfb7d0e3a4f0c2}{MSRP\_LISTENER\_TYPE}:
+77         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"Listener"};
+78     \textcolor{keywordflow}{case} \hyperlink{msrp_8h_a7a78e39f3672d05cdbc8917d28ebacdf}{MSRP\_DOMAIN\_TYPE}:
+79         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"Domain"};
+80     \textcolor{keywordflow}{default}:
+81         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"TYPE ???"};
+82     \}
+83 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=327pt]{msrp__tests_8cpp_a1bb60497e2ea2912eab455d90ce4b301_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{msrp__tests_8cpp_a1bb60497e2ea2912eab455d90ce4b301_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}!msrp\+\_\+event\+\_\+observer@{msrp\+\_\+event\+\_\+observer}}
+\index{msrp\+\_\+event\+\_\+observer@{msrp\+\_\+event\+\_\+observer}!msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}}
+\subsubsection[{\texorpdfstring{msrp\+\_\+event\+\_\+observer(int event, struct msrp\+\_\+attribute $\ast$attr)}{msrp_event_observer(int event, struct msrp_attribute *attr)}}]{\setlength{\rightskip}{0pt plus 5cm}void msrp\+\_\+event\+\_\+observer (
+\begin{DoxyParamCaption}
+\item[{int}]{event, }
+\item[{struct {\bf msrp\+\_\+attribute} $\ast$}]{attr}
+\end{DoxyParamCaption}
+)}\hypertarget{msrp__tests_8cpp_a43449fe478c6edded03350fc4f5070c1}{}\label{msrp__tests_8cpp_a43449fe478c6edded03350fc4f5070c1}
+
+
+msrp\+\_\+pdu\+\_\+tests.\+cpp 파일의 78 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+79 \{
+80     printf(\textcolor{stringliteral}{"Event: %s Attr: %s StreamID: "},
+81            \hyperlink{msrp__pdu__tests_8cpp_a8ad26350e490db2481e870532f2c2433}{mrp\_event\_string}(event),
+82            \hyperlink{msrp__pdu__tests_8cpp_a1bb60497e2ea2912eab455d90ce4b301}{msrp\_attrib\_type\_string}(attr->\hyperlink{structmsrp__attribute_ad44b615021ed3ccb734fcaf583ef4a03}{type}));
+83     printf(\textcolor{stringliteral}{"%02x:%02x:%02x:%02x:%02x:%02x:%02x:%02x\(\backslash\)n"},
+84            attr->\hyperlink{structmsrp__attribute_a3ef689bda345890720a9e52cc01a46d3}{attribute}.\hyperlink{structmsrp__attribute_a940e887e9c7477a40dba8b9964d18de2}{talk\_listen}.\hyperlink{structmsrpdu__talker__fail_a699f4611107a6da58e4e4153858c8578}{StreamID}[0],
+85            attr->\hyperlink{structmsrp__attribute_a3ef689bda345890720a9e52cc01a46d3}{attribute}.\hyperlink{structmsrp__attribute_a940e887e9c7477a40dba8b9964d18de2}{talk\_listen}.\hyperlink{structmsrpdu__talker__fail_a699f4611107a6da58e4e4153858c8578}{StreamID}[1],
+86            attr->\hyperlink{structmsrp__attribute_a3ef689bda345890720a9e52cc01a46d3}{attribute}.\hyperlink{structmsrp__attribute_a940e887e9c7477a40dba8b9964d18de2}{talk\_listen}.\hyperlink{structmsrpdu__talker__fail_a699f4611107a6da58e4e4153858c8578}{StreamID}[2],
+87            attr->\hyperlink{structmsrp__attribute_a3ef689bda345890720a9e52cc01a46d3}{attribute}.\hyperlink{structmsrp__attribute_a940e887e9c7477a40dba8b9964d18de2}{talk\_listen}.\hyperlink{structmsrpdu__talker__fail_a699f4611107a6da58e4e4153858c8578}{StreamID}[3],
+88            attr->\hyperlink{structmsrp__attribute_a3ef689bda345890720a9e52cc01a46d3}{attribute}.\hyperlink{structmsrp__attribute_a940e887e9c7477a40dba8b9964d18de2}{talk\_listen}.\hyperlink{structmsrpdu__talker__fail_a699f4611107a6da58e4e4153858c8578}{StreamID}[4],
+89            attr->\hyperlink{structmsrp__attribute_a3ef689bda345890720a9e52cc01a46d3}{attribute}.\hyperlink{structmsrp__attribute_a940e887e9c7477a40dba8b9964d18de2}{talk\_listen}.\hyperlink{structmsrpdu__talker__fail_a699f4611107a6da58e4e4153858c8578}{StreamID}[5],
+90            attr->\hyperlink{structmsrp__attribute_a3ef689bda345890720a9e52cc01a46d3}{attribute}.\hyperlink{structmsrp__attribute_a940e887e9c7477a40dba8b9964d18de2}{talk\_listen}.\hyperlink{structmsrpdu__talker__fail_a699f4611107a6da58e4e4153858c8578}{StreamID}[6],
+91            attr->\hyperlink{structmsrp__attribute_a3ef689bda345890720a9e52cc01a46d3}{attribute}.\hyperlink{structmsrp__attribute_a940e887e9c7477a40dba8b9964d18de2}{talk\_listen}.\hyperlink{structmsrpdu__talker__fail_a699f4611107a6da58e4e4153858c8578}{StreamID}[7]);
+92 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=345pt]{msrp__tests_8cpp_a43449fe478c6edded03350fc4f5070c1_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}!msrp\+\_\+tests\+\_\+cmd\+\_\+ok@{msrp\+\_\+tests\+\_\+cmd\+\_\+ok}}
+\index{msrp\+\_\+tests\+\_\+cmd\+\_\+ok@{msrp\+\_\+tests\+\_\+cmd\+\_\+ok}!msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}}
+\subsubsection[{\texorpdfstring{msrp\+\_\+tests\+\_\+cmd\+\_\+ok(const char $\ast$zstr)}{msrp_tests_cmd_ok(const char *zstr)}}]{\setlength{\rightskip}{0pt plus 5cm}int msrp\+\_\+tests\+\_\+cmd\+\_\+ok (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{zstr}
+\end{DoxyParamCaption}
+)}\hypertarget{msrp__tests_8cpp_a330b08dc8711256d2361477f62fecffa}{}\label{msrp__tests_8cpp_a330b08dc8711256d2361477f62fecffa}
+
+
+msrp\+\_\+tests.\+cpp 파일의 252 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+253 \{
+254     \textcolor{keywordtype}{int} status;
+255 
+256     status = (zstr[0] != \textcolor{charliteral}{'E'}) && (zstr[1] != \textcolor{charliteral}{'R'});
+257 
+258         \textcolor{keywordflow}{return} status;
+259 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=263pt]{msrp__tests_8cpp_a330b08dc8711256d2361477f62fecffa_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}!msrp\+\_\+tests\+\_\+event\+\_\+counts\+\_\+per\+\_\+type@{msrp\+\_\+tests\+\_\+event\+\_\+counts\+\_\+per\+\_\+type}}
+\index{msrp\+\_\+tests\+\_\+event\+\_\+counts\+\_\+per\+\_\+type@{msrp\+\_\+tests\+\_\+event\+\_\+counts\+\_\+per\+\_\+type}!msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}}
+\subsubsection[{\texorpdfstring{msrp\+\_\+tests\+\_\+event\+\_\+counts\+\_\+per\+\_\+type(int the\+\_\+type, int the\+\_\+event)}{msrp_tests_event_counts_per_type(int the_type, int the_event)}}]{\setlength{\rightskip}{0pt plus 5cm}int msrp\+\_\+tests\+\_\+event\+\_\+counts\+\_\+per\+\_\+type (
+\begin{DoxyParamCaption}
+\item[{int}]{the\+\_\+type, }
+\item[{int}]{the\+\_\+event}
+\end{DoxyParamCaption}
+)}\hypertarget{msrp__tests_8cpp_a3ef8750fda71bf69438cd2ad60ec8d56}{}\label{msrp__tests_8cpp_a3ef8750fda71bf69438cd2ad60ec8d56}
+
+
+msrp\+\_\+tests.\+cpp 파일의 247 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+248 \{
+249     \textcolor{keywordflow}{return} \hyperlink{maap__test_8c_a48d2985b8fc67189cb2721c1626a43b6}{test\_state}.msrp\_event\_counts\_per\_type[\hyperlink{mrp__doubles_8h_a4aa68192bfe3bc65183f7a33665ba1c3}{MSRP\_TYPE\_IDX}(the\_type)][
+      \hyperlink{mrp__doubles_8h_a544520c443678873685324c13d6ce33d}{MSRP\_EVENT\_IDX}(the\_event)];
+250 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=287pt]{msrp__tests_8cpp_a3ef8750fda71bf69438cd2ad60ec8d56_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}!T\+E\+ST@{T\+E\+ST}}
+\index{T\+E\+ST@{T\+E\+ST}!msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}}
+\subsubsection[{\texorpdfstring{T\+E\+S\+T(\+Msrp\+Test\+Group, Register\+Talker\+Adv)}{TEST(MsrpTestGroup, RegisterTalkerAdv)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+E\+ST (
+\begin{DoxyParamCaption}
+\item[{Msrp\+Test\+Group}]{, }
+\item[{Register\+Talker\+Adv}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{msrp__tests_8cpp_a736b256cc8a59775cf7d52f8ad90b9e9}{}\label{msrp__tests_8cpp_a736b256cc8a59775cf7d52f8ad90b9e9}
+
+
+msrp\+\_\+tests.\+cpp 파일의 281 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+282 \{
+283     \textcolor{keyword}{struct }\hyperlink{structmsrp__attribute}{msrp\_attribute} a\_ref;
+284     \textcolor{keyword}{struct }\hyperlink{structmsrp__attribute}{msrp\_attribute} *a\_msrp = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+285     \textcolor{keywordtype}{int} err\_index = 0;
+286     \textcolor{keywordtype}{int} parse\_status = 0;
+287     \textcolor{keywordtype}{char} id\_substring[] = \textcolor{stringliteral}{"S"} \hyperlink{parse_8h_aec88e9092a20d8b1021aab9be79f2999}{PARSE\_ASSIGN} \hyperlink{msrp__tests_8cpp_ade86a80a3d067dece1f7e7cf957e3e92}{STREAM\_ID};
+288     \textcolor{keywordtype}{char} cmd\_string[] = \hyperlink{msrp__tests_8cpp_a4af04818bc78580d3ddce8c7f289911c}{ST\_PLUS\_PLUS};
+289 
+290     \hyperlink{_utest_macros_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}(\hyperlink{msrp__tests_8cpp_a2632449b508d61015863de936e0f902c}{MSRP\_db} != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+291 
+292     \textcolor{comment}{/* here we fill in a\_ref struct with target values */}
+293     \hyperlink{eui64set_8c_a768ae76e5718339e9a3c96617ca475f2}{eui64\_write}(a\_ref.attribute.talk\_listen.StreamID, 0xDEADBEEFBADFCA11ull);
+294     a\_ref.type = \hyperlink{msrp_8h_a4251d2276eb968bf519a08c0c9e63ba6}{MSRP\_TALKER\_ADV\_TYPE};
+295 
+296     \textcolor{comment}{/* use string interface to get MSRP to create TalkerAdv attrib in it's database */}
+297     \hyperlink{msrp_8c_a072b3d50b567a96dabff447fca5b8a4a}{msrp\_recv\_cmd}(cmd\_string, \textcolor{keyword}{sizeof}(cmd\_string), &\hyperlink{msrp__tests_8cpp_abf7df3c8f5ff035f1843f41668a2168c}{client});
+298     \hyperlink{_utest_macros_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}(\hyperlink{msrp__tests_8cpp_a330b08dc8711256d2361477f62fecffa}{msrp\_tests\_cmd\_ok}(\hyperlink{maap__test_8c_a48d2985b8fc67189cb2721c1626a43b6}{test\_state}.ctl\_msg\_data));
+299 
+300     \textcolor{comment}{/* lookup the created attrib */}
+301     a\_msrp = \hyperlink{msrp_8c_a15737df37638201e950b90d3f33f5009}{msrp\_lookup}(&a\_ref);
+302     \hyperlink{_utest_macros_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}(a\_msrp != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+303 
+304     \textcolor{comment}{/* check for NEW event */}
+305     \hyperlink{_utest_macros_8h_a7921a0c4f152a7879e78fe6fc2905590}{LONGS\_EQUAL}(1, \hyperlink{msrp__tests_8cpp_a3ef8750fda71bf69438cd2ad60ec8d56}{msrp\_tests\_event\_counts\_per\_type}(
+      \hyperlink{msrp_8h_a4251d2276eb968bf519a08c0c9e63ba6}{MSRP\_TALKER\_ADV\_TYPE}, \hyperlink{mrp_8h_a69f6f4690b00da18d02751bb7c9019df}{MRP\_EVENT\_NEW}));
+306 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{msrp__tests_8cpp_a736b256cc8a59775cf7d52f8ad90b9e9_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}!T\+E\+ST@{T\+E\+ST}}
+\index{T\+E\+ST@{T\+E\+ST}!msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}}
+\subsubsection[{\texorpdfstring{T\+E\+S\+T(\+Msrp\+Test\+Group, Tx\+L\+V\+A\+\_\+\+Talker\+Adv\+\_\+clear\+\_\+tx\+\_\+flag)}{TEST(MsrpTestGroup, TxLVA_TalkerAdv_clear_tx_flag)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+E\+ST (
+\begin{DoxyParamCaption}
+\item[{Msrp\+Test\+Group}]{, }
+\item[{Tx\+L\+V\+A\+\_\+\+Talker\+Adv\+\_\+clear\+\_\+tx\+\_\+flag}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{msrp__tests_8cpp_a39580fc312916e8acdd4ef6198e5a049}{}\label{msrp__tests_8cpp_a39580fc312916e8acdd4ef6198e5a049}
+
+
+msrp\+\_\+tests.\+cpp 파일의 314 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+315 \{
+316     \textcolor{keyword}{struct }\hyperlink{structmsrp__attribute}{msrp\_attribute} *attrib;
+317     \textcolor{keywordtype}{int} count = 128;
+318     \textcolor{keywordtype}{int} tx\_flag\_count = 0;
+319     \textcolor{keywordtype}{char} cmd\_string[] = \textcolor{stringliteral}{"S++:S="} \hyperlink{msrp__tests_8cpp_ade86a80a3d067dece1f7e7cf957e3e92}{STREAM\_ID} \textcolor{stringliteral}{",A="} \hyperlink{msrp__tests_8cpp_ad67d7637234f1ca513d2366dd8a66854}{STREAM\_DA} \textcolor{stringliteral}{",V="} 
+      \hyperlink{msrp__tests_8cpp_ac23326adfc4e624044916cc85d9bac2f}{VLAN\_ID}
+320         \textcolor{stringliteral}{",Z="} \hyperlink{msrp__tests_8cpp_a8ad1ebec324e399a1fafe44e201f2f54}{TSPEC\_MAX\_FRAME\_SIZE} \textcolor{stringliteral}{",I="} 
+      \hyperlink{msrp__tests_8cpp_a2f0ec09eab10749c9eb3c3da0de95949}{TSPEC\_MAX\_FRAME\_INTERVAL}
+321         \textcolor{stringliteral}{",P="} \hyperlink{msrp__tests_8cpp_a21c9558f4a2da68c70811d70dd32151f}{PRIORITY\_AND\_RANK} \textcolor{stringliteral}{",L="} \hyperlink{msrp__tests_8cpp_aa87d70cd9ed0517369bd6eaf64fa4a96}{ACCUMULATED\_LATENCY};
+322 
+323     \hyperlink{msrp_8c_a072b3d50b567a96dabff447fca5b8a4a}{msrp\_recv\_cmd}(cmd\_string, \textcolor{keyword}{sizeof}(cmd\_string), &\hyperlink{msrp__tests_8cpp_abf7df3c8f5ff035f1843f41668a2168c}{client});
+324     \hyperlink{_utest_macros_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}(\hyperlink{msrp__tests_8cpp_a330b08dc8711256d2361477f62fecffa}{msrp\_tests\_cmd\_ok}(\hyperlink{maap__test_8c_a48d2985b8fc67189cb2721c1626a43b6}{test\_state}.ctl\_msg\_data));
+325 
+326     \textcolor{comment}{/*}
+327 \textcolor{comment}{     * Generate a LVA event.}
+328 \textcolor{comment}{     * This will cause a tx flag to be set for the attribute and then cleared when}
+329 \textcolor{comment}{     * the attribute is encoded into a PDU.}
+330 \textcolor{comment}{     */}
+331     \hyperlink{msrp_8c_afdf1c4b7bf6c48671ee29d4d585bd2f1}{msrp\_event}(\hyperlink{mrp_8h_a8088f6bff6d11fdddbea73c3596356ca}{MRP\_EVENT\_LVATIMER}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+332 
+333     \textcolor{comment}{/* verify that all tx flags are zero by scanning the attribute list */}
+334     attrib = \hyperlink{msrp__tests_8cpp_a2632449b508d61015863de936e0f902c}{MSRP\_db}->\hyperlink{structmsrp__database_a171377a96c019410091ac2838ea2be82}{attrib\_list};
+335     \textcolor{keywordflow}{while} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} != attrib)
+336     \{
+337         tx\_flag\_count += attrib->\hyperlink{structmsrp__attribute_a9ee7e01253c78c410bf44f18a6372d92}{applicant}.\hyperlink{structmrp__applicant__attribute_a40590f55f82df430f8035df8dd4f03c2}{tx};
+338         attrib = attrib->\hyperlink{structmsrp__attribute_aee93bf3c35daae5c99a5157c87f4b7cb}{next};
+339     \}
+340     \hyperlink{_utest_macros_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}(\hyperlink{mrp__doubles_8c_a3629c1b2ea8ec0015b68e8d35c24a809}{mrpd\_send\_packet\_count}() > 0);
+341     \hyperlink{_utest_macros_8h_a7921a0c4f152a7879e78fe6fc2905590}{LONGS\_EQUAL}(0, tx\_flag\_count);
+342     \hyperlink{_utest_macros_8h_a7921a0c4f152a7879e78fe6fc2905590}{LONGS\_EQUAL}(1, \hyperlink{msrp__tests_8cpp_a3ef8750fda71bf69438cd2ad60ec8d56}{msrp\_tests\_event\_counts\_per\_type}(
+      \hyperlink{msrp_8h_a4251d2276eb968bf519a08c0c9e63ba6}{MSRP\_TALKER\_ADV\_TYPE}, \hyperlink{mrp_8h_a69f6f4690b00da18d02751bb7c9019df}{MRP\_EVENT\_NEW}));
+343 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{msrp__tests_8cpp_a39580fc312916e8acdd4ef6198e5a049_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}!T\+E\+ST@{T\+E\+ST}}
+\index{T\+E\+ST@{T\+E\+ST}!msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}}
+\subsubsection[{\texorpdfstring{T\+E\+S\+T(\+Msrp\+Test\+Group, Tx\+L\+V\+A\+\_\+\+Talker\+Failed\+\_\+clear\+\_\+tx\+\_\+flag)}{TEST(MsrpTestGroup, TxLVA_TalkerFailed_clear_tx_flag)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+E\+ST (
+\begin{DoxyParamCaption}
+\item[{Msrp\+Test\+Group}]{, }
+\item[{Tx\+L\+V\+A\+\_\+\+Talker\+Failed\+\_\+clear\+\_\+tx\+\_\+flag}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{msrp__tests_8cpp_a9ce040d0ab6ede4d7acc112bd7e70d10}{}\label{msrp__tests_8cpp_a9ce040d0ab6ede4d7acc112bd7e70d10}
+
+
+msrp\+\_\+tests.\+cpp 파일의 351 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+352 \{
+353     \textcolor{keyword}{struct }\hyperlink{structmsrp__attribute}{msrp\_attribute} *attrib;
+354     \textcolor{keywordtype}{int} tx\_flag\_count = 0;
+355     \textcolor{keywordtype}{char} cmd\_string[] = \textcolor{stringliteral}{"S++:S="} \hyperlink{msrp__tests_8cpp_ade86a80a3d067dece1f7e7cf957e3e92}{STREAM\_ID} \textcolor{stringliteral}{",A="} \hyperlink{msrp__tests_8cpp_ad67d7637234f1ca513d2366dd8a66854}{STREAM\_DA} \textcolor{stringliteral}{",V="} 
+      \hyperlink{msrp__tests_8cpp_ac23326adfc4e624044916cc85d9bac2f}{VLAN\_ID}
+356         \textcolor{stringliteral}{",Z="} \hyperlink{msrp__tests_8cpp_a8ad1ebec324e399a1fafe44e201f2f54}{TSPEC\_MAX\_FRAME\_SIZE} \textcolor{stringliteral}{",I="} 
+      \hyperlink{msrp__tests_8cpp_a2f0ec09eab10749c9eb3c3da0de95949}{TSPEC\_MAX\_FRAME\_INTERVAL}
+357         \textcolor{stringliteral}{",P="} \hyperlink{msrp__tests_8cpp_a21c9558f4a2da68c70811d70dd32151f}{PRIORITY\_AND\_RANK} \textcolor{stringliteral}{",L="} \hyperlink{msrp__tests_8cpp_aa87d70cd9ed0517369bd6eaf64fa4a96}{ACCUMULATED\_LATENCY}
+358         \textcolor{stringliteral}{",B="} \hyperlink{msrp__tests_8cpp_a7d391ef7f173a04213e662964ca1f4cd}{BRIDGE\_ID} \textcolor{stringliteral}{",C="} \hyperlink{msrp__tests_8cpp_a410934913d5189847c3ffc568d7fe385}{FAILURE\_CODE};
+359 
+360     \textcolor{comment}{/* declare single TalkerFailed */}
+361     \hyperlink{msrp_8c_a072b3d50b567a96dabff447fca5b8a4a}{msrp\_recv\_cmd}(cmd\_string, strlen(cmd\_string) + 1, &\hyperlink{msrp__tests_8cpp_abf7df3c8f5ff035f1843f41668a2168c}{client});
+362     \hyperlink{_utest_macros_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}(\hyperlink{msrp__tests_8cpp_a330b08dc8711256d2361477f62fecffa}{msrp\_tests\_cmd\_ok}(\hyperlink{maap__test_8c_a48d2985b8fc67189cb2721c1626a43b6}{test\_state}.ctl\_msg\_data));
+363 
+364     \textcolor{comment}{/*}
+365 \textcolor{comment}{    * Generate a LVA event.}
+366 \textcolor{comment}{    * This will cause a tx flag to be set for the attribute and then cleared when}
+367 \textcolor{comment}{    * the attribute is encoded into a PDU.}
+368 \textcolor{comment}{    */}
+369     \hyperlink{msrp_8c_afdf1c4b7bf6c48671ee29d4d585bd2f1}{msrp\_event}(\hyperlink{mrp_8h_a8088f6bff6d11fdddbea73c3596356ca}{MRP\_EVENT\_LVATIMER}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+370 
+371     \textcolor{comment}{/* verify that all tx flags are zero by scanning the attribute list */}
+372     attrib = \hyperlink{msrp__tests_8cpp_a2632449b508d61015863de936e0f902c}{MSRP\_db}->\hyperlink{structmsrp__database_a171377a96c019410091ac2838ea2be82}{attrib\_list};
+373     \textcolor{keywordflow}{while} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} != attrib)
+374     \{
+375         tx\_flag\_count += attrib->\hyperlink{structmsrp__attribute_a9ee7e01253c78c410bf44f18a6372d92}{applicant}.\hyperlink{structmrp__applicant__attribute_a40590f55f82df430f8035df8dd4f03c2}{tx};
+376         attrib = attrib->\hyperlink{structmsrp__attribute_aee93bf3c35daae5c99a5157c87f4b7cb}{next};
+377     \}
+378     \hyperlink{_utest_macros_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}(\hyperlink{mrp__doubles_8c_a3629c1b2ea8ec0015b68e8d35c24a809}{mrpd\_send\_packet\_count}() > 0);
+379     \hyperlink{_utest_macros_8h_a7921a0c4f152a7879e78fe6fc2905590}{LONGS\_EQUAL}(0, tx\_flag\_count);
+380     \hyperlink{_utest_macros_8h_a7921a0c4f152a7879e78fe6fc2905590}{LONGS\_EQUAL}(1, \hyperlink{msrp__tests_8cpp_a3ef8750fda71bf69438cd2ad60ec8d56}{msrp\_tests\_event\_counts\_per\_type}(
+      \hyperlink{msrp_8h_ad2f7477046437e0bd42e95ad93dc540d}{MSRP\_TALKER\_FAILED\_TYPE}, \hyperlink{mrp_8h_a69f6f4690b00da18d02751bb7c9019df}{MRP\_EVENT\_NEW}));
+381 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{msrp__tests_8cpp_a9ce040d0ab6ede4d7acc112bd7e70d10_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}!T\+E\+ST@{T\+E\+ST}}
+\index{T\+E\+ST@{T\+E\+ST}!msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}}
+\subsubsection[{\texorpdfstring{T\+E\+S\+T(\+Msrp\+Test\+Group, Tx\+L\+V\+A\+\_\+\+Listener\+\_\+clear\+\_\+tx\+\_\+flag)}{TEST(MsrpTestGroup, TxLVA_Listener_clear_tx_flag)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+E\+ST (
+\begin{DoxyParamCaption}
+\item[{Msrp\+Test\+Group}]{, }
+\item[{Tx\+L\+V\+A\+\_\+\+Listener\+\_\+clear\+\_\+tx\+\_\+flag}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{msrp__tests_8cpp_a2650bdf2654115acb7d858856983f7ae}{}\label{msrp__tests_8cpp_a2650bdf2654115acb7d858856983f7ae}
+
+
+msrp\+\_\+tests.\+cpp 파일의 389 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+390 \{
+391     \textcolor{keyword}{struct }\hyperlink{structmsrp__attribute}{msrp\_attribute} *attrib;
+392     \textcolor{keywordtype}{int} tx\_flag\_count = 0;
+393     \textcolor{keywordtype}{char} cmd\_string[] = \textcolor{stringliteral}{"S+L:L="} \hyperlink{msrp__tests_8cpp_ade86a80a3d067dece1f7e7cf957e3e92}{STREAM\_ID} \textcolor{stringliteral}{",D=2"};
+394 
+395     \textcolor{comment}{/* declare single Listener */}
+396     \hyperlink{msrp_8c_a072b3d50b567a96dabff447fca5b8a4a}{msrp\_recv\_cmd}(cmd\_string, \textcolor{keyword}{sizeof}(cmd\_string), &\hyperlink{msrp__tests_8cpp_abf7df3c8f5ff035f1843f41668a2168c}{client});
+397     \hyperlink{_utest_macros_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}(\hyperlink{msrp__tests_8cpp_a330b08dc8711256d2361477f62fecffa}{msrp\_tests\_cmd\_ok}(\hyperlink{maap__test_8c_a48d2985b8fc67189cb2721c1626a43b6}{test\_state}.ctl\_msg\_data));
+398 
+399     \textcolor{comment}{/*}
+400 \textcolor{comment}{    * Generate a LVA event.}
+401 \textcolor{comment}{    * This will cause a tx flag to be set for the attribute and then cleared when}
+402 \textcolor{comment}{    * the attribute is encoded into a PDU.}
+403 \textcolor{comment}{    */}
+404     \hyperlink{msrp_8c_afdf1c4b7bf6c48671ee29d4d585bd2f1}{msrp\_event}(\hyperlink{mrp_8h_a8088f6bff6d11fdddbea73c3596356ca}{MRP\_EVENT\_LVATIMER}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+405 
+406     \textcolor{comment}{/* verify that all tx flags are zero by scanning the attribute list */}
+407     attrib = \hyperlink{msrp__tests_8cpp_a2632449b508d61015863de936e0f902c}{MSRP\_db}->\hyperlink{structmsrp__database_a171377a96c019410091ac2838ea2be82}{attrib\_list};
+408     \textcolor{keywordflow}{while} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} != attrib)
+409     \{
+410         tx\_flag\_count += attrib->\hyperlink{structmsrp__attribute_a9ee7e01253c78c410bf44f18a6372d92}{applicant}.\hyperlink{structmrp__applicant__attribute_a40590f55f82df430f8035df8dd4f03c2}{tx};
+411         attrib = attrib->\hyperlink{structmsrp__attribute_aee93bf3c35daae5c99a5157c87f4b7cb}{next};
+412     \}
+413     \hyperlink{_utest_macros_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}(\hyperlink{mrp__doubles_8c_a3629c1b2ea8ec0015b68e8d35c24a809}{mrpd\_send\_packet\_count}() > 0);
+414     \hyperlink{_utest_macros_8h_a7921a0c4f152a7879e78fe6fc2905590}{LONGS\_EQUAL}(0, tx\_flag\_count);
+415     \hyperlink{_utest_macros_8h_a7921a0c4f152a7879e78fe6fc2905590}{LONGS\_EQUAL}(1, \hyperlink{msrp__tests_8cpp_a3ef8750fda71bf69438cd2ad60ec8d56}{msrp\_tests\_event\_counts\_per\_type}(
+      \hyperlink{msrp_8h_af7da4416cc2e710a02cfb7d0e3a4f0c2}{MSRP\_LISTENER\_TYPE}, \hyperlink{mrp_8h_a69f6f4690b00da18d02751bb7c9019df}{MRP\_EVENT\_NEW}));
+416 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{msrp__tests_8cpp_a2650bdf2654115acb7d858856983f7ae_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}!T\+E\+ST@{T\+E\+ST}}
+\index{T\+E\+ST@{T\+E\+ST}!msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}}
+\subsubsection[{\texorpdfstring{T\+E\+S\+T(\+Msrp\+Test\+Group, Tx\+L\+V\+A\+\_\+\+Domain\+\_\+clear\+\_\+tx\+\_\+flag)}{TEST(MsrpTestGroup, TxLVA_Domain_clear_tx_flag)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+E\+ST (
+\begin{DoxyParamCaption}
+\item[{Msrp\+Test\+Group}]{, }
+\item[{Tx\+L\+V\+A\+\_\+\+Domain\+\_\+clear\+\_\+tx\+\_\+flag}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{msrp__tests_8cpp_aa5494bcc2abeb8dbd5e6c1a445f23972}{}\label{msrp__tests_8cpp_aa5494bcc2abeb8dbd5e6c1a445f23972}
+
+
+msrp\+\_\+tests.\+cpp 파일의 424 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+425 \{
+426     \textcolor{keyword}{struct }\hyperlink{structmsrp__attribute}{msrp\_attribute} *attrib;
+427     \textcolor{keywordtype}{int} tx\_flag\_count = 0;
+428     \textcolor{keywordtype}{char} cmd\_string[] = \textcolor{stringliteral}{"S+D:C="} \hyperlink{msrp__tests_8cpp_a517651d0e939360fc119ca27bee2fa8c}{SR\_CLASS\_ID}
+429         \textcolor{stringliteral}{",P="} \hyperlink{msrp__tests_8cpp_af9dc616a7814cee63adee9d59839f959}{SR\_CLASS\_PRIORITY}
+430         \textcolor{stringliteral}{",V="} \hyperlink{msrp__tests_8cpp_ac23326adfc4e624044916cc85d9bac2f}{VLAN\_ID};
+431 
+432     \textcolor{comment}{/* declare single Domain */}
+433     \hyperlink{msrp_8c_a072b3d50b567a96dabff447fca5b8a4a}{msrp\_recv\_cmd}(cmd\_string, \textcolor{keyword}{sizeof}(cmd\_string), &\hyperlink{msrp__tests_8cpp_abf7df3c8f5ff035f1843f41668a2168c}{client});
+434     \hyperlink{_utest_macros_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}(\hyperlink{msrp__tests_8cpp_a330b08dc8711256d2361477f62fecffa}{msrp\_tests\_cmd\_ok}(\hyperlink{maap__test_8c_a48d2985b8fc67189cb2721c1626a43b6}{test\_state}.ctl\_msg\_data));
+435 
+436     \textcolor{comment}{/*}
+437 \textcolor{comment}{    * Generate a LVA event.}
+438 \textcolor{comment}{    * This will cause a tx flag to be set for the attribute and then cleared when}
+439 \textcolor{comment}{    * the attribute is encoded into a PDU.}
+440 \textcolor{comment}{    */}
+441     \hyperlink{msrp_8c_afdf1c4b7bf6c48671ee29d4d585bd2f1}{msrp\_event}(\hyperlink{mrp_8h_a8088f6bff6d11fdddbea73c3596356ca}{MRP\_EVENT\_LVATIMER}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+442 
+443     \textcolor{comment}{/* verify that all tx flags are zero by scanning the attribute list */}
+444     attrib = \hyperlink{msrp__tests_8cpp_a2632449b508d61015863de936e0f902c}{MSRP\_db}->\hyperlink{structmsrp__database_a171377a96c019410091ac2838ea2be82}{attrib\_list};
+445     \textcolor{keywordflow}{while} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} != attrib)
+446     \{
+447         tx\_flag\_count += attrib->\hyperlink{structmsrp__attribute_a9ee7e01253c78c410bf44f18a6372d92}{applicant}.\hyperlink{structmrp__applicant__attribute_a40590f55f82df430f8035df8dd4f03c2}{tx};
+448         attrib = attrib->\hyperlink{structmsrp__attribute_aee93bf3c35daae5c99a5157c87f4b7cb}{next};
+449     \}
+450     \hyperlink{_utest_macros_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}(\hyperlink{mrp__doubles_8c_a3629c1b2ea8ec0015b68e8d35c24a809}{mrpd\_send\_packet\_count}() > 0);
+451     \hyperlink{_utest_macros_8h_a7921a0c4f152a7879e78fe6fc2905590}{LONGS\_EQUAL}(0, tx\_flag\_count);
+452     \hyperlink{_utest_macros_8h_a7921a0c4f152a7879e78fe6fc2905590}{LONGS\_EQUAL}(1, \hyperlink{msrp__tests_8cpp_a3ef8750fda71bf69438cd2ad60ec8d56}{msrp\_tests\_event\_counts\_per\_type}(
+      \hyperlink{msrp_8h_a7a78e39f3672d05cdbc8917d28ebacdf}{MSRP\_DOMAIN\_TYPE}, \hyperlink{mrp_8h_a73034a9f9d56f42478a0cb46eff9fd34}{MRP\_EVENT\_JOIN}));
+453 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{msrp__tests_8cpp_aa5494bcc2abeb8dbd5e6c1a445f23972_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}!T\+E\+ST@{T\+E\+ST}}
+\index{T\+E\+ST@{T\+E\+ST}!msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}}
+\subsubsection[{\texorpdfstring{T\+E\+S\+T(\+Msrp\+Test\+Group, Tx\+L\+V\+A\+\_\+\+Talker\+Adv\+\_\+count\+\_\+64)}{TEST(MsrpTestGroup, TxLVA_TalkerAdv_count_64)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+E\+ST (
+\begin{DoxyParamCaption}
+\item[{Msrp\+Test\+Group}]{, }
+\item[{Tx\+L\+V\+A\+\_\+\+Talker\+Adv\+\_\+count\+\_\+64}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{msrp__tests_8cpp_a747c746bc5f625e41b83e11e9e301b42}{}\label{msrp__tests_8cpp_a747c746bc5f625e41b83e11e9e301b42}
+
+
+msrp\+\_\+tests.\+cpp 파일의 461 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+462 \{
+463     \textcolor{keyword}{struct }\hyperlink{structmsrp__attribute}{msrp\_attribute} *attrib;
+464     \textcolor{keywordtype}{char} cmd\_string[128];
+465     \hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\_t} \textcolor{keywordtype}{id} = 0xbadc0ffeeull;
+466     \hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\_t} da = 0xdeadbeefull;
+467     \textcolor{keywordtype}{int} count = 64;
+468     \textcolor{keywordtype}{int} tx\_flag\_count = 0;
+469     \textcolor{keywordtype}{int} i;
+470 
+471     \textcolor{comment}{/* declare count TalkerAdv */}
+472     \textcolor{keywordflow}{for} (i = 0; i < count; i++)
+473     \{
+474         snprintf(cmd\_string, \textcolor{keyword}{sizeof}(cmd\_string),
+475             \textcolor{stringliteral}{"S++:S=%"} \hyperlink{msrp__tests_8cpp_aba38357387a474f439428dee1984fc5a}{PRIx64} \textcolor{stringliteral}{",A=%"} \hyperlink{msrp__tests_8cpp_aba38357387a474f439428dee1984fc5a}{PRIx64} \textcolor{stringliteral}{",V="} \hyperlink{msrp__tests_8cpp_ac23326adfc4e624044916cc85d9bac2f}{VLAN\_ID} \textcolor{stringliteral}{",Z="} 
+      \hyperlink{msrp__tests_8cpp_a8ad1ebec324e399a1fafe44e201f2f54}{TSPEC\_MAX\_FRAME\_SIZE}
+476             \textcolor{stringliteral}{",I="} \hyperlink{msrp__tests_8cpp_a2f0ec09eab10749c9eb3c3da0de95949}{TSPEC\_MAX\_FRAME\_INTERVAL} \textcolor{stringliteral}{",P="} 
+      \hyperlink{msrp__tests_8cpp_a21c9558f4a2da68c70811d70dd32151f}{PRIORITY\_AND\_RANK} \textcolor{stringliteral}{",L="} \hyperlink{msrp__tests_8cpp_aa87d70cd9ed0517369bd6eaf64fa4a96}{ACCUMULATED\_LATENCY},
+477             \textcolor{keywordtype}{id}, da);
+478         \hyperlink{msrp_8c_a072b3d50b567a96dabff447fca5b8a4a}{msrp\_recv\_cmd}(cmd\_string, strlen(cmd\_string) + 1, &\hyperlink{msrp__tests_8cpp_abf7df3c8f5ff035f1843f41668a2168c}{client});
+479         \hyperlink{_utest_macros_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}(\hyperlink{msrp__tests_8cpp_a330b08dc8711256d2361477f62fecffa}{msrp\_tests\_cmd\_ok}(\hyperlink{maap__test_8c_a48d2985b8fc67189cb2721c1626a43b6}{test\_state}.ctl\_msg\_data));
+480         \textcolor{comment}{/* add 2 to prevent vectorizing */}
+481         \textcolor{keywordtype}{id} += 2;
+482         da += 2;
+483     \}
+484 
+485     \textcolor{comment}{/* generate a LVA */}
+486     \hyperlink{msrp_8c_afdf1c4b7bf6c48671ee29d4d585bd2f1}{msrp\_event}(\hyperlink{mrp_8h_a8088f6bff6d11fdddbea73c3596356ca}{MRP\_EVENT\_LVATIMER}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+487 
+488     \textcolor{comment}{/* verify that all tx flags are zero */}
+489     attrib = \hyperlink{msrp__tests_8cpp_a2632449b508d61015863de936e0f902c}{MSRP\_db}->\hyperlink{structmsrp__database_a171377a96c019410091ac2838ea2be82}{attrib\_list};
+490     \textcolor{keywordflow}{while} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} != attrib)
+491     \{
+492         tx\_flag\_count += attrib->\hyperlink{structmsrp__attribute_a9ee7e01253c78c410bf44f18a6372d92}{applicant}.\hyperlink{structmrp__applicant__attribute_a40590f55f82df430f8035df8dd4f03c2}{tx};
+493         attrib = attrib->\hyperlink{structmsrp__attribute_aee93bf3c35daae5c99a5157c87f4b7cb}{next};
+494     \}
+495     \hyperlink{_utest_macros_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}(\hyperlink{mrp__doubles_8c_a3629c1b2ea8ec0015b68e8d35c24a809}{mrpd\_send\_packet\_count}() > 0);
+496     \hyperlink{_utest_macros_8h_ad8fa79f5d491cc01af302832785e90fe}{CHECK\_EQUAL}(0, tx\_flag\_count);
+497     \hyperlink{_utest_macros_8h_a7921a0c4f152a7879e78fe6fc2905590}{LONGS\_EQUAL}(count, \hyperlink{msrp__tests_8cpp_a3ef8750fda71bf69438cd2ad60ec8d56}{msrp\_tests\_event\_counts\_per\_type}(
+      \hyperlink{msrp_8h_a4251d2276eb968bf519a08c0c9e63ba6}{MSRP\_TALKER\_ADV\_TYPE}, \hyperlink{mrp_8h_a69f6f4690b00da18d02751bb7c9019df}{MRP\_EVENT\_NEW}));
+498 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{msrp__tests_8cpp_a747c746bc5f625e41b83e11e9e301b42_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}!T\+E\+ST@{T\+E\+ST}}
+\index{T\+E\+ST@{T\+E\+ST}!msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}}
+\subsubsection[{\texorpdfstring{T\+E\+S\+T(\+Msrp\+Test\+Group, Multiple\+\_\+\+Clients)}{TEST(MsrpTestGroup, Multiple_Clients)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+E\+ST (
+\begin{DoxyParamCaption}
+\item[{Msrp\+Test\+Group}]{, }
+\item[{Multiple\+\_\+\+Clients}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{msrp__tests_8cpp_a9daa6f2c770b4cc66883e9b7de2601c5}{}\label{msrp__tests_8cpp_a9daa6f2c770b4cc66883e9b7de2601c5}
+
+
+msrp\+\_\+tests.\+cpp 파일의 503 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+504 \{
+505     \textcolor{keyword}{static} \textcolor{keyword}{struct }sockaddr\_in client1;
+506     \textcolor{keyword}{static} \textcolor{keyword}{struct }sockaddr\_in client2;
+507 
+508     memset(&client1, 0, \textcolor{keyword}{sizeof}(client1));
+509     memset(&client2, 1, \textcolor{keyword}{sizeof}(client2));
+510 
+511     \textcolor{comment}{/* no error returned for first client */}
+512     \hyperlink{msrp_8c_a072b3d50b567a96dabff447fca5b8a4a}{msrp\_recv\_cmd}(\textcolor{stringliteral}{"S??"}, strlen(\textcolor{stringliteral}{"S??"}) + 1, &client1);
+513     \hyperlink{_utest_macros_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}(\hyperlink{msrp__tests_8cpp_a330b08dc8711256d2361477f62fecffa}{msrp\_tests\_cmd\_ok}(\hyperlink{maap__test_8c_a48d2985b8fc67189cb2721c1626a43b6}{test\_state}.ctl\_msg\_data));
+514 
+515     \textcolor{comment}{/* no error returned for second client */}
+516     \hyperlink{msrp_8c_a072b3d50b567a96dabff447fca5b8a4a}{msrp\_recv\_cmd}(\textcolor{stringliteral}{"S??"}, strlen(\textcolor{stringliteral}{"S??"}) + 1, &client2);
+517     \hyperlink{_utest_macros_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}(\hyperlink{msrp__tests_8cpp_a330b08dc8711256d2361477f62fecffa}{msrp\_tests\_cmd\_ok}(\hyperlink{maap__test_8c_a48d2985b8fc67189cb2721c1626a43b6}{test\_state}.ctl\_msg\_data));
+518 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{msrp__tests_8cpp_a9daa6f2c770b4cc66883e9b7de2601c5_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}!T\+E\+ST@{T\+E\+ST}}
+\index{T\+E\+ST@{T\+E\+ST}!msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}}
+\subsubsection[{\texorpdfstring{T\+E\+S\+T(\+Msrp\+Test\+Group, Pruning\+\_\+\+Commands\+\_\+\+Fail)}{TEST(MsrpTestGroup, Pruning_Commands_Fail)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+E\+ST (
+\begin{DoxyParamCaption}
+\item[{Msrp\+Test\+Group}]{, }
+\item[{Pruning\+\_\+\+Commands\+\_\+\+Fail}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{msrp__tests_8cpp_a251b6b0ec0e912ec2576737a49cd3e5c}{}\label{msrp__tests_8cpp_a251b6b0ec0e912ec2576737a49cd3e5c}
+
+
+msrp\+\_\+tests.\+cpp 파일의 523 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+524 \{
+525     \hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\_t} \textcolor{keywordtype}{id} = 0x000fd70023580001; \textcolor{comment}{/* see pkt2 at top of this file */}
+526     \textcolor{keywordtype}{char} cmd\_string[128];
+527     \textcolor{keywordtype}{int} tx\_flag\_count = 0;
+528 
+529     snprintf(cmd\_string, \textcolor{keyword}{sizeof}(cmd\_string), \textcolor{stringliteral}{"I+S:S=%"} \hyperlink{msrp__tests_8cpp_aba38357387a474f439428dee1984fc5a}{PRIx64}, \textcolor{keywordtype}{id});
+530     \hyperlink{msrp_8c_a072b3d50b567a96dabff447fca5b8a4a}{msrp\_recv\_cmd}(cmd\_string, strlen(cmd\_string) + 1, &\hyperlink{msrp__tests_8cpp_abf7df3c8f5ff035f1843f41668a2168c}{client});
+531     \hyperlink{_utest_macros_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}(!\hyperlink{msrp__tests_8cpp_a330b08dc8711256d2361477f62fecffa}{msrp\_tests\_cmd\_ok}(\hyperlink{maap__test_8c_a48d2985b8fc67189cb2721c1626a43b6}{test\_state}.ctl\_msg\_data));
+532     \hyperlink{_utest_macros_8h_a7921a0c4f152a7879e78fe6fc2905590}{LONGS\_EQUAL}(0, \hyperlink{msrp_8c_a9b4bd781815aa54ede77047b393bb4ca}{msrp\_interesting\_id\_count}());
+533 
+534     snprintf(cmd\_string, \textcolor{keyword}{sizeof}(cmd\_string), \textcolor{stringliteral}{"I-S:S=%"} \hyperlink{msrp__tests_8cpp_aba38357387a474f439428dee1984fc5a}{PRIx64}, \textcolor{keywordtype}{id});
+535     \hyperlink{msrp_8c_a072b3d50b567a96dabff447fca5b8a4a}{msrp\_recv\_cmd}(cmd\_string, strlen(cmd\_string) + 1, &\hyperlink{msrp__tests_8cpp_abf7df3c8f5ff035f1843f41668a2168c}{client});
+536     \hyperlink{_utest_macros_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}(!\hyperlink{msrp__tests_8cpp_a330b08dc8711256d2361477f62fecffa}{msrp\_tests\_cmd\_ok}(\hyperlink{maap__test_8c_a48d2985b8fc67189cb2721c1626a43b6}{test\_state}.ctl\_msg\_data));
+537     \hyperlink{_utest_macros_8h_a7921a0c4f152a7879e78fe6fc2905590}{LONGS\_EQUAL}(0, \hyperlink{msrp_8c_a9b4bd781815aa54ede77047b393bb4ca}{msrp\_interesting\_id\_count}());
+538 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{msrp__tests_8cpp_a251b6b0ec0e912ec2576737a49cd3e5c_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}!T\+E\+ST@{T\+E\+ST}}
+\index{T\+E\+ST@{T\+E\+ST}!msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}}
+\subsubsection[{\texorpdfstring{T\+E\+S\+T(\+Msrp\+Test\+Group, Listener\+\_\+\+State\+\_\+\+Transition\+\_\+\+With\+\_\+\+Rx\+\_\+r\+In)}{TEST(MsrpTestGroup, Listener_State_Transition_With_Rx_rIn)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+E\+ST (
+\begin{DoxyParamCaption}
+\item[{Msrp\+Test\+Group}]{, }
+\item[{Listener\+\_\+\+State\+\_\+\+Transition\+\_\+\+With\+\_\+\+Rx\+\_\+r\+In}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{msrp__tests_8cpp_a2dc0e9607d6ac106ff5926dc3eada420}{}\label{msrp__tests_8cpp_a2dc0e9607d6ac106ff5926dc3eada420}
+
+
+msrp\+\_\+tests.\+cpp 파일의 544 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+545 \{
+546     \textcolor{keywordtype}{char} cmd\_string1[] = \textcolor{stringliteral}{"S+L:L="} \hyperlink{msrp__tests_8cpp_ade86a80a3d067dece1f7e7cf957e3e92}{STREAM\_ID} \textcolor{stringliteral}{",D=1"}; \textcolor{comment}{/* 1 is Asking Failed */}
+547     \textcolor{keywordtype}{char} cmd\_string2[] = \textcolor{stringliteral}{"S+L:L="} \hyperlink{msrp__tests_8cpp_ade86a80a3d067dece1f7e7cf957e3e92}{STREAM\_ID} \textcolor{stringliteral}{",D=2"}; \textcolor{comment}{/* 2 is Ready */}
+548     \textcolor{keywordtype}{char} cmd\_string3[] = \textcolor{stringliteral}{"S++:S="} \hyperlink{msrp__tests_8cpp_ade86a80a3d067dece1f7e7cf957e3e92}{STREAM\_ID} \textcolor{stringliteral}{",A="} \hyperlink{msrp__tests_8cpp_ad67d7637234f1ca513d2366dd8a66854}{STREAM\_DA} \textcolor{stringliteral}{",V="} 
+      \hyperlink{msrp__tests_8cpp_ac23326adfc4e624044916cc85d9bac2f}{VLAN\_ID}
+549         \textcolor{stringliteral}{",Z="} \hyperlink{msrp__tests_8cpp_a8ad1ebec324e399a1fafe44e201f2f54}{TSPEC\_MAX\_FRAME\_SIZE} \textcolor{stringliteral}{",I="} 
+      \hyperlink{msrp__tests_8cpp_a2f0ec09eab10749c9eb3c3da0de95949}{TSPEC\_MAX\_FRAME\_INTERVAL}
+550         \textcolor{stringliteral}{",P="} \hyperlink{msrp__tests_8cpp_a21c9558f4a2da68c70811d70dd32151f}{PRIORITY\_AND\_RANK} \textcolor{stringliteral}{",L="} \hyperlink{msrp__tests_8cpp_aa87d70cd9ed0517369bd6eaf64fa4a96}{ACCUMULATED\_LATENCY};
+551 
+552     \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} thisStreamID[8] = \{ 0xDE, 0xAD, 0xBE, 0xEF, 0xBA, 0xDF, 0xCA, 0x11 \};
+553     \textcolor{keyword}{struct }\hyperlink{structmsrp__attribute}{msrp\_attribute} *attrib;
+554     \textcolor{keywordtype}{int} rv;
+555 
+556     \textcolor{comment}{/* declare Listener Asking Failed */}
+557     \hyperlink{msrp_8c_a072b3d50b567a96dabff447fca5b8a4a}{msrp\_recv\_cmd}(cmd\_string1, \textcolor{keyword}{sizeof}(cmd\_string1), &\hyperlink{msrp__tests_8cpp_abf7df3c8f5ff035f1843f41668a2168c}{client});
+558     \hyperlink{_utest_macros_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}(\hyperlink{msrp__tests_8cpp_a330b08dc8711256d2361477f62fecffa}{msrp\_tests\_cmd\_ok}(\hyperlink{maap__test_8c_a48d2985b8fc67189cb2721c1626a43b6}{test\_state}.ctl\_msg\_data));
+559 
+560     attrib = msrp\_lookup\_stream\_declaration(\hyperlink{msrp_8h_af7da4416cc2e710a02cfb7d0e3a4f0c2}{MSRP\_LISTENER\_TYPE}, thisStreamID);
+561     \hyperlink{_utest_macros_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}(\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} != attrib);
+562     \hyperlink{_utest_macros_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}(\hyperlink{msrp_8h_a17407a06557d3b5b82c67cad6973353b}{MSRP\_LISTENER\_ASKFAILED} == attrib->
+      \hyperlink{structmsrp__attribute_a77fc98efbb49dcae027e0dde935b7070}{substate});
+563 
+564     \textcolor{comment}{/* cause Listener Asking Failed to be sent */}
+565     \hyperlink{msrp_8c_afdf1c4b7bf6c48671ee29d4d585bd2f1}{msrp\_event}(\hyperlink{mrp_8h_afc138ed41cc8e8ca7f7ccb9ec3347bf2}{MRP\_EVENT\_TX}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+566     \hyperlink{_utest_macros_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}(1 == \hyperlink{maap__test_8c_a48d2985b8fc67189cb2721c1626a43b6}{test\_state}.sent\_count);
+567 
+568     \textcolor{comment}{/* declare Talker stream because this is required before Listener Ready declaration will succeed */}
+569     \hyperlink{msrp_8c_a072b3d50b567a96dabff447fca5b8a4a}{msrp\_recv\_cmd}(cmd\_string3, \textcolor{keyword}{sizeof}(cmd\_string3), &\hyperlink{msrp__tests_8cpp_abf7df3c8f5ff035f1843f41668a2168c}{client});
+570     \hyperlink{_utest_macros_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}(\hyperlink{msrp__tests_8cpp_a330b08dc8711256d2361477f62fecffa}{msrp\_tests\_cmd\_ok}(\hyperlink{maap__test_8c_a48d2985b8fc67189cb2721c1626a43b6}{test\_state}.ctl\_msg\_data));
+571 
+572     \textcolor{comment}{/* declare Listener Ready */}
+573     \hyperlink{msrp_8c_a072b3d50b567a96dabff447fca5b8a4a}{msrp\_recv\_cmd}(cmd\_string2, \textcolor{keyword}{sizeof}(cmd\_string2), &\hyperlink{msrp__tests_8cpp_abf7df3c8f5ff035f1843f41668a2168c}{client});
+574     \hyperlink{_utest_macros_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}(\hyperlink{msrp__tests_8cpp_a330b08dc8711256d2361477f62fecffa}{msrp\_tests\_cmd\_ok}(\hyperlink{maap__test_8c_a48d2985b8fc67189cb2721c1626a43b6}{test\_state}.ctl\_msg\_data));
+575 
+576     attrib = msrp\_lookup\_stream\_declaration(\hyperlink{msrp_8h_af7da4416cc2e710a02cfb7d0e3a4f0c2}{MSRP\_LISTENER\_TYPE}, thisStreamID);
+577     \hyperlink{_utest_macros_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}(\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} != attrib);
+578     \hyperlink{_utest_macros_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}(\hyperlink{msrp_8h_a11ec260b3f9a484d78eea41e879f083d}{MSRP\_LISTENER\_READY} == attrib->\hyperlink{structmsrp__attribute_a77fc98efbb49dcae027e0dde935b7070}{substate});
+579 
+580     \textcolor{comment}{/* Rx pdu with Listener Asking Failed in it.}
+581 \textcolor{comment}{     * Loop the Tx PDU back into the the Rx PDU path. This won't actually send a rIn!}
+582 \textcolor{comment}{     * event, but the effect should be the same.}
+583 \textcolor{comment}{     */}
+584     memcpy(\hyperlink{maap__test_8c_a48d2985b8fc67189cb2721c1626a43b6}{test\_state}.rx\_PDU, \hyperlink{maap__test_8c_a48d2985b8fc67189cb2721c1626a43b6}{test\_state}.tx\_PDU, \hyperlink{maap__test_8c_a48d2985b8fc67189cb2721c1626a43b6}{test\_state}.tx\_PDU\_len);
+585     \hyperlink{maap__test_8c_a48d2985b8fc67189cb2721c1626a43b6}{test\_state}.rx\_PDU\_len = \hyperlink{maap__test_8c_a48d2985b8fc67189cb2721c1626a43b6}{test\_state}.tx\_PDU\_len;
+586     rv = \hyperlink{msrp_8c_ab9b686db38f7cc0e2137156ee6fbe1ce}{msrp\_recv\_msg}();
+587     \hyperlink{_utest_macros_8h_a7921a0c4f152a7879e78fe6fc2905590}{LONGS\_EQUAL}(0, rv);
+588 
+589     \textcolor{comment}{/* Check Listener declaration type */}
+590     attrib = msrp\_lookup\_stream\_declaration(\hyperlink{msrp_8h_af7da4416cc2e710a02cfb7d0e3a4f0c2}{MSRP\_LISTENER\_TYPE}, thisStreamID);
+591     \hyperlink{_utest_macros_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}(\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} != attrib);
+592     \hyperlink{_utest_macros_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}(\hyperlink{msrp_8h_a11ec260b3f9a484d78eea41e879f083d}{MSRP\_LISTENER\_READY} == attrib->\hyperlink{structmsrp__attribute_a77fc98efbb49dcae027e0dde935b7070}{substate});
+593 
+594 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{msrp__tests_8cpp_a2dc0e9607d6ac106ff5926dc3eada420_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}!T\+E\+ST@{T\+E\+ST}}
+\index{T\+E\+ST@{T\+E\+ST}!msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}}
+\subsubsection[{\texorpdfstring{T\+E\+S\+T(\+Msrp\+Test\+Group, Talker\+Advertise\+\_\+\+To\+\_\+\+Failed\+\_\+\+Transition\+\_\+\+With\+\_\+\+Rx\+\_\+r\+In)}{TEST(MsrpTestGroup, TalkerAdvertise_To_Failed_Transition_With_Rx_rIn)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+E\+ST (
+\begin{DoxyParamCaption}
+\item[{Msrp\+Test\+Group}]{, }
+\item[{Talker\+Advertise\+\_\+\+To\+\_\+\+Failed\+\_\+\+Transition\+\_\+\+With\+\_\+\+Rx\+\_\+r\+In}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{msrp__tests_8cpp_ae844dee823e413e6687f9e07b0115804}{}\label{msrp__tests_8cpp_ae844dee823e413e6687f9e07b0115804}
+
+
+msrp\+\_\+tests.\+cpp 파일의 600 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+601 \{
+602     \textcolor{keywordtype}{char} cmd\_string1[] = \textcolor{stringliteral}{"S++:S="} \hyperlink{msrp__tests_8cpp_ade86a80a3d067dece1f7e7cf957e3e92}{STREAM\_ID} \(\backslash\)
+603         \textcolor{stringliteral}{",A="} \hyperlink{msrp__tests_8cpp_ad67d7637234f1ca513d2366dd8a66854}{STREAM\_DA} \(\backslash\)
+604         \textcolor{stringliteral}{",V="} \hyperlink{msrp__tests_8cpp_ac23326adfc4e624044916cc85d9bac2f}{VLAN\_ID} \(\backslash\)
+605         \textcolor{stringliteral}{",Z="} \hyperlink{msrp__tests_8cpp_a8ad1ebec324e399a1fafe44e201f2f54}{TSPEC\_MAX\_FRAME\_SIZE} \(\backslash\)
+606         \textcolor{stringliteral}{",I="} \hyperlink{msrp__tests_8cpp_a2f0ec09eab10749c9eb3c3da0de95949}{TSPEC\_MAX\_FRAME\_INTERVAL} \(\backslash\)
+607         \textcolor{stringliteral}{",P="} \hyperlink{msrp__tests_8cpp_a21c9558f4a2da68c70811d70dd32151f}{PRIORITY\_AND\_RANK} \(\backslash\)
+608         \textcolor{stringliteral}{",L="} \hyperlink{msrp__tests_8cpp_aa87d70cd9ed0517369bd6eaf64fa4a96}{ACCUMULATED\_LATENCY};
+609 
+610     \textcolor{keywordtype}{char} cmd\_string2[] = \textcolor{stringliteral}{"S++:S="} \hyperlink{msrp__tests_8cpp_ade86a80a3d067dece1f7e7cf957e3e92}{STREAM\_ID} \(\backslash\)
+611         \textcolor{stringliteral}{",A="} \hyperlink{msrp__tests_8cpp_ad67d7637234f1ca513d2366dd8a66854}{STREAM\_DA} \(\backslash\)
+612         \textcolor{stringliteral}{",V="} \hyperlink{msrp__tests_8cpp_ac23326adfc4e624044916cc85d9bac2f}{VLAN\_ID} \(\backslash\)
+613         \textcolor{stringliteral}{",Z="} \hyperlink{msrp__tests_8cpp_a8ad1ebec324e399a1fafe44e201f2f54}{TSPEC\_MAX\_FRAME\_SIZE} \(\backslash\)
+614         \textcolor{stringliteral}{",I="} \hyperlink{msrp__tests_8cpp_a2f0ec09eab10749c9eb3c3da0de95949}{TSPEC\_MAX\_FRAME\_INTERVAL} \(\backslash\)
+615         \textcolor{stringliteral}{",P="} \hyperlink{msrp__tests_8cpp_a21c9558f4a2da68c70811d70dd32151f}{PRIORITY\_AND\_RANK} \(\backslash\)
+616         \textcolor{stringliteral}{",L="} \hyperlink{msrp__tests_8cpp_aa87d70cd9ed0517369bd6eaf64fa4a96}{ACCUMULATED\_LATENCY} \(\backslash\)
+617         \textcolor{stringliteral}{",B="} \hyperlink{msrp__tests_8cpp_a7d391ef7f173a04213e662964ca1f4cd}{BRIDGE\_ID} \(\backslash\)
+618         \textcolor{stringliteral}{",C="} \hyperlink{msrp__tests_8cpp_a410934913d5189847c3ffc568d7fe385}{FAILURE\_CODE};
+619 
+620     \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} thisStreamID[8] = \{ 0xDE, 0xAD, 0xBE, 0xEF, 0xBA, 0xDF, 0xCA, 0x11 \};
+621     \textcolor{keyword}{struct }\hyperlink{structmsrp__attribute}{msrp\_attribute} *attrib;
+622     \textcolor{keywordtype}{int} rv;
+623 
+624     \textcolor{comment}{/* declare Talker Advertise */}
+625     \hyperlink{msrp_8c_a072b3d50b567a96dabff447fca5b8a4a}{msrp\_recv\_cmd}(cmd\_string1, \textcolor{keyword}{sizeof}(cmd\_string1), &\hyperlink{msrp__tests_8cpp_abf7df3c8f5ff035f1843f41668a2168c}{client});
+626     \hyperlink{_utest_macros_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}(\hyperlink{msrp__tests_8cpp_a330b08dc8711256d2361477f62fecffa}{msrp\_tests\_cmd\_ok}(\hyperlink{maap__test_8c_a48d2985b8fc67189cb2721c1626a43b6}{test\_state}.ctl\_msg\_data));
+627 
+628     attrib = msrp\_lookup\_stream\_declaration(\hyperlink{msrp_8h_a4251d2276eb968bf519a08c0c9e63ba6}{MSRP\_TALKER\_ADV\_TYPE}, thisStreamID);
+629     \hyperlink{_utest_macros_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}(\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} != attrib);
+630     \hyperlink{_utest_macros_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}(\hyperlink{msrp_8h_a4251d2276eb968bf519a08c0c9e63ba6}{MSRP\_TALKER\_ADV\_TYPE} == attrib->\hyperlink{structmsrp__attribute_ad44b615021ed3ccb734fcaf583ef4a03}{type});
+631 
+632     \textcolor{comment}{/* cause Talker Advertise to be sent */}
+633     \hyperlink{msrp_8c_afdf1c4b7bf6c48671ee29d4d585bd2f1}{msrp\_event}(\hyperlink{mrp_8h_afc138ed41cc8e8ca7f7ccb9ec3347bf2}{MRP\_EVENT\_TX}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+634     \hyperlink{_utest_macros_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}(1 == \hyperlink{maap__test_8c_a48d2985b8fc67189cb2721c1626a43b6}{test\_state}.sent\_count);
+635 
+636     \textcolor{comment}{/* declare Talker Failed */}
+637     \hyperlink{msrp_8c_a072b3d50b567a96dabff447fca5b8a4a}{msrp\_recv\_cmd}(cmd\_string2, \textcolor{keyword}{sizeof}(cmd\_string2), &\hyperlink{msrp__tests_8cpp_abf7df3c8f5ff035f1843f41668a2168c}{client});
+638     \hyperlink{_utest_macros_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}(\hyperlink{msrp__tests_8cpp_a330b08dc8711256d2361477f62fecffa}{msrp\_tests\_cmd\_ok}(\hyperlink{maap__test_8c_a48d2985b8fc67189cb2721c1626a43b6}{test\_state}.ctl\_msg\_data));
+639 
+640     attrib = msrp\_lookup\_stream\_declaration(\hyperlink{msrp_8h_ad2f7477046437e0bd42e95ad93dc540d}{MSRP\_TALKER\_FAILED\_TYPE}, thisStreamID);
+641     \hyperlink{_utest_macros_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}(\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} != attrib);
+642     \hyperlink{_utest_macros_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}(\hyperlink{msrp_8h_ad2f7477046437e0bd42e95ad93dc540d}{MSRP\_TALKER\_FAILED\_TYPE} == attrib->\hyperlink{structmsrp__attribute_ad44b615021ed3ccb734fcaf583ef4a03}{type});
+643 
+644     \textcolor{comment}{/* Rx pdu with Talker Adverise in it.}
+645 \textcolor{comment}{    * Loop the Tx PDU back into the the Rx PDU path. This won't actually send a rIn!}
+646 \textcolor{comment}{    * event, but the effect should be the same.}
+647 \textcolor{comment}{    */}
+648     memcpy(\hyperlink{maap__test_8c_a48d2985b8fc67189cb2721c1626a43b6}{test\_state}.rx\_PDU, \hyperlink{maap__test_8c_a48d2985b8fc67189cb2721c1626a43b6}{test\_state}.tx\_PDU, \hyperlink{maap__test_8c_a48d2985b8fc67189cb2721c1626a43b6}{test\_state}.tx\_PDU\_len);
+649     \hyperlink{maap__test_8c_a48d2985b8fc67189cb2721c1626a43b6}{test\_state}.rx\_PDU\_len = \hyperlink{maap__test_8c_a48d2985b8fc67189cb2721c1626a43b6}{test\_state}.tx\_PDU\_len;
+650     rv = \hyperlink{msrp_8c_ab9b686db38f7cc0e2137156ee6fbe1ce}{msrp\_recv\_msg}();
+651     \hyperlink{_utest_macros_8h_a7921a0c4f152a7879e78fe6fc2905590}{LONGS\_EQUAL}(0, rv);
+652 
+653     \textcolor{comment}{/* Check Listener declaration type */}
+654     attrib = msrp\_lookup\_stream\_declaration(\hyperlink{msrp_8h_ad2f7477046437e0bd42e95ad93dc540d}{MSRP\_TALKER\_FAILED\_TYPE}, thisStreamID);
+655     \hyperlink{_utest_macros_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}(\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} != attrib);
+656     \hyperlink{_utest_macros_8h_a3e1cfef60e774a81f30eaddf26a3a274}{CHECK}(\hyperlink{msrp_8h_ad2f7477046437e0bd42e95ad93dc540d}{MSRP\_TALKER\_FAILED\_TYPE} == attrib->\hyperlink{structmsrp__attribute_ad44b615021ed3ccb734fcaf583ef4a03}{type});
+657 
+658 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{msrp__tests_8cpp_ae844dee823e413e6687f9e07b0115804_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}!T\+E\+S\+T\+\_\+\+G\+R\+O\+UP@{T\+E\+S\+T\+\_\+\+G\+R\+O\+UP}}
+\index{T\+E\+S\+T\+\_\+\+G\+R\+O\+UP@{T\+E\+S\+T\+\_\+\+G\+R\+O\+UP}!msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}}
+\subsubsection[{\texorpdfstring{T\+E\+S\+T\+\_\+\+G\+R\+O\+U\+P(\+Msrp\+Test\+Group)}{TEST_GROUP(MsrpTestGroup)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+E\+S\+T\+\_\+\+G\+R\+O\+UP (
+\begin{DoxyParamCaption}
+\item[{Msrp\+Test\+Group}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{msrp__tests_8cpp_ac465625ea12dcf1c02adc85b8e5d5e7f}{}\label{msrp__tests_8cpp_ac465625ea12dcf1c02adc85b8e5d5e7f}
+
+
+msrp\+\_\+tests.\+cpp 파일의 261 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+262 \{
+263     \textcolor{keywordtype}{void} setup()
+264     \{
+265         \hyperlink{mrp__doubles_8c_a17900e16bef8fc2bee7afd5eadf5e253}{mrpd\_reset}();
+266         \hyperlink{msrp_8c_abbb51df9457d02837c27d6f0375ba50b}{msrp\_init}(1, \hyperlink{msrp_8h_a91c5fd0ba46a6f654394f67f8ca0c729}{MSRP\_INTERESTING\_STREAM\_ID\_COUNT}, 0);
+267     \}
+268 
+269     \textcolor{keywordtype}{void} teardown()
+270     \{
+271         \hyperlink{msrp_8c_ac69965b2ef75210eb1db74cb83ac8559}{msrp\_reset}();
+272         \hyperlink{mrp__doubles_8c_a17900e16bef8fc2bee7afd5eadf5e253}{mrpd\_reset}();
+273     \}
+274 \};
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{msrp__tests_8cpp_ac465625ea12dcf1c02adc85b8e5d5e7f_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{변수 문서화}
+\index{msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}!client@{client}}
+\index{client@{client}!msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}}
+\subsubsection[{\texorpdfstring{client}{client}}]{\setlength{\rightskip}{0pt plus 5cm}struct sockaddr\+\_\+in client\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{msrp__tests_8cpp_abf7df3c8f5ff035f1843f41668a2168c}{}\label{msrp__tests_8cpp_abf7df3c8f5ff035f1843f41668a2168c}
+
+
+msrp\+\_\+tests.\+cpp 파일의 245 번째 라인에서 정의되었습니다.
+
+\index{msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}!M\+S\+R\+P\+\_\+db@{M\+S\+R\+P\+\_\+db}}
+\index{M\+S\+R\+P\+\_\+db@{M\+S\+R\+P\+\_\+db}!msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}}
+\subsubsection[{\texorpdfstring{M\+S\+R\+P\+\_\+db}{MSRP_db}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf msrp\+\_\+database}$\ast$ M\+S\+R\+P\+\_\+db}\hypertarget{msrp__tests_8cpp_a2632449b508d61015863de936e0f902c}{}\label{msrp__tests_8cpp_a2632449b508d61015863de936e0f902c}
+
+
+msrp.\+c 파일의 67 번째 라인에서 정의되었습니다.
+
+\index{msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}!pkt2@{pkt2}}
+\index{pkt2@{pkt2}!msrp\+\_\+tests.\+cpp@{msrp\+\_\+tests.\+cpp}}
+\subsubsection[{\texorpdfstring{pkt2}{pkt2}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char pkt2\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{msrp__tests_8cpp_a8d0a93df8552a146bc4c12b58f3e10d5}{}\label{msrp__tests_8cpp_a8d0a93df8552a146bc4c12b58f3e10d5}
+
+
+msrp\+\_\+tests.\+cpp 파일의 74 번째 라인에서 정의되었습니다.
+

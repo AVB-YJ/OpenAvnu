@@ -1,0 +1,117 @@
+\hypertarget{openavb__mcs_8h}{}\section{lib/avtp\+\_\+pipeline/mcs/openavb\+\_\+mcs.h 파일 참조}
+\label{openavb__mcs_8h}\index{lib/avtp\+\_\+pipeline/mcs/openavb\+\_\+mcs.\+h@{lib/avtp\+\_\+pipeline/mcs/openavb\+\_\+mcs.\+h}}
+이 그래프는 이 파일을 직/간접적으로 include 하는 파일들을 보여줍니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__mcs_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{데이타 구조}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structmcs__t}{mcs\+\_\+t}
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{openavb__mcs_8h_a9d876fb11dbb009c006fdde8bfc94a7b}{openavb\+Mcs\+Init} (\hyperlink{structmcs__t}{mcs\+\_\+t} $\ast$media\+Clock\+Synth, \hyperlink{openavb__types__base__pub_8h_a25809e0734a149248fcf5831efa4e33d}{U64} ns\+Per\+Advance, \hyperlink{openavb__types__base__pub_8h_a39c786017723555afb9e8b85accec0de}{S32} correction\+Amount, \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} correction\+Interval)
+\item 
+void \hyperlink{openavb__mcs_8h_afbae383f110ec2ad1379e7751c2ef329}{openavb\+Mcs\+Advance} (\hyperlink{structmcs__t}{mcs\+\_\+t} $\ast$media\+Clock\+Synth)
+\end{DoxyCompactItemize}
+
+
+\subsection{함수 문서화}
+\index{openavb\+\_\+mcs.\+h@{openavb\+\_\+mcs.\+h}!openavb\+Mcs\+Advance@{openavb\+Mcs\+Advance}}
+\index{openavb\+Mcs\+Advance@{openavb\+Mcs\+Advance}!openavb\+\_\+mcs.\+h@{openavb\+\_\+mcs.\+h}}
+\subsubsection[{\texorpdfstring{openavb\+Mcs\+Advance(mcs\+\_\+t $\ast$media\+Clock\+Synth)}{openavbMcsAdvance(mcs_t *mediaClockSynth)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Mcs\+Advance (
+\begin{DoxyParamCaption}
+\item[{{\bf mcs\+\_\+t} $\ast$}]{media\+Clock\+Synth}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__mcs_8h_afbae383f110ec2ad1379e7751c2ef329}{}\label{openavb__mcs_8h_afbae383f110ec2ad1379e7751c2ef329}
+
+
+openavb\+\_\+mcs.\+c 파일의 52 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+53 \{
+54     \textcolor{keywordflow}{if} (mediaClockSynth->\hyperlink{structmcs__t_a76542ec51304d98fa6a79901286a8a96}{firstTimeSet} == \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}) \{
+55         \hyperlink{build_2sdk__eavb_2openavb__time__osal__pub_8h_a8878dd2cd297356518c25b98f7c73334}{CLOCK\_GETTIME64}(\hyperlink{build_2sdk__eavb_2openavb__time__osal__pub_8h_a8a087678c40dd3f078c5bce1297a62b8ae71d321a7408e8d6a69b10dd9a94f360}{OPENAVB\_CLOCK\_WALLTIME}, &mediaClockSynth->
+      \hyperlink{structmcs__t_a99b06b68590b7637eacd45776c7fc77b}{edgeTime});
+56         \textcolor{keywordflow}{if} (mediaClockSynth->\hyperlink{structmcs__t_a99b06b68590b7637eacd45776c7fc77b}{edgeTime}) \{
+57             mediaClockSynth->\hyperlink{structmcs__t_a76542ec51304d98fa6a79901286a8a96}{firstTimeSet} = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+58             mediaClockSynth->\hyperlink{structmcs__t_ae1aea99ce2da5f78fb0e3e6467975541}{startTime} = mediaClockSynth->\hyperlink{structmcs__t_a99b06b68590b7637eacd45776c7fc77b}{edgeTime};
+59         \}
+60     \}
+61     \textcolor{keywordflow}{else}
+62     \{
+63         mediaClockSynth->\hyperlink{structmcs__t_a99b06b68590b7637eacd45776c7fc77b}{edgeTime} += mediaClockSynth->\hyperlink{structmcs__t_a8c7e6754a1057a5f8d55b32fcbf1ae59}{nsPerAdvance};
+64         mediaClockSynth->\hyperlink{structmcs__t_aab3e4c044b10fe2ea489b3949aff1090}{tickCount}++;
+65         \textcolor{keywordflow}{if} (mediaClockSynth->\hyperlink{structmcs__t_aab3e4c044b10fe2ea489b3949aff1090}{tickCount} % mediaClockSynth->
+      \hyperlink{structmcs__t_a477f1f85f2290ef7914f73b6a8d93632}{correctionInterval} == 0) \{
+66             mediaClockSynth->\hyperlink{structmcs__t_a99b06b68590b7637eacd45776c7fc77b}{edgeTime} += mediaClockSynth->
+      \hyperlink{structmcs__t_a409bc76adf1e5c9d63d0ad888b3def8f}{correctionAmount};
+67         \}
+68 \textcolor{preprocessor}{#if !IGB\_LAUNCHTIME\_ENABLED}
+69         \hyperlink{maap__log_8h_ae9decd5440c360a6d0ab5175c9cf08be}{IF\_LOG\_INTERVAL}(8000) \{
+70             \hyperlink{openavb__types__base__pub_8h_a25809e0734a149248fcf5831efa4e33d}{U64} nowNS;
+71             \hyperlink{build_2sdk__eavb_2openavb__time__osal__pub_8h_a8878dd2cd297356518c25b98f7c73334}{CLOCK\_GETTIME64}(\hyperlink{build_2sdk__eavb_2openavb__time__osal__pub_8h_a8a087678c40dd3f078c5bce1297a62b8ae71d321a7408e8d6a69b10dd9a94f360}{OPENAVB\_CLOCK\_WALLTIME}, &nowNS);
+72             \hyperlink{openavb__types__base__pub_8h_a1d293e5c494dd6826239b02f5fe98e7f}{S64} fixedRealDelta = mediaClockSynth->\hyperlink{structmcs__t_a99b06b68590b7637eacd45776c7fc77b}{edgeTime} - nowNS;
+73             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a2be7e90c7cb63f12b221ed1cd4999185}{AVB\_LOGF\_INFO}(\textcolor{stringliteral}{"Fixed/Real TS Delta: %lld"}, fixedRealDelta);
+74         \}
+75 \textcolor{preprocessor}{#endif}
+76     \}
+77 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__mcs_8h_afbae383f110ec2ad1379e7751c2ef329_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+mcs.\+h@{openavb\+\_\+mcs.\+h}!openavb\+Mcs\+Init@{openavb\+Mcs\+Init}}
+\index{openavb\+Mcs\+Init@{openavb\+Mcs\+Init}!openavb\+\_\+mcs.\+h@{openavb\+\_\+mcs.\+h}}
+\subsubsection[{\texorpdfstring{openavb\+Mcs\+Init(mcs\+\_\+t $\ast$media\+Clock\+Synth, U64 ns\+Per\+Advance, S32 correction\+Amount, U32 correction\+Interval)}{openavbMcsInit(mcs_t *mediaClockSynth, U64 nsPerAdvance, S32 correctionAmount, U32 correctionInterval)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Mcs\+Init (
+\begin{DoxyParamCaption}
+\item[{{\bf mcs\+\_\+t} $\ast$}]{media\+Clock\+Synth, }
+\item[{{\bf U64}}]{ns\+Per\+Advance, }
+\item[{{\bf S32}}]{correction\+Amount, }
+\item[{{\bf U32}}]{correction\+Interval}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__mcs_8h_a9d876fb11dbb009c006fdde8bfc94a7b}{}\label{openavb__mcs_8h_a9d876fb11dbb009c006fdde8bfc94a7b}
+
+
+openavb\+\_\+mcs.\+c 파일의 41 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+42 \{
+43     mediaClockSynth->\hyperlink{structmcs__t_a76542ec51304d98fa6a79901286a8a96}{firstTimeSet} = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+44     mediaClockSynth->\hyperlink{structmcs__t_a8c7e6754a1057a5f8d55b32fcbf1ae59}{nsPerAdvance} = nsPerAdvance;
+45     mediaClockSynth->\hyperlink{structmcs__t_a409bc76adf1e5c9d63d0ad888b3def8f}{correctionAmount} = correctionAmount;
+46     mediaClockSynth->\hyperlink{structmcs__t_a477f1f85f2290ef7914f73b6a8d93632}{correctionInterval} = correctionInterval;
+47     mediaClockSynth->\hyperlink{structmcs__t_ae1aea99ce2da5f78fb0e3e6467975541}{startTime} = 0;
+48     mediaClockSynth->\hyperlink{structmcs__t_aab3e4c044b10fe2ea489b3949aff1090}{tickCount} = 0;
+49     mediaClockSynth->\hyperlink{structmcs__t_a99b06b68590b7637eacd45776c7fc77b}{edgeTime} = 0;
+50 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__mcs_8h_a9d876fb11dbb009c006fdde8bfc94a7b_icgraph}
+\end{center}
+\end{figure}
+
+

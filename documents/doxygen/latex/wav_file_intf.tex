@@ -1,0 +1,41 @@
+\section*{Description}
+
+W\+AV file interface module.
+
+This interface module is narrowly focused to read a common wav file format and send the data samples to mapping modules.
+
+~\newline
+ \section*{Interface module configuration parameters}
+
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*2{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}{\bf Name }&{\bf Description  }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}{\bf Name }&{\bf Description  }\\\cline{1-2}
+\endhead
+intf\+\_\+nv\+\_\+file\+\_\+name &Name of the file to be read \\\cline{1-2}
+intf\+\_\+nv\+\_\+file\+\_\+name\+\_\+rx &Name of wav file where received data will be stored \\\cline{1-2}
+intf\+\_\+nv\+\_\+audio\+\_\+rate &Audio rate, numberic values defined by \textbackslash{} \\\cline{1-2}
+\end{longtabu}
+\hyperlink{openavb__audio__pub_8h_a6070f1cfbb6824de6f0b2524cd306903}{avb\+\_\+audio\+\_\+rate\+\_\+t} intf\+\_\+nv\+\_\+audio\+\_\+bit\+\_\+depth $\vert$\+Bit depth of audio, numeric values defined by \textbackslash{} \hyperlink{openavb__audio__pub_8h_ae64ee32f6ac9a6b2cf607f46ee4160bd}{avb\+\_\+audio\+\_\+bit\+\_\+depth\+\_\+t} intf\+\_\+nv\+\_\+audio\+\_\+channels $\vert$\+Number of audio channels, numeric values should be \textbackslash{} within range of values in \hyperlink{openavb__audio__pub_8h_a8cc6b9a1352da050ead620139f49acc4}{avb\+\_\+audio\+\_\+channels\+\_\+t} intf\+\_\+nv\+\_\+number\+\_\+of\+\_\+data\+\_\+bytes$\vert$\+Size of sample data counted in bytes. This size \textbackslash{} should be equal to Subchunk2\+Size field in wav file\textbackslash{} to be transferred. The data is printed out by \textbackslash{} talker when started (I\+N\+FO\+: Number of data bytes)
+
+~\newline
+ \section*{Notes}
+
+There are some parameters that have to be set during configuration of this interface module and before configuring mapping\+:
+\begin{DoxyItemize}
+\item \hyperlink{aaf_audio_map}{A\+AF audio mapping}
+\item \hyperlink{uncmp_audio_map}{Uncompressed audio mapping}
+\end{DoxyItemize}
+
+These parameters can be set in either\+:
+\begin{DoxyItemize}
+\item in the ini file (or available configuration system), so values will be parsed in the intf\+\_\+cfg\+\_\+cb function,
+\item in the interface module initialization function where valid values can be assigned directly
+\end{DoxyItemize}
+
+Values assigned in the intf\+\_\+cfg\+\_\+cb function will override any values set in the initialization function. 

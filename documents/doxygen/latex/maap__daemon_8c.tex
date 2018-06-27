@@ -1,0 +1,1433 @@
+\hypertarget{maap__daemon_8c}{}\section{daemons/maap/linux/src/maap\+\_\+daemon.c 파일 참조}
+\label{maap__daemon_8c}\index{daemons/maap/linux/src/maap\+\_\+daemon.\+c@{daemons/maap/linux/src/maap\+\_\+daemon.\+c}}
+{\ttfamily \#include $<$errno.\+h$>$}\\*
+{\ttfamily \#include $<$fcntl.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$ctype.\+h$>$}\\*
+{\ttfamily \#include $<$unistd.\+h$>$}\\*
+{\ttfamily \#include $<$signal.\+h$>$}\\*
+{\ttfamily \#include $<$netdb.\+h$>$}\\*
+{\ttfamily \#include $<$sys/types.\+h$>$}\\*
+{\ttfamily \#include $<$sys/socket.\+h$>$}\\*
+{\ttfamily \#include $<$sys/ioctl.\+h$>$}\\*
+{\ttfamily \#include $<$sys/stat.\+h$>$}\\*
+{\ttfamily \#include $<$linux/if\+\_\+ether.\+h$>$}\\*
+{\ttfamily \#include $<$linux/if\+\_\+packet.\+h$>$}\\*
+{\ttfamily \#include $<$linux/if.\+h$>$}\\*
+{\ttfamily \#include $<$netinet/in.\+h$>$}\\*
+{\ttfamily \#include $<$arpa/inet.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}maap.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}maap\+\_\+packet.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}maap\+\_\+parse.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}maap\+\_\+log.\+h\char`\"{}}\\*
+maap\+\_\+daemon.\+c에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap__daemon_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{maap__daemon_8c_af641e281ec3ad594d47b9071f3cbc493}{M\+A\+A\+P\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}~\char`\"{}Init\char`\"{}
+\item 
+\#define \hyperlink{maap__daemon_8c_ae320f47fc351f85d43c1bc99b292bd64}{M\+A\+X\+\_\+\+C\+L\+I\+E\+N\+T\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+NS}~32
+\item 
+\#define \hyperlink{maap__daemon_8c_a16b710f592bf8f7900666392adc444dc}{D\+E\+F\+A\+U\+L\+T\+\_\+\+P\+O\+RT}~\char`\"{}15364\char`\"{}
+\item 
+\#define \hyperlink{maap__daemon_8c_acfc1668731750cb1ee8974b8a7c133ef}{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR}~\char`\"{}0.\+1\char`\"{}
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+static int \hyperlink{maap__daemon_8c_a5e9e586b3815559f208f6141b5f85b0b}{init\+\_\+maap\+\_\+networking} (const char $\ast$iface, \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\+\_\+t} src\+\_\+mac\mbox{[}\hyperlink{avb__avtp_8h_a9822d89774e0d6ddaa06503950130423}{E\+T\+H\+\_\+\+A\+L\+EN}\mbox{]}, \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\+\_\+t} dest\+\_\+mac\mbox{[}\hyperlink{avb__avtp_8h_a9822d89774e0d6ddaa06503950130423}{E\+T\+H\+\_\+\+A\+L\+EN}\mbox{]})
+\item 
+static int \hyperlink{maap__daemon_8c_a8fb99629a278f1fa279367a5c4dc9693}{get\+\_\+listener\+\_\+socket} (const char $\ast$listenport)
+\item 
+static int \hyperlink{maap__daemon_8c_a852013667264ca287e1af0a0bc13b59a}{act\+\_\+as\+\_\+client} (const char $\ast$listenport)
+\item 
+static int \hyperlink{maap__daemon_8c_a94b780a2d1da882ae5bf81d3aadd4355}{act\+\_\+as\+\_\+server} (const char $\ast$listenport, char $\ast$iface, int \hyperlink{shaper__daemon_8c_aa2339b21f98abccd12533a54d5f9d712}{daemonize})
+\item 
+static int \hyperlink{maap__daemon_8c_ae560279cc4d973f2e53573bf4d0b15c5}{do\+\_\+daemonize} (void)
+\item 
+static void \hyperlink{maap__daemon_8c_aa3514210c9b307ebd1f215807494e66d}{log\+\_\+print\+\_\+notify\+\_\+result} (void $\ast$callback\+\_\+data, int log\+Level, const char $\ast$notify\+Text)
+\item 
+static void \hyperlink{maap__daemon_8c_a7d437444f6338f1fadfc10fb0a5df77e}{display\+\_\+print\+\_\+notify\+\_\+result} (void $\ast$callback\+\_\+data, int log\+Level, const char $\ast$notify\+Text)
+\item 
+static void \hyperlink{maap__daemon_8c_a7e311f5b33a12755287e608bf0ae4eef}{send\+\_\+print\+\_\+notify\+\_\+result} (void $\ast$callback\+\_\+data, int log\+Level, const char $\ast$notify\+Text)
+\item 
+static void \hyperlink{maap__daemon_8c_ad96d407a911fbb914fa8e4cfbf2faf0f}{usage} (void)
+\item 
+static void $\ast$ \hyperlink{maap__daemon_8c_a67d03b167f8adca86cde7eeed5850982}{get\+\_\+in\+\_\+addr} (struct sockaddr $\ast$sa)
+\item 
+int \hyperlink{maap__daemon_8c_a0ddf1224851353fc92bfbff6f499fa97}{main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\item 
+static void \hyperlink{maap__daemon_8c_afac0dfa0d8315d60e6144c311c9fcadd}{format\+\_\+print\+\_\+notify\+\_\+result} (int log\+Level, const char $\ast$notify\+Text, char $\ast$sz\+Output\+Text)
+\end{DoxyCompactItemize}
+\subsection*{변수}
+\begin{DoxyCompactItemize}
+\item 
+static const char $\ast$ \hyperlink{maap__daemon_8c_ae724265d048ace6b96a1e977ea11c1c7}{version\+\_\+str}
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{maap\+\_\+daemon.\+c@{maap\+\_\+daemon.\+c}!D\+E\+F\+A\+U\+L\+T\+\_\+\+P\+O\+RT@{D\+E\+F\+A\+U\+L\+T\+\_\+\+P\+O\+RT}}
+\index{D\+E\+F\+A\+U\+L\+T\+\_\+\+P\+O\+RT@{D\+E\+F\+A\+U\+L\+T\+\_\+\+P\+O\+RT}!maap\+\_\+daemon.\+c@{maap\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+A\+U\+L\+T\+\_\+\+P\+O\+RT}{DEFAULT_PORT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+E\+F\+A\+U\+L\+T\+\_\+\+P\+O\+RT~\char`\"{}15364\char`\"{}}\hypertarget{maap__daemon_8c_a16b710f592bf8f7900666392adc444dc}{}\label{maap__daemon_8c_a16b710f592bf8f7900666392adc444dc}
+
+
+maap\+\_\+daemon.\+c 파일의 65 번째 라인에서 정의되었습니다.
+
+\index{maap\+\_\+daemon.\+c@{maap\+\_\+daemon.\+c}!M\+A\+A\+P\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT@{M\+A\+A\+P\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}}
+\index{M\+A\+A\+P\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT@{M\+A\+A\+P\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}!maap\+\_\+daemon.\+c@{maap\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{M\+A\+A\+P\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}{MAAP_LOG_COMPONENT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+A\+P\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT~\char`\"{}Init\char`\"{}}\hypertarget{maap__daemon_8c_af641e281ec3ad594d47b9071f3cbc493}{}\label{maap__daemon_8c_af641e281ec3ad594d47b9071f3cbc493}
+
+
+maap\+\_\+daemon.\+c 파일의 61 번째 라인에서 정의되었습니다.
+
+\index{maap\+\_\+daemon.\+c@{maap\+\_\+daemon.\+c}!M\+A\+X\+\_\+\+C\+L\+I\+E\+N\+T\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+NS@{M\+A\+X\+\_\+\+C\+L\+I\+E\+N\+T\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+NS}}
+\index{M\+A\+X\+\_\+\+C\+L\+I\+E\+N\+T\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+NS@{M\+A\+X\+\_\+\+C\+L\+I\+E\+N\+T\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+NS}!maap\+\_\+daemon.\+c@{maap\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{M\+A\+X\+\_\+\+C\+L\+I\+E\+N\+T\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+NS}{MAX_CLIENT_CONNECTIONS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+X\+\_\+\+C\+L\+I\+E\+N\+T\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+O\+NS~32}\hypertarget{maap__daemon_8c_ae320f47fc351f85d43c1bc99b292bd64}{}\label{maap__daemon_8c_ae320f47fc351f85d43c1bc99b292bd64}
+
+
+maap\+\_\+daemon.\+c 파일의 64 번째 라인에서 정의되었습니다.
+
+\index{maap\+\_\+daemon.\+c@{maap\+\_\+daemon.\+c}!V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR@{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR}}
+\index{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR@{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR}!maap\+\_\+daemon.\+c@{maap\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR}{VERSION_STR}}]{\setlength{\rightskip}{0pt plus 5cm}\#define V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR~\char`\"{}0.\+1\char`\"{}}\hypertarget{maap__daemon_8c_acfc1668731750cb1ee8974b8a7c133ef}{}\label{maap__daemon_8c_acfc1668731750cb1ee8974b8a7c133ef}
+
+
+maap\+\_\+daemon.\+c 파일의 67 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{함수 문서화}
+\index{maap\+\_\+daemon.\+c@{maap\+\_\+daemon.\+c}!act\+\_\+as\+\_\+client@{act\+\_\+as\+\_\+client}}
+\index{act\+\_\+as\+\_\+client@{act\+\_\+as\+\_\+client}!maap\+\_\+daemon.\+c@{maap\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{act\+\_\+as\+\_\+client(const char $\ast$listenport)}{act_as_client(const char *listenport)}}]{\setlength{\rightskip}{0pt plus 5cm}static int act\+\_\+as\+\_\+client (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{listenport}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{maap__daemon_8c_a852013667264ca287e1af0a0bc13b59a}{}\label{maap__daemon_8c_a852013667264ca287e1af0a0bc13b59a}
+
+
+maap\+\_\+daemon.\+c 파일의 715 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+716 \{
+717     \textcolor{keywordtype}{int} \hyperlink{openavb__endpoint__osal__shaper_8c_a16ece46816348fa6d2c5d0e8b47c0098}{socketfd};
+718     \textcolor{keyword}{struct }addrinfo hints, *ai, *p;
+719     \textcolor{keywordtype}{int} ret;
+720 
+721     fd\_set master, read\_fds;
+722     \textcolor{keywordtype}{int} fdmax;
+723 
+724     \textcolor{keywordtype}{char} recvbuffer[200];
+725     \textcolor{keywordtype}{int} recvbytes;
+726     \hyperlink{struct_maap___cmd}{Maap\_Cmd} recvcmd;
+727     \textcolor{keywordtype}{int} \hyperlink{shaper__daemon_8c_ad14115fb75ed8842782c1c82654dfafa}{exit\_received} = 0;
+728 
+729     \textcolor{comment}{/* Create a localhost socket. */}
+730     memset(&hints, 0, \textcolor{keyword}{sizeof} hints);
+731     hints.ai\_family = AF\_UNSPEC;
+732     hints.ai\_socktype = SOCK\_STREAM;
+733     hints.ai\_flags = 0;
+734     \textcolor{keywordflow}{if} ((ret = getaddrinfo(\textcolor{stringliteral}{"localhost"}, listenport, &hints, &ai)) != 0) \{
+735         \hyperlink{maap__log_8h_a5aed2d0b26117d4ef9653c2a0be67a8c}{MAAP\_LOGF\_ERROR}(\textcolor{stringliteral}{"getaddrinfo failure %s"}, gai\_strerror(ret));
+736         \hyperlink{maap__log_8h_a087fd8fa4dcbe5adb84d14e1dbd2e5e2}{maapLogExit}();
+737         \textcolor{keywordflow}{return} -1;
+738     \}
+739 
+740     \textcolor{keywordflow}{for}(p = ai; p != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}; p = p->ai\_next) \{
+741         socketfd = socket(p->ai\_family, p->ai\_socktype, p->ai\_protocol);
+742         \textcolor{keywordflow}{if} (socketfd == -1) \{
+743             \textcolor{keywordflow}{continue};
+744         \}
+745         ret = connect(socketfd, p->ai\_addr, p->ai\_addrlen);
+746         \textcolor{keywordflow}{if} (ret == -1) \{
+747             close(socketfd);
+748             \textcolor{keywordflow}{continue};
+749         \} \textcolor{keywordflow}{else} \{
+750             \textcolor{keywordflow}{break};
+751         \}
+752     \}
+753 
+754     \textcolor{keywordflow}{if} (p == \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \{
+755         \hyperlink{maap__log_8h_a5aed2d0b26117d4ef9653c2a0be67a8c}{MAAP\_LOGF\_ERROR}(\textcolor{stringliteral}{"Unable to connect to the daemon, error %d (%s)"}, errno, strerror(
+      errno));
+756         freeaddrinfo(ai);
+757         \hyperlink{maap__log_8h_a087fd8fa4dcbe5adb84d14e1dbd2e5e2}{maapLogExit}();
+758         \textcolor{keywordflow}{return} -1;
+759     \}
+760 
+761     freeaddrinfo(ai);
+762 
+763     \textcolor{keywordflow}{if} (fcntl(socketfd, F\_SETFL, O\_NONBLOCK) < 0)
+764     \{
+765         \hyperlink{maap__log_8h_a953cc1d79351edec0f60b7e736a308de}{MAAP\_LOG\_ERROR}(\textcolor{stringliteral}{"Could not set the socket to non-blocking"});
+766         close(socketfd);
+767         \hyperlink{maap__log_8h_a087fd8fa4dcbe5adb84d14e1dbd2e5e2}{maapLogExit}();
+768         \textcolor{keywordflow}{return} -1;
+769     \}
+770 
+771     FD\_ZERO(&read\_fds);
+772     FD\_ZERO(&master);
+773     FD\_SET(STDIN\_FILENO, &master);
+774     FD\_SET(socketfd, &master);
+775     fdmax = \hyperlink{openavb__endpoint__osal__shaper_8c_a16ece46816348fa6d2c5d0e8b47c0098}{socketfd};
+776 
+777 
+778     \textcolor{comment}{/*}
+779 \textcolor{comment}{     * Main event loop}
+780 \textcolor{comment}{     */}
+781 
+782     puts(\textcolor{stringliteral}{"Client started"});
+783     puts(\textcolor{stringliteral}{"Enter \(\backslash\)"help\(\backslash\)" for a list of valid commands."});
+784 
+785     \textcolor{keywordflow}{while} (!exit\_received)
+786     \{
+787         \textcolor{comment}{/* Wait for something to happen. */}
+788         read\_fds = master;
+789         ret = select(fdmax+1, &read\_fds, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+790         \textcolor{keywordflow}{if} (ret <= 0)
+791         \{
+792             \hyperlink{maap__log_8h_a5aed2d0b26117d4ef9653c2a0be67a8c}{MAAP\_LOGF\_ERROR}(\textcolor{stringliteral}{"select() error %d (%s)"}, errno, strerror(errno));
+793             \textcolor{keywordflow}{break};
+794         \}
+795 
+796         \textcolor{comment}{/* Handle any responses received. */}
+797         \textcolor{keywordflow}{if} (FD\_ISSET(socketfd, &read\_fds))
+798         \{
+799             \textcolor{keywordflow}{while} ((recvbytes = recv(socketfd, recvbuffer, \textcolor{keyword}{sizeof}(\hyperlink{struct_maap___notify}{Maap\_Notify}), 0)) > 0)
+800             \{
+801                 recvbuffer[recvbytes] = \textcolor{charliteral}{'\(\backslash\)0'};
+802 
+803                 \textcolor{comment}{/* Process the response data (will be binary). */}
+804                 \textcolor{keywordflow}{if} (recvbytes == \textcolor{keyword}{sizeof}(\hyperlink{struct_maap___notify}{Maap\_Notify}))
+805                 \{
+806                     \hyperlink{maap_8c_aa1d7d02b66a15fb6cf11b3bab9ff1907}{print\_notify}((\hyperlink{struct_maap___notify}{Maap\_Notify} *) recvbuffer, 
+      \hyperlink{maap__daemon_8c_a7d437444f6338f1fadfc10fb0a5df77e}{display\_print\_notify\_result}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+807                 \}
+808                 \textcolor{keywordflow}{else}
+809                 \{
+810                     \hyperlink{maap__log_8h_a778faf2b440d7b37671df387de23e149}{MAAP\_LOGF\_WARNING}(\textcolor{stringliteral}{"Received unexpected response of size %d"}, recvbytes
+      );
+811                 \}
+812             \}
+813             \textcolor{keywordflow}{if} (recvbytes == 0)
+814             \{
+815                 \textcolor{comment}{/* The MAAP daemon closed the connection.  Assume it shut down, and we should too. */}
+816                 \hyperlink{maap__log_8h_a1b983b69729d7f1f4cfd05e775f8c8c8}{MAAP\_LOG\_INFO}(\textcolor{stringliteral}{"MAAP daemon exited.  Closing application."});
+817                 exit\_received = 1;
+818             \}
+819             \textcolor{keywordflow}{if} (recvbytes < 0 && errno != EWOULDBLOCK)
+820             \{
+821                 \textcolor{comment}{/* Something went wrong.  Abort! */}
+822                 \hyperlink{maap__log_8h_a5aed2d0b26117d4ef9653c2a0be67a8c}{MAAP\_LOGF\_ERROR}(\textcolor{stringliteral}{"Error %d reading from network socket (%s)"}, errno, strerror
+      (errno));
+823                 \textcolor{keywordflow}{break};
+824             \}
+825         \}
+826 
+827         \textcolor{comment}{/* Handle any commands received via stdin. */}
+828         \textcolor{keywordflow}{if} (FD\_ISSET(STDIN\_FILENO, &read\_fds))
+829         \{
+830             recvbytes = read(STDIN\_FILENO, recvbuffer, \textcolor{keyword}{sizeof}(recvbuffer) - 1);
+831             \textcolor{keywordflow}{if} (recvbytes <= 0)
+832             \{
+833                 \hyperlink{maap__log_8h_a5aed2d0b26117d4ef9653c2a0be67a8c}{MAAP\_LOGF\_ERROR}(\textcolor{stringliteral}{"Error %d reading from stdin (%s)"}, errno, strerror(errno));
+834             \}
+835             \textcolor{keywordflow}{else}
+836             \{
+837                 \hyperlink{struct_maap___cmd}{Maap\_Cmd} *bufcmd = (\hyperlink{struct_maap___cmd}{Maap\_Cmd} *) recvbuffer;
+838                 \textcolor{keywordtype}{int} rv = 0;
+839 
+840                 recvbuffer[recvbytes] = \textcolor{charliteral}{'\(\backslash\)0'};
+841 
+842                 \textcolor{comment}{/* Determine the command requested (may be binary or text). */}
+843                 \textcolor{keywordflow}{switch} (bufcmd->\hyperlink{struct_maap___cmd_adf329e36449de220d4316603214476d4}{kind}) \{
+844                 \textcolor{keywordflow}{case} \hyperlink{maap__iface_8h_aaf90b1858e10440f7628ac5030e09a5ca25d975d65a26a7a6c06aeadc2b050851}{MAAP\_CMD\_INIT}:
+845                 \textcolor{keywordflow}{case} \hyperlink{maap__iface_8h_aaf90b1858e10440f7628ac5030e09a5cae8b22bb1ae2c72da6c6dc8f687012a3b}{MAAP\_CMD\_RESERVE}:
+846                 \textcolor{keywordflow}{case} \hyperlink{maap__iface_8h_aaf90b1858e10440f7628ac5030e09a5caac5c384d911979e439c75cdf53619b5b}{MAAP\_CMD\_RELEASE}:
+847                 \textcolor{keywordflow}{case} \hyperlink{maap__iface_8h_aaf90b1858e10440f7628ac5030e09a5ca3943619940c2a994607ee4ddd8d4dabd}{MAAP\_CMD\_STATUS}:
+848                 \textcolor{keywordflow}{case} \hyperlink{maap__iface_8h_aaf90b1858e10440f7628ac5030e09a5ca8fdd70016bf3acf23e57f4c3a5d94d9c}{MAAP\_CMD\_YIELD}:
+849                 \textcolor{keywordflow}{case} \hyperlink{maap__iface_8h_aaf90b1858e10440f7628ac5030e09a5ca44eb524552f8731b8a132a69d5390851}{MAAP\_CMD\_EXIT}:
+850                     memcpy(&recvcmd, bufcmd, \textcolor{keyword}{sizeof}(\hyperlink{struct_maap___cmd}{Maap\_Cmd}));
+851                     rv = 1;
+852                     \textcolor{keywordflow}{break};
+853                 \textcolor{keywordflow}{default}:
+854                     memset(&recvcmd, 0, \textcolor{keyword}{sizeof}(\hyperlink{struct_maap___cmd}{Maap\_Cmd}));
+855                     rv = \hyperlink{maap__parse_8c_a5cf23ab21d455331413f0a885bd737bb}{parse\_text\_cmd}(recvbuffer, &recvcmd);
+856                     \textcolor{keywordflow}{if} (!rv) \{
+857                         \textcolor{keywordflow}{if} (strncmp(recvbuffer, \textcolor{stringliteral}{"help"}, 4) != 0) \{
+858                             puts(\textcolor{stringliteral}{"Invalid command type"});
+859                         \}
+860                         \hyperlink{maap__parse_8c_a013cdde7efc4c1238c6d3da658728358}{parse\_usage}(\hyperlink{maap__daemon_8c_a7d437444f6338f1fadfc10fb0a5df77e}{display\_print\_notify\_result}, 
+      \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+861                     \}
+862                     \textcolor{keywordflow}{break};
+863                 \}
+864 
+865                 \textcolor{comment}{/* If the command is valid, Send it to the MAAP daemon. */}
+866                 \textcolor{keywordflow}{if} (rv)
+867                 \{
+868                     \textcolor{keywordflow}{if} (send(socketfd, (\textcolor{keywordtype}{char} *) &recvcmd, \textcolor{keyword}{sizeof}(\hyperlink{struct_maap___cmd}{Maap\_Cmd}), 0) < 0)
+869                     \{
+870                         \textcolor{comment}{/* Something went wrong.  Abort! */}
+871                         \hyperlink{maap__log_8h_a5aed2d0b26117d4ef9653c2a0be67a8c}{MAAP\_LOGF\_ERROR}(\textcolor{stringliteral}{"Error %d writing to network socket (%s)"}, errno, 
+      strerror(errno));
+872                         \textcolor{keywordflow}{break};
+873                     \}
+874                 \}
+875             \}
+876         \}
+877 
+878     \}
+879 
+880     close(socketfd);
+881 
+882     \hyperlink{maap__log_8h_a087fd8fa4dcbe5adb84d14e1dbd2e5e2}{maapLogExit}();
+883 
+884     \textcolor{keywordflow}{return} (exit\_received ? 0 : -1);
+885 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap__daemon_8c_a852013667264ca287e1af0a0bc13b59a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{maap__daemon_8c_a852013667264ca287e1af0a0bc13b59a_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap\+\_\+daemon.\+c@{maap\+\_\+daemon.\+c}!act\+\_\+as\+\_\+server@{act\+\_\+as\+\_\+server}}
+\index{act\+\_\+as\+\_\+server@{act\+\_\+as\+\_\+server}!maap\+\_\+daemon.\+c@{maap\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{act\+\_\+as\+\_\+server(const char $\ast$listenport, char $\ast$iface, int daemonize)}{act_as_server(const char *listenport, char *iface, int daemonize)}}]{\setlength{\rightskip}{0pt plus 5cm}static int act\+\_\+as\+\_\+server (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{listenport, }
+\item[{char $\ast$}]{iface, }
+\item[{int}]{daemonize}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{maap__daemon_8c_a94b780a2d1da882ae5bf81d3aadd4355}{}\label{maap__daemon_8c_a94b780a2d1da882ae5bf81d3aadd4355}
+
+
+maap\+\_\+daemon.\+c 파일의 236 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+237 \{
+238     \hyperlink{struct_maap___client}{Maap\_Client} mc;
+239 
+240     \textcolor{keywordtype}{int} \hyperlink{openavb__endpoint__osal__shaper_8c_a16ece46816348fa6d2c5d0e8b47c0098}{socketfd};
+241     \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} dest\_mac[\hyperlink{openavb__avdecc__pub_8h_a9822d89774e0d6ddaa06503950130423}{ETH\_ALEN}] = \hyperlink{maap_8h_a1304bb2e311e5cc3a0688ad13f206235}{MAAP\_DEST\_MAC};
+242     \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} src\_mac[\hyperlink{openavb__avdecc__pub_8h_a9822d89774e0d6ddaa06503950130423}{ETH\_ALEN}];
+243 
+244     \textcolor{keywordtype}{int} listener;
+245 
+246     \textcolor{keywordtype}{int} clientfd[\hyperlink{maap__daemon_8c_ae320f47fc351f85d43c1bc99b292bd64}{MAX\_CLIENT\_CONNECTIONS}];
+247     \textcolor{keywordtype}{int} client\_wants\_text[\hyperlink{maap__daemon_8c_ae320f47fc351f85d43c1bc99b292bd64}{MAX\_CLIENT\_CONNECTIONS}];
+248     \textcolor{keywordtype}{int} i, nextclientindex;
+249 
+250     fd\_set master, read\_fds;
+251     \textcolor{keywordtype}{int} fdmax;
+252 
+253     \textcolor{keywordtype}{void} *packet\_data;
+254     \hyperlink{parse_8c_a67a9885ef4908cb72ce26d75b694386c}{int64\_t} waittime;
+255     \textcolor{keyword}{struct }timeval tv;
+256     \textcolor{keywordtype}{char} recvbuffer[1600];
+257     \textcolor{keywordtype}{int} recvbytes;
+258     \hyperlink{struct_maap___cmd}{Maap\_Cmd} recvcmd;
+259     \hyperlink{struct_maap___notify}{Maap\_Notify} recvnotify;
+260     uintptr\_t notifysocket;
+261     \textcolor{keywordtype}{int} \hyperlink{shaper__daemon_8c_ad14115fb75ed8842782c1c82654dfafa}{exit\_received} = 0;
+262 
+263     \textcolor{keywordtype}{int} ret;
+264 
+265     \textcolor{comment}{/*}
+266 \textcolor{comment}{     * Initialize the networking support.}
+267 \textcolor{comment}{     */}
+268 
+269     socketfd = \hyperlink{maap__daemon_8c_a5e9e586b3815559f208f6141b5f85b0b}{init\_maap\_networking}(iface, src\_mac, dest\_mac);
+270     \textcolor{keywordflow}{if} (socketfd == -1) \{
+271         \hyperlink{maap__log_8h_a087fd8fa4dcbe5adb84d14e1dbd2e5e2}{maapLogExit}();
+272         \textcolor{keywordflow}{return} -1;
+273     \}
+274 
+275     \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(iface);
+276     iface = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+277 
+278     FD\_ZERO(&read\_fds);
+279     FD\_ZERO(&master);
+280     \textcolor{keywordflow}{if} (!\hyperlink{mrpd_8c_aa2339b21f98abccd12533a54d5f9d712}{daemonize}) \{
+281         FD\_SET(STDIN\_FILENO, &master);
+282     \}
+283     FD\_SET(socketfd, &master);
+284     fdmax = \hyperlink{openavb__endpoint__osal__shaper_8c_a16ece46816348fa6d2c5d0e8b47c0098}{socketfd};
+285 
+286 
+287     \textcolor{comment}{/*}
+288 \textcolor{comment}{     * Initialize the client connection listen socket.}
+289 \textcolor{comment}{     */}
+290 
+291     listener = \hyperlink{maap__daemon_8c_a8fb99629a278f1fa279367a5c4dc9693}{get\_listener\_socket}(listenport);
+292     \textcolor{keywordflow}{if} (listener == -1) \{
+293         close(socketfd);
+294         \hyperlink{maap__log_8h_a087fd8fa4dcbe5adb84d14e1dbd2e5e2}{maapLogExit}();
+295         \textcolor{keywordflow}{return} -1;
+296     \}
+297 
+298     \textcolor{comment}{/* Add the listener to the master set */}
+299     FD\_SET(listener, &master);
+300 
+301     \textcolor{comment}{/* Keep track of the biggest file descriptor */}
+302     \textcolor{keywordflow}{if} (listener > fdmax) \{
+303         fdmax = listener;
+304     \}
+305 
+306     \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{maap__daemon_8c_ae320f47fc351f85d43c1bc99b292bd64}{MAX\_CLIENT\_CONNECTIONS}; ++i) \{
+307         clientfd[i] = -1;
+308         client\_wants\_text[i] = 0;
+309     \}
+310     nextclientindex = 0;
+311 
+312 
+313     \textcolor{comment}{/*}
+314 \textcolor{comment}{     * Initialize the Maap\_Client data structure.}
+315 \textcolor{comment}{     */}
+316 
+317     memset(&mc, 0, \textcolor{keyword}{sizeof}(mc));
+318     mc.\hyperlink{struct_maap___client_a205a8c33627111589223916ef80462c2}{dest\_mac} = \hyperlink{maap__packet_8c_a1d9cd5a0a6193c524cb0f2dcd9560934}{convert\_mac\_address}(dest\_mac);
+319     mc.\hyperlink{struct_maap___client_ae2c98c9078f80f770e85f937c34da4eb}{src\_mac} = \hyperlink{maap__packet_8c_a1d9cd5a0a6193c524cb0f2dcd9560934}{convert\_mac\_address}(src\_mac);
+320 
+321 
+322     \textcolor{comment}{/*}
+323 \textcolor{comment}{     * Seed the random number generator.}
+324 \textcolor{comment}{     * This seeding is defined in IEEE 1722-2016 B.3.6.1.}
+325 \textcolor{comment}{     */}
+326 
+327     srand((\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int})mc.\hyperlink{struct_maap___client_ae2c98c9078f80f770e85f937c34da4eb}{src\_mac} + (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int})time(\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}));
+328 
+329 
+330     \textcolor{comment}{/*}
+331 \textcolor{comment}{     * Main event loop}
+332 \textcolor{comment}{     */}
+333 
+334     \hyperlink{maap__log_8h_a810446ac26ad5bd99cc6d2b84e699c17}{MAAP\_LOG\_STATUS}(\textcolor{stringliteral}{"Server started"});
+335     \textcolor{keywordflow}{if} (!\hyperlink{mrpd_8c_aa2339b21f98abccd12533a54d5f9d712}{daemonize}) \{
+336         puts(\textcolor{stringliteral}{"Enter \(\backslash\)"help\(\backslash\)" for a list of valid commands."});
+337     \}
+338 
+339     \textcolor{keywordflow}{while} (!exit\_received)
+340     \{
+341         \textcolor{comment}{/* Send any queued packets. */}
+342         \textcolor{keywordflow}{while} (mc.\hyperlink{struct_maap___client_a504c73ff1a68c50e5435dece66bc2772}{net} != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} && (packet\_data = \hyperlink{maap__net_8c_aff8a3346e7beb052fe21a97a897318c1}{Net\_getNextQueuedPacket}(mc.
+      \hyperlink{struct_maap___client_a504c73ff1a68c50e5435dece66bc2772}{net})) != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL})
+343         \{
+344             \textcolor{keywordflow}{if} (send(socketfd, packet\_data, \hyperlink{maap__net_8h_a7201d613d0bf5b69e51304c574a77022}{MAAP\_NET\_BUFFER\_SIZE}, 0) < 0)
+345             \{
+346                 \textcolor{comment}{/* Something went wrong.  Abort! */}
+347                 \hyperlink{maap__log_8h_a5aed2d0b26117d4ef9653c2a0be67a8c}{MAAP\_LOGF\_ERROR}(\textcolor{stringliteral}{"Error %d writing to network socket (%s)"}, errno, strerror(
+      errno));
+348                 \hyperlink{maap__net_8c_aebee627140351b60d0b04cfe70c7f966}{Net\_freeQueuedPacket}(mc.\hyperlink{struct_maap___client_a504c73ff1a68c50e5435dece66bc2772}{net}, packet\_data);
+349                 \textcolor{keywordflow}{break};
+350             \}
+351             \hyperlink{maap__net_8c_aebee627140351b60d0b04cfe70c7f966}{Net\_freeQueuedPacket}(mc.\hyperlink{struct_maap___client_a504c73ff1a68c50e5435dece66bc2772}{net}, packet\_data);
+352         \}
+353 
+354         \textcolor{comment}{/* Process any notifications. */}
+355         \textcolor{keywordflow}{while} (\hyperlink{maap_8c_a781fa6b6b28682a51333187f4a1970c0}{get\_notify}(&mc, (\textcolor{keywordtype}{void} *)&notifysocket, &recvnotify) > 0)
+356         \{
+357             \textcolor{keywordflow}{if} ((\textcolor{keywordtype}{int}) notifysocket == -1) \{
+358                 \textcolor{comment}{/* Just display the information for the user. */}
+359                 \hyperlink{maap_8c_aa1d7d02b66a15fb6cf11b3bab9ff1907}{print\_notify}(&recvnotify, 
+      \hyperlink{maap__daemon_8c_a7d437444f6338f1fadfc10fb0a5df77e}{display\_print\_notify\_result}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+360             \} \textcolor{keywordflow}{else} \{
+361                 \textcolor{comment}{/* Log the result. */}
+362                 \hyperlink{maap_8c_aa1d7d02b66a15fb6cf11b3bab9ff1907}{print\_notify}(&recvnotify, \hyperlink{maap__daemon_8c_aa3514210c9b307ebd1f215807494e66d}{log\_print\_notify\_result}, 
+      \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+363 
+364                 \textcolor{comment}{/* Send the notification information to the client. */}
+365                 \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{maap__daemon_8c_ae320f47fc351f85d43c1bc99b292bd64}{MAX\_CLIENT\_CONNECTIONS}; ++i)
+366                 \{
+367                     \textcolor{keywordflow}{if} (clientfd[i] == (\textcolor{keywordtype}{int}) notifysocket)
+368                     \{
+369                         \textcolor{keywordflow}{if} (client\_wants\_text[i]) \{
+370                             \textcolor{comment}{// Send the friendly text notification to the socket.}
+371                             \hyperlink{maap_8c_aa1d7d02b66a15fb6cf11b3bab9ff1907}{print\_notify}(&recvnotify, 
+      \hyperlink{maap__daemon_8c_a7e311f5b33a12755287e608bf0ae4eef}{send\_print\_notify\_result}, (\textcolor{keywordtype}{void} *) &(clientfd[i]));
+372                         \} \textcolor{keywordflow}{else} \{
+373                             \textcolor{comment}{// Send the raw notification to the socket.}
+374                             \textcolor{keywordflow}{if} (send((\textcolor{keywordtype}{int}) notifysocket, &recvnotify, \textcolor{keyword}{sizeof}(recvnotify), 0) < 0)
+375                             \{
+376                                 \textcolor{comment}{/* Something went wrong. Assume the socket will be closed below. */}
+377                                 \hyperlink{maap__log_8h_a5aed2d0b26117d4ef9653c2a0be67a8c}{MAAP\_LOGF\_ERROR}(\textcolor{stringliteral}{"Error %d writing to client socket %d (%s)"},
+       errno, (\textcolor{keywordtype}{int}) notifysocket, strerror(errno));
+378                             \}
+379                         \}
+380                         \textcolor{keywordflow}{break};
+381                     \}
+382                 \}
+383                 \textcolor{keywordflow}{if} (i >= MAX\_CLIENT\_CONNECTIONS)
+384                 \{
+385                     \hyperlink{maap__log_8h_a778faf2b440d7b37671df387de23e149}{MAAP\_LOGF\_WARNING}(\textcolor{stringliteral}{"Notification for client socket %d, but that socket
+       no longer exists"}, (\textcolor{keywordtype}{int}) notifysocket);
+386                 \}
+387             \}
+388         \}
+389 
+390         \textcolor{comment}{/* Determine how long to wait. */}
+391         waittime = \hyperlink{maap_8c_ac4c7992b7ae19944422573787cdd8a87}{maap\_get\_delay\_to\_next\_timer}(&mc);
+392         \textcolor{keywordflow}{if} (waittime > 0)
+393         \{
+394             tv.tv\_sec = waittime / 1000000000;
+395             tv.tv\_usec = (waittime % 1000000000) / 1000;
+396         \}
+397         \textcolor{keywordflow}{else}
+398         \{
+399             \textcolor{comment}{/* Act immediately. */}
+400             tv.tv\_sec = 0;
+401             tv.tv\_usec = 0;
+402         \}
+403 
+404         \textcolor{comment}{/* Wait for something to happen. */}
+405         read\_fds = master;
+406         ret = select(fdmax+1, &read\_fds, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, &tv);
+407         \textcolor{keywordflow}{if} (ret < 0)
+408         \{
+409             \hyperlink{maap__log_8h_a5aed2d0b26117d4ef9653c2a0be67a8c}{MAAP\_LOGF\_ERROR}(\textcolor{stringliteral}{"select() error %d (%s)"}, errno, strerror(errno));
+410             \textcolor{keywordflow}{break};
+411         \}
+412         \textcolor{keywordflow}{if} (ret == 0)
+413         \{
+414             \textcolor{comment}{/* The timer timed out.  Handle the timer. */}
+415             \hyperlink{maap_8c_aa1afbfc7f866343d5bd44b53325b4164}{maap\_handle\_timer}(&mc);
+416             \textcolor{keywordflow}{continue};
+417         \}
+418 
+419         \textcolor{comment}{/* Handle any packets received. */}
+420         \textcolor{keywordflow}{if} (FD\_ISSET(socketfd, &read\_fds))
+421         \{
+422             \textcolor{keyword}{struct }sockaddr\_ll ll\_addr = \{0\};
+423             socklen\_t addr\_len = 0;
+424 
+425             \textcolor{keywordflow}{while} ((recvbytes = recvfrom(socketfd, recvbuffer, \textcolor{keyword}{sizeof}(recvbuffer), MSG\_DONTWAIT, (\textcolor{keyword}{struct} 
+      sockaddr*)&ll\_addr, &addr\_len)) > 0)
+426             \{
+427                 \hyperlink{maap_8c_a7807b60e9a515b68da136756773bd576}{maap\_handle\_packet}(&mc, (\hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} *)recvbuffer, recvbytes);
+428             \}
+429             \textcolor{keywordflow}{if} (recvbytes < 0 && errno != EWOULDBLOCK)
+430             \{
+431                 \textcolor{comment}{/* Something went wrong.  Abort! */}
+432                 \hyperlink{maap__log_8h_a5aed2d0b26117d4ef9653c2a0be67a8c}{MAAP\_LOGF\_ERROR}(\textcolor{stringliteral}{"Error %d reading from network socket (%s)"}, errno, strerror
+      (errno));
+433                 \textcolor{keywordflow}{break};
+434             \}
+435         \}
+436 
+437         \textcolor{comment}{/* Accept any new connections. */}
+438         \textcolor{keywordflow}{if} (FD\_ISSET(listener, &read\_fds)) \{
+439             \textcolor{keywordtype}{int} newfd;
+440             socklen\_t addrlen;
+441             \textcolor{keyword}{struct }sockaddr\_storage remoteaddr;
+442             \textcolor{keywordtype}{char} remoteIP[INET6\_ADDRSTRLEN];
+443 
+444             addrlen = \textcolor{keyword}{sizeof} remoteaddr;
+445             newfd = accept(listener,
+446                 (\textcolor{keyword}{struct} sockaddr *)&remoteaddr,
+447                 &addrlen);
+448 
+449             \textcolor{keywordflow}{if} (newfd == -1) \{
+450                 \hyperlink{maap__log_8h_a5aed2d0b26117d4ef9653c2a0be67a8c}{MAAP\_LOGF\_ERROR}(\textcolor{stringliteral}{"Error %d accepting connection (%s)"}, errno, strerror(errno)
+      );
+451             \} \textcolor{keywordflow}{else} \{
+452                 \hyperlink{maap__log_8h_afd4d876a38da529c1d1c04053409b230}{MAAP\_LOGF\_INFO}(\textcolor{stringliteral}{"New connection from %s on socket %d"},
+453                     inet\_ntop(remoteaddr.ss\_family,
+454                         \hyperlink{maap__daemon_8c_a67d03b167f8adca86cde7eeed5850982}{get\_in\_addr}((\textcolor{keyword}{struct} sockaddr*)&remoteaddr),
+455                         remoteIP, INET6\_ADDRSTRLEN),
+456                     newfd);
+457 
+458                 \textcolor{comment}{/* Add the socket to our array of connected sockets. */}
+459                 \textcolor{keywordflow}{if} (clientfd[nextclientindex] != -1)
+460                 \{
+461                     \textcolor{comment}{/* Find the next available index. */}
+462                     \textcolor{keywordflow}{for} (i = (nextclientindex + 1) % MAX\_CLIENT\_CONNECTIONS; i != nextclientindex; i = (i +
+       1) % MAX\_CLIENT\_CONNECTIONS)
+463                     \{
+464                         \textcolor{keywordflow}{if} (clientfd[nextclientindex] == -1)
+465                         \{
+466                             \textcolor{comment}{/* Found an empty array slot. */}
+467                             \textcolor{keywordflow}{break};
+468                         \}
+469                     \}
+470                     \textcolor{keywordflow}{if} (i == nextclientindex)
+471                     \{
+472                         \textcolor{comment}{/* No more client slots available.  Connection rejected. */}
+473                         \hyperlink{maap__log_8h_a953cc1d79351edec0f60b7e736a308de}{MAAP\_LOG\_ERROR}(\textcolor{stringliteral}{"Out of client connection slots.  Connection rejected.
+      "});
+474                         close(newfd);
+475                         newfd = -1;
+476                     \}
+477                 \}
+478 
+479                 \textcolor{keywordflow}{if} (newfd != -1)
+480                 \{
+481                     clientfd[nextclientindex] = newfd;
+482                     nextclientindex = (nextclientindex + 1) % MAX\_CLIENT\_CONNECTIONS; \textcolor{comment}{/* Next slot used for
+       the next try. */}
+483                     FD\_SET(newfd, &master); \textcolor{comment}{/* add to master set */}
+484                     \textcolor{keywordflow}{if} (newfd > fdmax) \{    \textcolor{comment}{/* keep track of the max */}
+485                         fdmax = newfd;
+486                     \}
+487                 \}
+488             \}
+489         \}
+490 
+491         \textcolor{comment}{/* Handle any commands received via stdin. */}
+492         \textcolor{keywordflow}{if} (!\hyperlink{mrpd_8c_aa2339b21f98abccd12533a54d5f9d712}{daemonize} && FD\_ISSET(STDIN\_FILENO, &read\_fds))
+493         \{
+494             recvbytes = read(STDIN\_FILENO, recvbuffer, \textcolor{keyword}{sizeof}(recvbuffer) - 1);
+495             \textcolor{keywordflow}{if} (recvbytes <= 0)
+496             \{
+497                 \hyperlink{maap__log_8h_a5aed2d0b26117d4ef9653c2a0be67a8c}{MAAP\_LOGF\_ERROR}(\textcolor{stringliteral}{"Error %d reading from stdin (%s)"}, errno, strerror(errno));
+498             \}
+499             \textcolor{keywordflow}{else}
+500             \{
+501                 recvbuffer[recvbytes] = \textcolor{charliteral}{'\(\backslash\)0'};
+502 
+503                 \textcolor{comment}{/* Process the command data (may be binary or text). */}
+504                 memset(&recvcmd, 0, \textcolor{keyword}{sizeof}(recvcmd));
+505                 \textcolor{keywordtype}{int} result = \hyperlink{maap__parse_8c_a63d4fd5a406ddd29d59bc48670b264e2}{parse\_write}(&mc, (\textcolor{keyword}{const} \textcolor{keywordtype}{void} *)(uintptr\_t) -1, recvbuffer, 
+      \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+506                 \textcolor{keywordflow}{if} (result > 0)
+507                 \{
+508                     \textcolor{comment}{/* Received a command to exit. */}
+509                     exit\_received = 1;
+510                 \}
+511                 \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (result < 0)
+512                 \{
+513                     \textcolor{comment}{/* Invalid command.  Tell the user what valid commands are. */}
+514                     \textcolor{keywordflow}{if} (strncmp(recvbuffer, \textcolor{stringliteral}{"help"}, 4) != 0) \{
+515                         puts(\textcolor{stringliteral}{"Invalid command type"});
+516                     \}
+517                     \hyperlink{maap__parse_8c_a013cdde7efc4c1238c6d3da658728358}{parse\_usage}(\hyperlink{maap__daemon_8c_a7d437444f6338f1fadfc10fb0a5df77e}{display\_print\_notify\_result}, 
+      \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+518                 \}
+519             \}
+520         \}
+521 
+522         \textcolor{comment}{/* Run through the existing connections looking for data to read. */}
+523         \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{maap__daemon_8c_ae320f47fc351f85d43c1bc99b292bd64}{MAX\_CLIENT\_CONNECTIONS}; ++i)
+524         \{
+525             \textcolor{keywordflow}{if} (clientfd[i] != -1 && FD\_ISSET(clientfd[i], &read\_fds))
+526             \{
+527                 recvbytes = recv(clientfd[i], recvbuffer, \textcolor{keyword}{sizeof}(recvbuffer), 0);
+528                 \textcolor{keywordflow}{if} (recvbytes < 0)
+529                 \{
+530                     \hyperlink{maap__log_8h_a778faf2b440d7b37671df387de23e149}{MAAP\_LOGF\_WARNING}(\textcolor{stringliteral}{"Error %d reading from socket %d (%s).  Connection
+       closed."}, errno, clientfd[i], strerror(errno));
+531                     close(clientfd[i]);
+532                     FD\_CLR(clientfd[i], &master); \textcolor{comment}{/* remove from master set */}
+533                     clientfd[i] = -1;
+534                     nextclientindex = i; \textcolor{comment}{/* We know this slot will be empty. */}
+535                 \}
+536                 \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (recvbytes == 0)
+537                 \{
+538                     \hyperlink{maap__log_8h_afd4d876a38da529c1d1c04053409b230}{MAAP\_LOGF\_INFO}(\textcolor{stringliteral}{"Socket %d closed"}, clientfd[i]);
+539                     close(clientfd[i]);
+540                     FD\_CLR(clientfd[i], &master); \textcolor{comment}{/* remove from master set */}
+541                     clientfd[i] = -1;
+542                     nextclientindex = i; \textcolor{comment}{/* We know this slot will be empty. */}
+543                 \}
+544                 \textcolor{keywordflow}{else}
+545                 \{
+546                     recvbuffer[recvbytes] = \textcolor{charliteral}{'\(\backslash\)0'};
+547 
+548                     \textcolor{comment}{/* Process the command data (may be binary or text). */}
+549                     memset(&recvcmd, 0, \textcolor{keyword}{sizeof}(recvcmd));
+550                     \textcolor{keywordtype}{int} result = \hyperlink{maap__parse_8c_a63d4fd5a406ddd29d59bc48670b264e2}{parse\_write}(&mc, (\textcolor{keyword}{const} \textcolor{keywordtype}{void} *)(uintptr\_t) clientfd[i], 
+      recvbuffer, &(client\_wants\_text[i]));
+551                     \textcolor{keywordflow}{if} (result > 0)
+552                     \{
+553                         \textcolor{comment}{/* Received a command to exit. */}
+554                         exit\_received = 1;
+555                     \}
+556                     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (result < 0)
+557                     \{
+558                         \textcolor{comment}{/* Invalid command.  Tell the user what valid commands are. */}
+559                         \textcolor{keywordflow}{if} (strncmp(recvbuffer, \textcolor{stringliteral}{"help"}, 4) != 0) \{
+560                             \hyperlink{maap__daemon_8c_a7e311f5b33a12755287e608bf0ae4eef}{send\_print\_notify\_result}((\textcolor{keywordtype}{void} *) &(clientfd[i]), 
+      \hyperlink{maap__log_8h_a8dca16bbef5b5633d90b792f18a73262}{MAAP\_LOG\_LEVEL\_INFO}, \textcolor{stringliteral}{"Invalid command type"});
+561                         \}
+562                         \hyperlink{maap__parse_8c_a013cdde7efc4c1238c6d3da658728358}{parse\_usage}(\hyperlink{maap__daemon_8c_a7e311f5b33a12755287e608bf0ae4eef}{send\_print\_notify\_result}, (\textcolor{keywordtype}{void} *) &
+      (clientfd[i]));
+563                     \}
+564                 \}
+565             \}
+566         \}
+567 
+568     \}
+569 
+570     close(socketfd);
+571     close(listener);
+572 
+573     \textcolor{comment}{/* Close any connected sockets. */}
+574     \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{maap__daemon_8c_ae320f47fc351f85d43c1bc99b292bd64}{MAX\_CLIENT\_CONNECTIONS}; ++i) \{
+575         \textcolor{keywordflow}{if} (clientfd[i] != -1) \{
+576             close(clientfd[i]);
+577             clientfd[i] = -1;
+578         \}
+579     \}
+580 
+581     \hyperlink{maap_8c_abb26ec0dca0b97acd80b602bcfc2179a}{maap\_deinit\_client}(&mc);
+582 
+583     \hyperlink{maap__log_8h_a810446ac26ad5bd99cc6d2b84e699c17}{MAAP\_LOG\_STATUS}(\textcolor{stringliteral}{"Server stopped"});
+584 
+585     \hyperlink{maap__log_8h_a087fd8fa4dcbe5adb84d14e1dbd2e5e2}{maapLogExit}();
+586 
+587     \textcolor{keywordflow}{return} (exit\_received ? 0 : -1);
+588 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap__daemon_8c_a94b780a2d1da882ae5bf81d3aadd4355_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=232pt]{maap__daemon_8c_a94b780a2d1da882ae5bf81d3aadd4355_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap\+\_\+daemon.\+c@{maap\+\_\+daemon.\+c}!display\+\_\+print\+\_\+notify\+\_\+result@{display\+\_\+print\+\_\+notify\+\_\+result}}
+\index{display\+\_\+print\+\_\+notify\+\_\+result@{display\+\_\+print\+\_\+notify\+\_\+result}!maap\+\_\+daemon.\+c@{maap\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{display\+\_\+print\+\_\+notify\+\_\+result(void $\ast$callback\+\_\+data, int log\+Level, const char $\ast$notify\+Text)}{display_print_notify_result(void *callback_data, int logLevel, const char *notifyText)}}]{\setlength{\rightskip}{0pt plus 5cm}static void display\+\_\+print\+\_\+notify\+\_\+result (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{callback\+\_\+data, }
+\item[{int}]{log\+Level, }
+\item[{const char $\ast$}]{notify\+Text}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{maap__daemon_8c_a7d437444f6338f1fadfc10fb0a5df77e}{}\label{maap__daemon_8c_a7d437444f6338f1fadfc10fb0a5df77e}
+
+
+maap\+\_\+daemon.\+c 파일의 1001 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+1002 \{
+1003     \textcolor{keywordtype}{char} szOutputText[ 300 ];
+1004 
+1005     \hyperlink{maap__daemon_8c_afac0dfa0d8315d60e6144c311c9fcadd}{format\_print\_notify\_result}(logLevel, notifyText, szOutputText);
+1006     fputs(szOutputText, stdout);
+1007     fflush(stdout);
+1008 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=315pt]{maap__daemon_8c_a7d437444f6338f1fadfc10fb0a5df77e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap__daemon_8c_a7d437444f6338f1fadfc10fb0a5df77e_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap\+\_\+daemon.\+c@{maap\+\_\+daemon.\+c}!do\+\_\+daemonize@{do\+\_\+daemonize}}
+\index{do\+\_\+daemonize@{do\+\_\+daemonize}!maap\+\_\+daemon.\+c@{maap\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{do\+\_\+daemonize(void)}{do_daemonize(void)}}]{\setlength{\rightskip}{0pt plus 5cm}static int do\+\_\+daemonize (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{maap__daemon_8c_ae560279cc4d973f2e53573bf4d0b15c5}{}\label{maap__daemon_8c_ae560279cc4d973f2e53573bf4d0b15c5}
+
+
+maap\+\_\+daemon.\+c 파일의 887 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+888 \{
+889     \textcolor{keywordtype}{int} x;
+890     pid\_t pid;
+891 
+892     pid = fork();
+893     \textcolor{keywordflow}{if} (pid < 0) \{
+894         exit(EXIT\_FAILURE);
+895     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (pid > 0) \{
+896         \textcolor{comment}{/* Let the controlling terminal know the first fork worked. */}
+897         exit(EXIT\_SUCCESS);
+898     \}
+899 
+900     \textcolor{comment}{/* Make child process session leader */}
+901     \textcolor{keywordflow}{if} (setsid() < 0) \{
+902         exit(EXIT\_FAILURE);
+903     \}
+904 
+905     signal(SIGCHLD, SIG\_IGN);
+906     signal(SIGHUP, SIG\_IGN);
+907 
+908     \textcolor{keywordflow}{if} (fork() != 0) \{
+909         exit(EXIT\_FAILURE);
+910     \}
+911 
+912     umask(0);
+913     x = chdir(\textcolor{stringliteral}{"/"});
+914 
+915     \textcolor{comment}{/* Close all open file descriptors */}
+916     \textcolor{keywordflow}{for} (x = sysconf(\_SC\_OPEN\_MAX); x>=0; x--) \{
+917         close(x);
+918     \}
+919 
+920     \textcolor{keywordflow}{return} 0;
+921 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{maap__daemon_8c_ae560279cc4d973f2e53573bf4d0b15c5_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap\+\_\+daemon.\+c@{maap\+\_\+daemon.\+c}!format\+\_\+print\+\_\+notify\+\_\+result@{format\+\_\+print\+\_\+notify\+\_\+result}}
+\index{format\+\_\+print\+\_\+notify\+\_\+result@{format\+\_\+print\+\_\+notify\+\_\+result}!maap\+\_\+daemon.\+c@{maap\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{format\+\_\+print\+\_\+notify\+\_\+result(int log\+Level, const char $\ast$notify\+Text, char $\ast$sz\+Output\+Text)}{format_print_notify_result(int logLevel, const char *notifyText, char *szOutputText)}}]{\setlength{\rightskip}{0pt plus 5cm}static void format\+\_\+print\+\_\+notify\+\_\+result (
+\begin{DoxyParamCaption}
+\item[{int}]{log\+Level, }
+\item[{const char $\ast$}]{notify\+Text, }
+\item[{char $\ast$}]{sz\+Output\+Text}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{maap__daemon_8c_afac0dfa0d8315d60e6144c311c9fcadd}{}\label{maap__daemon_8c_afac0dfa0d8315d60e6144c311c9fcadd}
+
+
+maap\+\_\+daemon.\+c 파일의 947 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+949 \{
+950     \textcolor{keywordtype}{int} i, nLastSpace;
+951     \textcolor{keywordtype}{int} nInitial = -1;
+952     \textcolor{keywordtype}{char} *pszOut = szOutputText;
+953 
+954     \textcolor{comment}{/* Break the string up into one-line chunks.}
+955 \textcolor{comment}{     * Note that tabs and newlines are not handled correctly. */}
+956     \textcolor{keywordflow}{while} (*notifyText) \{
+957         \textcolor{keywordflow}{if} (nInitial < 0) \{
+958             \textcolor{keywordflow}{if} (logLevel == \hyperlink{maap__log_8h_a3f328d6c0dafdb801bc09410346b6fc7}{MAAP\_LOG\_LEVEL\_ERROR}) \{
+959                 strcpy(pszOut, \textcolor{stringliteral}{"Error:  "});
+960                 nInitial = (int) strlen(pszOut);
+961                 pszOut += nInitial;
+962             \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (logLevel == \hyperlink{maap__log_8h_ae7dbd9677f572ebd7757e0cdc2b0992e}{MAAP\_LOG\_LEVEL\_WARNING}) \{
+963                 strcpy(pszOut, \textcolor{stringliteral}{"Warning:  "});
+964                 nInitial = (int) strlen(pszOut);
+965                 pszOut += nInitial;
+966             \} \textcolor{keywordflow}{else} \{
+967                 nInitial = 0;
+968             \}
+969         \} \textcolor{keywordflow}{else} \{
+970             \textcolor{comment}{/* We already accounted for the initial text. */}
+971             nInitial = 0;
+972         \}
+973 
+974         nLastSpace = -1;
+975         \textcolor{keywordflow}{for} (i = 0; (i < \hyperlink{maap__log_8h_ac364e623cbc801d4796cdd6726b50931}{MAAP\_LOG\_STDOUT\_CONSOLE\_WIDTH} - nInitial || 
+      nLastSpace <= 0) && notifyText[i]; ++i) \{
+976             \textcolor{keywordflow}{if} (isspace(notifyText[i])) \{ nLastSpace = i; \}
+977         \}
+978         \textcolor{keywordflow}{if} (notifyText[i] == \textcolor{charliteral}{'\(\backslash\)0'}) \{
+979             \textcolor{comment}{/* Print the remainder of the string. */}
+980             strcpy(pszOut, notifyText);
+981             pszOut += strlen(pszOut);
+982             *pszOut++ = \textcolor{charliteral}{'\(\backslash\)r'}; \textcolor{comment}{// Useful for Telnet interaction}
+983             *pszOut++ = \textcolor{charliteral}{'\(\backslash\)n'};
+984             \textcolor{keywordflow}{break};
+985         \}
+986 
+987         \textcolor{comment}{/* Print the string up to the last space. */}
+988         \textcolor{keywordflow}{for} (i = 0; i < nLastSpace; ++i) \{
+989             *pszOut++ = *notifyText++;
+990         \}
+991         *pszOut++ = \textcolor{charliteral}{'\(\backslash\)r'}; \textcolor{comment}{// Useful for Telnet interaction}
+992         *pszOut++ = \textcolor{charliteral}{'\(\backslash\)n'};
+993 
+994         \textcolor{comment}{/* Go to the start of the next word in the string. */}
+995         \textcolor{keywordflow}{while} (isspace(*notifyText)) \{ notifyText++; \}
+996     \}
+997 
+998     *pszOut = \textcolor{charliteral}{'\(\backslash\)0'};
+999 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap__daemon_8c_afac0dfa0d8315d60e6144c311c9fcadd_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap\+\_\+daemon.\+c@{maap\+\_\+daemon.\+c}!get\+\_\+in\+\_\+addr@{get\+\_\+in\+\_\+addr}}
+\index{get\+\_\+in\+\_\+addr@{get\+\_\+in\+\_\+addr}!maap\+\_\+daemon.\+c@{maap\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{get\+\_\+in\+\_\+addr(struct sockaddr $\ast$sa)}{get_in_addr(struct sockaddr *sa)}}]{\setlength{\rightskip}{0pt plus 5cm}static void$\ast$ get\+\_\+in\+\_\+addr (
+\begin{DoxyParamCaption}
+\item[{struct sockaddr $\ast$}]{sa}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{maap__daemon_8c_a67d03b167f8adca86cde7eeed5850982}{}\label{maap__daemon_8c_a67d03b167f8adca86cde7eeed5850982}
+
+
+maap\+\_\+daemon.\+c 파일의 104 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+105 \{
+106     \textcolor{keywordflow}{if} (sa->sa\_family == AF\_INET) \{
+107         \textcolor{keywordflow}{return} &(((\textcolor{keyword}{struct }sockaddr\_in*)sa)->sin\_addr);
+108     \}
+109 
+110     \textcolor{keywordflow}{return} &(((\textcolor{keyword}{struct }sockaddr\_in6*)sa)->sin6\_addr);
+111 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=335pt]{maap__daemon_8c_a67d03b167f8adca86cde7eeed5850982_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap\+\_\+daemon.\+c@{maap\+\_\+daemon.\+c}!get\+\_\+listener\+\_\+socket@{get\+\_\+listener\+\_\+socket}}
+\index{get\+\_\+listener\+\_\+socket@{get\+\_\+listener\+\_\+socket}!maap\+\_\+daemon.\+c@{maap\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{get\+\_\+listener\+\_\+socket(const char $\ast$listenport)}{get_listener_socket(const char *listenport)}}]{\setlength{\rightskip}{0pt plus 5cm}static int get\+\_\+listener\+\_\+socket (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{listenport}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{maap__daemon_8c_a8fb99629a278f1fa279367a5c4dc9693}{}\label{maap__daemon_8c_a8fb99629a278f1fa279367a5c4dc9693}
+
+
+maap\+\_\+daemon.\+c 파일의 660 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+661 \{
+662     \textcolor{keywordtype}{int} listener = -1;
+663     \textcolor{keyword}{struct }addrinfo hints, *ai, *p;
+664     \textcolor{keywordtype}{int} yes=1;
+665     \textcolor{keywordtype}{int} ret;
+666 
+667     \textcolor{comment}{/* Get us a localhost socket and bind it */}
+668     memset(&hints, 0, \textcolor{keyword}{sizeof} hints);
+669     hints.ai\_family = AF\_UNSPEC;
+670     hints.ai\_socktype = SOCK\_STREAM;
+671     hints.ai\_flags = AI\_PASSIVE;
+672     \textcolor{keywordflow}{if} ((ret = getaddrinfo(\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, listenport, &hints, &ai)) != 0) \{
+673         \hyperlink{maap__log_8h_a5aed2d0b26117d4ef9653c2a0be67a8c}{MAAP\_LOGF\_ERROR}(\textcolor{stringliteral}{"getaddrinfo failure %s"}, gai\_strerror(ret));
+674         \textcolor{keywordflow}{return} -1;
+675     \}
+676 
+677     \textcolor{keywordflow}{for}(p = ai; p != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}; p = p->ai\_next) \{
+678         listener = socket(p->ai\_family, p->ai\_socktype, p->ai\_protocol);
+679         \textcolor{keywordflow}{if} (listener == -1) \{
+680             \textcolor{keywordflow}{continue};
+681         \}
+682 
+683         \textcolor{comment}{/* Lose the pesky "address already in use" error message */}
+684         setsockopt(listener, SOL\_SOCKET, SO\_REUSEADDR, &yes, \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}));
+685 
+686         \textcolor{keywordflow}{if} (bind(listener, p->ai\_addr, p->ai\_addrlen) < 0) \{
+687             close(listener);
+688             \textcolor{keywordflow}{continue};
+689         \}
+690 
+691         \textcolor{keywordflow}{break};
+692     \}
+693 
+694     freeaddrinfo(ai);
+695 
+696     \textcolor{comment}{/* If we got here, it means we didn't get bound */}
+697     \textcolor{keywordflow}{if} (p == \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \{
+698         \hyperlink{maap__log_8h_a5aed2d0b26117d4ef9653c2a0be67a8c}{MAAP\_LOGF\_ERROR}(\textcolor{stringliteral}{"Socket failed to bind error %d (%s)"}, errno, strerror(errno));
+699         \textcolor{keywordflow}{if} (listener != -1) \{
+700             close(listener);
+701         \}
+702         \textcolor{keywordflow}{return} -1;
+703     \}
+704 
+705     \textcolor{keywordflow}{if} (listen(listener, 10) < 0) \{
+706         \hyperlink{maap__log_8h_a5aed2d0b26117d4ef9653c2a0be67a8c}{MAAP\_LOGF\_ERROR}(\textcolor{stringliteral}{"Socket listen error %d (%s)"}, errno, strerror(errno));
+707         close(listener);
+708         \textcolor{keywordflow}{return} -1;
+709     \}
+710 
+711     \textcolor{keywordflow}{return} listener;
+712 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap__daemon_8c_a8fb99629a278f1fa279367a5c4dc9693_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap\+\_\+daemon.\+c@{maap\+\_\+daemon.\+c}!init\+\_\+maap\+\_\+networking@{init\+\_\+maap\+\_\+networking}}
+\index{init\+\_\+maap\+\_\+networking@{init\+\_\+maap\+\_\+networking}!maap\+\_\+daemon.\+c@{maap\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{init\+\_\+maap\+\_\+networking(const char $\ast$iface, uint8\+\_\+t src\+\_\+mac[E\+T\+H\+\_\+\+A\+L\+EN], uint8\+\_\+t dest\+\_\+mac[E\+T\+H\+\_\+\+A\+L\+EN])}{init_maap_networking(const char *iface, uint8_t src_mac[ETH_ALEN], uint8_t dest_mac[ETH_ALEN])}}]{\setlength{\rightskip}{0pt plus 5cm}static int init\+\_\+maap\+\_\+networking (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{iface, }
+\item[{{\bf uint8\+\_\+t}}]{src\+\_\+mac\mbox{[}\+E\+T\+H\+\_\+\+A\+L\+E\+N\mbox{]}, }
+\item[{{\bf uint8\+\_\+t}}]{dest\+\_\+mac\mbox{[}\+E\+T\+H\+\_\+\+A\+L\+E\+N\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{maap__daemon_8c_a5e9e586b3815559f208f6141b5f85b0b}{}\label{maap__daemon_8c_a5e9e586b3815559f208f6141b5f85b0b}
+
+
+maap\+\_\+daemon.\+c 파일의 591 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+592 \{
+593     \textcolor{keywordtype}{int} \hyperlink{openavb__endpoint__osal__shaper_8c_a16ece46816348fa6d2c5d0e8b47c0098}{socketfd};
+594     \textcolor{keyword}{struct }ifreq ifbuffer;
+595     \textcolor{keywordtype}{int} ifindex;
+596     \textcolor{keyword}{struct }sockaddr\_ll sockaddr;
+597     \textcolor{keyword}{struct }packet\_mreq mreq;
+598 
+599     \textcolor{keywordflow}{if} ((socketfd = socket(PF\_PACKET, SOCK\_RAW, htons(\hyperlink{maap_8h_a30d904d6751d5f3bc1f6f283bff4e8a9}{MAAP\_TYPE}))) == -1 )
+600     \{
+601         \hyperlink{maap__log_8h_a5aed2d0b26117d4ef9653c2a0be67a8c}{MAAP\_LOGF\_ERROR}(\textcolor{stringliteral}{"Could not open socket %d (Are you running as an administrator?)"},
+      socketfd);
+602         \textcolor{keywordflow}{return} -1;
+603     \}
+604 
+605     \textcolor{keywordflow}{if} (fcntl(socketfd, F\_SETFL, O\_NONBLOCK) < 0)
+606     \{
+607         \hyperlink{maap__log_8h_a953cc1d79351edec0f60b7e736a308de}{MAAP\_LOG\_ERROR}(\textcolor{stringliteral}{"Could not set the socket to non-blocking"});
+608         close(socketfd);
+609         \textcolor{keywordflow}{return} -1;
+610     \}
+611 
+612     memset(&ifbuffer, 0x00, \textcolor{keyword}{sizeof}(ifbuffer));
+613     strncpy(ifbuffer.ifr\_name, iface, \hyperlink{openavb__avdecc__pub_8h_acd06da230a96d3b7e6f193c5b3142002}{IFNAMSIZ});
+614     \textcolor{keywordflow}{if} (ioctl(socketfd, SIOCGIFINDEX, &ifbuffer) < 0)
+615     \{
+616         \hyperlink{maap__log_8h_a953cc1d79351edec0f60b7e736a308de}{MAAP\_LOG\_ERROR}(\textcolor{stringliteral}{"Could not get interface index"});
+617         close(socketfd);
+618         \textcolor{keywordflow}{return} -1;
+619     \}
+620 
+621     ifindex = ifbuffer.ifr\_ifindex;
+622     \textcolor{keywordflow}{if} (ioctl(socketfd, SIOCGIFHWADDR, &ifbuffer) < 0) \{
+623         \hyperlink{maap__log_8h_a953cc1d79351edec0f60b7e736a308de}{MAAP\_LOG\_ERROR}(\textcolor{stringliteral}{"Could not get interface address"});
+624         close(socketfd);
+625         \textcolor{keywordflow}{return} -1;
+626     \}
+627 
+628     memcpy(src\_mac, ifbuffer.ifr\_hwaddr.sa\_data, \hyperlink{openavb__avdecc__pub_8h_a9822d89774e0d6ddaa06503950130423}{ETH\_ALEN});
+629 
+630     memset(&sockaddr, 0, \textcolor{keyword}{sizeof}(sockaddr));
+631     sockaddr.sll\_family = AF\_PACKET;
+632     sockaddr.sll\_ifindex = ifindex;
+633     sockaddr.sll\_halen = \hyperlink{openavb__avdecc__pub_8h_a9822d89774e0d6ddaa06503950130423}{ETH\_ALEN};
+634     memcpy(sockaddr.sll\_addr, dest\_mac, \hyperlink{openavb__avdecc__pub_8h_a9822d89774e0d6ddaa06503950130423}{ETH\_ALEN});
+635 
+636     \textcolor{keywordflow}{if} (bind(socketfd, (\textcolor{keyword}{struct} sockaddr*)&sockaddr, \textcolor{keyword}{sizeof}(sockaddr))) \{
+637         \hyperlink{maap__log_8h_a953cc1d79351edec0f60b7e736a308de}{MAAP\_LOG\_ERROR}(\textcolor{stringliteral}{"Could not bind datagram socket"});
+638         close(socketfd);
+639         \textcolor{keywordflow}{return} -1;
+640     \}
+641 
+642     \textcolor{comment}{/* filter multicast address */}
+643     memset(&mreq, 0, \textcolor{keyword}{sizeof}(mreq));
+644     mreq.mr\_ifindex = ifindex;
+645     mreq.mr\_type = PACKET\_MR\_MULTICAST;
+646     mreq.mr\_alen = 6;
+647     memcpy(mreq.mr\_address, dest\_mac, mreq.mr\_alen);
+648 
+649     \textcolor{keywordflow}{if} (setsockopt(socketfd, SOL\_PACKET, PACKET\_ADD\_MEMBERSHIP, &mreq,
+650         \textcolor{keyword}{sizeof}(mreq)) < 0) \{
+651         \hyperlink{maap__log_8h_a953cc1d79351edec0f60b7e736a308de}{MAAP\_LOG\_ERROR}(\textcolor{stringliteral}{"setsockopt PACKET\_ADD\_MEMBERSHIP failed"});
+652         close(socketfd);
+653         \textcolor{keywordflow}{return} -1;
+654     \}
+655 
+656     \textcolor{keywordflow}{return} \hyperlink{openavb__endpoint__osal__shaper_8c_a16ece46816348fa6d2c5d0e8b47c0098}{socketfd};
+657 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap__daemon_8c_a5e9e586b3815559f208f6141b5f85b0b_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap\+\_\+daemon.\+c@{maap\+\_\+daemon.\+c}!log\+\_\+print\+\_\+notify\+\_\+result@{log\+\_\+print\+\_\+notify\+\_\+result}}
+\index{log\+\_\+print\+\_\+notify\+\_\+result@{log\+\_\+print\+\_\+notify\+\_\+result}!maap\+\_\+daemon.\+c@{maap\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{log\+\_\+print\+\_\+notify\+\_\+result(void $\ast$callback\+\_\+data, int log\+Level, const char $\ast$notify\+Text)}{log_print_notify_result(void *callback_data, int logLevel, const char *notifyText)}}]{\setlength{\rightskip}{0pt plus 5cm}static void log\+\_\+print\+\_\+notify\+\_\+result (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{callback\+\_\+data, }
+\item[{int}]{log\+Level, }
+\item[{const char $\ast$}]{notify\+Text}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{maap__daemon_8c_aa3514210c9b307ebd1f215807494e66d}{}\label{maap__daemon_8c_aa3514210c9b307ebd1f215807494e66d}
+
+
+maap\+\_\+daemon.\+c 파일의 923 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+924 \{
+925     \textcolor{keywordflow}{switch} (logLevel) \{
+926     \textcolor{keywordflow}{case} \hyperlink{maap__log_8h_a3f328d6c0dafdb801bc09410346b6fc7}{MAAP\_LOG\_LEVEL\_ERROR}:
+927         \hyperlink{maap__log_8h_a953cc1d79351edec0f60b7e736a308de}{MAAP\_LOG\_ERROR}(notifyText);
+928         \textcolor{keywordflow}{break};
+929     \textcolor{keywordflow}{case} \hyperlink{maap__log_8h_ae7dbd9677f572ebd7757e0cdc2b0992e}{MAAP\_LOG\_LEVEL\_WARNING}:
+930         \hyperlink{maap__log_8h_ab54c9ec4b07ccb98694328a9563fd2fc}{MAAP\_LOG\_WARNING}(notifyText);
+931         \textcolor{keywordflow}{break};
+932     \textcolor{keywordflow}{case} \hyperlink{maap__log_8h_a8dca16bbef5b5633d90b792f18a73262}{MAAP\_LOG\_LEVEL\_INFO}:
+933         \hyperlink{maap__log_8h_a1b983b69729d7f1f4cfd05e775f8c8c8}{MAAP\_LOG\_INFO}(notifyText);
+934         \textcolor{keywordflow}{break};
+935     \textcolor{keywordflow}{case} \hyperlink{maap__log_8h_ae6113fb2e7d1352920fcce06cdebfe4e}{MAAP\_LOG\_LEVEL\_STATUS}:
+936         \hyperlink{maap__log_8h_a810446ac26ad5bd99cc6d2b84e699c17}{MAAP\_LOG\_STATUS}(notifyText);
+937         \textcolor{keywordflow}{break};
+938     \textcolor{keywordflow}{case} \hyperlink{maap__log_8h_ae1357fa170beab46da00a253b0e7b0b2}{MAAP\_LOG\_LEVEL\_DEBUG}:
+939         \hyperlink{maap__log_8h_a0b034a60b88c3465e3a7de39737a216f}{MAAP\_LOG\_DEBUG}(notifyText);
+940         \textcolor{keywordflow}{break};
+941     \textcolor{keywordflow}{case} \hyperlink{maap__log_8h_aead8932c792b9eacfab05e4bfe255180}{MAAP\_LOG\_LEVEL\_VERBOSE}:
+942         \hyperlink{maap__log_8h_ac84b47e008546722a2de153038e09769}{MAAP\_LOG\_VERBOSE}(notifyText);
+943         \textcolor{keywordflow}{break};
+944     \}
+945 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap__daemon_8c_aa3514210c9b307ebd1f215807494e66d_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap\+\_\+daemon.\+c@{maap\+\_\+daemon.\+c}!main@{main}}
+\index{main@{main}!maap\+\_\+daemon.\+c@{maap\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{main(int argc, char $\ast$argv[])}{main(int argc, char *argv[])}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{maap__daemon_8c_a0ddf1224851353fc92bfbff6f499fa97}{}\label{maap__daemon_8c_a0ddf1224851353fc92bfbff6f499fa97}
+
+
+maap\+\_\+daemon.\+c 파일의 114 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+115 \{
+116     \textcolor{keywordtype}{int} \hyperlink{shaper__daemon_8c_a4e1e0e72dd773439e333c84dd762a9c3}{c};
+117     \textcolor{keywordtype}{int} as\_client = 0, \hyperlink{mrpd_8c_aa2339b21f98abccd12533a54d5f9d712}{daemonize} = 0;
+118     \textcolor{keywordtype}{char} *iface = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+119     \textcolor{keywordtype}{char} *listenport = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+120     \textcolor{keywordtype}{char} *logfile = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+121     \textcolor{keywordtype}{int} ret;
+122 
+123 
+124     \textcolor{comment}{/*}
+125 \textcolor{comment}{     *  Parse the arguments}
+126 \textcolor{comment}{     */}
+127 
+128     \textcolor{keywordflow}{while} ((c = \hyperlink{getopt_8c_a5b4d105808f29eef11f1a690ccc4e04a}{getopt}(argc, argv, \textcolor{stringliteral}{"hcd:i:p:"})) >= 0)
+129     \{
+130         \textcolor{keywordflow}{switch} (c)
+131         \{
+132         \textcolor{keywordflow}{case} \textcolor{charliteral}{'c'}:
+133             as\_client = 1;
+134             \textcolor{keywordflow}{break};
+135 
+136         \textcolor{keywordflow}{case} \textcolor{charliteral}{'d'}:
+137             \textcolor{keywordflow}{if} (\hyperlink{mrpd_8c_aa2339b21f98abccd12533a54d5f9d712}{daemonize})
+138             \{
+139                 fprintf(stderr, \textcolor{stringliteral}{"Only one log file per server is supported\(\backslash\)n"});
+140                 \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(logfile);
+141                 \hyperlink{maap__daemon_8c_ad96d407a911fbb914fa8e4cfbf2faf0f}{usage}();
+142             \}
+143             \hyperlink{mrpd_8c_aa2339b21f98abccd12533a54d5f9d712}{daemonize} = 1;
+144             logfile = strdup(\hyperlink{getopt_8c_adb50a0eab9fed92fc3bfc7dfa4f2c410}{optarg});
+145             \textcolor{keywordflow}{break};
+146 
+147         \textcolor{keywordflow}{case} \textcolor{charliteral}{'i'}:
+148             \textcolor{keywordflow}{if} (iface)
+149             \{
+150                 fprintf(stderr, \textcolor{stringliteral}{"Only one interface per server is supported\(\backslash\)n"});
+151                 \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(iface);
+152                 \hyperlink{maap__daemon_8c_ad96d407a911fbb914fa8e4cfbf2faf0f}{usage}();
+153             \}
+154             iface = strdup(\hyperlink{getopt_8c_adb50a0eab9fed92fc3bfc7dfa4f2c410}{optarg});
+155             \textcolor{keywordflow}{break};
+156 
+157         \textcolor{keywordflow}{case} \textcolor{charliteral}{'p'}:
+158             \textcolor{keywordflow}{if} (listenport)
+159             \{
+160                 fprintf(stderr, \textcolor{stringliteral}{"Only one port per server is supported\(\backslash\)n"});
+161                 \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(listenport);
+162                 \hyperlink{maap__daemon_8c_ad96d407a911fbb914fa8e4cfbf2faf0f}{usage}();
+163             \}
+164             listenport = strdup(\hyperlink{getopt_8c_adb50a0eab9fed92fc3bfc7dfa4f2c410}{optarg});
+165             \textcolor{keywordflow}{break};
+166 
+167         \textcolor{keywordflow}{case} \textcolor{charliteral}{'h'}:
+168         \textcolor{keywordflow}{default}:
+169             \hyperlink{maap__daemon_8c_ad96d407a911fbb914fa8e4cfbf2faf0f}{usage}();
+170             \textcolor{keywordflow}{break};
+171         \}
+172     \}
+173     \textcolor{keywordflow}{if} (\hyperlink{getopt_8c_ad5e1c16213bbee2d5e8cc363309f418c}{optind} < argc)
+174     \{
+175         \hyperlink{maap__daemon_8c_ad96d407a911fbb914fa8e4cfbf2faf0f}{usage}();
+176     \}
+177 
+178     \textcolor{keywordflow}{if} (as\_client && \hyperlink{mrpd_8c_aa2339b21f98abccd12533a54d5f9d712}{daemonize})
+179     \{
+180         fprintf(stderr, \textcolor{stringliteral}{"Cannot run as both a client and a daemon\(\backslash\)n"});
+181         \hyperlink{maap__daemon_8c_ad96d407a911fbb914fa8e4cfbf2faf0f}{usage}();
+182     \}
+183 
+184     \textcolor{keywordflow}{if} (!as\_client && iface == \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL})
+185     \{
+186         fprintf(stderr, \textcolor{stringliteral}{"A network interface is required as a daemon\(\backslash\)n"});
+187         \hyperlink{maap__daemon_8c_ad96d407a911fbb914fa8e4cfbf2faf0f}{usage}();
+188     \}
+189     \textcolor{keywordflow}{if} (as\_client && iface != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL})
+190     \{
+191         fprintf(stderr, \textcolor{stringliteral}{"A network interface is not supported as a client\(\backslash\)n"});
+192         \hyperlink{maap__daemon_8c_ad96d407a911fbb914fa8e4cfbf2faf0f}{usage}();
+193     \}
+194 
+195     \textcolor{keywordflow}{if} (\hyperlink{mrpd_8c_aa2339b21f98abccd12533a54d5f9d712}{daemonize}) \{
+196         ret = \hyperlink{maap__daemon_8c_ae560279cc4d973f2e53573bf4d0b15c5}{do\_daemonize}();
+197         \textcolor{keywordflow}{if} (ret) \{
+198             fprintf(stderr, \textcolor{stringliteral}{"Error:  Failed to daemonize\(\backslash\)n"});
+199             \textcolor{keywordflow}{return} -1;
+200         \}
+201         open(\textcolor{stringliteral}{"/dev/null"}, O\_RDONLY);
+202         open(\textcolor{stringliteral}{"/dev/null"}, O\_WRONLY);
+203         open(logfile, O\_WRONLY|O\_CREAT|O\_APPEND, S\_IRUSR|S\_IWUSR|S\_IRGRP|S\_IROTH);
+204     \}
+205 
+206     \textcolor{keywordflow}{if} (listenport == \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL})
+207     \{
+208         \textcolor{comment}{/* Use the default port. */}
+209         listenport = strdup(\hyperlink{maap__daemon_8c_a16b710f592bf8f7900666392adc444dc}{DEFAULT\_PORT});
+210     \}
+211 
+212     \textcolor{comment}{/*}
+213 \textcolor{comment}{     * Initialize the logging support.}
+214 \textcolor{comment}{     */}
+215 
+216     \hyperlink{maap__log_8h_a6e00763bf98d288ddb54fe99ebba30c4}{maapLogInit}();
+217 
+218 
+219     \textcolor{keywordflow}{if} (as\_client)
+220     \{
+221         \textcolor{comment}{/* Run as a client instead of a server. */}
+222         ret = \hyperlink{maap__daemon_8c_a852013667264ca287e1af0a0bc13b59a}{act\_as\_client}(listenport);
+223     \}
+224     \textcolor{keywordflow}{else}
+225     \{
+226         ret = \hyperlink{maap__daemon_8c_a94b780a2d1da882ae5bf81d3aadd4355}{act\_as\_server}(listenport, iface, \hyperlink{mrpd_8c_aa2339b21f98abccd12533a54d5f9d712}{daemonize});
+227     \}
+228 
+229     \hyperlink{maap__log_8h_a087fd8fa4dcbe5adb84d14e1dbd2e5e2}{maapLogExit}();
+230 
+231     \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(listenport);
+232     \textcolor{keywordflow}{return} ret;
+233 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{maap__daemon_8c_a0ddf1224851353fc92bfbff6f499fa97_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap\+\_\+daemon.\+c@{maap\+\_\+daemon.\+c}!send\+\_\+print\+\_\+notify\+\_\+result@{send\+\_\+print\+\_\+notify\+\_\+result}}
+\index{send\+\_\+print\+\_\+notify\+\_\+result@{send\+\_\+print\+\_\+notify\+\_\+result}!maap\+\_\+daemon.\+c@{maap\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{send\+\_\+print\+\_\+notify\+\_\+result(void $\ast$callback\+\_\+data, int log\+Level, const char $\ast$notify\+Text)}{send_print_notify_result(void *callback_data, int logLevel, const char *notifyText)}}]{\setlength{\rightskip}{0pt plus 5cm}static void send\+\_\+print\+\_\+notify\+\_\+result (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{callback\+\_\+data, }
+\item[{int}]{log\+Level, }
+\item[{const char $\ast$}]{notify\+Text}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{maap__daemon_8c_a7e311f5b33a12755287e608bf0ae4eef}{}\label{maap__daemon_8c_a7e311f5b33a12755287e608bf0ae4eef}
+
+
+maap\+\_\+daemon.\+c 파일의 1010 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+1011 \{
+1012     \textcolor{keywordtype}{char} szOutputText[ 300 ];
+1013 
+1014     \hyperlink{maap__daemon_8c_afac0dfa0d8315d60e6144c311c9fcadd}{format\_print\_notify\_result}(logLevel, notifyText, szOutputText);
+1015     \textcolor{keywordflow}{if} (send(*(\textcolor{keywordtype}{int} *)callback\_data, szOutputText, strlen(szOutputText), 0) < 0)
+1016     \{
+1017         \textcolor{comment}{/* Something went wrong. Assume the socket will be closed below. */}
+1018         \hyperlink{maap__log_8h_a5aed2d0b26117d4ef9653c2a0be67a8c}{MAAP\_LOGF\_ERROR}(\textcolor{stringliteral}{"Error %d writing to client socket %d (%s)"}, errno, *(\textcolor{keywordtype}{int} *)
+      callback\_data, strerror(errno));
+1019     \}
+1020 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=334pt]{maap__daemon_8c_a7e311f5b33a12755287e608bf0ae4eef_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap__daemon_8c_a7e311f5b33a12755287e608bf0ae4eef_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap\+\_\+daemon.\+c@{maap\+\_\+daemon.\+c}!usage@{usage}}
+\index{usage@{usage}!maap\+\_\+daemon.\+c@{maap\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{usage(void)}{usage(void)}}]{\setlength{\rightskip}{0pt plus 5cm}static void usage (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{maap__daemon_8c_ad96d407a911fbb914fa8e4cfbf2faf0f}{}\label{maap__daemon_8c_ad96d407a911fbb914fa8e4cfbf2faf0f}
+
+
+maap\+\_\+daemon.\+c 파일의 85 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+86 \{
+87     fprintf(stderr,
+88         \textcolor{stringliteral}{"\(\backslash\)n"} \textcolor{stringliteral}{"%s"}
+89         \textcolor{stringliteral}{"\(\backslash\)n"}
+90         \textcolor{stringliteral}{"usage: maap\_daemon [ -c | -i interface-name [-d log\_file] ] [-p port\_num]"}
+91         \textcolor{stringliteral}{"\(\backslash\)n"}
+92         \textcolor{stringliteral}{"options:\(\backslash\)n"}
+93         \textcolor{stringliteral}{"\(\backslash\)t-c  Run as a client (sends commands to the daemon)\(\backslash\)n"}
+94         \textcolor{stringliteral}{"\(\backslash\)t-i  Run as a server monitoring the specified interface\(\backslash\)n"}
+95         \textcolor{stringliteral}{"\(\backslash\)t-d  Daemonize the server and log to log\_file\(\backslash\)n"}
+96         \textcolor{stringliteral}{"\(\backslash\)t-p  Specify the control port to connect to (client) or\(\backslash\)n"}
+97         \textcolor{stringliteral}{"\(\backslash\)t    listen to (server).  The default port is "} \hyperlink{maap__daemon_8c_a16b710f592bf8f7900666392adc444dc}{DEFAULT\_PORT} \textcolor{stringliteral}{".\(\backslash\)n"}
+98         \textcolor{stringliteral}{"\(\backslash\)n"},
+99         \hyperlink{maap__daemon_8c_ae724265d048ace6b96a1e977ea11c1c7}{version\_str});
+100     exit(1);
+101 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=197pt]{maap__daemon_8c_ad96d407a911fbb914fa8e4cfbf2faf0f_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{변수 문서화}
+\index{maap\+\_\+daemon.\+c@{maap\+\_\+daemon.\+c}!version\+\_\+str@{version\+\_\+str}}
+\index{version\+\_\+str@{version\+\_\+str}!maap\+\_\+daemon.\+c@{maap\+\_\+daemon.\+c}}
+\subsubsection[{\texorpdfstring{version\+\_\+str}{version_str}}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ version\+\_\+str\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{maap__daemon_8c_ae724265d048ace6b96a1e977ea11c1c7}{}\label{maap__daemon_8c_ae724265d048ace6b96a1e977ea11c1c7}
+{\bfseries 초기값\+:}
+\begin{DoxyCode}
+=
+    \textcolor{stringliteral}{"maap\_daemon v"} \hyperlink{maap__daemon_8c_acfc1668731750cb1ee8974b8a7c133ef}{VERSION\_STR} \textcolor{stringliteral}{"\(\backslash\)n"}
+    \textcolor{stringliteral}{"Copyright (c) 2014-2015, VAYAVYA LABS PVT LTD\(\backslash\)n"}
+    \textcolor{stringliteral}{"Copyright (c) 2016-2017, Harman International Industries, Inc.\(\backslash\)n"}
+\end{DoxyCode}
+
+
+maap\+\_\+daemon.\+c 파일의 80 번째 라인에서 정의되었습니다.
+

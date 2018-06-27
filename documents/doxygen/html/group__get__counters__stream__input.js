@@ -1,0 +1,25 @@
+var group__get__counters__stream__input =
+[
+    [ "JDKSAVDECC_GET_COUNTERS_STREAM_INPUT_LEN", "group__get__counters__stream__input.html#ga5ac227f822340cd16f096dd5a85e9696", null ],
+    [ "JDKSAVDECC_GET_COUNTERS_STREAM_INPUT_OFFSET_EARLY_TIMESTAMP", "group__get__counters__stream__input.html#gac8eb0586ea21dac9ce4c110392bfc6f3", null ],
+    [ "JDKSAVDECC_GET_COUNTERS_STREAM_INPUT_OFFSET_ENTITY_SPECIFIC_1", "group__get__counters__stream__input.html#ga669039b0bf78e7a5c3ec15985c03d124", null ],
+    [ "JDKSAVDECC_GET_COUNTERS_STREAM_INPUT_OFFSET_ENTITY_SPECIFIC_2", "group__get__counters__stream__input.html#ga1474c26ff739ae19a040f7ddfaa4a6ee", null ],
+    [ "JDKSAVDECC_GET_COUNTERS_STREAM_INPUT_OFFSET_ENTITY_SPECIFIC_3", "group__get__counters__stream__input.html#gac96430887d5de8cff70a9198b3104847", null ],
+    [ "JDKSAVDECC_GET_COUNTERS_STREAM_INPUT_OFFSET_ENTITY_SPECIFIC_4", "group__get__counters__stream__input.html#ga980fa4e44114c28bb62fd9745f7d2c91", null ],
+    [ "JDKSAVDECC_GET_COUNTERS_STREAM_INPUT_OFFSET_ENTITY_SPECIFIC_5", "group__get__counters__stream__input.html#gafa34fc6bb53fc7ef280e02c7aadf3801", null ],
+    [ "JDKSAVDECC_GET_COUNTERS_STREAM_INPUT_OFFSET_ENTITY_SPECIFIC_6", "group__get__counters__stream__input.html#ga036bf9cdab59270c2246af54a809ad14", null ],
+    [ "JDKSAVDECC_GET_COUNTERS_STREAM_INPUT_OFFSET_ENTITY_SPECIFIC_7", "group__get__counters__stream__input.html#gaaa82c7096c2024fa9c12dfdbb6c5fe0f", null ],
+    [ "JDKSAVDECC_GET_COUNTERS_STREAM_INPUT_OFFSET_ENTITY_SPECIFIC_8", "group__get__counters__stream__input.html#ga62049bab6be98b76b5a22b776b325509", null ],
+    [ "JDKSAVDECC_GET_COUNTERS_STREAM_INPUT_OFFSET_FRAMES_RX", "group__get__counters__stream__input.html#gad7f0d0ae4963e7cbe016c3e53eb9c641", null ],
+    [ "JDKSAVDECC_GET_COUNTERS_STREAM_INPUT_OFFSET_FRAMES_TX", "group__get__counters__stream__input.html#ga9962d0453a1b0fc873feea2470ecc3e4", null ],
+    [ "JDKSAVDECC_GET_COUNTERS_STREAM_INPUT_OFFSET_LATE_TIMESTAMP", "group__get__counters__stream__input.html#gac806a673c4df318e241e20378004fd97", null ],
+    [ "JDKSAVDECC_GET_COUNTERS_STREAM_INPUT_OFFSET_MEDIA_LOCKED", "group__get__counters__stream__input.html#gaea1180a34537b310cf545d7680a9d896", null ],
+    [ "JDKSAVDECC_GET_COUNTERS_STREAM_INPUT_OFFSET_MEDIA_RESET", "group__get__counters__stream__input.html#ga51a787631f1bc8630963183f9b450d24", null ],
+    [ "JDKSAVDECC_GET_COUNTERS_STREAM_INPUT_OFFSET_MEDIA_UNLOCKED", "group__get__counters__stream__input.html#gaea9106e9eaae6ca016f0983bdc0ec965", null ],
+    [ "JDKSAVDECC_GET_COUNTERS_STREAM_INPUT_OFFSET_SEQ_NUM_MISMATCH", "group__get__counters__stream__input.html#gaf154444020c9e4570623013c55727bc4", null ],
+    [ "JDKSAVDECC_GET_COUNTERS_STREAM_INPUT_OFFSET_STREAM_RESET", "group__get__counters__stream__input.html#gafc2ab166b4aa357f1c5b65269412f2e6", null ],
+    [ "JDKSAVDECC_GET_COUNTERS_STREAM_INPUT_OFFSET_TIMESTAMP_NOT_VALID", "group__get__counters__stream__input.html#ga9533767b73d8a5a47ae645cc6bd1826c", null ],
+    [ "JDKSAVDECC_GET_COUNTERS_STREAM_INPUT_OFFSET_TIMESTAMP_UNCERTAIN", "group__get__counters__stream__input.html#gaf3a490b7af4fa773a09dfd5e42e24ea6", null ],
+    [ "JDKSAVDECC_GET_COUNTERS_STREAM_INPUT_OFFSET_TIMESTAMP_VALID", "group__get__counters__stream__input.html#gae7bbb62036ef6a811a62920f2a12beff", null ],
+    [ "JDKSAVDECC_GET_COUNTERS_STREAM_INPUT_OFFSET_UNSUPPORTED_FORMAT", "group__get__counters__stream__input.html#ga55cc05d210e17cbcc4f91f8ae4c45c3d", null ]
+];

@@ -1,0 +1,93 @@
+\subsection*{Introduction }
+
+This is an example Intel provided gptp daemon which can be used on Linux and Windows platforms. There are a number of other ptp daemons available for Linux which can be used to establish clock synchronization, although not all may export the required A\+P\+Is needed for an A\+VB system.
+
+The daemon communicates with other processes through a named pipe. The pipe name and message format is defined in \hyperlink{ipcdef_8hpp}{ipcdef.\+hpp}. The pipe name is \char`\"{}gptp-\/update\char`\"{}. A Windows example is in the project named\+\_\+pipe\+\_\+test.
+
+The message format is\+:
+
+Integer64 $<$master-\/local phase offset$>$
+
+Integer64 $<$local-\/system phase offset$>$
+
+Float $<$master-\/local frequency offset$>$
+
+Float $<$local-\/system frequency offset$>$
+
+U\+Integer64 $<$ local time of last update$>$
+
+Meaning of I\+PC provided values
+\begin{DoxyItemize}
+\item master $\sim$= local -\/ $<$master-\/local phase offset$>$
+\item local $\sim$= system -\/ $<$local-\/system phase offset$>$
+\item Dmaster $\sim$= Dlocal $\ast$ (1-\/$<$master-\/local phase offset$>$/1e12) (where D denotes a delta rather than a specific value)
+\item Dlocal $\sim$= Dsystem $\ast$ (1-\/$<$local-\/system freq offset$>$/1e12) (where D denotes a delta rather than a specific value)
+\end{DoxyItemize}
+
+\subsection*{Linux Specific }
+
+Requirements for documentation on a ubuntu based system\+:
+\begin{DoxyItemize}
+\item cmake\+: sudo apt-\/get install cmake
+\item doxygen\+: sudo apt-\/get install doxygen
+\item graphviz\+: sudo apt-\/get install graphviz
+\end{DoxyItemize}
+
+To build, execute the linux/build makefile.
+
+To build for I210\+:
+
+A\+R\+CH=I210 make clean all
+
+To build for \textquotesingle{}generic\textquotesingle{} Linux\+:
+
+make clean all
+
+To build for Intel CE 5100 Platforms\+:
+
+A\+R\+CH=Intel\+CE make clean all
+
+To execute, run ./daemon\+\_\+cl $<$interface-\/name$>$ such as ./daemon\+\_\+cl eth0
+
+The daemon creates a shared memory segment with the \textquotesingle{}ptp\textquotesingle{} group. Some distributions may not have this group installed. The I\+PC interface will not available unless the \textquotesingle{}ptp\textquotesingle{} group is available.
+
+\subsection*{Windows Version }
+
+Build Dependencies
+
+
+\begin{DoxyItemize}
+\item Win\+P\+C\+AP Developer\textquotesingle{}s Pack (Wpd\+Pack) is required for linking -\/ downloadable from \href{http://www.winpcap.org/devel.htm}{\tt http\+://www.\+winpcap.\+org/devel.\+htm}.
+\end{DoxyItemize}
+
+Extract Wpd\+Pack so the Include folder is in one of the below locations
+
+1-\/ Program\+Data \textbackslash{}Wpd\+Pack \textbackslash{}Include \textbackslash{}Lib \textbackslash{}Lib\textbackslash{}x64
+
+2-\/ U\+S\+E\+R\+P\+R\+O\+F\+I\+LE \textbackslash{}src\textbackslash{}pcap \textbackslash{}Include \textbackslash{}Lib \textbackslash{}Lib\textbackslash{}x64
+
+
+\begin{DoxyItemize}
+\item Win\+P\+C\+AP must also be installed on any machine where the daemon runs.
+\end{DoxyItemize}
+
+To run from the command line\+: \begin{DoxyVerb}daemon_cl.exe xx-xx-xx-xx-xx-xx
+\end{DoxyVerb}
+
+
+where xx-\/xx-\/xx-\/xx-\/xx-\/xx is the mac address of the local interface
+
+\subsection*{Other Available P\+TP Daemons }
+
+There are a number of existing ptp daemon projects. Some of the other known ptp daemons are listed below. Intel has not tested Open A\+VB with the following ptp daemons.
+
+
+\begin{DoxyItemize}
+\item Richard Cochran\textquotesingle{}s ptp4l daemon -\/ \href{https://sourceforge.net/p/linuxptp/}{\tt https\+://sourceforge.\+net/p/linuxptp/}
+
+Note with this version to use g\+P\+TP specific settings, which differ slightly from I\+E\+EE 1588.
+\item \href{http://ptpd.sourceforge.net/}{\tt http\+://ptpd.\+sourceforge.\+net/}
+\item \href{http://ptpd2.sourceforge.net/}{\tt http\+://ptpd2.\+sourceforge.\+net/}
+\item \href{http://code.google.com/p/ptpv2d}{\tt http\+://code.\+google.\+com/p/ptpv2d}
+\item \href{http://home.mit.bme.hu/~khazy/ptpd/}{\tt http\+://home.\+mit.\+bme.\+hu/$\sim$khazy/ptpd/} 
+\end{DoxyItemize}

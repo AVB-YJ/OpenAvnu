@@ -1,0 +1,27 @@
+var mrp__client_8h =
+[
+    [ "mrp_advertise_stream", "mrp__client_8h.html#a9abd28b0b76bb638507f3751eed78512", null ],
+    [ "mrp_attach_cb", "mrp__client_8h.html#adb4f32ed4dd4f5f12e80a1594c9cf110", null ],
+    [ "mrp_await_listener", "mrp__client_8h.html#ab8a9d5a18690121cb78e5e3519eab413", null ],
+    [ "mrp_connect", "mrp__client_8h.html#a8a55e195c753d18a071015c23ff6ff52", null ],
+    [ "mrp_disconnect", "mrp__client_8h.html#abcd9ba463dda5fdc06cea81892a492a3", null ],
+    [ "mrp_get_domain", "mrp__client_8h.html#a97c2f6eb4b5a9b7e0ca255ab9c853f0c", null ],
+    [ "mrp_join_vlan", "mrp__client_8h.html#a4226df7992ead5f3ba91430717e05466", null ],
+    [ "mrp_monitor", "mrp__client_8h.html#acc997d17445fa9c83b587029363c785d", null ],
+    [ "mrp_register_cb", "mrp__client_8h.html#ac15c633f846d27b467aac3f4e3e51ccf", null ],
+    [ "mrp_register_domain", "mrp__client_8h.html#a4b5251c6dc2169a4d31c018522241476", null ],
+    [ "mrp_send_leave", "mrp__client_8h.html#a5ae7851b20f9ba9ebc60634a0dc3cd3e", null ],
+    [ "mrp_send_ready", "mrp__client_8h.html#a4dd524c14548a225274b6935c0647f1d", null ],
+    [ "mrp_unadvertise_stream", "mrp__client_8h.html#a2818af5b999484431026dfc72b48f3ce", null ],
+    [ "domain_a_valid", "mrp__client_8h.html#ae3be05692572d8c757174629541e2d91", null ],
+    [ "domain_b_valid", "mrp__client_8h.html#add1f58f9a17de764566dbf2e352b907f", null ],
+    [ "domain_class_a_id", "mrp__client_8h.html#a6e4374793667e90915abfe73f0e6201c", null ],
+    [ "domain_class_a_priority", "mrp__client_8h.html#ac98b99ec0ffd190c1da93e6caffe36d4", null ],
+    [ "domain_class_a_vid", "mrp__client_8h.html#ac575246135a50baaf0c802ef29aa2779", null ],
+    [ "domain_class_b_id", "mrp__client_8h.html#a058aabd498c78e32b6610fd06f90fc43", null ],
+    [ "domain_class_b_priority", "mrp__client_8h.html#a90efafdfc3b16f51cc0f67aa65796a3c", null ],
+    [ "domain_class_b_vid", "mrp__client_8h.html#a153312a7212b932f60b49a67309f2053", null ],
+    [ "halt_tx", "mrp__client_8h.html#a7c8176263e9704aa667fc335cc818a3f", null ],
+    [ "listeners", "mrp__client_8h.html#a70763450542106f6508fd1051eade47d", null ],
+    [ "mrp_error", "mrp__client_8h.html#a7e0861f30a3dba1eb162e77371fe9c21", null ]
+];

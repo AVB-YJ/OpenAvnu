@@ -1,0 +1,386 @@
+Build status
+
+\href{https://travis-ci.org/audioscience/avdecc-lib}{\tt }
+
+\section*{avdecc-\/lib }
+
+Simple C++ library for implementing I\+E\+E\+E1722.\+1 (A\+VB Device Enumeration, Discovery and Control).
+
+\subsection*{Introduction }
+
+This library aims to simplify development of an A\+V\+D\+E\+CC Controller based on the I\+E\+E\+E1722.\+1 specification. It provides a simple C++ object interface to 1722.\+1 objects and implements device discovery and enumeration as a background process.
+
+The repository contains source to build a Windows D\+LL or a Linux library and a command line application for exercising the library.
+
+The overall philosophy of A\+V\+D\+E\+CC L\+IB is to implement a thin layer of commands that allow an application to discover and control A\+V\+D\+E\+CC capable End Stations. The internal operations of the library are designed to be single threaded, although multiple threads are used to queue operations to be performed by the single threaded \char`\"{}engine\char`\"{} portion of the library. The library supports notification events (callbacks) that are triggered on the success (or failure) of a command. It is up to the application to process the notifications in a useful manner. Asynchronous descriptor updates from an End Station are also supported. A descriptor notification does not have data about the updated descriptor values embedded in it. Instead the A\+V\+D\+E\+CC application should query the descriptor class to obtain the updated values.
+
+Operations that \char`\"{}fetch\char`\"{} details or status of an End Station store the response for later readback by the controller application. An example of this would be the A\+EM send\+\_\+get\+\_\+stream\+\_\+info\+\_\+cmd() operation whose response is stored in the appropriate stream input object in avdecc-\/lib. Functions get\+\_\+stream\+\_\+info\+\_\+msrp\+\_\+accumulated\+\_\+latency(), get\+\_\+stream\+\_\+info\+\_\+msrp\+\_\+failure\+\_\+code() and others can then be used to readback fields of the response.
+
+Users developing 1722.\+1 end stations and controllers are encouraged to add new descriptors to this library as required. The library provides an easy entry point for adding and testing a completely new 1722.\+1 descriptor without having to develop a complete controller side 1722.\+1 software stack.
+
+\subsection*{Dependencies }
+
+Uses Jeff Koftinoff\textquotesingle{}s packet processing library, see \href{https://github.com/jdkoftinoff/jdksavdecc-c.git}{\tt https\+://github.\+com/jdkoftinoff/jdksavdecc-\/c.\+git} This is a submodule that can be cloned using\+: \begin{DoxyVerb}cd avdecc-lib
+git submodule init
+git submodule update
+\end{DoxyVerb}
+
+
+As of March 2014, avdecc-\/lib is following the master branch of jdksavdecc-\/c (from github).
+
+\subsection*{Acknowledgements }
+
+Special thanks are owed to Jeff Koftinoff for creating and releasing public source for 1722.\+1 packet processing in the jdksavdecc-\/c library and for comments and advice freely given during the development of this library. This C++ library is a rather thin wrapper around functions already present in the jdksavdecc-\/c library.
+
+\subsection*{Community }
+
+Please join Google Group \char`\"{}avdecc-\/lib\char`\"{} if you wish to comment on avdecc-\/lib, or keep track of discussions.
+
+\subsection*{Directory layout }
+
+\begin{DoxyVerb}controller\ 
+    lib\
+        bin\
+        doc\
+        binding\
+            python\
+        include\ (contains public header files)
+        src\ (contains private header files and C++ source code)
+            linux\ (linux specific files)
+            msvc\ (Microsoft Visual Studio specific files)
+
+    app\
+        bin\
+        doc\
+        cmdline\
+            src\
+        test\
+            strings\
+            adp\
+            logging\ 
+            notify\     
+\end{DoxyVerb}
+
+
+\subsection*{Object hierarchy }
+
+\begin{DoxyVerb}System
+Controller
+    End Station[1..N]
+        Entity[1..N]
+            Configuration[1..N]
+                Audio Unit[1..N]
+                        Stream Port Input[0..N]
+                                    Audio Cluster[0..N]
+                                    Audio Map[0..N]
+                                    Control[0..N]
+                        Stream Port Output[0..N]
+                                    Audio Cluster[0..N]
+                                    Audio Map[0..N]
+                                    Control[0..N]
+                        External Port Input[0..N]
+                        External Port Output[0..N]
+                        Internal Port Input[0..N]
+                        Internal Port Output[0..N]
+                        Control[0..N]
+                        Signal Selector[0..N]
+                        Mixer[0..N]
+                        Matrices[0..N]
+                        Splitter[0..N]
+                        Combiner[0..N]
+                        Demultiplexer[0..N]
+                        Transcoder[0..N]
+                        Control Block[0..N]
+                Stream Input[1..N]
+                Stream Output[1..N]
+                Jack Input[1..N]
+                Jack Output[1..N]
+                AVB Interface[1..N]
+                Clock Source[1..N]
+                Clock Domain[1..N]
+\end{DoxyVerb}
+
+
+\subsection*{Building }
+
+All build environments require
+
+
+\begin{DoxyEnumerate}
+\item cmake v2.\+8
+\end{DoxyEnumerate}
+
+Run cmake to create the build dirctories for your environment. \begin{DoxyVerb}cd avdecc-lib
+cmake .
+\end{DoxyVerb}
+
+
+\subsubsection*{Windows}
+
+Prerequisites
+
+
+\begin{DoxyEnumerate}
+\item M\+S\+VC 2013 or later
+\item winpcap development package from \href{http://www.winpcap.org/devel.htm}{\tt http\+://www.\+winpcap.\+org/devel.\+htm}
+\end{DoxyEnumerate}
+
+The following environment variables must be defined\+:
+\begin{DoxyItemize}
+\item W\+P\+C\+A\+P\+\_\+\+D\+IR the directory where Win\+Pcap is installed
+\end{DoxyItemize}
+
+Get the lib from github\+:
+\begin{DoxyItemize}
+\item Make and enter the project directory
+\item git clone git\+://github.com/audioscience/avdecc-\/lib
+\item cd avdecc-\/lib
+\item git submodule init
+\item Edit in .git/config, change url = \href{mailto:git@github.com}{\tt git@github.\+com}\+:jdkoftinoff/jdksavdecc-\/c.\+git to url = git \+://github.com/jdkoftinoff/jdksavdecc-\/c.\+git
+\item git submodule update
+\end{DoxyItemize}
+
+Compile
+\begin{DoxyItemize}
+\item Open command window to \char`\"{}project folder\char`\"{} A\+V\+D\+E\+C\+C-\/\+Lib
+\item Initialize compiler environment \+: \char`\"{}\+C\+:\textbackslash{}\+Program Files (x86)\textbackslash{}\+Microsoft Visual Studio 12.\+0\textbackslash{}\+V\+C\textbackslash{}vcvarsall.\+bat\char`\"{} x86
+\item cmake .
+\item msbuild A\+L\+L\+\_\+\+B\+U\+I\+L\+D.\+vcxproj
+\item cd controller
+\item cmake .
+\item msbuild A\+L\+L\+\_\+\+B\+U\+I\+L\+D.\+vcxproj
+\end{DoxyItemize}
+
+Run
+\begin{DoxyItemize}
+\item controller.\+dll located in \+: A\+V\+D\+E\+C\+C-\/\+Lib-\/lib
+\item command line app located in \+: A\+V\+D\+E\+C\+C-\/\+Lib-\/lib
+\item Copy controller.\+dll to app folder
+\item Run application
+\end{DoxyItemize}
+
+\subsubsection*{Linux}
+
+Prerequisites
+
+
+\begin{DoxyEnumerate}
+\item gcc development environment (v4.\+8 or later)
+\item libedit
+\item readline library, may need to go \char`\"{}sudo apt-\/get install libreadline5-\/dev\char`\"{}
+\end{DoxyEnumerate}
+
+\subsubsection*{O\+SX}
+
+Prerequisites\+: cmake installed (\href{http://www.cmake.org/}{\tt http\+://www.\+cmake.\+org/})\+:
+
+Get the lib from github\+:
+\begin{DoxyItemize}
+\item Make and enter the project directory
+\item git clone git\+://github.com/audioscience/avdecc-\/lib --recursive
+\end{DoxyItemize}
+
+Compile
+\begin{DoxyItemize}
+\item cd avdecc-\/lib
+\item cmake .
+\item make
+\end{DoxyItemize}
+
+\section*{Operations }
+
+\subsection*{A\+V\+D\+E\+CC Controller version }
+
+The A\+V\+D\+E\+CC Controller version number can be updated inside the version header file.
+
+\subsection*{A\+V\+D\+E\+CC End Station Discovery }
+
+When the A\+V\+D\+E\+CC system receives an A\+V\+D\+E\+CC advertise message from an End Station, it proceeds to enumerate the End Station\textquotesingle{}s complete object model, if it has not done so already. Upon completion of the enumeration process, a notification message is sent to the application.
+
+\subsection*{A\+V\+D\+E\+CC A\+EM descriptor reads }
+
+A descriptor read by referencing the object the object of interest. Since the A\+V\+D\+E\+CC system has already read all descriptors, the read operation is completed without producing any network traffic.
+
+To read the name of the first input jack, one would go\+: \begin{DoxyVerb}controller->end_station(0)->entity(0)->configuration(0)->input_stream(0)->get_name(name)
+\end{DoxyVerb}
+
+
+Release 0.\+6 update\+:
+
+To avoid the possible issue of an asynchronous response thread updating a descriptor value while it is being read in the cmdline, a new A\+EM descriptor read process has been implemented. All the methods required to read each descriptor are separated into response classes, which read the descriptor values from a stored response frame.
+
+To read the current sampling rate from an audio unit descriptor\+: \begin{DoxyVerb}avdecc_lib::audio_unit_descriptor_response *audio_unit_resp_ref = audio_unit_desc_ref->get_audio_unit_response();
+audio_unit_resp_ref->current_sampling_rate();
+delete audio_unit_resp_ref;
+\end{DoxyVerb}
+
+
+\subsection*{A\+V\+D\+E\+CC A\+EM commands }
+
+An A\+V\+D\+E\+CC command is sent to the target object, ie\+: \begin{DoxyVerb}istream = controller->end_station(0)->entity(0)->configuration(0)->input_stream(0);
+id = (void *)notify_id;
+// put the notify_id value in a list somewhere
+istream->set_format(id, format,...);
+notify_id++;
+\end{DoxyVerb}
+
+
+Completion results in a notification message of success or failure via the callback mechanism. An alternative calling sequence is to wait for the callback to complete in-\/line, ie\+: \begin{DoxyVerb}id = (void *)notify_id;
+avdecc_system->set_wait_for_next_cmd(id);
+istream = controller->end_station(0)->entity(0)->configuration(0)->input_stream(0);
+istream->set_format(id, format,...);
+status = avdecc_system->get_last_resp_status();
+notify_id++;
+\end{DoxyVerb}
+
+
+The above examples place an uint32\+\_\+t notify\+\_\+id in a \char`\"{}void $\ast$\char`\"{} container. If the application writer is careful about object creation and destruction, they may choose to place a C++ (or other language) object in the notify\+\_\+id field.
+
+Release 0.\+6 update\+:
+
+Similar to descriptors, A\+V\+D\+E\+CC command response processing has been altered to account for the possibility of an asynchronous response writing to a memory location while it is being read in the cmdline. So far, G\+E\+T\+\_\+ commands that return a value (e.\+g. get\+\_\+counters) have been updated to return their response in a response class.
+
+To read the locked counter from clock domain counters\+: \begin{DoxyVerb}avdecc_lib::clock_domain_counters_response *clock_domain_counters_resp = clock_domain_desc_ref->get_clock_domain_counters_response();
+if(clock_domain_counters_resp->get_counter_valid(avdecc_lib::CLOCK_DOMAIN_LOCKED))
+    atomic_cout << "Locked Counter: " << clock_domain_counters_resp->get_counter_by_name(avdecc_lib::CLOCK_DOMAIN_LOCKED) << std::endl;
+delete clock_domain_counters_resp;
+\end{DoxyVerb}
+
+
+\subsection*{Callbacks }
+
+The following callback functions should be supplied. If N\+U\+LL is passed in for the callback function, no callback will be invoked. \begin{DoxyVerb}void log_callback(void *log_user_obj, int32_t log_level, const char *log_msg, int32_t time_stamp_ms);
+void notification_callback(void *notification_user_obj, int32_t notification_type, uint64_t guid, uint16_t cmd_type, uint16_t desc_type, uint16_t desc_index, void *notification_id);
+\end{DoxyVerb}
+
+
+When a controller internal thread calls the log\+\_\+callback function that was invoked at controller create time, the log\+\_\+user\+\_\+obj pointer that was passed in at that time is returned in the callback. The calling application code use this void pointer to store a C++ class if that was helpful to the structure of the calling application. The log\+\_\+callback is called with log\+\_\+level values of\+:
+\begin{DoxyItemize}
+\item E\+R\+R\+OR
+\item W\+A\+R\+N\+I\+NG
+\item N\+O\+T\+I\+CE
+\item I\+N\+FO
+\item D\+E\+B\+UG
+\item V\+E\+R\+B\+O\+SE
+\end{DoxyItemize}
+
+Like the log\+\_\+callback function the notification callback returns a void \char`\"{}user\char`\"{} pointers as the first field in the callback. The notification\+\_\+callback is called with notification\+\_\+type values of\+:
+\begin{DoxyItemize}
+\item NO M\+A\+T\+CH F\+O\+U\+ND
+\item E\+ND S\+T\+A\+T\+I\+ON C\+O\+N\+N\+E\+C\+T\+ED
+\item E\+ND S\+T\+A\+T\+I\+ON D\+I\+S\+C\+O\+N\+N\+E\+C\+T\+ED,
+\item C\+O\+M\+M\+A\+ND T\+I\+M\+E\+O\+UT
+\item R\+E\+S\+P\+O\+N\+SE R\+E\+C\+E\+I\+V\+ED
+\item E\+N\+D\+\_\+\+S\+T\+A\+T\+I\+O\+N\+\_\+\+R\+E\+A\+D\+\_\+\+C\+O\+M\+P\+L\+E\+T\+ED
+\end{DoxyItemize}
+
+\subsection*{Source code style }
+
+Source code is auto-\/formatted using the astyle formatting tool. All submitted pull requests should be passed through astyle before the pull request is issued. The format to use is specified in the astyle\+\_\+code\+\_\+format option file in this directory. asytle is run from the command line using the following command sequence\+: \begin{DoxyVerb}AStyle --options=..\avdecc-lib\astyle_code_style.txt ..\avdecc-lib\controller\lib\include\*.h
+         ..\avdecc-lib\controller\lib\src\*.h ..\avdecc-lib\controller\lib\src\*.cpp
+         ..\avdecc-lib\controller\lib\src\msvc\*.h ..\avdecc-lib\controller\lib\src\msvc\*.cpp
+\end{DoxyVerb}
+
+
+\subsection*{Source documentation }
+
+A standard tool, Doxygen, is used for generating documentation from the A\+V\+D\+E\+CC Controller Lib source code. A link to the online version of the A\+V\+D\+E\+CC Controller Lib documentation can be found at\+: \href{http://www.audioscience.com/internet/download/sdk/avdecclib_usermanual_html/html/index.html}{\tt http\+://www.\+audioscience.\+com/internet/download/sdk/avdecclib\+\_\+usermanual\+\_\+html/html/index.\+html}
+
+\section*{Development Conventions }
+
+Developers should add new features to the {\itshape staging} git branch. Periodically the {\itshape staging} git branch will be merged to the {\itshape master} branch.
+
+
+
+\section*{Roadmap }
+
+Working towards release version 1.\+0.\+0.
+
+Release 1.\+0.\+0 supports\+:
+\begin{DoxyItemize}
+\item all of the P1 Command/responses listed below.
+\item Windows, linux and O\+SX builds.
+\end{DoxyItemize}
+
+Future features include\+:
+\begin{DoxyItemize}
+\item security key passing
+\item Layer 3 (IP) interface
+\item other descriptors as required
+\end{DoxyItemize}
+
+\section*{Status }
+
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*4{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}{\bf Command/\+Response }&{\bf Priority }&{\bf Implemented }&{\bf Tested  }\\\cline{1-4}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}{\bf Command/\+Response }&{\bf Priority }&{\bf Implemented }&{\bf Tested  }\\\cline{1-4}
+\endhead
+A\+C\+Q\+U\+I\+R\+E\+\_\+\+E\+N\+T\+I\+TY &P1 &Y &Y \\\cline{1-4}
+L\+O\+C\+K\+\_\+\+E\+N\+T\+I\+TY &P1 &Y &Y \\\cline{1-4}
+E\+N\+T\+I\+T\+Y\+\_\+\+A\+V\+A\+I\+L\+A\+B\+LE &P1 &Y &Y \\\cline{1-4}
+C\+O\+N\+T\+R\+O\+L\+L\+E\+R\+\_\+\+A\+V\+A\+I\+L\+A\+B\+LE &P1 &Y &Y \\\cline{1-4}
+R\+E\+A\+D\+\_\+\+D\+E\+S\+C\+R\+I\+P\+T\+OR &P1 &Y &Y \\\cline{1-4}
+S\+E\+T\+\_\+\+S\+T\+R\+E\+A\+M\+\_\+\+F\+O\+R\+M\+AT &P1 &Y &Y \\\cline{1-4}
+G\+E\+T\+\_\+\+S\+T\+R\+E\+A\+M\+\_\+\+F\+O\+R\+M\+AT &P1 &Y &Y \\\cline{1-4}
+S\+E\+T\+\_\+\+S\+T\+R\+E\+A\+M\+\_\+\+I\+N\+FO &P1 &&\\\cline{1-4}
+G\+E\+T\+\_\+\+S\+T\+R\+E\+A\+M\+\_\+\+I\+N\+FO &P1 &Y &Y \\\cline{1-4}
+S\+E\+T\+\_\+\+S\+A\+M\+P\+L\+I\+N\+G\+\_\+\+R\+A\+TE &P1 &Y &Y \\\cline{1-4}
+G\+E\+T\+\_\+\+S\+A\+M\+P\+L\+I\+N\+G\+\_\+\+R\+A\+TE &P1 &Y &Y \\\cline{1-4}
+S\+E\+T\+\_\+\+C\+L\+O\+C\+K\+\_\+\+S\+O\+U\+R\+CE &P1 &Y &Y \\\cline{1-4}
+G\+E\+T\+\_\+\+C\+L\+O\+C\+K\+\_\+\+S\+O\+U\+R\+CE &P1 &Y &Y \\\cline{1-4}
+S\+T\+A\+R\+T\+\_\+\+S\+T\+R\+E\+A\+M\+I\+NG &P1 &Y &Y \\\cline{1-4}
+S\+T\+O\+P\+\_\+\+S\+T\+R\+E\+A\+M\+I\+NG &P1 &Y &Y \\\cline{1-4}
+S\+E\+T\+\_\+\+C\+O\+N\+F\+I\+G\+U\+R\+A\+T\+I\+ON &P2 &&\\\cline{1-4}
+G\+E\+T\+\_\+\+C\+O\+N\+F\+I\+G\+U\+R\+A\+T\+I\+ON &P2 &&\\\cline{1-4}
+S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+OL &P2 &&\\\cline{1-4}
+G\+E\+T\+\_\+\+C\+O\+N\+T\+R\+OL &P2 &&\\\cline{1-4}
+S\+E\+T\+\_\+\+N\+A\+ME &P2 &Y &Y \\\cline{1-4}
+G\+E\+T\+\_\+\+N\+A\+ME &P2 &Y &Y \\\cline{1-4}
+S\+E\+T\+\_\+\+M\+I\+X\+ER &P2 &&\\\cline{1-4}
+G\+E\+T\+\_\+\+M\+I\+X\+ER &P2 &&\\\cline{1-4}
+R\+E\+G\+I\+S\+T\+E\+R\+\_\+\+U\+N\+S\+O\+L\+I\+C\+I\+T\+E\+D\+\_\+\+N\+O\+T\+I\+F\+I\+C\+A\+T\+I\+ON &P2 &Y &Y \\\cline{1-4}
+D\+E\+R\+E\+G\+I\+S\+T\+E\+R\+\_\+\+U\+N\+S\+O\+L\+I\+C\+I\+T\+E\+D\+\_\+\+N\+O\+T\+I\+F\+I\+C\+A\+T\+I\+ON &P2 &Y &Y \\\cline{1-4}
+I\+D\+E\+N\+T\+I\+F\+Y\+\_\+\+N\+O\+T\+I\+F\+I\+C\+A\+T\+I\+ON &P2 &&\\\cline{1-4}
+G\+E\+T\+\_\+\+A\+V\+B\+\_\+\+I\+N\+FO &P2 &&\\\cline{1-4}
+G\+E\+T\+\_\+\+A\+S\+\_\+\+P\+A\+TH &P2 &&\\\cline{1-4}
+R\+E\+B\+O\+OT &P2 &&\\\cline{1-4}
+W\+R\+I\+T\+E\+\_\+\+D\+E\+S\+C\+R\+I\+P\+T\+OR &P3 &&\\\cline{1-4}
+S\+E\+T\+\_\+\+A\+S\+S\+O\+C\+I\+A\+T\+I\+O\+N\+\_\+\+ID &P3 &&\\\cline{1-4}
+G\+E\+T\+\_\+\+A\+S\+S\+O\+C\+I\+A\+T\+I\+O\+N\+\_\+\+ID &P3 &&\\\cline{1-4}
+I\+N\+C\+R\+E\+M\+E\+N\+T\+\_\+\+C\+O\+N\+T\+R\+OL &P3 &&\\\cline{1-4}
+D\+E\+C\+R\+E\+M\+E\+N\+T\+\_\+\+C\+O\+N\+T\+R\+OL &P3 &&\\\cline{1-4}
+S\+E\+T\+\_\+\+S\+I\+G\+N\+A\+L\+\_\+\+S\+E\+L\+E\+C\+T\+OR &P3 &&\\\cline{1-4}
+G\+E\+T\+\_\+\+S\+I\+G\+N\+A\+L\+\_\+\+S\+E\+L\+E\+C\+T\+OR &P3 &&\\\cline{1-4}
+S\+E\+T\+\_\+\+M\+A\+T\+R\+IX &P3 &&\\\cline{1-4}
+G\+E\+T\+\_\+\+M\+A\+T\+R\+IX &P3 &&\\\cline{1-4}
+G\+E\+T\+\_\+\+C\+O\+U\+N\+T\+E\+RS &P3 &Y &Y \\\cline{1-4}
+G\+E\+T\+\_\+\+A\+U\+D\+I\+O\+\_\+\+M\+AP &P3 &Y &Y \\\cline{1-4}
+A\+D\+D\+\_\+\+A\+U\+D\+I\+O\+\_\+\+M\+A\+P\+P\+I\+N\+GS &P3 &Y &Y \\\cline{1-4}
+R\+E\+M\+O\+V\+E\+\_\+\+A\+U\+D\+I\+O\+\_\+\+M\+A\+P\+P\+I\+N\+GS &P3 &Y &Y \\\cline{1-4}
+S\+T\+A\+R\+T\+\_\+\+O\+P\+E\+R\+A\+T\+I\+ON &P3 &&\\\cline{1-4}
+A\+B\+O\+R\+T\+\_\+\+O\+P\+E\+R\+A\+T\+I\+ON &P3 &&\\\cline{1-4}
+O\+P\+E\+R\+A\+T\+I\+O\+N\+\_\+\+S\+T\+A\+T\+US &P3 &&\\\cline{1-4}
+S\+E\+T\+\_\+\+V\+I\+D\+E\+O\+\_\+\+F\+O\+R\+M\+AT &P4 &&\\\cline{1-4}
+G\+E\+T\+\_\+\+V\+I\+D\+E\+O\+\_\+\+F\+O\+R\+M\+AT &P4 &&\\\cline{1-4}
+S\+E\+T\+\_\+\+S\+E\+N\+S\+O\+R\+\_\+\+F\+O\+R\+M\+AT &P4 &&\\\cline{1-4}
+G\+E\+T\+\_\+\+S\+E\+N\+S\+O\+R\+\_\+\+F\+O\+R\+M\+AT &P4 &&\\\cline{1-4}
+G\+E\+T\+\_\+\+V\+I\+D\+E\+O\+\_\+\+M\+AP &P4 &&\\\cline{1-4}
+A\+D\+D\+\_\+\+V\+I\+D\+E\+O\+\_\+\+M\+A\+P\+P\+I\+N\+GS &P4 &&\\\cline{1-4}
+R\+E\+M\+O\+V\+E\+\_\+\+V\+I\+D\+E\+O\+\_\+\+M\+A\+P\+P\+I\+N\+GS &P4 &&\\\cline{1-4}
+G\+E\+T\+\_\+\+S\+E\+N\+S\+O\+R\+\_\+\+M\+AP &P4 &&\\\cline{1-4}
+A\+D\+D\+\_\+\+S\+E\+N\+S\+O\+R\+\_\+\+M\+A\+P\+P\+I\+N\+GS &P4 &&\\\cline{1-4}
+R\+E\+M\+O\+V\+E\+\_\+\+S\+E\+N\+S\+O\+R\+\_\+\+M\+A\+P\+P\+I\+N\+GS &P4 &&\\\cline{1-4}
+\end{longtabu}
+
+
+\paragraph*{To\+Do}
+
+\section*{Release Notes }
+
+None so far. 

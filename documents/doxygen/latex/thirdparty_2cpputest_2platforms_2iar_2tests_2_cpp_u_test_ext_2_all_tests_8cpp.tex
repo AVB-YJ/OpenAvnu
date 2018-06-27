@@ -1,0 +1,81 @@
+\hypertarget{thirdparty_2cpputest_2platforms_2iar_2tests_2_cpp_u_test_ext_2_all_tests_8cpp}{}\section{thirdparty/cpputest/platforms/iar/tests/\+Cpp\+U\+Test\+Ext/\+All\+Tests.cpp 파일 참조}
+\label{thirdparty_2cpputest_2platforms_2iar_2tests_2_cpp_u_test_ext_2_all_tests_8cpp}\index{thirdparty/cpputest/platforms/iar/tests/\+Cpp\+U\+Test\+Ext/\+All\+Tests.\+cpp@{thirdparty/cpputest/platforms/iar/tests/\+Cpp\+U\+Test\+Ext/\+All\+Tests.\+cpp}}
+{\ttfamily \#include \char`\"{}Cpp\+U\+Test/\+Command\+Line\+Test\+Runner.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Cpp\+U\+Test/\+Test\+Registry.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Cpp\+U\+Test\+Ext/\+Memory\+Reporter\+Plugin.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Cpp\+U\+Test\+Ext/\+Mock\+Support\+Plugin.\+h\char`\"{}}\\*
+All\+Tests.\+cpp에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{thirdparty_2cpputest_2platforms_2iar_2tests_2_cpp_u_test_ext_2_all_tests_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{thirdparty_2cpputest_2platforms_2iar_2tests_2_cpp_u_test_ext_2_all_tests_8cpp_ace7f414039e764f5229a85f450521d1c}{main} (int ac, const char $\ast$$\ast$av)
+\end{DoxyCompactItemize}
+
+
+\subsection{함수 문서화}
+\index{thirdparty/cpputest/platforms/iar/tests/\+Cpp\+U\+Test\+Ext/\+All\+Tests.\+cpp@{thirdparty/cpputest/platforms/iar/tests/\+Cpp\+U\+Test\+Ext/\+All\+Tests.\+cpp}!main@{main}}
+\index{main@{main}!thirdparty/cpputest/platforms/iar/tests/\+Cpp\+U\+Test\+Ext/\+All\+Tests.\+cpp@{thirdparty/cpputest/platforms/iar/tests/\+Cpp\+U\+Test\+Ext/\+All\+Tests.\+cpp}}
+\subsubsection[{\texorpdfstring{main(int ac, const char $\ast$$\ast$av)}{main(int ac, const char **av)}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{ac, }
+\item[{const char $\ast$$\ast$}]{av}
+\end{DoxyParamCaption}
+)}\hypertarget{thirdparty_2cpputest_2platforms_2iar_2tests_2_cpp_u_test_ext_2_all_tests_8cpp_ace7f414039e764f5229a85f450521d1c}{}\label{thirdparty_2cpputest_2platforms_2iar_2tests_2_cpp_u_test_ext_2_all_tests_8cpp_ace7f414039e764f5229a85f450521d1c}
+
+
+All\+Tests.\+cpp 파일의 37 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+38 \{
+39     \textcolor{keyword}{const} \textcolor{keywordtype}{char} * av\_override[] = \{\textcolor{stringliteral}{"exe"}, \textcolor{stringliteral}{"-v"}\};
+40 \textcolor{preprocessor}{#ifdef CPPUTEST\_INCLUDE\_GTEST\_TESTS}
+41     \hyperlink{class_g_test_convertor}{GTestConvertor} convertor;
+42     convertor.\hyperlink{class_g_test_convertor_ab2d85457cc006bc2548ab982d0d27f55}{addAllGTestToTestRegistry}();
+43 \textcolor{preprocessor}{#endif}
+44 
+45     \hyperlink{class_memory_reporter_plugin}{MemoryReporterPlugin} plugin;
+46     \hyperlink{class_mock_support_plugin}{MockSupportPlugin} mockPlugin;
+47     \hyperlink{class_test_registry_ac5922b023ea5c5d83af9c4e1d354731a}{TestRegistry::getCurrentRegistry}()->
+      \hyperlink{class_test_registry_a684fd0406cfc48f83f2bcedf07e16f3c}{installPlugin}(&plugin);
+48     \hyperlink{class_test_registry_ac5922b023ea5c5d83af9c4e1d354731a}{TestRegistry::getCurrentRegistry}()->
+      \hyperlink{class_test_registry_a684fd0406cfc48f83f2bcedf07e16f3c}{installPlugin}(&mockPlugin);
+49 
+50 \textcolor{preprocessor}{#ifndef GMOCK\_RENAME\_MAIN}
+51     \textcolor{keywordtype}{int} rv = \hyperlink{class_command_line_test_runner_a20babba9f8fa7e8e2bfa1283fc928b33}{CommandLineTestRunner::RunAllTests}(2, av\_override);
+52 \textcolor{preprocessor}{#else}
+53     \textcolor{comment}{/* Don't have any memory leak detector when running the Google Test tests */}
+54 
+55     testing::GMOCK\_FLAG(verbose) = testing::internal::kWarningVerbosity;
+56 
+57     \hyperlink{class_console_test_output}{ConsoleTestOutput} output;
+58     \hyperlink{class_command_line_test_runner}{CommandLineTestRunner} runner(ac, av, &output, 
+      \hyperlink{class_test_registry_ac5922b023ea5c5d83af9c4e1d354731a}{TestRegistry::getCurrentRegistry}());
+59     \textcolor{keywordflow}{return} runner.runAllTestsMain();
+60 \textcolor{preprocessor}{#endif}
+61     
+62     \textcolor{comment}{//Exiting from main causes IAR simulator to issue out-of-bounds memory access warnings.}
+63     \textcolor{keyword}{volatile} \textcolor{keywordtype}{int} wait = 1;
+64     \textcolor{keywordflow}{while} (wait)\{\}
+65     \textcolor{keywordflow}{return} rv;
+66 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{thirdparty_2cpputest_2platforms_2iar_2tests_2_cpp_u_test_ext_2_all_tests_8cpp_ace7f414039e764f5229a85f450521d1c_cgraph}
+\end{center}
+\end{figure}
+
+

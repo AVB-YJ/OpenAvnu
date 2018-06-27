@@ -1,0 +1,35 @@
+var group__command__add__video__mappings =
+[
+    [ "jdksavdecc_aem_command_add_video_mappings", "structjdksavdecc__aem__command__add__video__mappings.html", [
+      [ "aem_header", "structjdksavdecc__aem__command__add__video__mappings.html#ae1e77ccb75ff5021ad923221eab38294", null ],
+      [ "descriptor_index", "structjdksavdecc__aem__command__add__video__mappings.html#a042bbc76d835b82d27c1932431ee38d4", null ],
+      [ "descriptor_type", "structjdksavdecc__aem__command__add__video__mappings.html#ab7c32b6c7131c13d4ea3b7ee2f09b78d", null ],
+      [ "number_of_mappings", "structjdksavdecc__aem__command__add__video__mappings.html#ac7db472c5622ef473d5d0a5c416d5531", null ],
+      [ "reserved", "structjdksavdecc__aem__command__add__video__mappings.html#a5a6ed8c04a3db86066924b1a1bf4dad3", null ]
+    ] ],
+    [ "JDKSAVDECC_AEM_COMMAND_ADD_VIDEO_MAPPINGS_COMMAND_LEN", "group__command__add__video__mappings.html#ga17bf1e4da2de98fb9894a6c2926000f5", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_ADD_VIDEO_MAPPINGS_COMMAND_OFFSET_COMMAND_TYPE", "group__command__add__video__mappings.html#ga2b2b04d60a8e432f00f01a93513fd05c", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_ADD_VIDEO_MAPPINGS_COMMAND_OFFSET_CONTROLLER_ENTITY_ID", "group__command__add__video__mappings.html#ga599d74c299e0022891b6aa9e239134ca", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_ADD_VIDEO_MAPPINGS_COMMAND_OFFSET_DESCRIPTOR_INDEX", "group__command__add__video__mappings.html#ga7bd69550105c23a44b90d7f22ea0c945", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_ADD_VIDEO_MAPPINGS_COMMAND_OFFSET_DESCRIPTOR_TYPE", "group__command__add__video__mappings.html#ga3127188c563e5d2b980716cb79540903", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_ADD_VIDEO_MAPPINGS_COMMAND_OFFSET_MAPPINGS", "group__command__add__video__mappings.html#ga451a35fac8c9f1cfac40513d4190d42c", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_ADD_VIDEO_MAPPINGS_COMMAND_OFFSET_NUMBER_OF_MAPPINGS", "group__command__add__video__mappings.html#ga6c43a58dadd114a847dc14c5aaff3f85", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_ADD_VIDEO_MAPPINGS_COMMAND_OFFSET_RESERVED", "group__command__add__video__mappings.html#gadf7153d3fd9eb8136a6f96648085042c", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_ADD_VIDEO_MAPPINGS_COMMAND_OFFSET_SEQUENCE_ID", "group__command__add__video__mappings.html#gad309055b07c37e92153afa8f451d256f", null ],
+    [ "jdksavdecc_aem_command_add_video_mappings_get_command_type", "group__command__add__video__mappings.html#ga84e38c77e3db1cae1b507ef39f6ec2cc", null ],
+    [ "jdksavdecc_aem_command_add_video_mappings_get_controller_entity_id", "group__command__add__video__mappings.html#ga09a37afc889828d3dc59b941287773fd", null ],
+    [ "jdksavdecc_aem_command_add_video_mappings_get_descriptor_index", "group__command__add__video__mappings.html#ga316f8320076daad302b46eeb0f2051eb", null ],
+    [ "jdksavdecc_aem_command_add_video_mappings_get_descriptor_type", "group__command__add__video__mappings.html#gabf6d1cf71ceb3a3fb8b9dc6aeb217dc5", null ],
+    [ "jdksavdecc_aem_command_add_video_mappings_get_number_of_mappings", "group__command__add__video__mappings.html#gad515e616aa1754d43e1d6f4c4a5c5b73", null ],
+    [ "jdksavdecc_aem_command_add_video_mappings_get_reserved", "group__command__add__video__mappings.html#gafecdc9936cc6a59840e925b43918275a", null ],
+    [ "jdksavdecc_aem_command_add_video_mappings_get_sequence_id", "group__command__add__video__mappings.html#ga652750c591bb414322826e22145623e9", null ],
+    [ "jdksavdecc_aem_command_add_video_mappings_read", "group__command__add__video__mappings.html#ga8006f4a0e6ea11e324896c770020c85f", null ],
+    [ "jdksavdecc_aem_command_add_video_mappings_set_command_type", "group__command__add__video__mappings.html#ga60dc387893dd5130a2dd1f21b0dd8f46", null ],
+    [ "jdksavdecc_aem_command_add_video_mappings_set_controller_entity_id", "group__command__add__video__mappings.html#ga363fb3d77654598d0002f5ef6e153b2f", null ],
+    [ "jdksavdecc_aem_command_add_video_mappings_set_descriptor_index", "group__command__add__video__mappings.html#ga6f6dff17eadc720dcc10cc37bcf80abe", null ],
+    [ "jdksavdecc_aem_command_add_video_mappings_set_descriptor_type", "group__command__add__video__mappings.html#ga9c3f04377c83c98312c4e661e98f13db", null ],
+    [ "jdksavdecc_aem_command_add_video_mappings_set_number_of_mappings", "group__command__add__video__mappings.html#gadca256d366e61d0686f03ffe3572ad3c", null ],
+    [ "jdksavdecc_aem_command_add_video_mappings_set_reserved", "group__command__add__video__mappings.html#ga8a9f2fe99468d5e46fdcbe7c4c8b06db", null ],
+    [ "jdksavdecc_aem_command_add_video_mappings_set_sequence_id", "group__command__add__video__mappings.html#ga3b96d24a699ef3522f6cd889d7055268", null ],
+    [ "jdksavdecc_aem_command_add_video_mappings_write", "group__command__add__video__mappings.html#ga1bd31714358845eaab8257a655079d46", null ]
+];

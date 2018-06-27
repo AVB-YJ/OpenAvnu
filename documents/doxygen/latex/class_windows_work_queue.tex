@@ -1,0 +1,226 @@
+\hypertarget{class_windows_work_queue}{}\section{Windows\+Work\+Queue 클래스 참조}
+\label{class_windows_work_queue}\index{Windows\+Work\+Queue@{Windows\+Work\+Queue}}
+
+
+{\ttfamily \#include $<$work\+\_\+queue.\+hpp$>$}
+
+
+
+Windows\+Work\+Queue에 대한 협력 다이어그램\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=198pt]{class_windows_work_queue__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public 멤버 함수}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{class_windows_work_queue_ac57e22c9dab08570f94ae0144cf7fcef}{init} (int \hyperlink{class_windows_work_queue_a18728b09e371bfac7bd1f64bdcda3de4}{number\+\_\+threads})
+\begin{DoxyCompactList}\small\item\em initialize work queue \end{DoxyCompactList}\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{class_windows_work_queue_af0c02e876f9edca58e4230cad25b98fe}{submit} (\hyperlink{work__queue_8hpp_af69b92fbf5afe098f578d0cce8298f84}{W\+W\+Queue\+Callback} cb, L\+P\+V\+O\+ID arg)
+\begin{DoxyCompactList}\small\item\em submit job to work queue \end{DoxyCompactList}\item 
+void \hyperlink{class_windows_work_queue_a8c528baf37154d347366083f0f816846}{stop} ()
+\begin{DoxyCompactList}\small\item\em stop work queue \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private 속성}
+\begin{DoxyCompactItemize}
+\item 
+H\+A\+N\+D\+LE $\ast$ \hyperlink{class_windows_work_queue_a9cbdd44e71a21ed9af56a4442c340768}{workers}
+\item 
+\hyperlink{struct_w_w_queue_thread_state}{W\+W\+Queue\+Thread\+State} $\ast$ \hyperlink{class_windows_work_queue_abf6b506f47e806311cc2a0788607d127}{state}
+\item 
+int \hyperlink{class_windows_work_queue_a18728b09e371bfac7bd1f64bdcda3de4}{number\+\_\+threads}
+\end{DoxyCompactItemize}
+
+
+\subsection{상세한 설명}
+
+
+work\+\_\+queue.\+hpp 파일의 45 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{멤버 함수 문서화}
+\index{Windows\+Work\+Queue@{Windows\+Work\+Queue}!init@{init}}
+\index{init@{init}!Windows\+Work\+Queue@{Windows\+Work\+Queue}}
+\subsubsection[{\texorpdfstring{init(int number\+\_\+threads)}{init(int number_threads)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} init (
+\begin{DoxyParamCaption}
+\item[{int}]{number\+\_\+threads}
+\end{DoxyParamCaption}
+)}\hypertarget{class_windows_work_queue_ac57e22c9dab08570f94ae0144cf7fcef}{}\label{class_windows_work_queue_ac57e22c9dab08570f94ae0144cf7fcef}
+
+
+initialize work queue 
+
+
+\begin{DoxyParams}{매개변수}
+{\em number\+\_\+threads} & \mbox{[}in\mbox{]} number of threads (0 = default) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+true on success 
+\end{DoxyReturn}
+
+
+work\+\_\+queue.\+cpp 파일의 61 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+62 \{
+63     \textcolor{keywordflow}{if} (\hyperlink{class_windows_work_queue_a18728b09e371bfac7bd1f64bdcda3de4}{number\_threads} == 0) \hyperlink{class_windows_work_queue_a18728b09e371bfac7bd1f64bdcda3de4}{number\_threads} = 
+      \hyperlink{work__queue_8hpp_ac9e94064e8ce15d44ef2b94289b1548b}{DEFAULT\_THREAD\_COUNT};
+64     \hyperlink{class_windows_work_queue_abf6b506f47e806311cc2a0788607d127}{state} = \textcolor{keyword}{new} \hyperlink{struct_w_w_queue_thread_state}{WWQueueThreadState}[\hyperlink{class_windows_work_queue_a18728b09e371bfac7bd1f64bdcda3de4}{number\_threads}];
+65     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \hyperlink{class_windows_work_queue_a18728b09e371bfac7bd1f64bdcda3de4}{number\_threads}; ++i) \{
+66         \hyperlink{class_windows_work_queue_abf6b506f47e806311cc2a0788607d127}{state}[i].\hyperlink{struct_w_w_queue_thread_state_a36f7b6be7108281af77939ceaec42fd6}{running} = \textcolor{keyword}{false};
+67         \hyperlink{class_windows_work_queue_abf6b506f47e806311cc2a0788607d127}{state}[i].\hyperlink{struct_w_w_queue_thread_state_a53a2d16dac430353052f49aaa0cce34a}{stop} = \textcolor{keyword}{false};
+68         \hyperlink{class_windows_work_queue_abf6b506f47e806311cc2a0788607d127}{state}[i].\hyperlink{struct_w_w_queue_thread_state_a1252d1bbdec76fb559cd091bd145ed91}{task} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+69     \}
+70     \hyperlink{class_windows_work_queue_a9cbdd44e71a21ed9af56a4442c340768}{workers} = \textcolor{keyword}{new} HANDLE[\hyperlink{class_windows_work_queue_a18728b09e371bfac7bd1f64bdcda3de4}{number\_threads}];
+71     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \hyperlink{class_windows_work_queue_a18728b09e371bfac7bd1f64bdcda3de4}{number\_threads}; ++i) \{
+72         \hyperlink{class_windows_work_queue_a9cbdd44e71a21ed9af56a4442c340768}{workers}[i] = CreateThread(\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, 0, \hyperlink{work__queue_8cpp_a91887314afd42010577adec059187e90}{WindowsWorkQueueLoop}, 
+      \hyperlink{class_windows_work_queue_abf6b506f47e806311cc2a0788607d127}{state} + i, 0, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+73         \textcolor{keywordflow}{if} (\hyperlink{class_windows_work_queue_a9cbdd44e71a21ed9af56a4442c340768}{workers}[i] == INVALID\_HANDLE\_VALUE)
+74             \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+75         \textcolor{keywordflow}{while} (!\hyperlink{class_windows_work_queue_abf6b506f47e806311cc2a0788607d127}{state}[i].running)
+76             Sleep(1);
+77     \}
+78     this->number\_threads = \hyperlink{class_windows_work_queue_a18728b09e371bfac7bd1f64bdcda3de4}{number\_threads};
+79     \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+80 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=275pt]{class_windows_work_queue_ac57e22c9dab08570f94ae0144cf7fcef_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_windows_work_queue_ac57e22c9dab08570f94ae0144cf7fcef_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Windows\+Work\+Queue@{Windows\+Work\+Queue}!stop@{stop}}
+\index{stop@{stop}!Windows\+Work\+Queue@{Windows\+Work\+Queue}}
+\subsubsection[{\texorpdfstring{stop()}{stop()}}]{\setlength{\rightskip}{0pt plus 5cm}void stop (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{class_windows_work_queue_a8c528baf37154d347366083f0f816846}{}\label{class_windows_work_queue_a8c528baf37154d347366083f0f816846}
+
+
+stop work queue 
+
+
+
+work\+\_\+queue.\+cpp 파일의 99 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+100 \{
+101     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \hyperlink{class_windows_work_queue_a18728b09e371bfac7bd1f64bdcda3de4}{number\_threads}; ++i) \{
+102         \hyperlink{class_windows_work_queue_abf6b506f47e806311cc2a0788607d127}{state}[i].\hyperlink{struct_w_w_queue_thread_state_a53a2d16dac430353052f49aaa0cce34a}{stop} = \textcolor{keyword}{true};
+103         \textcolor{keywordflow}{while} (\hyperlink{class_windows_work_queue_abf6b506f47e806311cc2a0788607d127}{state}[i].running)
+104             Sleep(1);
+105     \}
+106 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=271pt]{class_windows_work_queue_a8c528baf37154d347366083f0f816846_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Windows\+Work\+Queue@{Windows\+Work\+Queue}!submit@{submit}}
+\index{submit@{submit}!Windows\+Work\+Queue@{Windows\+Work\+Queue}}
+\subsubsection[{\texorpdfstring{submit(\+W\+W\+Queue\+Callback cb, L\+P\+V\+O\+I\+D arg)}{submit(WWQueueCallback cb, LPVOID arg)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} submit (
+\begin{DoxyParamCaption}
+\item[{{\bf W\+W\+Queue\+Callback}}]{cb, }
+\item[{L\+P\+V\+O\+ID}]{arg}
+\end{DoxyParamCaption}
+)}\hypertarget{class_windows_work_queue_af0c02e876f9edca58e4230cad25b98fe}{}\label{class_windows_work_queue_af0c02e876f9edca58e4230cad25b98fe}
+
+
+submit job to work queue 
+
+
+\begin{DoxyParams}{매개변수}
+{\em cb} & \mbox{[}in\mbox{]} function to call \\
+\hline
+{\em arg} & \mbox{[}in\mbox{]} parameter provided to callback \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+true on success 
+\end{DoxyReturn}
+
+
+work\+\_\+queue.\+cpp 파일의 82 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+83 \{
+84     \textcolor{keywordtype}{int} i;
+85 
+86     \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{class_windows_work_queue_a18728b09e371bfac7bd1f64bdcda3de4}{number\_threads}; ++i) \{
+87         \textcolor{keywordflow}{if} (\hyperlink{class_windows_work_queue_abf6b506f47e806311cc2a0788607d127}{state}[i].task == \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \{
+88             \hyperlink{class_windows_work_queue_abf6b506f47e806311cc2a0788607d127}{state}[i].\hyperlink{struct_w_w_queue_thread_state_ad688f8fe19987dce997535b44605a118}{arg} = arg;
+89             \hyperlink{class_windows_work_queue_abf6b506f47e806311cc2a0788607d127}{state}[i].\hyperlink{struct_w_w_queue_thread_state_a1252d1bbdec76fb559cd091bd145ed91}{task} = cb;
+90             \textcolor{keywordflow}{break};
+91         \}
+92     \}
+93     \textcolor{keywordflow}{if} (i == number\_threads)
+94         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+95 
+96     \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+97 \}
+\end{DoxyCode}
+
+
+\subsection{필드 문서화}
+\index{Windows\+Work\+Queue@{Windows\+Work\+Queue}!number\+\_\+threads@{number\+\_\+threads}}
+\index{number\+\_\+threads@{number\+\_\+threads}!Windows\+Work\+Queue@{Windows\+Work\+Queue}}
+\subsubsection[{\texorpdfstring{number\+\_\+threads}{number_threads}}]{\setlength{\rightskip}{0pt plus 5cm}int number\+\_\+threads\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{class_windows_work_queue_a18728b09e371bfac7bd1f64bdcda3de4}{}\label{class_windows_work_queue_a18728b09e371bfac7bd1f64bdcda3de4}
+
+
+work\+\_\+queue.\+hpp 파일의 50 번째 라인에서 정의되었습니다.
+
+\index{Windows\+Work\+Queue@{Windows\+Work\+Queue}!state@{state}}
+\index{state@{state}!Windows\+Work\+Queue@{Windows\+Work\+Queue}}
+\subsubsection[{\texorpdfstring{state}{state}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf W\+W\+Queue\+Thread\+State}$\ast$ state\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{class_windows_work_queue_abf6b506f47e806311cc2a0788607d127}{}\label{class_windows_work_queue_abf6b506f47e806311cc2a0788607d127}
+
+
+work\+\_\+queue.\+hpp 파일의 49 번째 라인에서 정의되었습니다.
+
+\index{Windows\+Work\+Queue@{Windows\+Work\+Queue}!workers@{workers}}
+\index{workers@{workers}!Windows\+Work\+Queue@{Windows\+Work\+Queue}}
+\subsubsection[{\texorpdfstring{workers}{workers}}]{\setlength{\rightskip}{0pt plus 5cm}H\+A\+N\+D\+LE$\ast$ workers\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{class_windows_work_queue_a9cbdd44e71a21ed9af56a4442c340768}{}\label{class_windows_work_queue_a9cbdd44e71a21ed9af56a4442c340768}
+
+
+work\+\_\+queue.\+hpp 파일의 48 번째 라인에서 정의되었습니다.
+
+
+
+이 클래스에 대한 문서화 페이지는 다음의 파일들로부터 생성되었습니다.\+:\begin{DoxyCompactItemize}
+\item 
+daemons/gptp/windows/daemon\+\_\+cl/\hyperlink{work__queue_8hpp}{work\+\_\+queue.\+hpp}\item 
+daemons/gptp/windows/daemon\+\_\+cl/\hyperlink{work__queue_8cpp}{work\+\_\+queue.\+cpp}\end{DoxyCompactItemize}

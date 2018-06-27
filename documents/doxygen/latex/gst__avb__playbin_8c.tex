@@ -1,0 +1,1250 @@
+\hypertarget{gst__avb__playbin_8c}{}\section{examples/gstreamer-\/avb-\/plugins/gst-\/plugin/src/gst\+\_\+avb\+\_\+playbin.c 파일 참조}
+\label{gst__avb__playbin_8c}\index{examples/gstreamer-\/avb-\/plugins/gst-\/plugin/src/gst\+\_\+avb\+\_\+playbin.\+c@{examples/gstreamer-\/avb-\/plugins/gst-\/plugin/src/gst\+\_\+avb\+\_\+playbin.\+c}}
+{\ttfamily \#include $<$errno.\+h$>$}\\*
+{\ttfamily \#include $<$fcntl.\+h$>$}\\*
+{\ttfamily \#include $<$math.\+h$>$}\\*
+{\ttfamily \#include $<$poll.\+h$>$}\\*
+{\ttfamily \#include $<$pthread.\+h$>$}\\*
+{\ttfamily \#include $<$signal.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$syslog.\+h$>$}\\*
+{\ttfamily \#include $<$unistd.\+h$>$}\\*
+{\ttfamily \#include $<$arpa/inet.\+h$>$}\\*
+{\ttfamily \#include $<$linux/if.\+h$>$}\\*
+{\ttfamily \#include $<$netinet/in.\+h$>$}\\*
+{\ttfamily \#include $<$net/ethernet.\+h$>$}\\*
+{\ttfamily \#include $<$netpacket/packet.\+h$>$}\\*
+{\ttfamily \#include $<$pci/pci.\+h$>$}\\*
+{\ttfamily \#include $<$sys/ioctl.\+h$>$}\\*
+{\ttfamily \#include $<$sys/mman.\+h$>$}\\*
+{\ttfamily \#include $<$sys/resource.\+h$>$}\\*
+{\ttfamily \#include $<$sys/socket.\+h$>$}\\*
+{\ttfamily \#include $<$sys/stat.\+h$>$}\\*
+{\ttfamily \#include $<$sys/time.\+h$>$}\\*
+{\ttfamily \#include $<$sys/queue.\+h$>$}\\*
+{\ttfamily \#include $<$sys/un.\+h$>$}\\*
+{\ttfamily \#include $<$sys/user.\+h$>$}\\*
+{\ttfamily \#include $<$../../../common/avb.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}gst\+\_\+avb\+\_\+playbin.\+h\char`\"{}}\\*
+gst\+\_\+avb\+\_\+playbin.\+c에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gst__avb__playbin_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{데이타 구조}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structtailq__entry}{tailq\+\_\+entry}
+\end{DoxyCompactItemize}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{gst__avb__playbin_8c_a9b58f8108ac19fa3ceaa20c5666405cd}{A\+V\+B\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+I\+N\+T\+E\+R\+F\+A\+CE}~\char`\"{}eth0\char`\"{}
+\item 
+\#define \hyperlink{gst__avb__playbin_8c_a933d228c1b512a5587ea6607949af4c5}{A\+V\+B\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+T\+A\+L\+K\+E\+R\+\_\+\+IP}~\char`\"{}127.\+0.\+0.\+1\char`\"{}
+\item 
+\#define \hyperlink{gst__avb__playbin_8c_a883ccf2208972c5d92599993a00189a9}{H\+A\+N\+D\+\_\+\+S\+H\+A\+K\+E\+\_\+\+P\+O\+RT}~7600
+\item 
+\#define \hyperlink{gst__avb__playbin_8c_a4890ca60dc9c113da5aacfa235b491f1}{N\+U\+M\+\_\+\+O\+F\+\_\+\+B\+U\+F\+F\+E\+RS}~50
+\item 
+\#define \hyperlink{gst__avb__playbin_8c_af9b1b2ba12857a4bf11289dac8c5462d}{F\+R\+A\+M\+E\+\_\+\+S\+I\+ZE}~1500
+\item 
+\#define \hyperlink{gst__avb__playbin_8c_a3fb2dea7d964f6ed95dfac2897c4001d}{P\+A\+Y\+L\+O\+A\+D\+\_\+\+S\+I\+ZE}~1024
+\item 
+\#define \hyperlink{gst__avb__playbin_8c_adef911caed7c65a1643062817f4a59d7}{G\+S\+T\+\_\+\+C\+A\+T\+\_\+\+D\+E\+F\+A\+U\+LT}~(avbsrc\+\_\+debug)
+\item 
+\#define \hyperlink{gst__avb__playbin_8c_aeeac4150010b5af2077649c3f6877e36}{gst\+\_\+avbsrc\+\_\+parent\+\_\+class}~parent\+\_\+class
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{gst__avb__playbin_8c_a359c5269f277c3ff9ea86542ffe9d435}{gstreamer\+\_\+main} (void)
+\item 
+\hyperlink{gst__avb__playbin_8c_af198ec93e9a21503c379ee44a1f9718d}{T\+A\+I\+L\+Q\+\_\+\+H\+E\+AD} (t\+\_\+enqueue, \hyperlink{structtailq__entry}{tailq\+\_\+entry})
+\item 
+\hyperlink{gst__avb__playbin_8c_a6a5a902ca987165b407e3572ee9b583d}{G\+S\+T\+\_\+\+D\+E\+B\+U\+G\+\_\+\+C\+A\+T\+E\+G\+O\+R\+Y\+\_\+\+S\+T\+A\+T\+IC} (avbsrc\+\_\+debug)
+\item 
+static Gst\+Flow\+Return \hyperlink{gst__avb__playbin_8c_a8a1af5d0a7e1d08c0912eeddeef93af4}{gst\+\_\+avbsrc\+\_\+create} (Gst\+Push\+Src $\ast$psrc, Gst\+Buffer $\ast$$\ast$buf)
+\item 
+static void \hyperlink{gst__avb__playbin_8c_a0574a5722088159ddc94a3186e11d05b}{gst\+\_\+avbsrc\+\_\+set\+\_\+property} (G\+Object $\ast$object, guint prop\+\_\+id, const G\+Value $\ast$value, G\+Param\+Spec $\ast$pspec)
+\item 
+static void \hyperlink{gst__avb__playbin_8c_a5b16b5b19a388b9574992af44f0895bb}{gst\+\_\+avbsrc\+\_\+get\+\_\+property} (G\+Object $\ast$object, guint prop\+\_\+id, G\+Value $\ast$value, G\+Param\+Spec $\ast$pspec)
+\item 
+\hyperlink{gst__avb__playbin_8c_aec8d7433d3206a4433d77bda798cbe5a}{G\+\_\+\+D\+E\+F\+I\+N\+E\+\_\+\+T\+Y\+PE} (\hyperlink{gst__avb__playbin_8h_ae2d03e3a9f3f278789634b2877906920}{Gst\+A\+V\+B\+Src}, gst\+\_\+avbsrc, G\+S\+T\+\_\+\+T\+Y\+P\+E\+\_\+\+P\+U\+S\+H\+\_\+\+S\+RC)
+\item 
+static void \hyperlink{gst__avb__playbin_8c_a8b3858c6b37b47f258480a45b691d53a}{gst\+\_\+avbsrc\+\_\+class\+\_\+init} (\hyperlink{gst__avb__playbin_8h_a5c6c5069ac6bfbb06ed3777c6283a4ac}{Gst\+A\+V\+B\+Src\+Class} $\ast$klass)
+\item 
+static void \hyperlink{gst__avb__playbin_8c_a888b4d11ffcd62598839d1025483e920}{gst\+\_\+avbsrc\+\_\+init} (\hyperlink{gst__avb__playbin_8h_ae2d03e3a9f3f278789634b2877906920}{Gst\+A\+V\+B\+Src} $\ast$avbsrc)
+\item 
+static int \hyperlink{gst__avb__playbin_8c_a2212ab598f2903440ca990c5f9f0a31a}{start\+\_\+feed\+\_\+socket\+\_\+init} ()
+\item 
+int \hyperlink{gst__avb__playbin_8c_ac66dca1351a51ed0cf663c8f1801f8a8}{send\+\_\+data\+\_\+status} (int status)
+\item 
+void \hyperlink{gst__avb__playbin_8c_a29f85f145e323f6cc4f216afebd2765c}{flag\+\_\+exit\+\_\+app} (int flag)
+\item 
+static int \hyperlink{gst__avb__playbin_8c_a625e53a3ffc4b3bbb17d7b1ed2ac7748}{initiliaze\+\_\+queue} (\hyperlink{parse_8c_a37994e3b11c72957c6f454c6ec96d43d}{int32\+\_\+t} max\+\_\+size)
+\item 
+static void \hyperlink{gst__avb__playbin_8c_a2e864a96c4b7e9819eb9d72a42631e80}{freequeue} ()
+\item 
+int \hyperlink{gst__avb__playbin_8c_a7a022f94d86cfbb64e5e13355387216e}{read\+\_\+data\+\_\+from\+\_\+queue} (void $\ast$ptr)
+\item 
+void $\ast$ \hyperlink{gst__avb__playbin_8c_a3779816dac2fd8c0e854a5a43bd0d947}{gstreamer\+\_\+main\+\_\+loop} (void $\ast$arg)
+\item 
+void \hyperlink{gst__avb__playbin_8c_ab10c0c50c02a59ae9bd74c78c49b559d}{sigint\+\_\+handler} (int signum)
+\item 
+static gboolean \hyperlink{gst__avb__playbin_8c_a0dd7ff43338b628d63e394b6a94a5ac6}{plugin\+\_\+init} (Gst\+Plugin $\ast$plugin)
+\end{DoxyCompactItemize}
+\subsection*{변수}
+\begin{DoxyCompactItemize}
+\item 
+unsigned char \hyperlink{gst__avb__playbin_8c_ae54c4983d509d6f290b00a6cc9892e0c}{D\+E\+S\+T\+\_\+\+A\+D\+DR} \mbox{[}$\,$\mbox{]} = \{ 0x91, 0x\+E0, 0x\+F0, 0x00, 0x0\+E, 0x80 \}
+\item 
+\hyperlink{lib_2igb_2igb_8h_ae819c345449e1c44d253068a0a3ab5e5}{device\+\_\+t} \hyperlink{gst__avb__playbin_8c_a456414422441623fbed2e3ba547b3524}{igb\+\_\+dev}
+\item 
+int \hyperlink{gst__avb__playbin_8c_ad98c13d4ce265b13e881ed1955cbbb5c}{start\+\_\+of\+\_\+input\+\_\+data} = 0
+\item 
+int \hyperlink{gst__avb__playbin_8c_a7f7979edeff06f0ba851f7a3d4866090}{g\+\_\+start\+\_\+feed\+\_\+socket} = 0
+\item 
+int \hyperlink{gst__avb__playbin_8c_a9c4ab3423a1ecf317e93be5c61377612}{g\+\_\+exit\+\_\+app} = 0
+\item 
+char $\ast$ \hyperlink{gst__avb__playbin_8c_af8926b86eaa34341eaed3677cda9d228}{talker\+\_\+ip}
+\item 
+int \hyperlink{gst__avb__playbin_8c_a63c89c04d1feae07ca35558055155ffb}{port}
+\item 
+int \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err}
+\item 
+char $\ast$ \hyperlink{gst__avb__playbin_8c_a386ebf0a88b164d6ddd2cc8197c20ccc}{interface1}
+\item 
+unsigned int \hyperlink{gst__avb__playbin_8c_adee8f0101d99abe73e4ab6eb2c1543c8}{avb\+\_\+init}
+\item 
+struct sockaddr\+\_\+ll \hyperlink{gst__avb__playbin_8c_af0b4c4a7922dea9c701e7f3a813467e6}{ifsock\+\_\+addr}
+\item 
+int \hyperlink{gst__avb__playbin_8c_a8bd45a5347ab8dabb3b3dfd8fe68a217}{socket\+\_\+d}
+\item 
+\hyperlink{avb__avtp_8h_a67f05a7fb6b937cfa210e6814661e9d9}{seventeen22\+\_\+header} $\ast$ \hyperlink{gst__avb__playbin_8c_aa863c79d5dbc5de0efc3d9b8f749af59}{h1722}
+\item 
+long long int \hyperlink{gst__avb__playbin_8c_a73f6455d8e0bd406fa3b5f25ddf7eb8f}{frame\+\_\+sequence} = 0
+\item 
+unsigned char \hyperlink{gst__avb__playbin_8c_ac8e710e0b5e994c0545d75d69868c6f0}{frame} \mbox{[}\hyperlink{gst__avb__playbin_8c_af9b1b2ba12857a4bf11289dac8c5462d}{F\+R\+A\+M\+E\+\_\+\+S\+I\+ZE}\mbox{]}
+\item 
+int \hyperlink{gst__avb__playbin_8c_a439227feff9d7f55384e8780cfc2eb82}{size}
+\item 
+struct \hyperlink{structtailq__entry}{tailq\+\_\+entry} $\ast$ \hyperlink{gst__avb__playbin_8c_a107ed8cc245ab3628c169e01e2798624}{qptr}
+\item 
+struct sched\+\_\+param \hyperlink{gst__avb__playbin_8c_a171503523b22d0611a62475b2b7481d8}{sched}
+\item 
+static Gst\+Static\+Pad\+Template \hyperlink{gst__avb__playbin_8c_a643731249f31c7864f3fb8d64d41a373}{src\+\_\+template}
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}!A\+V\+B\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+I\+N\+T\+E\+R\+F\+A\+CE@{A\+V\+B\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+I\+N\+T\+E\+R\+F\+A\+CE}}
+\index{A\+V\+B\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+I\+N\+T\+E\+R\+F\+A\+CE@{A\+V\+B\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+I\+N\+T\+E\+R\+F\+A\+CE}!gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}}
+\subsubsection[{\texorpdfstring{A\+V\+B\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+I\+N\+T\+E\+R\+F\+A\+CE}{AVB_DEFAULT_INTERFACE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+V\+B\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+I\+N\+T\+E\+R\+F\+A\+CE~\char`\"{}eth0\char`\"{}}\hypertarget{gst__avb__playbin_8c_a9b58f8108ac19fa3ceaa20c5666405cd}{}\label{gst__avb__playbin_8c_a9b58f8108ac19fa3ceaa20c5666405cd}
+
+
+gst\+\_\+avb\+\_\+playbin.\+c 파일의 60 번째 라인에서 정의되었습니다.
+
+\index{gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}!A\+V\+B\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+T\+A\+L\+K\+E\+R\+\_\+\+IP@{A\+V\+B\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+T\+A\+L\+K\+E\+R\+\_\+\+IP}}
+\index{A\+V\+B\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+T\+A\+L\+K\+E\+R\+\_\+\+IP@{A\+V\+B\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+T\+A\+L\+K\+E\+R\+\_\+\+IP}!gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}}
+\subsubsection[{\texorpdfstring{A\+V\+B\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+T\+A\+L\+K\+E\+R\+\_\+\+IP}{AVB_DEFAULT_TALKER_IP}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+V\+B\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+T\+A\+L\+K\+E\+R\+\_\+\+IP~\char`\"{}127.\+0.\+0.\+1\char`\"{}}\hypertarget{gst__avb__playbin_8c_a933d228c1b512a5587ea6607949af4c5}{}\label{gst__avb__playbin_8c_a933d228c1b512a5587ea6607949af4c5}
+
+
+gst\+\_\+avb\+\_\+playbin.\+c 파일의 61 번째 라인에서 정의되었습니다.
+
+\index{gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}!F\+R\+A\+M\+E\+\_\+\+S\+I\+ZE@{F\+R\+A\+M\+E\+\_\+\+S\+I\+ZE}}
+\index{F\+R\+A\+M\+E\+\_\+\+S\+I\+ZE@{F\+R\+A\+M\+E\+\_\+\+S\+I\+ZE}!gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}}
+\subsubsection[{\texorpdfstring{F\+R\+A\+M\+E\+\_\+\+S\+I\+ZE}{FRAME_SIZE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+R\+A\+M\+E\+\_\+\+S\+I\+ZE~1500}\hypertarget{gst__avb__playbin_8c_af9b1b2ba12857a4bf11289dac8c5462d}{}\label{gst__avb__playbin_8c_af9b1b2ba12857a4bf11289dac8c5462d}
+
+
+gst\+\_\+avb\+\_\+playbin.\+c 파일의 68 번째 라인에서 정의되었습니다.
+
+\index{gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}!gst\+\_\+avbsrc\+\_\+parent\+\_\+class@{gst\+\_\+avbsrc\+\_\+parent\+\_\+class}}
+\index{gst\+\_\+avbsrc\+\_\+parent\+\_\+class@{gst\+\_\+avbsrc\+\_\+parent\+\_\+class}!gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}}
+\subsubsection[{\texorpdfstring{gst\+\_\+avbsrc\+\_\+parent\+\_\+class}{gst_avbsrc_parent_class}}]{\setlength{\rightskip}{0pt plus 5cm}\#define gst\+\_\+avbsrc\+\_\+parent\+\_\+class~parent\+\_\+class}\hypertarget{gst__avb__playbin_8c_aeeac4150010b5af2077649c3f6877e36}{}\label{gst__avb__playbin_8c_aeeac4150010b5af2077649c3f6877e36}
+
+
+gst\+\_\+avb\+\_\+playbin.\+c 파일의 127 번째 라인에서 정의되었습니다.
+
+\index{gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}!G\+S\+T\+\_\+\+C\+A\+T\+\_\+\+D\+E\+F\+A\+U\+LT@{G\+S\+T\+\_\+\+C\+A\+T\+\_\+\+D\+E\+F\+A\+U\+LT}}
+\index{G\+S\+T\+\_\+\+C\+A\+T\+\_\+\+D\+E\+F\+A\+U\+LT@{G\+S\+T\+\_\+\+C\+A\+T\+\_\+\+D\+E\+F\+A\+U\+LT}!gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}}
+\subsubsection[{\texorpdfstring{G\+S\+T\+\_\+\+C\+A\+T\+\_\+\+D\+E\+F\+A\+U\+LT}{GST_CAT_DEFAULT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define G\+S\+T\+\_\+\+C\+A\+T\+\_\+\+D\+E\+F\+A\+U\+LT~(avbsrc\+\_\+debug)}\hypertarget{gst__avb__playbin_8c_adef911caed7c65a1643062817f4a59d7}{}\label{gst__avb__playbin_8c_adef911caed7c65a1643062817f4a59d7}
+
+
+gst\+\_\+avb\+\_\+playbin.\+c 파일의 111 번째 라인에서 정의되었습니다.
+
+\index{gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}!H\+A\+N\+D\+\_\+\+S\+H\+A\+K\+E\+\_\+\+P\+O\+RT@{H\+A\+N\+D\+\_\+\+S\+H\+A\+K\+E\+\_\+\+P\+O\+RT}}
+\index{H\+A\+N\+D\+\_\+\+S\+H\+A\+K\+E\+\_\+\+P\+O\+RT@{H\+A\+N\+D\+\_\+\+S\+H\+A\+K\+E\+\_\+\+P\+O\+RT}!gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}}
+\subsubsection[{\texorpdfstring{H\+A\+N\+D\+\_\+\+S\+H\+A\+K\+E\+\_\+\+P\+O\+RT}{HAND_SHAKE_PORT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+N\+D\+\_\+\+S\+H\+A\+K\+E\+\_\+\+P\+O\+RT~7600}\hypertarget{gst__avb__playbin_8c_a883ccf2208972c5d92599993a00189a9}{}\label{gst__avb__playbin_8c_a883ccf2208972c5d92599993a00189a9}
+
+
+gst\+\_\+avb\+\_\+playbin.\+c 파일의 64 번째 라인에서 정의되었습니다.
+
+\index{gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}!N\+U\+M\+\_\+\+O\+F\+\_\+\+B\+U\+F\+F\+E\+RS@{N\+U\+M\+\_\+\+O\+F\+\_\+\+B\+U\+F\+F\+E\+RS}}
+\index{N\+U\+M\+\_\+\+O\+F\+\_\+\+B\+U\+F\+F\+E\+RS@{N\+U\+M\+\_\+\+O\+F\+\_\+\+B\+U\+F\+F\+E\+RS}!gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}}
+\subsubsection[{\texorpdfstring{N\+U\+M\+\_\+\+O\+F\+\_\+\+B\+U\+F\+F\+E\+RS}{NUM_OF_BUFFERS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+U\+M\+\_\+\+O\+F\+\_\+\+B\+U\+F\+F\+E\+RS~50}\hypertarget{gst__avb__playbin_8c_a4890ca60dc9c113da5aacfa235b491f1}{}\label{gst__avb__playbin_8c_a4890ca60dc9c113da5aacfa235b491f1}
+
+
+gst\+\_\+avb\+\_\+playbin.\+c 파일의 66 번째 라인에서 정의되었습니다.
+
+\index{gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}!P\+A\+Y\+L\+O\+A\+D\+\_\+\+S\+I\+ZE@{P\+A\+Y\+L\+O\+A\+D\+\_\+\+S\+I\+ZE}}
+\index{P\+A\+Y\+L\+O\+A\+D\+\_\+\+S\+I\+ZE@{P\+A\+Y\+L\+O\+A\+D\+\_\+\+S\+I\+ZE}!gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}}
+\subsubsection[{\texorpdfstring{P\+A\+Y\+L\+O\+A\+D\+\_\+\+S\+I\+ZE}{PAYLOAD_SIZE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+A\+Y\+L\+O\+A\+D\+\_\+\+S\+I\+ZE~1024}\hypertarget{gst__avb__playbin_8c_a3fb2dea7d964f6ed95dfac2897c4001d}{}\label{gst__avb__playbin_8c_a3fb2dea7d964f6ed95dfac2897c4001d}
+
+
+gst\+\_\+avb\+\_\+playbin.\+c 파일의 70 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{함수 문서화}
+\index{gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}!flag\+\_\+exit\+\_\+app@{flag\+\_\+exit\+\_\+app}}
+\index{flag\+\_\+exit\+\_\+app@{flag\+\_\+exit\+\_\+app}!gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}}
+\subsubsection[{\texorpdfstring{flag\+\_\+exit\+\_\+app(int flag)}{flag_exit_app(int flag)}}]{\setlength{\rightskip}{0pt plus 5cm}void flag\+\_\+exit\+\_\+app (
+\begin{DoxyParamCaption}
+\item[{int}]{flag}
+\end{DoxyParamCaption}
+)}\hypertarget{gst__avb__playbin_8c_a29f85f145e323f6cc4f216afebd2765c}{}\label{gst__avb__playbin_8c_a29f85f145e323f6cc4f216afebd2765c}
+
+
+gst\+\_\+avb\+\_\+playbin.\+c 파일의 324 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+325 \{
+326     \hyperlink{gst__avb__playbin_8c_a9c4ab3423a1ecf317e93be5c61377612}{g\_exit\_app} = flag;
+327 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gst__avb__playbin_8c_a29f85f145e323f6cc4f216afebd2765c_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}!freequeue@{freequeue}}
+\index{freequeue@{freequeue}!gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}}
+\subsubsection[{\texorpdfstring{freequeue()}{freequeue()}}]{\setlength{\rightskip}{0pt plus 5cm}static void freequeue (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{gst__avb__playbin_8c_a2e864a96c4b7e9819eb9d72a42631e80}{}\label{gst__avb__playbin_8c_a2e864a96c4b7e9819eb9d72a42631e80}
+\hyperlink{gst__avb__playbin_8c_a2e864a96c4b7e9819eb9d72a42631e80}{freequeue()} -\/ free\textquotesingle{}s the buffer queue created. 
+
+gst\+\_\+avb\+\_\+playbin.\+c 파일의 354 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+355 \{
+356     \textcolor{keyword}{struct }\hyperlink{structtailq__entry}{tailq\_entry} *q, *next\_item;
+357 
+358     \textcolor{keywordflow}{for} (q = TAILQ\_FIRST(&buffer\_queue); q != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}; q = next\_item)
+359     \{
+360         next\_item = TAILQ\_NEXT(q, \hyperlink{avtp__rx_8c_a76565232f25302e8cb99c60a629034cc}{entries});
+361         \textcolor{comment}{/* Remove the item from the tail queue. */}
+362         TAILQ\_REMOVE(&buffer\_queue, q, \hyperlink{avtp__rx_8c_a76565232f25302e8cb99c60a629034cc}{entries});
+363         \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(q->payload\_data);
+364         \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(q);
+365     \}
+366     \textcolor{keywordflow}{for} (q = TAILQ\_FIRST(&free\_queue); q != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}; q = next\_item)
+367     \{
+368         next\_item = TAILQ\_NEXT(q, \hyperlink{avtp__rx_8c_a76565232f25302e8cb99c60a629034cc}{entries});
+369         \textcolor{comment}{/* Remove the item from the tail queue. */}
+370         TAILQ\_REMOVE(&free\_queue, q, \hyperlink{avtp__rx_8c_a76565232f25302e8cb99c60a629034cc}{entries});
+371         \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(q->payload\_data);
+372         \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(q);
+373     \}
+374 
+375     \textcolor{keywordflow}{return};
+376 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gst__avb__playbin_8c_a2e864a96c4b7e9819eb9d72a42631e80_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}!G\+\_\+\+D\+E\+F\+I\+N\+E\+\_\+\+T\+Y\+PE@{G\+\_\+\+D\+E\+F\+I\+N\+E\+\_\+\+T\+Y\+PE}}
+\index{G\+\_\+\+D\+E\+F\+I\+N\+E\+\_\+\+T\+Y\+PE@{G\+\_\+\+D\+E\+F\+I\+N\+E\+\_\+\+T\+Y\+PE}!gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}}
+\subsubsection[{\texorpdfstring{G\+\_\+\+D\+E\+F\+I\+N\+E\+\_\+\+T\+Y\+P\+E(\+Gst\+A\+V\+B\+Src, gst\+\_\+avbsrc, G\+S\+T\+\_\+\+T\+Y\+P\+E\+\_\+\+P\+U\+S\+H\+\_\+\+S\+R\+C)}{G_DEFINE_TYPE(GstAVBSrc, gst_avbsrc, GST_TYPE_PUSH_SRC)}}]{\setlength{\rightskip}{0pt plus 5cm}G\+\_\+\+D\+E\+F\+I\+N\+E\+\_\+\+T\+Y\+PE (
+\begin{DoxyParamCaption}
+\item[{{\bf Gst\+A\+V\+B\+Src}}]{, }
+\item[{gst\+\_\+avbsrc}]{, }
+\item[{G\+S\+T\+\_\+\+T\+Y\+P\+E\+\_\+\+P\+U\+S\+H\+\_\+\+S\+RC}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gst__avb__playbin_8c_aec8d7433d3206a4433d77bda798cbe5a}{}\label{gst__avb__playbin_8c_aec8d7433d3206a4433d77bda798cbe5a}
+\index{gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}!gst\+\_\+avbsrc\+\_\+class\+\_\+init@{gst\+\_\+avbsrc\+\_\+class\+\_\+init}}
+\index{gst\+\_\+avbsrc\+\_\+class\+\_\+init@{gst\+\_\+avbsrc\+\_\+class\+\_\+init}!gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}}
+\subsubsection[{\texorpdfstring{gst\+\_\+avbsrc\+\_\+class\+\_\+init(\+Gst\+A\+V\+B\+Src\+Class $\ast$klass)}{gst_avbsrc_class_init(GstAVBSrcClass *klass)}}]{\setlength{\rightskip}{0pt plus 5cm}static void gst\+\_\+avbsrc\+\_\+class\+\_\+init (
+\begin{DoxyParamCaption}
+\item[{{\bf Gst\+A\+V\+B\+Src\+Class} $\ast$}]{klass}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{gst__avb__playbin_8c_a8b3858c6b37b47f258480a45b691d53a}{}\label{gst__avb__playbin_8c_a8b3858c6b37b47f258480a45b691d53a}
+
+
+gst\+\_\+avb\+\_\+playbin.\+c 파일의 131 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+132 \{
+133     GObjectClass *gobject\_class;
+134     GstElementClass *gstelement\_class;
+135     GstBaseSrcClass *gstbasesrc\_class;
+136     GstPushSrcClass *gstpushsrc\_class;
+137 
+138     gobject\_class = (GObjectClass *) klass;
+139     gstelement\_class = (GstElementClass *) klass;
+140     gstbasesrc\_class = (GstBaseSrcClass *) klass;
+141     gstpushsrc\_class = (GstPushSrcClass *) klass;
+142 
+143     GST\_DEBUG\_CATEGORY\_INIT (avbsrc\_debug, \textcolor{stringliteral}{"avbsrc"}, 0, \textcolor{stringliteral}{"AVB src"});
+144 
+145     gobject\_class->set\_property = \hyperlink{gst__avb__playbin_8c_a0574a5722088159ddc94a3186e11d05b}{gst\_avbsrc\_set\_property};
+146     gobject\_class->get\_property = \hyperlink{gst__avb__playbin_8c_a5b16b5b19a388b9574992af44f0895bb}{gst\_avbsrc\_get\_property};
+147 
+148     g\_object\_class\_install\_property(gobject\_class, \hyperlink{gstavbsink_8c_aba01db17f4a2bfbc3db60dc172972a25ab832819372ad9cb620ef3bc3b7e8b93d}{PROP\_INTERFACE},
+149                     g\_param\_spec\_string (\textcolor{stringliteral}{"interface"},
+150                     \textcolor{stringliteral}{"Interface"},
+151                     \textcolor{stringliteral}{"The Interface Name b/w sink and source"},
+152                     \hyperlink{gst__avb__playbin_8c_a386ebf0a88b164d6ddd2cc8197c20ccc}{interface1},
+153                     G\_PARAM\_READWRITE | G\_PARAM\_STATIC\_STRINGS));
+154 
+155     g\_object\_class\_install\_property(gobject\_class, PROP\_TALKERIP,
+156     g\_param\_spec\_string(\textcolor{stringliteral}{"talkerip"}, \textcolor{stringliteral}{"Talker\_IP"},
+157                  \textcolor{stringliteral}{"The IP address of a talker"}, \hyperlink{gst__avb__playbin_8c_af8926b86eaa34341eaed3677cda9d228}{talker\_ip},
+158                  G\_PARAM\_READWRITE | G\_PARAM\_STATIC\_STRINGS));
+159 
+160     g\_object\_class\_install\_property(G\_OBJECT\_CLASS (klass), PROP\_PORT,
+161                      g\_param\_spec\_int (\textcolor{stringliteral}{"port"}, \textcolor{stringliteral}{"Port"},
+162                     \textcolor{stringliteral}{"The port to receive the packets from, 0=allocate"},
+163                     0, G\_MAXUINT16, \hyperlink{gst__avb__playbin_8c_a63c89c04d1feae07ca35558055155ffb}{port},
+164                     G\_PARAM\_READWRITE | G\_PARAM\_STATIC\_STRINGS));
+165 
+166     gst\_element\_class\_add\_pad\_template (gstelement\_class,
+167                         gst\_static\_pad\_template\_get (&\hyperlink{gst__avb__playbin_8c_a643731249f31c7864f3fb8d64d41a373}{src\_template}));
+168 
+169     gst\_element\_class\_set\_static\_metadata (gstelement\_class,
+170         \textcolor{stringliteral}{"AVB packet receiver"},
+171         \textcolor{stringliteral}{"Source/Network"},
+172         \textcolor{stringliteral}{"Receive data over the network via Ethernet AVB"},
+173         \textcolor{stringliteral}{"Symphony-Teleca"});
+174 
+175     gstpushsrc\_class->create = \hyperlink{gst__avb__playbin_8c_a8a1af5d0a7e1d08c0912eeddeef93af4}{gst\_avbsrc\_create};
+176 
+177 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gst__avb__playbin_8c_a8b3858c6b37b47f258480a45b691d53a_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}!gst\+\_\+avbsrc\+\_\+create@{gst\+\_\+avbsrc\+\_\+create}}
+\index{gst\+\_\+avbsrc\+\_\+create@{gst\+\_\+avbsrc\+\_\+create}!gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}}
+\subsubsection[{\texorpdfstring{gst\+\_\+avbsrc\+\_\+create(\+Gst\+Push\+Src $\ast$psrc, Gst\+Buffer $\ast$$\ast$buf)}{gst_avbsrc_create(GstPushSrc *psrc, GstBuffer **buf)}}]{\setlength{\rightskip}{0pt plus 5cm}static Gst\+Flow\+Return gst\+\_\+avbsrc\+\_\+create (
+\begin{DoxyParamCaption}
+\item[{Gst\+Push\+Src $\ast$}]{psrc, }
+\item[{Gst\+Buffer $\ast$$\ast$}]{buf}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{gst__avb__playbin_8c_a8a1af5d0a7e1d08c0912eeddeef93af4}{}\label{gst__avb__playbin_8c_a8a1af5d0a7e1d08c0912eeddeef93af4}
+
+
+gst\+\_\+avb\+\_\+playbin.\+c 파일의 434 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+435 \{
+436 
+437     \textcolor{keywordflow}{if}(!\hyperlink{gst__avb__playbin_8c_adee8f0101d99abe73e4ab6eb2c1543c8}{avb\_init})
+438     \{
+439         \textcolor{keyword}{struct }packet\_mreq mreq;
+440         \textcolor{keyword}{struct }ifreq device;
+441         \hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\_t} buff\_size;
+442         pthread\_t tid;
+443         \textcolor{keywordtype}{int} ifindex;
+444 
+445         \textcolor{comment}{/* add a signal handler for interruption Ctl+c */}
+446         signal(SIGINT, \hyperlink{gst__avb__playbin_8c_ab10c0c50c02a59ae9bd74c78c49b559d}{sigint\_handler});
+447 
+448         buff\_size = \hyperlink{gst__avb__playbin_8c_a3fb2dea7d964f6ed95dfac2897c4001d}{PAYLOAD\_SIZE};
+449 
+450         \hyperlink{gst__avb__playbin_8c_a2212ab598f2903440ca990c5f9f0a31a}{start\_feed\_socket\_init}();
+451 
+452         \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err} = \hyperlink{linux__hal__i210_8cpp_a9a17c0a5cd13afce277fe14723862446}{pci\_connect}(&\hyperlink{gst__avb__playbin_8c_a456414422441623fbed2e3ba547b3524}{igb\_dev});
+453         \textcolor{keywordflow}{if} (\hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err}) \{
+454             printf(\textcolor{stringliteral}{"connect failed (%s) - are you running as root?\(\backslash\)n"}, strerror(errno));
+455             \textcolor{keywordflow}{return} errno;
+456         \}
+457 
+458         \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err} = \hyperlink{igb_8c_a923b0ffcf94a4a6ac8f36a7bacd6b0f3}{igb\_init}(&\hyperlink{gst__avb__playbin_8c_a456414422441623fbed2e3ba547b3524}{igb\_dev});
+459         \textcolor{keywordflow}{if} (\hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err}) \{
+460             printf(\textcolor{stringliteral}{"init failed (%s) - is the driver really loaded?\(\backslash\)n"}, strerror(errno));
+461             \textcolor{keywordflow}{return} errno;
+462         \}
+463 
+464         \hyperlink{gst__avb__playbin_8c_a8bd45a5347ab8dabb3b3dfd8fe68a217}{socket\_d} = socket(AF\_PACKET, SOCK\_RAW, htons(\hyperlink{avb__avtp_8h_a684c3ac2ed95f7eec60d2f76632b9aae}{ETHER\_TYPE\_AVTP}));
+465         \textcolor{keywordflow}{if} (\hyperlink{gst__avb__playbin_8c_a8bd45a5347ab8dabb3b3dfd8fe68a217}{socket\_d} == -1) \{
+466             printf(\textcolor{stringliteral}{"failed to open event socket: %s \(\backslash\)n"}, strerror(errno));
+467             \textcolor{keywordflow}{return} -1;
+468         \}
+469 
+470         memset(&device, 0, \textcolor{keyword}{sizeof}(device));
+471         memcpy(device.ifr\_name, \hyperlink{gst__avb__playbin_8c_a386ebf0a88b164d6ddd2cc8197c20ccc}{interface1}, \hyperlink{openavb__avdecc__pub_8h_acd06da230a96d3b7e6f193c5b3142002}{IFNAMSIZ});
+472         \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err} = ioctl(\hyperlink{gst__avb__playbin_8c_a8bd45a5347ab8dabb3b3dfd8fe68a217}{socket\_d}, SIOCGIFINDEX, &device);
+473         \textcolor{keywordflow}{if} (\hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err} == -1) \{
+474             printf(\textcolor{stringliteral}{"Failed to get interface index: %s\(\backslash\)n"}, strerror(errno));
+475             \textcolor{keywordflow}{return} -1;
+476         \}
+477 
+478         ifindex = device.ifr\_ifindex;
+479         memset(&\hyperlink{gst__avb__playbin_8c_af0b4c4a7922dea9c701e7f3a813467e6}{ifsock\_addr}, 0, \textcolor{keyword}{sizeof}(\hyperlink{gst__avb__playbin_8c_af0b4c4a7922dea9c701e7f3a813467e6}{ifsock\_addr}));
+480         \hyperlink{gst__avb__playbin_8c_af0b4c4a7922dea9c701e7f3a813467e6}{ifsock\_addr}.sll\_family = AF\_PACKET;
+481         \hyperlink{gst__avb__playbin_8c_af0b4c4a7922dea9c701e7f3a813467e6}{ifsock\_addr}.sll\_ifindex = ifindex;
+482         \hyperlink{gst__avb__playbin_8c_af0b4c4a7922dea9c701e7f3a813467e6}{ifsock\_addr}.sll\_protocol = htons(\hyperlink{avb__avtp_8h_a684c3ac2ed95f7eec60d2f76632b9aae}{ETHER\_TYPE\_AVTP});
+483         \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err} = bind(\hyperlink{gst__avb__playbin_8c_a8bd45a5347ab8dabb3b3dfd8fe68a217}{socket\_d}, (\textcolor{keyword}{struct} sockaddr *) & \hyperlink{gst__avb__playbin_8c_af0b4c4a7922dea9c701e7f3a813467e6}{ifsock\_addr}, \textcolor{keyword}{sizeof}(
+      \hyperlink{gst__avb__playbin_8c_af0b4c4a7922dea9c701e7f3a813467e6}{ifsock\_addr}));
+484         \textcolor{keywordflow}{if} (\hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err} == -1) \{
+485             printf(\textcolor{stringliteral}{"Call to bind() failed: %s\(\backslash\)n"}, strerror(errno));
+486             \textcolor{keywordflow}{return} -1;
+487         \}
+488 
+489         memset(&mreq, 0, \textcolor{keyword}{sizeof}(mreq));
+490         mreq.mr\_ifindex = ifindex;
+491         mreq.mr\_type = PACKET\_MR\_MULTICAST;
+492         mreq.mr\_alen = 6;
+493         memcpy(mreq.mr\_address, \hyperlink{gst__avb__playbin_8c_ae54c4983d509d6f290b00a6cc9892e0c}{DEST\_ADDR}, mreq.mr\_alen);
+494         \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err} = setsockopt(\hyperlink{gst__avb__playbin_8c_a8bd45a5347ab8dabb3b3dfd8fe68a217}{socket\_d}, SOL\_PACKET, PACKET\_ADD\_MEMBERSHIP, &mreq, \textcolor{keyword}{sizeof}(mreq));
+495         \textcolor{keywordflow}{if} (\hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err} == -1) \{
+496             printf (\textcolor{stringliteral}{"Unable to add PTP multicast addresses to port id: %u\(\backslash\)n"}, ifindex);
+497             \textcolor{keywordflow}{return} -1;
+498         \}
+499 
+500         TAILQ\_INIT(&buffer\_queue);
+501         TAILQ\_INIT(&free\_queue);
+502         pthread\_mutex\_init(&(buffer\_queue\_lock), \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+503         pthread\_mutex\_init(&(free\_queue\_lock), \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+504 
+505         \textcolor{keywordflow}{if} (\hyperlink{gst__avb__playbin_8c_a625e53a3ffc4b3bbb17d7b1ed2ac7748}{initiliaze\_queue}(buff\_size) < 0)
+506             \textcolor{keywordflow}{return} -EINVAL;
+507 
+508         \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err} = pthread\_create(&tid, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{gst__avb__playbin_8c_a3779816dac2fd8c0e854a5a43bd0d947}{gstreamer\_main\_loop}, 
+      \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+509         \textcolor{keywordflow}{if} (\hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err} != 0)
+510             printf(\textcolor{stringliteral}{"can't create thread :[%s]\(\backslash\)n"}, strerror(\hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err}));
+511 
+512         memset(\hyperlink{gst__avb__playbin_8c_ac8e710e0b5e994c0545d75d69868c6f0}{frame}, 0, \textcolor{keyword}{sizeof}(\hyperlink{gst__avb__playbin_8c_ac8e710e0b5e994c0545d75d69868c6f0}{frame}));
+513 
+514         \hyperlink{gst__avb__playbin_8c_a439227feff9d7f55384e8780cfc2eb82}{size} = \textcolor{keyword}{sizeof}(\hyperlink{gst__avb__playbin_8c_af0b4c4a7922dea9c701e7f3a813467e6}{ifsock\_addr});
+515         \hyperlink{gst__avb__playbin_8c_a73f6455d8e0bd406fa3b5f25ddf7eb8f}{frame\_sequence} = 0;
+516         \hyperlink{gst__avb__playbin_8c_ad98c13d4ce265b13e881ed1955cbbb5c}{start\_of\_input\_data} = 1;
+517 
+518         memset(&\hyperlink{gst__avb__playbin_8c_a171503523b22d0611a62475b2b7481d8}{sched}, 0 , \textcolor{keyword}{sizeof} (\hyperlink{gst__avb__playbin_8c_a171503523b22d0611a62475b2b7481d8}{sched}));
+519         \hyperlink{gst__avb__playbin_8c_a171503523b22d0611a62475b2b7481d8}{sched}.sched\_priority = 25;
+520         sched\_setscheduler(0, SCHED\_RR, &\hyperlink{gst__avb__playbin_8c_a171503523b22d0611a62475b2b7481d8}{sched});
+521     \}
+522     
+523     \textcolor{keywordflow}{while} (1) \{
+524         \textcolor{keywordflow}{if} (\hyperlink{gst__avb__playbin_8c_a9c4ab3423a1ecf317e93be5c61377612}{g\_exit\_app})
+525             \textcolor{keywordflow}{break};
+526 
+527         \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err} = recvfrom(\hyperlink{gst__avb__playbin_8c_a8bd45a5347ab8dabb3b3dfd8fe68a217}{socket\_d}, \hyperlink{gst__avb__playbin_8c_ac8e710e0b5e994c0545d75d69868c6f0}{frame}, \hyperlink{gst__avb__playbin_8c_af9b1b2ba12857a4bf11289dac8c5462d}{FRAME\_SIZE}, 0, (\textcolor{keyword}{struct} sockaddr *) &
+      \hyperlink{gst__avb__playbin_8c_af0b4c4a7922dea9c701e7f3a813467e6}{ifsock\_addr}, (socklen\_t *)&\hyperlink{gst__avb__playbin_8c_a439227feff9d7f55384e8780cfc2eb82}{size});
+528         \textcolor{keywordflow}{if} (\hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err} > 0) \{
+529             \textcolor{keywordflow}{while} (!free\_queue.tqh\_first) \{
+530                 usleep(1);
+531             \}
+532             fprintf(stderr,\textcolor{stringliteral}{"frame sequence = %lld\(\backslash\)n"}, \hyperlink{gst__avb__playbin_8c_a73f6455d8e0bd406fa3b5f25ddf7eb8f}{frame\_sequence}++);
+533 
+534             pthread\_mutex\_lock(&(free\_queue\_lock));
+535             \hyperlink{gst__avb__playbin_8c_a107ed8cc245ab3628c169e01e2798624}{qptr} = free\_queue.tqh\_first;
+536             TAILQ\_REMOVE(&free\_queue, \hyperlink{gst__avb__playbin_8c_a107ed8cc245ab3628c169e01e2798624}{qptr}, \hyperlink{avtp__rx_8c_a76565232f25302e8cb99c60a629034cc}{entries});
+537             \hyperlink{gst__avb__playbin_8c_aa863c79d5dbc5de0efc3d9b8f749af59}{h1722} = (\hyperlink{avb__avtp_8h_a67f05a7fb6b937cfa210e6814661e9d9}{seventeen22\_header} *)((\hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t}*)
+      \hyperlink{gst__avb__playbin_8c_ac8e710e0b5e994c0545d75d69868c6f0}{frame} + \textcolor{keyword}{sizeof}(\hyperlink{avb__avtp_8h_a605c2dabb13492c54cbdf6afa4752898}{eth\_header}));
+538             \hyperlink{gst__avb__playbin_8c_a107ed8cc245ab3628c169e01e2798624}{qptr}->payload\_length = ntohs(\hyperlink{gst__avb__playbin_8c_aa863c79d5dbc5de0efc3d9b8f749af59}{h1722}->length) - \textcolor{keyword}{sizeof}(
+      \hyperlink{structsix1883__header}{six1883\_header});
+539             memcpy(\hyperlink{gst__avb__playbin_8c_a107ed8cc245ab3628c169e01e2798624}{qptr}->payload\_data, (\hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} *)((\hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t}*)
+      \hyperlink{gst__avb__playbin_8c_ac8e710e0b5e994c0545d75d69868c6f0}{frame} + \textcolor{keyword}{sizeof}(\hyperlink{avb__avtp_8h_a605c2dabb13492c54cbdf6afa4752898}{eth\_header}) + \textcolor{keyword}{sizeof}(\hyperlink{avb__avtp_8h_a67f05a7fb6b937cfa210e6814661e9d9}{seventeen22\_header}) 
+540                     + \textcolor{keyword}{sizeof}(\hyperlink{structsix1883__header}{six1883\_header})), \hyperlink{gst__avb__playbin_8c_a107ed8cc245ab3628c169e01e2798624}{qptr}->payload\_length);
+541 
+542             pthread\_mutex\_lock(&(buffer\_queue\_lock));
+543             TAILQ\_INSERT\_TAIL(&buffer\_queue, \hyperlink{gst__avb__playbin_8c_a107ed8cc245ab3628c169e01e2798624}{qptr}, \hyperlink{avtp__rx_8c_a76565232f25302e8cb99c60a629034cc}{entries});
+544             pthread\_mutex\_unlock(&(buffer\_queue\_lock));
+545             pthread\_mutex\_unlock(&(free\_queue\_lock));
+546             \hyperlink{gst__avb__playbin_8c_ad98c13d4ce265b13e881ed1955cbbb5c}{start\_of\_input\_data} = 1;
+547         \} \textcolor{keywordflow}{else} \{
+548             printf(\textcolor{stringliteral}{"Failed to receive frame  !!!\(\backslash\)n"});
+549                 \}
+550     \}
+551 
+552     usleep(100);
+553     pthread\_exit(\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+554     close(\hyperlink{gst__avb__playbin_8c_a8bd45a5347ab8dabb3b3dfd8fe68a217}{socket\_d});
+555     \hyperlink{gst__avb__playbin_8c_a2e864a96c4b7e9819eb9d72a42631e80}{freequeue}();
+556 
+557     \textcolor{keywordflow}{return} GST\_FLOW\_OK;
+558 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gst__avb__playbin_8c_a8a1af5d0a7e1d08c0912eeddeef93af4_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=324pt]{gst__avb__playbin_8c_a8a1af5d0a7e1d08c0912eeddeef93af4_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}!gst\+\_\+avbsrc\+\_\+get\+\_\+property@{gst\+\_\+avbsrc\+\_\+get\+\_\+property}}
+\index{gst\+\_\+avbsrc\+\_\+get\+\_\+property@{gst\+\_\+avbsrc\+\_\+get\+\_\+property}!gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}}
+\subsubsection[{\texorpdfstring{gst\+\_\+avbsrc\+\_\+get\+\_\+property(\+G\+Object $\ast$object, guint prop\+\_\+id, G\+Value $\ast$value, G\+Param\+Spec $\ast$pspec)}{gst_avbsrc_get_property(GObject *object, guint prop_id, GValue *value, GParamSpec *pspec)}}]{\setlength{\rightskip}{0pt plus 5cm}static void gst\+\_\+avbsrc\+\_\+get\+\_\+property (
+\begin{DoxyParamCaption}
+\item[{G\+Object $\ast$}]{object, }
+\item[{guint}]{prop\+\_\+id, }
+\item[{G\+Value $\ast$}]{value, }
+\item[{G\+Param\+Spec $\ast$}]{pspec}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{gst__avb__playbin_8c_a5b16b5b19a388b9574992af44f0895bb}{}\label{gst__avb__playbin_8c_a5b16b5b19a388b9574992af44f0895bb}
+
+
+gst\+\_\+avb\+\_\+playbin.\+c 파일의 223 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+225 \{
+226     \hyperlink{struct___gst_a_v_b_src}{GstAVBSrc} *avbsrc;
+227 
+228     avbsrc = \hyperlink{gst__avb__playbin_8h_aa8e3c9bb1bb9a5acf1af8182db24fc83}{GST\_AVBSRC} (\textcolor{keywordtype}{object}); 
+229 
+230     \textcolor{keywordflow}{switch} (prop\_id) \{
+231         \textcolor{keywordflow}{case} \hyperlink{gstavbsink_8c_aba01db17f4a2bfbc3db60dc172972a25ab832819372ad9cb620ef3bc3b7e8b93d}{PROP\_INTERFACE}:
+232             g\_value\_set\_string (value, \hyperlink{gst__avb__playbin_8c_a386ebf0a88b164d6ddd2cc8197c20ccc}{interface1});
+233             \textcolor{keywordflow}{break};
+234 
+235         \textcolor{keywordflow}{case} PROP\_TALKERIP:
+236             g\_value\_set\_string (value, \hyperlink{gst__avb__playbin_8c_af8926b86eaa34341eaed3677cda9d228}{talker\_ip});
+237             \textcolor{keywordflow}{break};
+238 
+239         \textcolor{keywordflow}{case} PROP\_PORT:
+240             g\_value\_set\_int (value, \hyperlink{gst__avb__playbin_8c_a63c89c04d1feae07ca35558055155ffb}{port});
+241             \textcolor{keywordflow}{break};
+242 
+243         \textcolor{keywordflow}{default}:
+244             G\_OBJECT\_WARN\_INVALID\_PROPERTY\_ID (\textcolor{keywordtype}{object}, prop\_id, pspec);
+245             \textcolor{keywordflow}{break};
+246     \}
+247 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gst__avb__playbin_8c_a5b16b5b19a388b9574992af44f0895bb_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}!gst\+\_\+avbsrc\+\_\+init@{gst\+\_\+avbsrc\+\_\+init}}
+\index{gst\+\_\+avbsrc\+\_\+init@{gst\+\_\+avbsrc\+\_\+init}!gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}}
+\subsubsection[{\texorpdfstring{gst\+\_\+avbsrc\+\_\+init(\+Gst\+A\+V\+B\+Src $\ast$avbsrc)}{gst_avbsrc_init(GstAVBSrc *avbsrc)}}]{\setlength{\rightskip}{0pt plus 5cm}static void gst\+\_\+avbsrc\+\_\+init (
+\begin{DoxyParamCaption}
+\item[{{\bf Gst\+A\+V\+B\+Src} $\ast$}]{avbsrc}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{gst__avb__playbin_8c_a888b4d11ffcd62598839d1025483e920}{}\label{gst__avb__playbin_8c_a888b4d11ffcd62598839d1025483e920}
+
+
+gst\+\_\+avb\+\_\+playbin.\+c 파일의 180 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+181 \{
+182     avbsrc->\hyperlink{struct___gst_a_v_b_src_a796aab0c0ba78c463684181ccbcac365}{interface} = \hyperlink{gst__avb__playbin_8c_a386ebf0a88b164d6ddd2cc8197c20ccc}{interface1};
+183     avbsrc->\hyperlink{struct___gst_a_v_b_src_a917022df7bed008cf4778d3ecd14ffc1}{talker\_ip} = \hyperlink{gst__avb__playbin_8c_af8926b86eaa34341eaed3677cda9d228}{talker\_ip};
+184     avbsrc->\hyperlink{struct___gst_a_v_b_src_af501f53114411bfa8e4f46f98af2b5f4}{port}=\hyperlink{gst__avb__playbin_8c_a63c89c04d1feae07ca35558055155ffb}{port};
+185 \}
+\end{DoxyCode}
+\index{gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}!gst\+\_\+avbsrc\+\_\+set\+\_\+property@{gst\+\_\+avbsrc\+\_\+set\+\_\+property}}
+\index{gst\+\_\+avbsrc\+\_\+set\+\_\+property@{gst\+\_\+avbsrc\+\_\+set\+\_\+property}!gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}}
+\subsubsection[{\texorpdfstring{gst\+\_\+avbsrc\+\_\+set\+\_\+property(\+G\+Object $\ast$object, guint prop\+\_\+id, const G\+Value $\ast$value, G\+Param\+Spec $\ast$pspec)}{gst_avbsrc_set_property(GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec)}}]{\setlength{\rightskip}{0pt plus 5cm}static void gst\+\_\+avbsrc\+\_\+set\+\_\+property (
+\begin{DoxyParamCaption}
+\item[{G\+Object $\ast$}]{object, }
+\item[{guint}]{prop\+\_\+id, }
+\item[{const G\+Value $\ast$}]{value, }
+\item[{G\+Param\+Spec $\ast$}]{pspec}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{gst__avb__playbin_8c_a0574a5722088159ddc94a3186e11d05b}{}\label{gst__avb__playbin_8c_a0574a5722088159ddc94a3186e11d05b}
+
+
+gst\+\_\+avb\+\_\+playbin.\+c 파일의 190 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+192 \{
+193     \textcolor{keywordflow}{switch} (prop\_id) \{
+194         \textcolor{keywordflow}{case} \hyperlink{gstavbsink_8c_aba01db17f4a2bfbc3db60dc172972a25ab832819372ad9cb620ef3bc3b7e8b93d}{PROP\_INTERFACE}:
+195             g\_free (\hyperlink{gst__avb__playbin_8c_a386ebf0a88b164d6ddd2cc8197c20ccc}{interface1});
+196 
+197             \textcolor{keywordflow}{if} (g\_value\_get\_string (value) == \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL})
+198                 \hyperlink{gst__avb__playbin_8c_a386ebf0a88b164d6ddd2cc8197c20ccc}{interface1} = g\_strdup (\hyperlink{gst__avb__playbin_8c_a9b58f8108ac19fa3ceaa20c5666405cd}{AVB\_DEFAULT\_INTERFACE});
+199             \textcolor{keywordflow}{else}
+200                 \hyperlink{gst__avb__playbin_8c_a386ebf0a88b164d6ddd2cc8197c20ccc}{interface1} = g\_value\_dup\_string (value);
+201             \textcolor{keywordflow}{break};
+202 
+203         \textcolor{keywordflow}{case} PROP\_TALKERIP:
+204             g\_free(\hyperlink{gst__avb__playbin_8c_af8926b86eaa34341eaed3677cda9d228}{talker\_ip});
+205 
+206             \textcolor{keywordflow}{if} (g\_value\_get\_string (value) == \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL})
+207                 \hyperlink{gst__avb__playbin_8c_af8926b86eaa34341eaed3677cda9d228}{talker\_ip} = g\_strdup (\hyperlink{gst__avb__playbin_8c_a933d228c1b512a5587ea6607949af4c5}{AVB\_DEFAULT\_TALKER\_IP});
+208             \textcolor{keywordflow}{else}
+209                 \hyperlink{gst__avb__playbin_8c_af8926b86eaa34341eaed3677cda9d228}{talker\_ip} = g\_value\_dup\_string (value);
+210             \textcolor{keywordflow}{break};
+211 
+212         \textcolor{keywordflow}{case} PROP\_PORT:
+213             g\_free(\hyperlink{gst__avb__playbin_8c_a63c89c04d1feae07ca35558055155ffb}{port});
+214             \hyperlink{gst__avb__playbin_8c_a63c89c04d1feae07ca35558055155ffb}{port} = g\_value\_get\_int (value);
+215             \textcolor{keywordflow}{break};
+216 
+217         \textcolor{keywordflow}{default}:
+218             \textcolor{keywordflow}{break};
+219     \}
+220 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gst__avb__playbin_8c_a0574a5722088159ddc94a3186e11d05b_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}!G\+S\+T\+\_\+\+D\+E\+B\+U\+G\+\_\+\+C\+A\+T\+E\+G\+O\+R\+Y\+\_\+\+S\+T\+A\+T\+IC@{G\+S\+T\+\_\+\+D\+E\+B\+U\+G\+\_\+\+C\+A\+T\+E\+G\+O\+R\+Y\+\_\+\+S\+T\+A\+T\+IC}}
+\index{G\+S\+T\+\_\+\+D\+E\+B\+U\+G\+\_\+\+C\+A\+T\+E\+G\+O\+R\+Y\+\_\+\+S\+T\+A\+T\+IC@{G\+S\+T\+\_\+\+D\+E\+B\+U\+G\+\_\+\+C\+A\+T\+E\+G\+O\+R\+Y\+\_\+\+S\+T\+A\+T\+IC}!gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}}
+\subsubsection[{\texorpdfstring{G\+S\+T\+\_\+\+D\+E\+B\+U\+G\+\_\+\+C\+A\+T\+E\+G\+O\+R\+Y\+\_\+\+S\+T\+A\+T\+I\+C(avbsrc\+\_\+debug)}{GST_DEBUG_CATEGORY_STATIC(avbsrc_debug)}}]{\setlength{\rightskip}{0pt plus 5cm}G\+S\+T\+\_\+\+D\+E\+B\+U\+G\+\_\+\+C\+A\+T\+E\+G\+O\+R\+Y\+\_\+\+S\+T\+A\+T\+IC (
+\begin{DoxyParamCaption}
+\item[{avbsrc\+\_\+debug}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gst__avb__playbin_8c_a6a5a902ca987165b407e3572ee9b583d}{}\label{gst__avb__playbin_8c_a6a5a902ca987165b407e3572ee9b583d}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=335pt]{gst__avb__playbin_8c_a6a5a902ca987165b407e3572ee9b583d_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}!gstreamer\+\_\+main@{gstreamer\+\_\+main}}
+\index{gstreamer\+\_\+main@{gstreamer\+\_\+main}!gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}}
+\subsubsection[{\texorpdfstring{gstreamer\+\_\+main(void)}{gstreamer_main(void)}}]{\setlength{\rightskip}{0pt plus 5cm}int gstreamer\+\_\+main (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gst__avb__playbin_8c_a359c5269f277c3ff9ea86542ffe9d435}{}\label{gst__avb__playbin_8c_a359c5269f277c3ff9ea86542ffe9d435}
+
+
+gst\+\_\+app\+\_\+src.\+c 파일의 175 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+176 \{
+177     \hyperlink{structgst__app__t}{gst\_app\_t} *app = &\hyperlink{gst__app__src_8c_a25f31066229c91660759d0f329e15e00}{gst\_app};
+178     GstBus *bus;
+179     GstStateChangeReturn state\_ret;
+180     
+181     \textcolor{comment}{/* GStreamer Initialization */}
+182     gst\_init(\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+183 
+184     \textcolor{comment}{/* Create The Elements */}
+185     app->\hyperlink{structgst__app__t_a8cb2c1cd92ad959bd105b3bd2ed0c45d}{src} = (GstAppSrc*)gst\_element\_factory\_make(\textcolor{stringliteral}{"appsrc"}, \textcolor{stringliteral}{"mysrc"});
+186     app->\hyperlink{structgst__app__t_aa5d064c9e5e4066bfce7b7f40ba31f5d}{playbin} = gst\_element\_factory\_make(\textcolor{stringliteral}{"playbin"}, \textcolor{stringliteral}{"myplaybin"});
+187 
+188     \textcolor{comment}{/* Assert if Element Creation failed */}
+189     g\_assert(app->\hyperlink{structgst__app__t_a8cb2c1cd92ad959bd105b3bd2ed0c45d}{src});
+190     g\_assert(app->\hyperlink{structgst__app__t_aa5d064c9e5e4066bfce7b7f40ba31f5d}{playbin});
+191 
+192     \textcolor{comment}{/* Add the bus Handler */}
+193     bus = gst\_pipeline\_get\_bus(GST\_PIPELINE (app->\hyperlink{structgst__app__t_aa5d064c9e5e4066bfce7b7f40ba31f5d}{playbin}));
+194     gst\_bus\_add\_watch(bus, (GstBusFunc)\hyperlink{gst__app__src_8c_a3b71e2677833e6985521a3d1252cf591}{bus\_callback}, app);
+195 
+196     \textcolor{comment}{/* Set uri property of playbin */}
+197     g\_object\_set (app->\hyperlink{structgst__app__t_aa5d064c9e5e4066bfce7b7f40ba31f5d}{playbin}, \textcolor{stringliteral}{"uri"}, \textcolor{stringliteral}{"appsrc://"},\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+198 
+199     \textcolor{comment}{/* Connect the source to playbin when notification is arrived */}
+200     g\_signal\_connect (app->\hyperlink{structgst__app__t_aa5d064c9e5e4066bfce7b7f40ba31f5d}{playbin}, \textcolor{stringliteral}{"deep-notify::source"},(GCallback) 
+      \hyperlink{gst__app__src_8c_a147d4348b0b77729921259ec59d81381}{found\_source}, app);
+201 
+202     \textcolor{comment}{/* Set GStreamer Pipeline for Playing */}
+203     state\_ret = gst\_element\_set\_state((GstElement*)app->\hyperlink{structgst__app__t_aa5d064c9e5e4066bfce7b7f40ba31f5d}{playbin}, GST\_STATE\_PLAYING);
+204     g\_print(\textcolor{stringliteral}{"set state returned %d\(\backslash\)n"}, state\_ret);
+205 
+206     app->\hyperlink{structgst__app__t_a35126dd286141bc2cc1f045de5e1f81a}{loop} = g\_main\_loop\_new(\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+207         gst\_app\_src\_set\_max\_bytes(app->\hyperlink{structgst__app__t_a8cb2c1cd92ad959bd105b3bd2ed0c45d}{src}, 1024 * 1024 * 120);
+208     g\_main\_loop\_run(app->\hyperlink{structgst__app__t_a35126dd286141bc2cc1f045de5e1f81a}{loop});
+209     
+210     \textcolor{comment}{/* Set GStreamer Pipeline to NULL */}
+211     state\_ret = gst\_element\_set\_state((GstElement*)app->\hyperlink{structgst__app__t_aa5d064c9e5e4066bfce7b7f40ba31f5d}{playbin}, GST\_STATE\_NULL);
+212     gst\_object\_unref (bus);
+213     g\_main\_loop\_unref (app->\hyperlink{structgst__app__t_a35126dd286141bc2cc1f045de5e1f81a}{loop});
+214 
+215     \textcolor{keywordflow}{return} 0;
+216 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gst__avb__playbin_8c_a359c5269f277c3ff9ea86542ffe9d435_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gst__avb__playbin_8c_a359c5269f277c3ff9ea86542ffe9d435_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}!gstreamer\+\_\+main\+\_\+loop@{gstreamer\+\_\+main\+\_\+loop}}
+\index{gstreamer\+\_\+main\+\_\+loop@{gstreamer\+\_\+main\+\_\+loop}!gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}}
+\subsubsection[{\texorpdfstring{gstreamer\+\_\+main\+\_\+loop(void $\ast$arg)}{gstreamer_main_loop(void *arg)}}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ gstreamer\+\_\+main\+\_\+loop (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{arg}
+\end{DoxyParamCaption}
+)}\hypertarget{gst__avb__playbin_8c_a3779816dac2fd8c0e854a5a43bd0d947}{}\label{gst__avb__playbin_8c_a3779816dac2fd8c0e854a5a43bd0d947}
+\hyperlink{gst__avb__playbin_8c_a3779816dac2fd8c0e854a5a43bd0d947}{gstreamer\+\_\+main\+\_\+loop()}-\/ Initializes the gstreamer pipeline 
+
+gst\+\_\+avb\+\_\+playbin.\+c 파일의 411 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+412 \{
+413         \textcolor{keywordflow}{while} (!\hyperlink{gst__avb__playbin_8c_ad98c13d4ce265b13e881ed1955cbbb5c}{start\_of\_input\_data} ) \{
+414          usleep(1);
+415     \}
+416     \hyperlink{gst__avb__playbin_8c_a359c5269f277c3ff9ea86542ffe9d435}{gstreamer\_main}();
+417     \textcolor{keywordflow}{while} (1) \{
+418         usleep(10);
+419     \}
+420     \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+421 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gst__avb__playbin_8c_a3779816dac2fd8c0e854a5a43bd0d947_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gst__avb__playbin_8c_a3779816dac2fd8c0e854a5a43bd0d947_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}!initiliaze\+\_\+queue@{initiliaze\+\_\+queue}}
+\index{initiliaze\+\_\+queue@{initiliaze\+\_\+queue}!gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}}
+\subsubsection[{\texorpdfstring{initiliaze\+\_\+queue(int32\+\_\+t max\+\_\+size)}{initiliaze_queue(int32_t max_size)}}]{\setlength{\rightskip}{0pt plus 5cm}static int initiliaze\+\_\+queue (
+\begin{DoxyParamCaption}
+\item[{{\bf int32\+\_\+t}}]{max\+\_\+size}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{gst__avb__playbin_8c_a625e53a3ffc4b3bbb17d7b1ed2ac7748}{}\label{gst__avb__playbin_8c_a625e53a3ffc4b3bbb17d7b1ed2ac7748}
+\hyperlink{gst__avb__playbin_8c_a625e53a3ffc4b3bbb17d7b1ed2ac7748}{initiliaze\+\_\+queue()} -\/ Intializes the buffer queue \+: the payload size of frame.
+
+Returns -\/\+E\+I\+N\+V\+AL on error and zero on success. 
+
+gst\+\_\+avb\+\_\+playbin.\+c 파일의 335 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+336 \{
+337     \hyperlink{parse_8c_a37994e3b11c72957c6f454c6ec96d43d}{int32\_t} i;
+338     \textcolor{keyword}{struct }\hyperlink{structtailq__entry}{tailq\_entry} *q[\hyperlink{gst__avb__playbin_8c_a4890ca60dc9c113da5aacfa235b491f1}{NUM\_OF\_BUFFERS}];
+339 
+340     \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{gst__avb__playbin_8c_a4890ca60dc9c113da5aacfa235b491f1}{NUM\_OF\_BUFFERS}; i++) \{
+341         q[i] = (\textcolor{keyword}{struct }\hyperlink{structtailq__entry}{tailq\_entry} *) \hyperlink{_memory_leak_detector_malloc_macros_8h_ab8b25cd8f16d4a6552afe4e65c4f082d}{malloc}(\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} 
+      \hyperlink{structtailq__entry}{tailq\_entry}));
+342         q[i]->payload\_length = 0;
+343         q[i]->payload\_data = \hyperlink{_memory_leak_detector_malloc_macros_8h_ab8b25cd8f16d4a6552afe4e65c4f082d}{malloc}(max\_size);
+344         TAILQ\_INSERT\_TAIL(&free\_queue, q[i], \hyperlink{avtp__rx_8c_a76565232f25302e8cb99c60a629034cc}{entries});
+345     \}
+346 
+347     \textcolor{keywordflow}{return} 0;
+348 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gst__avb__playbin_8c_a625e53a3ffc4b3bbb17d7b1ed2ac7748_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}!plugin\+\_\+init@{plugin\+\_\+init}}
+\index{plugin\+\_\+init@{plugin\+\_\+init}!gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}}
+\subsubsection[{\texorpdfstring{plugin\+\_\+init(\+Gst\+Plugin $\ast$plugin)}{plugin_init(GstPlugin *plugin)}}]{\setlength{\rightskip}{0pt plus 5cm}static gboolean plugin\+\_\+init (
+\begin{DoxyParamCaption}
+\item[{Gst\+Plugin $\ast$}]{plugin}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{gst__avb__playbin_8c_a0dd7ff43338b628d63e394b6a94a5ac6}{}\label{gst__avb__playbin_8c_a0dd7ff43338b628d63e394b6a94a5ac6}
+
+
+gst\+\_\+avb\+\_\+playbin.\+c 파일의 560 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+561 \{
+562     \textcolor{keywordflow}{if} (!gst\_element\_register(plugin, \textcolor{stringliteral}{"avbplaybin"}, GST\_RANK\_NONE,
+563                   \hyperlink{gst__avb__playbin_8h_a3a79c0b74275dde91f2808e61776cea4}{GST\_TYPE\_AVBSRC}))
+564         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+565 
+566     \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+567 
+568 \}
+\end{DoxyCode}
+\index{gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}!read\+\_\+data\+\_\+from\+\_\+queue@{read\+\_\+data\+\_\+from\+\_\+queue}}
+\index{read\+\_\+data\+\_\+from\+\_\+queue@{read\+\_\+data\+\_\+from\+\_\+queue}!gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}}
+\subsubsection[{\texorpdfstring{read\+\_\+data\+\_\+from\+\_\+queue(void $\ast$ptr)}{read_data_from_queue(void *ptr)}}]{\setlength{\rightskip}{0pt plus 5cm}int read\+\_\+data\+\_\+from\+\_\+queue (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{ptr}
+\end{DoxyParamCaption}
+)}\hypertarget{gst__avb__playbin_8c_a7a022f94d86cfbb64e5e13355387216e}{}\label{gst__avb__playbin_8c_a7a022f94d86cfbb64e5e13355387216e}
+\hyperlink{gst__avb__playbin_8c_a7a022f94d86cfbb64e5e13355387216e}{read\+\_\+data\+\_\+from\+\_\+queue()} -\/ Gstreamer Callback to feed in data to appsource whenever the need-\/data signal is occured on the bus 
+
+gst\+\_\+avb\+\_\+playbin.\+c 파일의 382 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+383 \{
+384     \textcolor{keyword}{struct }\hyperlink{structtailq__entry}{tailq\_entry} *q = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+385     \textcolor{keywordtype}{int} i = 0;
+386 
+387         \textcolor{keywordflow}{if}( ptr != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \{
+388         \textcolor{keywordflow}{while} (!buffer\_queue.tqh\_first) \{
+389             usleep(1);
+390         \}
+391 
+392         pthread\_mutex\_lock(&(buffer\_queue\_lock));
+393         q = buffer\_queue.tqh\_first;
+394         TAILQ\_REMOVE(&buffer\_queue, q, \hyperlink{avtp__rx_8c_a76565232f25302e8cb99c60a629034cc}{entries});
+395         pthread\_mutex\_unlock(&(buffer\_queue\_lock));
+396         memcpy(ptr, q->payload\_data, q->payload\_length);
+397     
+398         i = q->payload\_length;
+399 
+400         pthread\_mutex\_lock(&(free\_queue\_lock));
+401         q->payload\_length = 0;
+402         TAILQ\_INSERT\_TAIL(&free\_queue, q, \hyperlink{avtp__rx_8c_a76565232f25302e8cb99c60a629034cc}{entries});
+403         pthread\_mutex\_unlock(&(free\_queue\_lock));
+404     \}
+405     \textcolor{keywordflow}{return} i;
+406 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gst__avb__playbin_8c_a7a022f94d86cfbb64e5e13355387216e_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}!send\+\_\+data\+\_\+status@{send\+\_\+data\+\_\+status}}
+\index{send\+\_\+data\+\_\+status@{send\+\_\+data\+\_\+status}!gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}}
+\subsubsection[{\texorpdfstring{send\+\_\+data\+\_\+status(int status)}{send_data_status(int status)}}]{\setlength{\rightskip}{0pt plus 5cm}int send\+\_\+data\+\_\+status (
+\begin{DoxyParamCaption}
+\item[{int}]{status}
+\end{DoxyParamCaption}
+)}\hypertarget{gst__avb__playbin_8c_ac66dca1351a51ed0cf663c8f1801f8a8}{}\label{gst__avb__playbin_8c_ac66dca1351a51ed0cf663c8f1801f8a8}
+\hyperlink{gst__avb__playbin_8c_ac66dca1351a51ed0cf663c8f1801f8a8}{send\+\_\+data\+\_\+status()} -\/ Send the status to transmitter \+: 0/1 for stop and start respectively
+
+This function sends 0 to transmitter to stop transmitting the data for a while, there is enough of data available with gstreamer to handle. sends 1 to transmitter to start back again with the data transmission.
+
+Returns 0 
+
+gst\+\_\+avb\+\_\+playbin.\+c 파일의 287 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+288 \{
+289     \textcolor{keyword}{struct }sockaddr\_in server;
+290     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} length;
+291     \textcolor{keywordtype}{char} \hyperlink{_hello_test_8cpp_a8be6d469a7cd1c8d66cc6d2d1e10c65b}{buffer}[5];
+292     \textcolor{keywordtype}{int} n;
+293     \textcolor{keywordtype}{int} i;
+294 
+295     bzero(buffer, strlen(buffer));
+296     \textcolor{keywordflow}{if} (status == 0)
+297         \textcolor{comment}{/* send the transmitter a msg to stop sending */}
+298         strcpy(buffer, \textcolor{stringliteral}{"0"});
+299     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (status == 1)
+300         \textcolor{comment}{/* send the transmitter a msg to start sending */}
+301         strcpy(buffer, \textcolor{stringliteral}{"1"});
+302     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (status == 2)
+303         \textcolor{comment}{/* send the transmitter a msg to exit */}
+304         strcpy(buffer, \textcolor{stringliteral}{"2"});
+305 
+306     server.sin\_family = AF\_INET;
+307     inet\_aton(\hyperlink{gst__avb__playbin_8c_af8926b86eaa34341eaed3677cda9d228}{talker\_ip}, &server.sin\_addr);
+308     server.sin\_port = htons(\hyperlink{gst__avb__playbin_8c_a63c89c04d1feae07ca35558055155ffb}{port});
+309     length = \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct }sockaddr\_in);
+310 
+311     \textcolor{keywordflow}{for}(i = 0; i < 10; i++) \{
+312         n = sendto(\hyperlink{gst__avb__playbin_8c_a7f7979edeff06f0ba851f7a3d4866090}{g\_start\_feed\_socket}, buffer, strlen(buffer), 0, 
+313            (\textcolor{keyword}{const} \textcolor{keyword}{struct} sockaddr *)&server,length);
+314         \textcolor{keywordflow}{if} (n >= 0)
+315             \textcolor{keywordflow}{break};
+316     \}
+317     \textcolor{keywordflow}{if} (i == 10) \{
+318         printf(\textcolor{stringliteral}{"Sendto Failed to \(\backslash\)n"});
+319     \}
+320 
+321     \textcolor{keywordflow}{return} 0;
+322 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gst__avb__playbin_8c_ac66dca1351a51ed0cf663c8f1801f8a8_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}!sigint\+\_\+handler@{sigint\+\_\+handler}}
+\index{sigint\+\_\+handler@{sigint\+\_\+handler}!gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}}
+\subsubsection[{\texorpdfstring{sigint\+\_\+handler(int signum)}{sigint_handler(int signum)}}]{\setlength{\rightskip}{0pt plus 5cm}void sigint\+\_\+handler (
+\begin{DoxyParamCaption}
+\item[{int}]{signum}
+\end{DoxyParamCaption}
+)}\hypertarget{gst__avb__playbin_8c_ab10c0c50c02a59ae9bd74c78c49b559d}{}\label{gst__avb__playbin_8c_ab10c0c50c02a59ae9bd74c78c49b559d}
+
+
+gst\+\_\+avb\+\_\+playbin.\+c 파일의 423 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+424 \{
+425     printf(\textcolor{stringliteral}{"got SIGINT\(\backslash\)n"});
+426     \hyperlink{gst__avb__playbin_8c_ac66dca1351a51ed0cf663c8f1801f8a8}{send\_data\_status}(2);
+427     \hyperlink{gst__avb__playbin_8c_a2e864a96c4b7e9819eb9d72a42631e80}{freequeue}();
+428     close(\hyperlink{gst__avb__playbin_8c_a8bd45a5347ab8dabb3b3dfd8fe68a217}{socket\_d});
+429     exit(0);
+430 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=287pt]{gst__avb__playbin_8c_ab10c0c50c02a59ae9bd74c78c49b559d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gst__avb__playbin_8c_ab10c0c50c02a59ae9bd74c78c49b559d_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}!start\+\_\+feed\+\_\+socket\+\_\+init@{start\+\_\+feed\+\_\+socket\+\_\+init}}
+\index{start\+\_\+feed\+\_\+socket\+\_\+init@{start\+\_\+feed\+\_\+socket\+\_\+init}!gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}}
+\subsubsection[{\texorpdfstring{start\+\_\+feed\+\_\+socket\+\_\+init()}{start_feed_socket_init()}}]{\setlength{\rightskip}{0pt plus 5cm}static int start\+\_\+feed\+\_\+socket\+\_\+init (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{gst__avb__playbin_8c_a2212ab598f2903440ca990c5f9f0a31a}{}\label{gst__avb__playbin_8c_a2212ab598f2903440ca990c5f9f0a31a}
+\hyperlink{gst__avb__playbin_8c_a2212ab598f2903440ca990c5f9f0a31a}{start\+\_\+feed\+\_\+socket\+\_\+init()} -\/ initializes the socket.
+
+This function creates a socket which is used to exchange data between transmitter and listener.
+
+Returns -\/\+E\+I\+N\+V\+AL on error, zero on success. 
+
+gst\+\_\+avb\+\_\+playbin.\+c 파일의 263 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+264 \{
+265     \textcolor{keywordtype}{int} sock;
+266 
+267     sock = socket(AF\_INET, SOCK\_DGRAM, 0);
+268     \textcolor{keywordflow}{if} (sock < 0) \{
+269         perror(\textcolor{stringliteral}{"Opening socket"});
+270         \textcolor{keywordflow}{return} -EINVAL;
+271     \}
+272     \hyperlink{gst__avb__playbin_8c_a7f7979edeff06f0ba851f7a3d4866090}{g\_start\_feed\_socket} = sock;
+273 
+274     \textcolor{keywordflow}{return} 0;
+275 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gst__avb__playbin_8c_a2212ab598f2903440ca990c5f9f0a31a_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}!T\+A\+I\+L\+Q\+\_\+\+H\+E\+AD@{T\+A\+I\+L\+Q\+\_\+\+H\+E\+AD}}
+\index{T\+A\+I\+L\+Q\+\_\+\+H\+E\+AD@{T\+A\+I\+L\+Q\+\_\+\+H\+E\+AD}!gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}}
+\subsubsection[{\texorpdfstring{T\+A\+I\+L\+Q\+\_\+\+H\+E\+A\+D(t\+\_\+enqueue, tailq\+\_\+entry)}{TAILQ_HEAD(t_enqueue, tailq_entry)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+A\+I\+L\+Q\+\_\+\+H\+E\+AD (
+\begin{DoxyParamCaption}
+\item[{t\+\_\+enqueue}]{, }
+\item[{{\bf tailq\+\_\+entry}}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gst__avb__playbin_8c_af198ec93e9a21503c379ee44a1f9718d}{}\label{gst__avb__playbin_8c_af198ec93e9a21503c379ee44a1f9718d}
+
+
+gst\+\_\+avb\+\_\+playbin.\+c 파일의 97 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+104 \{
+105     \hyperlink{gstavbsink_8c_aba01db17f4a2bfbc3db60dc172972a25ac37dda0da1a44e10c0504afeeb863f3c}{PROP\_0}, 
+106     \hyperlink{gstavbsink_8c_aba01db17f4a2bfbc3db60dc172972a25ab832819372ad9cb620ef3bc3b7e8b93d}{PROP\_INTERFACE},
+107     PROP\_TALKERIP,
+108     PROP\_PORT
+109 \};
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=335pt]{gst__avb__playbin_8c_af198ec93e9a21503c379ee44a1f9718d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{변수 문서화}
+\index{gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}!avb\+\_\+init@{avb\+\_\+init}}
+\index{avb\+\_\+init@{avb\+\_\+init}!gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}}
+\subsubsection[{\texorpdfstring{avb\+\_\+init}{avb_init}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int avb\+\_\+init}\hypertarget{gst__avb__playbin_8c_adee8f0101d99abe73e4ab6eb2c1543c8}{}\label{gst__avb__playbin_8c_adee8f0101d99abe73e4ab6eb2c1543c8}
+
+
+gst\+\_\+avb\+\_\+playbin.\+c 파일의 86 번째 라인에서 정의되었습니다.
+
+\index{gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}!D\+E\+S\+T\+\_\+\+A\+D\+DR@{D\+E\+S\+T\+\_\+\+A\+D\+DR}}
+\index{D\+E\+S\+T\+\_\+\+A\+D\+DR@{D\+E\+S\+T\+\_\+\+A\+D\+DR}!gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}}
+\subsubsection[{\texorpdfstring{D\+E\+S\+T\+\_\+\+A\+D\+DR}{DEST_ADDR}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char D\+E\+S\+T\+\_\+\+A\+D\+DR\mbox{[}$\,$\mbox{]} = \{ 0x91, 0x\+E0, 0x\+F0, 0x00, 0x0\+E, 0x80 \}}\hypertarget{gst__avb__playbin_8c_ae54c4983d509d6f290b00a6cc9892e0c}{}\label{gst__avb__playbin_8c_ae54c4983d509d6f290b00a6cc9892e0c}
+
+
+gst\+\_\+avb\+\_\+playbin.\+c 파일의 75 번째 라인에서 정의되었습니다.
+
+\index{gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}!err@{err}}
+\index{err@{err}!gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}}
+\subsubsection[{\texorpdfstring{err}{err}}]{\setlength{\rightskip}{0pt plus 5cm}int err}\hypertarget{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{}\label{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}
+
+
+gst\+\_\+avb\+\_\+playbin.\+c 파일의 84 번째 라인에서 정의되었습니다.
+
+\index{gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}!frame@{frame}}
+\index{frame@{frame}!gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}}
+\subsubsection[{\texorpdfstring{frame}{frame}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char frame\mbox{[}{\bf F\+R\+A\+M\+E\+\_\+\+S\+I\+ZE}\mbox{]}}\hypertarget{gst__avb__playbin_8c_ac8e710e0b5e994c0545d75d69868c6f0}{}\label{gst__avb__playbin_8c_ac8e710e0b5e994c0545d75d69868c6f0}
+
+
+gst\+\_\+avb\+\_\+playbin.\+c 파일의 91 번째 라인에서 정의되었습니다.
+
+\index{gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}!frame\+\_\+sequence@{frame\+\_\+sequence}}
+\index{frame\+\_\+sequence@{frame\+\_\+sequence}!gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}}
+\subsubsection[{\texorpdfstring{frame\+\_\+sequence}{frame_sequence}}]{\setlength{\rightskip}{0pt plus 5cm}long long int frame\+\_\+sequence = 0}\hypertarget{gst__avb__playbin_8c_a73f6455d8e0bd406fa3b5f25ddf7eb8f}{}\label{gst__avb__playbin_8c_a73f6455d8e0bd406fa3b5f25ddf7eb8f}
+
+
+gst\+\_\+avb\+\_\+playbin.\+c 파일의 90 번째 라인에서 정의되었습니다.
+
+\index{gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}!g\+\_\+exit\+\_\+app@{g\+\_\+exit\+\_\+app}}
+\index{g\+\_\+exit\+\_\+app@{g\+\_\+exit\+\_\+app}!gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}}
+\subsubsection[{\texorpdfstring{g\+\_\+exit\+\_\+app}{g_exit_app}}]{\setlength{\rightskip}{0pt plus 5cm}int g\+\_\+exit\+\_\+app = 0}\hypertarget{gst__avb__playbin_8c_a9c4ab3423a1ecf317e93be5c61377612}{}\label{gst__avb__playbin_8c_a9c4ab3423a1ecf317e93be5c61377612}
+
+
+gst\+\_\+avb\+\_\+playbin.\+c 파일의 81 번째 라인에서 정의되었습니다.
+
+\index{gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}!g\+\_\+start\+\_\+feed\+\_\+socket@{g\+\_\+start\+\_\+feed\+\_\+socket}}
+\index{g\+\_\+start\+\_\+feed\+\_\+socket@{g\+\_\+start\+\_\+feed\+\_\+socket}!gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}}
+\subsubsection[{\texorpdfstring{g\+\_\+start\+\_\+feed\+\_\+socket}{g_start_feed_socket}}]{\setlength{\rightskip}{0pt plus 5cm}int g\+\_\+start\+\_\+feed\+\_\+socket = 0}\hypertarget{gst__avb__playbin_8c_a7f7979edeff06f0ba851f7a3d4866090}{}\label{gst__avb__playbin_8c_a7f7979edeff06f0ba851f7a3d4866090}
+
+
+gst\+\_\+avb\+\_\+playbin.\+c 파일의 80 번째 라인에서 정의되었습니다.
+
+\index{gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}!h1722@{h1722}}
+\index{h1722@{h1722}!gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}}
+\subsubsection[{\texorpdfstring{h1722}{h1722}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf seventeen22\+\_\+header}$\ast$ h1722}\hypertarget{gst__avb__playbin_8c_aa863c79d5dbc5de0efc3d9b8f749af59}{}\label{gst__avb__playbin_8c_aa863c79d5dbc5de0efc3d9b8f749af59}
+
+
+gst\+\_\+avb\+\_\+playbin.\+c 파일의 89 번째 라인에서 정의되었습니다.
+
+\index{gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}!ifsock\+\_\+addr@{ifsock\+\_\+addr}}
+\index{ifsock\+\_\+addr@{ifsock\+\_\+addr}!gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}}
+\subsubsection[{\texorpdfstring{ifsock\+\_\+addr}{ifsock_addr}}]{\setlength{\rightskip}{0pt plus 5cm}struct sockaddr\+\_\+ll ifsock\+\_\+addr}\hypertarget{gst__avb__playbin_8c_af0b4c4a7922dea9c701e7f3a813467e6}{}\label{gst__avb__playbin_8c_af0b4c4a7922dea9c701e7f3a813467e6}
+
+
+gst\+\_\+avb\+\_\+playbin.\+c 파일의 87 번째 라인에서 정의되었습니다.
+
+\index{gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}!igb\+\_\+dev@{igb\+\_\+dev}}
+\index{igb\+\_\+dev@{igb\+\_\+dev}!gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}}
+\subsubsection[{\texorpdfstring{igb\+\_\+dev}{igb_dev}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf device\+\_\+t} igb\+\_\+dev}\hypertarget{gst__avb__playbin_8c_a456414422441623fbed2e3ba547b3524}{}\label{gst__avb__playbin_8c_a456414422441623fbed2e3ba547b3524}
+
+
+gst\+\_\+avb\+\_\+playbin.\+c 파일의 78 번째 라인에서 정의되었습니다.
+
+\index{gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}!interface1@{interface1}}
+\index{interface1@{interface1}!gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}}
+\subsubsection[{\texorpdfstring{interface1}{interface1}}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ interface1}\hypertarget{gst__avb__playbin_8c_a386ebf0a88b164d6ddd2cc8197c20ccc}{}\label{gst__avb__playbin_8c_a386ebf0a88b164d6ddd2cc8197c20ccc}
+
+
+gst\+\_\+avb\+\_\+playbin.\+c 파일의 85 번째 라인에서 정의되었습니다.
+
+\index{gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}!port@{port}}
+\index{port@{port}!gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}}
+\subsubsection[{\texorpdfstring{port}{port}}]{\setlength{\rightskip}{0pt plus 5cm}int port}\hypertarget{gst__avb__playbin_8c_a63c89c04d1feae07ca35558055155ffb}{}\label{gst__avb__playbin_8c_a63c89c04d1feae07ca35558055155ffb}
+
+
+gst\+\_\+avb\+\_\+playbin.\+c 파일의 83 번째 라인에서 정의되었습니다.
+
+\index{gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}!qptr@{qptr}}
+\index{qptr@{qptr}!gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}}
+\subsubsection[{\texorpdfstring{qptr}{qptr}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf tailq\+\_\+entry}$\ast$ qptr}\hypertarget{gst__avb__playbin_8c_a107ed8cc245ab3628c169e01e2798624}{}\label{gst__avb__playbin_8c_a107ed8cc245ab3628c169e01e2798624}
+
+
+gst\+\_\+avb\+\_\+playbin.\+c 파일의 93 번째 라인에서 정의되었습니다.
+
+\index{gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}!sched@{sched}}
+\index{sched@{sched}!gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}}
+\subsubsection[{\texorpdfstring{sched}{sched}}]{\setlength{\rightskip}{0pt plus 5cm}struct sched\+\_\+param sched}\hypertarget{gst__avb__playbin_8c_a171503523b22d0611a62475b2b7481d8}{}\label{gst__avb__playbin_8c_a171503523b22d0611a62475b2b7481d8}
+
+
+gst\+\_\+avb\+\_\+playbin.\+c 파일의 94 번째 라인에서 정의되었습니다.
+
+\index{gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}!size@{size}}
+\index{size@{size}!gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}}
+\subsubsection[{\texorpdfstring{size}{size}}]{\setlength{\rightskip}{0pt plus 5cm}int size}\hypertarget{gst__avb__playbin_8c_a439227feff9d7f55384e8780cfc2eb82}{}\label{gst__avb__playbin_8c_a439227feff9d7f55384e8780cfc2eb82}
+
+
+gst\+\_\+avb\+\_\+playbin.\+c 파일의 92 번째 라인에서 정의되었습니다.
+
+\index{gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}!socket\+\_\+d@{socket\+\_\+d}}
+\index{socket\+\_\+d@{socket\+\_\+d}!gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}}
+\subsubsection[{\texorpdfstring{socket\+\_\+d}{socket_d}}]{\setlength{\rightskip}{0pt plus 5cm}int socket\+\_\+d}\hypertarget{gst__avb__playbin_8c_a8bd45a5347ab8dabb3b3dfd8fe68a217}{}\label{gst__avb__playbin_8c_a8bd45a5347ab8dabb3b3dfd8fe68a217}
+
+
+gst\+\_\+avb\+\_\+playbin.\+c 파일의 88 번째 라인에서 정의되었습니다.
+
+\index{gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}!src\+\_\+template@{src\+\_\+template}}
+\index{src\+\_\+template@{src\+\_\+template}!gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}}
+\subsubsection[{\texorpdfstring{src\+\_\+template}{src_template}}]{\setlength{\rightskip}{0pt plus 5cm}Gst\+Static\+Pad\+Template src\+\_\+template\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{gst__avb__playbin_8c_a643731249f31c7864f3fb8d64d41a373}{}\label{gst__avb__playbin_8c_a643731249f31c7864f3fb8d64d41a373}
+{\bfseries 초기값\+:}
+\begin{DoxyCode}
+=
+                GST\_STATIC\_PAD\_TEMPLATE (\textcolor{stringliteral}{"src"},
+                             GST\_PAD\_SRC,
+                             GST\_PAD\_ALWAYS,
+                             GST\_STATIC\_CAPS\_ANY)
+\end{DoxyCode}
+
+
+gst\+\_\+avb\+\_\+playbin.\+c 파일의 113 번째 라인에서 정의되었습니다.
+
+\index{gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}!start\+\_\+of\+\_\+input\+\_\+data@{start\+\_\+of\+\_\+input\+\_\+data}}
+\index{start\+\_\+of\+\_\+input\+\_\+data@{start\+\_\+of\+\_\+input\+\_\+data}!gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}}
+\subsubsection[{\texorpdfstring{start\+\_\+of\+\_\+input\+\_\+data}{start_of_input_data}}]{\setlength{\rightskip}{0pt plus 5cm}int start\+\_\+of\+\_\+input\+\_\+data = 0}\hypertarget{gst__avb__playbin_8c_ad98c13d4ce265b13e881ed1955cbbb5c}{}\label{gst__avb__playbin_8c_ad98c13d4ce265b13e881ed1955cbbb5c}
+
+
+gst\+\_\+avb\+\_\+playbin.\+c 파일의 79 번째 라인에서 정의되었습니다.
+
+\index{gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}!talker\+\_\+ip@{talker\+\_\+ip}}
+\index{talker\+\_\+ip@{talker\+\_\+ip}!gst\+\_\+avb\+\_\+playbin.\+c@{gst\+\_\+avb\+\_\+playbin.\+c}}
+\subsubsection[{\texorpdfstring{talker\+\_\+ip}{talker_ip}}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ talker\+\_\+ip}\hypertarget{gst__avb__playbin_8c_af8926b86eaa34341eaed3677cda9d228}{}\label{gst__avb__playbin_8c_af8926b86eaa34341eaed3677cda9d228}
+
+
+gst\+\_\+avb\+\_\+playbin.\+c 파일의 82 번째 라인에서 정의되었습니다.
+

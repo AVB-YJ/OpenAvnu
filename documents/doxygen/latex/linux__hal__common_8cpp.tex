@@ -1,0 +1,416 @@
+\hypertarget{linux__hal__common_8cpp}{}\section{daemons/gptp/linux/src/linux\+\_\+hal\+\_\+common.cpp 파일 참조}
+\label{linux__hal__common_8cpp}\index{daemons/gptp/linux/src/linux\+\_\+hal\+\_\+common.\+cpp@{daemons/gptp/linux/src/linux\+\_\+hal\+\_\+common.\+cpp}}
+{\ttfamily \#include $<$linux\+\_\+hal\+\_\+common.\+hpp$>$}\\*
+{\ttfamily \#include $<$sys/types.\+h$>$}\\*
+{\ttfamily \#include $<$avbts\+\_\+clock.\+hpp$>$}\\*
+{\ttfamily \#include $<$ether\+\_\+port.\+hpp$>$}\\*
+{\ttfamily \#include $<$pthread.\+h$>$}\\*
+{\ttfamily \#include $<$linux\+\_\+ipc.\+hpp$>$}\\*
+{\ttfamily \#include $<$sys/mman.\+h$>$}\\*
+{\ttfamily \#include $<$fcntl.\+h$>$}\\*
+{\ttfamily \#include $<$grp.\+h$>$}\\*
+{\ttfamily \#include $<$net/if.\+h$>$}\\*
+{\ttfamily \#include $<$unistd.\+h$>$}\\*
+{\ttfamily \#include $<$errno.\+h$>$}\\*
+{\ttfamily \#include $<$signal.\+h$>$}\\*
+{\ttfamily \#include $<$net/ethernet.\+h$>$}\\*
+{\ttfamily \#include $<$netpacket/packet.\+h$>$}\\*
+{\ttfamily \#include $<$sys/ioctl.\+h$>$}\\*
+{\ttfamily \#include $<$sys/stat.\+h$>$}\\*
+{\ttfamily \#include $<$sys/socket.\+h$>$}\\*
+{\ttfamily \#include $<$netinet/in.\+h$>$}\\*
+{\ttfamily \#include $<$linux/netlink.\+h$>$}\\*
+{\ttfamily \#include $<$linux/rtnetlink.\+h$>$}\\*
+{\ttfamily \#include $<$linux/sockios.\+h$>$}\\*
+{\ttfamily \#include $<$gptp\+\_\+cfg.\+hpp$>$}\\*
+linux\+\_\+hal\+\_\+common.\+cpp에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{linux__hal__common_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{데이타 구조}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct_linux_timer_queue_private}{Linux\+Timer\+Queue\+Private}
+\item 
+struct \hyperlink{struct_linux_timer_queue_action_arg}{Linux\+Timer\+Queue\+Action\+Arg}
+\item 
+struct \hyperlink{struct_ticketing_lock_private}{Ticketing\+Lock\+Private}
+\item 
+struct \hyperlink{struct_linux_lock_private}{Linux\+Lock\+Private}
+\item 
+struct \hyperlink{struct_linux_condition_private}{Linux\+Condition\+Private}
+\item 
+struct \hyperlink{struct_linux_thread_private}{Linux\+Thread\+Private}
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_timestamp}{Timestamp} \hyperlink{linux__hal__common_8cpp_aca59dd57dc39771609459e65457e0740}{ts\+To\+Timestamp} (struct timespec $\ast$ts)
+\begin{DoxyCompactList}\small\item\em Converts timestamp in the struct timespec format to \hyperlink{class_timestamp}{Timestamp}. \end{DoxyCompactList}\item 
+static void \hyperlink{linux__hal__common_8cpp_aa4cf76f24b5f699c50850d7c1cce3023}{x\+\_\+read\+Event} (int sockint, \hyperlink{class_ether_port}{Ether\+Port} $\ast$\hyperlink{linux_2src_2daemon__cl_8cpp_aca059781ed4d0e5fca3b46246d5c5ad3}{p\+Port}, int ifindex)
+\item 
+static void \hyperlink{linux__hal__common_8cpp_a28c50a89d3f2652ec9fe1b533043a959}{x\+\_\+init\+Link\+Up\+Status} (\hyperlink{class_ether_port}{Ether\+Port} $\ast$\hyperlink{linux_2src_2daemon__cl_8cpp_aca059781ed4d0e5fca3b46246d5c5ad3}{p\+Port}, int ifindex)
+\item 
+void $\ast$ \hyperlink{linux__hal__common_8cpp_a57b16fcbb008bbb516e808c2d9e86bf9}{Linux\+Timer\+Queue\+Handler} (void $\ast$arg)
+\begin{DoxyCompactList}\small\item\em Linux timer queue handler. Deals with linux queues. \end{DoxyCompactList}\item 
+void $\ast$ \hyperlink{linux__hal__common_8cpp_a97e1788440e68cf94628a34e5e1bf3b4}{O\+S\+Thread\+Callback} (void $\ast$input)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_o_s_thread}{O\+S\+Thread} callback. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{함수 문서화}
+\index{linux\+\_\+hal\+\_\+common.\+cpp@{linux\+\_\+hal\+\_\+common.\+cpp}!Linux\+Timer\+Queue\+Handler@{Linux\+Timer\+Queue\+Handler}}
+\index{Linux\+Timer\+Queue\+Handler@{Linux\+Timer\+Queue\+Handler}!linux\+\_\+hal\+\_\+common.\+cpp@{linux\+\_\+hal\+\_\+common.\+cpp}}
+\subsubsection[{\texorpdfstring{Linux\+Timer\+Queue\+Handler(void $\ast$arg)}{LinuxTimerQueueHandler(void *arg)}}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ Linux\+Timer\+Queue\+Handler (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{arg}
+\end{DoxyParamCaption}
+)}\hypertarget{linux__hal__common_8cpp_a57b16fcbb008bbb516e808c2d9e86bf9}{}\label{linux__hal__common_8cpp_a57b16fcbb008bbb516e808c2d9e86bf9}
+
+
+Linux timer queue handler. Deals with linux queues. 
+
+
+\begin{DoxyParams}{매개변수}
+{\em arg} & \mbox{[}in\mbox{]} \hyperlink{class_linux_timer_queue}{Linux\+Timer\+Queue} arguments \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+void 
+\end{DoxyReturn}
+
+
+linux\+\_\+hal\+\_\+common.\+cpp 파일의 424 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+424                                           \{
+425     \hyperlink{class_linux_timer_queue}{LinuxTimerQueue} *timerq = (\hyperlink{class_linux_timer_queue}{LinuxTimerQueue} *) arg;
+426     sigset\_t waitfor;
+427     \textcolor{keyword}{struct }timespec \hyperlink{aaf-listener_8c_a869c60cb165af7b6177060c00c5c416c}{timeout};
+428     \hyperlink{aaf-listener_8c_a869c60cb165af7b6177060c00c5c416c}{timeout}.tv\_sec = 0; \hyperlink{aaf-listener_8c_a869c60cb165af7b6177060c00c5c416c}{timeout}.tv\_nsec = 100000000; \textcolor{comment}{/* 100 ms */}
+429 
+430     sigemptyset( &waitfor );
+431     \hyperlink{gptp__log_8hpp_ae4c6efe7c9cf6d7d3bbd28a0fd087d61}{GPTP\_LOG\_DEBUG}(\textcolor{stringliteral}{"Signal thread started"});
+432     \textcolor{keywordflow}{while}( !timerq->\hyperlink{class_linux_timer_queue_a53a2d16dac430353052f49aaa0cce34a}{stop} ) \{
+433         siginfo\_t info;
+434         LinuxTimerQueueMap\_t::iterator iter;
+435         sigaddset( &waitfor, SIGUSR1 );
+436         \textcolor{keywordflow}{if}( sigtimedwait( &waitfor, &info, &\hyperlink{aaf-listener_8c_a869c60cb165af7b6177060c00c5c416c}{timeout} ) == -1 ) \{
+437             \textcolor{keywordflow}{if}( errno == EAGAIN ) \{
+438                 \textcolor{keywordflow}{continue};
+439             \}
+440             \textcolor{keywordflow}{else} \{
+441                 \hyperlink{gptp__log_8hpp_afefbb1009717c128012bfeed94842987}{GPTP\_LOG\_ERROR}(\textcolor{stringliteral}{"Signal thread sigtimedwait error: %d"}, errno);
+442                 \textcolor{keywordflow}{break};
+443             \}
+444         \}
+445         \textcolor{keywordflow}{if}( timerq->\hyperlink{class_linux_timer_queue_abdb6f223dacf8c3cf12e918dd48ed210}{lock}->\hyperlink{class_o_s_lock_a9186992157d223030a002f3aded7aba2}{lock}() != \hyperlink{avbts__oslock_8hpp_a6ade377184a937ebffbe2a94b7369a64a6bbac1b2760c150f568c6beaa33deea0}{oslock\_ok} ) \{
+446             \textcolor{keywordflow}{break};
+447         \}
+448 
+449         iter = timerq->\hyperlink{class_linux_timer_queue_a108ec18a8374f47037489ab2d93b73ba}{timerQueueMap}.find(info.si\_value.sival\_int);
+450         \textcolor{keywordflow}{if}( iter != timerq->\hyperlink{class_linux_timer_queue_a108ec18a8374f47037489ab2d93b73ba}{timerQueueMap}.end() ) \{
+451             \textcolor{keyword}{struct }\hyperlink{struct_linux_timer_queue_action_arg}{LinuxTimerQueueActionArg} *arg = iter->second;
+452             timerq->\hyperlink{class_linux_timer_queue_a108ec18a8374f47037489ab2d93b73ba}{timerQueueMap}.erase(iter);
+453             timerq->\hyperlink{class_linux_timer_queue_a423ad61c56c43b1562df656060ba6a73}{LinuxTimerQueueAction}( arg );
+454             \textcolor{keywordflow}{if}( arg->\hyperlink{struct_linux_timer_queue_action_arg_a059a8adfbb578bc50c97a96ae2ac0779}{rm} ) \{
+455                 \textcolor{keyword}{delete} arg->\hyperlink{struct_linux_timer_queue_action_arg_afc701b8a5b43cd1d29422c68856bc614}{inner\_arg};
+456             \}
+457             timer\_delete(arg->\hyperlink{struct_linux_timer_queue_action_arg_a1f6b0d9bef8b2411e159a7753850235d}{timer\_handle});
+458             \textcolor{keyword}{delete} arg;
+459         \}
+460         \textcolor{keywordflow}{if}( timerq->\hyperlink{class_linux_timer_queue_abdb6f223dacf8c3cf12e918dd48ed210}{lock}->\hyperlink{class_o_s_lock_a5b965df44250112cac3cf967dc998bec}{unlock}() != \hyperlink{avbts__oslock_8hpp_a6ade377184a937ebffbe2a94b7369a64a6bbac1b2760c150f568c6beaa33deea0}{oslock\_ok} ) \{
+461             \textcolor{keywordflow}{break};
+462         \}
+463     \}
+464     \hyperlink{gptp__log_8hpp_ae4c6efe7c9cf6d7d3bbd28a0fd087d61}{GPTP\_LOG\_DEBUG}(\textcolor{stringliteral}{"Signal thread exit"});
+465     \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+466 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{linux__hal__common_8cpp_a57b16fcbb008bbb516e808c2d9e86bf9_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{linux__hal__common_8cpp_a57b16fcbb008bbb516e808c2d9e86bf9_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{linux\+\_\+hal\+\_\+common.\+cpp@{linux\+\_\+hal\+\_\+common.\+cpp}!O\+S\+Thread\+Callback@{O\+S\+Thread\+Callback}}
+\index{O\+S\+Thread\+Callback@{O\+S\+Thread\+Callback}!linux\+\_\+hal\+\_\+common.\+cpp@{linux\+\_\+hal\+\_\+common.\+cpp}}
+\subsubsection[{\texorpdfstring{O\+S\+Thread\+Callback(void $\ast$input)}{OSThreadCallback(void *input)}}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ O\+S\+Thread\+Callback (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{input}
+\end{DoxyParamCaption}
+)}\hypertarget{linux__hal__common_8cpp_a97e1788440e68cf94628a34e5e1bf3b4}{}\label{linux__hal__common_8cpp_a97e1788440e68cf94628a34e5e1bf3b4}
+
+
+\hyperlink{class_o_s_thread}{O\+S\+Thread} callback. 
+
+
+\begin{DoxyParams}{매개변수}
+{\em input} & \hyperlink{struct_o_s_thread_arg}{O\+S\+Thread\+Arg} structure \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+void 
+\end{DoxyReturn}
+
+
+linux\+\_\+hal\+\_\+common.\+cpp 파일의 564 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+564                                       \{
+565     \hyperlink{struct_o_s_thread_arg}{OSThreadArg} *arg = (\hyperlink{struct_o_s_thread_arg}{OSThreadArg}*) input;
+566 
+567     arg->\hyperlink{struct_o_s_thread_arg_a30d995ac745fe161ad76f8bb0dacad37}{ret} = arg->\hyperlink{struct_o_s_thread_arg_a8eac03f92af0136b0d3570a5fd522d0b}{func}( arg->\hyperlink{struct_o_s_thread_arg_ae036856e415526e58e249638733f6752}{arg} );
+568     \textcolor{keywordflow}{return} 0;
+569 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=310pt]{linux__hal__common_8cpp_a97e1788440e68cf94628a34e5e1bf3b4_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{linux\+\_\+hal\+\_\+common.\+cpp@{linux\+\_\+hal\+\_\+common.\+cpp}!ts\+To\+Timestamp@{ts\+To\+Timestamp}}
+\index{ts\+To\+Timestamp@{ts\+To\+Timestamp}!linux\+\_\+hal\+\_\+common.\+cpp@{linux\+\_\+hal\+\_\+common.\+cpp}}
+\subsubsection[{\texorpdfstring{ts\+To\+Timestamp(struct timespec $\ast$ts)}{tsToTimestamp(struct timespec *ts)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Timestamp} ts\+To\+Timestamp (
+\begin{DoxyParamCaption}
+\item[{struct timespec $\ast$}]{ts}
+\end{DoxyParamCaption}
+)}\hypertarget{linux__hal__common_8cpp_aca59dd57dc39771609459e65457e0740}{}\label{linux__hal__common_8cpp_aca59dd57dc39771609459e65457e0740}
+
+
+Converts timestamp in the struct timespec format to \hyperlink{class_timestamp}{Timestamp}. 
+
+
+\begin{DoxyParams}{매개변수}
+{\em ts} & \hyperlink{class_timestamp}{Timestamp} on struct timespec format \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+timestamp on the \hyperlink{class_timestamp}{Timestamp} format 
+\end{DoxyReturn}
+
+
+linux\+\_\+hal\+\_\+common.\+cpp 파일의 65 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+66 \{
+67     \hyperlink{class_timestamp}{Timestamp} ret;
+68     \textcolor{keywordtype}{int} seclen = \textcolor{keyword}{sizeof}(ts->tv\_sec) - \textcolor{keyword}{sizeof}(ret.\hyperlink{class_timestamp_a2bf200e58cd268d8b86cf93c51500a44}{seconds\_ls});
+69     \textcolor{keywordflow}{if} (seclen > 0) \{
+70         ret.\hyperlink{class_timestamp_a5d98378d782519e6f9c17db70f1620f0}{seconds\_ms} =
+71             ts->tv\_sec >> (\textcolor{keyword}{sizeof}(ts->tv\_sec) - seclen) * 8;
+72         ret.\hyperlink{class_timestamp_a2bf200e58cd268d8b86cf93c51500a44}{seconds\_ls} = ts->tv\_sec & 0xFFFFFFFF;
+73     \} \textcolor{keywordflow}{else} \{
+74         ret.\hyperlink{class_timestamp_a5d98378d782519e6f9c17db70f1620f0}{seconds\_ms} = 0;
+75         ret.\hyperlink{class_timestamp_a2bf200e58cd268d8b86cf93c51500a44}{seconds\_ls} = ts->tv\_sec;
+76     \}
+77     ret.\hyperlink{class_timestamp_a78ae11d98fcfe738239d0a853d82c84a}{nanoseconds} = ts->tv\_nsec;
+78     \textcolor{keywordflow}{return} ret;
+79 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{linux__hal__common_8cpp_aca59dd57dc39771609459e65457e0740_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{linux\+\_\+hal\+\_\+common.\+cpp@{linux\+\_\+hal\+\_\+common.\+cpp}!x\+\_\+init\+Link\+Up\+Status@{x\+\_\+init\+Link\+Up\+Status}}
+\index{x\+\_\+init\+Link\+Up\+Status@{x\+\_\+init\+Link\+Up\+Status}!linux\+\_\+hal\+\_\+common.\+cpp@{linux\+\_\+hal\+\_\+common.\+cpp}}
+\subsubsection[{\texorpdfstring{x\+\_\+init\+Link\+Up\+Status(\+Ether\+Port $\ast$p\+Port, int ifindex)}{x_initLinkUpStatus(EtherPort *pPort, int ifindex)}}]{\setlength{\rightskip}{0pt plus 5cm}static void x\+\_\+init\+Link\+Up\+Status (
+\begin{DoxyParamCaption}
+\item[{{\bf Ether\+Port} $\ast$}]{p\+Port, }
+\item[{int}]{ifindex}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{linux__hal__common_8cpp_a28c50a89d3f2652ec9fe1b533043a959}{}\label{linux__hal__common_8cpp_a28c50a89d3f2652ec9fe1b533043a959}
+
+
+linux\+\_\+hal\+\_\+common.\+cpp 파일의 229 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+230 \{
+231     \textcolor{keyword}{struct }ifreq device;
+232     memset(&device, 0, \textcolor{keyword}{sizeof}(device));
+233     device.ifr\_ifindex = ifindex;
+234 
+235     \textcolor{keywordtype}{int} inetSocket = socket (AF\_INET, SOCK\_STREAM, 0);
+236     \textcolor{keywordflow}{if} (inetSocket < 0) \{
+237         \hyperlink{gptp__log_8hpp_afefbb1009717c128012bfeed94842987}{GPTP\_LOG\_ERROR}(\textcolor{stringliteral}{"initLinkUpStatus error opening socket: %s"}, strerror(errno));
+238         \textcolor{keywordflow}{return};
+239     \}
+240 
+241     \textcolor{keywordtype}{int} r = ioctl(inetSocket, SIOCGIFNAME, &device);
+242     \textcolor{keywordflow}{if} (r < 0) \{
+243         \hyperlink{gptp__log_8hpp_afefbb1009717c128012bfeed94842987}{GPTP\_LOG\_ERROR}(\textcolor{stringliteral}{"initLinkUpStatus error reading interface name: %s"}, strerror(errno));
+244         close(inetSocket);
+245         \textcolor{keywordflow}{return};
+246     \}
+247     r = ioctl(inetSocket, SIOCGIFFLAGS, &device);
+248     \textcolor{keywordflow}{if} (r < 0) \{
+249         \hyperlink{gptp__log_8hpp_afefbb1009717c128012bfeed94842987}{GPTP\_LOG\_ERROR}(\textcolor{stringliteral}{"initLinkUpStatus error reading flags: %s"}, strerror(errno));
+250         close(inetSocket);
+251         \textcolor{keywordflow}{return};
+252     \}
+253     \textcolor{keywordflow}{if} (device.ifr\_flags & IFF\_RUNNING) \{
+254         \hyperlink{gptp__log_8hpp_ae4c6efe7c9cf6d7d3bbd28a0fd087d61}{GPTP\_LOG\_DEBUG}(\textcolor{stringliteral}{"Interface %s is up"}, device.ifr\_name);
+255         pPort->\hyperlink{class_ether_port_a04fb3678d82b3b74b6cedf45b3db61cf}{setLinkUpState}(\textcolor{keyword}{true});
+256     \} \textcolor{comment}{//linkUp == false by default}
+257     close(inetSocket);
+258 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=346pt]{linux__hal__common_8cpp_a28c50a89d3f2652ec9fe1b533043a959_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=330pt]{linux__hal__common_8cpp_a28c50a89d3f2652ec9fe1b533043a959_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{linux\+\_\+hal\+\_\+common.\+cpp@{linux\+\_\+hal\+\_\+common.\+cpp}!x\+\_\+read\+Event@{x\+\_\+read\+Event}}
+\index{x\+\_\+read\+Event@{x\+\_\+read\+Event}!linux\+\_\+hal\+\_\+common.\+cpp@{linux\+\_\+hal\+\_\+common.\+cpp}}
+\subsubsection[{\texorpdfstring{x\+\_\+read\+Event(int sockint, Ether\+Port $\ast$p\+Port, int ifindex)}{x_readEvent(int sockint, EtherPort *pPort, int ifindex)}}]{\setlength{\rightskip}{0pt plus 5cm}static void x\+\_\+read\+Event (
+\begin{DoxyParamCaption}
+\item[{int}]{sockint, }
+\item[{{\bf Ether\+Port} $\ast$}]{p\+Port, }
+\item[{int}]{ifindex}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{linux__hal__common_8cpp_aa4cf76f24b5f699c50850d7c1cce3023}{}\label{linux__hal__common_8cpp_aa4cf76f24b5f699c50850d7c1cce3023}
+
+
+linux\+\_\+hal\+\_\+common.\+cpp 파일의 174 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+175 \{
+176     \textcolor{keywordtype}{int} status;
+177     \textcolor{keywordtype}{char} buf[4096];
+178     \textcolor{keyword}{struct }iovec iov = \{ buf, \textcolor{keyword}{sizeof} buf \};
+179     \textcolor{keyword}{struct }sockaddr\_nl snl;
+180     \textcolor{keyword}{struct }msghdr \hyperlink{maap__log__linux_8c_a0c7e58a50354c4a4d6dad428d0e47029}{msg} = \{ (\textcolor{keywordtype}{void} *) &snl, \textcolor{keyword}{sizeof} snl, &iov, 1, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, 0, 0 \};
+181     \textcolor{keyword}{struct }nlmsghdr *msgHdr;
+182     \textcolor{keyword}{struct }ifinfomsg *ifi;
+183 
+184     status = recvmsg(sockint, &msg, 0);
+185 
+186     \textcolor{keywordflow}{if} (status < 0) \{
+187         \hyperlink{gptp__log_8hpp_afefbb1009717c128012bfeed94842987}{GPTP\_LOG\_ERROR}(\textcolor{stringliteral}{"read\_netlink: Error recvmsg: %d"}, status);
+188         \textcolor{keywordflow}{return};
+189     \}
+190 
+191     \textcolor{keywordflow}{if} (status == 0) \{
+192         \hyperlink{gptp__log_8hpp_afefbb1009717c128012bfeed94842987}{GPTP\_LOG\_ERROR}(\textcolor{stringliteral}{"read\_netlink: EOF"});
+193         \textcolor{keywordflow}{return};
+194     \}
+195 
+196     \textcolor{comment}{// Process the NETLINK messages}
+197     \textcolor{keywordflow}{for} (msgHdr = (\textcolor{keyword}{struct} nlmsghdr *)buf; NLMSG\_OK(msgHdr, (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int})status); msgHdr = NLMSG\_NEXT(
+      msgHdr, status))
+198     \{
+199         \textcolor{keywordflow}{if} (msgHdr->nlmsg\_type == NLMSG\_DONE)
+200             \textcolor{keywordflow}{return};
+201 
+202         \textcolor{keywordflow}{if} (msgHdr->nlmsg\_type == NLMSG\_ERROR) \{
+203             \hyperlink{gptp__log_8hpp_afefbb1009717c128012bfeed94842987}{GPTP\_LOG\_ERROR}(\textcolor{stringliteral}{"netlink message error"});
+204             \textcolor{keywordflow}{return};
+205         \}
+206 
+207         \textcolor{keywordflow}{if} (msgHdr->nlmsg\_type == RTM\_NEWLINK) \{
+208             ifi = (\textcolor{keyword}{struct }ifinfomsg *)NLMSG\_DATA(msgHdr);
+209             \textcolor{keywordflow}{if} (ifi->ifi\_index == ifindex) \{
+210                 \textcolor{keywordtype}{bool} linkUp = ifi->ifi\_flags & IFF\_RUNNING;
+211                 \textcolor{keywordflow}{if} (linkUp != pPort->\hyperlink{class_ether_port_aa57d236c4f7db09c470e39dc51dcc6bb}{getLinkUpState}()) \{
+212                     pPort->\hyperlink{class_ether_port_a04fb3678d82b3b74b6cedf45b3db61cf}{setLinkUpState}(linkUp);
+213                     \textcolor{keywordflow}{if} (linkUp) \{
+214                         pPort->\hyperlink{class_common_port_ac0536467e749cb4bb6b561f562857413}{processEvent}(\hyperlink{ieee1588_8hpp_a5667b805d857c6d28f83f6038a0272d3a6ba9ff3e8f158d7ee74c1ce848eeb661}{LINKUP});
+215                     \}
+216                     \textcolor{keywordflow}{else} \{
+217                         pPort->\hyperlink{class_common_port_ac0536467e749cb4bb6b561f562857413}{processEvent}(\hyperlink{ieee1588_8hpp_a5667b805d857c6d28f83f6038a0272d3a17010332cc04f464e3cc8d89d5a09a46}{LINKDOWN});
+218                     \}
+219                 \}
+220                 \textcolor{keywordflow}{else} \{
+221                     \hyperlink{gptp__log_8hpp_ae4c6efe7c9cf6d7d3bbd28a0fd087d61}{GPTP\_LOG\_DEBUG}(\textcolor{stringliteral}{"False (repeated) %s event for the interface"}, linkUp ? \textcolor{stringliteral}{"
+      LINKUP"} : \textcolor{stringliteral}{"LINKDOWN"});
+222                 \}
+223             \}
+224         \}
+225     \}
+226     \textcolor{keywordflow}{return};
+227 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{linux__hal__common_8cpp_aa4cf76f24b5f699c50850d7c1cce3023_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=318pt]{linux__hal__common_8cpp_aa4cf76f24b5f699c50850d7c1cce3023_icgraph}
+\end{center}
+\end{figure}
+
+

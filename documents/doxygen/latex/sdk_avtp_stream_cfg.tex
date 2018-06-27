@@ -1,0 +1,282 @@
+\hypertarget{sdk_avtp_stream_cfg_sdk_avtp_stream_cfg_overview}{}\section{Overview }\label{sdk_avtp_stream_cfg_sdk_avtp_stream_cfg_overview}
+The configuration of streams (talkers and listeners) is controlled via the structure \hyperlink{structopenavb__tl__cfg__t}{openavb\+\_\+tl\+\_\+cfg\+\_\+t} that is passed to the \hyperlink{tl_2openavb__tl__pub_8h_af3f5f9270f359618de3497ab9a469b83}{openavb\+T\+L\+Configure} function. There are 3 major sections within the configuration structure. The general talker / listener (A\+V\+TP stream) section, the mapping module section and the interface module section. The general section has settings used by the talker/listener module directly. The mapping module section has settings specific to the mapping module being used for the stream and the interface module section has settings specific to the interface module being used for the stream.
+
+How the \hyperlink{structopenavb__tl__cfg__t}{openavb\+\_\+tl\+\_\+cfg\+\_\+t} structure gets set is platform dependent. For the Linux reference implementation reading from .ini files is supported which in turn fills this structure. For R\+T\+O\+Ses the stream configuration structure is usually set directly via code in the A\+VB host application module. Therefore the use of .ini files is a layer above the what the core A\+VB stack uses. The Release Notes for the A\+VB port should be referenced with regards to where the configuration values can be set.
+
+Here is a sample configuration structure initialization for a H.\+264 listener.
+
+
+\begin{DoxyCode}
+1 void h264\_SampleListenerCfg(openavb\_tl\_cfg\_t *cfg)
+2 \{
+3     // Clear our the configuration structure to ensure defaults (0)
+4     memset(cfg, 0, sizeof(openavb\_tl\_cfg\_t));
+5 
+6     // This must be set to the multicast address that is used 
+7     U8 multicastStrmAddr[] = \{ 0x91, 0xE0, 0xF0, 0x00, 0xFE, 0x00 \};
+8 
+9     ///////////////////
+10     // TL (Talker / Listener) Configuration
+11     ///////////////////
+12 
+13     // Identify the role of the stream (talker or listener)
+14     // must be set to AVB\_ROLE\_LISTENER or AVB\_ROLE\_TALKER
+15     cfg->role = AVB\_ROLE\_LISTENER;
+16 
+17     memcpy(cfg->stream\_addr.buffer.ether\_addr\_octet, multicastStrmAddr, ETH\_ALEN);
+18     cfg->stream\_addr.mac = &cfg->stream\_addr.buffer;
+19 
+20     // max\_interval\_frames: The maximum number of packets that will be sent during 
+21     // an observation interval. This is only used on the talker.
+22     // cfg->max\_interval\_frames = 1;
+23 
+24     // max\_transit\_usec: Allows manually specifying a maximum transit time. 
+25     // On the talker this value is added to the PTP walltime to create the AVTP Timestamp.
+26     // On the listener this value is used to validate an expected valid timestamp range.
+27     // Note: For the listener the map\_nv\_item\_count value must be set large enough to 
+28     // allow buffering at least as many AVTP packets that can be transmitted during this 
+29     // max transit time.
+30     cfg->max\_transit\_usec = 2000;
+31 
+32     // max\_transmit\_deficit\_usec: Allows setting the maximum packet transmit rate deficit that will
+33     // be recovered when a talker falls behind. This is only used on a talker side. When a talker
+34     // can not keep up with the specified transmit rate it builds up a deficit and will attempt to 
+35     // make up for this deficit by sending more packets. There is normally some variability in the 
+36     // transmit rate because of other demands on the system so this is expected. However, without this
+37     // bounding value the deficit could grew too large in cases such where more streams are started 
+38     // than the system can support and when the number of streams is reduced the remaining streams 
+39     // will attempt to recover this deficit by sending packets at a higher rate. This can cause a problem
+40     // at the listener side and significantly delay the recovery time before media playback will return 
+41     // to normal. Typically this value can be set to the expected buffer size (in usec) that listeners are 
+42     // expected to be buffering. For low latency solutions this is normally a small value. For non-live 
+43     // media playback such as video playback the listener side buffers can often be large enough to held
+       many
+44     // seconds of data.
+45     // cfg->max\_transmit\_deficit\_usec = 2000;
+46 
+47     // internal\_latency: Allows mannually specifying an internal latency time. This is used
+48     // only on the talker.
+49     //  cfg->internal\_latency = 0;
+50 
+51     // The number of microseconds a media queue items can be passed the presentation time at which
+52     // point it will be purged.
+53     cfg->max\_stale = 500;
+54 
+55     // number of intervals to handle at once (talker)
+56     // cfg->batch\_factor = 1;
+57 
+58     // report\_seconds: How often to output stats. Defaults to 10 seconds. 0 turns off the stats. 
+59     cfg->report\_seconds = 0;
+60 
+61     // sr\_class: A talker only setting. Values are either SR\_CLASS\_A or SR\_CLASS\_B.
+62     // cfg->sr\_class = SR\_CLASS\_A;
+63 
+64     // raw\_tx\_buffers: The number of raw socket transmit buffers.
+65     // cfg->raw\_tx\_buffers = 40;
+66 
+67     // raw\_rx\_buffers: The number of raw socket receive buffers.
+68     cfg->raw\_rx\_buffers = 40;
+69 
+70     // tx\_blocking\_in\_intf : A talker only option. When set packet pacing is expected to be handled in the
+       interface module.
+71     // Commonly there will be a matching interface module configuration item that needs to be set.
+72     // cfg->tx\_blocking\_in\_intf = FALSE;
+73 
+74     ///////////////////
+75     // The remaining configuration items vary depending on the mapping module and interface module being
+       used.
+76     // These configuration values are populated as name value pairs.
+77     ///////////////////
+78 
+79     // Configuration index counter.
+80     int cfgIdx = 0;
+81 
+82     ///////////////////
+83     // Mapping module
+84     ///////////////////
+85     // map\_nv\_item\_count: The number of media queue elements to hold.
+86     cfg->libCfgNames[cfgIdx] = "map\_nv\_item\_count";
+87     cfg->libCfgValues[cfgIdx++] = "10";
+88 
+89     // map\_nv\_tx\_rate: Transmit rate. Typically this is set to match the SR Class. 8000 for A and 4000 for
+       B
+90     // cfg->libCfgNames[cfgIdx] = "map\_nv\_tx\_rate";
+91     // cfg->libCfgValues[cfgIdx++] = "8000";
+92 
+93     // map\_nv\_max\_payload\_size: This is the max RTP payload size. See RFC 6184 for details,
+94     // 1412 is the default size
+95     cfg->libCfgNames[cfgIdx] = "map\_nv\_max\_payload\_size";
+96     cfg->libCfgValues[cfgIdx++] = "1412";
+97 
+98     ///////////////////
+99     // Interface module
+100     ///////////////////
+101 
+102     // intf\_nv\_blocking\_tx\_callback : A talker only option. When set packet pacing is expected to be
+       handled in the interface module.
+103     // Commonly the TL configuration option tx\_blocking\_in\_intf needs to be set to match this.
+104     // cfg->libCfgNames[cfgIdx] = "intf\_nv\_blocking\_tx\_callback";
+105     // cfg->libCfgValues[cfgIdx++] = "1";
+106 
+107     // intf\_nv\_ignore\_timestamp : If set the listener will ignore the timestamp on media queue items.
+108     cfg->libCfgNames[cfgIdx] = "intf\_nv\_ignore\_timestamp";
+109     cfg->libCfgValues[cfgIdx++] = "0";
+110 
+111     cfg->nLibCfgItems = cfgIdx;
+112 
+113     ///////////////////
+114     // Mapping and interface modules main initialization entry points
+115     ///////////////////
+116 
+117     // pMapInitFn : Mapping module initialization function. (openavb\_map\_initialize\_fn\_t)
+118     cfg->osalCfg.pMapInitFn = openavbMapH264Initialize;
+119 
+120     // pIntfInitFn : Interface module initialization function. (openavb\_intf\_initialize\_fn\_t)
+121     cfg->osalCfg.pIntfInitFn = openavbIntfJ6Video;
+122 \} 
+\end{DoxyCode}
+
+
+~\newline
+\hypertarget{sdk_avtp_stream_cfg_sdk_avtp_stream_cfg_common}{}\section{Common Stream Configuration }\label{sdk_avtp_stream_cfg_sdk_avtp_stream_cfg_common}
+These are common stream configuration values.
+
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*2{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}{\bf Name }&{\bf Description  }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}{\bf Name }&{\bf Description  }\\\cline{1-2}
+\endhead
+role &Sets the process as a talker or listener. Valid values are {\itshape talker} or {\itshape listener}. \\\cline{1-2}
+stream\+\_\+addr &Used on the listener and should be set to the mac address of the talker. If not specified on the talker, the talker\textquotesingle{}s detected mac address will be used.~\newline
+If A\+V\+D\+E\+CC is being used, this does not need to be specified for the listener, as A\+V\+D\+E\+CC will tell the listener which value to use. \\\cline{1-2}
+stream\+\_\+uid &The unique stream ID. The talker and listener must both have this set the same.~\newline
+If A\+V\+D\+E\+CC is being used, this does not need to be specified for the listener, as A\+V\+D\+E\+CC will tell the listener which value to use. \\\cline{1-2}
+dest\+\_\+addr &Destination multicast address for the stream.~\newline
+If using
+\begin{DoxyItemize}
+\item {\bfseries with M\+A\+AP} -\/ dynamic destination addresses are generated automatically by the talker and passed to the listener, and don\textquotesingle{}t need to be configured.~\newline
+However, it is recommended that a locally administered (static) address still be configured, as the dest\+\_\+addr will be used if the M\+A\+AP daemon is not available.
+\item {\bfseries without M\+A\+AP}, locally administered (static) addresses must be configured. Those addresses are in the range of\+: 91\+:E0\+:\+F0\+:00\+:FE\+:00 -\/ 91\+:E0\+:\+F0\+:00\+:FE\+:FF. Typically use \+:00 for the first stream, \+:01 for the second, etc. 
+\end{DoxyItemize}If {\bfseries S\+RP} 
+\begin{DoxyItemize}
+\item {\bfseries is being} used the static destination address only needs to be set in the talker; 
+\item {\bfseries is not being} used the destination address need to be set (to the same value) in both the talker and listener.
+\end{DoxyItemize}The destination is a multicast address, not a real M\+AC address, so it does not match the talker or listener\textquotesingle{}s interface M\+AC. There are several pools of those addresses for use by A\+V\+TP defined in 1722. \\\cline{1-2}
+max\+\_\+interval\+\_\+frames &The maximum number of packets that will be sent during an observation interval. This is only used on the talker. \\\cline{1-2}
+max\+\_\+frame\+\_\+size &Maximum size of the frame \\\cline{1-2}
+sr\+\_\+class &A talker only setting. Values are either A or B. If not set an internal default is used. \\\cline{1-2}
+sr\+\_\+rank &A talker only setting. If not set an internal default is used. \\\cline{1-2}
+max\+\_\+transit\+\_\+usec &Allows manually specifying a maximum transit time. 
+\begin{DoxyItemize}
+\item {\bfseries On the talker} this value is added to the P\+TP walltime to create the A\+V\+TP \hyperlink{class_timestamp}{Timestamp}.
+\item {\bfseries On the listener} this value is used to validate an expected valid timestamp range.
+\end{DoxyItemize}{\bfseries Note\+:} For the listener the map\+\_\+nv\+\_\+item\+\_\+count value must be set large enough to allow buffering at least as many A\+V\+TP packets that can be transmitted during this max transit time. \\\cline{1-2}
+max\+\_\+transmit\+\_\+deficit\+\_\+usec &Allows setting the maximum packet transmit rate deficit that will be recovered when a talker falls behind. 
+
+When a talker can not keep up with the specified transmit rate it builds up a deficit and will attempt to make up for this deficit by sending more packets. There is normally some variability in the transmit rate because of other demands on the system so this is expected. However, without this bounding value the deficit could grew too large in cases such where more streams are started than the system can support and when the number of streams is reduced the remaining streams will attempt to recover this deficit by sending packets at a higher rate. This can cause a problem at the listener side and significantly delay the recovery time before media playback will return to normal.
+
+
+
+Typically this value can be set to the expected buffer size (in usec) that listeners are expected to be buffering.~\newline
+For low latency solutions this is normally a small value. For non-\/live media playback such as video playback the listener side buffers can often be large enough to held many seconds of data.
+
+{\bfseries Note\+:} This is only used on a talker side. \\\cline{1-2}
+internal\+\_\+latency &Allows manually specifying an internal latency time. This is used only on the talker. \\\cline{1-2}
+max\+\_\+stale &The number of microseconds beyond the presentation time that media queue items will be purged because they are too old (past the presentation time).~\newline
+This is only used on listener end stations.
+
+{\bfseries Note\+:} needing to purge old media queue items is often a sign of some other problem.~\newline
+For example\+: a delay at stream startup before incoming packets are ready to be processed by the media sink.~\newline
+If this deficit in processing or purging the old (stale) packets is not handled, syncing multiple listeners will be problematic.
+
+\\\cline{1-2}
+raw\+\_\+tx\+\_\+buffers &The number of raw socket transmit buffers. Typically 4 -\/ 8 are good values. This is only used by the talker. If not set internal defaults are used. \\\cline{1-2}
+raw\+\_\+rx\+\_\+buffers &The number of raw socket receive buffers. Typically 50 -\/ 100 are good values. This is only used by the listener. If not set internal defaults are used. \\\cline{1-2}
+report\+\_\+seconds &How often to output stats. Defaults to 10 seconds. 0 turns off the stats. \\\cline{1-2}
+tx\+\_\+blocking\+\_\+in\+\_\+intf &The interface module will block until data is available. This is a talker only configuration value and not all interface modules support it. \\\cline{1-2}
+p\+Map\+Init\+Fn &Pointer to the mapping module initialization function. Since this is a pointer to a function address is it not directly set in platforms that use a .ini file. \\\cline{1-2}
+Intf\+Init\+Fn &Pointer to the interface module initialization function. Since this is a pointer to a function address is it not directly set in platforms that use a .ini file. \\\cline{1-2}
+\end{longtabu}
+~\newline
+
+
+\section*{Platform Specific Stream Configuration Values}
+
+Some platform ports have unique configuration values.
+
+\subsection*{Linux}
+
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*2{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}{\bf Name }&{\bf Description  }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}{\bf Name }&{\bf Description  }\\\cline{1-2}
+\endhead
+map\+\_\+lib &The name of the library file (commonly a .so file) that implements the Initialize function.~\newline
+Comment out the map\+\_\+lib name and link in the .c file to the openavb\+\_\+tl executable to embed the mapper directly into the executable unit. There is no need to change anything else. The Initialize function will still be dynamically linked in. \\\cline{1-2}
+map\+\_\+fn &The name of the initialize function in the mapper \\\cline{1-2}
+intf\+\_\+lib &The name of the library file (commonly a .so file) that implements the Initialize function.~\newline
+Comment out the intf\+\_\+lib name and link in the .c file to the openavb\+\_\+tl executable to embed the interface directly into the executable unit.~\newline
+There is no need to change anything else. The Initialize function will still be dynamically linked in \\\cline{1-2}
+intf\+\_\+fn &The name of the initialize function in the interface \\\cline{1-2}
+\end{longtabu}
+~\newline
+\hypertarget{sdk_avtp_stream_cfg_sdk_avtp_stream_cfg_combinations}{}\section{Example Interface / Mapping Combinations }\label{sdk_avtp_stream_cfg_sdk_avtp_stream_cfg_combinations}
+Below are a few interface / mapping module combinations. Notice that a single interface module may work with mutliple mapping modules. Additionally some mappings may work with multiple interface modules.
+
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*3{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}{\bf interface module }&{\bf mapping module }&{\bf description  }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}{\bf interface module }&{\bf mapping module }&{\bf description  }\\\cline{1-3}
+\endhead
+\hyperlink{echo_host_intf}{echo} &\hyperlink{pipe_map}{pipe} &Demonstration interface used mostly for verification and testing purposes. \\\cline{1-3}
+\hyperlink{alsa_intf}{alsa} &\hyperlink{uncmp_audio_map}{uncmp\+\_\+audio}&Audio interface created for demonstration on Linux. Can be used to play captured (line in, mic) audio stream via E\+A\+VB \\\cline{1-3}
+\hyperlink{alsa_intf}{alsa} &\hyperlink{aaf_audio_map}{aaf\+\_\+audio}&Audio interface created for demonstration on Linux. Can be used to play captured (line in, mic) audio stream via E\+A\+VB \\\cline{1-3}
+\hyperlink{wav_file_intf}{wav\+\_\+file}&\hyperlink{uncmp_audio_map}{uncmp\+\_\+audio}&Configuration for playing wave file via E\+A\+VB \\\cline{1-3}
+\end{longtabu}
+~\newline
+\hypertarget{sdk_avtp_stream_cfg_sdk_avtp_stream_cfg_intf_map}{}\section{Interface and Mapping Module Configuration }\label{sdk_avtp_stream_cfg_sdk_avtp_stream_cfg_intf_map}
+Each interface module and mapping module has unique configuration values. Details of these configuration values can be found in the reference pages for each module.
+
+
+\begin{DoxyItemize}
+\item Reference\+: A\+V\+TP Mapping Modules
+\begin{DoxyItemize}
+\item \hyperlink{aaf_audio_map}{1722 A\+AF (aaf\+\_\+audio)}
+\item \hyperlink{ctrl_map}{Control (ctrl)}
+\item \hyperlink{mjpeg_map}{Motion J\+P\+EG (mjpeg)}
+\item \hyperlink{mpeg2ts_map}{M\+P\+E\+G2 TS (mpeg2ts)}
+\item \hyperlink{null_map}{N\+U\+LL (null)}
+\item \hyperlink{pipe_map}{P\+I\+PE (pipe)}
+\item \hyperlink{uncmp_audio_map}{61883-\/6 (uncmp\+\_\+audio)}
+\end{DoxyItemize}
+\item Reference\+: A\+V\+TP Interface Module
+\begin{DoxyItemize}
+\item \hyperlink{ctrl_intf}{Control (ctrl)}
+\item \hyperlink{echo_host_intf}{Echo (echo)}
+\item \hyperlink{null_host_intf}{Null (null)}
+\item \hyperlink{viewer_intf}{Viewer (viewer)}
+\end{DoxyItemize}
+\item Reference\+: A\+V\+TP Interface Module Linux Specific
+\begin{DoxyItemize}
+\item \hyperlink{alsa_intf}{A\+L\+SA (alsa)}
+\item \hyperlink{mjpeg_gst_intf}{M\+J\+P\+EG G\+ST (mjpeg\+\_\+gstreamer)}
+\item \hyperlink{mpeg2ts_file_intf}{M\+P\+E\+G2 TS File (mpeg2ts\+\_\+file)}
+\item \hyperlink{mpeg2ts_gst_intf}{M\+P\+E\+G2 TS G\+ST (mpeg2ts\+\_\+gstreamer)}
+\item \hyperlink{wav_file_intf}{W\+AV File (wav\+\_\+file)} 
+\end{DoxyItemize}
+\end{DoxyItemize}

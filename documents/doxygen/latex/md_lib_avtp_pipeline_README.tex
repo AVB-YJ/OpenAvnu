@@ -1,0 +1,213 @@
+\subsection*{General Status}
+
+
+\begin{DoxyItemize}
+\item Consider the A\+V\+TP Pipeline a work in progress.
+\item Integrated with Open\+Avnu\+:
+\begin{DoxyItemize}
+\item g\+P\+TP
+\item M\+A\+AP
+\item M\+S\+RP
+\item credit based shaper
+\item build system
+\end{DoxyItemize}
+\item Credit-\/based shaper algorithm is not used for individual streams.
+\item Testing of various mappings and benchmarking has been performed. Look at the end of this file for benchmark results.
+\item Documentation and doc generation has not been fully updated.
+\end{DoxyItemize}
+
+\subsection*{Building Current Open\+Avnu}
+
+\subsubsection*{Tool chain and libraries}
+
+
+\begin{DoxyItemize}
+\item Ubuntu 14.\+04
+\item Install dependencies for Open\+Avnu (\$ sudo apt-\/get install ...)
+\begin{DoxyItemize}
+\item \$ sudo apt-\/get install build-\/essential
+\item \$ sudo apt-\/get install libpcap-\/dev
+\item \$ sudo apt-\/get install libpci-\/dev
+\item \$ sudo apt-\/get install libsndfile1-\/dev
+\item \$ sudo apt-\/get install libjack-\/dev
+\item \$ sudo apt-\/get install linux-\/headers-\/generic
+\begin{DoxyItemize}
+\item linux-\/headers (same version as the kernel you\textquotesingle{}re building for)
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item Additional install dependencies for A\+V\+TP pipeline
+\begin{DoxyItemize}
+\item \$ sudo apt-\/get install libglib2.\+0-\/dev
+\item \$ sudo apt-\/get install libasound2-\/dev
+\end{DoxyItemize}
+\item Additional install dependencies for A\+V\+TP pipeline if G\+Streamer support is enabled
+\begin{DoxyItemize}
+\item \$ sudo apt-\/get install libgstreamer0.\+10-\/dev
+\item \$ sudo apt-\/get install libgstreamer-\/plugins-\/base0.\+10-\/dev
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+\subsubsection*{Building everything}
+
+
+\begin{DoxyItemize}
+\item Building from the repo root
+\item \$ make all
+\end{DoxyItemize}
+
+\subsubsection*{Building just A\+V\+TP pipeline}
+
+
+\begin{DoxyItemize}
+\item \$ make avtp\+\_\+pipeline
+\end{DoxyItemize}
+
+Binaries will be installed in lib/avtp\+\_\+pipeline/build/bin.
+
+\subsubsection*{Building A\+V\+TP pipeline without S\+RP or M\+A\+AP support}
+
+
+\begin{DoxyItemize}
+\item \$ A\+V\+B\+\_\+\+F\+E\+A\+T\+U\+R\+E\+\_\+\+E\+N\+D\+P\+O\+I\+NT=0 make avtp\+\_\+pipeline
+\end{DoxyItemize}
+
+Make sure to call {\ttfamily make avtp\+\_\+pipeline\+\_\+clean} before.
+
+\subsubsection*{Building A\+V\+TP pipeline documentation}
+
+
+\begin{DoxyItemize}
+\item \$ make avtp\+\_\+pipeline\+\_\+doc
+\end{DoxyItemize}
+
+\subsubsection*{Building just A\+V\+TP A\+V\+D\+E\+CC support}
+
+
+\begin{DoxyItemize}
+\item \$ make avtp\+\_\+avdecc
+\end{DoxyItemize}
+
+Binaries will be installed in lib/avtp\+\_\+pipeline/build/bin. Build files will be in the lib/avtp\+\_\+pipeline/build\+\_\+avdecc directory, to avoid interfering with the A\+V\+TP Pipeline build files.
+
+The openavb\+\_\+avdecc binary needs to be run in addition to the A\+V\+TP pipeline binary (openavb\+\_\+harness or openavb\+\_\+host) for A\+V\+D\+E\+CC to be supported.
+
+\subsubsection*{Building A\+V\+TP A\+V\+D\+E\+CC documentation}
+
+
+\begin{DoxyItemize}
+\item \$ make avtp\+\_\+avdecc\+\_\+doc
+\end{DoxyItemize}
+
+\subsection*{Running Open\+Avnu daemons}
+
+
+\begin{DoxyItemize}
+\item Helper scripts in the repo root.
+\item {\ttfamily \$ sudo ./run\+\_\+igb.sh eth1}
+\begin{DoxyItemize}
+\item Load the igb driver. Supply the interface name (ethx) as parameter. Only needed if using I\+GB support for the Intel i210 adapter.
+\end{DoxyItemize}
+\item {\ttfamily \$ sudo ./run\+\_\+daemons.sh eth1}
+\begin{DoxyItemize}
+\item Start the gptp, msrp, maap, and shaper daemons. Supply the interface name (ethx) as parameter.
+\item Daemons can also be started individually using the run\+\_\+gptp.\+sh, run\+\_\+srp.\+sh, run\+\_\+maap.\+sh, and run\+\_\+shaper.\+sh scripts.
+\end{DoxyItemize}
+\item {\ttfamily \$ sudo ./stop\+\_\+daemons.sh}
+\begin{DoxyItemize}
+\item Stop the gptp, msrp, maap, and shaper daemons. Don\textquotesingle{}t use this command while A\+V\+TP Pipeline is running.
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+\subsection*{Running Open\+Avnu A\+V\+TP Pipeline example}
+
+
+\begin{DoxyItemize}
+\item {\ttfamily \$ sudo ./run\+\_\+avtp\+\_\+pipeline.sh eth1}
+\begin{DoxyItemize}
+\item Run the current Open\+Avnu A\+V\+TP Pipeline example. Supply the interface name (ethx) as parameter.
+\end{DoxyItemize}
+\item {\ttfamily \$ sudo ./stop\+\_\+avtp\+\_\+pipeline.sh eth1}
+\begin{DoxyItemize}
+\item Stop the current Open\+Avnu A\+V\+TP Pipeline example. The script will also attempt to cleanly recover if the A\+V\+TP pipeline binaries crashed.
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+The A\+V\+TP Pipeline example is expected to be run simultaneously on two or more different Linux computers, with the network interfaces connected using A\+V\+B-\/capable switches. (The daemons do not currently support using two different network interfaces on the same computer, so different computers must be used.) You can refer to the list of \href{http://avnu.org/certified-products/}{\tt Avnu Certified Products} for switches with A\+V\+B/\+T\+SN support.
+
+To connect the Talker and Listener with the example implementation, you need to use an A\+V\+D\+E\+CC controller. (These are also referred to as 1722.\+1 or A\+T\+D\+E\+CC controllers. A\+V\+D\+E\+CC was renamed to A\+T\+D\+E\+CC by the I\+E\+EE P1722.\+1 work group in 2017.) This will tell the Listener(s) which stream to listen to, and allow the Talker and Listener(s) to coordinate when they should start streaming. There are several A\+V\+D\+E\+CC controllers available, including one in the Open\+Avnu avdecc-\/lib/controller folder.
+
+The A\+V\+TP Pipeline example Talker and Listener should also be compatible with other A\+V\+B/\+T\+SN products that support 8-\/channel, 48\+K/24-\/bit \href{https://webstore.iec.ch/preview/info_iec61883-6%7Bed2.0%7Den.pdf}{\tt I\+EC 61883-\/6} audio and A\+V\+D\+E\+CC management. The list of \href{http://avnu.org/certified-products/}{\tt Avnu Certified Products} includes some of them. The example Talker and Listener has also been used successfully to stream audio to and from Apple Macbooks running mac\+OS version 10.\+12 (Sierra) and later, and controlled with the Apple Macbook built-\/in A\+V\+D\+E\+CC controller (avbutil).
+
+\subsection*{Benchmark results}
+
+All test done on D\+E\+LL Optiplex 755 with Intel Core 2 Duo C\+PU E8400 @ 3.\+00\+G\+Hz
+
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*6{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}\PBS\centering {\bf Type }&{\bf Comment }&\PBS\centering {\bf Class }&\PBS\raggedleft {\bf Streams }&\PBS\raggedleft {\bf C\+PU Talker }&\PBS\raggedleft {\bf C\+PU Listener  }\\\cline{1-6}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}\PBS\centering {\bf Type }&{\bf Comment }&\PBS\centering {\bf Class }&\PBS\raggedleft {\bf Streams }&\PBS\raggedleft {\bf C\+PU Talker }&\PBS\raggedleft {\bf C\+PU Listener  }\\\cline{1-6}
+\endhead
+\PBS\centering 61883-\/6 &48k\+Hz stereo &\PBS\centering A &\PBS\raggedleft 1 &\PBS\raggedleft 3.\+2\%&\PBS\raggedleft 4.\+9\% \\\cline{1-6}
+\PBS\centering &&\PBS\centering &\PBS\raggedleft 2 &\PBS\raggedleft 22.\+8\%&\PBS\raggedleft 9.\+3\% \\\cline{1-6}
+\PBS\centering &&\PBS\centering &\PBS\raggedleft 4 &\PBS\raggedleft 28.\+2\%&\PBS\raggedleft 20.\+3\% \\\cline{1-6}
+\PBS\centering &&\PBS\centering &\PBS\raggedleft 8 &\PBS\raggedleft 39.\+7\%&\PBS\raggedleft 35.\+0\% \\\cline{1-6}
+\PBS\centering &&\PBS\centering &\PBS\raggedleft 16 &\PBS\raggedleft 60.\+8\%&\PBS\raggedleft 73.\+1\% \\\cline{1-6}
+\PBS\centering aaf &48k\+Hz stereo &\PBS\centering A &\PBS\raggedleft 1 &\PBS\raggedleft 3.\+4\%&\PBS\raggedleft 4.\+8\% \\\cline{1-6}
+\PBS\centering &&\PBS\centering &\PBS\raggedleft 2 &\PBS\raggedleft 22.\+7\%&\PBS\raggedleft 8.\+9\% \\\cline{1-6}
+\PBS\centering &&\PBS\centering &\PBS\raggedleft 4 &\PBS\raggedleft 28.\+7\%&\PBS\raggedleft 19.\+4\% \\\cline{1-6}
+\PBS\centering &&\PBS\centering &\PBS\raggedleft 8 &\PBS\raggedleft 40.\+5\%&\PBS\raggedleft 35.\+7\% \\\cline{1-6}
+\PBS\centering &&\PBS\centering &\PBS\raggedleft 16 &\PBS\raggedleft 63.\+0\%&\PBS\raggedleft 74.\+8\% \\\cline{1-6}
+\PBS\centering h264 &4675 Kbps vbr&\PBS\centering A &\PBS\raggedleft 1 &\PBS\raggedleft 3.\+2\%&\PBS\raggedleft 27.\+0\% \\\cline{1-6}
+\PBS\centering &&\PBS\centering &\PBS\raggedleft 2 &\PBS\raggedleft 6.\+4\%&\PBS\raggedleft 59.\+8\% \\\cline{1-6}
+\PBS\centering &&\PBS\centering &\PBS\raggedleft 4 &\PBS\raggedleft 10.\+5\%&\PBS\raggedleft 108.\+1\% \\\cline{1-6}
+\PBS\centering &&\PBS\centering &\PBS\raggedleft 6 &\PBS\raggedleft 15.\+6\%&\PBS\raggedleft 149.\+9\% \\\cline{1-6}
+\PBS\centering mpeg2ts &1405 Kbps vbr&\PBS\centering A &\PBS\raggedleft 1 &\PBS\raggedleft 2.\+5\%&\PBS\raggedleft 14.\+7\% \\\cline{1-6}
+\PBS\centering &&\PBS\centering &\PBS\raggedleft 2 &\PBS\raggedleft 5.\+0\%&\PBS\raggedleft 40.\+9\% \\\cline{1-6}
+\PBS\centering &&\PBS\centering &\PBS\raggedleft 4 &\PBS\raggedleft 7.\+6\%&\PBS\raggedleft 86.\+3\% \\\cline{1-6}
+\PBS\centering &&\PBS\centering &\PBS\raggedleft 6 &\PBS\raggedleft 10.\+7\%&\PBS\raggedleft 123.\+5\% \\\cline{1-6}
+\PBS\centering mjpeg &live camera &\PBS\centering A &\PBS\raggedleft 1 &\PBS\raggedleft 11.\+5\%&\PBS\raggedleft 10.\+2\% \\\cline{1-6}
+\PBS\centering mjpeg &videotestsrc &\PBS\centering A &\PBS\raggedleft 1 &\PBS\raggedleft 10.\+0\%&\PBS\raggedleft 6.\+4\% \\\cline{1-6}
+\PBS\centering &&\PBS\centering &\PBS\raggedleft 2 &\PBS\raggedleft 21.\+4\%&\PBS\raggedleft 13.\+0\% \\\cline{1-6}
+\PBS\centering &&\PBS\centering &\PBS\raggedleft 4 &\PBS\raggedleft 40.\+5\%&\PBS\raggedleft 26.\+9\% \\\cline{1-6}
+\PBS\centering &&\PBS\centering &\PBS\raggedleft 6 &\PBS\raggedleft 57.\+7\%&\PBS\raggedleft 42.\+0\% \\\cline{1-6}
+\PBS\centering &&\PBS\centering B &\PBS\raggedleft 12 &\PBS\raggedleft 113.\+0\%&\PBS\raggedleft 79.\+0\% \\\cline{1-6}
+\end{longtabu}
+\subsection*{More examples}
+
+Below are examples of A\+V\+TP pipeline usage with various stream types (mappings). These commands were used for generating benchmark results above. A\+V\+TP pipeline was compiled without S\+RP support ({\ttfamily A\+V\+B\+\_\+\+F\+E\+A\+T\+U\+R\+E\+\_\+\+E\+N\+D\+P\+O\+I\+NT=0 make avtp\+\_\+pipeline}). \begin{DoxyVerb}IFNAME=eth0
+STREAMS=7
+CLASS=A
+RATE=8000
+TRANSIT_USEC=2000
+REPORT=0 # statistics display interval in seconds (0 turns off statistics)
+
+# AAF talker
+sudo ./openavb_harness -I $IFNAME -s $STREAMS -d 0 -a a0:36:9f:2d:01:ad aaf_file_talker.ini,sr_class=$CLASS,map_nv_tx_rate=$RATE,max_transit_usec=$TRANSIT_USEC,map_nv_sparse_mode=0,intf_nv_file_name=test01.wav,report_seconds=$REPORT
+# AAF listener
+sudo ./openavb_harness -I $IFNAME -s $STREAMS -d 0 -a a0:36:9f:2d:01:ad aaf_listener_auto.ini,sr_class=$CLASS,map_nv_tx_rate=$RATE,max_transit_usec=$TRANSIT_USEC,map_nv_sparse_mode=0,intf_nv_audio_endian=big,report_seconds=$REPORT
+
+# 61883-6 talker
+sudo ./openavb_harness -I $IFNAME -s $STREAMS -d 0 -a a0:36:9f:2d:01:ad wav_file_talker.ini,sr_class=$CLASS,map_nv_tx_rate=$RATE,max_transit_usec=$TRANSIT_USEC,intf_nv_file_name=test01.wav,report_seconds=$REPORT
+# 61883-6 listener
+sudo ./openavb_harness -I $IFNAME -s $STREAMS -d 0 -a a0:36:9f:2d:01:ad alsa_listener.ini,sr_class=$CLASS,map_nv_tx_rate=$RATE,max_transit_usec=$TRANSIT_USEC,report_seconds=$REPORT
+
+# H264 talker
+sudo ./openavb_harness -I $IFNAME -s $STREAMS -d 0 -a a0:36:9f:2d:01:ad h264_gst_talker.ini,sr_class=$CLASS,map_nv_tx_rate=$RATE,max_transit_usec=$TRANSIT_USEC,report_seconds=$REPORT
+# H264 listener
+sudo ./openavb_harness -I $IFNAME -s $STREAMS -d 0 -a a0:36:9f:2d:01:ad h264_gst_listener.ini,sr_class=$CLASS,map_nv_tx_rate=$RATE,max_transit_usec=$TRANSIT_USEC,report_seconds=$REPORT
+
+# MJPEG talker
+sudo ./openavb_harness -I $IFNAME -s $STREAMS -d 0 -a a0:36:9f:2d:01:ad mjpeg_gst_talker.ini,sr_class=$CLASS,map_nv_tx_rate=$RATE,max_transit_usec=$TRANSIT_USEC,report_seconds=$REPORT
+# MJPEG listener
+sudo ./openavb_harness -I $IFNAME -s $STREAMS -d 0 -a a0:36:9f:2d:01:ad mjpeg_gst_listener.ini,sr_class=$CLASS,map_nv_tx_rate=$RATE,max_transit_usec=$TRANSIT_USEC,report_seconds=$REPORT
+
+# MPEG2TS talker
+sudo ./openavb_harness -I $IFNAME -s $STREAMS -d 0 -a a0:36:9f:2d:01:ad mpeg2ts_file_talker.ini,sr_class=$CLASS,map_nv_tx_rate=$RATE,max_transit_usec=$TRANSIT_USEC,report_seconds=$REPORT
+# MPEG2TS listener
+sudo ./openavb_harness -I $IFNAME -s $STREAMS -d 0 -a a0:36:9f:2d:01:ad mpeg2ts_gst_listener.ini,sr_class=$CLASS,map_nv_tx_rate=$RATE,max_transit_usec=$TRANSIT_USEC,report_seconds=$REPORT\end{DoxyVerb}
+ 

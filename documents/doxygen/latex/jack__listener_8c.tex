@@ -1,0 +1,881 @@
+\hypertarget{jack__listener_8c}{}\section{examples/jackd-\/listener/jack\+\_\+listener.c 파일 참조}
+\label{jack__listener_8c}\index{examples/jackd-\/listener/jack\+\_\+listener.\+c@{examples/jackd-\/listener/jack\+\_\+listener.\+c}}
+{\ttfamily \#include $<$errno.\+h$>$}\\*
+{\ttfamily \#include $<$signal.\+h$>$}\\*
+{\ttfamily \#include $<$pcap/pcap.\+h$>$}\\*
+{\ttfamily \#include $<$jack/jack.\+h$>$}\\*
+{\ttfamily \#include $<$jack/ringbuffer.\+h$>$}\\*
+{\ttfamily \#include $<$sndfile.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}listener\+\_\+mrp\+\_\+client.\+h\char`\"{}}\\*
+jack\+\_\+listener.\+c에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{jack__listener_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{데이타 구조}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structethernet__header}{ethernet\+\_\+header}
+\end{DoxyCompactItemize}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{jack__listener_8c_a369266c24eacffb87046522897a570d5}{\+\_\+\+G\+N\+U\+\_\+\+S\+O\+U\+R\+CE}
+\item 
+\#define \hyperlink{jack__listener_8c_abceca45b3e34890e598947ae2537c411}{L\+I\+B\+S\+ND}~1
+\item 
+\#define \hyperlink{jack__listener_8c_acfc1668731750cb1ee8974b8a7c133ef}{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR}~\char`\"{}1.\+0\char`\"{}
+\item 
+\#define \hyperlink{jack__listener_8c_a55761d85c23dc5eb2e17174005f5f374}{E\+T\+H\+E\+R\+N\+E\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}~(18)
+\item 
+\#define \hyperlink{jack__listener_8c_aab820614139995b0eb643044ae811b93}{S\+E\+V\+E\+N\+T\+E\+E\+N22\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+P\+A\+R\+T1\+\_\+\+S\+I\+ZE}~(4)
+\item 
+\#define \hyperlink{jack__listener_8c_af6d514e4b6c45d2b6c0d9ff0ee63b5cf}{S\+T\+R\+E\+A\+M\+\_\+\+I\+D\+\_\+\+S\+I\+ZE}~(8)
+\item 
+\#define \hyperlink{jack__listener_8c_a467da266db3e67fac9773b7ff136a77d}{S\+E\+V\+E\+N\+T\+E\+E\+N22\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+P\+A\+R\+T2\+\_\+\+S\+I\+ZE}~(10)
+\item 
+\#define \hyperlink{jack__listener_8c_a08223a01e39b5b982fe232d64bdc6e5d}{S\+I\+X1883\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}~(10)
+\item 
+\#define \hyperlink{jack__listener_8c_a49999be01380f41cc0d0f1f1406fb277}{H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}
+\item 
+\#define \hyperlink{jack__listener_8c_ae96c8cfd643bb439782490c091269482}{S\+A\+M\+P\+L\+E\+S\+\_\+\+P\+E\+R\+\_\+\+S\+E\+C\+O\+ND}~(48000)
+\item 
+\#define \hyperlink{jack__listener_8c_a8746ae57f53e99e184ab1e64e71d24c5}{S\+A\+M\+P\+L\+E\+S\+\_\+\+P\+E\+R\+\_\+\+F\+R\+A\+ME}~(6)
+\item 
+\#define \hyperlink{jack__listener_8c_a19b7f1b22403d61234a92decaeb6953a}{C\+H\+A\+N\+N\+E\+LS}~(2)
+\item 
+\#define \hyperlink{jack__listener_8c_ae25e0da7cdb20c758a56dc6aece92ba7}{S\+A\+M\+P\+L\+E\+\_\+\+S\+I\+ZE}~(4)
+\item 
+\#define \hyperlink{jack__listener_8c_a31848c4ff3ba4d27857877e6e2752fe2}{D\+E\+F\+A\+U\+L\+T\+\_\+\+R\+I\+N\+G\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+ZE}~(32768)
+\item 
+\#define \hyperlink{jack__listener_8c_a9942bb720a8f43b3d2ec80ae5213b88a}{M\+A\+X\+\_\+\+S\+A\+M\+P\+L\+E\+\_\+\+V\+A\+L\+UE}~((1\+U $<$$<$ ((sizeof(int32\+\_\+t) $\ast$ 8) -\/1)) -\/1)
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{jack__listener_8c_ad8c51bbfda76f19f61c727838e6eee30}{help} ()
+\item 
+void \hyperlink{jack__listener_8c_ac77809733c9935db15456a1e31af689d}{shutdown\+\_\+and\+\_\+exit} (int sig)
+\item 
+void \hyperlink{jack__listener_8c_aca1e25a70e0c2f805c83336bdf0d7eef}{pcap\+\_\+callback} (u\+\_\+char $\ast$args, const struct pcap\+\_\+pkthdr $\ast$packet\+\_\+header, const u\+\_\+char $\ast$packet)
+\item 
+static int \hyperlink{jack__listener_8c_af6f957bc20cfa0e1d33085f2738d7463}{process\+\_\+jack} (jack\+\_\+nframes\+\_\+t nframes, void $\ast$arg)
+\item 
+void \hyperlink{jack__listener_8c_ac4d1f0b712a872cb5c24c5c3f8d00bd5}{jack\+\_\+shutdown} (void $\ast$arg)
+\item 
+jack\+\_\+client\+\_\+t $\ast$ \hyperlink{jack__listener_8c_aec0bed7c17e68537e08a344567bfc8c7}{init\+\_\+jack} (struct \hyperlink{structmrp__listener__ctx}{mrp\+\_\+listener\+\_\+ctx} $\ast$\hyperlink{jack_8h_a1cde2a2cf8a56164b5e83159035be03b}{ctx})
+\item 
+int \hyperlink{jack__listener_8c_a0ddf1224851353fc92bfbff6f499fa97}{main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\subsection*{변수}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structmrp__listener__ctx}{mrp\+\_\+listener\+\_\+ctx} $\ast$ \hyperlink{jack__listener_8c_a9ecd7c3c0cc236715b8147e01893ca97}{ctx\+\_\+sig}
+\item 
+static const char $\ast$ \hyperlink{jack__listener_8c_ae724265d048ace6b96a1e977ea11c1c7}{version\+\_\+str}
+\item 
+pcap\+\_\+t $\ast$ \hyperlink{jack__listener_8c_a6c138155d7b3442efd19d0aa3f93e548}{handle}
+\item 
+u\+\_\+char \hyperlink{jack__listener_8c_ac47b444cfebf050783d2dd11863cf325}{glob\+\_\+ether\+\_\+type} \mbox{[}$\,$\mbox{]} = \{ 0x22, 0xf0 \}
+\item 
+S\+N\+D\+F\+I\+LE $\ast$ \hyperlink{jack__listener_8c_a938e8522d6d64c696a59fc5cf41a4234}{snd\+\_\+file}
+\item 
+static jack\+\_\+port\+\_\+t $\ast$$\ast$ \hyperlink{jack__listener_8c_adf5e7b86c275ba265f1df9f3852f2308}{outputports}
+\item 
+static jack\+\_\+default\+\_\+audio\+\_\+sample\+\_\+t $\ast$$\ast$ \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out}
+\item 
+jack\+\_\+ringbuffer\+\_\+t $\ast$ \hyperlink{jack__listener_8c_a0f76ccda93252f6c928a1e0293766384}{ringbuffer}
+\item 
+jack\+\_\+client\+\_\+t $\ast$ \hyperlink{jack__listener_8c_afed7053cd7bdd1cce33dec7213f340ea}{client}
+\item 
+volatile int \hyperlink{jack__listener_8c_a0edac4e53c3aadf34e162f7dbd4654b5}{ready} = 0
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}!\+\_\+\+G\+N\+U\+\_\+\+S\+O\+U\+R\+CE@{\+\_\+\+G\+N\+U\+\_\+\+S\+O\+U\+R\+CE}}
+\index{\+\_\+\+G\+N\+U\+\_\+\+S\+O\+U\+R\+CE@{\+\_\+\+G\+N\+U\+\_\+\+S\+O\+U\+R\+CE}!jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}}
+\subsubsection[{\texorpdfstring{\+\_\+\+G\+N\+U\+\_\+\+S\+O\+U\+R\+CE}{_GNU_SOURCE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define \+\_\+\+G\+N\+U\+\_\+\+S\+O\+U\+R\+CE}\hypertarget{jack__listener_8c_a369266c24eacffb87046522897a570d5}{}\label{jack__listener_8c_a369266c24eacffb87046522897a570d5}
+
+
+jack\+\_\+listener.\+c 파일의 24 번째 라인에서 정의되었습니다.
+
+\index{jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}!C\+H\+A\+N\+N\+E\+LS@{C\+H\+A\+N\+N\+E\+LS}}
+\index{C\+H\+A\+N\+N\+E\+LS@{C\+H\+A\+N\+N\+E\+LS}!jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}}
+\subsubsection[{\texorpdfstring{C\+H\+A\+N\+N\+E\+LS}{CHANNELS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+H\+A\+N\+N\+E\+LS~(2)}\hypertarget{jack__listener_8c_a19b7f1b22403d61234a92decaeb6953a}{}\label{jack__listener_8c_a19b7f1b22403d61234a92decaeb6953a}
+
+
+jack\+\_\+listener.\+c 파일의 52 번째 라인에서 정의되었습니다.
+
+\index{jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}!D\+E\+F\+A\+U\+L\+T\+\_\+\+R\+I\+N\+G\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+ZE@{D\+E\+F\+A\+U\+L\+T\+\_\+\+R\+I\+N\+G\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+ZE}}
+\index{D\+E\+F\+A\+U\+L\+T\+\_\+\+R\+I\+N\+G\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+ZE@{D\+E\+F\+A\+U\+L\+T\+\_\+\+R\+I\+N\+G\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+ZE}!jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+A\+U\+L\+T\+\_\+\+R\+I\+N\+G\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+ZE}{DEFAULT_RINGBUFFER_SIZE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+E\+F\+A\+U\+L\+T\+\_\+\+R\+I\+N\+G\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+ZE~(32768)}\hypertarget{jack__listener_8c_a31848c4ff3ba4d27857877e6e2752fe2}{}\label{jack__listener_8c_a31848c4ff3ba4d27857877e6e2752fe2}
+
+
+jack\+\_\+listener.\+c 파일의 54 번째 라인에서 정의되었습니다.
+
+\index{jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}!E\+T\+H\+E\+R\+N\+E\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE@{E\+T\+H\+E\+R\+N\+E\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}}
+\index{E\+T\+H\+E\+R\+N\+E\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE@{E\+T\+H\+E\+R\+N\+E\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}!jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}}
+\subsubsection[{\texorpdfstring{E\+T\+H\+E\+R\+N\+E\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}{ETHERNET_HEADER_SIZE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\+T\+H\+E\+R\+N\+E\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE~(18)}\hypertarget{jack__listener_8c_a55761d85c23dc5eb2e17174005f5f374}{}\label{jack__listener_8c_a55761d85c23dc5eb2e17174005f5f374}
+
+
+jack\+\_\+listener.\+c 파일의 40 번째 라인에서 정의되었습니다.
+
+\index{jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}!H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE@{H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}}
+\index{H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE@{H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}!jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}}
+\subsubsection[{\texorpdfstring{H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}{HEADER_SIZE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}\hypertarget{jack__listener_8c_a49999be01380f41cc0d0f1f1406fb277}{}\label{jack__listener_8c_a49999be01380f41cc0d0f1f1406fb277}
+{\bfseries 값\+:}
+\begin{DoxyCode}
+(\hyperlink{jack__listener_8c_a55761d85c23dc5eb2e17174005f5f374}{ETHERNET\_HEADER\_SIZE}       \(\backslash\)
+            + \hyperlink{jack__listener_8c_aab820614139995b0eb643044ae811b93}{SEVENTEEN22\_HEADER\_PART1\_SIZE} \(\backslash\)
+            + \hyperlink{jack__listener_8c_af6d514e4b6c45d2b6c0d9ff0ee63b5cf}{STREAM\_ID\_SIZE}      \(\backslash\)
+            + \hyperlink{jack__listener_8c_a467da266db3e67fac9773b7ff136a77d}{SEVENTEEN22\_HEADER\_PART2\_SIZE} \(\backslash\)
+            + \hyperlink{jack__listener_8c_a08223a01e39b5b982fe232d64bdc6e5d}{SIX1883\_HEADER\_SIZE})
+\end{DoxyCode}
+
+
+jack\+\_\+listener.\+c 파일의 45 번째 라인에서 정의되었습니다.
+
+\index{jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}!L\+I\+B\+S\+ND@{L\+I\+B\+S\+ND}}
+\index{L\+I\+B\+S\+ND@{L\+I\+B\+S\+ND}!jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}}
+\subsubsection[{\texorpdfstring{L\+I\+B\+S\+ND}{LIBSND}}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\+I\+B\+S\+ND~1}\hypertarget{jack__listener_8c_abceca45b3e34890e598947ae2537c411}{}\label{jack__listener_8c_abceca45b3e34890e598947ae2537c411}
+
+
+jack\+\_\+listener.\+c 파일의 36 번째 라인에서 정의되었습니다.
+
+\index{jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}!M\+A\+X\+\_\+\+S\+A\+M\+P\+L\+E\+\_\+\+V\+A\+L\+UE@{M\+A\+X\+\_\+\+S\+A\+M\+P\+L\+E\+\_\+\+V\+A\+L\+UE}}
+\index{M\+A\+X\+\_\+\+S\+A\+M\+P\+L\+E\+\_\+\+V\+A\+L\+UE@{M\+A\+X\+\_\+\+S\+A\+M\+P\+L\+E\+\_\+\+V\+A\+L\+UE}!jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}}
+\subsubsection[{\texorpdfstring{M\+A\+X\+\_\+\+S\+A\+M\+P\+L\+E\+\_\+\+V\+A\+L\+UE}{MAX_SAMPLE_VALUE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+X\+\_\+\+S\+A\+M\+P\+L\+E\+\_\+\+V\+A\+L\+UE~((1\+U $<$$<$ ((sizeof(int32\+\_\+t) $\ast$ 8) -\/1)) -\/1)}\hypertarget{jack__listener_8c_a9942bb720a8f43b3d2ec80ae5213b88a}{}\label{jack__listener_8c_a9942bb720a8f43b3d2ec80ae5213b88a}
+
+
+jack\+\_\+listener.\+c 파일의 55 번째 라인에서 정의되었습니다.
+
+\index{jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}!S\+A\+M\+P\+L\+E\+\_\+\+S\+I\+ZE@{S\+A\+M\+P\+L\+E\+\_\+\+S\+I\+ZE}}
+\index{S\+A\+M\+P\+L\+E\+\_\+\+S\+I\+ZE@{S\+A\+M\+P\+L\+E\+\_\+\+S\+I\+ZE}!jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}}
+\subsubsection[{\texorpdfstring{S\+A\+M\+P\+L\+E\+\_\+\+S\+I\+ZE}{SAMPLE_SIZE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+A\+M\+P\+L\+E\+\_\+\+S\+I\+ZE~(4)}\hypertarget{jack__listener_8c_ae25e0da7cdb20c758a56dc6aece92ba7}{}\label{jack__listener_8c_ae25e0da7cdb20c758a56dc6aece92ba7}
+
+
+jack\+\_\+listener.\+c 파일의 53 번째 라인에서 정의되었습니다.
+
+\index{jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}!S\+A\+M\+P\+L\+E\+S\+\_\+\+P\+E\+R\+\_\+\+F\+R\+A\+ME@{S\+A\+M\+P\+L\+E\+S\+\_\+\+P\+E\+R\+\_\+\+F\+R\+A\+ME}}
+\index{S\+A\+M\+P\+L\+E\+S\+\_\+\+P\+E\+R\+\_\+\+F\+R\+A\+ME@{S\+A\+M\+P\+L\+E\+S\+\_\+\+P\+E\+R\+\_\+\+F\+R\+A\+ME}!jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}}
+\subsubsection[{\texorpdfstring{S\+A\+M\+P\+L\+E\+S\+\_\+\+P\+E\+R\+\_\+\+F\+R\+A\+ME}{SAMPLES_PER_FRAME}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+A\+M\+P\+L\+E\+S\+\_\+\+P\+E\+R\+\_\+\+F\+R\+A\+ME~(6)}\hypertarget{jack__listener_8c_a8746ae57f53e99e184ab1e64e71d24c5}{}\label{jack__listener_8c_a8746ae57f53e99e184ab1e64e71d24c5}
+
+
+jack\+\_\+listener.\+c 파일의 51 번째 라인에서 정의되었습니다.
+
+\index{jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}!S\+A\+M\+P\+L\+E\+S\+\_\+\+P\+E\+R\+\_\+\+S\+E\+C\+O\+ND@{S\+A\+M\+P\+L\+E\+S\+\_\+\+P\+E\+R\+\_\+\+S\+E\+C\+O\+ND}}
+\index{S\+A\+M\+P\+L\+E\+S\+\_\+\+P\+E\+R\+\_\+\+S\+E\+C\+O\+ND@{S\+A\+M\+P\+L\+E\+S\+\_\+\+P\+E\+R\+\_\+\+S\+E\+C\+O\+ND}!jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}}
+\subsubsection[{\texorpdfstring{S\+A\+M\+P\+L\+E\+S\+\_\+\+P\+E\+R\+\_\+\+S\+E\+C\+O\+ND}{SAMPLES_PER_SECOND}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+A\+M\+P\+L\+E\+S\+\_\+\+P\+E\+R\+\_\+\+S\+E\+C\+O\+ND~(48000)}\hypertarget{jack__listener_8c_ae96c8cfd643bb439782490c091269482}{}\label{jack__listener_8c_ae96c8cfd643bb439782490c091269482}
+
+
+jack\+\_\+listener.\+c 파일의 50 번째 라인에서 정의되었습니다.
+
+\index{jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}!S\+E\+V\+E\+N\+T\+E\+E\+N22\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+P\+A\+R\+T1\+\_\+\+S\+I\+ZE@{S\+E\+V\+E\+N\+T\+E\+E\+N22\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+P\+A\+R\+T1\+\_\+\+S\+I\+ZE}}
+\index{S\+E\+V\+E\+N\+T\+E\+E\+N22\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+P\+A\+R\+T1\+\_\+\+S\+I\+ZE@{S\+E\+V\+E\+N\+T\+E\+E\+N22\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+P\+A\+R\+T1\+\_\+\+S\+I\+ZE}!jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}}
+\subsubsection[{\texorpdfstring{S\+E\+V\+E\+N\+T\+E\+E\+N22\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+P\+A\+R\+T1\+\_\+\+S\+I\+ZE}{SEVENTEEN22_HEADER_PART1_SIZE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+E\+V\+E\+N\+T\+E\+E\+N22\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+P\+A\+R\+T1\+\_\+\+S\+I\+ZE~(4)}\hypertarget{jack__listener_8c_aab820614139995b0eb643044ae811b93}{}\label{jack__listener_8c_aab820614139995b0eb643044ae811b93}
+
+
+jack\+\_\+listener.\+c 파일의 41 번째 라인에서 정의되었습니다.
+
+\index{jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}!S\+E\+V\+E\+N\+T\+E\+E\+N22\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+P\+A\+R\+T2\+\_\+\+S\+I\+ZE@{S\+E\+V\+E\+N\+T\+E\+E\+N22\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+P\+A\+R\+T2\+\_\+\+S\+I\+ZE}}
+\index{S\+E\+V\+E\+N\+T\+E\+E\+N22\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+P\+A\+R\+T2\+\_\+\+S\+I\+ZE@{S\+E\+V\+E\+N\+T\+E\+E\+N22\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+P\+A\+R\+T2\+\_\+\+S\+I\+ZE}!jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}}
+\subsubsection[{\texorpdfstring{S\+E\+V\+E\+N\+T\+E\+E\+N22\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+P\+A\+R\+T2\+\_\+\+S\+I\+ZE}{SEVENTEEN22_HEADER_PART2_SIZE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+E\+V\+E\+N\+T\+E\+E\+N22\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+P\+A\+R\+T2\+\_\+\+S\+I\+ZE~(10)}\hypertarget{jack__listener_8c_a467da266db3e67fac9773b7ff136a77d}{}\label{jack__listener_8c_a467da266db3e67fac9773b7ff136a77d}
+
+
+jack\+\_\+listener.\+c 파일의 43 번째 라인에서 정의되었습니다.
+
+\index{jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}!S\+I\+X1883\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE@{S\+I\+X1883\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}}
+\index{S\+I\+X1883\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE@{S\+I\+X1883\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}!jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}}
+\subsubsection[{\texorpdfstring{S\+I\+X1883\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}{SIX1883_HEADER_SIZE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+I\+X1883\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE~(10)}\hypertarget{jack__listener_8c_a08223a01e39b5b982fe232d64bdc6e5d}{}\label{jack__listener_8c_a08223a01e39b5b982fe232d64bdc6e5d}
+
+
+jack\+\_\+listener.\+c 파일의 44 번째 라인에서 정의되었습니다.
+
+\index{jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}!S\+T\+R\+E\+A\+M\+\_\+\+I\+D\+\_\+\+S\+I\+ZE@{S\+T\+R\+E\+A\+M\+\_\+\+I\+D\+\_\+\+S\+I\+ZE}}
+\index{S\+T\+R\+E\+A\+M\+\_\+\+I\+D\+\_\+\+S\+I\+ZE@{S\+T\+R\+E\+A\+M\+\_\+\+I\+D\+\_\+\+S\+I\+ZE}!jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}}
+\subsubsection[{\texorpdfstring{S\+T\+R\+E\+A\+M\+\_\+\+I\+D\+\_\+\+S\+I\+ZE}{STREAM_ID_SIZE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+T\+R\+E\+A\+M\+\_\+\+I\+D\+\_\+\+S\+I\+ZE~(8)}\hypertarget{jack__listener_8c_af6d514e4b6c45d2b6c0d9ff0ee63b5cf}{}\label{jack__listener_8c_af6d514e4b6c45d2b6c0d9ff0ee63b5cf}
+
+
+jack\+\_\+listener.\+c 파일의 42 번째 라인에서 정의되었습니다.
+
+\index{jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}!V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR@{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR}}
+\index{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR@{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR}!jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}}
+\subsubsection[{\texorpdfstring{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR}{VERSION_STR}}]{\setlength{\rightskip}{0pt plus 5cm}\#define V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR~\char`\"{}1.\+0\char`\"{}}\hypertarget{jack__listener_8c_acfc1668731750cb1ee8974b8a7c133ef}{}\label{jack__listener_8c_acfc1668731750cb1ee8974b8a7c133ef}
+
+
+jack\+\_\+listener.\+c 파일의 38 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{함수 문서화}
+\index{jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}!help@{help}}
+\index{help@{help}!jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}}
+\subsubsection[{\texorpdfstring{help()}{help()}}]{\setlength{\rightskip}{0pt plus 5cm}static void help (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{jack__listener_8c_ad8c51bbfda76f19f61c727838e6eee30}{}\label{jack__listener_8c_ad8c51bbfda76f19f61c727838e6eee30}
+
+
+jack\+\_\+listener.\+c 파일의 80 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+81 \{
+82     fprintf(stderr, \textcolor{stringliteral}{"\(\backslash\)n"}
+83         \textcolor{stringliteral}{"Usage: jack\_listener [-h] -i interface -f file\_name.wav"}
+84         \textcolor{stringliteral}{"\(\backslash\)n"}
+85         \textcolor{stringliteral}{"Options:\(\backslash\)n"}
+86         \textcolor{stringliteral}{"    -h  show this message\(\backslash\)n"}
+87         \textcolor{stringliteral}{"    -i  specify interface for AVB connection\(\backslash\)n"}
+88         \textcolor{stringliteral}{"\(\backslash\)n"} \textcolor{stringliteral}{"%s"} \textcolor{stringliteral}{"\(\backslash\)n"}, \hyperlink{jack__listener_8c_ae724265d048ace6b96a1e977ea11c1c7}{version\_str});
+89     exit(EXIT\_FAILURE);
+90 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=189pt]{jack__listener_8c_ad8c51bbfda76f19f61c727838e6eee30_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}!init\+\_\+jack@{init\+\_\+jack}}
+\index{init\+\_\+jack@{init\+\_\+jack}!jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}}
+\subsubsection[{\texorpdfstring{init\+\_\+jack(struct mrp\+\_\+listener\+\_\+ctx $\ast$ctx)}{init_jack(struct mrp_listener_ctx *ctx)}}]{\setlength{\rightskip}{0pt plus 5cm}jack\+\_\+client\+\_\+t$\ast$ init\+\_\+jack (
+\begin{DoxyParamCaption}
+\item[{struct {\bf mrp\+\_\+listener\+\_\+ctx} $\ast$}]{ctx}
+\end{DoxyParamCaption}
+)}\hypertarget{jack__listener_8c_aec0bed7c17e68537e08a344567bfc8c7}{}\label{jack__listener_8c_aec0bed7c17e68537e08a344567bfc8c7}
+
+
+jack\+\_\+listener.\+c 파일의 232 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+233 \{
+234     \textcolor{keyword}{const} \textcolor{keywordtype}{char}* client\_name = \textcolor{stringliteral}{"simple\_listener"};
+235     \textcolor{keyword}{const} \textcolor{keywordtype}{char}* server\_name = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+236     jack\_options\_t \hyperlink{aaf-talker_8c_abc1fd3a47aea6a8944038c9100eb9135}{options} = JackNullOption;
+237     jack\_status\_t status;
+238 
+239     \hyperlink{jack__listener_8c_afed7053cd7bdd1cce33dec7213f340ea}{client} = jack\_client\_open (client\_name, options, &status, server\_name);
+240 
+241     \textcolor{keywordflow}{if} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} == \hyperlink{jack__listener_8c_afed7053cd7bdd1cce33dec7213f340ea}{client}) \{
+242         fprintf (stderr, \textcolor{stringliteral}{"jack\_client\_open() failed\(\backslash\)n "});
+243         \hyperlink{jack__listener_8c_ac77809733c9935db15456a1e31af689d}{shutdown\_and\_exit}(0);
+244     \}
+245 
+246     \textcolor{keywordflow}{if} (status & JackServerStarted) \{
+247         fprintf (stderr, \textcolor{stringliteral}{"JACK server started\(\backslash\)n"});
+248     \}
+249 
+250     \textcolor{keywordflow}{if} (status & JackNameNotUnique) \{
+251         client\_name = jack\_get\_client\_name(\hyperlink{jack__listener_8c_afed7053cd7bdd1cce33dec7213f340ea}{client});
+252         fprintf (stderr, \textcolor{stringliteral}{"unique name `%s' assigned\(\backslash\)n"}, client\_name);
+253     \}
+254 
+255     jack\_set\_process\_callback(\hyperlink{jack__listener_8c_afed7053cd7bdd1cce33dec7213f340ea}{client}, \hyperlink{jack__listener_8c_af6f957bc20cfa0e1d33085f2738d7463}{process\_jack}, (\textcolor{keywordtype}{void} *)ctx);
+256     jack\_on\_shutdown(\hyperlink{jack__listener_8c_afed7053cd7bdd1cce33dec7213f340ea}{client}, \hyperlink{jack__listener_8c_ac4d1f0b712a872cb5c24c5c3f8d00bd5}{jack\_shutdown}, (\textcolor{keywordtype}{void} *)ctx);
+257 
+258     \hyperlink{jack__listener_8c_adf5e7b86c275ba265f1df9f3852f2308}{outputports} = (jack\_port\_t**) \hyperlink{_memory_leak_detector_malloc_macros_8h_ab8b25cd8f16d4a6552afe4e65c4f082d}{malloc} (\hyperlink{jack__listener_8c_a19b7f1b22403d61234a92decaeb6953a}{CHANNELS} * \textcolor{keyword}{sizeof} (jack\_port\_t*));
+259     \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out} = (jack\_default\_audio\_sample\_t**) \hyperlink{_memory_leak_detector_malloc_macros_8h_ab8b25cd8f16d4a6552afe4e65c4f082d}{malloc} (\hyperlink{jack__listener_8c_a19b7f1b22403d61234a92decaeb6953a}{CHANNELS} * \textcolor{keyword}{sizeof} (
+      jack\_default\_audio\_sample\_t*));
+260     \hyperlink{jack__listener_8c_a0f76ccda93252f6c928a1e0293766384}{ringbuffer} = jack\_ringbuffer\_create (\hyperlink{jack__listener_8c_ae25e0da7cdb20c758a56dc6aece92ba7}{SAMPLE\_SIZE} * 
+      \hyperlink{jack__listener_8c_a31848c4ff3ba4d27857877e6e2752fe2}{DEFAULT\_RINGBUFFER\_SIZE} * \hyperlink{jack__listener_8c_a19b7f1b22403d61234a92decaeb6953a}{CHANNELS});
+261     jack\_ringbuffer\_mlock(\hyperlink{jack__listener_8c_a0f76ccda93252f6c928a1e0293766384}{ringbuffer});
+262 
+263     memset(\hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out}, 0, \textcolor{keyword}{sizeof} (jack\_default\_audio\_sample\_t*)*\hyperlink{jack__listener_8c_a19b7f1b22403d61234a92decaeb6953a}{CHANNELS});
+264     memset(\hyperlink{jack__listener_8c_a0f76ccda93252f6c928a1e0293766384}{ringbuffer}->buf, 0, \hyperlink{jack__listener_8c_a0f76ccda93252f6c928a1e0293766384}{ringbuffer}->size);
+265 
+266     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i = 0; i < \hyperlink{jack__listener_8c_a19b7f1b22403d61234a92decaeb6953a}{CHANNELS}; i++) \{
+267 
+268         \textcolor{keywordtype}{char}* portName;
+269         \textcolor{keywordflow}{if} (asprintf(&portName, \textcolor{stringliteral}{"output%d"}, i) < 0) \{
+270             fprintf(stderr, \textcolor{stringliteral}{"could not create portname for port %d\(\backslash\)n"}, i);
+271             \hyperlink{jack__listener_8c_ac77809733c9935db15456a1e31af689d}{shutdown\_and\_exit}(0);
+272         \}
+273 
+274         \hyperlink{jack__listener_8c_adf5e7b86c275ba265f1df9f3852f2308}{outputports}[i] = jack\_port\_register (\hyperlink{jack__listener_8c_afed7053cd7bdd1cce33dec7213f340ea}{client}, portName, JACK\_DEFAULT\_AUDIO\_TYPE, 
+      JackPortIsOutput, 0);
+275         \textcolor{keywordflow}{if} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} == \hyperlink{jack__listener_8c_adf5e7b86c275ba265f1df9f3852f2308}{outputports}[i]) \{
+276             fprintf (stderr, \textcolor{stringliteral}{"cannot register output port \(\backslash\)"%d\(\backslash\)"!\(\backslash\)n"}, i);
+277             \hyperlink{jack__listener_8c_ac77809733c9935db15456a1e31af689d}{shutdown\_and\_exit}(0);
+278         \}
+279     \}
+280 
+281     \textcolor{keyword}{const} \textcolor{keywordtype}{char}** ports;
+282     \textcolor{keywordflow}{if} (jack\_activate (\hyperlink{jack__listener_8c_afed7053cd7bdd1cce33dec7213f340ea}{client})) \{
+283         fprintf (stderr, \textcolor{stringliteral}{"cannot activate client\(\backslash\)n"});
+284         \hyperlink{jack__listener_8c_ac77809733c9935db15456a1e31af689d}{shutdown\_and\_exit}(0);
+285     \}
+286 
+287     ports = jack\_get\_ports(\hyperlink{jack__listener_8c_afed7053cd7bdd1cce33dec7213f340ea}{client}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, JackPortIsPhysical|JackPortIsInput);
+288     \textcolor{keywordflow}{if}(\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} == ports) \{
+289         fprintf (stderr, \textcolor{stringliteral}{"no physical playback ports\(\backslash\)n"});
+290         \hyperlink{jack__listener_8c_ac77809733c9935db15456a1e31af689d}{shutdown\_and\_exit}(0);
+291     \}
+292 
+293     \textcolor{keywordtype}{int} i = 0;
+294     \textcolor{keywordflow}{while}(i < CHANNELS && \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} != ports[i]) \{
+295         \textcolor{keywordflow}{if} (jack\_connect(\hyperlink{jack__listener_8c_afed7053cd7bdd1cce33dec7213f340ea}{client}, jack\_port\_name(\hyperlink{jack__listener_8c_adf5e7b86c275ba265f1df9f3852f2308}{outputports}[i]), ports[i]))
+296             fprintf (stderr, \textcolor{stringliteral}{"cannot connect output ports\(\backslash\)n"});
+297         i++;
+298     \}
+299 
+300     \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(ports);
+301 
+302     \textcolor{keywordflow}{return} \hyperlink{jack__listener_8c_afed7053cd7bdd1cce33dec7213f340ea}{client};
+303 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{jack__listener_8c_aec0bed7c17e68537e08a344567bfc8c7_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=207pt]{jack__listener_8c_aec0bed7c17e68537e08a344567bfc8c7_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}!jack\+\_\+shutdown@{jack\+\_\+shutdown}}
+\index{jack\+\_\+shutdown@{jack\+\_\+shutdown}!jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}}
+\subsubsection[{\texorpdfstring{jack\+\_\+shutdown(void $\ast$arg)}{jack_shutdown(void *arg)}}]{\setlength{\rightskip}{0pt plus 5cm}void jack\+\_\+shutdown (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{arg}
+\end{DoxyParamCaption}
+)}\hypertarget{jack__listener_8c_ac4d1f0b712a872cb5c24c5c3f8d00bd5}{}\label{jack__listener_8c_ac4d1f0b712a872cb5c24c5c3f8d00bd5}
+
+
+jack\+\_\+listener.\+c 파일의 224 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+225 \{
+226     (void)arg; \textcolor{comment}{/* unused*/}
+227 
+228     printf(\textcolor{stringliteral}{"JACK shutdown\(\backslash\)n"});
+229     \hyperlink{jack__listener_8c_ac77809733c9935db15456a1e31af689d}{shutdown\_and\_exit}(0);
+230 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{jack__listener_8c_ac4d1f0b712a872cb5c24c5c3f8d00bd5_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=325pt]{jack__listener_8c_ac4d1f0b712a872cb5c24c5c3f8d00bd5_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}!main@{main}}
+\index{main@{main}!jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}}
+\subsubsection[{\texorpdfstring{main(int argc, char $\ast$argv[])}{main(int argc, char *argv[])}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{jack__listener_8c_a0ddf1224851353fc92bfbff6f499fa97}{}\label{jack__listener_8c_a0ddf1224851353fc92bfbff6f499fa97}
+The compiled filter expression
+
+The filter expression
+
+session, get session handler
+
+compile and apply filter
+
+loop forever and call callback-\/function for every received packet 
+
+jack\+\_\+listener.\+c 파일의 306 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+307 \{
+308     \textcolor{keywordtype}{char}* dev = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+309     \textcolor{keywordtype}{char} errbuf[PCAP\_ERRBUF\_SIZE];
+310     \textcolor{keyword}{struct }bpf\_program comp\_filter\_exp;     
+311     \textcolor{keywordtype}{char} filter\_exp[100];   
+312     \textcolor{keywordtype}{int} rc;
+313     \textcolor{keyword}{struct }\hyperlink{structmrp__listener__ctx}{mrp\_listener\_ctx} *\hyperlink{jack_8h_a1cde2a2cf8a56164b5e83159035be03b}{ctx} = \hyperlink{_memory_leak_detector_malloc_macros_8h_ab8b25cd8f16d4a6552afe4e65c4f082d}{malloc}(\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} 
+      \hyperlink{structmrp__listener__ctx}{mrp\_listener\_ctx}));
+314     \textcolor{keyword}{struct }\hyperlink{structmrp__domain__attr}{mrp\_domain\_attr} *class\_a = \hyperlink{_memory_leak_detector_malloc_macros_8h_ab8b25cd8f16d4a6552afe4e65c4f082d}{malloc}(\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} 
+      \hyperlink{structmrp__domain__attr}{mrp\_domain\_attr}));
+315     \textcolor{keyword}{struct }\hyperlink{structmrp__domain__attr}{mrp\_domain\_attr} *class\_b = \hyperlink{_memory_leak_detector_malloc_macros_8h_ab8b25cd8f16d4a6552afe4e65c4f082d}{malloc}(\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} 
+      \hyperlink{structmrp__domain__attr}{mrp\_domain\_attr}));
+316     \hyperlink{jack__listener_8c_a9ecd7c3c0cc236715b8147e01893ca97}{ctx\_sig} = \hyperlink{jack_8h_a1cde2a2cf8a56164b5e83159035be03b}{ctx};
+317     signal(SIGINT, \hyperlink{jack__listener_8c_ac77809733c9935db15456a1e31af689d}{shutdown\_and\_exit});
+318 
+319     \textcolor{keywordtype}{int} \hyperlink{shaper__daemon_8c_a4e1e0e72dd773439e333c84dd762a9c3}{c};
+320     \textcolor{keywordflow}{while}((c = \hyperlink{getopt_8c_a5b4d105808f29eef11f1a690ccc4e04a}{getopt}(argc, argv, \textcolor{stringliteral}{"hi:"})) > 0)
+321     \{
+322         \textcolor{keywordflow}{switch} (c)
+323         \{
+324         \textcolor{keywordflow}{case} \textcolor{charliteral}{'h'}:
+325             \hyperlink{jack__listener_8c_ad8c51bbfda76f19f61c727838e6eee30}{help}();
+326             \textcolor{keywordflow}{break};
+327         \textcolor{keywordflow}{case} \textcolor{charliteral}{'i'}:
+328             dev = strdup(\hyperlink{getopt_8c_adb50a0eab9fed92fc3bfc7dfa4f2c410}{optarg});
+329             \textcolor{keywordflow}{break};
+330         \textcolor{keywordflow}{default}:
+331                 fprintf(stderr, \textcolor{stringliteral}{"Unrecognized option!\(\backslash\)n"});
+332         \}
+333     \}
+334 
+335     \textcolor{keywordflow}{if} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} == dev) \{
+336         \hyperlink{jack__listener_8c_ad8c51bbfda76f19f61c727838e6eee30}{help}();
+337     \}
+338 
+339     rc = \hyperlink{listener__mrp__client_8c_a6c13af7ba5d48d218f1504b9a14314c0}{mrp\_listener\_client\_init}(ctx);
+340     \textcolor{keywordflow}{if} (rc)
+341     \{
+342         printf(\textcolor{stringliteral}{"failed to initialize global variables\(\backslash\)n"});
+343         \textcolor{keywordflow}{return} EXIT\_FAILURE;
+344     \}
+345 
+346     \textcolor{keywordflow}{if} (\hyperlink{listener__mrp__client_8c_abe45eedd55d5b13ad817c1adce0a5c7b}{create\_socket}(ctx)) \{
+347         fprintf(stderr, \textcolor{stringliteral}{"Socket creation failed.\(\backslash\)n"});
+348         \textcolor{keywordflow}{return} errno;
+349     \}
+350 
+351     rc = \hyperlink{listener__mrp__client_8c_ac298236801a3836999c032e006e55493}{mrp\_monitor}(ctx);
+352     \textcolor{keywordflow}{if} (rc)
+353     \{
+354         printf(\textcolor{stringliteral}{"failed creating MRP monitor thread\(\backslash\)n"});
+355         \textcolor{keywordflow}{return} EXIT\_FAILURE;
+356     \}
+357     rc=\hyperlink{listener__mrp__client_8c_ad9e5734b8f3e186460f459b6c3c395b5}{mrp\_get\_domain}(ctx, class\_a, class\_b);
+358     \textcolor{keywordflow}{if} (rc)
+359     \{
+360         printf(\textcolor{stringliteral}{"failed calling mrp\_get\_domain()\(\backslash\)n"});
+361         \textcolor{keywordflow}{return} EXIT\_FAILURE;
+362     \}
+363 
+364     printf(\textcolor{stringliteral}{"detected domain Class A PRIO=%d VID=%04x...\(\backslash\)n"},class\_a->\hyperlink{structmrp__domain__attr_acec9ce2df15222151ad66fcb1d74eb9f}{priority},class\_a->
+      \hyperlink{structmrp__domain__attr_a066fae47f1854479570ecc0bf7e488c3}{vid});
+365 
+366     rc = \hyperlink{listener__mrp__client_8c_a0ae45edb27d4d77bb4bf8d0c4d01f74e}{report\_domain\_status}(class\_a,ctx);
+367     \textcolor{keywordflow}{if} (rc) \{
+368         printf(\textcolor{stringliteral}{"report\_domain\_status failed\(\backslash\)n"});
+369         \textcolor{keywordflow}{return} EXIT\_FAILURE;
+370     \}
+371 
+372     rc = \hyperlink{listener__mrp__client_8c_a8036792ded75b687be4467c42ed21535}{join\_vlan}(class\_a, ctx);
+373     \textcolor{keywordflow}{if} (rc) \{
+374         printf(\textcolor{stringliteral}{"join\_vlan failed\(\backslash\)n"});
+375         \textcolor{keywordflow}{return} EXIT\_FAILURE;
+376     \}
+377 
+378     \hyperlink{jack__listener_8c_aec0bed7c17e68537e08a344567bfc8c7}{init\_jack}(ctx);
+379 
+380     fprintf(stdout,\textcolor{stringliteral}{"Waiting for talker...\(\backslash\)n"});
+381     \hyperlink{listener__mrp__client_8c_ab5307bd3ef0032cd28d4f98e85e45345}{await\_talker}(ctx);
+382 
+383     rc = \hyperlink{listener__mrp__client_8c_a41c898fcba8bc3bc312e1a10b66b620c}{send\_ready}(ctx);
+384     \textcolor{keywordflow}{if} (rc) \{
+385         printf(\textcolor{stringliteral}{"send\_ready failed\(\backslash\)n"});
+386         \textcolor{keywordflow}{return} EXIT\_FAILURE;
+387     \}
+388 
+389 \textcolor{preprocessor}{#if LIBSND}
+390     \textcolor{keywordtype}{char}* filename = \textcolor{stringliteral}{"listener.wav"};
+391     SF\_INFO* sf\_info = (SF\_INFO*)\hyperlink{_memory_leak_detector_malloc_macros_8h_ab8b25cd8f16d4a6552afe4e65c4f082d}{malloc}(\textcolor{keyword}{sizeof}(SF\_INFO));
+392 
+393     memset(sf\_info, 0, \textcolor{keyword}{sizeof}(SF\_INFO));
+394 
+395     sf\_info->samplerate = \hyperlink{jack__listener_8c_ae96c8cfd643bb439782490c091269482}{SAMPLES\_PER\_SECOND};
+396     sf\_info->channels = \hyperlink{jack__listener_8c_a19b7f1b22403d61234a92decaeb6953a}{CHANNELS};
+397     sf\_info->format = SF\_FORMAT\_WAV | SF\_FORMAT\_PCM\_24;
+398 
+399     \textcolor{keywordflow}{if} (0 == sf\_format\_check(sf\_info)) \{
+400         fprintf(stderr, \textcolor{stringliteral}{"Wrong format.\(\backslash\)n"});
+401         \hyperlink{jack__listener_8c_ac77809733c9935db15456a1e31af689d}{shutdown\_and\_exit}(0);
+402     \}
+403 
+404     \textcolor{keywordflow}{if} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} == (\hyperlink{jack__listener_8c_a938e8522d6d64c696a59fc5cf41a4234}{snd\_file} = sf\_open(filename, SFM\_WRITE, sf\_info))) \{
+405         fprintf(stderr, \textcolor{stringliteral}{"Could not create file %s.\(\backslash\)n"}, filename);
+406         \hyperlink{jack__listener_8c_ac77809733c9935db15456a1e31af689d}{shutdown\_and\_exit}(0);
+407     \}
+408 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* LIBSND */}\textcolor{preprocessor}{}
+409 
+411     \hyperlink{jack__listener_8c_a6c138155d7b3442efd19d0aa3f93e548}{handle} = pcap\_open\_live(dev, BUFSIZ, 1, -1, errbuf);
+412     \textcolor{keywordflow}{if} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} == \hyperlink{jack__listener_8c_a6c138155d7b3442efd19d0aa3f93e548}{handle}) \{
+413         fprintf(stderr, \textcolor{stringliteral}{"Could not open device %s: %s.\(\backslash\)n"}, dev, errbuf);
+414         \hyperlink{jack__listener_8c_ac77809733c9935db15456a1e31af689d}{shutdown\_and\_exit}(0);
+415     \}
+416 
+418     sprintf(filter\_exp,\textcolor{stringliteral}{"ether dst %02x:%02x:%02x:%02x:%02x:%02x"},ctx->\hyperlink{structmrp__listener__ctx_adfd737d7370a81c521ecc86600c9922a}{dst\_mac}[0],ctx->
+      \hyperlink{structmrp__listener__ctx_adfd737d7370a81c521ecc86600c9922a}{dst\_mac}[1],ctx->\hyperlink{structmrp__listener__ctx_adfd737d7370a81c521ecc86600c9922a}{dst\_mac}[2],ctx->\hyperlink{structmrp__listener__ctx_adfd737d7370a81c521ecc86600c9922a}{dst\_mac}[3],ctx->\hyperlink{structmrp__listener__ctx_adfd737d7370a81c521ecc86600c9922a}{dst\_mac}[4],ctx->
+      \hyperlink{structmrp__listener__ctx_adfd737d7370a81c521ecc86600c9922a}{dst\_mac}[5]);
+419     \textcolor{keywordflow}{if} (-1 == pcap\_compile(\hyperlink{jack__listener_8c_a6c138155d7b3442efd19d0aa3f93e548}{handle}, &comp\_filter\_exp, filter\_exp, 0, PCAP\_NETMASK\_UNKNOWN)) \{
+420         fprintf(stderr, \textcolor{stringliteral}{"Could not parse filter %s: %s.\(\backslash\)n"}, filter\_exp, pcap\_geterr(
+      \hyperlink{jack__listener_8c_a6c138155d7b3442efd19d0aa3f93e548}{handle}));
+421         \hyperlink{jack__listener_8c_ac77809733c9935db15456a1e31af689d}{shutdown\_and\_exit}(0);
+422     \}
+423 
+424     \textcolor{keywordflow}{if} (-1 == pcap\_setfilter(\hyperlink{jack__listener_8c_a6c138155d7b3442efd19d0aa3f93e548}{handle}, &comp\_filter\_exp)) \{
+425         fprintf(stderr, \textcolor{stringliteral}{"Could not install filter %s: %s.\(\backslash\)n"}, filter\_exp, pcap\_geterr(
+      \hyperlink{jack__listener_8c_a6c138155d7b3442efd19d0aa3f93e548}{handle}));
+426         \hyperlink{jack__listener_8c_ac77809733c9935db15456a1e31af689d}{shutdown\_and\_exit}(0);
+427     \}
+428 
+430     pcap\_loop(\hyperlink{jack__listener_8c_a6c138155d7b3442efd19d0aa3f93e548}{handle}, -1, \hyperlink{jack__listener_8c_aca1e25a70e0c2f805c83336bdf0d7eef}{pcap\_callback}, (u\_char*)ctx);
+431 
+432     usleep(-1);
+433     \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(ctx);
+434     \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(class\_a);
+435     \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(class\_b);
+436 
+437     \textcolor{keywordflow}{return} EXIT\_SUCCESS;
+438 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{jack__listener_8c_a0ddf1224851353fc92bfbff6f499fa97_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}!pcap\+\_\+callback@{pcap\+\_\+callback}}
+\index{pcap\+\_\+callback@{pcap\+\_\+callback}!jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}}
+\subsubsection[{\texorpdfstring{pcap\+\_\+callback(u\+\_\+char $\ast$args, const struct pcap\+\_\+pkthdr $\ast$packet\+\_\+header, const u\+\_\+char $\ast$packet)}{pcap_callback(u_char *args, const struct pcap_pkthdr *packet_header, const u_char *packet)}}]{\setlength{\rightskip}{0pt plus 5cm}void pcap\+\_\+callback (
+\begin{DoxyParamCaption}
+\item[{u\+\_\+char $\ast$}]{args, }
+\item[{const struct pcap\+\_\+pkthdr $\ast$}]{packet\+\_\+header, }
+\item[{const u\+\_\+char $\ast$}]{packet}
+\end{DoxyParamCaption}
+)}\hypertarget{jack__listener_8c_aca1e25a70e0c2f805c83336bdf0d7eef}{}\label{jack__listener_8c_aca1e25a70e0c2f805c83336bdf0d7eef}
+Ringbuffer has only 25\% or less write space available, it\textquotesingle{}s time to tell jackd to read some data. 
+
+jack\+\_\+listener.\+c 파일의 136 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+137 \{
+138     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}* test\_stream\_id;
+139     \textcolor{keyword}{struct }\hyperlink{structethernet__header}{ethernet\_header}* \hyperlink{avb__avtp_8h_a605c2dabb13492c54cbdf6afa4752898}{eth\_header};
+140     \hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\_t}* mybuf;
+141     \hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\_t} \hyperlink{gst__avb__playbin_8c_ac8e710e0b5e994c0545d75d69868c6f0}{frame}[\hyperlink{jack__listener_8c_a19b7f1b22403d61234a92decaeb6953a}{CHANNELS}];
+142     jack\_default\_audio\_sample\_t jackframe[\hyperlink{jack__listener_8c_a19b7f1b22403d61234a92decaeb6953a}{CHANNELS}];
+143     \textcolor{keywordtype}{int} cnt;
+144     \textcolor{keyword}{static} \textcolor{keywordtype}{int} \hyperlink{test__intervals_8c_ac7af894858cf396a219d632f40afdc8d}{total};
+145     \textcolor{keyword}{struct }\hyperlink{structmrp__listener__ctx}{mrp\_listener\_ctx} *\hyperlink{jack_8h_a1cde2a2cf8a56164b5e83159035be03b}{ctx} = (\textcolor{keyword}{struct }\hyperlink{structmrp__listener__ctx}{mrp\_listener\_ctx}*) 
+      \hyperlink{namespaceastime__fitline_a8187411843a6284ffb964ef3fb9fcab3}{args};
+146     (void) packet\_header; \textcolor{comment}{/* unused */}
+147 
+148     eth\_header = (\textcolor{keyword}{struct }\hyperlink{structethernet__header}{ethernet\_header}*)(packet);
+149 
+150     \textcolor{keywordflow}{if} (0 != memcmp(\hyperlink{jack__listener_8c_ac47b444cfebf050783d2dd11863cf325}{glob\_ether\_type}, eth\_header->\hyperlink{structethernet__header_a5cfaf0a7a234e912fb06a8b7d1681b65}{type},\textcolor{keyword}{sizeof}(eth\_header->
+      \hyperlink{structethernet__header_a5cfaf0a7a234e912fb06a8b7d1681b65}{type}))) \{
+151         \textcolor{keywordflow}{return};
+152     \}
+153 
+154     test\_stream\_id = (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}*)(packet + \hyperlink{jack__listener_8c_a55761d85c23dc5eb2e17174005f5f374}{ETHERNET\_HEADER\_SIZE} + 
+      \hyperlink{jack__listener_8c_aab820614139995b0eb643044ae811b93}{SEVENTEEN22\_HEADER\_PART1\_SIZE});
+155     \textcolor{keywordflow}{if} (0 != memcmp(test\_stream\_id, ctx->\hyperlink{structmrp__listener__ctx_a190ce42cbfefb20ada402ce90519cc32}{stream\_id}, \hyperlink{jack__listener_8c_af6d514e4b6c45d2b6c0d9ff0ee63b5cf}{STREAM\_ID\_SIZE})) \{
+156         \textcolor{keywordflow}{return};
+157     \}
+158 
+159     mybuf = (\hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\_t}*) (packet + \hyperlink{jack__listener_8c_a49999be01380f41cc0d0f1f1406fb277}{HEADER\_SIZE});
+160 
+161     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i = 0; i < \hyperlink{jack__listener_8c_a8746ae57f53e99e184ab1e64e71d24c5}{SAMPLES\_PER\_FRAME} * \hyperlink{jack__listener_8c_a19b7f1b22403d61234a92decaeb6953a}{CHANNELS}; i+=
+      \hyperlink{jack__listener_8c_a19b7f1b22403d61234a92decaeb6953a}{CHANNELS}) \{
+162 
+163         memcpy(&frame[0], &mybuf[i], \textcolor{keyword}{sizeof}(frame));
+164 
+165         \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} j = 0; j < \hyperlink{jack__listener_8c_a19b7f1b22403d61234a92decaeb6953a}{CHANNELS}; j++) \{
+166 
+167             frame[j] = ntohl(frame[j]);   \textcolor{comment}{/* convert to host-byte order */}
+168             frame[j] &= 0x00ffffff;       \textcolor{comment}{/* ignore leading label */}
+169             frame[j] <<= 8;               \textcolor{comment}{/* left-align remaining PCM-24 sample */}
+170 
+171             jackframe[j] = ((\hyperlink{parse_8c_a37994e3b11c72957c6f454c6ec96d43d}{int32\_t})frame[j])/(float)(\hyperlink{jack__listener_8c_a9942bb720a8f43b3d2ec80ae5213b88a}{MAX\_SAMPLE\_VALUE});
+172         \}
+173 
+174         \textcolor{keywordflow}{if} ((cnt = jack\_ringbuffer\_write\_space(\hyperlink{jack__listener_8c_a0f76ccda93252f6c928a1e0293766384}{ringbuffer})) >= 
+      \hyperlink{jack__listener_8c_ae25e0da7cdb20c758a56dc6aece92ba7}{SAMPLE\_SIZE} * CHANNELS) \{
+175             jack\_ringbuffer\_write(\hyperlink{jack__listener_8c_a0f76ccda93252f6c928a1e0293766384}{ringbuffer}, (\textcolor{keywordtype}{void}*)&jackframe[0], 
+      \hyperlink{jack__listener_8c_ae25e0da7cdb20c758a56dc6aece92ba7}{SAMPLE\_SIZE} * CHANNELS);
+176 
+177         \} \textcolor{keywordflow}{else} \{
+178             fprintf(stdout, \textcolor{stringliteral}{"Only %i bytes available after %i samples.\(\backslash\)n"}, cnt, total);
+179         \}
+180 
+181         \textcolor{keywordflow}{if} (jack\_ringbuffer\_write\_space(\hyperlink{jack__listener_8c_a0f76ccda93252f6c928a1e0293766384}{ringbuffer}) <= \hyperlink{jack__listener_8c_ae25e0da7cdb20c758a56dc6aece92ba7}{SAMPLE\_SIZE} * CHANNELS * 
+      \hyperlink{jack__listener_8c_a31848c4ff3ba4d27857877e6e2752fe2}{DEFAULT\_RINGBUFFER\_SIZE} / 4) \{
+184             \hyperlink{jack__listener_8c_a0edac4e53c3aadf34e162f7dbd4654b5}{ready} = 1;
+185         \}
+186 
+187 \textcolor{preprocessor}{#if LIBSND}
+188         sf\_writef\_float(\hyperlink{jack__listener_8c_a938e8522d6d64c696a59fc5cf41a4234}{snd\_file}, jackframe, 1);
+189 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* LIBSND */}\textcolor{preprocessor}{}
+190     \}
+191 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=233pt]{jack__listener_8c_aca1e25a70e0c2f805c83336bdf0d7eef_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}!process\+\_\+jack@{process\+\_\+jack}}
+\index{process\+\_\+jack@{process\+\_\+jack}!jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}}
+\subsubsection[{\texorpdfstring{process\+\_\+jack(jack\+\_\+nframes\+\_\+t nframes, void $\ast$arg)}{process_jack(jack_nframes_t nframes, void *arg)}}]{\setlength{\rightskip}{0pt plus 5cm}static int process\+\_\+jack (
+\begin{DoxyParamCaption}
+\item[{jack\+\_\+nframes\+\_\+t}]{nframes, }
+\item[{void $\ast$}]{arg}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{jack__listener_8c_af6f957bc20cfa0e1d33085f2738d7463}{}\label{jack__listener_8c_af6f957bc20cfa0e1d33085f2738d7463}
+
+
+jack\+\_\+listener.\+c 파일의 193 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+194 \{
+195     (void) arg; \textcolor{comment}{/* unused */}
+196 
+197     \textcolor{keywordflow}{if} (!\hyperlink{jack__listener_8c_a0edac4e53c3aadf34e162f7dbd4654b5}{ready}) \{
+198         \textcolor{keywordflow}{return} 0;
+199     \}
+200 
+201     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i = 0; i < \hyperlink{jack__listener_8c_a19b7f1b22403d61234a92decaeb6953a}{CHANNELS}; i++) \{
+202         \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out}[i] = jack\_port\_get\_buffer(\hyperlink{jack__listener_8c_adf5e7b86c275ba265f1df9f3852f2308}{outputports}[i], nframes);
+203     \}
+204 
+205     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{size\_t} i = 0; i < nframes; i++) \{
+206 
+207         \textcolor{keywordflow}{if} (jack\_ringbuffer\_read\_space(\hyperlink{jack__listener_8c_a0f76ccda93252f6c928a1e0293766384}{ringbuffer}) >= \hyperlink{jack__listener_8c_ae25e0da7cdb20c758a56dc6aece92ba7}{SAMPLE\_SIZE} * CHANNELS) \{
+208 
+209             \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} j = 0; j < \hyperlink{jack__listener_8c_a19b7f1b22403d61234a92decaeb6953a}{CHANNELS}; j++)\{
+210                 jack\_ringbuffer\_read (\hyperlink{jack__listener_8c_a0f76ccda93252f6c928a1e0293766384}{ringbuffer}, (\textcolor{keywordtype}{char}*)(\hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out}[j]+i), 
+      \hyperlink{jack__listener_8c_ae25e0da7cdb20c758a56dc6aece92ba7}{SAMPLE\_SIZE});
+211             \}
+212 
+213         \} \textcolor{keywordflow}{else} \{
+214             printf (\textcolor{stringliteral}{"underrun\(\backslash\)n"});
+215             \hyperlink{jack__listener_8c_a0edac4e53c3aadf34e162f7dbd4654b5}{ready} = 0;
+216 
+217             \textcolor{keywordflow}{return} 0;
+218         \}
+219     \}
+220 
+221     \textcolor{keywordflow}{return} 0;
+222 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=317pt]{jack__listener_8c_af6f957bc20cfa0e1d33085f2738d7463_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}!shutdown\+\_\+and\+\_\+exit@{shutdown\+\_\+and\+\_\+exit}}
+\index{shutdown\+\_\+and\+\_\+exit@{shutdown\+\_\+and\+\_\+exit}!jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}}
+\subsubsection[{\texorpdfstring{shutdown\+\_\+and\+\_\+exit(int sig)}{shutdown_and_exit(int sig)}}]{\setlength{\rightskip}{0pt plus 5cm}void shutdown\+\_\+and\+\_\+exit (
+\begin{DoxyParamCaption}
+\item[{int}]{sig}
+\end{DoxyParamCaption}
+)}\hypertarget{jack__listener_8c_ac77809733c9935db15456a1e31af689d}{}\label{jack__listener_8c_ac77809733c9935db15456a1e31af689d}
+
+
+jack\+\_\+listener.\+c 파일의 92 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+93 \{
+94     \textcolor{keywordtype}{int} ret;
+95 
+96     \textcolor{keywordflow}{if} (sig != 0)
+97         fprintf(stdout,\textcolor{stringliteral}{"Received signal %d:"}, sig);
+98     fprintf(stdout,\textcolor{stringliteral}{"Leaving...\(\backslash\)n"});
+99 
+100     \textcolor{keywordflow}{if} (0 != \hyperlink{jack__listener_8c_a9ecd7c3c0cc236715b8147e01893ca97}{ctx\_sig}->\hyperlink{structmrp__listener__ctx_afd1cfb96f67ad1b881b86ccbbf7af341}{talker}) \{
+101         ret = \hyperlink{listener__mrp__client_8c_a8dc430f53ecc32196e67faeb2de9049d}{send\_leave}(\hyperlink{jack__listener_8c_a9ecd7c3c0cc236715b8147e01893ca97}{ctx\_sig});
+102         \textcolor{keywordflow}{if} (ret)
+103             printf(\textcolor{stringliteral}{"send\_leave failed\(\backslash\)n"});
+104     \}
+105 
+106     ret = \hyperlink{listener__mrp__client_8c_a0057e5ce95d0d8ea29077cbb7bc03bb6}{mrp\_disconnect}(\hyperlink{jack__listener_8c_a9ecd7c3c0cc236715b8147e01893ca97}{ctx\_sig});
+107     \textcolor{keywordflow}{if} (ret)
+108         printf(\textcolor{stringliteral}{"mrp\_disconnect failed\(\backslash\)n"});
+109 
+110     close(\hyperlink{jack__listener_8c_a9ecd7c3c0cc236715b8147e01893ca97}{ctx\_sig}->\hyperlink{structmrp__listener__ctx_ab16a0c776c464dcfb5cf8a013a137647}{control\_socket});
+111 
+112     \textcolor{keywordflow}{if} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} != \hyperlink{jack__listener_8c_a6c138155d7b3442efd19d0aa3f93e548}{handle}) \{
+113         pcap\_breakloop(\hyperlink{jack__listener_8c_a6c138155d7b3442efd19d0aa3f93e548}{handle});
+114         pcap\_close(\hyperlink{jack__listener_8c_a6c138155d7b3442efd19d0aa3f93e548}{handle});
+115     \}
+116 
+117 \textcolor{preprocessor}{#if LIBSND}
+118     \textcolor{keywordflow}{if} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} != \hyperlink{jack__listener_8c_a938e8522d6d64c696a59fc5cf41a4234}{snd\_file}) \{
+119         sf\_write\_sync(\hyperlink{jack__listener_8c_a938e8522d6d64c696a59fc5cf41a4234}{snd\_file});
+120         sf\_close(\hyperlink{jack__listener_8c_a938e8522d6d64c696a59fc5cf41a4234}{snd\_file});
+121     \}
+122 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* LIBSND */}\textcolor{preprocessor}{}
+123 
+124     \textcolor{keywordflow}{if} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} != \hyperlink{jack__listener_8c_afed7053cd7bdd1cce33dec7213f340ea}{client}) \{
+125         fprintf(stdout, \textcolor{stringliteral}{"jack\(\backslash\)n"});
+126         jack\_client\_close(\hyperlink{jack__listener_8c_afed7053cd7bdd1cce33dec7213f340ea}{client});
+127         jack\_ringbuffer\_free(\hyperlink{jack__listener_8c_a0f76ccda93252f6c928a1e0293766384}{ringbuffer});
+128     \}
+129 
+130     \textcolor{keywordflow}{if} (sig != 0)
+131         exit(EXIT\_SUCCESS); \textcolor{comment}{/* actual signal */}
+132     \textcolor{keywordflow}{else}
+133         exit(EXIT\_FAILURE); \textcolor{comment}{/* fail condition */}
+134 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{jack__listener_8c_ac77809733c9935db15456a1e31af689d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{jack__listener_8c_ac77809733c9935db15456a1e31af689d_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{변수 문서화}
+\index{jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}!client@{client}}
+\index{client@{client}!jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}}
+\subsubsection[{\texorpdfstring{client}{client}}]{\setlength{\rightskip}{0pt plus 5cm}jack\+\_\+client\+\_\+t$\ast$ client}\hypertarget{jack__listener_8c_afed7053cd7bdd1cce33dec7213f340ea}{}\label{jack__listener_8c_afed7053cd7bdd1cce33dec7213f340ea}
+
+
+jack\+\_\+listener.\+c 파일의 77 번째 라인에서 정의되었습니다.
+
+\index{jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}!ctx\+\_\+sig@{ctx\+\_\+sig}}
+\index{ctx\+\_\+sig@{ctx\+\_\+sig}!jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}}
+\subsubsection[{\texorpdfstring{ctx\+\_\+sig}{ctx_sig}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf mrp\+\_\+listener\+\_\+ctx}$\ast$ ctx\+\_\+sig}\hypertarget{jack__listener_8c_a9ecd7c3c0cc236715b8147e01893ca97}{}\label{jack__listener_8c_a9ecd7c3c0cc236715b8147e01893ca97}
+
+
+jack\+\_\+listener.\+c 파일의 57 번째 라인에서 정의되었습니다.
+
+\index{jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}!glob\+\_\+ether\+\_\+type@{glob\+\_\+ether\+\_\+type}}
+\index{glob\+\_\+ether\+\_\+type@{glob\+\_\+ether\+\_\+type}!jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}}
+\subsubsection[{\texorpdfstring{glob\+\_\+ether\+\_\+type}{glob_ether_type}}]{\setlength{\rightskip}{0pt plus 5cm}u\+\_\+char glob\+\_\+ether\+\_\+type\mbox{[}$\,$\mbox{]} = \{ 0x22, 0xf0 \}}\hypertarget{jack__listener_8c_ac47b444cfebf050783d2dd11863cf325}{}\label{jack__listener_8c_ac47b444cfebf050783d2dd11863cf325}
+
+
+jack\+\_\+listener.\+c 파일의 72 번째 라인에서 정의되었습니다.
+
+\index{jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}!handle@{handle}}
+\index{handle@{handle}!jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}}
+\subsubsection[{\texorpdfstring{handle}{handle}}]{\setlength{\rightskip}{0pt plus 5cm}pcap\+\_\+t$\ast$ handle}\hypertarget{jack__listener_8c_a6c138155d7b3442efd19d0aa3f93e548}{}\label{jack__listener_8c_a6c138155d7b3442efd19d0aa3f93e548}
+
+
+jack\+\_\+listener.\+c 파일의 71 번째 라인에서 정의되었습니다.
+
+\index{jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}!out@{out}}
+\index{out@{out}!jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}}
+\subsubsection[{\texorpdfstring{out}{out}}]{\setlength{\rightskip}{0pt plus 5cm}jack\+\_\+default\+\_\+audio\+\_\+sample\+\_\+t$\ast$$\ast$ out\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{}\label{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}
+
+
+jack\+\_\+listener.\+c 파일의 75 번째 라인에서 정의되었습니다.
+
+\index{jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}!outputports@{outputports}}
+\index{outputports@{outputports}!jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}}
+\subsubsection[{\texorpdfstring{outputports}{outputports}}]{\setlength{\rightskip}{0pt plus 5cm}jack\+\_\+port\+\_\+t$\ast$$\ast$ outputports\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{jack__listener_8c_adf5e7b86c275ba265f1df9f3852f2308}{}\label{jack__listener_8c_adf5e7b86c275ba265f1df9f3852f2308}
+
+
+jack\+\_\+listener.\+c 파일의 74 번째 라인에서 정의되었습니다.
+
+\index{jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}!ready@{ready}}
+\index{ready@{ready}!jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}}
+\subsubsection[{\texorpdfstring{ready}{ready}}]{\setlength{\rightskip}{0pt plus 5cm}volatile int ready = 0}\hypertarget{jack__listener_8c_a0edac4e53c3aadf34e162f7dbd4654b5}{}\label{jack__listener_8c_a0edac4e53c3aadf34e162f7dbd4654b5}
+
+
+jack\+\_\+listener.\+c 파일의 78 번째 라인에서 정의되었습니다.
+
+\index{jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}!ringbuffer@{ringbuffer}}
+\index{ringbuffer@{ringbuffer}!jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}}
+\subsubsection[{\texorpdfstring{ringbuffer}{ringbuffer}}]{\setlength{\rightskip}{0pt plus 5cm}jack\+\_\+ringbuffer\+\_\+t$\ast$ ringbuffer}\hypertarget{jack__listener_8c_a0f76ccda93252f6c928a1e0293766384}{}\label{jack__listener_8c_a0f76ccda93252f6c928a1e0293766384}
+
+
+jack\+\_\+listener.\+c 파일의 76 번째 라인에서 정의되었습니다.
+
+\index{jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}!snd\+\_\+file@{snd\+\_\+file}}
+\index{snd\+\_\+file@{snd\+\_\+file}!jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}}
+\subsubsection[{\texorpdfstring{snd\+\_\+file}{snd_file}}]{\setlength{\rightskip}{0pt plus 5cm}S\+N\+D\+F\+I\+LE$\ast$ snd\+\_\+file}\hypertarget{jack__listener_8c_a938e8522d6d64c696a59fc5cf41a4234}{}\label{jack__listener_8c_a938e8522d6d64c696a59fc5cf41a4234}
+
+
+jack\+\_\+listener.\+c 파일의 73 번째 라인에서 정의되었습니다.
+
+\index{jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}!version\+\_\+str@{version\+\_\+str}}
+\index{version\+\_\+str@{version\+\_\+str}!jack\+\_\+listener.\+c@{jack\+\_\+listener.\+c}}
+\subsubsection[{\texorpdfstring{version\+\_\+str}{version_str}}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ version\+\_\+str\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{jack__listener_8c_ae724265d048ace6b96a1e977ea11c1c7}{}\label{jack__listener_8c_ae724265d048ace6b96a1e977ea11c1c7}
+{\bfseries 초기값\+:}
+\begin{DoxyCode}
+= \textcolor{stringliteral}{"jack\_listener v"} \hyperlink{jack__listener_8c_acfc1668731750cb1ee8974b8a7c133ef}{VERSION\_STR} \textcolor{stringliteral}{"\(\backslash\)n"}
+    \textcolor{stringliteral}{"Copyright (c) 2013, Katja Rohloff\(\backslash\)n"}
+\end{DoxyCode}
+
+
+jack\+\_\+listener.\+c 파일의 68 번째 라인에서 정의되었습니다.
+

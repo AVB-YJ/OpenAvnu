@@ -1,0 +1,424 @@
+\hypertarget{maap__timer__linux_8c}{}\section{daemons/maap/linux/src/maap\+\_\+timer\+\_\+linux.c 파일 참조}
+\label{maap__timer__linux_8c}\index{daemons/maap/linux/src/maap\+\_\+timer\+\_\+linux.\+c@{daemons/maap/linux/src/maap\+\_\+timer\+\_\+linux.\+c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$signal.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$assert.\+h$>$}\\*
+{\ttfamily \#include $<$time.\+h$>$}\\*
+{\ttfamily \#include $<$errno.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}maap\+\_\+timer.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}maap\+\_\+log.\+h\char`\"{}}\\*
+maap\+\_\+timer\+\_\+linux.\+c에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap__timer__linux_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{데이타 구조}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structmaap__timer}{maap\+\_\+timer}
+\end{DoxyCompactItemize}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{maap__timer__linux_8c_af641e281ec3ad594d47b9071f3cbc493}{M\+A\+A\+P\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}~\char`\"{}Timer\char`\"{}
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{maap__timer_8h_abaeea299a655478cd0fe3e073a20fbe4}{Timer} $\ast$ \hyperlink{maap__timer__linux_8c_a23def05c4f6e554efc16883198bae8dc}{Time\+\_\+new\+Timer} (void)
+\item 
+void \hyperlink{maap__timer__linux_8c_a644091a3aacd9a19d75b37b38b94189a}{Time\+\_\+del\+Timer} (\hyperlink{maap__timer_8h_abaeea299a655478cd0fe3e073a20fbe4}{Timer} $\ast$timer)
+\item 
+void \hyperlink{maap__timer__linux_8c_a8920ffffa792240e706412f5c692af7f}{Time\+\_\+set\+Timer} (\hyperlink{maap__timer_8h_abaeea299a655478cd0fe3e073a20fbe4}{Timer} $\ast$timer, const \hyperlink{maap__timer_8h_a820ab516df7068a95c9e59f09e82859b}{Time} $\ast$t)
+\item 
+\hyperlink{parse_8c_a67a9885ef4908cb72ce26d75b694386c}{int64\+\_\+t} \hyperlink{maap__timer__linux_8c_a11bccdfcf12a494019f18378721e072d}{Time\+\_\+remaining} (\hyperlink{maap__timer_8h_abaeea299a655478cd0fe3e073a20fbe4}{Timer} $\ast$timer)
+\item 
+void \hyperlink{maap__timer__linux_8c_a89f6a851fce064664ddac3d9b5b12d9f}{Time\+\_\+add} (\hyperlink{maap__timer_8h_a820ab516df7068a95c9e59f09e82859b}{Time} $\ast$a, const \hyperlink{maap__timer_8h_a820ab516df7068a95c9e59f09e82859b}{Time} $\ast$b)
+\item 
+\hyperlink{parse_8c_a67a9885ef4908cb72ce26d75b694386c}{int64\+\_\+t} \hyperlink{maap__timer__linux_8c_a9abea302af3a427a11ab201362dfd453}{Time\+\_\+diff} (const \hyperlink{maap__timer_8h_a820ab516df7068a95c9e59f09e82859b}{Time} $\ast$a, const \hyperlink{maap__timer_8h_a820ab516df7068a95c9e59f09e82859b}{Time} $\ast$b)
+\item 
+int \hyperlink{maap__timer__linux_8c_a0fed899a04a952b1cfefd3832aa75a8b}{Time\+\_\+cmp} (const \hyperlink{maap__timer_8h_a820ab516df7068a95c9e59f09e82859b}{Time} $\ast$a, const \hyperlink{maap__timer_8h_a820ab516df7068a95c9e59f09e82859b}{Time} $\ast$b)
+\item 
+int \hyperlink{maap__timer__linux_8c_af9d862cfcea8ef782ac4490b30646c5c}{Time\+\_\+passed} (const \hyperlink{maap__timer_8h_a820ab516df7068a95c9e59f09e82859b}{Time} $\ast$current, const \hyperlink{maap__timer_8h_a820ab516df7068a95c9e59f09e82859b}{Time} $\ast$target)
+\item 
+void \hyperlink{maap__timer__linux_8c_a90f59a555e6d8f8655218a63f6b1768e}{Time\+\_\+set\+From\+Nanos} (\hyperlink{maap__timer_8h_a820ab516df7068a95c9e59f09e82859b}{Time} $\ast$t, \hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\+\_\+t} nsec)
+\item 
+void \hyperlink{maap__timer__linux_8c_abe1fa73a62adeef30aa8c8eb8fd614e9}{Time\+\_\+set\+From\+Monotonic\+Timer} (\hyperlink{maap__timer_8h_a820ab516df7068a95c9e59f09e82859b}{Time} $\ast$t)
+\item 
+const char $\ast$ \hyperlink{maap__timer__linux_8c_afe800aa08a24713870ea65a7ca03d87b}{Time\+\_\+dump} (const \hyperlink{maap__timer_8h_a820ab516df7068a95c9e59f09e82859b}{Time} $\ast$t)
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{maap\+\_\+timer\+\_\+linux.\+c@{maap\+\_\+timer\+\_\+linux.\+c}!M\+A\+A\+P\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT@{M\+A\+A\+P\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}}
+\index{M\+A\+A\+P\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT@{M\+A\+A\+P\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}!maap\+\_\+timer\+\_\+linux.\+c@{maap\+\_\+timer\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{M\+A\+A\+P\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}{MAAP_LOG_COMPONENT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+A\+P\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT~\char`\"{}Timer\char`\"{}}\hypertarget{maap__timer__linux_8c_af641e281ec3ad594d47b9071f3cbc493}{}\label{maap__timer__linux_8c_af641e281ec3ad594d47b9071f3cbc493}
+
+
+maap\+\_\+timer\+\_\+linux.\+c 파일의 40 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{함수 문서화}
+\index{maap\+\_\+timer\+\_\+linux.\+c@{maap\+\_\+timer\+\_\+linux.\+c}!Time\+\_\+add@{Time\+\_\+add}}
+\index{Time\+\_\+add@{Time\+\_\+add}!maap\+\_\+timer\+\_\+linux.\+c@{maap\+\_\+timer\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{Time\+\_\+add(\+Time $\ast$a, const Time $\ast$b)}{Time_add(Time *a, const Time *b)}}]{\setlength{\rightskip}{0pt plus 5cm}void Time\+\_\+add (
+\begin{DoxyParamCaption}
+\item[{{\bf Time} $\ast$}]{a, }
+\item[{const {\bf Time} $\ast$}]{b}
+\end{DoxyParamCaption}
+)}\hypertarget{maap__timer__linux_8c_a89f6a851fce064664ddac3d9b5b12d9f}{}\label{maap__timer__linux_8c_a89f6a851fce064664ddac3d9b5b12d9f}
+Adds the second time to the first time.
+
+
+\begin{DoxyParams}{매개변수}
+{\em a} & Time that the second time is added to. This value is modified. \\
+\hline
+{\em b} & Time that is added to the first time. This value is not modified. \\
+\hline
+\end{DoxyParams}
+
+
+maap\+\_\+timer\+\_\+linux.\+c 파일의 96 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+97 \{
+98     a->tv\_sec = a->tv\_sec + b->tv\_sec;
+99     a->tv\_nsec = a->tv\_nsec + b->tv\_nsec;
+100     \textcolor{keywordflow}{if} (a->tv\_nsec > 1000000000L) \{
+101         a->tv\_sec++;
+102         a->tv\_nsec = a->tv\_nsec - 1000000000L;
+103     \}
+104 \}
+\end{DoxyCode}
+\index{maap\+\_\+timer\+\_\+linux.\+c@{maap\+\_\+timer\+\_\+linux.\+c}!Time\+\_\+cmp@{Time\+\_\+cmp}}
+\index{Time\+\_\+cmp@{Time\+\_\+cmp}!maap\+\_\+timer\+\_\+linux.\+c@{maap\+\_\+timer\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{Time\+\_\+cmp(const Time $\ast$a, const Time $\ast$b)}{Time_cmp(const Time *a, const Time *b)}}]{\setlength{\rightskip}{0pt plus 5cm}int Time\+\_\+cmp (
+\begin{DoxyParamCaption}
+\item[{const {\bf Time} $\ast$}]{a, }
+\item[{const {\bf Time} $\ast$}]{b}
+\end{DoxyParamCaption}
+)}\hypertarget{maap__timer__linux_8c_a0fed899a04a952b1cfefd3832aa75a8b}{}\label{maap__timer__linux_8c_a0fed899a04a952b1cfefd3832aa75a8b}
+Compare two different time values.
+
+
+\begin{DoxyParams}{매개변수}
+{\em a} & First time to compare \\
+\hline
+{\em b} & Second time to compare\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+-\/1 if the first time is less than the second time, 1 if the first time is greater than the second time, or 0 if they are equal. 
+\end{DoxyReturn}
+
+
+maap\+\_\+timer\+\_\+linux.\+c 파일의 113 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+114 \{
+115     \textcolor{keywordflow}{if} (a->tv\_sec < b->tv\_sec) \{
+116         \textcolor{keywordflow}{return} -1;
+117     \}
+118     \textcolor{keywordflow}{if} (a->tv\_sec > b->tv\_sec) \{
+119         \textcolor{keywordflow}{return} 1;
+120     \}
+121     \textcolor{keywordflow}{if} (a->tv\_nsec < b->tv\_nsec) \{
+122         \textcolor{keywordflow}{return} -1;
+123     \}
+124     \textcolor{keywordflow}{if} (a->tv\_nsec > b->tv\_nsec) \{
+125         \textcolor{keywordflow}{return} 1;
+126     \}
+127     \textcolor{keywordflow}{return} 0;
+128 \}
+\end{DoxyCode}
+\index{maap\+\_\+timer\+\_\+linux.\+c@{maap\+\_\+timer\+\_\+linux.\+c}!Time\+\_\+del\+Timer@{Time\+\_\+del\+Timer}}
+\index{Time\+\_\+del\+Timer@{Time\+\_\+del\+Timer}!maap\+\_\+timer\+\_\+linux.\+c@{maap\+\_\+timer\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{Time\+\_\+del\+Timer(\+Timer $\ast$timer)}{Time_delTimer(Timer *timer)}}]{\setlength{\rightskip}{0pt plus 5cm}void Time\+\_\+del\+Timer (
+\begin{DoxyParamCaption}
+\item[{{\bf Timer} $\ast$}]{timer}
+\end{DoxyParamCaption}
+)}\hypertarget{maap__timer__linux_8c_a644091a3aacd9a19d75b37b38b94189a}{}\label{maap__timer__linux_8c_a644091a3aacd9a19d75b37b38b94189a}
+Delete a \hyperlink{maap__timer_8h_abaeea299a655478cd0fe3e073a20fbe4}{Timer} pointer when done with the timer support.
+
+
+\begin{DoxyParams}{매개변수}
+{\em timer} & The pointer to free \\
+\hline
+\end{DoxyParams}
+
+
+maap\+\_\+timer\+\_\+linux.\+c 파일의 61 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+62 \{
+63     assert(timer);
+64     \textcolor{keywordflow}{if} (timer && timer->\hyperlink{structmaap__timer_a1a6464bea38bc810aeb0aed8f14b5dc0}{timer\_id} != (timer\_t)(-1))
+65     \{
+66         timer\_delete(timer->\hyperlink{structmaap__timer_a1a6464bea38bc810aeb0aed8f14b5dc0}{timer\_id});
+67     \}
+68     \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(timer);
+69 \}
+\end{DoxyCode}
+\index{maap\+\_\+timer\+\_\+linux.\+c@{maap\+\_\+timer\+\_\+linux.\+c}!Time\+\_\+diff@{Time\+\_\+diff}}
+\index{Time\+\_\+diff@{Time\+\_\+diff}!maap\+\_\+timer\+\_\+linux.\+c@{maap\+\_\+timer\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{Time\+\_\+diff(const Time $\ast$a, const Time $\ast$b)}{Time_diff(const Time *a, const Time *b)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int64\+\_\+t} Time\+\_\+diff (
+\begin{DoxyParamCaption}
+\item[{const {\bf Time} $\ast$}]{a, }
+\item[{const {\bf Time} $\ast$}]{b}
+\end{DoxyParamCaption}
+)}\hypertarget{maap__timer__linux_8c_a9abea302af3a427a11ab201362dfd453}{}\label{maap__timer__linux_8c_a9abea302af3a427a11ab201362dfd453}
+Returns the difference between the two times in nanoseconds.
+
+
+\begin{DoxyParams}{매개변수}
+{\em a} & Time \char`\"{}a\char`\"{} to compare. \\
+\hline
+{\em b} & Time \char`\"{}b\char`\"{} to compare.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+The \char`\"{}a\char`\"{} time in nanoseconds subtracted from the \char`\"{}b\char`\"{} time in nanoseconds. If \char`\"{}a\char`\"{} is greater than \char`\"{}b\char`\"{}, the returned value will be negative. 
+\end{DoxyReturn}
+
+
+maap\+\_\+timer\+\_\+linux.\+c 파일의 106 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+107 \{
+108     \hyperlink{parse_8c_a67a9885ef4908cb72ce26d75b694386c}{int64\_t} a\_ns = (\hyperlink{parse_8c_a67a9885ef4908cb72ce26d75b694386c}{int64\_t}) a->tv\_sec * 1000000000LL + (\hyperlink{parse_8c_a67a9885ef4908cb72ce26d75b694386c}{int64\_t}) a->tv\_nsec;
+109     \hyperlink{parse_8c_a67a9885ef4908cb72ce26d75b694386c}{int64\_t} b\_ns = (\hyperlink{parse_8c_a67a9885ef4908cb72ce26d75b694386c}{int64\_t}) b->tv\_sec * 1000000000LL + (\hyperlink{parse_8c_a67a9885ef4908cb72ce26d75b694386c}{int64\_t}) b->tv\_nsec;
+110     \textcolor{keywordflow}{return} b\_ns - a\_ns;
+111 \}
+\end{DoxyCode}
+\index{maap\+\_\+timer\+\_\+linux.\+c@{maap\+\_\+timer\+\_\+linux.\+c}!Time\+\_\+dump@{Time\+\_\+dump}}
+\index{Time\+\_\+dump@{Time\+\_\+dump}!maap\+\_\+timer\+\_\+linux.\+c@{maap\+\_\+timer\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{Time\+\_\+dump(const Time $\ast$t)}{Time_dump(const Time *t)}}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ Time\+\_\+dump (
+\begin{DoxyParamCaption}
+\item[{const {\bf Time} $\ast$}]{t}
+\end{DoxyParamCaption}
+)}\hypertarget{maap__timer__linux_8c_afe800aa08a24713870ea65a7ca03d87b}{}\label{maap__timer__linux_8c_afe800aa08a24713870ea65a7ca03d87b}
+Returns the string equivalent of the supplied time for debugging purposes. The string will remain valid until the next call to \hyperlink{maap__timer_8h_afe800aa08a24713870ea65a7ca03d87b}{Time\+\_\+dump()}. \begin{DoxyNote}{주의}
+This function is not multithread safe.
+\end{DoxyNote}
+
+\begin{DoxyParams}{매개변수}
+{\em t} & Pointer to the time to convert.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+A string representing the supplied timer value. 
+\end{DoxyReturn}
+
+
+maap\+\_\+timer\+\_\+linux.\+c 파일의 152 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+153 \{
+154     \textcolor{keyword}{static} \textcolor{keywordtype}{char} \hyperlink{_hello_test_8cpp_a8be6d469a7cd1c8d66cc6d2d1e10c65b}{buffer}[40];
+155     sprintf(buffer, \textcolor{stringliteral}{"%lu sec, %09lu nsec"}, (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long})t->tv\_sec, (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long})t->tv\_nsec);
+156     \textcolor{keywordflow}{return} \hyperlink{_hello_test_8cpp_a8be6d469a7cd1c8d66cc6d2d1e10c65b}{buffer};
+157 \}
+\end{DoxyCode}
+\index{maap\+\_\+timer\+\_\+linux.\+c@{maap\+\_\+timer\+\_\+linux.\+c}!Time\+\_\+new\+Timer@{Time\+\_\+new\+Timer}}
+\index{Time\+\_\+new\+Timer@{Time\+\_\+new\+Timer}!maap\+\_\+timer\+\_\+linux.\+c@{maap\+\_\+timer\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{Time\+\_\+new\+Timer(void)}{Time_newTimer(void)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Timer}$\ast$ Time\+\_\+new\+Timer (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{maap__timer__linux_8c_a23def05c4f6e554efc16883198bae8dc}{}\label{maap__timer__linux_8c_a23def05c4f6e554efc16883198bae8dc}
+Create a new \hyperlink{maap__timer_8h_abaeea299a655478cd0fe3e073a20fbe4}{Timer} pointer to use when measuring time elapsed and remaining.
+
+\begin{DoxyReturn}{반환값}
+A \hyperlink{maap__timer_8h_abaeea299a655478cd0fe3e073a20fbe4}{Timer} pointer, or N\+U\+LL if an error occurred. 
+\end{DoxyReturn}
+
+
+maap\+\_\+timer\+\_\+linux.\+c 파일의 44 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+45 \{
+46     \textcolor{keyword}{struct }sigevent sev;
+47     \hyperlink{structmaap__timer}{Timer} * newTimer = \hyperlink{_memory_leak_detector_malloc_macros_8h_ab8b25cd8f16d4a6552afe4e65c4f082d}{malloc}(\textcolor{keyword}{sizeof} (\hyperlink{structmaap__timer}{Timer}));
+48     \textcolor{keywordflow}{if} (newTimer)
+49     \{
+50         sev.sigev\_notify = SIGEV\_NONE;
+51         sev.sigev\_signo = 0;
+52         sev.sigev\_value.sival\_ptr = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+53         \textcolor{keywordflow}{if} (timer\_create(CLOCK\_MONOTONIC, &sev, &(newTimer->timer\_id)) < 0)
+54         \{
+55             newTimer->timer\_id = (timer\_t)(-1);
+56         \}
+57     \}
+58     \textcolor{keywordflow}{return} newTimer;
+59 \}
+\end{DoxyCode}
+\index{maap\+\_\+timer\+\_\+linux.\+c@{maap\+\_\+timer\+\_\+linux.\+c}!Time\+\_\+passed@{Time\+\_\+passed}}
+\index{Time\+\_\+passed@{Time\+\_\+passed}!maap\+\_\+timer\+\_\+linux.\+c@{maap\+\_\+timer\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{Time\+\_\+passed(const Time $\ast$current, const Time $\ast$target)}{Time_passed(const Time *current, const Time *target)}}]{\setlength{\rightskip}{0pt plus 5cm}int Time\+\_\+passed (
+\begin{DoxyParamCaption}
+\item[{const {\bf Time} $\ast$}]{current, }
+\item[{const {\bf Time} $\ast$}]{target}
+\end{DoxyParamCaption}
+)}\hypertarget{maap__timer__linux_8c_af9d862cfcea8ef782ac4490b30646c5c}{}\label{maap__timer__linux_8c_af9d862cfcea8ef782ac4490b30646c5c}
+Determine if the target time has arrived.
+
+
+\begin{DoxyParams}{매개변수}
+{\em current} & Current time \\
+\hline
+{\em target} & Target time\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+1 if the current time is at least as great as the target time, 0 otherwise. 
+\end{DoxyReturn}
+
+
+maap\+\_\+timer\+\_\+linux.\+c 파일의 130 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+131 \{
+132     \textcolor{keywordflow}{if} (current->tv\_sec < target->tv\_sec) \{
+133         \textcolor{keywordflow}{return} 0;
+134     \}
+135     \textcolor{keywordflow}{if} (current->tv\_sec == target->tv\_sec && current->tv\_nsec < target->tv\_nsec) \{
+136         \textcolor{keywordflow}{return} 0;
+137     \}
+138     \textcolor{keywordflow}{return} 1;
+139 \}
+\end{DoxyCode}
+\index{maap\+\_\+timer\+\_\+linux.\+c@{maap\+\_\+timer\+\_\+linux.\+c}!Time\+\_\+remaining@{Time\+\_\+remaining}}
+\index{Time\+\_\+remaining@{Time\+\_\+remaining}!maap\+\_\+timer\+\_\+linux.\+c@{maap\+\_\+timer\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{Time\+\_\+remaining(\+Timer $\ast$timer)}{Time_remaining(Timer *timer)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int64\+\_\+t} Time\+\_\+remaining (
+\begin{DoxyParamCaption}
+\item[{{\bf Timer} $\ast$}]{timer}
+\end{DoxyParamCaption}
+)}\hypertarget{maap__timer__linux_8c_a11bccdfcf12a494019f18378721e072d}{}\label{maap__timer__linux_8c_a11bccdfcf12a494019f18378721e072d}
+Returns the time remaining on the timer.
+
+
+\begin{DoxyParams}{매개변수}
+{\em timer} & The timer to test\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+The number of nanoseconds remaining on the timer, 0 if the timer has expired, or -\/1 if an error occurred. 
+\end{DoxyReturn}
+
+
+maap\+\_\+timer\+\_\+linux.\+c 파일의 81 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+82 \{
+83     \textcolor{keyword}{struct }itimerspec curr\_value;
+84 
+85     assert(timer);
+86     \textcolor{keywordflow}{if} (timer\_gettime(timer->\hyperlink{structmaap__timer_a1a6464bea38bc810aeb0aed8f14b5dc0}{timer\_id}, &curr\_value) < 0)
+87     \{
+88         \hyperlink{maap__log_8h_a5aed2d0b26117d4ef9653c2a0be67a8c}{MAAP\_LOGF\_ERROR}(\textcolor{stringliteral}{"Error %d getting the timer time remaining (%s)"}, errno, strerror(
+      errno));
+89         \textcolor{keywordflow}{return} -1;
+90     \}
+91 
+92     \textcolor{keywordflow}{return} ((\hyperlink{parse_8c_a67a9885ef4908cb72ce26d75b694386c}{int64\_t}) curr\_value.it\_value.tv\_sec * 1000000000LL + (
+      \hyperlink{parse_8c_a67a9885ef4908cb72ce26d75b694386c}{int64\_t}) curr\_value.it\_value.tv\_nsec);
+93 \}
+\end{DoxyCode}
+\index{maap\+\_\+timer\+\_\+linux.\+c@{maap\+\_\+timer\+\_\+linux.\+c}!Time\+\_\+set\+From\+Monotonic\+Timer@{Time\+\_\+set\+From\+Monotonic\+Timer}}
+\index{Time\+\_\+set\+From\+Monotonic\+Timer@{Time\+\_\+set\+From\+Monotonic\+Timer}!maap\+\_\+timer\+\_\+linux.\+c@{maap\+\_\+timer\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{Time\+\_\+set\+From\+Monotonic\+Timer(\+Time $\ast$t)}{Time_setFromMonotonicTimer(Time *t)}}]{\setlength{\rightskip}{0pt plus 5cm}void Time\+\_\+set\+From\+Monotonic\+Timer (
+\begin{DoxyParamCaption}
+\item[{{\bf Time} $\ast$}]{t}
+\end{DoxyParamCaption}
+)}\hypertarget{maap__timer__linux_8c_abe1fa73a62adeef30aa8c8eb8fd614e9}{}\label{maap__timer__linux_8c_abe1fa73a62adeef30aa8c8eb8fd614e9}
+Set the current time
+
+
+\begin{DoxyParams}{매개변수}
+{\em t} & Pointer to the Time structure to fill with the current time \\
+\hline
+\end{DoxyParams}
+
+
+maap\+\_\+timer\+\_\+linux.\+c 파일의 147 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+148 \{
+149     clock\_gettime(CLOCK\_MONOTONIC, t);
+150 \}
+\end{DoxyCode}
+\index{maap\+\_\+timer\+\_\+linux.\+c@{maap\+\_\+timer\+\_\+linux.\+c}!Time\+\_\+set\+From\+Nanos@{Time\+\_\+set\+From\+Nanos}}
+\index{Time\+\_\+set\+From\+Nanos@{Time\+\_\+set\+From\+Nanos}!maap\+\_\+timer\+\_\+linux.\+c@{maap\+\_\+timer\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{Time\+\_\+set\+From\+Nanos(\+Time $\ast$t, uint64\+\_\+t nsec)}{Time_setFromNanos(Time *t, uint64_t nsec)}}]{\setlength{\rightskip}{0pt plus 5cm}void Time\+\_\+set\+From\+Nanos (
+\begin{DoxyParamCaption}
+\item[{{\bf Time} $\ast$}]{t, }
+\item[{{\bf uint64\+\_\+t}}]{nsec}
+\end{DoxyParamCaption}
+)}\hypertarget{maap__timer__linux_8c_a90f59a555e6d8f8655218a63f6b1768e}{}\label{maap__timer__linux_8c_a90f59a555e6d8f8655218a63f6b1768e}
+Set the Time structure to the number of nanoseconds value.
+
+
+\begin{DoxyParams}{매개변수}
+{\em t} & Pointer to the Time structure to set \\
+\hline
+{\em nsec} & Number of nanoseconds to convert into a time \\
+\hline
+\end{DoxyParams}
+
+
+maap\+\_\+timer\+\_\+linux.\+c 파일의 141 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+142 \{
+143     t->tv\_sec = nsec / 1000000000LL;
+144     t->tv\_nsec = nsec - t->tv\_sec * 1000000000LL;
+145 \}
+\end{DoxyCode}
+\index{maap\+\_\+timer\+\_\+linux.\+c@{maap\+\_\+timer\+\_\+linux.\+c}!Time\+\_\+set\+Timer@{Time\+\_\+set\+Timer}}
+\index{Time\+\_\+set\+Timer@{Time\+\_\+set\+Timer}!maap\+\_\+timer\+\_\+linux.\+c@{maap\+\_\+timer\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{Time\+\_\+set\+Timer(\+Timer $\ast$timer, const Time $\ast$t)}{Time_setTimer(Timer *timer, const Time *t)}}]{\setlength{\rightskip}{0pt plus 5cm}void Time\+\_\+set\+Timer (
+\begin{DoxyParamCaption}
+\item[{{\bf Timer} $\ast$}]{timer, }
+\item[{const {\bf Time} $\ast$}]{t}
+\end{DoxyParamCaption}
+)}\hypertarget{maap__timer__linux_8c_a8920ffffa792240e706412f5c692af7f}{}\label{maap__timer__linux_8c_a8920ffffa792240e706412f5c692af7f}
+Set the timer to expire at the specified time.
+
+
+\begin{DoxyParams}{매개변수}
+{\em timer} & The timer to set \\
+\hline
+{\em t} & The system time when the timer should expire \\
+\hline
+\end{DoxyParams}
+
+
+maap\+\_\+timer\+\_\+linux.\+c 파일의 71 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+72 \{
+73     \textcolor{keyword}{struct }itimerspec tspec;
+74     tspec.it\_value.tv\_sec = t->tv\_sec;
+75     tspec.it\_value.tv\_nsec = t->tv\_nsec;
+76     tspec.it\_interval.tv\_sec = 0;
+77     tspec.it\_interval.tv\_nsec = 0;
+78     timer\_settime(timer->\hyperlink{structmaap__timer_a1a6464bea38bc810aeb0aed8f14b5dc0}{timer\_id}, TIMER\_ABSTIME, &tspec, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+79 \}
+\end{DoxyCode}

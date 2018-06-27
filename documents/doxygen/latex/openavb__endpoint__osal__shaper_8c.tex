@@ -1,0 +1,772 @@
+\hypertarget{openavb__endpoint__osal__shaper_8c}{}\section{lib/avtp\+\_\+pipeline/platform/\+Linux/endpoint/openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.c 파일 참조}
+\label{openavb__endpoint__osal__shaper_8c}\index{lib/avtp\+\_\+pipeline/platform/\+Linux/endpoint/openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{lib/avtp\+\_\+pipeline/platform/\+Linux/endpoint/openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}}
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$sys/types.\+h$>$}\\*
+{\ttfamily \#include $<$sys/socket.\+h$>$}\\*
+{\ttfamily \#include $<$netdb.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+platform.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+trace.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+shaper.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+list.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+rawsock.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+pub.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+log.\+h\char`\"{}}\\*
+openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__endpoint__osal__shaper_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{데이타 구조}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structshaper__reservation}{shaper\+\_\+reservation}
+\end{DoxyCompactItemize}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{openavb__endpoint__osal__shaper_8c_abcfb21b6495585fe36058f57a9fe58fc}{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}~\char`\"{}Endpoint Shaper\char`\"{}
+\item 
+\#define \hyperlink{openavb__endpoint__osal__shaper_8c_a4d02202f6eb4ba09b3da91b3573043dc}{S\+T\+R\+E\+A\+M\+D\+A\+\_\+\+L\+E\+N\+G\+TH}~18
+\item 
+\#define \hyperlink{openavb__endpoint__osal__shaper_8c_acd06da230a96d3b7e6f193c5b3142002}{I\+F\+N\+A\+M\+S\+IZ}~16
+\item 
+\#define \hyperlink{openavb__endpoint__osal__shaper_8c_a9822d89774e0d6ddaa06503950130423}{E\+T\+H\+\_\+\+A\+L\+EN}~6
+\item 
+\#define \hyperlink{openavb__endpoint__osal__shaper_8c_ac658b764ed7cda30e7d4d29ee252836a}{M\+A\+X\+\_\+\+S\+H\+A\+P\+E\+R\+\_\+\+R\+E\+S\+E\+R\+V\+A\+T\+I\+O\+NS}~4
+\item 
+\#define \hyperlink{openavb__endpoint__osal__shaper_8c_aad1782183e8d314b1cd86d087deda539}{S\+H\+A\+P\+E\+R\+\_\+\+L\+O\+CK}()~\{ \hyperlink{openavb__os__services__osal__pub_8h_aee93da9d4ea28eeaa9c64bd938d5549b}{M\+U\+T\+E\+X\+\_\+\+C\+R\+E\+A\+T\+E\+\_\+\+E\+RR}(); \hyperlink{openavb__os__services__osal__pub_8h_aaa0e54e00ca1cc9cb5bf9ac824a5e4ef}{M\+U\+T\+E\+X\+\_\+\+L\+O\+CK}(shaper\+Mutex); \hyperlink{openavb__os__services__osal__pub_8h_a08d33bd2184e24e7676bda0efb5a3e5e}{M\+U\+T\+E\+X\+\_\+\+L\+O\+G\+\_\+\+E\+RR}(\char`\"{}Mutex lock failure\char`\"{}); \}
+\item 
+\#define \hyperlink{openavb__endpoint__osal__shaper_8c_af9b447925f133e62594914349c53b3f2}{S\+H\+A\+P\+E\+R\+\_\+\+U\+N\+L\+O\+CK}()~\{ \hyperlink{openavb__os__services__osal__pub_8h_aee93da9d4ea28eeaa9c64bd938d5549b}{M\+U\+T\+E\+X\+\_\+\+C\+R\+E\+A\+T\+E\+\_\+\+E\+RR}(); \hyperlink{openavb__os__services__osal__pub_8h_a0945f1588c967fbabfc91ddc7287cb32}{M\+U\+T\+E\+X\+\_\+\+U\+N\+L\+O\+CK}(shaper\+Mutex); \hyperlink{openavb__os__services__osal__pub_8h_a08d33bd2184e24e7676bda0efb5a3e5e}{M\+U\+T\+E\+X\+\_\+\+L\+O\+G\+\_\+\+E\+RR}(\char`\"{}Mutex unlock failure\char`\"{}); \}
+\end{DoxyCompactItemize}
+\subsection*{타입정의}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structshaper__reservation}{shaper\+\_\+reservation} \hyperlink{openavb__endpoint__osal__shaper_8c_abef1eb91f099aa7d060dd942e9cb0fb1}{shaper\+\_\+reservation}
+\end{DoxyCompactItemize}
+\subsection*{열거형 타입}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{openavb__endpoint__osal__shaper_8c_a8cc289c079113479b9b499af4b2ccb21}{shaper\+State\+\_\+t} \{ \\*
+\hyperlink{openavb__endpoint__osal__shaper_8c_a8cc289c079113479b9b499af4b2ccb21a48d8fc76e17f7fba82c825077b1dfd17}{S\+H\+A\+P\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+U\+N\+K\+N\+O\+WN}, 
+\hyperlink{openavb__endpoint__osal__shaper_8c_a8cc289c079113479b9b499af4b2ccb21ac19ea5327f995ef73ce28a4bcf342ef9}{S\+H\+A\+P\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+C\+O\+N\+N\+E\+C\+T\+ED}, 
+\hyperlink{openavb__endpoint__osal__shaper_8c_a8cc289c079113479b9b499af4b2ccb21a7b8eae53fcd7eeb79339a1904e48cd56}{S\+H\+A\+P\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+E\+N\+A\+B\+L\+ED}, 
+\hyperlink{openavb__endpoint__osal__shaper_8c_a8cc289c079113479b9b499af4b2ccb21a9886746a53326a1287440546b6ff4b23}{S\+H\+A\+P\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+N\+O\+T\+\_\+\+A\+V\+A\+I\+L\+A\+B\+LE}, 
+\\*
+\hyperlink{openavb__endpoint__osal__shaper_8c_a8cc289c079113479b9b499af4b2ccb21a5bf2789c8ead545cd8f84ff988494442}{S\+H\+A\+P\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+E\+R\+R\+OR}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+static void $\ast$ \hyperlink{openavb__endpoint__osal__shaper_8c_adadebca3fdb4c4ac1668fa459076614b}{shaper\+Thread} (void $\ast$arg)
+\item 
+static \hyperlink{openavb__endpoint__osal__shaper_8c_a7719eca30cf5186b6886d13422f961f9}{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+LE} (shaper\+Mutex)
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__endpoint__osal__shaper_8c_acb36ba4121844a739183fa32afb3f84b}{openavb\+Shaper\+Initialize} (const char $\ast$\hyperlink{aaf-talker_8c_ac7b430acaa92a7a26fbcdad47d2efc20}{ifname}, unsigned int shaper\+Port)
+\item 
+void \hyperlink{openavb__endpoint__osal__shaper_8c_afa03c51a5d00c1174aaa008a32569261}{openavb\+Shaper\+Finalize} ()
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__endpoint__osal__shaper_8c_a2d1da144f0be1027af9691a40d39b425}{openavb\+Shaper\+Daemon\+Available} (void)
+\item 
+void $\ast$ \hyperlink{openavb__endpoint__osal__shaper_8c_afdb0bb26fd9dc02680d89778cf6754bc}{openavb\+Shaper\+Handle} (\hyperlink{openavb__types__base__pub_8h_a4d8ccbeaf8ad040d8880e8971fc62752}{S\+R\+Class\+Idx\+\_\+t} sr\+\_\+class, int measurement\+\_\+interval\+\_\+usec, int max\+\_\+frame\+\_\+size\+\_\+bytes, int max\+\_\+frames\+\_\+per\+\_\+interval, const unsigned char $\ast$\hyperlink{structstream__da}{stream\+\_\+da})
+\item 
+void \hyperlink{openavb__endpoint__osal__shaper_8c_ad0c77510fb056fadf87517ece3813f75}{openavb\+Shaper\+Release} (void $\ast$\hyperlink{jack__listener_8c_a6c138155d7b3442efd19d0aa3f93e548}{handle})
+\end{DoxyCompactItemize}
+\subsection*{변수}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{structshaper__reservation}{shaper\+\_\+reservation} \hyperlink{openavb__endpoint__osal__shaper_8c_a4df060aa3b9ca319cb40e39d6590cc43}{shaper\+Reservation\+List} \mbox{[}\hyperlink{openavb__endpoint__osal__shaper_8c_ac658b764ed7cda30e7d4d29ee252836a}{M\+A\+X\+\_\+\+S\+H\+A\+P\+E\+R\+\_\+\+R\+E\+S\+E\+R\+V\+A\+T\+I\+O\+NS}\mbox{]}
+\item 
+static \hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__endpoint__osal__shaper_8c_a83f52d659d74b62db1c5b9523a79c536}{shaper\+Running} = \hyperlink{lib_2igb_2e1000__osdep_8h_aa93f0eb578d23995850d61f7d61c55c1}{F\+A\+L\+SE}
+\item 
+static pthread\+\_\+t \hyperlink{openavb__endpoint__osal__shaper_8c_a011f82517f52aaf16d838c80ad9f2003}{shaper\+Thread\+Handle}
+\item 
+static enum \hyperlink{openavb__endpoint__osal__shaper_8c_a8cc289c079113479b9b499af4b2ccb21}{shaper\+State\+\_\+t} \hyperlink{openavb__endpoint__osal__shaper_8c_aedad653f274a43dc0eb3b85147fe2c9d}{shaper\+State} = \hyperlink{openavb__endpoint__osal__shaper_8c_a8cc289c079113479b9b499af4b2ccb21a48d8fc76e17f7fba82c825077b1dfd17}{S\+H\+A\+P\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+U\+N\+K\+N\+O\+WN}
+\item 
+static int \hyperlink{openavb__endpoint__osal__shaper_8c_a16ece46816348fa6d2c5d0e8b47c0098}{socketfd} = -\/1
+\item 
+static char \hyperlink{openavb__endpoint__osal__shaper_8c_a16adfecef7f22dcb43bee1ded6fc6944}{interface\+Only} \mbox{[}\hyperlink{tl_2openavb__tl__pub_8h_acd06da230a96d3b7e6f193c5b3142002}{I\+F\+N\+A\+M\+S\+IZ}\mbox{]}
+\item 
+static char \hyperlink{openavb__endpoint__osal__shaper_8c_a918897dbfe631820e6e9beb6122c3a23}{shaper\+Daemon\+Port} \mbox{[}6\mbox{]} = \{0\}
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}!A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT@{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}}
+\index{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT@{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}!openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}}
+\subsubsection[{\texorpdfstring{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}{AVB_LOG_COMPONENT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT~\char`\"{}Endpoint Shaper\char`\"{}}\hypertarget{openavb__endpoint__osal__shaper_8c_abcfb21b6495585fe36058f57a9fe58fc}{}\label{openavb__endpoint__osal__shaper_8c_abcfb21b6495585fe36058f57a9fe58fc}
+
+
+openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c 파일의 45 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}!E\+T\+H\+\_\+\+A\+L\+EN@{E\+T\+H\+\_\+\+A\+L\+EN}}
+\index{E\+T\+H\+\_\+\+A\+L\+EN@{E\+T\+H\+\_\+\+A\+L\+EN}!openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}}
+\subsubsection[{\texorpdfstring{E\+T\+H\+\_\+\+A\+L\+EN}{ETH_ALEN}}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\+T\+H\+\_\+\+A\+L\+EN~6}\hypertarget{openavb__endpoint__osal__shaper_8c_a9822d89774e0d6ddaa06503950130423}{}\label{openavb__endpoint__osal__shaper_8c_a9822d89774e0d6ddaa06503950130423}
+
+
+openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c 파일의 61 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}!I\+F\+N\+A\+M\+S\+IZ@{I\+F\+N\+A\+M\+S\+IZ}}
+\index{I\+F\+N\+A\+M\+S\+IZ@{I\+F\+N\+A\+M\+S\+IZ}!openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}}
+\subsubsection[{\texorpdfstring{I\+F\+N\+A\+M\+S\+IZ}{IFNAMSIZ}}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\+F\+N\+A\+M\+S\+IZ~16}\hypertarget{openavb__endpoint__osal__shaper_8c_acd06da230a96d3b7e6f193c5b3142002}{}\label{openavb__endpoint__osal__shaper_8c_acd06da230a96d3b7e6f193c5b3142002}
+
+
+openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c 파일의 58 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}!M\+A\+X\+\_\+\+S\+H\+A\+P\+E\+R\+\_\+\+R\+E\+S\+E\+R\+V\+A\+T\+I\+O\+NS@{M\+A\+X\+\_\+\+S\+H\+A\+P\+E\+R\+\_\+\+R\+E\+S\+E\+R\+V\+A\+T\+I\+O\+NS}}
+\index{M\+A\+X\+\_\+\+S\+H\+A\+P\+E\+R\+\_\+\+R\+E\+S\+E\+R\+V\+A\+T\+I\+O\+NS@{M\+A\+X\+\_\+\+S\+H\+A\+P\+E\+R\+\_\+\+R\+E\+S\+E\+R\+V\+A\+T\+I\+O\+NS}!openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}}
+\subsubsection[{\texorpdfstring{M\+A\+X\+\_\+\+S\+H\+A\+P\+E\+R\+\_\+\+R\+E\+S\+E\+R\+V\+A\+T\+I\+O\+NS}{MAX_SHAPER_RESERVATIONS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+X\+\_\+\+S\+H\+A\+P\+E\+R\+\_\+\+R\+E\+S\+E\+R\+V\+A\+T\+I\+O\+NS~4}\hypertarget{openavb__endpoint__osal__shaper_8c_ac658b764ed7cda30e7d4d29ee252836a}{}\label{openavb__endpoint__osal__shaper_8c_ac658b764ed7cda30e7d4d29ee252836a}
+
+
+openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c 파일의 74 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}!S\+H\+A\+P\+E\+R\+\_\+\+L\+O\+CK@{S\+H\+A\+P\+E\+R\+\_\+\+L\+O\+CK}}
+\index{S\+H\+A\+P\+E\+R\+\_\+\+L\+O\+CK@{S\+H\+A\+P\+E\+R\+\_\+\+L\+O\+CK}!openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}}
+\subsubsection[{\texorpdfstring{S\+H\+A\+P\+E\+R\+\_\+\+L\+O\+CK}{SHAPER_LOCK}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+H\+A\+P\+E\+R\+\_\+\+L\+O\+CK(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~\{ {\bf M\+U\+T\+E\+X\+\_\+\+C\+R\+E\+A\+T\+E\+\_\+\+E\+RR}(); {\bf M\+U\+T\+E\+X\+\_\+\+L\+O\+CK}(shaper\+Mutex); {\bf M\+U\+T\+E\+X\+\_\+\+L\+O\+G\+\_\+\+E\+RR}(\char`\"{}Mutex lock failure\char`\"{}); \}}\hypertarget{openavb__endpoint__osal__shaper_8c_aad1782183e8d314b1cd86d087deda539}{}\label{openavb__endpoint__osal__shaper_8c_aad1782183e8d314b1cd86d087deda539}
+
+
+openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c 파일의 95 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}!S\+H\+A\+P\+E\+R\+\_\+\+U\+N\+L\+O\+CK@{S\+H\+A\+P\+E\+R\+\_\+\+U\+N\+L\+O\+CK}}
+\index{S\+H\+A\+P\+E\+R\+\_\+\+U\+N\+L\+O\+CK@{S\+H\+A\+P\+E\+R\+\_\+\+U\+N\+L\+O\+CK}!openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}}
+\subsubsection[{\texorpdfstring{S\+H\+A\+P\+E\+R\+\_\+\+U\+N\+L\+O\+CK}{SHAPER_UNLOCK}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+H\+A\+P\+E\+R\+\_\+\+U\+N\+L\+O\+CK(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~\{ {\bf M\+U\+T\+E\+X\+\_\+\+C\+R\+E\+A\+T\+E\+\_\+\+E\+RR}(); {\bf M\+U\+T\+E\+X\+\_\+\+U\+N\+L\+O\+CK}(shaper\+Mutex); {\bf M\+U\+T\+E\+X\+\_\+\+L\+O\+G\+\_\+\+E\+RR}(\char`\"{}Mutex unlock failure\char`\"{}); \}}\hypertarget{openavb__endpoint__osal__shaper_8c_af9b447925f133e62594914349c53b3f2}{}\label{openavb__endpoint__osal__shaper_8c_af9b447925f133e62594914349c53b3f2}
+
+
+openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c 파일의 96 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}!S\+T\+R\+E\+A\+M\+D\+A\+\_\+\+L\+E\+N\+G\+TH@{S\+T\+R\+E\+A\+M\+D\+A\+\_\+\+L\+E\+N\+G\+TH}}
+\index{S\+T\+R\+E\+A\+M\+D\+A\+\_\+\+L\+E\+N\+G\+TH@{S\+T\+R\+E\+A\+M\+D\+A\+\_\+\+L\+E\+N\+G\+TH}!openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}}
+\subsubsection[{\texorpdfstring{S\+T\+R\+E\+A\+M\+D\+A\+\_\+\+L\+E\+N\+G\+TH}{STREAMDA_LENGTH}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+T\+R\+E\+A\+M\+D\+A\+\_\+\+L\+E\+N\+G\+TH~18}\hypertarget{openavb__endpoint__osal__shaper_8c_a4d02202f6eb4ba09b3da91b3573043dc}{}\label{openavb__endpoint__osal__shaper_8c_a4d02202f6eb4ba09b3da91b3573043dc}
+
+
+openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c 파일의 55 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{타입정의 문서화}
+\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}!shaper\+\_\+reservation@{shaper\+\_\+reservation}}
+\index{shaper\+\_\+reservation@{shaper\+\_\+reservation}!openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}}
+\subsubsection[{\texorpdfstring{shaper\+\_\+reservation}{shaper_reservation}}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf shaper\+\_\+reservation}  {\bf shaper\+\_\+reservation}}\hypertarget{openavb__endpoint__osal__shaper_8c_abef1eb91f099aa7d060dd942e9cb0fb1}{}\label{openavb__endpoint__osal__shaper_8c_abef1eb91f099aa7d060dd942e9cb0fb1}
+
+
+\subsection{열거형 타입 문서화}
+\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}!shaper\+State\+\_\+t@{shaper\+State\+\_\+t}}
+\index{shaper\+State\+\_\+t@{shaper\+State\+\_\+t}!openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}}
+\subsubsection[{\texorpdfstring{shaper\+State\+\_\+t}{shaperState_t}}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf shaper\+State\+\_\+t}}\hypertarget{openavb__endpoint__osal__shaper_8c_a8cc289c079113479b9b499af4b2ccb21}{}\label{openavb__endpoint__osal__shaper_8c_a8cc289c079113479b9b499af4b2ccb21}
+\begin{Desc}
+\item[열거형 멤버]\par
+\begin{description}
+\index{S\+H\+A\+P\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+U\+N\+K\+N\+O\+WN@{S\+H\+A\+P\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+U\+N\+K\+N\+O\+WN}!openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}}\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}!S\+H\+A\+P\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+U\+N\+K\+N\+O\+WN@{S\+H\+A\+P\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+U\+N\+K\+N\+O\+WN}}\item[{\em 
+S\+H\+A\+P\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+U\+N\+K\+N\+O\+WN\hypertarget{openavb__endpoint__osal__shaper_8c_a8cc289c079113479b9b499af4b2ccb21a48d8fc76e17f7fba82c825077b1dfd17}{}\label{openavb__endpoint__osal__shaper_8c_a8cc289c079113479b9b499af4b2ccb21a48d8fc76e17f7fba82c825077b1dfd17}
+}]\index{S\+H\+A\+P\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+C\+O\+N\+N\+E\+C\+T\+ED@{S\+H\+A\+P\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+C\+O\+N\+N\+E\+C\+T\+ED}!openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}}\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}!S\+H\+A\+P\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+C\+O\+N\+N\+E\+C\+T\+ED@{S\+H\+A\+P\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+C\+O\+N\+N\+E\+C\+T\+ED}}\item[{\em 
+S\+H\+A\+P\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+C\+O\+N\+N\+E\+C\+T\+ED\hypertarget{openavb__endpoint__osal__shaper_8c_a8cc289c079113479b9b499af4b2ccb21ac19ea5327f995ef73ce28a4bcf342ef9}{}\label{openavb__endpoint__osal__shaper_8c_a8cc289c079113479b9b499af4b2ccb21ac19ea5327f995ef73ce28a4bcf342ef9}
+}]\index{S\+H\+A\+P\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+E\+N\+A\+B\+L\+ED@{S\+H\+A\+P\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+E\+N\+A\+B\+L\+ED}!openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}}\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}!S\+H\+A\+P\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+E\+N\+A\+B\+L\+ED@{S\+H\+A\+P\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+E\+N\+A\+B\+L\+ED}}\item[{\em 
+S\+H\+A\+P\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+E\+N\+A\+B\+L\+ED\hypertarget{openavb__endpoint__osal__shaper_8c_a8cc289c079113479b9b499af4b2ccb21a7b8eae53fcd7eeb79339a1904e48cd56}{}\label{openavb__endpoint__osal__shaper_8c_a8cc289c079113479b9b499af4b2ccb21a7b8eae53fcd7eeb79339a1904e48cd56}
+}]\index{S\+H\+A\+P\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+N\+O\+T\+\_\+\+A\+V\+A\+I\+L\+A\+B\+LE@{S\+H\+A\+P\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+N\+O\+T\+\_\+\+A\+V\+A\+I\+L\+A\+B\+LE}!openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}}\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}!S\+H\+A\+P\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+N\+O\+T\+\_\+\+A\+V\+A\+I\+L\+A\+B\+LE@{S\+H\+A\+P\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+N\+O\+T\+\_\+\+A\+V\+A\+I\+L\+A\+B\+LE}}\item[{\em 
+S\+H\+A\+P\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+N\+O\+T\+\_\+\+A\+V\+A\+I\+L\+A\+B\+LE\hypertarget{openavb__endpoint__osal__shaper_8c_a8cc289c079113479b9b499af4b2ccb21a9886746a53326a1287440546b6ff4b23}{}\label{openavb__endpoint__osal__shaper_8c_a8cc289c079113479b9b499af4b2ccb21a9886746a53326a1287440546b6ff4b23}
+}]\index{S\+H\+A\+P\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+E\+R\+R\+OR@{S\+H\+A\+P\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+E\+R\+R\+OR}!openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}}\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}!S\+H\+A\+P\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+E\+R\+R\+OR@{S\+H\+A\+P\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+E\+R\+R\+OR}}\item[{\em 
+S\+H\+A\+P\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+E\+R\+R\+OR\hypertarget{openavb__endpoint__osal__shaper_8c_a8cc289c079113479b9b499af4b2ccb21a5bf2789c8ead545cd8f84ff988494442}{}\label{openavb__endpoint__osal__shaper_8c_a8cc289c079113479b9b499af4b2ccb21a5bf2789c8ead545cd8f84ff988494442}
+}]\end{description}
+\end{Desc}
+
+
+openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c 파일의 81 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+81                    \{
+82     \hyperlink{openavb__endpoint__osal__shaper_8c_a8cc289c079113479b9b499af4b2ccb21a48d8fc76e17f7fba82c825077b1dfd17}{SHAPER\_STATE\_UNKNOWN},
+83     \hyperlink{openavb__endpoint__osal__shaper_8c_a8cc289c079113479b9b499af4b2ccb21ac19ea5327f995ef73ce28a4bcf342ef9}{SHAPER\_STATE\_CONNECTED}, \textcolor{comment}{// Connected, but shaping not enabled.}
+84     \hyperlink{openavb__endpoint__osal__shaper_8c_a8cc289c079113479b9b499af4b2ccb21a7b8eae53fcd7eeb79339a1904e48cd56}{SHAPER\_STATE\_ENABLED}, \textcolor{comment}{// Shaping enabled by the daemon}
+85     \hyperlink{openavb__endpoint__osal__shaper_8c_a8cc289c079113479b9b499af4b2ccb21a9886746a53326a1287440546b6ff4b23}{SHAPER\_STATE\_NOT\_AVAILABLE}, \textcolor{comment}{// Daemon not found or not connected.}
+86     \hyperlink{openavb__endpoint__osal__shaper_8c_a8cc289c079113479b9b499af4b2ccb21a5bf2789c8ead545cd8f84ff988494442}{SHAPER\_STATE\_ERROR}
+87 \};
+\end{DoxyCode}
+
+
+\subsection{함수 문서화}
+\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}!M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+LE@{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+LE}}
+\index{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+LE@{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+LE}!openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}}
+\subsubsection[{\texorpdfstring{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+L\+E(shaper\+Mutex)}{MUTEX_HANDLE(shaperMutex)}}]{\setlength{\rightskip}{0pt plus 5cm}static M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+LE (
+\begin{DoxyParamCaption}
+\item[{shaper\+Mutex}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__endpoint__osal__shaper_8c_a7719eca30cf5186b6886d13422f961f9}{}\label{openavb__endpoint__osal__shaper_8c_a7719eca30cf5186b6886d13422f961f9}
+\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}!openavb\+Shaper\+Daemon\+Available@{openavb\+Shaper\+Daemon\+Available}}
+\index{openavb\+Shaper\+Daemon\+Available@{openavb\+Shaper\+Daemon\+Available}!openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Shaper\+Daemon\+Available(void)}{openavbShaperDaemonAvailable(void)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} openavb\+Shaper\+Daemon\+Available (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__endpoint__osal__shaper_8c_a2d1da144f0be1027af9691a40d39b425}{}\label{openavb__endpoint__osal__shaper_8c_a2d1da144f0be1027af9691a40d39b425}
+
+
+openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c 파일의 299 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+300 \{
+301     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(AVB\_TRACE\_SHAPER);
+302 
+303     \textcolor{keywordflow}{if} (!\hyperlink{openavb__endpoint__osal__shaper_8c_a83f52d659d74b62db1c5b9523a79c536}{shaperRunning}) \{
+304         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(AVB\_TRACE\_SHAPER);
+305         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+306     \}
+307 
+308     \textcolor{comment}{// Wait for the daemon to connect.}
+309     \textcolor{keywordflow}{if} (\hyperlink{openavb__endpoint__osal__shaper_8c_aedad653f274a43dc0eb3b85147fe2c9d}{shaperState} == \hyperlink{openavb__endpoint__osal__shaper_8c_a8cc289c079113479b9b499af4b2ccb21a48d8fc76e17f7fba82c825077b1dfd17}{SHAPER\_STATE\_UNKNOWN}) \{
+310         \hyperlink{maap__helper__linux_8h_a63121b744a6265fe4bae4963b032ac02}{SLEEP\_MSEC}(50);
+311     \}
+312 
+313     \textcolor{keywordflow}{if} (\hyperlink{openavb__endpoint__osal__shaper_8c_aedad653f274a43dc0eb3b85147fe2c9d}{shaperState} > \hyperlink{openavb__endpoint__osal__shaper_8c_a8cc289c079113479b9b499af4b2ccb21a48d8fc76e17f7fba82c825077b1dfd17}{SHAPER\_STATE\_UNKNOWN} && 
+      \hyperlink{openavb__endpoint__osal__shaper_8c_aedad653f274a43dc0eb3b85147fe2c9d}{shaperState} < \hyperlink{openavb__endpoint__osal__shaper_8c_a8cc289c079113479b9b499af4b2ccb21a9886746a53326a1287440546b6ff4b23}{SHAPER\_STATE\_NOT\_AVAILABLE}) \{
+314         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(AVB\_TRACE\_SHAPER);
+315         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+316     \}
+317 
+318     \textcolor{keywordflow}{if} (\hyperlink{openavb__endpoint__osal__shaper_8c_aedad653f274a43dc0eb3b85147fe2c9d}{shaperState} != \hyperlink{openavb__endpoint__osal__shaper_8c_a8cc289c079113479b9b499af4b2ccb21a9886746a53326a1287440546b6ff4b23}{SHAPER\_STATE\_NOT\_AVAILABLE}) \{
+319         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a6e7cd550837a0406e98b81a840d10ea9}{AVB\_LOG\_WARNING}(\textcolor{stringliteral}{"Shaper Daemon not available."});
+320     \}
+321     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(AVB\_TRACE\_SHAPER);
+322     \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+323 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__endpoint__osal__shaper_8c_a2d1da144f0be1027af9691a40d39b425_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}!openavb\+Shaper\+Finalize@{openavb\+Shaper\+Finalize}}
+\index{openavb\+Shaper\+Finalize@{openavb\+Shaper\+Finalize}!openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Shaper\+Finalize()}{openavbShaperFinalize()}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Shaper\+Finalize (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__endpoint__osal__shaper_8c_afa03c51a5d00c1174aaa008a32569261}{}\label{openavb__endpoint__osal__shaper_8c_afa03c51a5d00c1174aaa008a32569261}
+
+
+openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c 파일의 282 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+283 \{
+284     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(AVB\_TRACE\_SHAPER);
+285 
+286     \textcolor{keywordflow}{if} (\hyperlink{openavb__endpoint__osal__shaper_8c_a83f52d659d74b62db1c5b9523a79c536}{shaperRunning}) \{
+287         \textcolor{comment}{// Stop the SHAPER thread.}
+288         \hyperlink{openavb__endpoint__osal__shaper_8c_a83f52d659d74b62db1c5b9523a79c536}{shaperRunning} = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+289         pthread\_join(\hyperlink{openavb__endpoint__osal__shaper_8c_a011f82517f52aaf16d838c80ad9f2003}{shaperThreadHandle}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+290     \}
+291 
+292     \hyperlink{maap__helper__linux_8h_aee93da9d4ea28eeaa9c64bd938d5549b}{MUTEX\_CREATE\_ERR}();
+293     \hyperlink{maap__helper__linux_8h_afd8d054f881b4a58d1b3b8942b37f04c}{MUTEX\_DESTROY}(shaperMutex);
+294     \hyperlink{maap__helper__linux_8h_a08d33bd2184e24e7676bda0efb5a3e5e}{MUTEX\_LOG\_ERR}(\textcolor{stringliteral}{"Error destroying mutex"});
+295 
+296     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(AVB\_TRACE\_SHAPER);
+297 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__endpoint__osal__shaper_8c_afa03c51a5d00c1174aaa008a32569261_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}!openavb\+Shaper\+Handle@{openavb\+Shaper\+Handle}}
+\index{openavb\+Shaper\+Handle@{openavb\+Shaper\+Handle}!openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Shaper\+Handle(\+S\+R\+Class\+Idx\+\_\+t sr\+\_\+class, int measurement\+\_\+interval\+\_\+usec, int max\+\_\+frame\+\_\+size\+\_\+bytes, int max\+\_\+frames\+\_\+per\+\_\+interval, const unsigned char $\ast$stream\+\_\+da)}{openavbShaperHandle(SRClassIdx_t sr_class, int measurement_interval_usec, int max_frame_size_bytes, int max_frames_per_interval, const unsigned char *stream_da)}}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ openavb\+Shaper\+Handle (
+\begin{DoxyParamCaption}
+\item[{{\bf S\+R\+Class\+Idx\+\_\+t}}]{sr\+\_\+class, }
+\item[{int}]{measurement\+\_\+interval\+\_\+usec, }
+\item[{int}]{max\+\_\+frame\+\_\+size\+\_\+bytes, }
+\item[{int}]{max\+\_\+frames\+\_\+per\+\_\+interval, }
+\item[{const unsigned char $\ast$}]{stream\+\_\+da}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__endpoint__osal__shaper_8c_afdb0bb26fd9dc02680d89778cf6754bc}{}\label{openavb__endpoint__osal__shaper_8c_afdb0bb26fd9dc02680d89778cf6754bc}
+
+
+openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c 파일의 325 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+326 \{
+327     \textcolor{comment}{// If the daemon is not available, abort!}
+328     \textcolor{keywordflow}{if} (\hyperlink{openavb__endpoint__osal__shaper_8c_a16ece46816348fa6d2c5d0e8b47c0098}{socketfd} == -1 || !\hyperlink{openavb__endpoint__osal__shaper_8c_a2d1da144f0be1027af9691a40d39b425}{openavbShaperDaemonAvailable}())
+329     \{
+330         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Shaper reservation attempted with no daemon available"});
+331         \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+332     \}
+333 
+334     \textcolor{comment}{// Find the first available index.}
+335     \textcolor{keywordtype}{int} i;
+336     \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{openavb__endpoint__osal__shaper_8c_ac658b764ed7cda30e7d4d29ee252836a}{MAX\_SHAPER\_RESERVATIONS}; ++i)
+337     \{
+338         \textcolor{keywordflow}{if} (!(\hyperlink{openavb__endpoint__osal__shaper_8c_a4df060aa3b9ca319cb40e39d6590cc43}{shaperReservationList}[i].in\_use))
+339         \{
+340             \textcolor{keywordflow}{break};
+341         \}
+342     \}
+343     \textcolor{keywordflow}{if} (i >= MAX\_SHAPER\_RESERVATIONS)
+344     \{
+345         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"No Shaper reservations are available"});
+346         \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+347     \}
+348 
+349     \textcolor{comment}{// Fill in the information.}
+350     \hyperlink{openavb__endpoint__osal__shaper_8c_a4df060aa3b9ca319cb40e39d6590cc43}{shaperReservationList}[i].\hyperlink{structshaper__reservation_acd374dc544502235efa3c6533c75820f}{in\_use} = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+351     \hyperlink{openavb__endpoint__osal__shaper_8c_a4df060aa3b9ca319cb40e39d6590cc43}{shaperReservationList}[i].\hyperlink{structshaper__reservation_abd9f3cf34e5587f607b96c77560cc374}{sr\_class} = sr\_class;
+352     \hyperlink{openavb__endpoint__osal__shaper_8c_a4df060aa3b9ca319cb40e39d6590cc43}{shaperReservationList}[i].\hyperlink{structshaper__reservation_a848591ef9ab34f6f2eb816fe385fa4d4}{measurement\_interval} = 
+      measurement\_interval\_usec;
+353     \hyperlink{openavb__endpoint__osal__shaper_8c_a4df060aa3b9ca319cb40e39d6590cc43}{shaperReservationList}[i].\hyperlink{structshaper__reservation_a09c29b0090a82147afdb50ae0013b9c6}{max\_frame\_size} = max\_frame\_size\_bytes;
+354     \hyperlink{openavb__endpoint__osal__shaper_8c_a4df060aa3b9ca319cb40e39d6590cc43}{shaperReservationList}[i].\hyperlink{structshaper__reservation_aace8d964835e57882addf0f51cb64f86}{max\_frames\_per\_interval} = 
+      max\_frames\_per\_interval;
+355     memcpy(\hyperlink{openavb__endpoint__osal__shaper_8c_a4df060aa3b9ca319cb40e39d6590cc43}{shaperReservationList}[i].\hyperlink{structstream__da}{stream\_da}, stream\_da, 
+      \hyperlink{openavb__endpoint__osal__shaper_8c_a9822d89774e0d6ddaa06503950130423}{ETH\_ALEN});
+356 
+357     \textcolor{comment}{// Send the information to the Shaper daemon.}
+358     \textcolor{comment}{// Reserving Bandwidth Example:  -ri eth2 -c A -s 125 -b 74 -f 1 -a ff:ff:ff:ff:ff:11\(\backslash\)n}
+359     \textcolor{keywordtype}{char} szCommand[200];
+360     sprintf(szCommand, \textcolor{stringliteral}{"-ri %s -c %c -s %u -b %u -f %u -a %02x:%02x:%02x:%02x:%02x:%02x"},
+361         \hyperlink{openavb__endpoint__osal__shaper_8c_a16adfecef7f22dcb43bee1ded6fc6944}{interfaceOnly},
+362         ( \hyperlink{openavb__endpoint__osal__shaper_8c_a4df060aa3b9ca319cb40e39d6590cc43}{shaperReservationList}[i].sr\_class == \hyperlink{openavb__types__base__pub_8h_a4d8ccbeaf8ad040d8880e8971fc62752a015950a62a4a997ead901490a42654aa}{SR\_CLASS\_A} ? \textcolor{charliteral}{'A'} : \textcolor{charliteral}{'B'} ),
+363         \hyperlink{openavb__endpoint__osal__shaper_8c_a4df060aa3b9ca319cb40e39d6590cc43}{shaperReservationList}[i].measurement\_interval,
+364         \hyperlink{openavb__endpoint__osal__shaper_8c_a4df060aa3b9ca319cb40e39d6590cc43}{shaperReservationList}[i].max\_frame\_size,
+365         \hyperlink{openavb__endpoint__osal__shaper_8c_a4df060aa3b9ca319cb40e39d6590cc43}{shaperReservationList}[i].max\_frames\_per\_interval,
+366         \hyperlink{openavb__endpoint__osal__shaper_8c_a4df060aa3b9ca319cb40e39d6590cc43}{shaperReservationList}[i].\hyperlink{structstream__da}{stream\_da}[0],
+367         \hyperlink{openavb__endpoint__osal__shaper_8c_a4df060aa3b9ca319cb40e39d6590cc43}{shaperReservationList}[i].stream\_da[1],
+368         \hyperlink{openavb__endpoint__osal__shaper_8c_a4df060aa3b9ca319cb40e39d6590cc43}{shaperReservationList}[i].stream\_da[2],
+369         \hyperlink{openavb__endpoint__osal__shaper_8c_a4df060aa3b9ca319cb40e39d6590cc43}{shaperReservationList}[i].stream\_da[3],
+370         \hyperlink{openavb__endpoint__osal__shaper_8c_a4df060aa3b9ca319cb40e39d6590cc43}{shaperReservationList}[i].stream\_da[4],
+371         \hyperlink{openavb__endpoint__osal__shaper_8c_a4df060aa3b9ca319cb40e39d6590cc43}{shaperReservationList}[i].stream\_da[5]);
+372     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afcf1f0c1d10ae9efe3782eb6cae78355}{AVB\_LOGF\_DEBUG}(\textcolor{stringliteral}{"Sending Shaper command:  %s"}, szCommand);
+373     strcat(szCommand, \textcolor{stringliteral}{"\(\backslash\)n"});
+374     \textcolor{keywordflow}{if} (send(\hyperlink{openavb__endpoint__osal__shaper_8c_a16ece46816348fa6d2c5d0e8b47c0098}{socketfd}, szCommand, strlen(szCommand), 0) < 0)
+375     \{
+376         \textcolor{comment}{/* Something went wrong.  Abort! */}
+377         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Shaper:  Error %d writing to network socket (%s)"}, errno, strerror(
+      errno));
+378         \hyperlink{openavb__endpoint__osal__shaper_8c_aedad653f274a43dc0eb3b85147fe2c9d}{shaperState} = \hyperlink{openavb__endpoint__osal__shaper_8c_a8cc289c079113479b9b499af4b2ccb21a5bf2789c8ead545cd8f84ff988494442}{SHAPER\_STATE\_ERROR};
+379         \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+380     \}
+381 
+382     \hyperlink{openavb__endpoint__osal__shaper_8c_aedad653f274a43dc0eb3b85147fe2c9d}{shaperState} = \hyperlink{openavb__endpoint__osal__shaper_8c_a8cc289c079113479b9b499af4b2ccb21a7b8eae53fcd7eeb79339a1904e48cd56}{SHAPER\_STATE\_ENABLED};
+383 
+384     \textcolor{comment}{// TODO:  Verify that the command was successful.}
+385 
+386     \textcolor{keywordflow}{return} (\textcolor{keywordtype}{void} *)(&(\hyperlink{openavb__endpoint__osal__shaper_8c_a4df060aa3b9ca319cb40e39d6590cc43}{shaperReservationList}[i]));
+387 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__endpoint__osal__shaper_8c_afdb0bb26fd9dc02680d89778cf6754bc_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__endpoint__osal__shaper_8c_afdb0bb26fd9dc02680d89778cf6754bc_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}!openavb\+Shaper\+Initialize@{openavb\+Shaper\+Initialize}}
+\index{openavb\+Shaper\+Initialize@{openavb\+Shaper\+Initialize}!openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Shaper\+Initialize(const char $\ast$ifname, unsigned int shaper\+Port)}{openavbShaperInitialize(const char *ifname, unsigned int shaperPort)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} openavb\+Shaper\+Initialize (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{ifname, }
+\item[{unsigned int}]{shaper\+Port}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__endpoint__osal__shaper_8c_acb36ba4121844a739183fa32afb3f84b}{}\label{openavb__endpoint__osal__shaper_8c_acb36ba4121844a739183fa32afb3f84b}
+
+
+openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c 파일의 238 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+239 \{
+240     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(AVB\_TRACE\_SHAPER);
+241 
+242     \hyperlink{maap__helper__linux_8h_aa4357bf132bbe882647e5390b6e4c6fd}{MUTEX\_ATTR\_HANDLE}(mta);
+243     \hyperlink{maap__helper__linux_8h_a92469004d3cad1f5c2fc61c27377b960}{MUTEX\_ATTR\_INIT}(mta);
+244     \hyperlink{maap__helper__linux_8h_aa049f137bcdd27b92f47387f3cb8e800}{MUTEX\_ATTR\_SET\_TYPE}(mta, \hyperlink{maap__helper__linux_8h_ac374e7f6cc426fc8b6b85bbf230232e2}{MUTEX\_ATTR\_TYPE\_DEFAULT});
+245     \hyperlink{maap__helper__linux_8h_a910032bc83a960383ec87492342e322b}{MUTEX\_ATTR\_SET\_NAME}(mta, \textcolor{stringliteral}{"shaperMutex"});
+246     \hyperlink{maap__helper__linux_8h_aee93da9d4ea28eeaa9c64bd938d5549b}{MUTEX\_CREATE\_ERR}();
+247     \hyperlink{maap__helper__linux_8h_a3419f7f7cdfd641b4a638bf2eb4e935c}{MUTEX\_CREATE}(shaperMutex, mta);
+248     \hyperlink{maap__helper__linux_8h_a08d33bd2184e24e7676bda0efb5a3e5e}{MUTEX\_LOG\_ERR}(\textcolor{stringliteral}{"Could not create/initialize 'shaperMutex' mutex"});
+249 
+250     memset(\hyperlink{openavb__endpoint__osal__shaper_8c_a4df060aa3b9ca319cb40e39d6590cc43}{shaperReservationList}, 0, \textcolor{keyword}{sizeof}(
+      \hyperlink{openavb__endpoint__osal__shaper_8c_a4df060aa3b9ca319cb40e39d6590cc43}{shaperReservationList}));
+251 
+252     \textcolor{keywordflow}{if} (shaperPort == 0) \{
+253         \hyperlink{openavb__endpoint__osal__shaper_8c_aedad653f274a43dc0eb3b85147fe2c9d}{shaperState} = \hyperlink{openavb__endpoint__osal__shaper_8c_a8cc289c079113479b9b499af4b2ccb21a9886746a53326a1287440546b6ff4b23}{SHAPER\_STATE\_NOT\_AVAILABLE};
+254     \}
+255     \textcolor{keywordflow}{else} \{
+256         \hyperlink{openavb__endpoint__osal__shaper_8c_aedad653f274a43dc0eb3b85147fe2c9d}{shaperState} = \hyperlink{openavb__endpoint__osal__shaper_8c_a8cc289c079113479b9b499af4b2ccb21a48d8fc76e17f7fba82c825077b1dfd17}{SHAPER\_STATE\_UNKNOWN};
+257         sprintf(\hyperlink{openavb__endpoint__osal__shaper_8c_a918897dbfe631820e6e9beb6122c3a23}{shaperDaemonPort}, \textcolor{stringliteral}{"%u"}, shaperPort);
+258 
+259         \textcolor{comment}{// Save the interface-only name to pass to the daemon later.}
+260         \textcolor{keyword}{const} \textcolor{keywordtype}{char} *ifonly = strchr(\hyperlink{aaf-talker_8c_ac7b430acaa92a7a26fbcdad47d2efc20}{ifname}, \textcolor{charliteral}{':'});
+261         \textcolor{keywordflow}{if} (ifonly) \{
+262             ifonly++; \textcolor{comment}{// Go past the colon}
+263         \} \textcolor{keywordflow}{else} \{
+264             ifonly = \hyperlink{aaf-talker_8c_ac7b430acaa92a7a26fbcdad47d2efc20}{ifname}; \textcolor{comment}{// No colon in interface name}
+265         \}
+266         strncpy(\hyperlink{openavb__endpoint__osal__shaper_8c_a16adfecef7f22dcb43bee1ded6fc6944}{interfaceOnly}, ifonly, \textcolor{keyword}{sizeof}(\hyperlink{openavb__endpoint__osal__shaper_8c_a16adfecef7f22dcb43bee1ded6fc6944}{interfaceOnly}));
+267         \hyperlink{openavb__endpoint__osal__shaper_8c_a16adfecef7f22dcb43bee1ded6fc6944}{interfaceOnly}[\textcolor{keyword}{sizeof}(\hyperlink{openavb__endpoint__osal__shaper_8c_a16adfecef7f22dcb43bee1ded6fc6944}{interfaceOnly}) - 1] = \textcolor{charliteral}{'\(\backslash\)0'};
+268 
+269         \hyperlink{openavb__endpoint__osal__shaper_8c_a83f52d659d74b62db1c5b9523a79c536}{shaperRunning} = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+270         \textcolor{keywordtype}{int} \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err} = pthread\_create(&\hyperlink{openavb__endpoint__osal__shaper_8c_a011f82517f52aaf16d838c80ad9f2003}{shaperThreadHandle}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, 
+      \hyperlink{openavb__endpoint__osal__shaper_8c_adadebca3fdb4c4ac1668fa459076614b}{shaperThread}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+271         \textcolor{keywordflow}{if} (err) \{
+272             shaperRunning = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+273             \hyperlink{openavb__endpoint__osal__shaper_8c_aedad653f274a43dc0eb3b85147fe2c9d}{shaperState} = \hyperlink{openavb__endpoint__osal__shaper_8c_a8cc289c079113479b9b499af4b2ccb21a5bf2789c8ead545cd8f84ff988494442}{SHAPER\_STATE\_ERROR};
+274             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Failed to start SHAPER thread: %s"}, strerror(err));
+275         \}
+276     \}
+277 
+278     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(AVB\_TRACE\_SHAPER);
+279     \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+280 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=312pt]{openavb__endpoint__osal__shaper_8c_acb36ba4121844a739183fa32afb3f84b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__endpoint__osal__shaper_8c_acb36ba4121844a739183fa32afb3f84b_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}!openavb\+Shaper\+Release@{openavb\+Shaper\+Release}}
+\index{openavb\+Shaper\+Release@{openavb\+Shaper\+Release}!openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Shaper\+Release(void $\ast$handle)}{openavbShaperRelease(void *handle)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Shaper\+Release (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{handle}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__endpoint__osal__shaper_8c_ad0c77510fb056fadf87517ece3813f75}{}\label{openavb__endpoint__osal__shaper_8c_ad0c77510fb056fadf87517ece3813f75}
+
+
+openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c 파일의 389 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+390 \{
+391     \textcolor{keywordtype}{int} i;
+392     \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{openavb__endpoint__osal__shaper_8c_ac658b764ed7cda30e7d4d29ee252836a}{MAX\_SHAPER\_RESERVATIONS}; ++i)
+393     \{
+394         \textcolor{keywordflow}{if} (\hyperlink{jack__listener_8c_a6c138155d7b3442efd19d0aa3f93e548}{handle} == (\textcolor{keywordtype}{void} *)(&(\hyperlink{openavb__endpoint__osal__shaper_8c_a4df060aa3b9ca319cb40e39d6590cc43}{shaperReservationList}[i])))
+395         \{
+396             \textcolor{keywordflow}{if} (\hyperlink{openavb__endpoint__osal__shaper_8c_a4df060aa3b9ca319cb40e39d6590cc43}{shaperReservationList}[i].in\_use)
+397             \{
+398                 \textcolor{comment}{// Send the information to the Shaper daemon.}
+399                 \textcolor{comment}{// Unreserving Bandwidth Example:  -ua ff:ff:ff:ff:ff:11\(\backslash\)n}
+400                 \textcolor{keywordtype}{char} szCommand[200];
+401                 sprintf(szCommand, \textcolor{stringliteral}{"-ua %02x:%02x:%02x:%02x:%02x:%02x"},
+402                     \hyperlink{openavb__endpoint__osal__shaper_8c_a4df060aa3b9ca319cb40e39d6590cc43}{shaperReservationList}[i].\hyperlink{structstream__da}{stream\_da}[0],
+403                     \hyperlink{openavb__endpoint__osal__shaper_8c_a4df060aa3b9ca319cb40e39d6590cc43}{shaperReservationList}[i].stream\_da[1],
+404                     \hyperlink{openavb__endpoint__osal__shaper_8c_a4df060aa3b9ca319cb40e39d6590cc43}{shaperReservationList}[i].stream\_da[2],
+405                     \hyperlink{openavb__endpoint__osal__shaper_8c_a4df060aa3b9ca319cb40e39d6590cc43}{shaperReservationList}[i].stream\_da[3],
+406                     \hyperlink{openavb__endpoint__osal__shaper_8c_a4df060aa3b9ca319cb40e39d6590cc43}{shaperReservationList}[i].stream\_da[4],
+407                     \hyperlink{openavb__endpoint__osal__shaper_8c_a4df060aa3b9ca319cb40e39d6590cc43}{shaperReservationList}[i].stream\_da[5]);
+408 
+409                 \hyperlink{openavb__endpoint__osal__shaper_8c_a4df060aa3b9ca319cb40e39d6590cc43}{shaperReservationList}[i].\hyperlink{structshaper__reservation_acd374dc544502235efa3c6533c75820f}{in\_use} = 
+      \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+410 
+411                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afcf1f0c1d10ae9efe3782eb6cae78355}{AVB\_LOGF\_DEBUG}(\textcolor{stringliteral}{"Sending Shaper command:  %s"}, szCommand);
+412                 strcat(szCommand, \textcolor{stringliteral}{"\(\backslash\)n"});
+413                 \textcolor{keywordflow}{if} (send(\hyperlink{openavb__endpoint__osal__shaper_8c_a16ece46816348fa6d2c5d0e8b47c0098}{socketfd}, szCommand, strlen(szCommand), 0) < 0)
+414                 \{
+415                     \textcolor{comment}{/* Something went wrong. */}
+416                     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Shaper:  Error %d writing to network socket (%s)"}, errno,
+       strerror(errno));
+417                     \hyperlink{openavb__endpoint__osal__shaper_8c_aedad653f274a43dc0eb3b85147fe2c9d}{shaperState} = \hyperlink{openavb__endpoint__osal__shaper_8c_a8cc289c079113479b9b499af4b2ccb21a5bf2789c8ead545cd8f84ff988494442}{SHAPER\_STATE\_ERROR};
+418                 \}
+419                 \textcolor{keywordflow}{else} \{
+420                     \textcolor{comment}{// TODO:  Verify that the command was successful.}
+421                 \}
+422             \}
+423             \textcolor{keywordflow}{break};
+424         \}
+425     \}
+426 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__endpoint__osal__shaper_8c_ad0c77510fb056fadf87517ece3813f75_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}!shaper\+Thread@{shaper\+Thread}}
+\index{shaper\+Thread@{shaper\+Thread}!openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}}
+\subsubsection[{\texorpdfstring{shaper\+Thread(void $\ast$arg)}{shaperThread(void *arg)}}]{\setlength{\rightskip}{0pt plus 5cm}static void $\ast$ shaper\+Thread (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{arg}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__endpoint__osal__shaper_8c_adadebca3fdb4c4ac1668fa459076614b}{}\label{openavb__endpoint__osal__shaper_8c_adadebca3fdb4c4ac1668fa459076614b}
+
+
+openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c 파일의 100 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+101 \{
+102     \textcolor{keyword}{struct }addrinfo hints, *ai, *p;
+103     \textcolor{keywordtype}{int} ret;
+104 
+105     fd\_set master, read\_fds;
+106     \textcolor{keywordtype}{int} fdmax;
+107 
+108     \textcolor{keywordtype}{char} recvbuffer[200];
+109     \textcolor{keywordtype}{int} recvbytes;
+110 
+111     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a28a4d0350d530ad95c95b8383c00cd9c}{AVB\_LOG\_DEBUG}(\textcolor{stringliteral}{"Shaper Thread Starting"});
+112 
+113     \textcolor{comment}{/* Create a localhost socket. */}
+114     memset(&hints, 0, \textcolor{keyword}{sizeof} hints);
+115     hints.ai\_family = AF\_UNSPEC;
+116     hints.ai\_socktype = SOCK\_STREAM;
+117     hints.ai\_flags = 0;
+118     \textcolor{keywordflow}{if} ((ret = getaddrinfo(\textcolor{stringliteral}{"localhost"}, \hyperlink{openavb__endpoint__osal__shaper_8c_a918897dbfe631820e6e9beb6122c3a23}{shaperDaemonPort}, &hints, &ai)) != 0) \{
+119         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"getaddrinfo failure %s"}, gai\_strerror(ret));
+120         \hyperlink{openavb__endpoint__osal__shaper_8c_aedad653f274a43dc0eb3b85147fe2c9d}{shaperState} = \hyperlink{openavb__endpoint__osal__shaper_8c_a8cc289c079113479b9b499af4b2ccb21a5bf2789c8ead545cd8f84ff988494442}{SHAPER\_STATE\_ERROR};
+121         \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+122     \}
+123 
+124     \textcolor{keywordflow}{for}(p = ai; p != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}; p = p->ai\_next) \{
+125         \hyperlink{openavb__endpoint__osal__shaper_8c_a16ece46816348fa6d2c5d0e8b47c0098}{socketfd} = socket(p->ai\_family, p->ai\_socktype, p->ai\_protocol);
+126         \textcolor{keywordflow}{if} (\hyperlink{openavb__endpoint__osal__shaper_8c_a16ece46816348fa6d2c5d0e8b47c0098}{socketfd} == -1) \{
+127             \textcolor{keywordflow}{continue};
+128         \}
+129         ret = connect(\hyperlink{openavb__endpoint__osal__shaper_8c_a16ece46816348fa6d2c5d0e8b47c0098}{socketfd}, p->ai\_addr, p->ai\_addrlen);
+130         \textcolor{keywordflow}{if} (ret == -1) \{
+131             close(\hyperlink{openavb__endpoint__osal__shaper_8c_a16ece46816348fa6d2c5d0e8b47c0098}{socketfd});
+132             \hyperlink{openavb__endpoint__osal__shaper_8c_a16ece46816348fa6d2c5d0e8b47c0098}{socketfd} = -1;
+133             \textcolor{keywordflow}{continue};
+134         \} \textcolor{keywordflow}{else} \{
+135             \textcolor{keywordflow}{break};
+136         \}
+137     \}
+138 
+139     freeaddrinfo(ai);
+140 
+141     \textcolor{keywordflow}{if} (p == \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \{
+142         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Shaper:  Unable to connect to the daemon, error %d (%s)"}, errno, 
+      strerror(errno));
+143         \hyperlink{openavb__endpoint__osal__shaper_8c_aedad653f274a43dc0eb3b85147fe2c9d}{shaperState} = \hyperlink{openavb__endpoint__osal__shaper_8c_a8cc289c079113479b9b499af4b2ccb21a5bf2789c8ead545cd8f84ff988494442}{SHAPER\_STATE\_ERROR};
+144         \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+145     \}
+146 
+147     \textcolor{keywordflow}{if} (fcntl(\hyperlink{openavb__endpoint__osal__shaper_8c_a16ece46816348fa6d2c5d0e8b47c0098}{socketfd}, F\_SETFL, O\_NONBLOCK) < 0)
+148     \{
+149         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Shaper:  Could not set the socket to non-blocking"});
+150         close(\hyperlink{openavb__endpoint__osal__shaper_8c_a16ece46816348fa6d2c5d0e8b47c0098}{socketfd});
+151         \hyperlink{openavb__endpoint__osal__shaper_8c_a16ece46816348fa6d2c5d0e8b47c0098}{socketfd} = -1;
+152         \hyperlink{openavb__endpoint__osal__shaper_8c_aedad653f274a43dc0eb3b85147fe2c9d}{shaperState} = \hyperlink{openavb__endpoint__osal__shaper_8c_a8cc289c079113479b9b499af4b2ccb21a5bf2789c8ead545cd8f84ff988494442}{SHAPER\_STATE\_ERROR};
+153         \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+154     \}
+155 
+156     FD\_ZERO(&read\_fds);
+157     FD\_ZERO(&master);
+158     FD\_SET(STDIN\_FILENO, &master);
+159     FD\_SET(\hyperlink{openavb__endpoint__osal__shaper_8c_a16ece46816348fa6d2c5d0e8b47c0098}{socketfd}, &master);
+160     fdmax = \hyperlink{openavb__endpoint__osal__shaper_8c_a16ece46816348fa6d2c5d0e8b47c0098}{socketfd};
+161 
+162 
+163     \textcolor{comment}{/*}
+164 \textcolor{comment}{     * Main event loop}
+165 \textcolor{comment}{     */}
+166 
+167     \hyperlink{openavb__endpoint__osal__shaper_8c_aedad653f274a43dc0eb3b85147fe2c9d}{shaperState} = \hyperlink{openavb__endpoint__osal__shaper_8c_a8cc289c079113479b9b499af4b2ccb21ac19ea5327f995ef73ce28a4bcf342ef9}{SHAPER\_STATE\_CONNECTED};
+168     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afd47d3bbb5f5219dd0a18ebba4ba9b3e}{AVB\_LOG\_INFO}(\textcolor{stringliteral}{"Shaper daemon available"});
+169 
+170     \textcolor{keywordflow}{while} (\hyperlink{openavb__endpoint__osal__shaper_8c_a83f52d659d74b62db1c5b9523a79c536}{shaperRunning} || \hyperlink{openavb__endpoint__osal__shaper_8c_aedad653f274a43dc0eb3b85147fe2c9d}{shaperState} == 
+      \hyperlink{openavb__endpoint__osal__shaper_8c_a8cc289c079113479b9b499af4b2ccb21a7b8eae53fcd7eeb79339a1904e48cd56}{SHAPER\_STATE\_ENABLED})
+171     \{
+172         \textcolor{keywordflow}{if} (!\hyperlink{openavb__endpoint__osal__shaper_8c_a83f52d659d74b62db1c5b9523a79c536}{shaperRunning} && \hyperlink{openavb__endpoint__osal__shaper_8c_aedad653f274a43dc0eb3b85147fe2c9d}{shaperState} == 
+      \hyperlink{openavb__endpoint__osal__shaper_8c_a8cc289c079113479b9b499af4b2ccb21a7b8eae53fcd7eeb79339a1904e48cd56}{SHAPER\_STATE\_ENABLED})
+173         \{
+174             \textcolor{comment}{// TODO:  Tell the SHAPER daemon to stop shaping.}
+175             \textcolor{keywordflow}{break};
+176         \}
+177 
+178         \textcolor{comment}{/* Wait for something to happen. */}
+179         \textcolor{keyword}{struct }timeval tv\_timeout = \{ 1, 0 \};
+180         read\_fds = master;
+181         ret = select(fdmax+1, &read\_fds, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, &tv\_timeout);
+182         \textcolor{keywordflow}{if} (ret < 0)
+183         \{
+184             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Shaper:  select() error %d (%s)"}, errno, strerror(errno));
+185             \hyperlink{openavb__endpoint__osal__shaper_8c_aedad653f274a43dc0eb3b85147fe2c9d}{shaperState} = \hyperlink{openavb__endpoint__osal__shaper_8c_a8cc289c079113479b9b499af4b2ccb21a5bf2789c8ead545cd8f84ff988494442}{SHAPER\_STATE\_ERROR};
+186             \textcolor{keywordflow}{break};
+187         \}
+188 
+189         \textcolor{comment}{/* Handle any responses received. */}
+190         \textcolor{keywordflow}{if} (FD\_ISSET(\hyperlink{openavb__endpoint__osal__shaper_8c_a16ece46816348fa6d2c5d0e8b47c0098}{socketfd}, &read\_fds))
+191         \{
+192             \textcolor{keywordflow}{while} ((recvbytes = recv(\hyperlink{openavb__endpoint__osal__shaper_8c_a16ece46816348fa6d2c5d0e8b47c0098}{socketfd}, recvbuffer, \textcolor{keyword}{sizeof}(recvbuffer) - 1, 0)) > 0)
+193             \{
+194                 \textcolor{comment}{/* Log the response data */}
+195                 recvbuffer[recvbytes] = \textcolor{charliteral}{'\(\backslash\)0'};
+196                 \textcolor{keywordflow}{if} (strncmp(recvbuffer, \textcolor{stringliteral}{"ERROR:"}, 6) == 0) \{
+197                     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Shaper Response:  %s"}, recvbuffer + 7);
+198                 \}
+199                 \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strncmp(recvbuffer, \textcolor{stringliteral}{"WARNING:"}, 8) == 0) \{
+200                     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a6b02336e691e2e0579d2a5bb06367296}{AVB\_LOGF\_WARNING}(\textcolor{stringliteral}{"Shaper Response:  %s"}, recvbuffer + 9);
+201                 \}
+202                 \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strncmp(recvbuffer, \textcolor{stringliteral}{"DEBUG:"}, 6) == 0) \{
+203                     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afcf1f0c1d10ae9efe3782eb6cae78355}{AVB\_LOGF\_DEBUG}(\textcolor{stringliteral}{"Shaper Response:  %s"}, recvbuffer + 7);
+204                 \}
+205                 \textcolor{keywordflow}{else} \{
+206                     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afcf1f0c1d10ae9efe3782eb6cae78355}{AVB\_LOGF\_DEBUG}(\textcolor{stringliteral}{"Shaper Response:  %s"}, recvbuffer);
+207                 \}
+208             \}
+209             \textcolor{keywordflow}{if} (recvbytes == 0)
+210             \{
+211                 \textcolor{comment}{/* The SHAPER daemon closed the connection.  Assume it shut down, and we should too. */}
+212                 \textcolor{comment}{// AVDECC\_TODO:  Should we try to reconnect?}
+213                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Shaper daemon exited."});
+214                 \hyperlink{openavb__endpoint__osal__shaper_8c_aedad653f274a43dc0eb3b85147fe2c9d}{shaperState} = \hyperlink{openavb__endpoint__osal__shaper_8c_a8cc289c079113479b9b499af4b2ccb21a5bf2789c8ead545cd8f84ff988494442}{SHAPER\_STATE\_ERROR};
+215                 \textcolor{keywordflow}{break};
+216             \}
+217             \textcolor{keywordflow}{if} (recvbytes < 0 && errno != EWOULDBLOCK)
+218             \{
+219                 \textcolor{comment}{/* Something went wrong.  Abort! */}
+220                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Shaper:  Error %d reading from network socket (%s)"}, errno, 
+      strerror(errno));
+221                 \hyperlink{openavb__endpoint__osal__shaper_8c_aedad653f274a43dc0eb3b85147fe2c9d}{shaperState} = \hyperlink{openavb__endpoint__osal__shaper_8c_a8cc289c079113479b9b499af4b2ccb21a5bf2789c8ead545cd8f84ff988494442}{SHAPER\_STATE\_ERROR};
+222                 \textcolor{keywordflow}{break};
+223             \}
+224         \}
+225     \}
+226 
+227     \textcolor{keywordflow}{if} (\hyperlink{openavb__endpoint__osal__shaper_8c_aedad653f274a43dc0eb3b85147fe2c9d}{shaperState} < \hyperlink{openavb__endpoint__osal__shaper_8c_a8cc289c079113479b9b499af4b2ccb21a9886746a53326a1287440546b6ff4b23}{SHAPER\_STATE\_NOT\_AVAILABLE}) \{
+228         \hyperlink{openavb__endpoint__osal__shaper_8c_aedad653f274a43dc0eb3b85147fe2c9d}{shaperState} = \hyperlink{openavb__endpoint__osal__shaper_8c_a8cc289c079113479b9b499af4b2ccb21a9886746a53326a1287440546b6ff4b23}{SHAPER\_STATE\_NOT\_AVAILABLE};
+229     \}
+230 
+231     close(\hyperlink{openavb__endpoint__osal__shaper_8c_a16ece46816348fa6d2c5d0e8b47c0098}{socketfd});
+232     \hyperlink{openavb__endpoint__osal__shaper_8c_a16ece46816348fa6d2c5d0e8b47c0098}{socketfd} = -1;
+233 
+234     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a28a4d0350d530ad95c95b8383c00cd9c}{AVB\_LOG\_DEBUG}(\textcolor{stringliteral}{"Shaper Thread Done"});
+235     \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+236 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__endpoint__osal__shaper_8c_adadebca3fdb4c4ac1668fa459076614b_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{변수 문서화}
+\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}!interface\+Only@{interface\+Only}}
+\index{interface\+Only@{interface\+Only}!openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}}
+\subsubsection[{\texorpdfstring{interface\+Only}{interfaceOnly}}]{\setlength{\rightskip}{0pt plus 5cm}char interface\+Only\mbox{[}{\bf I\+F\+N\+A\+M\+S\+IZ}\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__endpoint__osal__shaper_8c_a16adfecef7f22dcb43bee1ded6fc6944}{}\label{openavb__endpoint__osal__shaper_8c_a16adfecef7f22dcb43bee1ded6fc6944}
+
+
+openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c 파일의 91 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}!shaper\+Daemon\+Port@{shaper\+Daemon\+Port}}
+\index{shaper\+Daemon\+Port@{shaper\+Daemon\+Port}!openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}}
+\subsubsection[{\texorpdfstring{shaper\+Daemon\+Port}{shaperDaemonPort}}]{\setlength{\rightskip}{0pt plus 5cm}char shaper\+Daemon\+Port\mbox{[}6\mbox{]} = \{0\}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__endpoint__osal__shaper_8c_a918897dbfe631820e6e9beb6122c3a23}{}\label{openavb__endpoint__osal__shaper_8c_a918897dbfe631820e6e9beb6122c3a23}
+
+
+openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c 파일의 92 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}!shaper\+Reservation\+List@{shaper\+Reservation\+List}}
+\index{shaper\+Reservation\+List@{shaper\+Reservation\+List}!openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}}
+\subsubsection[{\texorpdfstring{shaper\+Reservation\+List}{shaperReservationList}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf shaper\+\_\+reservation} shaper\+Reservation\+List\mbox{[}{\bf M\+A\+X\+\_\+\+S\+H\+A\+P\+E\+R\+\_\+\+R\+E\+S\+E\+R\+V\+A\+T\+I\+O\+NS}\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__endpoint__osal__shaper_8c_a4df060aa3b9ca319cb40e39d6590cc43}{}\label{openavb__endpoint__osal__shaper_8c_a4df060aa3b9ca319cb40e39d6590cc43}
+
+
+openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c 파일의 75 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}!shaper\+Running@{shaper\+Running}}
+\index{shaper\+Running@{shaper\+Running}!openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}}
+\subsubsection[{\texorpdfstring{shaper\+Running}{shaperRunning}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} shaper\+Running = {\bf F\+A\+L\+SE}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__endpoint__osal__shaper_8c_a83f52d659d74b62db1c5b9523a79c536}{}\label{openavb__endpoint__osal__shaper_8c_a83f52d659d74b62db1c5b9523a79c536}
+
+
+openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c 파일의 77 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}!shaper\+State@{shaper\+State}}
+\index{shaper\+State@{shaper\+State}!openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}}
+\subsubsection[{\texorpdfstring{shaper\+State}{shaperState}}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf shaper\+State\+\_\+t} shaper\+State = {\bf S\+H\+A\+P\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+U\+N\+K\+N\+O\+WN}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__endpoint__osal__shaper_8c_aedad653f274a43dc0eb3b85147fe2c9d}{}\label{openavb__endpoint__osal__shaper_8c_aedad653f274a43dc0eb3b85147fe2c9d}
+
+
+openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c 파일의 88 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}!shaper\+Thread\+Handle@{shaper\+Thread\+Handle}}
+\index{shaper\+Thread\+Handle@{shaper\+Thread\+Handle}!openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}}
+\subsubsection[{\texorpdfstring{shaper\+Thread\+Handle}{shaperThreadHandle}}]{\setlength{\rightskip}{0pt plus 5cm}pthread\+\_\+t shaper\+Thread\+Handle\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__endpoint__osal__shaper_8c_a011f82517f52aaf16d838c80ad9f2003}{}\label{openavb__endpoint__osal__shaper_8c_a011f82517f52aaf16d838c80ad9f2003}
+
+
+openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c 파일의 78 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}!socketfd@{socketfd}}
+\index{socketfd@{socketfd}!openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c@{openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c}}
+\subsubsection[{\texorpdfstring{socketfd}{socketfd}}]{\setlength{\rightskip}{0pt plus 5cm}int socketfd = -\/1\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__endpoint__osal__shaper_8c_a16ece46816348fa6d2c5d0e8b47c0098}{}\label{openavb__endpoint__osal__shaper_8c_a16ece46816348fa6d2c5d0e8b47c0098}
+
+
+openavb\+\_\+endpoint\+\_\+osal\+\_\+shaper.\+c 파일의 90 번째 라인에서 정의되었습니다.
+

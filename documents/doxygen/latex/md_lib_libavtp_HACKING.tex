@@ -1,0 +1,59 @@
+If you have a bug fixed or added support for some A\+V\+TP feature, your patches are welcomed! In order to get your patches merged faster, please follow the guidelines\+:
+
+
+\begin{DoxyItemize}
+\item Check if all patches are following the coding style from libavtp project. See section \textquotesingle{}Coding Style\textquotesingle{} for more information.
+\item Before submitting your patch to review, make sure it doesn\textquotesingle{}t break any unit test. See section \textquotesingle{}Running Unit Tests\textquotesingle{} for information about how to build and run unit tests.
+\item Besides the bugfix/feature itself, also provide unit test covering the code you\textquotesingle{}re contributing. See section \textquotesingle{}Code Coverage\textquotesingle{} to check how you can easily generate coverage reports and see where you need to work on to get your code covered.
+\item If your patch adds new public A\+P\+Is to libavtp, please also provide patches adding example applications (or modify an existing one if it makes sense) which demonstrate how to use the new A\+P\+Is.
+\item Make sure the author\textquotesingle{}s name and email are set properly.
+\end{DoxyItemize}
+
+\section*{Coding Style}
+
+The coding style from libavtp is pretty much the same from Linux kernel described in \href{https://www.kernel.org/doc/html/latest/process/coding-style.html}{\tt https\+://www.\+kernel.\+org/doc/html/latest/process/coding-\/style.\+html}.
+
+The style for line wrapping is to indent as far as possible to the right without hitting the 80 columns limit.
+
+Example\+:
+
+
+\begin{DoxyCode}
+1 /* Correct */
+2 int avtp\_aaf\_pdu\_set(struct avtp\_stream\_pdu *pdu, enum avtp\_aaf\_field field,
+3                                 uint64\_t val)
+4 
+5 /* Wrong */
+6 int avtp\_aaf\_pdu\_set(struct avtp\_stream\_pdu *pdu, enum avtp\_aaf\_field field,
+7              uint64\_t val)
+\end{DoxyCode}
+
+
+\section*{Running Unit Tests}
+
+Unit tests required libcmocka so make sure you have cmocka packages installed in your system.
+
+Run the following command to build and run all unit tests. Make sure the build system files are generated already, see section \textquotesingle{}Build\textquotesingle{} in the R\+E\+A\+D\+M\+E.\+md file for more information.
+
+
+\begin{DoxyCode}
+1 $ ninja -C build test
+\end{DoxyCode}
+
+
+\section*{Code Coverage}
+
+Meson build system provides some built-\/in code coverage support based on {\ttfamily lcov} so make sure you have this package installed on your system in order to generate coverage reports.
+
+To generate html reports run the following commands\+:
+
+
+\begin{DoxyCode}
+1 $ rm -rf build/
+2 $ meson build -Db\_coverage=true
+3 $ ninja -C build/ test
+4 $ ninja -C build/ coverage-html
+\end{DoxyCode}
+
+
+The coverage report can be found in build/meson-\/logs/coveragereport/ directory. 

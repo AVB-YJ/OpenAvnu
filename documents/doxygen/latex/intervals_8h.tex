@@ -1,0 +1,775 @@
+\hypertarget{intervals_8h}{}\section{daemons/maap/common/intervals.h 파일 참조}
+\label{intervals_8h}\index{daemons/maap/common/intervals.\+h@{daemons/maap/common/intervals.\+h}}
+
+
+Augmented Binary Search Tree for Intervals.  
+
+
+{\ttfamily \#include $<$stdint.\+h$>$}\\*
+intervals.\+h에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=204pt]{intervals_8h__incl}
+\end{center}
+\end{figure}
+이 그래프는 이 파일을 직/간접적으로 include 하는 파일들을 보여줍니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{intervals_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{데이타 구조}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structinterval__node}{interval\+\_\+node}
+\end{DoxyCompactItemize}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{intervals_8h_ad177a5dc9ff4557a881b57992ee348a1}{I\+N\+T\+E\+R\+V\+A\+L\+\_\+\+S\+U\+C\+C\+E\+SS}~0
+\item 
+\#define \hyperlink{intervals_8h_afe0cbfc351857ce556b7e1017a3dac87}{I\+N\+T\+E\+R\+V\+A\+L\+\_\+\+O\+V\+E\+R\+L\+AP}~-\/1
+\item 
+\#define \hyperlink{intervals_8h_a02e6b03f9fc1410343b2ad94cd1ecf9f}{interval\+\_\+check\+\_\+overlap}(inter,  start,  count)~(((inter)-\/$>$low $<$= (start) + (count) -\/ 1) \&\& ((start) $<$= (inter)-\/$>$high))
+\end{DoxyCompactItemize}
+\subsection*{타입정의}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structinterval__node}{interval\+\_\+node} \hyperlink{intervals_8h_af6f1ab89800839a9266a6dd11c2bc7ce}{Interval}
+\item 
+typedef void($\ast$ \hyperlink{intervals_8h_a0ba8d98d09b0a488ce8f72f12051c0f7}{Visitor}) (\hyperlink{intervals_8h_af6f1ab89800839a9266a6dd11c2bc7ce}{Interval} $\ast$)
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{intervals_8h_af6f1ab89800839a9266a6dd11c2bc7ce}{Interval} $\ast$ \hyperlink{intervals_8h_a56ad0aff1af6eebd9d516f25709a761b}{alloc\+\_\+interval} (\hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\+\_\+t} start, \hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\+\_\+t} count)
+\item 
+void \hyperlink{intervals_8h_a12921bd81229ae4bc736b1bf543d7b3c}{free\+\_\+interval} (\hyperlink{intervals_8h_af6f1ab89800839a9266a6dd11c2bc7ce}{Interval} $\ast$node)
+\item 
+int \hyperlink{intervals_8h_ab0d11dcd6cc7cdd26d1954e27578e722}{insert\+\_\+interval} (\hyperlink{intervals_8h_af6f1ab89800839a9266a6dd11c2bc7ce}{Interval} $\ast$$\ast$root, \hyperlink{intervals_8h_af6f1ab89800839a9266a6dd11c2bc7ce}{Interval} $\ast$node)
+\item 
+\hyperlink{intervals_8h_af6f1ab89800839a9266a6dd11c2bc7ce}{Interval} $\ast$ \hyperlink{intervals_8h_af873be8e2041714eb5a49efdc9186e48}{remove\+\_\+interval} (\hyperlink{intervals_8h_af6f1ab89800839a9266a6dd11c2bc7ce}{Interval} $\ast$$\ast$root, \hyperlink{intervals_8h_af6f1ab89800839a9266a6dd11c2bc7ce}{Interval} $\ast$node)
+\item 
+\hyperlink{intervals_8h_af6f1ab89800839a9266a6dd11c2bc7ce}{Interval} $\ast$ \hyperlink{intervals_8h_aa7356543330bcc74735ddbe1ae8ff1d0}{minimum\+\_\+interval} (\hyperlink{intervals_8h_af6f1ab89800839a9266a6dd11c2bc7ce}{Interval} $\ast$root)
+\item 
+\hyperlink{intervals_8h_af6f1ab89800839a9266a6dd11c2bc7ce}{Interval} $\ast$ \hyperlink{intervals_8h_ac9714d70a9fbee78969d60bff60bf9b1}{maximum\+\_\+interval} (\hyperlink{intervals_8h_af6f1ab89800839a9266a6dd11c2bc7ce}{Interval} $\ast$root)
+\item 
+\hyperlink{intervals_8h_af6f1ab89800839a9266a6dd11c2bc7ce}{Interval} $\ast$ \hyperlink{intervals_8h_a7e2900527140ff8c3f6eb60d100f38bb}{next\+\_\+interval} (\hyperlink{intervals_8h_af6f1ab89800839a9266a6dd11c2bc7ce}{Interval} $\ast$node)
+\item 
+\hyperlink{intervals_8h_af6f1ab89800839a9266a6dd11c2bc7ce}{Interval} $\ast$ \hyperlink{intervals_8h_ab9a7f8c61f401252f98dbd2ef1f68af8}{prev\+\_\+interval} (\hyperlink{intervals_8h_af6f1ab89800839a9266a6dd11c2bc7ce}{Interval} $\ast$node)
+\item 
+\hyperlink{intervals_8h_af6f1ab89800839a9266a6dd11c2bc7ce}{Interval} $\ast$ \hyperlink{intervals_8h_ae49e97a2e6ed26dcdbc25ecdbf425be4}{search\+\_\+interval} (\hyperlink{intervals_8h_af6f1ab89800839a9266a6dd11c2bc7ce}{Interval} $\ast$root, \hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\+\_\+t} start, \hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\+\_\+t} count)
+\item 
+void \hyperlink{intervals_8h_aaaf755bd138a14154e8dd0fa9e15168a}{traverse\+\_\+interval} (\hyperlink{intervals_8h_af6f1ab89800839a9266a6dd11c2bc7ce}{Interval} $\ast$root, \hyperlink{intervals_8h_a0ba8d98d09b0a488ce8f72f12051c0f7}{Visitor} action)
+\end{DoxyCompactItemize}
+
+
+\subsection{상세한 설명}
+Augmented Binary Search Tree for Intervals. 
+
+This library will keep track of non-\/overlapping intervals in the uint32 range
+
+It supports insert, remove, minimum, maximum, next, previous, search, and traverse operations. All updates occur in-\/place.
+
+All memory allocation must be handled by the user through the alloc\+\_\+interval and free\+\_\+interval functions. These are not called by any library functions.
+
+To create an empty set of intervals, simply store an Interval pointer. The address of this pointer will be passed to the insert and remove operations, which will update the pointer if the root node of the tree changes. 
+
+\subsection{매크로 문서화}
+\index{intervals.\+h@{intervals.\+h}!interval\+\_\+check\+\_\+overlap@{interval\+\_\+check\+\_\+overlap}}
+\index{interval\+\_\+check\+\_\+overlap@{interval\+\_\+check\+\_\+overlap}!intervals.\+h@{intervals.\+h}}
+\subsubsection[{\texorpdfstring{interval\+\_\+check\+\_\+overlap}{interval_check_overlap}}]{\setlength{\rightskip}{0pt plus 5cm}\#define interval\+\_\+check\+\_\+overlap(
+\begin{DoxyParamCaption}
+\item[{}]{inter, }
+\item[{}]{start, }
+\item[{}]{count}
+\end{DoxyParamCaption}
+)~(((inter)-\/$>$low $<$= (start) + (count) -\/ 1) \&\& ((start) $<$= (inter)-\/$>$high))}\hypertarget{intervals_8h_a02e6b03f9fc1410343b2ad94cd1ecf9f}{}\label{intervals_8h_a02e6b03f9fc1410343b2ad94cd1ecf9f}
+Determine if the interval overlaps with the supplied integers
+
+
+\begin{DoxyParams}{매개변수}
+{\em inter} & Interval to test \\
+\hline
+{\em start} & The first integer to test \\
+\hline
+{\em count} & The number of integers to test\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+T\+R\+UE if the interval overlaps the supplied integers, F\+A\+L\+SE otherwise 
+\end{DoxyReturn}
+
+
+intervals.\+h 파일의 92 번째 라인에서 정의되었습니다.
+
+\index{intervals.\+h@{intervals.\+h}!I\+N\+T\+E\+R\+V\+A\+L\+\_\+\+O\+V\+E\+R\+L\+AP@{I\+N\+T\+E\+R\+V\+A\+L\+\_\+\+O\+V\+E\+R\+L\+AP}}
+\index{I\+N\+T\+E\+R\+V\+A\+L\+\_\+\+O\+V\+E\+R\+L\+AP@{I\+N\+T\+E\+R\+V\+A\+L\+\_\+\+O\+V\+E\+R\+L\+AP}!intervals.\+h@{intervals.\+h}}
+\subsubsection[{\texorpdfstring{I\+N\+T\+E\+R\+V\+A\+L\+\_\+\+O\+V\+E\+R\+L\+AP}{INTERVAL_OVERLAP}}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\+N\+T\+E\+R\+V\+A\+L\+\_\+\+O\+V\+E\+R\+L\+AP~-\/1}\hypertarget{intervals_8h_afe0cbfc351857ce556b7e1017a3dac87}{}\label{intervals_8h_afe0cbfc351857ce556b7e1017a3dac87}
+The interval overlapped and wasn\textquotesingle{}t inserted 
+
+intervals.\+h 파일의 59 번째 라인에서 정의되었습니다.
+
+\index{intervals.\+h@{intervals.\+h}!I\+N\+T\+E\+R\+V\+A\+L\+\_\+\+S\+U\+C\+C\+E\+SS@{I\+N\+T\+E\+R\+V\+A\+L\+\_\+\+S\+U\+C\+C\+E\+SS}}
+\index{I\+N\+T\+E\+R\+V\+A\+L\+\_\+\+S\+U\+C\+C\+E\+SS@{I\+N\+T\+E\+R\+V\+A\+L\+\_\+\+S\+U\+C\+C\+E\+SS}!intervals.\+h@{intervals.\+h}}
+\subsubsection[{\texorpdfstring{I\+N\+T\+E\+R\+V\+A\+L\+\_\+\+S\+U\+C\+C\+E\+SS}{INTERVAL_SUCCESS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\+N\+T\+E\+R\+V\+A\+L\+\_\+\+S\+U\+C\+C\+E\+SS~0}\hypertarget{intervals_8h_ad177a5dc9ff4557a881b57992ee348a1}{}\label{intervals_8h_ad177a5dc9ff4557a881b57992ee348a1}
+The interval was inserted 
+
+intervals.\+h 파일의 54 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{타입정의 문서화}
+\index{intervals.\+h@{intervals.\+h}!Interval@{Interval}}
+\index{Interval@{Interval}!intervals.\+h@{intervals.\+h}}
+\subsubsection[{\texorpdfstring{Interval}{Interval}}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf interval\+\_\+node} {\bf Interval}}\hypertarget{intervals_8h_af6f1ab89800839a9266a6dd11c2bc7ce}{}\label{intervals_8h_af6f1ab89800839a9266a6dd11c2bc7ce}
+A range of integers with an upper and lower bound. 
+
+intervals.\+h 파일의 64 번째 라인에서 정의되었습니다.
+
+\index{intervals.\+h@{intervals.\+h}!Visitor@{Visitor}}
+\index{Visitor@{Visitor}!intervals.\+h@{intervals.\+h}}
+\subsubsection[{\texorpdfstring{Visitor}{Visitor}}]{\setlength{\rightskip}{0pt plus 5cm}typedef void($\ast$ Visitor) ({\bf Interval} $\ast$)}\hypertarget{intervals_8h_a0ba8d98d09b0a488ce8f72f12051c0f7}{}\label{intervals_8h_a0ba8d98d09b0a488ce8f72f12051c0f7}
+Signature for function pointer parameter to \hyperlink{intervals_8h_aaaf755bd138a14154e8dd0fa9e15168a}{traverse\+\_\+interval()} 
+
+intervals.\+h 파일의 69 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{함수 문서화}
+\index{intervals.\+h@{intervals.\+h}!alloc\+\_\+interval@{alloc\+\_\+interval}}
+\index{alloc\+\_\+interval@{alloc\+\_\+interval}!intervals.\+h@{intervals.\+h}}
+\subsubsection[{\texorpdfstring{alloc\+\_\+interval(uint32\+\_\+t start, uint32\+\_\+t count)}{alloc_interval(uint32_t start, uint32_t count)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Interval}$\ast$ alloc\+\_\+interval (
+\begin{DoxyParamCaption}
+\item[{{\bf uint32\+\_\+t}}]{start, }
+\item[{{\bf uint32\+\_\+t}}]{count}
+\end{DoxyParamCaption}
+)}\hypertarget{intervals_8h_a56ad0aff1af6eebd9d516f25709a761b}{}\label{intervals_8h_a56ad0aff1af6eebd9d516f25709a761b}
+Allocates, initializes, and returns a pointer to an Interval.
+
+
+\begin{DoxyParams}{매개변수}
+{\em start} & The first integer in the interval\\
+\hline
+{\em count} & The number of integers in the interval\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+An initialized Interval, or N\+U\+LL if the allocator fails. 
+\end{DoxyReturn}
+
+
+intervals.\+c 파일의 33 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+33                                                          \{
+34     \hyperlink{structinterval__node}{Interval} *i;
+35     i = \hyperlink{_memory_leak_detector_malloc_macros_8h_a7cbb7b79af9d539af55b59dfc3598390}{calloc}(1, \textcolor{keyword}{sizeof} (\hyperlink{structinterval__node}{Interval}));
+36     \textcolor{keywordflow}{if} (i) \{
+37         i->\hyperlink{structinterval__node_a864f755b7008df85b29726891bdd4fbd}{low} = start;
+38         i->\hyperlink{structinterval__node_a0d90a9fe74bca2dccde7f81cddfdf7b0}{high} = start + count - 1;
+39     \}
+40     \textcolor{keywordflow}{return} i;
+41 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{intervals_8h_a56ad0aff1af6eebd9d516f25709a761b_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{intervals.\+h@{intervals.\+h}!free\+\_\+interval@{free\+\_\+interval}}
+\index{free\+\_\+interval@{free\+\_\+interval}!intervals.\+h@{intervals.\+h}}
+\subsubsection[{\texorpdfstring{free\+\_\+interval(\+Interval $\ast$node)}{free_interval(Interval *node)}}]{\setlength{\rightskip}{0pt plus 5cm}void free\+\_\+interval (
+\begin{DoxyParamCaption}
+\item[{{\bf Interval} $\ast$}]{node}
+\end{DoxyParamCaption}
+)}\hypertarget{intervals_8h_a12921bd81229ae4bc736b1bf543d7b3c}{}\label{intervals_8h_a12921bd81229ae4bc736b1bf543d7b3c}
+Deallocates an Interval.
+
+\begin{DoxyNote}{주의}
+Be sure to call this after removing an interval from a set
+\end{DoxyNote}
+
+\begin{DoxyParams}{매개변수}
+{\em node} & The Interval to deallocate. \\
+\hline
+\end{DoxyParams}
+
+
+intervals.\+c 파일의 43 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+43                                    \{
+44     \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(node);
+45 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{intervals_8h_a12921bd81229ae4bc736b1bf543d7b3c_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{intervals.\+h@{intervals.\+h}!insert\+\_\+interval@{insert\+\_\+interval}}
+\index{insert\+\_\+interval@{insert\+\_\+interval}!intervals.\+h@{intervals.\+h}}
+\subsubsection[{\texorpdfstring{insert\+\_\+interval(\+Interval $\ast$$\ast$root, Interval $\ast$node)}{insert_interval(Interval **root, Interval *node)}}]{\setlength{\rightskip}{0pt plus 5cm}int insert\+\_\+interval (
+\begin{DoxyParamCaption}
+\item[{{\bf Interval} $\ast$$\ast$}]{root, }
+\item[{{\bf Interval} $\ast$}]{node}
+\end{DoxyParamCaption}
+)}\hypertarget{intervals_8h_ab0d11dcd6cc7cdd26d1954e27578e722}{}\label{intervals_8h_ab0d11dcd6cc7cdd26d1954e27578e722}
+Insert an Interval into the set of tracked Intervals.
+
+
+\begin{DoxyParams}{매개변수}
+{\em root} & The address of the Interval pointer that is the root of the set\\
+\hline
+{\em node} & The Interval to attempt to insert in the set\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+I\+N\+T\+E\+R\+V\+A\+L\+\_\+\+S\+U\+C\+C\+E\+SS if the node inserted to the set without overlap, I\+N\+T\+E\+R\+V\+A\+L\+\_\+\+O\+V\+E\+R\+L\+AP if the node was not inserted due to overlap with an existing Interval. 
+\end{DoxyReturn}
+
+
+intervals.\+c 파일의 47 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+47                                                      \{
+48     \hyperlink{structinterval__node}{Interval} *current;
+49 
+50     \textcolor{keywordflow}{if} (*root == \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \{
+51         *root = node;
+52         \textcolor{keywordflow}{return} \hyperlink{intervals_8h_ad177a5dc9ff4557a881b57992ee348a1}{INTERVAL\_SUCCESS};
+53     \}
+54     current = *root;
+55     \textcolor{keywordflow}{while} (1) \{
+56         \textcolor{keywordflow}{if} (\hyperlink{intervals_8c_aa5e54727dd93d89708aee36ab30bb77d}{check\_overlap}(current, node)) \{
+57             \textcolor{keywordflow}{return} \hyperlink{intervals_8h_afe0cbfc351857ce556b7e1017a3dac87}{INTERVAL\_OVERLAP};
+58         \}
+59         \textcolor{keywordflow}{if} (node->\hyperlink{structinterval__node_a864f755b7008df85b29726891bdd4fbd}{low} < current->\hyperlink{structinterval__node_a864f755b7008df85b29726891bdd4fbd}{low}) \{
+60             \textcolor{keywordflow}{if} (current->\hyperlink{structinterval__node_a6a3f189bd13197563c4edd38008e5ad5}{left\_child} == \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \{
+61                 current->\hyperlink{structinterval__node_a6a3f189bd13197563c4edd38008e5ad5}{left\_child} = node;
+62                 node->\hyperlink{structinterval__node_a19c68cbcb58e99454185ab1aa37de6e8}{parent} = current;
+63                 \textcolor{keywordflow}{break};
+64             \} \textcolor{keywordflow}{else} \{
+65                 current = current->\hyperlink{structinterval__node_a6a3f189bd13197563c4edd38008e5ad5}{left\_child};
+66             \}
+67         \} \textcolor{keywordflow}{else} \{
+68             \textcolor{keywordflow}{if} (current->\hyperlink{structinterval__node_a65f75e0585d71e757722bf624913127f}{right\_child} == \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \{
+69                 current->\hyperlink{structinterval__node_a65f75e0585d71e757722bf624913127f}{right\_child} = node;
+70                 node->\hyperlink{structinterval__node_a19c68cbcb58e99454185ab1aa37de6e8}{parent} = current;
+71                 \textcolor{keywordflow}{break};
+72             \} \textcolor{keywordflow}{else} \{
+73                 current = current->\hyperlink{structinterval__node_a65f75e0585d71e757722bf624913127f}{right\_child};
+74             \}
+75         \}
+76     \}
+77 
+78     \textcolor{keywordflow}{return} \hyperlink{intervals_8h_ad177a5dc9ff4557a881b57992ee348a1}{INTERVAL\_SUCCESS};
+79 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=273pt]{intervals_8h_ab0d11dcd6cc7cdd26d1954e27578e722_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{intervals_8h_ab0d11dcd6cc7cdd26d1954e27578e722_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{intervals.\+h@{intervals.\+h}!maximum\+\_\+interval@{maximum\+\_\+interval}}
+\index{maximum\+\_\+interval@{maximum\+\_\+interval}!intervals.\+h@{intervals.\+h}}
+\subsubsection[{\texorpdfstring{maximum\+\_\+interval(\+Interval $\ast$root)}{maximum_interval(Interval *root)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Interval}$\ast$ maximum\+\_\+interval (
+\begin{DoxyParamCaption}
+\item[{{\bf Interval} $\ast$}]{root}
+\end{DoxyParamCaption}
+)}\hypertarget{intervals_8h_ac9714d70a9fbee78969d60bff60bf9b1}{}\label{intervals_8h_ac9714d70a9fbee78969d60bff60bf9b1}
+Find the maximum Interval from a set of Intervals.
+
+
+\begin{DoxyParams}{매개변수}
+{\em root} & The address of the root of the set of Intervals\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+The address of the Interval with the largest \textquotesingle{}low\textquotesingle{} value in the set, or N\+U\+LL if the set is empty. 
+\end{DoxyReturn}
+
+
+intervals.\+c 파일의 140 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+140                                            \{
+141     \hyperlink{structinterval__node}{Interval} *current = root;
+142 
+143     \textcolor{keywordflow}{while} (1) \{
+144         \textcolor{keywordflow}{if} (current && current->\hyperlink{structinterval__node_a65f75e0585d71e757722bf624913127f}{right\_child}) \{
+145             current = current->\hyperlink{structinterval__node_a65f75e0585d71e757722bf624913127f}{right\_child};
+146         \} \textcolor{keywordflow}{else} \{
+147             \textcolor{keywordflow}{return} current;
+148         \}
+149     \}
+150 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{intervals_8h_ac9714d70a9fbee78969d60bff60bf9b1_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{intervals.\+h@{intervals.\+h}!minimum\+\_\+interval@{minimum\+\_\+interval}}
+\index{minimum\+\_\+interval@{minimum\+\_\+interval}!intervals.\+h@{intervals.\+h}}
+\subsubsection[{\texorpdfstring{minimum\+\_\+interval(\+Interval $\ast$root)}{minimum_interval(Interval *root)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Interval}$\ast$ minimum\+\_\+interval (
+\begin{DoxyParamCaption}
+\item[{{\bf Interval} $\ast$}]{root}
+\end{DoxyParamCaption}
+)}\hypertarget{intervals_8h_aa7356543330bcc74735ddbe1ae8ff1d0}{}\label{intervals_8h_aa7356543330bcc74735ddbe1ae8ff1d0}
+Find the minimum Interval from a set of Intervals.
+
+
+\begin{DoxyParams}{매개변수}
+{\em root} & The address of the root of the set of Intervals\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+The address of the Interval with the smallest \textquotesingle{}low\textquotesingle{} value in the set, or N\+U\+LL if the set is empty. 
+\end{DoxyReturn}
+
+
+intervals.\+c 파일의 128 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+128                                            \{
+129     \hyperlink{structinterval__node}{Interval} *current = root;
+130 
+131     \textcolor{keywordflow}{while} (1) \{
+132         \textcolor{keywordflow}{if} (current && current->\hyperlink{structinterval__node_a6a3f189bd13197563c4edd38008e5ad5}{left\_child}) \{
+133             current = current->\hyperlink{structinterval__node_a6a3f189bd13197563c4edd38008e5ad5}{left\_child};
+134         \} \textcolor{keywordflow}{else} \{
+135             \textcolor{keywordflow}{return} current;
+136         \}
+137     \}
+138 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{intervals_8h_aa7356543330bcc74735ddbe1ae8ff1d0_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{intervals.\+h@{intervals.\+h}!next\+\_\+interval@{next\+\_\+interval}}
+\index{next\+\_\+interval@{next\+\_\+interval}!intervals.\+h@{intervals.\+h}}
+\subsubsection[{\texorpdfstring{next\+\_\+interval(\+Interval $\ast$node)}{next_interval(Interval *node)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Interval}$\ast$ next\+\_\+interval (
+\begin{DoxyParamCaption}
+\item[{{\bf Interval} $\ast$}]{node}
+\end{DoxyParamCaption}
+)}\hypertarget{intervals_8h_a7e2900527140ff8c3f6eb60d100f38bb}{}\label{intervals_8h_a7e2900527140ff8c3f6eb60d100f38bb}
+Get the next Interval in the set assuming an ordering based on the \textquotesingle{}low\textquotesingle{} value.
+
+
+\begin{DoxyParams}{매개변수}
+{\em node} & The Interval to find the successor of.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+The successor of the passed-\/in Interval, or N\+U\+LL if there is none. 
+\end{DoxyReturn}
+
+
+intervals.\+c 파일의 152 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+152                                         \{
+153     \hyperlink{structinterval__node}{Interval} *parent, *child;
+154 
+155     \textcolor{keywordflow}{if} (node->\hyperlink{structinterval__node_a65f75e0585d71e757722bf624913127f}{right\_child}) \{
+156         \textcolor{keywordflow}{return} \hyperlink{intervals_8c_aa7356543330bcc74735ddbe1ae8ff1d0}{minimum\_interval}(node->\hyperlink{structinterval__node_a65f75e0585d71e757722bf624913127f}{right\_child});
+157     \}
+158 
+159     child = node;
+160     parent = node->\hyperlink{structinterval__node_a19c68cbcb58e99454185ab1aa37de6e8}{parent};
+161     \textcolor{keywordflow}{while} (parent && child == parent->\hyperlink{structinterval__node_a65f75e0585d71e757722bf624913127f}{right\_child}) \{
+162         child = parent;
+163         parent = parent->\hyperlink{structinterval__node_a19c68cbcb58e99454185ab1aa37de6e8}{parent};
+164     \}
+165     \textcolor{keywordflow}{return} parent;
+166 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=281pt]{intervals_8h_a7e2900527140ff8c3f6eb60d100f38bb_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{intervals_8h_a7e2900527140ff8c3f6eb60d100f38bb_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{intervals.\+h@{intervals.\+h}!prev\+\_\+interval@{prev\+\_\+interval}}
+\index{prev\+\_\+interval@{prev\+\_\+interval}!intervals.\+h@{intervals.\+h}}
+\subsubsection[{\texorpdfstring{prev\+\_\+interval(\+Interval $\ast$node)}{prev_interval(Interval *node)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Interval}$\ast$ prev\+\_\+interval (
+\begin{DoxyParamCaption}
+\item[{{\bf Interval} $\ast$}]{node}
+\end{DoxyParamCaption}
+)}\hypertarget{intervals_8h_ab9a7f8c61f401252f98dbd2ef1f68af8}{}\label{intervals_8h_ab9a7f8c61f401252f98dbd2ef1f68af8}
+Get the previous Interval in the set assuming an ordering based on the \textquotesingle{}low\textquotesingle{} value.
+
+
+\begin{DoxyParams}{매개변수}
+{\em node} & The Interval to find the predecessor of.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+The predecessor of the passed-\/in Interval, or N\+U\+LL if there is none. 
+\end{DoxyReturn}
+
+
+intervals.\+c 파일의 168 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+168                                         \{
+169     \hyperlink{structinterval__node}{Interval} *parent, *child;
+170 
+171     \textcolor{keywordflow}{if} (node->\hyperlink{structinterval__node_a6a3f189bd13197563c4edd38008e5ad5}{left\_child}) \{
+172         \textcolor{keywordflow}{return} \hyperlink{intervals_8c_ac9714d70a9fbee78969d60bff60bf9b1}{maximum\_interval}(node->\hyperlink{structinterval__node_a6a3f189bd13197563c4edd38008e5ad5}{left\_child});
+173     \}
+174 
+175     child = node;
+176     parent = node->\hyperlink{structinterval__node_a19c68cbcb58e99454185ab1aa37de6e8}{parent};
+177     \textcolor{keywordflow}{while} (parent && child == parent->\hyperlink{structinterval__node_a6a3f189bd13197563c4edd38008e5ad5}{left\_child}) \{
+178         child = parent;
+179         parent = parent->\hyperlink{structinterval__node_a19c68cbcb58e99454185ab1aa37de6e8}{parent};
+180     \}
+181     \textcolor{keywordflow}{return} parent;
+182 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=284pt]{intervals_8h_ab9a7f8c61f401252f98dbd2ef1f68af8_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{intervals_8h_ab9a7f8c61f401252f98dbd2ef1f68af8_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{intervals.\+h@{intervals.\+h}!remove\+\_\+interval@{remove\+\_\+interval}}
+\index{remove\+\_\+interval@{remove\+\_\+interval}!intervals.\+h@{intervals.\+h}}
+\subsubsection[{\texorpdfstring{remove\+\_\+interval(\+Interval $\ast$$\ast$root, Interval $\ast$node)}{remove_interval(Interval **root, Interval *node)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Interval}$\ast$ remove\+\_\+interval (
+\begin{DoxyParamCaption}
+\item[{{\bf Interval} $\ast$$\ast$}]{root, }
+\item[{{\bf Interval} $\ast$}]{node}
+\end{DoxyParamCaption}
+)}\hypertarget{intervals_8h_af873be8e2041714eb5a49efdc9186e48}{}\label{intervals_8h_af873be8e2041714eb5a49efdc9186e48}
+Remove an Interval from the set of tracked Intervals.
+
+\begin{DoxyNote}{주의}
+Because the actual node removed from the tree might not be the same as the one passed in, the return value M\+U\+ST be stored and used to free the Interval that was removed from the set.
+\end{DoxyNote}
+
+\begin{DoxyParams}{매개변수}
+{\em root} & The address of the pointer to the root of the set of Intervals\\
+\hline
+{\em node} & The address of the Interval to remove from the set\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+The address of the Interval storage that should be freed 
+\end{DoxyReturn}
+
+
+intervals.\+c 파일의 81 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+81                                                            \{
+82     \hyperlink{structinterval__node}{Interval} *snip, *child;
+83 
+84     \textcolor{comment}{/* If the node to remove does not have two children, we will snip it,}
+85 \textcolor{comment}{       otherwise we will swap it with its successor and snip that one */}
+86     \textcolor{keywordflow}{if} (!node->\hyperlink{structinterval__node_a6a3f189bd13197563c4edd38008e5ad5}{left\_child} || !node->\hyperlink{structinterval__node_a65f75e0585d71e757722bf624913127f}{right\_child}) \{
+87         snip = node;
+88     \} \textcolor{keywordflow}{else} \{
+89         snip = \hyperlink{intervals_8c_a7e2900527140ff8c3f6eb60d100f38bb}{next\_interval}(node);
+90     \}
+91 
+92     \textcolor{comment}{/* If the node to snip has a child, make its parent link point to the snipped}
+93 \textcolor{comment}{       node's parent */}
+94     \textcolor{keywordflow}{if} (snip->\hyperlink{structinterval__node_a6a3f189bd13197563c4edd38008e5ad5}{left\_child}) \{
+95         child = snip->\hyperlink{structinterval__node_a6a3f189bd13197563c4edd38008e5ad5}{left\_child};
+96     \} \textcolor{keywordflow}{else} \{
+97         child = snip->\hyperlink{structinterval__node_a65f75e0585d71e757722bf624913127f}{right\_child};
+98     \}
+99     \textcolor{keywordflow}{if} (child) \{
+100         child->\hyperlink{structinterval__node_a19c68cbcb58e99454185ab1aa37de6e8}{parent} = snip->\hyperlink{structinterval__node_a19c68cbcb58e99454185ab1aa37de6e8}{parent};
+101     \}
+102 
+103     \textcolor{comment}{/* If the snipped node has no parent, it is the root node and we use the}
+104 \textcolor{comment}{       provided root pointer to point to the child. Otherwise, we find if the}
+105 \textcolor{comment}{       snipped node was a left or right child and set the appropriate link in the}
+106 \textcolor{comment}{       parent node */}
+107     \textcolor{keywordflow}{if} (!snip->\hyperlink{structinterval__node_a19c68cbcb58e99454185ab1aa37de6e8}{parent}) \{
+108         *root = child;
+109     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (snip == snip->\hyperlink{structinterval__node_a19c68cbcb58e99454185ab1aa37de6e8}{parent}->\hyperlink{structinterval__node_a6a3f189bd13197563c4edd38008e5ad5}{left\_child}) \{
+110         snip->\hyperlink{structinterval__node_a19c68cbcb58e99454185ab1aa37de6e8}{parent}->\hyperlink{structinterval__node_a6a3f189bd13197563c4edd38008e5ad5}{left\_child} = child;
+111     \} \textcolor{keywordflow}{else} \{
+112         snip->\hyperlink{structinterval__node_a19c68cbcb58e99454185ab1aa37de6e8}{parent}->\hyperlink{structinterval__node_a65f75e0585d71e757722bf624913127f}{right\_child} = child;
+113     \}
+114 
+115     \textcolor{comment}{/* Swap the contents of the node passed in to remove with the one chosen to be}
+116 \textcolor{comment}{       snipped */}
+117     \textcolor{keywordflow}{if} (snip != node) \{
+118         \textcolor{keywordtype}{void} *old\_data = node->\hyperlink{structinterval__node_a735984d41155bc1032e09bece8f8d66d}{data};
+119         node->\hyperlink{structinterval__node_a864f755b7008df85b29726891bdd4fbd}{low} = snip->\hyperlink{structinterval__node_a864f755b7008df85b29726891bdd4fbd}{low};
+120         node->\hyperlink{structinterval__node_a0d90a9fe74bca2dccde7f81cddfdf7b0}{high} = snip->\hyperlink{structinterval__node_a0d90a9fe74bca2dccde7f81cddfdf7b0}{high};
+121         node->\hyperlink{structinterval__node_a735984d41155bc1032e09bece8f8d66d}{data} = snip->\hyperlink{structinterval__node_a735984d41155bc1032e09bece8f8d66d}{data};
+122         snip->\hyperlink{structinterval__node_a735984d41155bc1032e09bece8f8d66d}{data} = old\_data;
+123     \}
+124 
+125     \textcolor{keywordflow}{return} snip;
+126 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{intervals_8h_af873be8e2041714eb5a49efdc9186e48_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{intervals_8h_af873be8e2041714eb5a49efdc9186e48_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{intervals.\+h@{intervals.\+h}!search\+\_\+interval@{search\+\_\+interval}}
+\index{search\+\_\+interval@{search\+\_\+interval}!intervals.\+h@{intervals.\+h}}
+\subsubsection[{\texorpdfstring{search\+\_\+interval(\+Interval $\ast$root, uint32\+\_\+t start, uint32\+\_\+t count)}{search_interval(Interval *root, uint32_t start, uint32_t count)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Interval}$\ast$ search\+\_\+interval (
+\begin{DoxyParamCaption}
+\item[{{\bf Interval} $\ast$}]{root, }
+\item[{{\bf uint32\+\_\+t}}]{start, }
+\item[{{\bf uint32\+\_\+t}}]{count}
+\end{DoxyParamCaption}
+)}\hypertarget{intervals_8h_ae49e97a2e6ed26dcdbc25ecdbf425be4}{}\label{intervals_8h_ae49e97a2e6ed26dcdbc25ecdbf425be4}
+Find the first Interval in a set that overlaps with the given interval.
+
+
+\begin{DoxyParams}{매개변수}
+{\em root} & The root Interval of the set to search.\\
+\hline
+{\em start} & The first integer in the interval to search for.\\
+\hline
+{\em count} & The number of integers in the interval to search for.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+The first overlapping Interval, or N\+U\+LL if there is none. 
+\end{DoxyReturn}
+
+
+intervals.\+c 파일의 184 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+184                                                                           \{
+185     \hyperlink{structinterval__node}{Interval} *current, *test;
+186     \hyperlink{structinterval__node}{Interval} i;
+187 
+188     i.\hyperlink{structinterval__node_a864f755b7008df85b29726891bdd4fbd}{low} = start;
+189     i.\hyperlink{structinterval__node_a0d90a9fe74bca2dccde7f81cddfdf7b0}{high} = start + count - 1;
+190     current = root;
+191 
+192     \textcolor{keywordflow}{while} (current && !\hyperlink{intervals_8c_aa5e54727dd93d89708aee36ab30bb77d}{check\_overlap}(current, &i)) \{
+193         \textcolor{keywordflow}{if} (current->\hyperlink{structinterval__node_a864f755b7008df85b29726891bdd4fbd}{low} > i.\hyperlink{structinterval__node_a864f755b7008df85b29726891bdd4fbd}{low}) \{
+194             current = current->\hyperlink{structinterval__node_a6a3f189bd13197563c4edd38008e5ad5}{left\_child};
+195         \} \textcolor{keywordflow}{else} \{
+196             current = current->\hyperlink{structinterval__node_a65f75e0585d71e757722bf624913127f}{right\_child};
+197         \}
+198     \}
+199 
+200     \textcolor{comment}{/* Make sure we really are returning the first (lowest) matching interval. */}
+201     \textcolor{keywordflow}{if} (current) \{
+202         \textcolor{keywordflow}{for} (test = \hyperlink{intervals_8c_ab9a7f8c61f401252f98dbd2ef1f68af8}{prev\_interval}(current);
+203             test != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} && \hyperlink{intervals_8c_aa5e54727dd93d89708aee36ab30bb77d}{check\_overlap}(test, &i);
+204             test = \hyperlink{intervals_8c_ab9a7f8c61f401252f98dbd2ef1f68af8}{prev\_interval}(test))
+205         \{
+206             \textcolor{comment}{/* We found a lower interval that also matches the search parameters. */}
+207             current = test;
+208         \}
+209     \}
+210 
+211     \textcolor{keywordflow}{return} current;
+212 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{intervals_8h_ae49e97a2e6ed26dcdbc25ecdbf425be4_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{intervals_8h_ae49e97a2e6ed26dcdbc25ecdbf425be4_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{intervals.\+h@{intervals.\+h}!traverse\+\_\+interval@{traverse\+\_\+interval}}
+\index{traverse\+\_\+interval@{traverse\+\_\+interval}!intervals.\+h@{intervals.\+h}}
+\subsubsection[{\texorpdfstring{traverse\+\_\+interval(\+Interval $\ast$root, Visitor action)}{traverse_interval(Interval *root, Visitor action)}}]{\setlength{\rightskip}{0pt plus 5cm}void traverse\+\_\+interval (
+\begin{DoxyParamCaption}
+\item[{{\bf Interval} $\ast$}]{root, }
+\item[{{\bf Visitor}}]{action}
+\end{DoxyParamCaption}
+)}\hypertarget{intervals_8h_aaaf755bd138a14154e8dd0fa9e15168a}{}\label{intervals_8h_aaaf755bd138a14154e8dd0fa9e15168a}
+Traverse the Interval set, performing an action on each Interval.
+
+\begin{DoxyNote}{주의}
+Intervals will be visited in increasing order of their \textquotesingle{}low\textquotesingle{} values.
+\end{DoxyNote}
+
+\begin{DoxyParams}{매개변수}
+{\em root} & The root Interval of the set to traverse.\\
+\hline
+{\em action} & The action to invoke on each Interval. \\
+\hline
+\end{DoxyParams}
+
+
+intervals.\+c 파일의 214 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+214                                                        \{
+215     \textcolor{keywordflow}{if} (root) \{
+216         \hyperlink{intervals_8c_aaaf755bd138a14154e8dd0fa9e15168a}{traverse\_interval}(root->\hyperlink{structinterval__node_a6a3f189bd13197563c4edd38008e5ad5}{left\_child}, \hyperlink{namespaceastime__fitline_a2f4ab7bf743142dae2e459aa18f9f1d4}{action});
+217         \hyperlink{namespaceastime__fitline_a2f4ab7bf743142dae2e459aa18f9f1d4}{action}(root);
+218         \hyperlink{intervals_8c_aaaf755bd138a14154e8dd0fa9e15168a}{traverse\_interval}(root->\hyperlink{structinterval__node_a65f75e0585d71e757722bf624913127f}{right\_child}, \hyperlink{namespaceastime__fitline_a2f4ab7bf743142dae2e459aa18f9f1d4}{action});
+219     \}
+220 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=294pt]{intervals_8h_aaaf755bd138a14154e8dd0fa9e15168a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=243pt]{intervals_8h_aaaf755bd138a14154e8dd0fa9e15168a_icgraph}
+\end{center}
+\end{figure}
+
+

@@ -1,0 +1,69 @@
+This project is for use on the Windows platform. These are the steps required for using it. (If you only wish to compile the Cpp\+U\+Test libraries, it is recommended that you use the method described at \href{http://cpputest.github.io,}{\tt http\+://cpputest.\+github.\+io,} rather than setting up Eclipse).
+
+\subsubsection*{Preparation}
+
+\paragraph*{1. Install Cygwin}
+
+You need to have Cygwin installed, with at least the Gnu C++ compiler, make, autotools and libtool. Please follow the instructions at \href{http://cpputest.github.io}{\tt http\+://cpputest.\+github.\+io} to build Cpp\+U\+Test from the Cygwin bash prompt.
+
+\paragraph*{2. Set your P\+A\+TH}
+
+Next, you need to add the path to your Cygwin binaries to your Windows system path, e.\+g. 
+\begin{DoxyCode}
+1 C:\(\backslash\)<path\_to\_Cygwin>\(\backslash\)Cygwin\(\backslash\)bin
+\end{DoxyCode}
+
+
+\paragraph*{3. Install Eclipse C\+DT}
+
+Use your existing Eclipse C\+DT (Juno, Kepler, ...) or unpack the release to your system drive. You may use the 32 bit version as it will work on all systems. Unless you have a specific reason, you do not require the 64 bit version. You may need to install or update your Java J\+RE and add it to your system path. The J\+RE needs to match, e.\+g. 32 bit Eclipse requires the 32 bit J\+RE.
+
+\paragraph*{4. Install the C/\+C++\+Unit plugin}
+
+Open Eclipse. Accept the default workspace for now (you may want to set a more appropriate workspace location later on). Then install the \char`\"{}\+C/\+C++ Unit Test\char`\"{} plugin\+: \char`\"{}\+Help\char`\"{}-\/$>$\char`\"{}\+Install New Software\char`\"{}-\/$>$ work with \char`\"{}\+Kepler -\/ http\+://download.\+eclipse.\+org/releases/kepler\char`\"{}. You will find the plugin under\+: 
+\begin{DoxyCode}
+1 [ ] Programming Languages
+2     [x] C/C++ Unit Testing Support.
+\end{DoxyCode}
+ While you are at it, you might also want to install\+: 
+\begin{DoxyCode}
+1 [ ] Linux Tools  
+2     [x] Gcov Integration
+\end{DoxyCode}
+
+
+\paragraph*{5. Add the Cpp\+U\+Test plugin}
+
+Clone the \href{https://github.com/tcmak/CppUTestEclipseJunoTestRunner}{\tt Cpp\+U\+Test Eclipse Test Runner} and add it to Eclipse following the instructions there.
+
+\subsubsection*{Import this project into Eclipse}
+
+In Eclipse you can\textquotesingle{}t simply \char`\"{}open\char`\"{} a project -\/ you have to first import it into the workspace\+:
+\begin{DoxyItemize}
+\item File-\/$>$Import...-\/$>$General-\/$>$Existing Projects into workspace
+\item \mbox{[}Next $>$\mbox{]}-\/$>$Select root directory\+: {\ttfamily $<$cpputest\+\_\+dir$>$/\+Platforms/\+Eclipse-\/\+Cygwin}
+\item Make sure that {\ttfamily \mbox{[} \mbox{]} Copy projects into workspace} is {\bfseries N\+OT} ticked.
+\item Click Finish.
+\end{DoxyItemize}
+
+\subsubsection*{Compile and run tests}
+
+Before you can compile Cpp\+U\+Test in Eclipse, you must configure it using Automake. Instructions can be found at \href{http://cpputest.github.io/}{\tt http\+://cpputest.\+github.\+io/}. Once you have done this, select a configuration (Libraries, Check, Cpp\+U\+Test\+Tests or Cpp\+U\+Test\+Ext\+Tests) via Project-\/$>$Build\+Configuration-\/$>$Set Active$>$. The \textquotesingle{}Check\textquotesingle{} configuration will build the libraries along with all tests and run the tests.
+
+\subsubsection*{Working with the C/\+C++ Unit plugin}
+
+Make sure your unit test executable has been built and exists, e.\+g. cpputest\+\_\+build/\+Cpp\+U\+Test\+Tests.\+exe.
+
+The first time you run tests using the plugin, you need to select them via Run-\/$>$Run Configurations...-\/$>$C/\+C++\+Unit-\/$>$Cpp\+U\+Test\+Test. Click \mbox{[}Run\mbox{]}. (If Run is greyed out, you need to build the configuration Cpp\+U\+Test\+Tests first) Once you have run the tests at least once, you should be able to select them by clicking the down triangle next to the green \char`\"{}\+Run\char`\"{} icon, where it should be listed right at the top. On subsequent runs, the executable will be built automatically, if necessary.
+
+Note that launch configurations have been included with this project; in your own projects, you will need to create these yourself.
+
+This is an example of what a successful test run would look like\+:  You can select and rerun individual tests in the upper pane, and error messages for failed tests will appear in the lower pane. \subsubsection*{Troubleshooting}
+
+\paragraph*{Problem\+: I am getting no test results...}
+
+...but you know your tests should have run, and you did not receive any error message. \subparagraph*{Possible Reason\+:}
+
+This can happen if the Cygwin-\/generated binary can\textquotesingle{}t find the Cygwin D\+L\+Ls. (If you were to run your test executable at the Windows cmd prompt, you would see a Windows error message box to that effect). Since no error message is displayed in the console via stderr, this leaves the test runner ignorant of what happenend \subparagraph*{Solution\+:}
+
+You need to add $<$path\+\_\+to\+\_\+\+Cygwin$>$/\+Cygwin/bin to your system P\+A\+TH variable. Then you must restart Eclipse. 

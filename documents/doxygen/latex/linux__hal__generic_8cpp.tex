@@ -1,0 +1,260 @@
+\hypertarget{linux__hal__generic_8cpp}{}\section{daemons/gptp/linux/src/linux\+\_\+hal\+\_\+generic.cpp 파일 참조}
+\label{linux__hal__generic_8cpp}\index{daemons/gptp/linux/src/linux\+\_\+hal\+\_\+generic.\+cpp@{daemons/gptp/linux/src/linux\+\_\+hal\+\_\+generic.\+cpp}}
+{\ttfamily \#include $<$linux\+\_\+hal\+\_\+generic.\+hpp$>$}\\*
+{\ttfamily \#include $<$linux\+\_\+hal\+\_\+generic\+\_\+tsprivate.\+hpp$>$}\\*
+{\ttfamily \#include $<$platform.\+hpp$>$}\\*
+{\ttfamily \#include $<$avbts\+\_\+message.\+hpp$>$}\\*
+{\ttfamily \#include $<$sys/select.\+h$>$}\\*
+{\ttfamily \#include $<$sys/socket.\+h$>$}\\*
+{\ttfamily \#include $<$netpacket/packet.\+h$>$}\\*
+{\ttfamily \#include $<$errno.\+h$>$}\\*
+{\ttfamily \#include $<$linux/ethtool.\+h$>$}\\*
+{\ttfamily \#include $<$net/if.\+h$>$}\\*
+{\ttfamily \#include $<$linux/sockios.\+h$>$}\\*
+{\ttfamily \#include $<$sys/ioctl.\+h$>$}\\*
+{\ttfamily \#include $<$unistd.\+h$>$}\\*
+{\ttfamily \#include $<$fcntl.\+h$>$}\\*
+{\ttfamily \#include $<$linux/net\+\_\+tstamp.\+h$>$}\\*
+{\ttfamily \#include $<$linux/ptp\+\_\+clock.\+h$>$}\\*
+{\ttfamily \#include $<$syscall.\+h$>$}\\*
+{\ttfamily \#include $<$limits.\+h$>$}\\*
+linux\+\_\+hal\+\_\+generic.\+cpp에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{linux__hal__generic_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{linux__hal__generic_8cpp_a42ba138c97569ebeb802fc3beb01c668}{T\+X\+\_\+\+P\+H\+Y\+\_\+\+T\+I\+ME}~184
+\item 
+\#define \hyperlink{linux__hal__generic_8cpp_ac12c462a772bab79cc693c71bc906496}{R\+X\+\_\+\+P\+H\+Y\+\_\+\+T\+I\+ME}~382
+\item 
+\#define \hyperlink{linux__hal__generic_8cpp_a3bd2ecee42ccdf23f85f6a766878566a}{M\+A\+X\+\_\+\+N\+S\+EC}~1000000000
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{linux__hal__generic_8cpp_a58e1e630fe6789d224a9e75d84c85b53}{find\+Phc\+Index} (\hyperlink{class_interface_label}{Interface\+Label} $\ast$iface\+\_\+label)
+\item 
+static ptp\+\_\+clock\+\_\+time \hyperlink{linux__hal__generic_8cpp_a2759ffc89a68098d5e5550dc48e4d1eb}{pct\+\_\+diff} (struct ptp\+\_\+clock\+\_\+time $\ast$a, struct ptp\+\_\+clock\+\_\+time $\ast$b)
+\item 
+static \hyperlink{parse_8c_a67a9885ef4908cb72ce26d75b694386c}{int64\+\_\+t} \hyperlink{linux__hal__generic_8cpp_a238d4b54a31c7b7887c421112e7feb24}{pctns} (struct ptp\+\_\+clock\+\_\+time t)
+\item 
+static \hyperlink{class_timestamp}{Timestamp} \hyperlink{linux__hal__generic_8cpp_a3943f78a47990dfd984f029f52c4eb9a}{pct\+Timestamp} (struct ptp\+\_\+clock\+\_\+time $\ast$t)
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{linux\+\_\+hal\+\_\+generic.\+cpp@{linux\+\_\+hal\+\_\+generic.\+cpp}!M\+A\+X\+\_\+\+N\+S\+EC@{M\+A\+X\+\_\+\+N\+S\+EC}}
+\index{M\+A\+X\+\_\+\+N\+S\+EC@{M\+A\+X\+\_\+\+N\+S\+EC}!linux\+\_\+hal\+\_\+generic.\+cpp@{linux\+\_\+hal\+\_\+generic.\+cpp}}
+\subsubsection[{\texorpdfstring{M\+A\+X\+\_\+\+N\+S\+EC}{MAX_NSEC}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+X\+\_\+\+N\+S\+EC~1000000000}\hypertarget{linux__hal__generic_8cpp_a3bd2ecee42ccdf23f85f6a766878566a}{}\label{linux__hal__generic_8cpp_a3bd2ecee42ccdf23f85f6a766878566a}
+
+
+linux\+\_\+hal\+\_\+generic.\+cpp 파일의 412 번째 라인에서 정의되었습니다.
+
+\index{linux\+\_\+hal\+\_\+generic.\+cpp@{linux\+\_\+hal\+\_\+generic.\+cpp}!R\+X\+\_\+\+P\+H\+Y\+\_\+\+T\+I\+ME@{R\+X\+\_\+\+P\+H\+Y\+\_\+\+T\+I\+ME}}
+\index{R\+X\+\_\+\+P\+H\+Y\+\_\+\+T\+I\+ME@{R\+X\+\_\+\+P\+H\+Y\+\_\+\+T\+I\+ME}!linux\+\_\+hal\+\_\+generic.\+cpp@{linux\+\_\+hal\+\_\+generic.\+cpp}}
+\subsubsection[{\texorpdfstring{R\+X\+\_\+\+P\+H\+Y\+\_\+\+T\+I\+ME}{RX_PHY_TIME}}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+X\+\_\+\+P\+H\+Y\+\_\+\+T\+I\+ME~382}\hypertarget{linux__hal__generic_8cpp_ac12c462a772bab79cc693c71bc906496}{}\label{linux__hal__generic_8cpp_ac12c462a772bab79cc693c71bc906496}
+
+
+linux\+\_\+hal\+\_\+generic.\+cpp 파일의 53 번째 라인에서 정의되었습니다.
+
+\index{linux\+\_\+hal\+\_\+generic.\+cpp@{linux\+\_\+hal\+\_\+generic.\+cpp}!T\+X\+\_\+\+P\+H\+Y\+\_\+\+T\+I\+ME@{T\+X\+\_\+\+P\+H\+Y\+\_\+\+T\+I\+ME}}
+\index{T\+X\+\_\+\+P\+H\+Y\+\_\+\+T\+I\+ME@{T\+X\+\_\+\+P\+H\+Y\+\_\+\+T\+I\+ME}!linux\+\_\+hal\+\_\+generic.\+cpp@{linux\+\_\+hal\+\_\+generic.\+cpp}}
+\subsubsection[{\texorpdfstring{T\+X\+\_\+\+P\+H\+Y\+\_\+\+T\+I\+ME}{TX_PHY_TIME}}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+X\+\_\+\+P\+H\+Y\+\_\+\+T\+I\+ME~184}\hypertarget{linux__hal__generic_8cpp_a42ba138c97569ebeb802fc3beb01c668}{}\label{linux__hal__generic_8cpp_a42ba138c97569ebeb802fc3beb01c668}
+
+
+linux\+\_\+hal\+\_\+generic.\+cpp 파일의 52 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{함수 문서화}
+\index{linux\+\_\+hal\+\_\+generic.\+cpp@{linux\+\_\+hal\+\_\+generic.\+cpp}!find\+Phc\+Index@{find\+Phc\+Index}}
+\index{find\+Phc\+Index@{find\+Phc\+Index}!linux\+\_\+hal\+\_\+generic.\+cpp@{linux\+\_\+hal\+\_\+generic.\+cpp}}
+\subsubsection[{\texorpdfstring{find\+Phc\+Index(\+Interface\+Label $\ast$iface\+\_\+label)}{findPhcIndex(InterfaceLabel *iface_label)}}]{\setlength{\rightskip}{0pt plus 5cm}int find\+Phc\+Index (
+\begin{DoxyParamCaption}
+\item[{{\bf Interface\+Label} $\ast$}]{iface\+\_\+label}
+\end{DoxyParamCaption}
+)}\hypertarget{linux__hal__generic_8cpp_a58e1e630fe6789d224a9e75d84c85b53}{}\label{linux__hal__generic_8cpp_a58e1e630fe6789d224a9e75d84c85b53}
+
+
+linux\+\_\+hal\+\_\+generic.\+cpp 파일의 164 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+164                                                 \{
+165     \textcolor{keywordtype}{int} sd;
+166     \hyperlink{class_interface_name}{InterfaceName} *\hyperlink{aaf-talker_8c_ac7b430acaa92a7a26fbcdad47d2efc20}{ifname};
+167     \textcolor{keyword}{struct }ethtool\_ts\_info info;
+168     \textcolor{keyword}{struct }ifreq ifr;
+169 
+170     \textcolor{keywordflow}{if}(( ifname = dynamic\_cast<InterfaceName *>(iface\_label)) == \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} ) \{
+171         \hyperlink{gptp__log_8hpp_afefbb1009717c128012bfeed94842987}{GPTP\_LOG\_ERROR}(\textcolor{stringliteral}{"findPTPIndex requires InterfaceName"});
+172         \textcolor{keywordflow}{return} -1;
+173     \}
+174 
+175     sd = socket( AF\_UNIX, SOCK\_DGRAM, 0 );
+176     \textcolor{keywordflow}{if}( sd < 0 ) \{
+177         \hyperlink{gptp__log_8hpp_afefbb1009717c128012bfeed94842987}{GPTP\_LOG\_ERROR}(\textcolor{stringliteral}{"findPTPIndex: failed to open socket"});
+178         \textcolor{keywordflow}{return} -1;
+179     \}
+180 
+181     memset( &ifr, 0, \textcolor{keyword}{sizeof}(ifr));
+182     memset( &info, 0, \textcolor{keyword}{sizeof}(info));
+183     info.cmd = ETHTOOL\_GET\_TS\_INFO;
+184     ifname->\hyperlink{class_interface_name_a92a0be2fe51f7da8a6073637d8b7c518}{toString}( ifr.ifr\_name, \hyperlink{openavb__avdecc__pub_8h_acd06da230a96d3b7e6f193c5b3142002}{IFNAMSIZ}-1 );
+185     ifr.ifr\_data = (\textcolor{keywordtype}{char} *) &info;
+186 
+187     \textcolor{keywordflow}{if}( ioctl( sd, SIOCETHTOOL, &ifr ) < 0 ) \{
+188         \hyperlink{gptp__log_8hpp_afefbb1009717c128012bfeed94842987}{GPTP\_LOG\_ERROR}(\textcolor{stringliteral}{"findPTPIndex: ioctl(SIOETHTOOL) failed"});
+189         \textcolor{keywordflow}{return} -1;
+190     \}
+191 
+192     close(sd);
+193 
+194     \textcolor{keywordflow}{return} info.phc\_index;
+195 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=311pt]{linux__hal__generic_8cpp_a58e1e630fe6789d224a9e75d84c85b53_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{linux__hal__generic_8cpp_a58e1e630fe6789d224a9e75d84c85b53_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{linux\+\_\+hal\+\_\+generic.\+cpp@{linux\+\_\+hal\+\_\+generic.\+cpp}!pct\+\_\+diff@{pct\+\_\+diff}}
+\index{pct\+\_\+diff@{pct\+\_\+diff}!linux\+\_\+hal\+\_\+generic.\+cpp@{linux\+\_\+hal\+\_\+generic.\+cpp}}
+\subsubsection[{\texorpdfstring{pct\+\_\+diff(struct ptp\+\_\+clock\+\_\+time $\ast$a, struct ptp\+\_\+clock\+\_\+time $\ast$b)}{pct_diff(struct ptp_clock_time *a, struct ptp_clock_time *b)}}]{\setlength{\rightskip}{0pt plus 5cm}static ptp\+\_\+clock\+\_\+time pct\+\_\+diff (
+\begin{DoxyParamCaption}
+\item[{struct ptp\+\_\+clock\+\_\+time $\ast$}]{a, }
+\item[{struct ptp\+\_\+clock\+\_\+time $\ast$}]{b}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{linux__hal__generic_8cpp_a2759ffc89a68098d5e5550dc48e4d1eb}{}\label{linux__hal__generic_8cpp_a2759ffc89a68098d5e5550dc48e4d1eb}
+
+
+linux\+\_\+hal\+\_\+generic.\+cpp 파일의 416 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+416                                                        \{
+417     ptp\_clock\_time result;
+418     \textcolor{keywordflow}{if}( a->nsec >= b->nsec ) \{
+419         result.nsec = a->nsec - b->nsec;
+420     \} \textcolor{keywordflow}{else} \{
+421         --a->sec;
+422         result.nsec = (\hyperlink{linux__hal__generic_8cpp_a3bd2ecee42ccdf23f85f6a766878566a}{MAX\_NSEC} - b->nsec) + a->nsec;
+423     \}
+424     result.sec = a->sec - b->sec;
+425 
+426     \textcolor{keywordflow}{return} result;
+427 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{linux__hal__generic_8cpp_a2759ffc89a68098d5e5550dc48e4d1eb_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{linux\+\_\+hal\+\_\+generic.\+cpp@{linux\+\_\+hal\+\_\+generic.\+cpp}!pctns@{pctns}}
+\index{pctns@{pctns}!linux\+\_\+hal\+\_\+generic.\+cpp@{linux\+\_\+hal\+\_\+generic.\+cpp}}
+\subsubsection[{\texorpdfstring{pctns(struct ptp\+\_\+clock\+\_\+time t)}{pctns(struct ptp_clock_time t)}}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf int64\+\_\+t} pctns (
+\begin{DoxyParamCaption}
+\item[{struct ptp\+\_\+clock\+\_\+time}]{t}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{linux__hal__generic_8cpp_a238d4b54a31c7b7887c421112e7feb24}{}\label{linux__hal__generic_8cpp_a238d4b54a31c7b7887c421112e7feb24}
+
+
+linux\+\_\+hal\+\_\+generic.\+cpp 파일의 429 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+430 \{
+431     \textcolor{keywordflow}{return} t.sec * 1000000000LL + t.nsec;
+432 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{linux__hal__generic_8cpp_a238d4b54a31c7b7887c421112e7feb24_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{linux\+\_\+hal\+\_\+generic.\+cpp@{linux\+\_\+hal\+\_\+generic.\+cpp}!pct\+Timestamp@{pct\+Timestamp}}
+\index{pct\+Timestamp@{pct\+Timestamp}!linux\+\_\+hal\+\_\+generic.\+cpp@{linux\+\_\+hal\+\_\+generic.\+cpp}}
+\subsubsection[{\texorpdfstring{pct\+Timestamp(struct ptp\+\_\+clock\+\_\+time $\ast$t)}{pctTimestamp(struct ptp_clock_time *t)}}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf Timestamp} pct\+Timestamp (
+\begin{DoxyParamCaption}
+\item[{struct ptp\+\_\+clock\+\_\+time $\ast$}]{t}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{linux__hal__generic_8cpp_a3943f78a47990dfd984f029f52c4eb9a}{}\label{linux__hal__generic_8cpp_a3943f78a47990dfd984f029f52c4eb9a}
+
+
+linux\+\_\+hal\+\_\+generic.\+cpp 파일의 434 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+434                                                                  \{
+435     \hyperlink{class_timestamp}{Timestamp} result;
+436 
+437     result.\hyperlink{class_timestamp_a2bf200e58cd268d8b86cf93c51500a44}{seconds\_ls} = t->sec & 0xFFFFFFFF;
+438     result.\hyperlink{class_timestamp_a5d98378d782519e6f9c17db70f1620f0}{seconds\_ms} = t->sec >> \textcolor{keyword}{sizeof}(result.\hyperlink{class_timestamp_a2bf200e58cd268d8b86cf93c51500a44}{seconds\_ls})*8;
+439     result.\hyperlink{class_timestamp_a78ae11d98fcfe738239d0a853d82c84a}{nanoseconds} = t->nsec;
+440 
+441     \textcolor{keywordflow}{return} result;
+442 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{linux__hal__generic_8cpp_a3943f78a47990dfd984f029f52c4eb9a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{linux__hal__generic_8cpp_a3943f78a47990dfd984f029f52c4eb9a_icgraph}
+\end{center}
+\end{figure}
+
+

@@ -1,0 +1,35 @@
+var group__command__add__video__mappings__response =
+[
+    [ "jdksavdecc_aem_command_add_video_mappings_response", "structjdksavdecc__aem__command__add__video__mappings__response.html", [
+      [ "aem_header", "structjdksavdecc__aem__command__add__video__mappings__response.html#ae1e77ccb75ff5021ad923221eab38294", null ],
+      [ "descriptor_index", "structjdksavdecc__aem__command__add__video__mappings__response.html#a042bbc76d835b82d27c1932431ee38d4", null ],
+      [ "descriptor_type", "structjdksavdecc__aem__command__add__video__mappings__response.html#ab7c32b6c7131c13d4ea3b7ee2f09b78d", null ],
+      [ "number_of_mappings", "structjdksavdecc__aem__command__add__video__mappings__response.html#ac7db472c5622ef473d5d0a5c416d5531", null ],
+      [ "reserved", "structjdksavdecc__aem__command__add__video__mappings__response.html#a5a6ed8c04a3db86066924b1a1bf4dad3", null ]
+    ] ],
+    [ "JDKSAVDECC_AEM_COMMAND_ADD_VIDEO_MAPPINGS_RESPONSE_LEN", "group__command__add__video__mappings__response.html#ga703d55d8e0cab620b0b2bb564d01c2bd", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_ADD_VIDEO_MAPPINGS_RESPONSE_OFFSET_COMMAND_TYPE", "group__command__add__video__mappings__response.html#ga56a0fcba42fdf48635a0f906ac79f0ce", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_ADD_VIDEO_MAPPINGS_RESPONSE_OFFSET_CONTROLLER_ENTITY_ID", "group__command__add__video__mappings__response.html#ga8a4ad43db98f0c1dd78fe09716ff7dc6", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_ADD_VIDEO_MAPPINGS_RESPONSE_OFFSET_DESCRIPTOR_INDEX", "group__command__add__video__mappings__response.html#ga33118171b758ccc65c3debee2b4713f8", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_ADD_VIDEO_MAPPINGS_RESPONSE_OFFSET_DESCRIPTOR_TYPE", "group__command__add__video__mappings__response.html#ga7d0b3323a3763d411723641e891449df", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_ADD_VIDEO_MAPPINGS_RESPONSE_OFFSET_MAPPINGS", "group__command__add__video__mappings__response.html#gaf3b8c14d9baad7dcb74a0604870ba551", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_ADD_VIDEO_MAPPINGS_RESPONSE_OFFSET_NUMBER_OF_MAPPINGS", "group__command__add__video__mappings__response.html#gafd67487d0f350cbef7d3c664eeab2df8", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_ADD_VIDEO_MAPPINGS_RESPONSE_OFFSET_RESERVED", "group__command__add__video__mappings__response.html#ga8bb9bfbd5a40c64ab6d38def1474f0bf", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_ADD_VIDEO_MAPPINGS_RESPONSE_OFFSET_SEQUENCE_ID", "group__command__add__video__mappings__response.html#ga9649d9fcb6b54b13a9ea0c7531f2e924", null ],
+    [ "jdksavdecc_aem_command_add_video_mappings_response_get_command_type", "group__command__add__video__mappings__response.html#gac45b86e0eb9029d1d2116c5cdfd289c6", null ],
+    [ "jdksavdecc_aem_command_add_video_mappings_response_get_controller_entity_id", "group__command__add__video__mappings__response.html#gab6d276ce0a5569d148d497ffa9877aae", null ],
+    [ "jdksavdecc_aem_command_add_video_mappings_response_get_descriptor_index", "group__command__add__video__mappings__response.html#ga4fd237d2e20c2c166e8d56257c7bc7df", null ],
+    [ "jdksavdecc_aem_command_add_video_mappings_response_get_descriptor_type", "group__command__add__video__mappings__response.html#ga687b74faa9529b4017ebd62deab4c662", null ],
+    [ "jdksavdecc_aem_command_add_video_mappings_response_get_number_of_mappings", "group__command__add__video__mappings__response.html#ga30c6524cd024e43c6513a48bd655300c", null ],
+    [ "jdksavdecc_aem_command_add_video_mappings_response_get_reserved", "group__command__add__video__mappings__response.html#ga49c1a6fcf1f640f0b9fe4dd13cf1b426", null ],
+    [ "jdksavdecc_aem_command_add_video_mappings_response_get_sequence_id", "group__command__add__video__mappings__response.html#ga1f6dc7893df208db83f752547c3aa047", null ],
+    [ "jdksavdecc_aem_command_add_video_mappings_response_read", "group__command__add__video__mappings__response.html#ga9dcba72d7d09dec2eaf974c514e350f5", null ],
+    [ "jdksavdecc_aem_command_add_video_mappings_response_set_command_type", "group__command__add__video__mappings__response.html#ga7eec5e1f767b203945b467cc9de73063", null ],
+    [ "jdksavdecc_aem_command_add_video_mappings_response_set_controller_entity_id", "group__command__add__video__mappings__response.html#gaadac09048ed298df131a699ad4be28ea", null ],
+    [ "jdksavdecc_aem_command_add_video_mappings_response_set_descriptor_index", "group__command__add__video__mappings__response.html#gac4757bf1f28aa2716b430ee11f89c8d7", null ],
+    [ "jdksavdecc_aem_command_add_video_mappings_response_set_descriptor_type", "group__command__add__video__mappings__response.html#ga9d0d876cadff3acc422cbe0c305f9f8f", null ],
+    [ "jdksavdecc_aem_command_add_video_mappings_response_set_number_of_mappings", "group__command__add__video__mappings__response.html#gacaf1a0a46692f3eede6471c54adc1c6a", null ],
+    [ "jdksavdecc_aem_command_add_video_mappings_response_set_reserved", "group__command__add__video__mappings__response.html#gaef9897629ab7a89d96326aaa59980f0a", null ],
+    [ "jdksavdecc_aem_command_add_video_mappings_response_set_sequence_id", "group__command__add__video__mappings__response.html#ga7aaba911b2c2f5e8ebd80c2247e030b8", null ],
+    [ "jdksavdecc_aem_command_add_video_mappings_response_write", "group__command__add__video__mappings__response.html#ga065228841170573cff0d795f1261fdb5", null ]
+];

@@ -1,0 +1,920 @@
+\hypertarget{shaper__log__linux_8c}{}\section{daemons/shaper/src/shaper\+\_\+log\+\_\+linux.c 파일 참조}
+\label{shaper__log__linux_8c}\index{daemons/shaper/src/shaper\+\_\+log\+\_\+linux.\+c@{daemons/shaper/src/shaper\+\_\+log\+\_\+linux.\+c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$stdarg.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$inttypes.\+h$>$}\\*
+{\ttfamily \#include $<$limits.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}platform.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}shaper\+\_\+log\+\_\+queue.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}shaper\+\_\+helper\+\_\+linux.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}shaper\+\_\+log.\+h\char`\"{}}\\*
+shaper\+\_\+log\+\_\+linux.\+c에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{shaper__log__linux_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{데이타 구조}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structlog__queue__item__t}{log\+\_\+queue\+\_\+item\+\_\+t}
+\item 
+struct \hyperlink{structlog__rt__queue__item__t}{log\+\_\+rt\+\_\+queue\+\_\+item\+\_\+t}
+\end{DoxyCompactItemize}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{shaper__log__linux_8c_a8ff9eab82e462838cdff7a19dbe8a21a}{S\+H\+A\+P\+E\+R\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}~\char`\"{}Log\char`\"{}
+\item 
+\#define \hyperlink{shaper__log__linux_8c_a9373ce7683ab48b75cda3c068c6f9f0e}{logging\+Thread\+\_\+\+T\+H\+R\+E\+A\+D\+\_\+\+S\+T\+K\+\_\+\+S\+I\+ZE}~\hyperlink{maap__log__windows_8c_a90b7a8cb7bc3fdbd98014a3e15ee6e9a}{T\+H\+R\+E\+A\+D\+\_\+\+S\+T\+A\+C\+K\+\_\+\+S\+I\+ZE}
+\item 
+\#define \hyperlink{shaper__log__linux_8c_a11e0170fce31cef3d3637001b575bbdc}{L\+O\+G\+\_\+\+L\+O\+CK}()~\hyperlink{openavb__os__services__osal__pub_8h_a5f5f93e391f44e2c8d23c9fffb7abbb8}{M\+U\+T\+E\+X\+\_\+\+L\+O\+C\+K\+\_\+\+A\+LT}(\hyperlink{maap__log__windows_8c_a83e0fa84cebfd7344197d386e57af6bc}{g\+Log\+Mutex})
+\item 
+\#define \hyperlink{shaper__log__linux_8c_aa6d92b26d315ad0b9562711c0ff97878}{L\+O\+G\+\_\+\+U\+N\+L\+O\+CK}()~\hyperlink{openavb__os__services__osal__pub_8h_a67f133ff29f9d944cd15ebc8b5f6ef09}{M\+U\+T\+E\+X\+\_\+\+U\+N\+L\+O\+C\+K\+\_\+\+A\+LT}(\hyperlink{maap__log__windows_8c_a83e0fa84cebfd7344197d386e57af6bc}{g\+Log\+Mutex})
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+void $\ast$ \hyperlink{shaper__log__linux_8c_a65074bde174862afb4b7585c57d69a72}{logging\+Thread\+Fn} (void $\ast$pv)
+\item 
+\hyperlink{shaper__log__linux_8c_abb5e768e12b298211a6381bcb57e7327}{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE} (\hyperlink{maap__log__windows_8c_adf591e6834fc8d927dc5d9b1a02ac5eb}{logging\+Thread})
+\item 
+\hyperlink{shaper__log__linux_8c_a5d22cb81833265675bdcfc953cea9c44}{T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+ON} (\hyperlink{maap__log__windows_8c_adf591e6834fc8d927dc5d9b1a02ac5eb}{logging\+Thread})
+\item 
+static \hyperlink{shaper__log__linux_8c_a276fed837d0ac6cbe9fc26a90f4dca5b}{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+L\+E\+\_\+\+A\+LT} (\hyperlink{maap__log__windows_8c_a83e0fa84cebfd7344197d386e57af6bc}{g\+Log\+Mutex})
+\item 
+void \hyperlink{shaper__log__linux_8c_ab612101e308402a50f80010aee753ba8}{shaper\+Log\+R\+T\+Render} (\hyperlink{structlog__queue__item__t}{log\+\_\+queue\+\_\+item\+\_\+t} $\ast$p\+Log\+Item)
+\item 
+\hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\+\_\+t} \hyperlink{shaper__log__linux_8c_a707ead0f8fed0359cb699ec9dd290d10}{shaper\+Log\+Get\+Msg} (\hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\+\_\+t} $\ast$p\+Buf, \hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\+\_\+t} buf\+Size)
+\item 
+void \hyperlink{shaper__log__linux_8c_a21dbf27be8dafc2ca9ec6194220ecc2d}{shaper\+Log\+Display\+All} (void)
+\item 
+void \hyperlink{shaper__log__linux_8c_af96a217cc421c0a322b3a7c14b1109df}{shaper\+Log\+Init} (void)
+\item 
+void \hyperlink{shaper__log__linux_8c_a1c06501018b8c5ab4260079ca89f8e56}{shaper\+Log\+Exit} ()
+\item 
+void \hyperlink{shaper__log__linux_8c_a69c97f57b7e4f20806ee8ef852079b32}{shaper\+Log\+Fn} (int level, const char $\ast$tag, const char $\ast$company, const char $\ast$component, const char $\ast$path, int line, const char $\ast$fmt,...)
+\item 
+void \hyperlink{shaper__log__linux_8c_a09c0f00ca0b0fd62b4be7ac749724870}{shaper\+Log\+RT} (int level, int b\+Begin, int b\+Item, int b\+End, char $\ast$p\+Format, \hyperlink{maap__log_8h_a478140af25cbb77e3fd5e15d175706e7}{log\+\_\+rt\+\_\+datatype\+\_\+t} data\+Type, void $\ast$p\+Var)
+\item 
+void \hyperlink{shaper__log__linux_8c_ae5588879580ab924006b0ce92c442492}{shaper\+Log\+Buffer} (int level, const \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\+\_\+t} $\ast$p\+Data, int data\+Len, int line\+Len, const char $\ast$company, const char $\ast$component, const char $\ast$path, int line)
+\end{DoxyCompactItemize}
+\subsection*{변수}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{shaper__log__queue_8h_af08cb2b4ec48291d73b3f8051d171746}{shaper\+\_\+log\+\_\+queue\+\_\+t} \hyperlink{shaper__log__linux_8c_a6e766a82ff8678538834c23e82715962}{log\+Queue}
+\item 
+static \hyperlink{shaper__log__queue_8h_af08cb2b4ec48291d73b3f8051d171746}{shaper\+\_\+log\+\_\+queue\+\_\+t} \hyperlink{shaper__log__linux_8c_a9d799b778f7e5a8a462c035762e2b45a}{log\+R\+T\+Queue}
+\item 
+static char \hyperlink{shaper__log__linux_8c_a0c7e58a50354c4a4d6dad428d0e47029}{msg} \mbox{[}\hyperlink{include_2openavb__log__pub_8h_ac1578b85d7efd7ce6501707e96f53b07}{L\+O\+G\+\_\+\+M\+S\+G\+\_\+\+L\+EN}\mbox{]} = \char`\"{}\char`\"{}
+\item 
+static char \hyperlink{shaper__log__linux_8c_afa92916bc8163ff97f4ab9cf92e55429}{time\+\_\+msg} \mbox{[}\hyperlink{include_2openavb__log__pub_8h_af908196e407bb67394664c7b0d5999b8}{L\+O\+G\+\_\+\+T\+I\+M\+E\+\_\+\+L\+EN}\mbox{]} = \char`\"{}\char`\"{}
+\item 
+static char \hyperlink{shaper__log__linux_8c_a04ee9a2d03c51567d17af0d058d0e750}{timestamp\+\_\+msg} \mbox{[}\hyperlink{include_2openavb__log__pub_8h_aa673d41c2bd46c9fdeab4169ecb012a4}{L\+O\+G\+\_\+\+T\+I\+M\+E\+S\+T\+A\+M\+P\+\_\+\+L\+EN}\mbox{]} = \char`\"{}\char`\"{}
+\item 
+static char \hyperlink{shaper__log__linux_8c_a21dd859ebe9e700309dc224741774096}{file\+\_\+msg} \mbox{[}\hyperlink{include_2openavb__log__pub_8h_a485d4224b8e007bde0e6fda8c91cb0c8}{L\+O\+G\+\_\+\+F\+I\+L\+E\+\_\+\+L\+EN}\mbox{]} = \char`\"{}\char`\"{}
+\item 
+static char \hyperlink{shaper__log__linux_8c_a57e0ac8e722c8cb7738d968757ff195c}{proc\+\_\+msg} \mbox{[}\hyperlink{include_2openavb__log__pub_8h_a653af859839bdbb51ce777b4b039831e}{L\+O\+G\+\_\+\+P\+R\+O\+C\+\_\+\+L\+EN}\mbox{]} = \char`\"{}\char`\"{}
+\item 
+static char \hyperlink{shaper__log__linux_8c_a82dd27020d09c78fc3cbdfdce1bf4716}{thread\+\_\+msg} \mbox{[}\hyperlink{include_2openavb__log__pub_8h_a0e1f239d7e1456e76b4804fef8482cf4}{L\+O\+G\+\_\+\+T\+H\+R\+E\+A\+D\+\_\+\+L\+EN}\mbox{]} = \char`\"{}\char`\"{}
+\item 
+static char \hyperlink{shaper__log__linux_8c_a5670633f699944d8df262539386c8839}{full\+\_\+msg} \mbox{[}\hyperlink{include_2openavb__log__pub_8h_a467681e7aef1b3fb6659edcc15952bd1}{L\+O\+G\+\_\+\+F\+U\+L\+L\+\_\+\+M\+S\+G\+\_\+\+L\+EN}\mbox{]} = \char`\"{}\char`\"{}
+\item 
+static char \hyperlink{shaper__log__linux_8c_ae94e6da629086c0ec14c336cc5bb54dd}{rt\+\_\+msg} \mbox{[}\hyperlink{include_2openavb__log__pub_8h_ad7d09ebd052988bb7278ddc544ec1f8b}{L\+O\+G\+\_\+\+R\+T\+\_\+\+M\+S\+G\+\_\+\+L\+EN}\mbox{]} = \char`\"{}\char`\"{}
+\item 
+static int \hyperlink{shaper__log__linux_8c_ad6f257febaeb5a53e5e83acd38bf4a6a}{logging\+Thread\+Running} = \hyperlink{lib_2igb_2e1000__osdep_8h_aa93f0eb578d23995850d61f7d61c55c1}{F\+A\+L\+SE}
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}!L\+O\+G\+\_\+\+L\+O\+CK@{L\+O\+G\+\_\+\+L\+O\+CK}}
+\index{L\+O\+G\+\_\+\+L\+O\+CK@{L\+O\+G\+\_\+\+L\+O\+CK}!shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{L\+O\+G\+\_\+\+L\+O\+CK}{LOG_LOCK}}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\+O\+G\+\_\+\+L\+O\+CK(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~{\bf M\+U\+T\+E\+X\+\_\+\+L\+O\+C\+K\+\_\+\+A\+LT}({\bf g\+Log\+Mutex})}\hypertarget{shaper__log__linux_8c_a11e0170fce31cef3d3637001b575bbdc}{}\label{shaper__log__linux_8c_a11e0170fce31cef3d3637001b575bbdc}
+
+
+shaper\+\_\+log\+\_\+linux.\+c 파일의 88 번째 라인에서 정의되었습니다.
+
+\index{shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}!L\+O\+G\+\_\+\+U\+N\+L\+O\+CK@{L\+O\+G\+\_\+\+U\+N\+L\+O\+CK}}
+\index{L\+O\+G\+\_\+\+U\+N\+L\+O\+CK@{L\+O\+G\+\_\+\+U\+N\+L\+O\+CK}!shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{L\+O\+G\+\_\+\+U\+N\+L\+O\+CK}{LOG_UNLOCK}}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\+O\+G\+\_\+\+U\+N\+L\+O\+CK(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~{\bf M\+U\+T\+E\+X\+\_\+\+U\+N\+L\+O\+C\+K\+\_\+\+A\+LT}({\bf g\+Log\+Mutex})}\hypertarget{shaper__log__linux_8c_aa6d92b26d315ad0b9562711c0ff97878}{}\label{shaper__log__linux_8c_aa6d92b26d315ad0b9562711c0ff97878}
+
+
+shaper\+\_\+log\+\_\+linux.\+c 파일의 89 번째 라인에서 정의되었습니다.
+
+\index{shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}!logging\+Thread\+\_\+\+T\+H\+R\+E\+A\+D\+\_\+\+S\+T\+K\+\_\+\+S\+I\+ZE@{logging\+Thread\+\_\+\+T\+H\+R\+E\+A\+D\+\_\+\+S\+T\+K\+\_\+\+S\+I\+ZE}}
+\index{logging\+Thread\+\_\+\+T\+H\+R\+E\+A\+D\+\_\+\+S\+T\+K\+\_\+\+S\+I\+ZE@{logging\+Thread\+\_\+\+T\+H\+R\+E\+A\+D\+\_\+\+S\+T\+K\+\_\+\+S\+I\+ZE}!shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{logging\+Thread\+\_\+\+T\+H\+R\+E\+A\+D\+\_\+\+S\+T\+K\+\_\+\+S\+I\+ZE}{loggingThread_THREAD_STK_SIZE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define logging\+Thread\+\_\+\+T\+H\+R\+E\+A\+D\+\_\+\+S\+T\+K\+\_\+\+S\+I\+ZE~{\bf T\+H\+R\+E\+A\+D\+\_\+\+S\+T\+A\+C\+K\+\_\+\+S\+I\+ZE}}\hypertarget{shaper__log__linux_8c_a9373ce7683ab48b75cda3c068c6f9f0e}{}\label{shaper__log__linux_8c_a9373ce7683ab48b75cda3c068c6f9f0e}
+
+
+shaper\+\_\+log\+\_\+linux.\+c 파일의 85 번째 라인에서 정의되었습니다.
+
+\index{shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}!S\+H\+A\+P\+E\+R\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT@{S\+H\+A\+P\+E\+R\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}}
+\index{S\+H\+A\+P\+E\+R\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT@{S\+H\+A\+P\+E\+R\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}!shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{S\+H\+A\+P\+E\+R\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}{SHAPER_LOG_COMPONENT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+H\+A\+P\+E\+R\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT~\char`\"{}Log\char`\"{}}\hypertarget{shaper__log__linux_8c_a8ff9eab82e462838cdff7a19dbe8a21a}{}\label{shaper__log__linux_8c_a8ff9eab82e462838cdff7a19dbe8a21a}
+
+
+shaper\+\_\+log\+\_\+linux.\+c 파일의 36 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{함수 문서화}
+\index{shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}!logging\+Thread\+Fn@{logging\+Thread\+Fn}}
+\index{logging\+Thread\+Fn@{logging\+Thread\+Fn}!shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{logging\+Thread\+Fn(void $\ast$pv)}{loggingThreadFn(void *pv)}}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ logging\+Thread\+Fn (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{pv}
+\end{DoxyParamCaption}
+)}\hypertarget{shaper__log__linux_8c_a65074bde174862afb4b7585c57d69a72}{}\label{shaper__log__linux_8c_a65074bde174862afb4b7585c57d69a72}
+
+
+shaper\+\_\+log\+\_\+linux.\+c 파일의 175 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+176 \{
+177     (void) pv;
+178 
+179     \textcolor{keywordflow}{while} (\hyperlink{shaper__log__linux_8c_ad6f257febaeb5a53e5e83acd38bf4a6a}{loggingThreadRunning}) \{
+180         \hyperlink{maap__helper__linux_8h_a63121b744a6265fe4bae4963b032ac02}{SLEEP\_MSEC}(\hyperlink{maap__log_8h_a71121b25c4a669d49ac2101436f1e529}{LOG\_QUEUE\_SLEEP\_MSEC});
+181         \hyperlink{shaper__log__linux_8c_a21dbf27be8dafc2ca9ec6194220ecc2d}{shaperLogDisplayAll}();
+182     \}
+183 
+184     \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+185 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{shaper__log__linux_8c_a65074bde174862afb4b7585c57d69a72_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{shaper__log__linux_8c_a65074bde174862afb4b7585c57d69a72_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}!M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+L\+E\+\_\+\+A\+LT@{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+L\+E\+\_\+\+A\+LT}}
+\index{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+L\+E\+\_\+\+A\+LT@{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+L\+E\+\_\+\+A\+LT}!shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+L\+E\+\_\+\+A\+L\+T(g\+Log\+Mutex)}{MUTEX_HANDLE_ALT(gLogMutex)}}]{\setlength{\rightskip}{0pt plus 5cm}static M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+L\+E\+\_\+\+A\+LT (
+\begin{DoxyParamCaption}
+\item[{{\bf g\+Log\+Mutex}}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{shaper__log__linux_8c_a276fed837d0ac6cbe9fc26a90f4dca5b}{}\label{shaper__log__linux_8c_a276fed837d0ac6cbe9fc26a90f4dca5b}
+\index{shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}!shaper\+Log\+Buffer@{shaper\+Log\+Buffer}}
+\index{shaper\+Log\+Buffer@{shaper\+Log\+Buffer}!shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{shaper\+Log\+Buffer(int level, const uint8\+\_\+t $\ast$p\+Data, int data\+Len, int line\+Len, const char $\ast$company, const char $\ast$component, const char $\ast$path, int line)}{shaperLogBuffer(int level, const uint8_t *pData, int dataLen, int lineLen, const char *company, const char *component, const char *path, int line)}}]{\setlength{\rightskip}{0pt plus 5cm}void shaper\+Log\+Buffer (
+\begin{DoxyParamCaption}
+\item[{int}]{level, }
+\item[{const {\bf uint8\+\_\+t} $\ast$}]{p\+Data, }
+\item[{int}]{data\+Len, }
+\item[{int}]{line\+Len, }
+\item[{const char $\ast$}]{company, }
+\item[{const char $\ast$}]{component, }
+\item[{const char $\ast$}]{path, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}\hypertarget{shaper__log__linux_8c_ae5588879580ab924006b0ce92c442492}{}\label{shaper__log__linux_8c_ae5588879580ab924006b0ce92c442492}
+
+
+shaper\+\_\+log\+\_\+linux.\+c 파일의 410 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+419 \{
+420     \textcolor{keywordtype}{char} szDataLine[ 400 ];
+421     \textcolor{keywordtype}{char} *pszOut;
+422     \textcolor{keywordtype}{int} i, j;
+423 
+424     \textcolor{keywordflow}{if} (level > \hyperlink{shaper__log_8h_ab10a4a70a4d7ce97ed7ddde462a29c04}{SHAPER\_LOG\_LEVEL}) \{ \textcolor{keywordflow}{return}; \}
+425 
+426     \textcolor{keywordflow}{for} (i = 0; i < dataLen; i += lineLen) \{
+427         \textcolor{comment}{/* Create the hexadecimal output for the buffer. */}
+428         pszOut = szDataLine;
+429         *pszOut++ = \textcolor{charliteral}{'\(\backslash\)t'};
+430         \textcolor{keywordflow}{for} (j = i; j < i + lineLen; ++j) \{
+431             \textcolor{keywordflow}{if} (j < dataLen) \{
+432                 sprintf(pszOut, \textcolor{stringliteral}{"%02x "}, pData[j]);
+433             \} \textcolor{keywordflow}{else} \{
+434                 strcpy(pszOut, \textcolor{stringliteral}{"   "});
+435             \}
+436             pszOut += 3;
+437         \}
+438 
+439         *pszOut++ = \textcolor{charliteral}{' '};
+440         *pszOut++ = \textcolor{charliteral}{' '};
+441 
+442         \textcolor{comment}{/* Append the ASCII equivalent of each character. */}
+443         \textcolor{keywordflow}{for} (j = i; j < dataLen && j < i + lineLen; ++j) \{
+444             \textcolor{keywordflow}{if} (pData[j] >= 0x20 && pData[j] < 0x7f) \{
+445                 *pszOut++ = (char) pData[j];
+446             \} \textcolor{keywordflow}{else} \{
+447                 *pszOut++ = \textcolor{charliteral}{'.'};
+448             \}
+449         \}
+450 
+451         \textcolor{comment}{/* Display this line of text. */}
+452         *pszOut = \textcolor{charliteral}{'\(\backslash\)0'};
+453         \hyperlink{shaper__log__linux_8c_a69c97f57b7e4f20806ee8ef852079b32}{shaperLogFn}(level, \textcolor{stringliteral}{"BUFFER"}, company, component, path, line, \textcolor{stringliteral}{"%s"}, szDataLine);
+454     \}
+455 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{shaper__log__linux_8c_ae5588879580ab924006b0ce92c442492_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}!shaper\+Log\+Display\+All@{shaper\+Log\+Display\+All}}
+\index{shaper\+Log\+Display\+All@{shaper\+Log\+Display\+All}!shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{shaper\+Log\+Display\+All(void)}{shaperLogDisplayAll(void)}}]{\setlength{\rightskip}{0pt plus 5cm}void shaper\+Log\+Display\+All (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{shaper__log__linux_8c_a21dbf27be8dafc2ca9ec6194220ecc2d}{}\label{shaper__log__linux_8c_a21dbf27be8dafc2ca9ec6194220ecc2d}
+
+
+shaper\+\_\+log\+\_\+linux.\+c 파일의 187 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+188 \{
+189     \textcolor{keywordtype}{int} more = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+190 
+191     \textcolor{keywordflow}{while} (more) \{
+192         more = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+193         \hyperlink{structshaper__log__queue__elem}{shaper\_log\_queue\_elem\_t} elem = 
+      \hyperlink{shaper__log__queue_8c_af82c234a74b5c010d8a1ef8f1bfe0a3a}{shaperLogQueueTailLock}(\hyperlink{shaper__log__linux_8c_a6e766a82ff8678538834c23e82715962}{logQueue});
+194         \textcolor{keywordflow}{if} (elem) \{
+195             \hyperlink{structlog__queue__item__t}{log\_queue\_item\_t} *pLogItem = (\hyperlink{structlog__queue__item__t}{log\_queue\_item\_t} *)
+      \hyperlink{shaper__log__queue_8c_ad95321345cbe81120706feb4249ebf00}{shaperLogQueueData}(elem);
+196 
+197             \textcolor{keywordflow}{if} (pLogItem->\hyperlink{structlog__queue__item__t_a30f8c58f5752c309e3ea89708f8dff4f}{bRT})
+198                 \hyperlink{shaper__log__linux_8c_ab612101e308402a50f80010aee753ba8}{shaperLogRTRender}(pLogItem);
+199 
+200             fputs((\textcolor{keyword}{const} \textcolor{keywordtype}{char} *)pLogItem->\hyperlink{structlog__queue__item__t_ad6dd0ed011025f01f3d77d2e437d5a10}{msg}, \hyperlink{shaper__log_8h_af087f4ecf339d87fabf1fc06282bfe66}{SHAPER\_LOG\_OUTPUT\_FD});
+201             \hyperlink{shaper__log__queue_8c_ac97f0733f153702a88282a6632e2e6df}{shaperLogQueueTailPull}(\hyperlink{shaper__log__linux_8c_a6e766a82ff8678538834c23e82715962}{logQueue});
+202             more = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+203         \}
+204     \}
+205 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{shaper__log__linux_8c_a21dbf27be8dafc2ca9ec6194220ecc2d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{shaper__log__linux_8c_a21dbf27be8dafc2ca9ec6194220ecc2d_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}!shaper\+Log\+Exit@{shaper\+Log\+Exit}}
+\index{shaper\+Log\+Exit@{shaper\+Log\+Exit}!shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{shaper\+Log\+Exit()}{shaperLogExit()}}]{\setlength{\rightskip}{0pt plus 5cm}void shaper\+Log\+Exit (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{shaper__log__linux_8c_a1c06501018b8c5ab4260079ca89f8e56}{}\label{shaper__log__linux_8c_a1c06501018b8c5ab4260079ca89f8e56}
+
+
+shaper\+\_\+log\+\_\+linux.\+c 파일의 234 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+235 \{
+236     \textcolor{keywordflow}{if} (\hyperlink{shaper__log_8h_a2b65bd6575284ef2119ebcb4adcc7556}{SHAPER\_LOG\_FROM\_THREAD} && \hyperlink{shaper__log__linux_8c_ad6f257febaeb5a53e5e83acd38bf4a6a}{loggingThreadRunning}) \{
+237         \hyperlink{shaper__log__linux_8c_ad6f257febaeb5a53e5e83acd38bf4a6a}{loggingThreadRunning} = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+238         \hyperlink{maap__helper__linux_8h_ab2bcb74112112a2ed181d5784e0530f3}{THREAD\_JOIN}(\hyperlink{maap__log__windows_8c_adf591e6834fc8d927dc5d9b1a02ac5eb}{loggingThread}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+239     \}
+240 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{shaper__log__linux_8c_a1c06501018b8c5ab4260079ca89f8e56_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}!shaper\+Log\+Fn@{shaper\+Log\+Fn}}
+\index{shaper\+Log\+Fn@{shaper\+Log\+Fn}!shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{shaper\+Log\+Fn(int level, const char $\ast$tag, const char $\ast$company, const char $\ast$component, const char $\ast$path, int line, const char $\ast$fmt,...)}{shaperLogFn(int level, const char *tag, const char *company, const char *component, const char *path, int line, const char *fmt,...)}}]{\setlength{\rightskip}{0pt plus 5cm}void shaper\+Log\+Fn (
+\begin{DoxyParamCaption}
+\item[{int}]{level, }
+\item[{const char $\ast$}]{tag, }
+\item[{const char $\ast$}]{company, }
+\item[{const char $\ast$}]{component, }
+\item[{const char $\ast$}]{path, }
+\item[{int}]{line, }
+\item[{const char $\ast$}]{fmt, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)}\hypertarget{shaper__log__linux_8c_a69c97f57b7e4f20806ee8ef852079b32}{}\label{shaper__log__linux_8c_a69c97f57b7e4f20806ee8ef852079b32}
+
+
+shaper\+\_\+log\+\_\+linux.\+c 파일의 242 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+251 \{
+252     \textcolor{keywordflow}{if} (level <= \hyperlink{shaper__log_8h_ab10a4a70a4d7ce97ed7ddde462a29c04}{SHAPER\_LOG\_LEVEL}) \{
+253         va\_list \hyperlink{namespaceastime__fitline_a8187411843a6284ffb964ef3fb9fcab3}{args};
+254         va\_start(args, fmt);
+255 
+256         \hyperlink{shaper__log__linux_8c_a11e0170fce31cef3d3637001b575bbdc}{LOG\_LOCK}();
+257 
+258         vsprintf(\hyperlink{shaper__log__linux_8c_a0c7e58a50354c4a4d6dad428d0e47029}{msg}, fmt, args);
+259 
+260         \textcolor{keywordflow}{if} (\hyperlink{shaper__log_8h_ab74305fda32a8f6992d6349f8e7e04a9}{SHAPER\_LOG\_FILE\_INFO} && path) \{
+261             \textcolor{keywordtype}{char}* file = strrchr(path, \textcolor{charliteral}{'/'});
+262             \textcolor{keywordflow}{if} (!file)
+263                 file = strrchr(path, \textcolor{charliteral}{'\(\backslash\)\(\backslash\)'});
+264             \textcolor{keywordflow}{if} (file)
+265                 file += 1;
+266             \textcolor{keywordflow}{else}
+267                 file = (\textcolor{keywordtype}{char}*)path;
+268             sprintf(\hyperlink{shaper__log__linux_8c_a21dd859ebe9e700309dc224741774096}{file\_msg}, \textcolor{stringliteral}{" %s:%d"}, file, line);
+269         \}
+270         \textcolor{keywordflow}{if} (\hyperlink{shaper__log_8h_aff1f8edba1594d59dd3091723d3b332a}{SHAPER\_LOG\_PROC\_INFO}) \{
+271             sprintf(\hyperlink{shaper__log__linux_8c_a57e0ac8e722c8cb7738d968757ff195c}{proc\_msg}, \textcolor{stringliteral}{" P:%5.5d"}, \hyperlink{maap__helper__linux_8h_ab962ad63d625bd73c120e8a5a9c62052}{GET\_PID}());
+272         \}
+273         \textcolor{keywordflow}{if} (\hyperlink{shaper__log_8h_a119f0a3795d1f08f6113700bd35c3e99}{SHAPER\_LOG\_THREAD\_INFO}) \{
+274             sprintf(\hyperlink{shaper__log__linux_8c_a82dd27020d09c78fc3cbdfdce1bf4716}{thread\_msg}, \textcolor{stringliteral}{" T:%lu"}, \hyperlink{maap__helper__linux_8h_a2310e7fcb309a05edf2a12694714256a}{THREAD\_SELF}());
+275         \}
+276         \textcolor{keywordflow}{if} (\hyperlink{shaper__log_8h_a9e933e26220d56601871d925ee8b5b49}{SHAPER\_LOG\_TIME\_INFO}) \{
+277             time\_t tNow = time(\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+278             \textcolor{keyword}{struct }tm tmNow;
+279             localtime\_r(&tNow, &tmNow);
+280 
+281             sprintf(\hyperlink{shaper__log__linux_8c_afa92916bc8163ff97f4ab9cf92e55429}{time\_msg}, \textcolor{stringliteral}{"%2.2d:%2.2d:%2.2d"}, tmNow.tm\_hour, tmNow.tm\_min, tmNow.tm\_sec);
+282         \}
+283         \textcolor{keywordflow}{if} (\hyperlink{shaper__log_8h_a9ea979ec279f1a4b14ad36602c39f8b0}{SHAPER\_LOG\_TIMESTAMP\_INFO}) \{
+284             \textcolor{keyword}{struct }timespec nowTS;
+285             clock\_gettime(CLOCK\_REALTIME, &nowTS);
+286 
+287             sprintf(\hyperlink{shaper__log__linux_8c_a04ee9a2d03c51567d17af0d058d0e750}{timestamp\_msg}, \textcolor{stringliteral}{"%lu:%09lu"}, nowTS.tv\_sec, nowTS.tv\_nsec);
+288         \}
+289 
+290         \textcolor{comment}{// using sprintf and puts allows using static buffers rather than heap.}
+291         \textcolor{keywordflow}{if} (\hyperlink{shaper__log_8h_a358fdd27ba47117165cad51b0d007726}{SHAPER\_LOG\_EXTRA\_NEWLINE})
+292             \textcolor{comment}{/* int32\_t full\_msg\_len = */} sprintf(\hyperlink{shaper__log__linux_8c_a5670633f699944d8df262539386c8839}{full\_msg}, \textcolor{stringliteral}{"[%s%s%s%s %s %s%s] %s: %s\(\backslash\)n"}, 
+      \hyperlink{shaper__log__linux_8c_afa92916bc8163ff97f4ab9cf92e55429}{time\_msg}, \hyperlink{shaper__log__linux_8c_a04ee9a2d03c51567d17af0d058d0e750}{timestamp\_msg}, \hyperlink{shaper__log__linux_8c_a57e0ac8e722c8cb7738d968757ff195c}{proc\_msg}, \hyperlink{shaper__log__linux_8c_a82dd27020d09c78fc3cbdfdce1bf4716}{thread\_msg}, company, component, 
+      \hyperlink{shaper__log__linux_8c_a21dd859ebe9e700309dc224741774096}{file\_msg}, tag, \hyperlink{shaper__log__linux_8c_a0c7e58a50354c4a4d6dad428d0e47029}{msg});
+293         \textcolor{keywordflow}{else}
+294             \textcolor{comment}{/* int32\_t full\_msg\_len = */} sprintf(\hyperlink{shaper__log__linux_8c_a5670633f699944d8df262539386c8839}{full\_msg}, \textcolor{stringliteral}{"[%s%s%s%s %s %s%s] %s: %s"}, 
+      \hyperlink{shaper__log__linux_8c_afa92916bc8163ff97f4ab9cf92e55429}{time\_msg}, \hyperlink{shaper__log__linux_8c_a04ee9a2d03c51567d17af0d058d0e750}{timestamp\_msg}, \hyperlink{shaper__log__linux_8c_a57e0ac8e722c8cb7738d968757ff195c}{proc\_msg}, \hyperlink{shaper__log__linux_8c_a82dd27020d09c78fc3cbdfdce1bf4716}{thread\_msg}, company, component, 
+      \hyperlink{shaper__log__linux_8c_a21dd859ebe9e700309dc224741774096}{file\_msg}, tag, \hyperlink{shaper__log__linux_8c_a0c7e58a50354c4a4d6dad428d0e47029}{msg});
+295 
+296         \textcolor{keywordflow}{if} (!\hyperlink{shaper__log_8h_a2b65bd6575284ef2119ebcb4adcc7556}{SHAPER\_LOG\_FROM\_THREAD} && !
+      \hyperlink{shaper__log_8h_a9a7b612d0710b893e8b9825bb7437a9c}{SHAPER\_LOG\_PULL\_MODE}) \{
+297             fputs(\hyperlink{shaper__log__linux_8c_a5670633f699944d8df262539386c8839}{full\_msg}, \hyperlink{shaper__log_8h_af087f4ecf339d87fabf1fc06282bfe66}{SHAPER\_LOG\_OUTPUT\_FD});
+298         \}
+299         \textcolor{keywordflow}{else} \{
+300             \textcolor{keywordflow}{if} (\hyperlink{shaper__log__linux_8c_a6e766a82ff8678538834c23e82715962}{logQueue}) \{
+301                 \hyperlink{structshaper__log__queue__elem}{shaper\_log\_queue\_elem\_t} elem = 
+      \hyperlink{shaper__log__queue_8c_af0286a8fb6028fae2d0c9d73983151ab}{shaperLogQueueHeadLock}(\hyperlink{shaper__log__linux_8c_a6e766a82ff8678538834c23e82715962}{logQueue});
+302                 \textcolor{keywordflow}{if} (elem) \{
+303                     \hyperlink{structlog__queue__item__t}{log\_queue\_item\_t} *pLogItem = (
+      \hyperlink{structlog__queue__item__t}{log\_queue\_item\_t} *)\hyperlink{shaper__log__queue_8c_ad95321345cbe81120706feb4249ebf00}{shaperLogQueueData}(elem);
+304                     pLogItem->\hyperlink{structlog__queue__item__t_a30f8c58f5752c309e3ea89708f8dff4f}{bRT} = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+305                     strncpy((\textcolor{keywordtype}{char} *)pLogItem->\hyperlink{structlog__queue__item__t_ad6dd0ed011025f01f3d77d2e437d5a10}{msg}, \hyperlink{shaper__log__linux_8c_a5670633f699944d8df262539386c8839}{full\_msg}, 
+      \hyperlink{maap__log_8h_a4a189d3725ffaa3069029a11e66748bd}{LOG\_QUEUE\_MSG\_LEN});
+306                     \hyperlink{shaper__log__queue_8c_af8e5b2480e3f83c36961bcdfcb1c7ff3}{shaperLogQueueHeadPush}(\hyperlink{shaper__log__linux_8c_a6e766a82ff8678538834c23e82715962}{logQueue});
+307                 \}
+308             \}
+309         \}
+310 
+311         va\_end(args);
+312 
+313         \hyperlink{shaper__log__linux_8c_aa6d92b26d315ad0b9562711c0ff97878}{LOG\_UNLOCK}();
+314     \}
+315 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=325pt]{shaper__log__linux_8c_a69c97f57b7e4f20806ee8ef852079b32_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=277pt]{shaper__log__linux_8c_a69c97f57b7e4f20806ee8ef852079b32_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}!shaper\+Log\+Get\+Msg@{shaper\+Log\+Get\+Msg}}
+\index{shaper\+Log\+Get\+Msg@{shaper\+Log\+Get\+Msg}!shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{shaper\+Log\+Get\+Msg(uint8\+\_\+t $\ast$p\+Buf, uint32\+\_\+t buf\+Size)}{shaperLogGetMsg(uint8_t *pBuf, uint32_t bufSize)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint32\+\_\+t} shaper\+Log\+Get\+Msg (
+\begin{DoxyParamCaption}
+\item[{{\bf uint8\+\_\+t} $\ast$}]{p\+Buf, }
+\item[{{\bf uint32\+\_\+t}}]{buf\+Size}
+\end{DoxyParamCaption}
+)}\hypertarget{shaper__log__linux_8c_a707ead0f8fed0359cb699ec9dd290d10}{}\label{shaper__log__linux_8c_a707ead0f8fed0359cb699ec9dd290d10}
+
+
+shaper\+\_\+log\+\_\+linux.\+c 파일의 152 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+153 \{
+154     \hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\_t} dataLen = 0;
+155     \textcolor{keywordflow}{if} (\hyperlink{shaper__log__linux_8c_a6e766a82ff8678538834c23e82715962}{logQueue}) \{
+156         \hyperlink{structshaper__log__queue__elem}{shaper\_log\_queue\_elem\_t} elem = 
+      \hyperlink{shaper__log__queue_8c_af82c234a74b5c010d8a1ef8f1bfe0a3a}{shaperLogQueueTailLock}(\hyperlink{shaper__log__linux_8c_a6e766a82ff8678538834c23e82715962}{logQueue});
+157         \textcolor{keywordflow}{if} (elem) \{
+158             \hyperlink{structlog__queue__item__t}{log\_queue\_item\_t} *pLogItem = (\hyperlink{structlog__queue__item__t}{log\_queue\_item\_t} *)
+      \hyperlink{shaper__log__queue_8c_ad95321345cbe81120706feb4249ebf00}{shaperLogQueueData}(elem);
+159 
+160             \textcolor{keywordflow}{if} (pLogItem->\hyperlink{structlog__queue__item__t_a30f8c58f5752c309e3ea89708f8dff4f}{bRT})
+161                 \hyperlink{shaper__log__linux_8c_ab612101e308402a50f80010aee753ba8}{shaperLogRTRender}(pLogItem);
+162 
+163             dataLen = strlen((\textcolor{keyword}{const} \textcolor{keywordtype}{char} *)pLogItem->\hyperlink{structlog__queue__item__t_ad6dd0ed011025f01f3d77d2e437d5a10}{msg});
+164             \textcolor{keywordflow}{if} (dataLen <= bufSize)
+165                 memcpy(pBuf, (\hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} *)pLogItem->\hyperlink{structlog__queue__item__t_ad6dd0ed011025f01f3d77d2e437d5a10}{msg}, dataLen);
+166             \textcolor{keywordflow}{else}
+167                 memcpy(pBuf, (\hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} *)pLogItem->\hyperlink{structlog__queue__item__t_ad6dd0ed011025f01f3d77d2e437d5a10}{msg}, bufSize);
+168             \hyperlink{shaper__log__queue_8c_ac97f0733f153702a88282a6632e2e6df}{shaperLogQueueTailPull}(\hyperlink{shaper__log__linux_8c_a6e766a82ff8678538834c23e82715962}{logQueue});
+169             \textcolor{keywordflow}{return} dataLen;
+170         \}
+171     \}
+172     \textcolor{keywordflow}{return} dataLen;
+173 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{shaper__log__linux_8c_a707ead0f8fed0359cb699ec9dd290d10_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}!shaper\+Log\+Init@{shaper\+Log\+Init}}
+\index{shaper\+Log\+Init@{shaper\+Log\+Init}!shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{shaper\+Log\+Init(void)}{shaperLogInit(void)}}]{\setlength{\rightskip}{0pt plus 5cm}void shaper\+Log\+Init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{shaper__log__linux_8c_af96a217cc421c0a322b3a7c14b1109df}{}\label{shaper__log__linux_8c_af96a217cc421c0a322b3a7c14b1109df}
+
+
+shaper\+\_\+log\+\_\+linux.\+c 파일의 207 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+208 \{
+209     \hyperlink{maap__helper__linux_8h_ab40dfddcb36164878528420b4f6cb5b6}{MUTEX\_CREATE\_ALT}(\hyperlink{maap__log__windows_8c_a83e0fa84cebfd7344197d386e57af6bc}{gLogMutex});
+210 
+211     \hyperlink{shaper__log__linux_8c_a6e766a82ff8678538834c23e82715962}{logQueue} = \hyperlink{shaper__log__queue_8c_acf83479cc9910de63c1564989ebc5fcc}{shaperLogQueueNewQueue}(\textcolor{keyword}{sizeof}(
+      \hyperlink{structlog__queue__item__t}{log\_queue\_item\_t}), \hyperlink{maap__log_8h_a652a7841484a0cb13ca23f3330175d58}{LOG\_QUEUE\_MSG\_CNT});
+212     \textcolor{keywordflow}{if} (!\hyperlink{shaper__log__linux_8c_a6e766a82ff8678538834c23e82715962}{logQueue}) \{
+213         printf(\textcolor{stringliteral}{"Failed to initialize logging facility\(\backslash\)n"});
+214     \}
+215 
+216     \hyperlink{shaper__log__linux_8c_a9d799b778f7e5a8a462c035762e2b45a}{logRTQueue} = \hyperlink{shaper__log__queue_8c_acf83479cc9910de63c1564989ebc5fcc}{shaperLogQueueNewQueue}(\textcolor{keyword}{sizeof}(
+      \hyperlink{structlog__rt__queue__item__t}{log\_rt\_queue\_item\_t}), \hyperlink{maap__log_8h_aa8178be15f077c6e2d21355a006ed17f}{LOG\_RT\_QUEUE\_CNT});
+217     \textcolor{keywordflow}{if} (!\hyperlink{shaper__log__linux_8c_a9d799b778f7e5a8a462c035762e2b45a}{logRTQueue}) \{
+218         printf(\textcolor{stringliteral}{"Failed to initialize logging RT facility\(\backslash\)n"});
+219     \}
+220 
+221     \textcolor{comment}{// Start the logging task}
+222     \textcolor{keywordflow}{if} (\hyperlink{shaper__log_8h_a2b65bd6575284ef2119ebcb4adcc7556}{SHAPER\_LOG\_FROM\_THREAD}) \{
+223         \textcolor{keywordtype}{int} errResult;
+224         \hyperlink{shaper__log__linux_8c_ad6f257febaeb5a53e5e83acd38bf4a6a}{loggingThreadRunning} = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+225         \hyperlink{maap__helper__linux_8h_a153e2ca1dd20bd23c619f8d2bafcc764}{THREAD\_CREATE}(\hyperlink{maap__log__windows_8c_adf591e6834fc8d927dc5d9b1a02ac5eb}{loggingThread}, \hyperlink{maap__log__windows_8c_adf591e6834fc8d927dc5d9b1a02ac5eb}{loggingThread}, 
+      \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{shaper__log__linux_8c_a65074bde174862afb4b7585c57d69a72}{loggingThreadFn}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+226         \hyperlink{maap__helper__linux_8h_a2d61dbf377bb5ab560d4b4bddf49c9c2}{THREAD\_CHECK\_ERROR}(\hyperlink{maap__log__windows_8c_adf591e6834fc8d927dc5d9b1a02ac5eb}{loggingThread}, \textcolor{stringliteral}{"Thread / task creation failed"}, 
+      errResult);
+227         \textcolor{keywordflow}{if} (errResult) \{
+228             \hyperlink{shaper__log__linux_8c_ad6f257febaeb5a53e5e83acd38bf4a6a}{loggingThreadRunning} = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+229             \hyperlink{shaper__log_8h_a1dceb97cb3e0f72d04de207adc543628}{SHAPER\_LOG\_ERROR}(\textcolor{stringliteral}{"Could not log data: loggingThread create failure"});
+230         \}
+231     \}
+232 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{shaper__log__linux_8c_af96a217cc421c0a322b3a7c14b1109df_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=229pt]{shaper__log__linux_8c_af96a217cc421c0a322b3a7c14b1109df_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}!shaper\+Log\+RT@{shaper\+Log\+RT}}
+\index{shaper\+Log\+RT@{shaper\+Log\+RT}!shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{shaper\+Log\+R\+T(int level, int b\+Begin, int b\+Item, int b\+End, char $\ast$p\+Format, log\+\_\+rt\+\_\+datatype\+\_\+t data\+Type, void $\ast$p\+Var)}{shaperLogRT(int level, int bBegin, int bItem, int bEnd, char *pFormat, log_rt_datatype_t dataType, void *pVar)}}]{\setlength{\rightskip}{0pt plus 5cm}void shaper\+Log\+RT (
+\begin{DoxyParamCaption}
+\item[{int}]{level, }
+\item[{int}]{b\+Begin, }
+\item[{int}]{b\+Item, }
+\item[{int}]{b\+End, }
+\item[{char $\ast$}]{p\+Format, }
+\item[{{\bf log\+\_\+rt\+\_\+datatype\+\_\+t}}]{data\+Type, }
+\item[{void $\ast$}]{p\+Var}
+\end{DoxyParamCaption}
+)}\hypertarget{shaper__log__linux_8c_a09c0f00ca0b0fd62b4be7ac749724870}{}\label{shaper__log__linux_8c_a09c0f00ca0b0fd62b4be7ac749724870}
+
+
+shaper\+\_\+log\+\_\+linux.\+c 파일의 317 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+318 \{
+319     \textcolor{keywordflow}{if} (level <= \hyperlink{shaper__log_8h_ab10a4a70a4d7ce97ed7ddde462a29c04}{SHAPER\_LOG\_LEVEL}) \{
+320         \textcolor{keywordflow}{if} (\hyperlink{shaper__log__linux_8c_a9d799b778f7e5a8a462c035762e2b45a}{logRTQueue}) \{
+321             \textcolor{keywordflow}{if} (bBegin) \{
+322                 \hyperlink{shaper__log__linux_8c_a11e0170fce31cef3d3637001b575bbdc}{LOG\_LOCK}();
+323 
+324                 \hyperlink{structshaper__log__queue__elem}{shaper\_log\_queue\_elem\_t} elem = 
+      \hyperlink{shaper__log__queue_8c_af0286a8fb6028fae2d0c9d73983151ab}{shaperLogQueueHeadLock}(\hyperlink{shaper__log__linux_8c_a9d799b778f7e5a8a462c035762e2b45a}{logRTQueue});
+325                 \textcolor{keywordflow}{if} (elem) \{
+326                     \hyperlink{structlog__rt__queue__item__t}{log\_rt\_queue\_item\_t} *pLogRTItem = (
+      \hyperlink{structlog__rt__queue__item__t}{log\_rt\_queue\_item\_t} *)\hyperlink{shaper__log__queue_8c_ad95321345cbe81120706feb4249ebf00}{shaperLogQueueData}(elem);
+327                     pLogRTItem->\hyperlink{structlog__rt__queue__item__t_a58a77a6b362aa6d3c50ec19a105e8f09}{bEnd} = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+328                     pLogRTItem->\hyperlink{structlog__rt__queue__item__t_aaabdaef4a231b60eb9d0afe757204cab}{pFormat} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+329                     pLogRTItem->\hyperlink{structlog__rt__queue__item__t_aed0db02095b8e7cd776304a6deb5e2ec}{dataType} = \hyperlink{maap__log_8h_a478140af25cbb77e3fd5e15d175706e7a29c8121c88d28479a3e5f3ff2c2139e9}{LOG\_RT\_DATATYPE\_NOW\_TS};
+330                     clock\_gettime(CLOCK\_REALTIME, &pLogRTItem->\hyperlink{structlog__rt__queue__item__t_af4bb2c71b1d19ccd55d78ad070264bdf}{data}.\hyperlink{structlog__rt__queue__item__t_a7f62ac5d8f12c4bf0d29e42e8dff68df}{nowTS});
+331                     \hyperlink{shaper__log__queue_8c_af8e5b2480e3f83c36961bcdfcb1c7ff3}{shaperLogQueueHeadPush}(\hyperlink{shaper__log__linux_8c_a9d799b778f7e5a8a462c035762e2b45a}{logRTQueue});
+332                 \}
+333             \}
+334 
+335             \textcolor{keywordflow}{if} (bItem) \{
+336                 \hyperlink{structshaper__log__queue__elem}{shaper\_log\_queue\_elem\_t} elem = 
+      \hyperlink{shaper__log__queue_8c_af0286a8fb6028fae2d0c9d73983151ab}{shaperLogQueueHeadLock}(\hyperlink{shaper__log__linux_8c_a9d799b778f7e5a8a462c035762e2b45a}{logRTQueue});
+337                 \textcolor{keywordflow}{if} (elem) \{
+338                     \hyperlink{structlog__rt__queue__item__t}{log\_rt\_queue\_item\_t} *pLogRTItem = (
+      \hyperlink{structlog__rt__queue__item__t}{log\_rt\_queue\_item\_t} *)\hyperlink{shaper__log__queue_8c_ad95321345cbe81120706feb4249ebf00}{shaperLogQueueData}(elem);
+339                     \textcolor{keywordflow}{if} (bEnd)
+340                         pLogRTItem->\hyperlink{structlog__rt__queue__item__t_a58a77a6b362aa6d3c50ec19a105e8f09}{bEnd} = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+341                     \textcolor{keywordflow}{else}
+342                         pLogRTItem->\hyperlink{structlog__rt__queue__item__t_a58a77a6b362aa6d3c50ec19a105e8f09}{bEnd} = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+343                     pLogRTItem->\hyperlink{structlog__rt__queue__item__t_aaabdaef4a231b60eb9d0afe757204cab}{pFormat} = pFormat;
+344                     pLogRTItem->\hyperlink{structlog__rt__queue__item__t_aed0db02095b8e7cd776304a6deb5e2ec}{dataType} = dataType;
+345 
+346                     \textcolor{keywordflow}{switch} (pLogRTItem->\hyperlink{structlog__rt__queue__item__t_aed0db02095b8e7cd776304a6deb5e2ec}{dataType}) \{
+347                         \textcolor{keywordflow}{case} \hyperlink{maap__log_8h_a478140af25cbb77e3fd5e15d175706e7a80aa447ad64d740ffd7752bd25fc4e57}{LOG\_RT\_DATATYPE\_CONST\_STR}:
+348                             \textcolor{keywordflow}{break};
+349                         \textcolor{keywordflow}{case} \hyperlink{maap__log_8h_a478140af25cbb77e3fd5e15d175706e7a73da5c98d0390a4a5801a8c30b6d638c}{LOG\_RT\_DATATYPE\_U16}:
+350                             pLogRTItem->\hyperlink{structlog__rt__queue__item__t_af4bb2c71b1d19ccd55d78ad070264bdf}{data}.\hyperlink{structlog__rt__queue__item__t_aa8ae3bfcb3e941363e128eba96d09bee}{unsignedLongVar} = *(uint16\_t *)pVar;
+351                             \textcolor{keywordflow}{break};
+352                         \textcolor{keywordflow}{case} \hyperlink{maap__log_8h_a478140af25cbb77e3fd5e15d175706e7ab146625afaa5556b6c4f4bf9c344057b}{LOG\_RT\_DATATYPE\_S16}:
+353                             pLogRTItem->\hyperlink{structlog__rt__queue__item__t_af4bb2c71b1d19ccd55d78ad070264bdf}{data}.\hyperlink{structlog__rt__queue__item__t_aa12bde1623a54d11dedc033ffbead487}{signedLongVar} = *(int16\_t *)pVar;
+354                             \textcolor{keywordflow}{break};
+355                         \textcolor{keywordflow}{case} \hyperlink{maap__log_8h_a478140af25cbb77e3fd5e15d175706e7ab4fefb514be0afe33ae9025e7ccc7b8f}{LOG\_RT\_DATATYPE\_U32}:
+356                             pLogRTItem->\hyperlink{structlog__rt__queue__item__t_af4bb2c71b1d19ccd55d78ad070264bdf}{data}.\hyperlink{structlog__rt__queue__item__t_aa8ae3bfcb3e941363e128eba96d09bee}{unsignedLongVar} = *(
+      \hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\_t} *)pVar;
+357                             \textcolor{keywordflow}{break};
+358                         \textcolor{keywordflow}{case} \hyperlink{maap__log_8h_a478140af25cbb77e3fd5e15d175706e7aedca725fdbff38be8c7b39c9a894b9d1}{LOG\_RT\_DATATYPE\_S32}:
+359                             pLogRTItem->\hyperlink{structlog__rt__queue__item__t_af4bb2c71b1d19ccd55d78ad070264bdf}{data}.\hyperlink{structlog__rt__queue__item__t_aa12bde1623a54d11dedc033ffbead487}{signedLongVar} = *(
+      \hyperlink{parse_8c_a37994e3b11c72957c6f454c6ec96d43d}{int32\_t} *)pVar;
+360                             \textcolor{keywordflow}{break};
+361                         \textcolor{keywordflow}{case} \hyperlink{maap__log_8h_a478140af25cbb77e3fd5e15d175706e7a7ff22820993e8a73f2e2597026c24e22}{LOG\_RT\_DATATYPE\_U64}:
+362                             pLogRTItem->\hyperlink{structlog__rt__queue__item__t_af4bb2c71b1d19ccd55d78ad070264bdf}{data}.\hyperlink{structlog__rt__queue__item__t_ae009f33bec8f50209814033004cec38d}{unsignedLongLongVar} = *(
+      \hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\_t} *)pVar;
+363                             \textcolor{keywordflow}{break};
+364                         \textcolor{keywordflow}{case} \hyperlink{maap__log_8h_a478140af25cbb77e3fd5e15d175706e7a56ce7a748c456a926438f18ac29d98bd}{LOG\_RT\_DATATYPE\_S64}:
+365                             pLogRTItem->\hyperlink{structlog__rt__queue__item__t_af4bb2c71b1d19ccd55d78ad070264bdf}{data}.\hyperlink{structlog__rt__queue__item__t_a54d6e1f6bfe85ec7387103c044c87479}{signedLongLongVar} = *(
+      \hyperlink{parse_8c_a67a9885ef4908cb72ce26d75b694386c}{int64\_t} *)pVar;
+366                             \textcolor{keywordflow}{break};
+367                         \textcolor{keywordflow}{case} \hyperlink{maap__log_8h_a478140af25cbb77e3fd5e15d175706e7a7ccb2c0e81f5329c0c27d78f3d21710f}{LOG\_RT\_DATATYPE\_FLOAT}:
+368                             pLogRTItem->\hyperlink{structlog__rt__queue__item__t_af4bb2c71b1d19ccd55d78ad070264bdf}{data}.\hyperlink{structlog__rt__queue__item__t_a097418d0271cd5318e481be1ae56c841}{floatVar} = *(\textcolor{keywordtype}{float} *)pVar;
+369                             \textcolor{keywordflow}{break};
+370                         \textcolor{keywordflow}{default}:
+371                             \textcolor{keywordflow}{break};
+372                     \}
+373                     \hyperlink{shaper__log__queue_8c_af8e5b2480e3f83c36961bcdfcb1c7ff3}{shaperLogQueueHeadPush}(\hyperlink{shaper__log__linux_8c_a9d799b778f7e5a8a462c035762e2b45a}{logRTQueue});
+374                 \}
+375             \}
+376 
+377             \textcolor{keywordflow}{if} (!bItem && bEnd) \{
+378                 \hyperlink{structshaper__log__queue__elem}{shaper\_log\_queue\_elem\_t} elem = 
+      \hyperlink{shaper__log__queue_8c_af0286a8fb6028fae2d0c9d73983151ab}{shaperLogQueueHeadLock}(\hyperlink{shaper__log__linux_8c_a9d799b778f7e5a8a462c035762e2b45a}{logRTQueue});
+379                 \textcolor{keywordflow}{if} (elem) \{
+380                     \hyperlink{structlog__rt__queue__item__t}{log\_rt\_queue\_item\_t} *pLogRTItem = (
+      \hyperlink{structlog__rt__queue__item__t}{log\_rt\_queue\_item\_t} *)\hyperlink{shaper__log__queue_8c_ad95321345cbe81120706feb4249ebf00}{shaperLogQueueData}(elem);
+381                     pLogRTItem->\hyperlink{structlog__rt__queue__item__t_a58a77a6b362aa6d3c50ec19a105e8f09}{bEnd} = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+382                     pLogRTItem->\hyperlink{structlog__rt__queue__item__t_aaabdaef4a231b60eb9d0afe757204cab}{pFormat} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+383                     pLogRTItem->\hyperlink{structlog__rt__queue__item__t_aed0db02095b8e7cd776304a6deb5e2ec}{dataType} = \hyperlink{maap__log_8h_a478140af25cbb77e3fd5e15d175706e7a943e1811d1a2ffe1342321dc628e75bb}{LOG\_RT\_DATATYPE\_NONE};
+384                     \hyperlink{shaper__log__queue_8c_af8e5b2480e3f83c36961bcdfcb1c7ff3}{shaperLogQueueHeadPush}(\hyperlink{shaper__log__linux_8c_a9d799b778f7e5a8a462c035762e2b45a}{logRTQueue});
+385                 \}
+386             \}
+387 
+388             \textcolor{keywordflow}{if} (bEnd) \{
+389                 \textcolor{keywordflow}{if} (\hyperlink{shaper__log__linux_8c_a6e766a82ff8678538834c23e82715962}{logQueue}) \{
+390                     \hyperlink{structshaper__log__queue__elem}{shaper\_log\_queue\_elem\_t} elem = 
+      \hyperlink{shaper__log__queue_8c_af0286a8fb6028fae2d0c9d73983151ab}{shaperLogQueueHeadLock}(\hyperlink{shaper__log__linux_8c_a6e766a82ff8678538834c23e82715962}{logQueue});
+391                     \textcolor{keywordflow}{if} (elem) \{
+392                         \hyperlink{structlog__queue__item__t}{log\_queue\_item\_t} *pLogItem = (
+      \hyperlink{structlog__queue__item__t}{log\_queue\_item\_t} *)\hyperlink{shaper__log__queue_8c_ad95321345cbe81120706feb4249ebf00}{shaperLogQueueData}(elem);
+393                         pLogItem->\hyperlink{structlog__queue__item__t_a30f8c58f5752c309e3ea89708f8dff4f}{bRT} = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+394                         \textcolor{keywordflow}{if} (\hyperlink{shaper__log_8h_a2b65bd6575284ef2119ebcb4adcc7556}{SHAPER\_LOG\_FROM\_THREAD}) \{
+395                             \hyperlink{shaper__log__queue_8c_af8e5b2480e3f83c36961bcdfcb1c7ff3}{shaperLogQueueHeadPush}(
+      \hyperlink{shaper__log__linux_8c_a6e766a82ff8678538834c23e82715962}{logQueue});
+396                         \} \textcolor{keywordflow}{else} \{
+397                             \hyperlink{shaper__log__linux_8c_ab612101e308402a50f80010aee753ba8}{shaperLogRTRender}(pLogItem);
+398                             fputs((\textcolor{keyword}{const} \textcolor{keywordtype}{char} *)pLogItem->\hyperlink{structlog__queue__item__t_ad6dd0ed011025f01f3d77d2e437d5a10}{msg}, 
+      \hyperlink{shaper__log_8h_af087f4ecf339d87fabf1fc06282bfe66}{SHAPER\_LOG\_OUTPUT\_FD});
+399                             \hyperlink{shaper__log__queue_8c_a0cb18796b99ae74ad9825d69e633ae88}{shaperLogQueueHeadUnlock}(
+      \hyperlink{shaper__log__linux_8c_a6e766a82ff8678538834c23e82715962}{logQueue});
+400                         \}
+401                     \}
+402                 \}
+403 
+404                 \hyperlink{shaper__log__linux_8c_aa6d92b26d315ad0b9562711c0ff97878}{LOG\_UNLOCK}();
+405             \}
+406         \}
+407     \}
+408 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{shaper__log__linux_8c_a09c0f00ca0b0fd62b4be7ac749724870_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}!shaper\+Log\+R\+T\+Render@{shaper\+Log\+R\+T\+Render}}
+\index{shaper\+Log\+R\+T\+Render@{shaper\+Log\+R\+T\+Render}!shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{shaper\+Log\+R\+T\+Render(log\+\_\+queue\+\_\+item\+\_\+t $\ast$p\+Log\+Item)}{shaperLogRTRender(log_queue_item_t *pLogItem)}}]{\setlength{\rightskip}{0pt plus 5cm}void shaper\+Log\+R\+T\+Render (
+\begin{DoxyParamCaption}
+\item[{{\bf log\+\_\+queue\+\_\+item\+\_\+t} $\ast$}]{p\+Log\+Item}
+\end{DoxyParamCaption}
+)}\hypertarget{shaper__log__linux_8c_ab612101e308402a50f80010aee753ba8}{}\label{shaper__log__linux_8c_ab612101e308402a50f80010aee753ba8}
+
+
+shaper\+\_\+log\+\_\+linux.\+c 파일의 91 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+92 \{
+93     \textcolor{keywordflow}{if} (\hyperlink{shaper__log__linux_8c_a9d799b778f7e5a8a462c035762e2b45a}{logRTQueue}) \{
+94         pLogItem->\hyperlink{structlog__queue__item__t_ad6dd0ed011025f01f3d77d2e437d5a10}{msg}[0] = 0x00;
+95         \textcolor{keywordtype}{int} bMore = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+96         \textcolor{keywordflow}{while} (bMore) \{
+97             \hyperlink{structshaper__log__queue__elem}{shaper\_log\_queue\_elem\_t} elem = 
+      \hyperlink{shaper__log__queue_8c_af82c234a74b5c010d8a1ef8f1bfe0a3a}{shaperLogQueueTailLock}(\hyperlink{shaper__log__linux_8c_a9d799b778f7e5a8a462c035762e2b45a}{logRTQueue});
+98             \textcolor{keywordflow}{if} (elem) \{
+99                 \hyperlink{structlog__rt__queue__item__t}{log\_rt\_queue\_item\_t} *pLogRTItem = (
+      \hyperlink{structlog__rt__queue__item__t}{log\_rt\_queue\_item\_t} *)\hyperlink{shaper__log__queue_8c_ad95321345cbe81120706feb4249ebf00}{shaperLogQueueData}(elem);
+100 
+101                 \textcolor{keywordflow}{switch} (pLogRTItem->\hyperlink{structlog__rt__queue__item__t_aed0db02095b8e7cd776304a6deb5e2ec}{dataType}) \{
+102                     \textcolor{keywordflow}{case} \hyperlink{maap__log_8h_a478140af25cbb77e3fd5e15d175706e7a80aa447ad64d740ffd7752bd25fc4e57}{LOG\_RT\_DATATYPE\_CONST\_STR}:
+103                         strcat((\textcolor{keywordtype}{char} *)pLogItem->\hyperlink{structlog__queue__item__t_ad6dd0ed011025f01f3d77d2e437d5a10}{msg}, pLogRTItem->\hyperlink{structlog__rt__queue__item__t_aaabdaef4a231b60eb9d0afe757204cab}{pFormat});
+104                         \textcolor{keywordflow}{break};
+105                     \textcolor{keywordflow}{case} \hyperlink{maap__log_8h_a478140af25cbb77e3fd5e15d175706e7a29c8121c88d28479a3e5f3ff2c2139e9}{LOG\_RT\_DATATYPE\_NOW\_TS}:
+106                         sprintf(\hyperlink{shaper__log__linux_8c_ae94e6da629086c0ec14c336cc5bb54dd}{rt\_msg}, \textcolor{stringliteral}{"[%lu:%09lu] "}, pLogRTItem->\hyperlink{structlog__rt__queue__item__t_af4bb2c71b1d19ccd55d78ad070264bdf}{data}.
+      \hyperlink{structlog__rt__queue__item__t_a7f62ac5d8f12c4bf0d29e42e8dff68df}{nowTS}.tv\_sec, pLogRTItem->\hyperlink{structlog__rt__queue__item__t_af4bb2c71b1d19ccd55d78ad070264bdf}{data}.\hyperlink{structlog__rt__queue__item__t_a7f62ac5d8f12c4bf0d29e42e8dff68df}{nowTS}.tv\_nsec);
+107                         strcat((\textcolor{keywordtype}{char} *)pLogItem->\hyperlink{structlog__queue__item__t_ad6dd0ed011025f01f3d77d2e437d5a10}{msg}, \hyperlink{shaper__log__linux_8c_ae94e6da629086c0ec14c336cc5bb54dd}{rt\_msg});
+108                         \textcolor{keywordflow}{break};
+109                     \textcolor{keywordflow}{case} \hyperlink{maap__log_8h_a478140af25cbb77e3fd5e15d175706e7a73da5c98d0390a4a5801a8c30b6d638c}{LOG\_RT\_DATATYPE\_U16}:
+110                         sprintf(\hyperlink{shaper__log__linux_8c_ae94e6da629086c0ec14c336cc5bb54dd}{rt\_msg}, pLogRTItem->\hyperlink{structlog__rt__queue__item__t_aaabdaef4a231b60eb9d0afe757204cab}{pFormat}, pLogRTItem->
+      \hyperlink{structlog__rt__queue__item__t_af4bb2c71b1d19ccd55d78ad070264bdf}{data}.\hyperlink{structlog__rt__queue__item__t_a5ff4647f0732e05863c136edfe1ae337}{unsignedShortVar});
+111                         strcat((\textcolor{keywordtype}{char} *)pLogItem->\hyperlink{structlog__queue__item__t_ad6dd0ed011025f01f3d77d2e437d5a10}{msg}, \hyperlink{shaper__log__linux_8c_ae94e6da629086c0ec14c336cc5bb54dd}{rt\_msg});
+112                         \textcolor{keywordflow}{break};
+113                     \textcolor{keywordflow}{case} \hyperlink{maap__log_8h_a478140af25cbb77e3fd5e15d175706e7ab146625afaa5556b6c4f4bf9c344057b}{LOG\_RT\_DATATYPE\_S16}:
+114                         sprintf(\hyperlink{shaper__log__linux_8c_ae94e6da629086c0ec14c336cc5bb54dd}{rt\_msg}, pLogRTItem->\hyperlink{structlog__rt__queue__item__t_aaabdaef4a231b60eb9d0afe757204cab}{pFormat}, pLogRTItem->
+      \hyperlink{structlog__rt__queue__item__t_af4bb2c71b1d19ccd55d78ad070264bdf}{data}.\hyperlink{structlog__rt__queue__item__t_a969c99005328132f5ec57e410747d20f}{signedShortVar});
+115                         strcat((\textcolor{keywordtype}{char} *)pLogItem->\hyperlink{structlog__queue__item__t_ad6dd0ed011025f01f3d77d2e437d5a10}{msg}, \hyperlink{shaper__log__linux_8c_ae94e6da629086c0ec14c336cc5bb54dd}{rt\_msg});
+116                         \textcolor{keywordflow}{break};
+117                     \textcolor{keywordflow}{case} \hyperlink{maap__log_8h_a478140af25cbb77e3fd5e15d175706e7ab4fefb514be0afe33ae9025e7ccc7b8f}{LOG\_RT\_DATATYPE\_U32}:
+118                         sprintf(\hyperlink{shaper__log__linux_8c_ae94e6da629086c0ec14c336cc5bb54dd}{rt\_msg}, pLogRTItem->\hyperlink{structlog__rt__queue__item__t_aaabdaef4a231b60eb9d0afe757204cab}{pFormat}, pLogRTItem->
+      \hyperlink{structlog__rt__queue__item__t_af4bb2c71b1d19ccd55d78ad070264bdf}{data}.\hyperlink{structlog__rt__queue__item__t_aa8ae3bfcb3e941363e128eba96d09bee}{unsignedLongVar});
+119                         strcat((\textcolor{keywordtype}{char} *)pLogItem->\hyperlink{structlog__queue__item__t_ad6dd0ed011025f01f3d77d2e437d5a10}{msg}, \hyperlink{shaper__log__linux_8c_ae94e6da629086c0ec14c336cc5bb54dd}{rt\_msg});
+120                         \textcolor{keywordflow}{break};
+121                     \textcolor{keywordflow}{case} \hyperlink{maap__log_8h_a478140af25cbb77e3fd5e15d175706e7aedca725fdbff38be8c7b39c9a894b9d1}{LOG\_RT\_DATATYPE\_S32}:
+122                         sprintf(\hyperlink{shaper__log__linux_8c_ae94e6da629086c0ec14c336cc5bb54dd}{rt\_msg}, pLogRTItem->\hyperlink{structlog__rt__queue__item__t_aaabdaef4a231b60eb9d0afe757204cab}{pFormat}, pLogRTItem->
+      \hyperlink{structlog__rt__queue__item__t_af4bb2c71b1d19ccd55d78ad070264bdf}{data}.\hyperlink{structlog__rt__queue__item__t_aa12bde1623a54d11dedc033ffbead487}{signedLongVar});
+123                         strcat((\textcolor{keywordtype}{char} *)pLogItem->\hyperlink{structlog__queue__item__t_ad6dd0ed011025f01f3d77d2e437d5a10}{msg}, \hyperlink{shaper__log__linux_8c_ae94e6da629086c0ec14c336cc5bb54dd}{rt\_msg});
+124                         \textcolor{keywordflow}{break};
+125                     \textcolor{keywordflow}{case} \hyperlink{maap__log_8h_a478140af25cbb77e3fd5e15d175706e7a7ff22820993e8a73f2e2597026c24e22}{LOG\_RT\_DATATYPE\_U64}:
+126                         sprintf(\hyperlink{shaper__log__linux_8c_ae94e6da629086c0ec14c336cc5bb54dd}{rt\_msg}, pLogRTItem->\hyperlink{structlog__rt__queue__item__t_aaabdaef4a231b60eb9d0afe757204cab}{pFormat}, pLogRTItem->
+      \hyperlink{structlog__rt__queue__item__t_af4bb2c71b1d19ccd55d78ad070264bdf}{data}.\hyperlink{structlog__rt__queue__item__t_ae009f33bec8f50209814033004cec38d}{unsignedLongLongVar});
+127                         strcat((\textcolor{keywordtype}{char} *)pLogItem->\hyperlink{structlog__queue__item__t_ad6dd0ed011025f01f3d77d2e437d5a10}{msg}, \hyperlink{shaper__log__linux_8c_ae94e6da629086c0ec14c336cc5bb54dd}{rt\_msg});
+128                         \textcolor{keywordflow}{break};
+129                     \textcolor{keywordflow}{case} \hyperlink{maap__log_8h_a478140af25cbb77e3fd5e15d175706e7a56ce7a748c456a926438f18ac29d98bd}{LOG\_RT\_DATATYPE\_S64}:
+130                         sprintf(\hyperlink{shaper__log__linux_8c_ae94e6da629086c0ec14c336cc5bb54dd}{rt\_msg}, pLogRTItem->\hyperlink{structlog__rt__queue__item__t_aaabdaef4a231b60eb9d0afe757204cab}{pFormat}, pLogRTItem->
+      \hyperlink{structlog__rt__queue__item__t_af4bb2c71b1d19ccd55d78ad070264bdf}{data}.\hyperlink{structlog__rt__queue__item__t_a54d6e1f6bfe85ec7387103c044c87479}{signedLongLongVar});
+131                         strcat((\textcolor{keywordtype}{char} *)pLogItem->\hyperlink{structlog__queue__item__t_ad6dd0ed011025f01f3d77d2e437d5a10}{msg}, \hyperlink{shaper__log__linux_8c_ae94e6da629086c0ec14c336cc5bb54dd}{rt\_msg});
+132                         \textcolor{keywordflow}{break};
+133                     \textcolor{keywordflow}{case} \hyperlink{maap__log_8h_a478140af25cbb77e3fd5e15d175706e7a7ccb2c0e81f5329c0c27d78f3d21710f}{LOG\_RT\_DATATYPE\_FLOAT}:
+134                         sprintf(\hyperlink{shaper__log__linux_8c_ae94e6da629086c0ec14c336cc5bb54dd}{rt\_msg}, pLogRTItem->\hyperlink{structlog__rt__queue__item__t_aaabdaef4a231b60eb9d0afe757204cab}{pFormat}, pLogRTItem->
+      \hyperlink{structlog__rt__queue__item__t_af4bb2c71b1d19ccd55d78ad070264bdf}{data}.\hyperlink{structlog__rt__queue__item__t_a097418d0271cd5318e481be1ae56c841}{floatVar});
+135                         strcat((\textcolor{keywordtype}{char} *)pLogItem->\hyperlink{structlog__queue__item__t_ad6dd0ed011025f01f3d77d2e437d5a10}{msg}, \hyperlink{shaper__log__linux_8c_ae94e6da629086c0ec14c336cc5bb54dd}{rt\_msg});
+136                         \textcolor{keywordflow}{break};
+137                     \textcolor{keywordflow}{default}:
+138                         \textcolor{keywordflow}{break};
+139                 \}
+140 
+141                 \textcolor{keywordflow}{if} (pLogRTItem->\hyperlink{structlog__rt__queue__item__t_a58a77a6b362aa6d3c50ec19a105e8f09}{bEnd}) \{
+142                     \textcolor{keywordflow}{if} (\hyperlink{shaper__log_8h_a358fdd27ba47117165cad51b0d007726}{SHAPER\_LOG\_EXTRA\_NEWLINE})
+143                         strcat((\textcolor{keywordtype}{char} *)pLogItem->\hyperlink{structlog__queue__item__t_ad6dd0ed011025f01f3d77d2e437d5a10}{msg}, \textcolor{stringliteral}{"\(\backslash\)n"});
+144                     bMore = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+145                 \}
+146                 \hyperlink{shaper__log__queue_8c_ac97f0733f153702a88282a6632e2e6df}{shaperLogQueueTailPull}(\hyperlink{shaper__log__linux_8c_a9d799b778f7e5a8a462c035762e2b45a}{logRTQueue});
+147             \}
+148         \}
+149     \}
+150 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{shaper__log__linux_8c_ab612101e308402a50f80010aee753ba8_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{shaper__log__linux_8c_ab612101e308402a50f80010aee753ba8_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}!T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+ON@{T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+ON}}
+\index{T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+ON@{T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+ON}!shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+O\+N(logging\+Thread)}{THREAD_DEFINITON(loggingThread)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+ON (
+\begin{DoxyParamCaption}
+\item[{{\bf logging\+Thread}}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{shaper__log__linux_8c_a5d22cb81833265675bdcfc953cea9c44}{}\label{shaper__log__linux_8c_a5d22cb81833265675bdcfc953cea9c44}
+\index{shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}!T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE@{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE}}
+\index{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE@{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE}!shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+P\+E(logging\+Thread)}{THREAD_TYPE(loggingThread)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE (
+\begin{DoxyParamCaption}
+\item[{{\bf logging\+Thread}}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{shaper__log__linux_8c_abb5e768e12b298211a6381bcb57e7327}{}\label{shaper__log__linux_8c_abb5e768e12b298211a6381bcb57e7327}
+
+
+\subsection{변수 문서화}
+\index{shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}!file\+\_\+msg@{file\+\_\+msg}}
+\index{file\+\_\+msg@{file\+\_\+msg}!shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{file\+\_\+msg}{file_msg}}]{\setlength{\rightskip}{0pt plus 5cm}char file\+\_\+msg\mbox{[}{\bf L\+O\+G\+\_\+\+F\+I\+L\+E\+\_\+\+L\+EN}\mbox{]} = \char`\"{}\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{shaper__log__linux_8c_a21dd859ebe9e700309dc224741774096}{}\label{shaper__log__linux_8c_a21dd859ebe9e700309dc224741774096}
+
+
+shaper\+\_\+log\+\_\+linux.\+c 파일의 66 번째 라인에서 정의되었습니다.
+
+\index{shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}!full\+\_\+msg@{full\+\_\+msg}}
+\index{full\+\_\+msg@{full\+\_\+msg}!shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{full\+\_\+msg}{full_msg}}]{\setlength{\rightskip}{0pt plus 5cm}char full\+\_\+msg\mbox{[}{\bf L\+O\+G\+\_\+\+F\+U\+L\+L\+\_\+\+M\+S\+G\+\_\+\+L\+EN}\mbox{]} = \char`\"{}\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{shaper__log__linux_8c_a5670633f699944d8df262539386c8839}{}\label{shaper__log__linux_8c_a5670633f699944d8df262539386c8839}
+
+
+shaper\+\_\+log\+\_\+linux.\+c 파일의 69 번째 라인에서 정의되었습니다.
+
+\index{shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}!logging\+Thread\+Running@{logging\+Thread\+Running}}
+\index{logging\+Thread\+Running@{logging\+Thread\+Running}!shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{logging\+Thread\+Running}{loggingThreadRunning}}]{\setlength{\rightskip}{0pt plus 5cm}int logging\+Thread\+Running = {\bf F\+A\+L\+SE}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{shaper__log__linux_8c_ad6f257febaeb5a53e5e83acd38bf4a6a}{}\label{shaper__log__linux_8c_ad6f257febaeb5a53e5e83acd38bf4a6a}
+
+
+shaper\+\_\+log\+\_\+linux.\+c 파일의 73 번째 라인에서 정의되었습니다.
+
+\index{shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}!log\+Queue@{log\+Queue}}
+\index{log\+Queue@{log\+Queue}!shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{log\+Queue}{logQueue}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf shaper\+\_\+log\+\_\+queue\+\_\+t} log\+Queue\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{shaper__log__linux_8c_a6e766a82ff8678538834c23e82715962}{}\label{shaper__log__linux_8c_a6e766a82ff8678538834c23e82715962}
+
+
+shaper\+\_\+log\+\_\+linux.\+c 파일의 60 번째 라인에서 정의되었습니다.
+
+\index{shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}!log\+R\+T\+Queue@{log\+R\+T\+Queue}}
+\index{log\+R\+T\+Queue@{log\+R\+T\+Queue}!shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{log\+R\+T\+Queue}{logRTQueue}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf shaper\+\_\+log\+\_\+queue\+\_\+t} log\+R\+T\+Queue\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{shaper__log__linux_8c_a9d799b778f7e5a8a462c035762e2b45a}{}\label{shaper__log__linux_8c_a9d799b778f7e5a8a462c035762e2b45a}
+
+
+shaper\+\_\+log\+\_\+linux.\+c 파일의 61 번째 라인에서 정의되었습니다.
+
+\index{shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}!msg@{msg}}
+\index{msg@{msg}!shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{msg}{msg}}]{\setlength{\rightskip}{0pt plus 5cm}char msg\mbox{[}{\bf L\+O\+G\+\_\+\+M\+S\+G\+\_\+\+L\+EN}\mbox{]} = \char`\"{}\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{shaper__log__linux_8c_a0c7e58a50354c4a4d6dad428d0e47029}{}\label{shaper__log__linux_8c_a0c7e58a50354c4a4d6dad428d0e47029}
+
+
+shaper\+\_\+log\+\_\+linux.\+c 파일의 63 번째 라인에서 정의되었습니다.
+
+\index{shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}!proc\+\_\+msg@{proc\+\_\+msg}}
+\index{proc\+\_\+msg@{proc\+\_\+msg}!shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{proc\+\_\+msg}{proc_msg}}]{\setlength{\rightskip}{0pt plus 5cm}char proc\+\_\+msg\mbox{[}{\bf L\+O\+G\+\_\+\+P\+R\+O\+C\+\_\+\+L\+EN}\mbox{]} = \char`\"{}\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{shaper__log__linux_8c_a57e0ac8e722c8cb7738d968757ff195c}{}\label{shaper__log__linux_8c_a57e0ac8e722c8cb7738d968757ff195c}
+
+
+shaper\+\_\+log\+\_\+linux.\+c 파일의 67 번째 라인에서 정의되었습니다.
+
+\index{shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}!rt\+\_\+msg@{rt\+\_\+msg}}
+\index{rt\+\_\+msg@{rt\+\_\+msg}!shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{rt\+\_\+msg}{rt_msg}}]{\setlength{\rightskip}{0pt plus 5cm}char rt\+\_\+msg\mbox{[}{\bf L\+O\+G\+\_\+\+R\+T\+\_\+\+M\+S\+G\+\_\+\+L\+EN}\mbox{]} = \char`\"{}\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{shaper__log__linux_8c_ae94e6da629086c0ec14c336cc5bb54dd}{}\label{shaper__log__linux_8c_ae94e6da629086c0ec14c336cc5bb54dd}
+
+
+shaper\+\_\+log\+\_\+linux.\+c 파일의 71 번째 라인에서 정의되었습니다.
+
+\index{shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}!thread\+\_\+msg@{thread\+\_\+msg}}
+\index{thread\+\_\+msg@{thread\+\_\+msg}!shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{thread\+\_\+msg}{thread_msg}}]{\setlength{\rightskip}{0pt plus 5cm}char thread\+\_\+msg\mbox{[}{\bf L\+O\+G\+\_\+\+T\+H\+R\+E\+A\+D\+\_\+\+L\+EN}\mbox{]} = \char`\"{}\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{shaper__log__linux_8c_a82dd27020d09c78fc3cbdfdce1bf4716}{}\label{shaper__log__linux_8c_a82dd27020d09c78fc3cbdfdce1bf4716}
+
+
+shaper\+\_\+log\+\_\+linux.\+c 파일의 68 번째 라인에서 정의되었습니다.
+
+\index{shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}!time\+\_\+msg@{time\+\_\+msg}}
+\index{time\+\_\+msg@{time\+\_\+msg}!shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{time\+\_\+msg}{time_msg}}]{\setlength{\rightskip}{0pt plus 5cm}char time\+\_\+msg\mbox{[}{\bf L\+O\+G\+\_\+\+T\+I\+M\+E\+\_\+\+L\+EN}\mbox{]} = \char`\"{}\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{shaper__log__linux_8c_afa92916bc8163ff97f4ab9cf92e55429}{}\label{shaper__log__linux_8c_afa92916bc8163ff97f4ab9cf92e55429}
+
+
+shaper\+\_\+log\+\_\+linux.\+c 파일의 64 번째 라인에서 정의되었습니다.
+
+\index{shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}!timestamp\+\_\+msg@{timestamp\+\_\+msg}}
+\index{timestamp\+\_\+msg@{timestamp\+\_\+msg}!shaper\+\_\+log\+\_\+linux.\+c@{shaper\+\_\+log\+\_\+linux.\+c}}
+\subsubsection[{\texorpdfstring{timestamp\+\_\+msg}{timestamp_msg}}]{\setlength{\rightskip}{0pt plus 5cm}char timestamp\+\_\+msg\mbox{[}{\bf L\+O\+G\+\_\+\+T\+I\+M\+E\+S\+T\+A\+M\+P\+\_\+\+L\+EN}\mbox{]} = \char`\"{}\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{shaper__log__linux_8c_a04ee9a2d03c51567d17af0d058d0e750}{}\label{shaper__log__linux_8c_a04ee9a2d03c51567d17af0d058d0e750}
+
+
+shaper\+\_\+log\+\_\+linux.\+c 파일의 65 번째 라인에서 정의되었습니다.
+

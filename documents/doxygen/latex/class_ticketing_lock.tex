@@ -1,0 +1,330 @@
+\hypertarget{class_ticketing_lock}{}\section{Ticketing\+Lock 클래스 참조}
+\label{class_ticketing_lock}\index{Ticketing\+Lock@{Ticketing\+Lock}}
+
+
+\hyperlink{class_ticketing_lock}{Ticketing\+Lock}\+: Implements the ticket lock algorithm. A ticket lock consists of two counters, one containing the number of requests to acquire the lock, and the other the number of times the lock has been released. A processor acquires the lock by performing a fetch and increment operation on the request counter and waiting until the result its ticket is equal to the value of the release counter. It releases the lock by incrementing the release counter.  
+
+
+
+
+{\ttfamily \#include $<$linux\+\_\+hal\+\_\+common.\+hpp$>$}
+
+
+
+Ticketing\+Lock에 대한 협력 다이어그램\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=190pt]{class_ticketing_lock__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public 멤버 함수}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{class_ticketing_lock_a27addfbd7031de7dc72d73e9e89449bd}{lock} (\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} $\ast$got=\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{N\+U\+LL})
+\begin{DoxyCompactList}\small\item\em Lock mechanism. Gets a ticket and try locking the process. \end{DoxyCompactList}\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{class_ticketing_lock_ae399421ee39cae4df5ea44bd21e31254}{unlock} ()
+\begin{DoxyCompactList}\small\item\em Unlock mechanism. Increments the release counter and unblock other threads waiting for a condition flag. \end{DoxyCompactList}\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{class_ticketing_lock_aee8048628ff2b5c026c9e15acdcaacb8}{init} ()
+\begin{DoxyCompactList}\small\item\em Initializes all flags and counters. Create private structures. \end{DoxyCompactList}\item 
+\hyperlink{class_ticketing_lock_aab66d8231bd64c25c97d24bd01beb6cd}{Ticketing\+Lock} ()
+\begin{DoxyCompactList}\small\item\em Default constructor sets some flags to false that will be initialized on the init method. Protects against using lock/unlock without calling init. \end{DoxyCompactList}\item 
+\hyperlink{class_ticketing_lock_a0e1fa5f272a7acba554c73f821ccc1b7}{$\sim$\+Ticketing\+Lock} ()
+\begin{DoxyCompactList}\small\item\em Deletes the object and private structures. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private 속성}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{class_ticketing_lock_a9298e04a9d0130ff1545e0914d419de5}{init\+\_\+flag}
+\item 
+\hyperlink{linux__hal__common_8hpp_aef905914edfb58f54aac91ad5d4b2ad8}{Ticketing\+Lock\+Private\+\_\+t} \hyperlink{class_ticketing_lock_a351c5faad8218bb8571b5d784b7f364f}{\+\_\+private}
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{class_ticketing_lock_a7768b84c51671204cc736430f48246a0}{in\+\_\+use}
+\item 
+\hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\+\_\+t} \hyperlink{class_ticketing_lock_a8b7a3b091ea1d5901833b1b38d7d5338}{cond\+\_\+ticket\+\_\+issue}
+\item 
+\hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\+\_\+t} \hyperlink{class_ticketing_lock_a4ee669f5608abcc6ffdfc0f5df01e6cf}{cond\+\_\+ticket\+\_\+serving}
+\end{DoxyCompactItemize}
+
+
+\subsection{상세한 설명}
+\hyperlink{class_ticketing_lock}{Ticketing\+Lock}\+: Implements the ticket lock algorithm. A ticket lock consists of two counters, one containing the number of requests to acquire the lock, and the other the number of times the lock has been released. A processor acquires the lock by performing a fetch and increment operation on the request counter and waiting until the result its ticket is equal to the value of the release counter. It releases the lock by incrementing the release counter. 
+
+linux\+\_\+hal\+\_\+common.\+hpp 파일의 83 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{생성자 \& 소멸자 문서화}
+\index{Ticketing\+Lock@{Ticketing\+Lock}!Ticketing\+Lock@{Ticketing\+Lock}}
+\index{Ticketing\+Lock@{Ticketing\+Lock}!Ticketing\+Lock@{Ticketing\+Lock}}
+\subsubsection[{\texorpdfstring{Ticketing\+Lock()}{TicketingLock()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Ticketing\+Lock} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{class_ticketing_lock_aab66d8231bd64c25c97d24bd01beb6cd}{}\label{class_ticketing_lock_aab66d8231bd64c25c97d24bd01beb6cd}
+
+
+Default constructor sets some flags to false that will be initialized on the init method. Protects against using lock/unlock without calling init. 
+
+
+
+linux\+\_\+hal\+\_\+common.\+cpp 파일의 681 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+681                              \{
+682     \hyperlink{class_ticketing_lock_a9298e04a9d0130ff1545e0914d419de5}{init\_flag} = \textcolor{keyword}{false};
+683     \hyperlink{class_ticketing_lock_a351c5faad8218bb8571b5d784b7f364f}{\_private} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+684 \}
+\end{DoxyCode}
+\index{Ticketing\+Lock@{Ticketing\+Lock}!````~Ticketing\+Lock@{$\sim$\+Ticketing\+Lock}}
+\index{````~Ticketing\+Lock@{$\sim$\+Ticketing\+Lock}!Ticketing\+Lock@{Ticketing\+Lock}}
+\subsubsection[{\texorpdfstring{$\sim$\+Ticketing\+Lock()}{~TicketingLock()}}]{\setlength{\rightskip}{0pt plus 5cm}$\sim${\bf Ticketing\+Lock} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{class_ticketing_lock_a0e1fa5f272a7acba554c73f821ccc1b7}{}\label{class_ticketing_lock_a0e1fa5f272a7acba554c73f821ccc1b7}
+
+
+Deletes the object and private structures. 
+
+
+
+linux\+\_\+hal\+\_\+common.\+cpp 파일의 686 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+686                               \{
+687     \textcolor{keywordflow}{if}( \hyperlink{class_ticketing_lock_a351c5faad8218bb8571b5d784b7f364f}{\_private} != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} ) \textcolor{keyword}{delete} \hyperlink{class_ticketing_lock_a351c5faad8218bb8571b5d784b7f364f}{\_private};
+688 \}
+\end{DoxyCode}
+
+
+\subsection{멤버 함수 문서화}
+\index{Ticketing\+Lock@{Ticketing\+Lock}!init@{init}}
+\index{init@{init}!Ticketing\+Lock@{Ticketing\+Lock}}
+\subsubsection[{\texorpdfstring{init()}{init()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} init (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{class_ticketing_lock_aee8048628ff2b5c026c9e15acdcaacb8}{}\label{class_ticketing_lock_aee8048628ff2b5c026c9e15acdcaacb8}
+
+
+Initializes all flags and counters. Create private structures. 
+
+\begin{DoxyReturn}{반환값}
+T\+R\+UE in case of success, F\+A\+L\+SE otherwise. 
+\end{DoxyReturn}
+
+
+linux\+\_\+hal\+\_\+common.\+cpp 파일의 663 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+663                          \{
+664     \textcolor{keywordtype}{int} \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err};
+665     \textcolor{keywordflow}{if}( \hyperlink{class_ticketing_lock_a9298e04a9d0130ff1545e0914d419de5}{init\_flag} ) \textcolor{keywordflow}{return} \textcolor{keyword}{false};  \textcolor{comment}{// Don't do this more than once}
+666     \hyperlink{class_ticketing_lock_a351c5faad8218bb8571b5d784b7f364f}{\_private} = \textcolor{keyword}{new} \hyperlink{struct_ticketing_lock_private}{TicketingLockPrivate};
+667     \textcolor{keywordflow}{if}( \hyperlink{class_ticketing_lock_a351c5faad8218bb8571b5d784b7f364f}{\_private} == \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} ) \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+668 
+669     err = pthread\_mutex\_init( &\hyperlink{class_ticketing_lock_a351c5faad8218bb8571b5d784b7f364f}{\_private}->\hyperlink{struct_ticketing_lock_private_ae3e5051fe73e5989a4d275ba3f947f64}{cond\_lock}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} );
+670     \textcolor{keywordflow}{if}( err != 0 ) \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+671     err = pthread\_cond\_init( &\hyperlink{class_ticketing_lock_a351c5faad8218bb8571b5d784b7f364f}{\_private}->\hyperlink{struct_ticketing_lock_private_a2d017047068ee847b500c14427ac4d6b}{condition}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} );
+672     \textcolor{keywordflow}{if}( err != 0 ) \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+673     \hyperlink{class_ticketing_lock_a7768b84c51671204cc736430f48246a0}{in\_use} = \textcolor{keyword}{false};
+674     \hyperlink{class_ticketing_lock_a8b7a3b091ea1d5901833b1b38d7d5338}{cond\_ticket\_issue} = 0;
+675     \hyperlink{class_ticketing_lock_a4ee669f5608abcc6ffdfc0f5df01e6cf}{cond\_ticket\_serving} = 0;
+676     \hyperlink{class_ticketing_lock_a9298e04a9d0130ff1545e0914d419de5}{init\_flag} = \textcolor{keyword}{true};
+677 
+678     \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+679 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_ticketing_lock_aee8048628ff2b5c026c9e15acdcaacb8_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Ticketing\+Lock@{Ticketing\+Lock}!lock@{lock}}
+\index{lock@{lock}!Ticketing\+Lock@{Ticketing\+Lock}}
+\subsubsection[{\texorpdfstring{lock(bool $\ast$got=\+N\+U\+L\+L)}{lock(bool *got=NULL)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} lock (
+\begin{DoxyParamCaption}
+\item[{{\bf bool} $\ast$}]{got = {\ttfamily {\bf N\+U\+LL}}}
+\end{DoxyParamCaption}
+)}\hypertarget{class_ticketing_lock_a27addfbd7031de7dc72d73e9e89449bd}{}\label{class_ticketing_lock_a27addfbd7031de7dc72d73e9e89449bd}
+
+
+Lock mechanism. Gets a ticket and try locking the process. 
+
+
+\begin{DoxyParams}{매개변수}
+{\em got} & \mbox{[}out\mbox{]} If non-\/null, it is set to T\+R\+UE when the lock is acquired. F\+A\+L\+SE otherwise. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+T\+R\+UE when successfully got the lock, F\+A\+L\+SE otherwise. 
+\end{DoxyReturn}
+
+
+linux\+\_\+hal\+\_\+common.\+cpp 파일의 600 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+600                                     \{
+601     \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} ticket;
+602     \textcolor{keywordtype}{bool} yield = \textcolor{keyword}{false};
+603     \textcolor{keywordtype}{bool} ret = \textcolor{keyword}{true};
+604     \textcolor{keywordflow}{if}( !\hyperlink{class_ticketing_lock_a9298e04a9d0130ff1545e0914d419de5}{init\_flag} ) \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+605 
+606     \textcolor{keywordflow}{if}( pthread\_mutex\_lock( &\hyperlink{class_ticketing_lock_a351c5faad8218bb8571b5d784b7f364f}{\_private}->\hyperlink{struct_ticketing_lock_private_ae3e5051fe73e5989a4d275ba3f947f64}{cond\_lock} ) != 0 ) \{
+607         ret = \textcolor{keyword}{false};
+608         \textcolor{keywordflow}{goto} \hyperlink{mrp_validate_8c_a5992b274cfdcacdbc1fa8347fd01ebde}{done};
+609     \}
+610     \textcolor{comment}{// Take a ticket}
+611     ticket = \hyperlink{class_ticketing_lock_a8b7a3b091ea1d5901833b1b38d7d5338}{cond\_ticket\_issue}++;
+612     \textcolor{keywordflow}{while}( ticket != \hyperlink{class_ticketing_lock_a4ee669f5608abcc6ffdfc0f5df01e6cf}{cond\_ticket\_serving} ) \{
+613         \textcolor{keywordflow}{if}( got != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} ) \{
+614             *got = \textcolor{keyword}{false};
+615             --\hyperlink{class_ticketing_lock_a8b7a3b091ea1d5901833b1b38d7d5338}{cond\_ticket\_issue};
+616             yield = \textcolor{keyword}{true};
+617             \textcolor{keywordflow}{goto} \hyperlink{class_ticketing_lock_ae399421ee39cae4df5ea44bd21e31254}{unlock};
+618         \}
+619         \textcolor{keywordflow}{if}( pthread\_cond\_wait( &\hyperlink{class_ticketing_lock_a351c5faad8218bb8571b5d784b7f364f}{\_private}->\hyperlink{struct_ticketing_lock_private_a2d017047068ee847b500c14427ac4d6b}{condition}, &\hyperlink{class_ticketing_lock_a351c5faad8218bb8571b5d784b7f364f}{\_private}->
+      \hyperlink{struct_ticketing_lock_private_ae3e5051fe73e5989a4d275ba3f947f64}{cond\_lock} ) != 0 ) \{
+620             ret = \textcolor{keyword}{false};
+621             \textcolor{keywordflow}{goto} \hyperlink{class_ticketing_lock_ae399421ee39cae4df5ea44bd21e31254}{unlock};
+622         \}
+623     \}
+624 
+625     \textcolor{keywordflow}{if}( got != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} ) *got = \textcolor{keyword}{true};
+626 
+627  \hyperlink{class_ticketing_lock_ae399421ee39cae4df5ea44bd21e31254}{unlock}:
+628     \textcolor{keywordflow}{if}( pthread\_mutex\_unlock( &\hyperlink{class_ticketing_lock_a351c5faad8218bb8571b5d784b7f364f}{\_private}->\hyperlink{struct_ticketing_lock_private_ae3e5051fe73e5989a4d275ba3f947f64}{cond\_lock} ) != 0 ) \{
+629         ret = \textcolor{keyword}{false};
+630         \textcolor{keywordflow}{goto} \hyperlink{mrp_validate_8c_a5992b274cfdcacdbc1fa8347fd01ebde}{done};
+631     \}
+632 
+633     \textcolor{keywordflow}{if}( yield ) pthread\_yield();
+634 
+635  \hyperlink{mrp_validate_8c_a5992b274cfdcacdbc1fa8347fd01ebde}{done}:
+636     \textcolor{keywordflow}{return} ret;
+637 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_ticketing_lock_a27addfbd7031de7dc72d73e9e89449bd_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Ticketing\+Lock@{Ticketing\+Lock}!unlock@{unlock}}
+\index{unlock@{unlock}!Ticketing\+Lock@{Ticketing\+Lock}}
+\subsubsection[{\texorpdfstring{unlock()}{unlock()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} unlock (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{class_ticketing_lock_ae399421ee39cae4df5ea44bd21e31254}{}\label{class_ticketing_lock_ae399421ee39cae4df5ea44bd21e31254}
+
+
+Unlock mechanism. Increments the release counter and unblock other threads waiting for a condition flag. 
+
+\begin{DoxyReturn}{반환값}
+T\+R\+UE in case of success, F\+A\+L\+SE otherwise. 
+\end{DoxyReturn}
+
+
+linux\+\_\+hal\+\_\+common.\+cpp 파일의 639 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+639                            \{
+640     \textcolor{keywordtype}{bool} ret = \textcolor{keyword}{true};
+641     \textcolor{keywordflow}{if}( !\hyperlink{class_ticketing_lock_a9298e04a9d0130ff1545e0914d419de5}{init\_flag} ) \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+642 
+643     \textcolor{keywordflow}{if}( pthread\_mutex\_lock( &\hyperlink{class_ticketing_lock_a351c5faad8218bb8571b5d784b7f364f}{\_private}->\hyperlink{struct_ticketing_lock_private_ae3e5051fe73e5989a4d275ba3f947f64}{cond\_lock} ) != 0 ) \{
+644         ret = \textcolor{keyword}{false};
+645         \textcolor{keywordflow}{goto} \hyperlink{mrp_validate_8c_a5992b274cfdcacdbc1fa8347fd01ebde}{done};
+646     \}
+647     ++\hyperlink{class_ticketing_lock_a4ee669f5608abcc6ffdfc0f5df01e6cf}{cond\_ticket\_serving};
+648     \textcolor{keywordflow}{if}( pthread\_cond\_broadcast( &\hyperlink{class_ticketing_lock_a351c5faad8218bb8571b5d784b7f364f}{\_private}->\hyperlink{struct_ticketing_lock_private_a2d017047068ee847b500c14427ac4d6b}{condition} ) != 0 ) \{
+649         ret = \textcolor{keyword}{false};
+650         \textcolor{keywordflow}{goto} \hyperlink{class_ticketing_lock_ae399421ee39cae4df5ea44bd21e31254}{unlock};
+651     \}
+652 
+653  \hyperlink{class_ticketing_lock_ae399421ee39cae4df5ea44bd21e31254}{unlock}:
+654     \textcolor{keywordflow}{if}( pthread\_mutex\_unlock( &\hyperlink{class_ticketing_lock_a351c5faad8218bb8571b5d784b7f364f}{\_private}->\hyperlink{struct_ticketing_lock_private_ae3e5051fe73e5989a4d275ba3f947f64}{cond\_lock} ) != 0 ) \{
+655         ret = \textcolor{keyword}{false};
+656         \textcolor{keywordflow}{goto} \hyperlink{mrp_validate_8c_a5992b274cfdcacdbc1fa8347fd01ebde}{done};
+657     \}
+658 
+659  \hyperlink{mrp_validate_8c_a5992b274cfdcacdbc1fa8347fd01ebde}{done}:
+660     \textcolor{keywordflow}{return} ret;
+661 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=292pt]{class_ticketing_lock_ae399421ee39cae4df5ea44bd21e31254_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{필드 문서화}
+\index{Ticketing\+Lock@{Ticketing\+Lock}!\+\_\+private@{\+\_\+private}}
+\index{\+\_\+private@{\+\_\+private}!Ticketing\+Lock@{Ticketing\+Lock}}
+\subsubsection[{\texorpdfstring{\+\_\+private}{_private}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Ticketing\+Lock\+Private\+\_\+t} \+\_\+private\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{class_ticketing_lock_a351c5faad8218bb8571b5d784b7f364f}{}\label{class_ticketing_lock_a351c5faad8218bb8571b5d784b7f364f}
+
+
+linux\+\_\+hal\+\_\+common.\+hpp 파일의 118 번째 라인에서 정의되었습니다.
+
+\index{Ticketing\+Lock@{Ticketing\+Lock}!cond\+\_\+ticket\+\_\+issue@{cond\+\_\+ticket\+\_\+issue}}
+\index{cond\+\_\+ticket\+\_\+issue@{cond\+\_\+ticket\+\_\+issue}!Ticketing\+Lock@{Ticketing\+Lock}}
+\subsubsection[{\texorpdfstring{cond\+\_\+ticket\+\_\+issue}{cond_ticket_issue}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint8\+\_\+t} cond\+\_\+ticket\+\_\+issue\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{class_ticketing_lock_a8b7a3b091ea1d5901833b1b38d7d5338}{}\label{class_ticketing_lock_a8b7a3b091ea1d5901833b1b38d7d5338}
+
+
+linux\+\_\+hal\+\_\+common.\+hpp 파일의 120 번째 라인에서 정의되었습니다.
+
+\index{Ticketing\+Lock@{Ticketing\+Lock}!cond\+\_\+ticket\+\_\+serving@{cond\+\_\+ticket\+\_\+serving}}
+\index{cond\+\_\+ticket\+\_\+serving@{cond\+\_\+ticket\+\_\+serving}!Ticketing\+Lock@{Ticketing\+Lock}}
+\subsubsection[{\texorpdfstring{cond\+\_\+ticket\+\_\+serving}{cond_ticket_serving}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint8\+\_\+t} cond\+\_\+ticket\+\_\+serving\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{class_ticketing_lock_a4ee669f5608abcc6ffdfc0f5df01e6cf}{}\label{class_ticketing_lock_a4ee669f5608abcc6ffdfc0f5df01e6cf}
+
+
+linux\+\_\+hal\+\_\+common.\+hpp 파일의 121 번째 라인에서 정의되었습니다.
+
+\index{Ticketing\+Lock@{Ticketing\+Lock}!in\+\_\+use@{in\+\_\+use}}
+\index{in\+\_\+use@{in\+\_\+use}!Ticketing\+Lock@{Ticketing\+Lock}}
+\subsubsection[{\texorpdfstring{in\+\_\+use}{in_use}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} in\+\_\+use\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{class_ticketing_lock_a7768b84c51671204cc736430f48246a0}{}\label{class_ticketing_lock_a7768b84c51671204cc736430f48246a0}
+
+
+linux\+\_\+hal\+\_\+common.\+hpp 파일의 119 번째 라인에서 정의되었습니다.
+
+\index{Ticketing\+Lock@{Ticketing\+Lock}!init\+\_\+flag@{init\+\_\+flag}}
+\index{init\+\_\+flag@{init\+\_\+flag}!Ticketing\+Lock@{Ticketing\+Lock}}
+\subsubsection[{\texorpdfstring{init\+\_\+flag}{init_flag}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} init\+\_\+flag\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{class_ticketing_lock_a9298e04a9d0130ff1545e0914d419de5}{}\label{class_ticketing_lock_a9298e04a9d0130ff1545e0914d419de5}
+
+
+linux\+\_\+hal\+\_\+common.\+hpp 파일의 117 번째 라인에서 정의되었습니다.
+
+
+
+이 클래스에 대한 문서화 페이지는 다음의 파일들로부터 생성되었습니다.\+:\begin{DoxyCompactItemize}
+\item 
+daemons/gptp/linux/src/\hyperlink{linux__hal__common_8hpp}{linux\+\_\+hal\+\_\+common.\+hpp}\item 
+daemons/gptp/linux/src/\hyperlink{linux__hal__common_8cpp}{linux\+\_\+hal\+\_\+common.\+cpp}\end{DoxyCompactItemize}

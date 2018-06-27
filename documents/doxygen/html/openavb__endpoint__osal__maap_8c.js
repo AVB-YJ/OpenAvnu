@@ -1,0 +1,38 @@
+var openavb__endpoint__osal__maap_8c =
+[
+    [ "maapAlloc_t", "structmaap_alloc__t.html", "structmaap_alloc__t" ],
+    [ "AVB_LOG_COMPONENT", "openavb__endpoint__osal__maap_8c.html#abcfb21b6495585fe36058f57a9fe58fc", null ],
+    [ "MAAP_DYNAMIC_POOL_BASE", "openavb__endpoint__osal__maap_8c.html#ae6263079f02d6fcdb18350e93b5e8fd9", null ],
+    [ "MAAP_DYNAMIC_POOL_SIZE", "openavb__endpoint__osal__maap_8c.html#a27db04878ffebe92dbbcbae7e7c5d447", null ],
+    [ "MAAP_LOCK", "openavb__endpoint__osal__maap_8c.html#a7f5fac18a4b8526e8460ba65032dee92", null ],
+    [ "MAAP_UNLOCK", "openavb__endpoint__osal__maap_8c.html#a486eaef2252b47725e829cdc6e19579b", null ],
+    [ "maapState_t", "openavb__endpoint__osal__maap_8c.html#aaf4832657a3cdfc7fbfd5339570924ed", [
+      [ "MAAP_STATE_UNKNOWN", "openavb__endpoint__osal__maap_8c.html#aaf4832657a3cdfc7fbfd5339570924edad6c0c119ab337b3251ce5d101753eddf", null ],
+      [ "MAAP_STATE_INITIALIZING", "openavb__endpoint__osal__maap_8c.html#aaf4832657a3cdfc7fbfd5339570924edac0ddd08f37bff8c10ccc830c97578d24", null ],
+      [ "MAAP_STATE_REQUESTING", "openavb__endpoint__osal__maap_8c.html#aaf4832657a3cdfc7fbfd5339570924edaa3834e941cc09543c703500c1c693970", null ],
+      [ "MAAP_STATE_CONNECTED", "openavb__endpoint__osal__maap_8c.html#aaf4832657a3cdfc7fbfd5339570924eda0fd4a497ad1b4710bcd143e3d0b0fcbe", null ],
+      [ "MAAP_STATE_RELEASING", "openavb__endpoint__osal__maap_8c.html#aaf4832657a3cdfc7fbfd5339570924edaa53521d3dd48d837847a959de33ba0ce", null ],
+      [ "MAAP_STATE_RELEASED", "openavb__endpoint__osal__maap_8c.html#aaf4832657a3cdfc7fbfd5339570924eda57a8bbf4f3a9d5742d3cb4f547386ecd", null ],
+      [ "MAAP_STATE_NOT_AVAILABLE", "openavb__endpoint__osal__maap_8c.html#aaf4832657a3cdfc7fbfd5339570924edadd317db2e56d06a4da228735e050ab1f", null ],
+      [ "MAAP_STATE_ERROR", "openavb__endpoint__osal__maap_8c.html#aaf4832657a3cdfc7fbfd5339570924edaad660ca790041e5ce5b8d88139b68b3b", null ]
+    ] ],
+    [ "MaapMacAddrToLongLong", "openavb__endpoint__osal__maap_8c.html#a5b57873230df690acfdc54463efac8ad", null ],
+    [ "MaapResultToMacAddr", "openavb__endpoint__osal__maap_8c.html#aca8e1deb8e98fb7cba70497638d8253d", null ],
+    [ "maapThread", "openavb__endpoint__osal__maap_8c.html#a7fd76b584e92d8d6a5ae00409ed9e869", null ],
+    [ "MUTEX_HANDLE", "openavb__endpoint__osal__maap_8c.html#a441a6abded229a08b46e1d99fe857e3c", null ],
+    [ "openavbMaapAllocate", "openavb__endpoint__osal__maap_8c.html#a1539ba5ab1efcb5927c49b0b4cad1799", null ],
+    [ "openavbMaapDaemonAvailable", "openavb__endpoint__osal__maap_8c.html#a371ed11c4bbadfcba4ecaebcdd5d6947", null ],
+    [ "openavbMaapFinalize", "openavb__endpoint__osal__maap_8c.html#af5604488b41ef394a9c89a74f54d1aa1", null ],
+    [ "openavbMaapInitialize", "openavb__endpoint__osal__maap_8c.html#a7429a4092721658587474d37f4b5ed44", null ],
+    [ "openavbMaapRelease", "openavb__endpoint__osal__maap_8c.html#a480dddbcfaf33f16aa9375e4a81f3616", null ],
+    [ "process_maap_notify", "openavb__endpoint__osal__maap_8c.html#af8667226736d447bd9d753c8616aa465", null ],
+    [ "maapAllocList", "openavb__endpoint__osal__maap_8c.html#a58c1ab01960413365f2b88f3d3919fe6", null ],
+    [ "maapDaemonPort", "openavb__endpoint__osal__maap_8c.html#a212916f0988e06837e698366dba068c0", null ],
+    [ "maapPreferredAddress", "openavb__endpoint__osal__maap_8c.html#af896fa64326bbdb4f7b862fed927dc03", null ],
+    [ "maapReservationId", "openavb__endpoint__osal__maap_8c.html#a4419b358d76d727bb4a6821fadb2d105", null ],
+    [ "maapRestartCallback", "openavb__endpoint__osal__maap_8c.html#a83b5499277019fe3b9fcb7fc3d3fd954", null ],
+    [ "maapRunning", "openavb__endpoint__osal__maap_8c.html#ad69848d6e85d6a57d404d3e7b3b9d3aa", null ],
+    [ "maapState", "openavb__endpoint__osal__maap_8c.html#a00afa7c0f95b30bda6c1640f7a804612", null ],
+    [ "maapThreadHandle", "openavb__endpoint__osal__maap_8c.html#a78853e9dc07d72242f40c621f9617198", null ],
+    [ "x_cfg", "openavb__endpoint__osal__maap_8c.html#a4bc033da01bf5e6046affe353ccbde0d", null ]
+];

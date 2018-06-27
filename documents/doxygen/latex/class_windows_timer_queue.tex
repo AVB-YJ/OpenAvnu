@@ -1,0 +1,382 @@
+\hypertarget{class_windows_timer_queue}{}\section{Windows\+Timer\+Queue 클래스 참조}
+\label{class_windows_timer_queue}\index{Windows\+Timer\+Queue@{Windows\+Timer\+Queue}}
+
+
+Windows timer queue interface.  
+
+
+
+
+{\ttfamily \#include $<$windows\+\_\+hal.\+hpp$>$}
+
+
+
+Windows\+Timer\+Queue에 대한 상속 다이어그램 \+: 
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=205pt]{class_windows_timer_queue__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Windows\+Timer\+Queue에 대한 협력 다이어그램\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=205pt]{class_windows_timer_queue__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public 멤버 함수}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{class_windows_timer_queue_af91c63e95e1888dc178cbd09764ae2af}{add\+Event} (unsigned long micros, int type, \hyperlink{avbts__ostimerq_8hpp_ac7e0bdbe70d3e2951c02906cf4ed3aed}{ostimerq\+\_\+handler} func, \hyperlink{structevent__descriptor__t}{event\+\_\+descriptor\+\_\+t} $\ast$arg, \hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} rm, unsigned $\ast$event)
+\begin{DoxyCompactList}\small\item\em Create a new event and add it to the timer queue. \end{DoxyCompactList}\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{class_windows_timer_queue_a85d2e5f092c3854728747bdb9177291d}{cancel\+Event} (int type, unsigned $\ast$event)
+\begin{DoxyCompactList}\small\item\em Cancels an event from the queue. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected 멤버 함수}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_windows_timer_queue_a77a63eea358550d968cb01071e57c224}{Windows\+Timer\+Queue} ()
+\begin{DoxyCompactList}\small\item\em Default constructor. Initializes timers lock. \end{DoxyCompactList}\item 
+virtual \hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{class_o_s_timer_queue_ac4ae554e242cee73c504038d88855eba}{init} ()
+\begin{DoxyCompactList}\small\item\em Initializes timer queue. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private 멤버 함수}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_windows_timer_queue_ae9a5e12891792c8a3233e9c13a83f729}{cleanup\+Retired\+Timers} ()
+\end{DoxyCompactItemize}
+\subsection*{Private 속성}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{windows__hal_8hpp_a9697083f507a6e04711614c6703bea3e}{Timer\+Queue\+Map\+\_\+t} \hyperlink{class_windows_timer_queue_a42c6710e44f775bc9ad0df4aa1dd4fa8}{timer\+Queue\+Map}
+\item 
+\hyperlink{windows__hal_8hpp_a52f8033c0b50f46374156ec8180abde4}{Timer\+Arg\+List\+\_\+t} \hyperlink{class_windows_timer_queue_a1d247e5dc6ff5761a49ce7376ae9277d}{retired\+Timers}
+\item 
+S\+R\+W\+L\+O\+CK \hyperlink{class_windows_timer_queue_a756b0f925bf4252e4b3782fb2eb179f4}{retired\+Timers\+Lock}
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_windows_timer_queue_a1a1f37e9b6a6d1932a1681f05a1b33ab}{Windows\+Timer\+Queue\+Factory}
+\item 
+V\+O\+ID C\+A\+L\+L\+B\+A\+CK \hyperlink{class_windows_timer_queue_a983f775bbf5e37456994318c0c8f37c8}{Windows\+Timer\+Queue\+Handler} (P\+V\+O\+ID arg\+\_\+in, B\+O\+O\+L\+E\+AN ignore)
+\begin{DoxyCompactList}\small\item\em Windows Timer queue handler callback definition. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{상세한 설명}
+Windows timer queue interface. 
+
+windows\+\_\+hal.\+hpp 파일의 383 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{생성자 \& 소멸자 문서화}
+\index{Windows\+Timer\+Queue@{Windows\+Timer\+Queue}!Windows\+Timer\+Queue@{Windows\+Timer\+Queue}}
+\index{Windows\+Timer\+Queue@{Windows\+Timer\+Queue}!Windows\+Timer\+Queue@{Windows\+Timer\+Queue}}
+\subsubsection[{\texorpdfstring{Windows\+Timer\+Queue()}{WindowsTimerQueue()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Windows\+Timer\+Queue} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}\hypertarget{class_windows_timer_queue_a77a63eea358550d968cb01071e57c224}{}\label{class_windows_timer_queue_a77a63eea358550d968cb01071e57c224}
+
+
+Default constructor. Initializes timers lock. 
+
+
+
+windows\+\_\+hal.\+hpp 파일의 408 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+408                         \{
+409         InitializeSRWLock( &\hyperlink{class_windows_timer_queue_a756b0f925bf4252e4b3782fb2eb179f4}{retiredTimersLock} );
+410     \};
+\end{DoxyCode}
+
+
+\subsection{멤버 함수 문서화}
+\index{Windows\+Timer\+Queue@{Windows\+Timer\+Queue}!add\+Event@{add\+Event}}
+\index{add\+Event@{add\+Event}!Windows\+Timer\+Queue@{Windows\+Timer\+Queue}}
+\subsubsection[{\texorpdfstring{add\+Event(unsigned long micros, int type, ostimerq\+\_\+handler func, event\+\_\+descriptor\+\_\+t $\ast$arg, bool rm, unsigned $\ast$event)}{addEvent(unsigned long micros, int type, ostimerq_handler func, event_descriptor_t *arg, bool rm, unsigned *event)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} add\+Event (
+\begin{DoxyParamCaption}
+\item[{unsigned long}]{micros, }
+\item[{int}]{type, }
+\item[{{\bf ostimerq\+\_\+handler}}]{func, }
+\item[{{\bf event\+\_\+descriptor\+\_\+t} $\ast$}]{arg, }
+\item[{{\bf bool}}]{rm, }
+\item[{unsigned $\ast$}]{event}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}\hypertarget{class_windows_timer_queue_af91c63e95e1888dc178cbd09764ae2af}{}\label{class_windows_timer_queue_af91c63e95e1888dc178cbd09764ae2af}
+
+
+Create a new event and add it to the timer queue. 
+
+
+\begin{DoxyParams}{매개변수}
+{\em micros} & Time in microsseconds \\
+\hline
+{\em type} & \hyperlink{class_event}{Event} type \\
+\hline
+{\em func} & Callback function \\
+\hline
+{\em arg} & \mbox{[}in\mbox{]} \hyperlink{class_event}{Event} arguments \\
+\hline
+{\em rm} & when true, allows elements to be deleted from the queue \\
+\hline
+{\em event} & \mbox{[}in\mbox{]} Pointer to the event to be created \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+Always return true 
+\end{DoxyReturn}
+
+
+\hyperlink{class_o_s_timer_queue_aedd4a6892651a861ca78a9862065b539}{O\+S\+Timer\+Queue}를 구현.
+
+
+
+windows\+\_\+hal.\+hpp 파일의 422 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+422                                                                                                            
+                         \{
+423         \hyperlink{struct_windows_timer_queue_handler_arg}{WindowsTimerQueueHandlerArg} *outer\_arg = \textcolor{keyword}{new} 
+      \hyperlink{struct_windows_timer_queue_handler_arg}{WindowsTimerQueueHandlerArg}();
+424         \hyperlink{class_windows_timer_queue_ae9a5e12891792c8a3233e9c13a83f729}{cleanupRetiredTimers}();
+425         \textcolor{keywordflow}{if}( \hyperlink{class_windows_timer_queue_a42c6710e44f775bc9ad0df4aa1dd4fa8}{timerQueueMap}.find(\hyperlink{namespaceastime__fitline_a7aead736a07eaf25623ad7bfa1f0ee2d}{type}) == \hyperlink{class_windows_timer_queue_a42c6710e44f775bc9ad0df4aa1dd4fa8}{timerQueueMap}.end() ) \{
+426             \hyperlink{class_windows_timer_queue_a42c6710e44f775bc9ad0df4aa1dd4fa8}{timerQueueMap}[\hyperlink{namespaceastime__fitline_a7aead736a07eaf25623ad7bfa1f0ee2d}{type}].queue\_handle = CreateTimerQueue();
+427             InitializeSRWLock( &\hyperlink{class_windows_timer_queue_a42c6710e44f775bc9ad0df4aa1dd4fa8}{timerQueueMap}[\hyperlink{namespaceastime__fitline_a7aead736a07eaf25623ad7bfa1f0ee2d}{type}].lock );
+428         \}
+429         outer\_arg->\hyperlink{struct_windows_timer_queue_handler_arg_a0891fe4ac1705d165bbd1511a826cb6a}{queue\_handle} = \hyperlink{class_windows_timer_queue_a42c6710e44f775bc9ad0df4aa1dd4fa8}{timerQueueMap}[\hyperlink{namespaceastime__fitline_a7aead736a07eaf25623ad7bfa1f0ee2d}{type}].queue\_handle;
+430         outer\_arg->\hyperlink{struct_windows_timer_queue_handler_arg_afc701b8a5b43cd1d29422c68856bc614}{inner\_arg} = arg;
+431         outer\_arg->\hyperlink{struct_windows_timer_queue_handler_arg_aaa1ebdc5351c8e4b6cd0b92aabfa4d52}{func} = func;
+432         outer\_arg->\hyperlink{struct_windows_timer_queue_handler_arg_a3aa628a0d9ac623a379f3bcaf5f937c3}{queue} = \textcolor{keyword}{this};
+433         outer\_arg->\hyperlink{struct_windows_timer_queue_handler_arg_ac765329451135abec74c45e1897abf26}{type} = \hyperlink{namespaceastime__fitline_a7aead736a07eaf25623ad7bfa1f0ee2d}{type};
+434         outer\_arg->\hyperlink{struct_windows_timer_queue_handler_arg_a059a8adfbb578bc50c97a96ae2ac0779}{rm} = rm;
+435         outer\_arg->\hyperlink{struct_windows_timer_queue_handler_arg_ae010a6908adeba19377ec504fe70f9cb}{timer\_queue} = &\hyperlink{class_windows_timer_queue_a42c6710e44f775bc9ad0df4aa1dd4fa8}{timerQueueMap}[\hyperlink{namespaceastime__fitline_a7aead736a07eaf25623ad7bfa1f0ee2d}{type}];
+436         AcquireSRWLockExclusive( &\hyperlink{class_windows_timer_queue_a42c6710e44f775bc9ad0df4aa1dd4fa8}{timerQueueMap}[\hyperlink{namespaceastime__fitline_a7aead736a07eaf25623ad7bfa1f0ee2d}{type}].lock );
+437         CreateTimerQueueTimer( &outer\_arg->\hyperlink{struct_windows_timer_queue_handler_arg_aaaeaf3320a1da4e9f80efbf95cbb0671}{timer\_handle}, 
+      \hyperlink{class_windows_timer_queue_a42c6710e44f775bc9ad0df4aa1dd4fa8}{timerQueueMap}[\hyperlink{namespaceastime__fitline_a7aead736a07eaf25623ad7bfa1f0ee2d}{type}].queue\_handle, \hyperlink{class_windows_timer_queue_a983f775bbf5e37456994318c0c8f37c8}{WindowsTimerQueueHandler}, (\textcolor{keywordtype}{void} 
+      *) outer\_arg, micros/1000, 0, 0 );
+438         \hyperlink{class_windows_timer_queue_a42c6710e44f775bc9ad0df4aa1dd4fa8}{timerQueueMap}[\hyperlink{namespaceastime__fitline_a7aead736a07eaf25623ad7bfa1f0ee2d}{type}].arg\_list.push\_front(outer\_arg);
+439         ReleaseSRWLockExclusive( &\hyperlink{class_windows_timer_queue_a42c6710e44f775bc9ad0df4aa1dd4fa8}{timerQueueMap}[\hyperlink{namespaceastime__fitline_a7aead736a07eaf25623ad7bfa1f0ee2d}{type}].lock );
+440         \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+441     \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=318pt]{class_windows_timer_queue_af91c63e95e1888dc178cbd09764ae2af_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{Windows\+Timer\+Queue@{Windows\+Timer\+Queue}!cancel\+Event@{cancel\+Event}}
+\index{cancel\+Event@{cancel\+Event}!Windows\+Timer\+Queue@{Windows\+Timer\+Queue}}
+\subsubsection[{\texorpdfstring{cancel\+Event(int type, unsigned $\ast$event)}{cancelEvent(int type, unsigned *event)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} cancel\+Event (
+\begin{DoxyParamCaption}
+\item[{int}]{type, }
+\item[{unsigned $\ast$}]{event}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}\hypertarget{class_windows_timer_queue_a85d2e5f092c3854728747bdb9177291d}{}\label{class_windows_timer_queue_a85d2e5f092c3854728747bdb9177291d}
+
+
+Cancels an event from the queue. 
+
+
+\begin{DoxyParams}{매개변수}
+{\em type} & \hyperlink{class_event}{Event} type \\
+\hline
+{\em event} & \mbox{[}in\mbox{]} Pointer to the event to be removed \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+Always returns true. 
+\end{DoxyReturn}
+
+
+\hyperlink{class_o_s_timer_queue_a781246a92c0fa7d331f94829e937243f}{O\+S\+Timer\+Queue}를 구현.
+
+
+
+windows\+\_\+hal.\+hpp 파일의 448 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+448                                                   \{
+449         TimerQueueMap\_t::iterator iter = \hyperlink{class_windows_timer_queue_a42c6710e44f775bc9ad0df4aa1dd4fa8}{timerQueueMap}.find( \hyperlink{namespaceastime__fitline_a7aead736a07eaf25623ad7bfa1f0ee2d}{type} );
+450         \textcolor{keywordflow}{if}( iter == \hyperlink{class_windows_timer_queue_a42c6710e44f775bc9ad0df4aa1dd4fa8}{timerQueueMap}.end() ) \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+451         AcquireSRWLockExclusive( &\hyperlink{class_windows_timer_queue_a42c6710e44f775bc9ad0df4aa1dd4fa8}{timerQueueMap}[\hyperlink{namespaceastime__fitline_a7aead736a07eaf25623ad7bfa1f0ee2d}{type}].lock );
+452         \textcolor{keywordflow}{while}( ! \hyperlink{class_windows_timer_queue_a42c6710e44f775bc9ad0df4aa1dd4fa8}{timerQueueMap}[\hyperlink{namespaceastime__fitline_a7aead736a07eaf25623ad7bfa1f0ee2d}{type}].arg\_list.empty() ) \{
+453             \hyperlink{struct_windows_timer_queue_handler_arg}{WindowsTimerQueueHandlerArg} *del\_arg = 
+      \hyperlink{class_windows_timer_queue_a42c6710e44f775bc9ad0df4aa1dd4fa8}{timerQueueMap}[\hyperlink{namespaceastime__fitline_a7aead736a07eaf25623ad7bfa1f0ee2d}{type}].arg\_list.front();
+454             \hyperlink{class_windows_timer_queue_a42c6710e44f775bc9ad0df4aa1dd4fa8}{timerQueueMap}[\hyperlink{namespaceastime__fitline_a7aead736a07eaf25623ad7bfa1f0ee2d}{type}].arg\_list.pop\_front();
+455             ReleaseSRWLockExclusive( &\hyperlink{class_windows_timer_queue_a42c6710e44f775bc9ad0df4aa1dd4fa8}{timerQueueMap}[\hyperlink{namespaceastime__fitline_a7aead736a07eaf25623ad7bfa1f0ee2d}{type}].lock );
+456             DeleteTimerQueueTimer( del\_arg->\hyperlink{struct_windows_timer_queue_handler_arg_a0891fe4ac1705d165bbd1511a826cb6a}{queue\_handle}, del\_arg->
+      \hyperlink{struct_windows_timer_queue_handler_arg_aaaeaf3320a1da4e9f80efbf95cbb0671}{timer\_handle}, INVALID\_HANDLE\_VALUE );
+457             \textcolor{keywordflow}{if}( del\_arg->\hyperlink{struct_windows_timer_queue_handler_arg_a059a8adfbb578bc50c97a96ae2ac0779}{rm} ) \textcolor{keyword}{delete} del\_arg->\hyperlink{struct_windows_timer_queue_handler_arg_afc701b8a5b43cd1d29422c68856bc614}{inner\_arg};
+458             \textcolor{keyword}{delete} del\_arg;
+459             AcquireSRWLockExclusive( &\hyperlink{class_windows_timer_queue_a42c6710e44f775bc9ad0df4aa1dd4fa8}{timerQueueMap}[\hyperlink{namespaceastime__fitline_a7aead736a07eaf25623ad7bfa1f0ee2d}{type}].lock );
+460         \}
+461         ReleaseSRWLockExclusive( &\hyperlink{class_windows_timer_queue_a42c6710e44f775bc9ad0df4aa1dd4fa8}{timerQueueMap}[\hyperlink{namespaceastime__fitline_a7aead736a07eaf25623ad7bfa1f0ee2d}{type}].lock );
+462 
+463         \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+464     \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=331pt]{class_windows_timer_queue_a85d2e5f092c3854728747bdb9177291d_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{Windows\+Timer\+Queue@{Windows\+Timer\+Queue}!cleanup\+Retired\+Timers@{cleanup\+Retired\+Timers}}
+\index{cleanup\+Retired\+Timers@{cleanup\+Retired\+Timers}!Windows\+Timer\+Queue@{Windows\+Timer\+Queue}}
+\subsubsection[{\texorpdfstring{cleanup\+Retired\+Timers()}{cleanupRetiredTimers()}}]{\setlength{\rightskip}{0pt plus 5cm}void cleanup\+Retired\+Timers (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}\hypertarget{class_windows_timer_queue_ae9a5e12891792c8a3233e9c13a83f729}{}\label{class_windows_timer_queue_ae9a5e12891792c8a3233e9c13a83f729}
+
+
+windows\+\_\+hal.\+hpp 파일의 390 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+390                                 \{
+391         AcquireSRWLockExclusive( &\hyperlink{class_windows_timer_queue_a756b0f925bf4252e4b3782fb2eb179f4}{retiredTimersLock} );
+392         \textcolor{keywordflow}{while}( !\hyperlink{class_windows_timer_queue_a1d247e5dc6ff5761a49ce7376ae9277d}{retiredTimers}.empty() ) \{
+393             \hyperlink{struct_windows_timer_queue_handler_arg}{WindowsTimerQueueHandlerArg} *retired\_arg = 
+      \hyperlink{class_windows_timer_queue_a1d247e5dc6ff5761a49ce7376ae9277d}{retiredTimers}.front();
+394             \hyperlink{class_windows_timer_queue_a1d247e5dc6ff5761a49ce7376ae9277d}{retiredTimers}.pop\_front();
+395             ReleaseSRWLockExclusive( &\hyperlink{class_windows_timer_queue_a756b0f925bf4252e4b3782fb2eb179f4}{retiredTimersLock} );
+396             DeleteTimerQueueTimer( retired\_arg->\hyperlink{struct_windows_timer_queue_handler_arg_a0891fe4ac1705d165bbd1511a826cb6a}{queue\_handle}, retired\_arg->
+      \hyperlink{struct_windows_timer_queue_handler_arg_aaaeaf3320a1da4e9f80efbf95cbb0671}{timer\_handle}, INVALID\_HANDLE\_VALUE );
+397             \textcolor{keywordflow}{if}( retired\_arg->\hyperlink{struct_windows_timer_queue_handler_arg_a059a8adfbb578bc50c97a96ae2ac0779}{rm} ) \textcolor{keyword}{delete} retired\_arg->\hyperlink{struct_windows_timer_queue_handler_arg_afc701b8a5b43cd1d29422c68856bc614}{inner\_arg};
+398             \textcolor{keyword}{delete} retired\_arg;
+399             AcquireSRWLockExclusive( &\hyperlink{class_windows_timer_queue_a756b0f925bf4252e4b3782fb2eb179f4}{retiredTimersLock} );
+400         \}
+401         ReleaseSRWLockExclusive( &\hyperlink{class_windows_timer_queue_a756b0f925bf4252e4b3782fb2eb179f4}{retiredTimersLock} );
+402 
+403     \}
+\end{DoxyCode}
+\index{Windows\+Timer\+Queue@{Windows\+Timer\+Queue}!init@{init}}
+\index{init@{init}!Windows\+Timer\+Queue@{Windows\+Timer\+Queue}}
+\subsubsection[{\texorpdfstring{init()}{init()}}]{\setlength{\rightskip}{0pt plus 5cm}virtual {\bf bool} init (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}, {\ttfamily [virtual]}, {\ttfamily [inherited]}}\hypertarget{class_o_s_timer_queue_ac4ae554e242cee73c504038d88855eba}{}\label{class_o_s_timer_queue_ac4ae554e242cee73c504038d88855eba}
+
+
+Initializes timer queue. 
+
+\begin{DoxyReturn}{반환값}
+T\+R\+UE 
+\end{DoxyReturn}
+
+
+\hyperlink{class_linux_timer_queue_aee8048628ff2b5c026c9e15acdcaacb8}{Linux\+Timer\+Queue}에서 재구현되었습니다.
+
+
+
+avbts\+\_\+ostimerq.\+hpp 파일의 55 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+55 \{ \textcolor{keywordflow}{return} \textcolor{keyword}{true}; \}
+\end{DoxyCode}
+
+
+\subsection{Friend, 그리고 관련된 함수 문서화}
+\index{Windows\+Timer\+Queue@{Windows\+Timer\+Queue}!Windows\+Timer\+Queue\+Factory@{Windows\+Timer\+Queue\+Factory}}
+\index{Windows\+Timer\+Queue\+Factory@{Windows\+Timer\+Queue\+Factory}!Windows\+Timer\+Queue@{Windows\+Timer\+Queue}}
+\subsubsection[{\texorpdfstring{Windows\+Timer\+Queue\+Factory}{WindowsTimerQueueFactory}}]{\setlength{\rightskip}{0pt plus 5cm}friend class {\bf Windows\+Timer\+Queue\+Factory}\hspace{0.3cm}{\ttfamily [friend]}}\hypertarget{class_windows_timer_queue_a1a1f37e9b6a6d1932a1681f05a1b33ab}{}\label{class_windows_timer_queue_a1a1f37e9b6a6d1932a1681f05a1b33ab}
+
+
+windows\+\_\+hal.\+hpp 파일의 384 번째 라인에서 정의되었습니다.
+
+\index{Windows\+Timer\+Queue@{Windows\+Timer\+Queue}!Windows\+Timer\+Queue\+Handler@{Windows\+Timer\+Queue\+Handler}}
+\index{Windows\+Timer\+Queue\+Handler@{Windows\+Timer\+Queue\+Handler}!Windows\+Timer\+Queue@{Windows\+Timer\+Queue}}
+\subsubsection[{\texorpdfstring{Windows\+Timer\+Queue\+Handler}{WindowsTimerQueueHandler}}]{\setlength{\rightskip}{0pt plus 5cm}V\+O\+ID C\+A\+L\+L\+B\+A\+CK Windows\+Timer\+Queue\+Handler (
+\begin{DoxyParamCaption}
+\item[{P\+V\+O\+ID}]{arg\+\_\+in, }
+\item[{B\+O\+O\+L\+E\+AN}]{ignore}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [friend]}}\hypertarget{class_windows_timer_queue_a983f775bbf5e37456994318c0c8f37c8}{}\label{class_windows_timer_queue_a983f775bbf5e37456994318c0c8f37c8}
+
+
+Windows Timer queue handler callback definition. 
+
+Windows callback for the timer queue handler. 
+
+windows\+\_\+hal.\+cpp 파일의 47 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+47                                                                        \{
+48     \hyperlink{struct_windows_timer_queue_handler_arg}{WindowsTimerQueueHandlerArg} *arg = (
+      \hyperlink{struct_windows_timer_queue_handler_arg}{WindowsTimerQueueHandlerArg} *) arg\_in;
+49     \textcolor{keywordtype}{size\_t} diff;
+50 
+51     \textcolor{comment}{// Remove myself from unexpired timer queue}
+52     AcquireSRWLockExclusive( &arg->\hyperlink{struct_windows_timer_queue_handler_arg_ae010a6908adeba19377ec504fe70f9cb}{timer\_queue}->\hyperlink{struct_timer_queue__t_afed18a2dbad108768defb51810a7a760}{lock} );
+53     diff  = arg->\hyperlink{struct_windows_timer_queue_handler_arg_ae010a6908adeba19377ec504fe70f9cb}{timer\_queue}->\hyperlink{struct_timer_queue__t_abdc40944ec73781857b64230be2052df}{arg\_list}.size();
+54     arg->\hyperlink{struct_windows_timer_queue_handler_arg_ae010a6908adeba19377ec504fe70f9cb}{timer\_queue}->\hyperlink{struct_timer_queue__t_abdc40944ec73781857b64230be2052df}{arg\_list}.remove( arg );
+55     diff -= arg->\hyperlink{struct_windows_timer_queue_handler_arg_ae010a6908adeba19377ec504fe70f9cb}{timer\_queue}->\hyperlink{struct_timer_queue__t_abdc40944ec73781857b64230be2052df}{arg\_list}.size();
+56     ReleaseSRWLockExclusive( &arg->\hyperlink{struct_windows_timer_queue_handler_arg_ae010a6908adeba19377ec504fe70f9cb}{timer\_queue}->\hyperlink{struct_timer_queue__t_afed18a2dbad108768defb51810a7a760}{lock} );
+57 
+58     \textcolor{comment}{// If the remove was unsuccessful bail because we were}
+59     \textcolor{comment}{// stepped on by 'cancelEvent'}
+60     \textcolor{keywordflow}{if}( diff == 0 ) \textcolor{keywordflow}{return};
+61 
+62     arg->\hyperlink{struct_windows_timer_queue_handler_arg_aaa1ebdc5351c8e4b6cd0b92aabfa4d52}{func}( arg->\hyperlink{struct_windows_timer_queue_handler_arg_afc701b8a5b43cd1d29422c68856bc614}{inner\_arg} );
+63 
+64     \textcolor{comment}{// Add myself to the expired timer queue}
+65     AcquireSRWLockExclusive( &arg->\hyperlink{struct_windows_timer_queue_handler_arg_a3aa628a0d9ac623a379f3bcaf5f937c3}{queue}->\hyperlink{class_windows_timer_queue_a756b0f925bf4252e4b3782fb2eb179f4}{retiredTimersLock} );
+66     arg->\hyperlink{struct_windows_timer_queue_handler_arg_a3aa628a0d9ac623a379f3bcaf5f937c3}{queue}->\hyperlink{class_windows_timer_queue_a1d247e5dc6ff5761a49ce7376ae9277d}{retiredTimers}.push\_front( arg );
+67     ReleaseSRWLockExclusive( &arg->\hyperlink{struct_windows_timer_queue_handler_arg_a3aa628a0d9ac623a379f3bcaf5f937c3}{queue}->\hyperlink{class_windows_timer_queue_a756b0f925bf4252e4b3782fb2eb179f4}{retiredTimersLock} );
+68 \}
+\end{DoxyCode}
+
+
+\subsection{필드 문서화}
+\index{Windows\+Timer\+Queue@{Windows\+Timer\+Queue}!retired\+Timers@{retired\+Timers}}
+\index{retired\+Timers@{retired\+Timers}!Windows\+Timer\+Queue@{Windows\+Timer\+Queue}}
+\subsubsection[{\texorpdfstring{retired\+Timers}{retiredTimers}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Timer\+Arg\+List\+\_\+t} retired\+Timers\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{class_windows_timer_queue_a1d247e5dc6ff5761a49ce7376ae9277d}{}\label{class_windows_timer_queue_a1d247e5dc6ff5761a49ce7376ae9277d}
+
+
+windows\+\_\+hal.\+hpp 파일의 388 번째 라인에서 정의되었습니다.
+
+\index{Windows\+Timer\+Queue@{Windows\+Timer\+Queue}!retired\+Timers\+Lock@{retired\+Timers\+Lock}}
+\index{retired\+Timers\+Lock@{retired\+Timers\+Lock}!Windows\+Timer\+Queue@{Windows\+Timer\+Queue}}
+\subsubsection[{\texorpdfstring{retired\+Timers\+Lock}{retiredTimersLock}}]{\setlength{\rightskip}{0pt plus 5cm}S\+R\+W\+L\+O\+CK retired\+Timers\+Lock\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{class_windows_timer_queue_a756b0f925bf4252e4b3782fb2eb179f4}{}\label{class_windows_timer_queue_a756b0f925bf4252e4b3782fb2eb179f4}
+
+
+windows\+\_\+hal.\+hpp 파일의 389 번째 라인에서 정의되었습니다.
+
+\index{Windows\+Timer\+Queue@{Windows\+Timer\+Queue}!timer\+Queue\+Map@{timer\+Queue\+Map}}
+\index{timer\+Queue\+Map@{timer\+Queue\+Map}!Windows\+Timer\+Queue@{Windows\+Timer\+Queue}}
+\subsubsection[{\texorpdfstring{timer\+Queue\+Map}{timerQueueMap}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Timer\+Queue\+Map\+\_\+t} timer\+Queue\+Map\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{class_windows_timer_queue_a42c6710e44f775bc9ad0df4aa1dd4fa8}{}\label{class_windows_timer_queue_a42c6710e44f775bc9ad0df4aa1dd4fa8}
+
+
+windows\+\_\+hal.\+hpp 파일의 387 번째 라인에서 정의되었습니다.
+
+
+
+이 클래스에 대한 문서화 페이지는 다음의 파일로부터 생성되었습니다.\+:\begin{DoxyCompactItemize}
+\item 
+daemons/gptp/windows/daemon\+\_\+cl/\hyperlink{windows__hal_8hpp}{windows\+\_\+hal.\+hpp}\end{DoxyCompactItemize}

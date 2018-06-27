@@ -1,0 +1,999 @@
+\hypertarget{openavb__intf__mpeg2ts__gst_8c}{}\section{lib/avtp\+\_\+pipeline/platform/\+Linux/intf\+\_\+mpeg2ts\+\_\+gst/openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.c 파일 참조}
+\label{openavb__intf__mpeg2ts__gst_8c}\index{lib/avtp\+\_\+pipeline/platform/\+Linux/intf\+\_\+mpeg2ts\+\_\+gst/openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c@{lib/avtp\+\_\+pipeline/platform/\+Linux/intf\+\_\+mpeg2ts\+\_\+gst/openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c}}
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$assert.\+h$>$}\\*
+{\ttfamily \#include $<$gst/gst.\+h$>$}\\*
+{\ttfamily \#include $<$gst/app/gstappsink.\+h$>$}\\*
+{\ttfamily \#include $<$gst/app/gstappsrc.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+types\+\_\+pub.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+log\+\_\+pub.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+trace\+\_\+pub.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+mediaq\+\_\+pub.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+intf\+\_\+pub.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}gst\+\_\+al.\+h\char`\"{}}\\*
+openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__mpeg2ts__gst_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{데이타 구조}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structpvt__data__t}{pvt\+\_\+data\+\_\+t}
+\end{DoxyCompactItemize}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{openavb__intf__mpeg2ts__gst_8c_a64347bac1eda51bbef1ae8c8850872d3}{A\+P\+P\+S\+I\+N\+K\+\_\+\+N\+A\+ME}~\char`\"{}avbsink\char`\"{}
+\item 
+\#define \hyperlink{openavb__intf__mpeg2ts__gst_8c_af348a99bccfa4db4819fdb4b16b52155}{A\+P\+P\+S\+R\+C\+\_\+\+N\+A\+ME}~\char`\"{}avbsrc\char`\"{}
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{openavb__intf__mpeg2ts__gst_8c_ae03b98612fbb827f9234771c0c00552e}{openavb\+Intf\+Mpeg2ts\+Gst\+Cfg\+CB} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ, const char $\ast$name, const char $\ast$value)
+\item 
+void \hyperlink{openavb__intf__mpeg2ts__gst_8c_a41f7561a3b456312ab02ee7bf0fd982b}{openavb\+Intf\+Mpeg2ts\+Gst\+Gen\+Init\+CB} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ)
+\item 
+static gboolean \hyperlink{openavb__intf__mpeg2ts__gst_8c_a3177b6e76670c474806c40e8c8389950}{bus\+\_\+message} (Gst\+Bus $\ast$bus, Gst\+Message $\ast$message, void $\ast$pv)
+\item 
+static void \hyperlink{openavb__intf__mpeg2ts__gst_8c_a9a42fd07836b543ce27105fb72bef1cc}{src\+Start\+Feed} (Gst\+App\+Src $\ast$source, guint \hyperlink{gst__avb__playbin_8c_a439227feff9d7f55384e8780cfc2eb82}{size}, gpointer pv)
+\item 
+static void \hyperlink{openavb__intf__mpeg2ts__gst_8c_a6db70da2eaf4b4bfb7252e6846fb58f2}{src\+Stop\+Feed} (Gst\+App\+Src $\ast$source, gpointer pv)
+\item 
+static Gst\+Flow\+Return \hyperlink{openavb__intf__mpeg2ts__gst_8c_a67fa91286d09b88dce4a4c1d220e3ca9}{sink\+New\+Buffer\+Sample} (Gst\+App\+Sink $\ast$sink, gpointer pv)
+\item 
+void \hyperlink{openavb__intf__mpeg2ts__gst_8c_a80081a9198f7f36919e4a8eca1a41e4d}{openavb\+Intf\+Mpeg2ts\+Gst\+Tx\+Init\+CB} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ)
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__intf__mpeg2ts__gst_8c_ab0d0c90b0dfa121c1710a5bcc385fd19}{openavb\+Intf\+Mpeg2ts\+Gst\+Tx\+CB} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ)
+\item 
+void \hyperlink{openavb__intf__mpeg2ts__gst_8c_a7eb8740a3b3d78c10b73a7557d142c24}{openavb\+Intf\+Mpeg2ts\+Gst\+Rx\+Init\+CB} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ)
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__intf__mpeg2ts__gst_8c_a7ce63c23b9327e338457e0abe5f65e7f}{openavb\+Intf\+Mpeg2ts\+Gst\+Rx\+CB} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ)
+\item 
+void \hyperlink{openavb__intf__mpeg2ts__gst_8c_aabe3be10a1edeb5a4bcbc1e1011f13e5}{openavb\+Intf\+Mpeg2ts\+Gst\+End\+CB} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ)
+\item 
+void \hyperlink{openavb__intf__mpeg2ts__gst_8c_a0dea0065c8439b62680ac91e4e4bb42e}{openavb\+Intf\+Mpeg2ts\+Gst\+Gen\+End\+CB} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ)
+\item 
+\hyperlink{include_2openavb__types__pub_8h_a1ca888bd091694c05472e1b91df1a97b}{D\+L\+L\+\_\+\+E\+X\+P\+O\+RT} \hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__intf__mpeg2ts__gst_8c_ab198cdcdbb5c15b188e5ae0decab917b}{openavb\+Intf\+Mpeg2ts\+Gst\+Initialize} (\hyperlink{structmedia__q__t}{media\+\_\+q\+\_\+t} $\ast$p\+MediaQ, \hyperlink{structopenavb__intf__cb__t}{openavb\+\_\+intf\+\_\+cb\+\_\+t} $\ast$p\+Intf\+CB)
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c@{openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c}!A\+P\+P\+S\+I\+N\+K\+\_\+\+N\+A\+ME@{A\+P\+P\+S\+I\+N\+K\+\_\+\+N\+A\+ME}}
+\index{A\+P\+P\+S\+I\+N\+K\+\_\+\+N\+A\+ME@{A\+P\+P\+S\+I\+N\+K\+\_\+\+N\+A\+ME}!openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c@{openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c}}
+\subsubsection[{\texorpdfstring{A\+P\+P\+S\+I\+N\+K\+\_\+\+N\+A\+ME}{APPSINK_NAME}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+P\+P\+S\+I\+N\+K\+\_\+\+N\+A\+ME~\char`\"{}avbsink\char`\"{}}\hypertarget{openavb__intf__mpeg2ts__gst_8c_a64347bac1eda51bbef1ae8c8850872d3}{}\label{openavb__intf__mpeg2ts__gst_8c_a64347bac1eda51bbef1ae8c8850872d3}
+
+
+openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c 파일의 50 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c@{openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c}!A\+P\+P\+S\+R\+C\+\_\+\+N\+A\+ME@{A\+P\+P\+S\+R\+C\+\_\+\+N\+A\+ME}}
+\index{A\+P\+P\+S\+R\+C\+\_\+\+N\+A\+ME@{A\+P\+P\+S\+R\+C\+\_\+\+N\+A\+ME}!openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c@{openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c}}
+\subsubsection[{\texorpdfstring{A\+P\+P\+S\+R\+C\+\_\+\+N\+A\+ME}{APPSRC_NAME}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+P\+P\+S\+R\+C\+\_\+\+N\+A\+ME~\char`\"{}avbsrc\char`\"{}}\hypertarget{openavb__intf__mpeg2ts__gst_8c_af348a99bccfa4db4819fdb4b16b52155}{}\label{openavb__intf__mpeg2ts__gst_8c_af348a99bccfa4db4819fdb4b16b52155}
+
+
+openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c 파일의 51 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{함수 문서화}
+\index{openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c@{openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c}!bus\+\_\+message@{bus\+\_\+message}}
+\index{bus\+\_\+message@{bus\+\_\+message}!openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c@{openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c}}
+\subsubsection[{\texorpdfstring{bus\+\_\+message(\+Gst\+Bus $\ast$bus, Gst\+Message $\ast$message, void $\ast$pv)}{bus_message(GstBus *bus, GstMessage *message, void *pv)}}]{\setlength{\rightskip}{0pt plus 5cm}static gboolean bus\+\_\+message (
+\begin{DoxyParamCaption}
+\item[{Gst\+Bus $\ast$}]{bus, }
+\item[{Gst\+Message $\ast$}]{message, }
+\item[{void $\ast$}]{pv}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__intf__mpeg2ts__gst_8c_a3177b6e76670c474806c40e8c8389950}{}\label{openavb__intf__mpeg2ts__gst_8c_a3177b6e76670c474806c40e8c8389950}
+
+
+openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c 파일의 134 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+135 \{
+136     \textcolor{keywordflow}{switch} (GST\_MESSAGE\_TYPE(message))
+137     \{
+138         \textcolor{keywordflow}{case} GST\_MESSAGE\_ERROR:
+139         \{
+140             GError *\hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+141             gchar *dbg\_info = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+142 
+143             gst\_message\_parse\_error(message, &err, &dbg\_info);
+144             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"GStreamer ERROR message from element %s: %s"},
+145                            GST\_OBJECT\_NAME(message->src),
+146                            err->message);
+147             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Additional info: %s\(\backslash\)n"}, (dbg\_info) ? dbg\_info : \textcolor{stringliteral}{"none"});
+148             g\_error\_free(err);
+149             g\_free(dbg\_info);
+150             \textcolor{keywordflow}{break};
+151         \}
+152         \textcolor{keywordflow}{case} GST\_MESSAGE\_WARNING:
+153         \{
+154             GError *err = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+155             gchar *dbg\_info = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+156 
+157             gst\_message\_parse\_warning(message, &err, &dbg\_info);
+158             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a6b02336e691e2e0579d2a5bb06367296}{AVB\_LOGF\_WARNING}(\textcolor{stringliteral}{"GStreamer WARNING message from element %s: %s"},
+159                              GST\_OBJECT\_NAME(message->src),
+160                              err->message);
+161             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a6b02336e691e2e0579d2a5bb06367296}{AVB\_LOGF\_WARNING}(\textcolor{stringliteral}{"Additional info: %s\(\backslash\)n"}, (dbg\_info) ? dbg\_info : \textcolor{stringliteral}{"none"});
+162             g\_error\_free(err);
+163             g\_free(dbg\_info);
+164             \textcolor{keywordflow}{break};
+165         \}
+166         \textcolor{keywordflow}{case} GST\_MESSAGE\_INFO:
+167         \{
+168             GError *err = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+169             gchar *dbg\_info = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+170 
+171             gst\_message\_parse\_info(message, &err, &dbg\_info);
+172             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"GStreamer INFO message from element %s: %s"},
+173                            GST\_OBJECT\_NAME(message->src),
+174                            err->message);
+175             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Additional info: %s\(\backslash\)n"}, (dbg\_info) ? dbg\_info : \textcolor{stringliteral}{"none"});
+176             g\_error\_free(err);
+177             g\_free(dbg\_info);
+178             \textcolor{keywordflow}{break};
+179         \}
+180         \textcolor{keywordflow}{case} GST\_MESSAGE\_STATE\_CHANGED:
+181         \{
+182             GstState old\_state, new\_state;
+183             gst\_message\_parse\_state\_changed(message, &old\_state, &new\_state, 
+      \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+184             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afcf1f0c1d10ae9efe3782eb6cae78355}{AVB\_LOGF\_DEBUG}(\textcolor{stringliteral}{"Element %s changed state from %s to %s"},
+185                            GST\_OBJECT\_NAME(message->src),
+186                            gst\_element\_state\_get\_name(old\_state),
+187                            gst\_element\_state\_get\_name(new\_state));
+188             \textcolor{keywordflow}{break};
+189         \}
+190         \textcolor{keywordflow}{case} GST\_MESSAGE\_STREAM\_STATUS:
+191         \{
+192             \textcolor{comment}{// not so valuable}
+193             \textcolor{keywordflow}{break};
+194         \}
+195         \textcolor{keywordflow}{case} GST\_MESSAGE\_EOS:
+196             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afd47d3bbb5f5219dd0a18ebba4ba9b3e}{AVB\_LOG\_INFO}(\textcolor{stringliteral}{"EOS received"});
+197             \textcolor{keywordflow}{break};
+198         \textcolor{keywordflow}{default}:
+199             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a2be7e90c7cb63f12b221ed1cd4999185}{AVB\_LOGF\_INFO}(\textcolor{stringliteral}{"GStreamer '%s' message from element %s"},
+200                           gst\_message\_type\_get\_name(GST\_MESSAGE\_TYPE(message)),
+201                           GST\_OBJECT\_NAME(message->src));
+202             \textcolor{keywordflow}{break};
+203     \}
+204 
+205     \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+206 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__mpeg2ts__gst_8c_a3177b6e76670c474806c40e8c8389950_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c@{openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c}!openavb\+Intf\+Mpeg2ts\+Gst\+Cfg\+CB@{openavb\+Intf\+Mpeg2ts\+Gst\+Cfg\+CB}}
+\index{openavb\+Intf\+Mpeg2ts\+Gst\+Cfg\+CB@{openavb\+Intf\+Mpeg2ts\+Gst\+Cfg\+CB}!openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c@{openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Intf\+Mpeg2ts\+Gst\+Cfg\+C\+B(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q, const char $\ast$name, const char $\ast$value)}{openavbIntfMpeg2tsGstCfgCB(media_q_t *pMediaQ, const char *name, const char *value)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Intf\+Mpeg2ts\+Gst\+Cfg\+CB (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ, }
+\item[{const char $\ast$}]{name, }
+\item[{const char $\ast$}]{value}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__intf__mpeg2ts__gst_8c_ae03b98612fbb827f9234771c0c00552e}{}\label{openavb__intf__mpeg2ts__gst_8c_ae03b98612fbb827f9234771c0c00552e}
+
+
+openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c 파일의 79 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+80 \{
+81     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a315e143b4a452e660d7bde93c3d1647d}{AVB\_TRACE\_INTF\_DETAIL});
+82 
+83     \textcolor{keywordflow}{if} (pMediaQ)
+84     \{
+85         \hyperlink{structpvt__data__t}{pvt\_data\_t} *pPvtData = pMediaQ->\hyperlink{structmedia__q__t_a453af4755f0cf9b8fe035e62ecea845f}{pPvtIntfInfo};
+86         \textcolor{keywordflow}{if} (!pPvtData)
+87         \{
+88             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Private interface module data not allocated."});
+89             \textcolor{keywordflow}{return};
+90         \}
+91 
+92         \textcolor{keywordtype}{char} *pEnd;
+93         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} tmp;
+94         \textcolor{keywordtype}{bool} nameOK = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, valueOK = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+95 
+96         \textcolor{keywordflow}{if} (strcmp(name, \textcolor{stringliteral}{"intf\_nv\_gst\_pipeline"}) == 0)
+97         \{
+98             \textcolor{keywordflow}{if} (pPvtData->\hyperlink{structpvt__data__t_a1f92697b6354d417c841cb4cfdde7bf9}{pPipelineStr})
+99                 \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(pPvtData->\hyperlink{structpvt__data__t_a1f92697b6354d417c841cb4cfdde7bf9}{pPipelineStr});
+100             pPvtData->\hyperlink{structpvt__data__t_a1f92697b6354d417c841cb4cfdde7bf9}{pPipelineStr} = strdup(value);
+101             valueOK = (value != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} && strlen(value) > 0);
+102         \}
+103         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strcmp(name, \textcolor{stringliteral}{"intf\_nv\_ignore\_timestamp"}) == 0)
+104         \{
+105             tmp = strtol(value, &pEnd, 10);
+106             \textcolor{keywordflow}{if} (*pEnd == \textcolor{charliteral}{'\(\backslash\)0'} && pEnd != value && (tmp == 0 || tmp == 1))
+107             \{
+108                 pPvtData->\hyperlink{structpvt__data__t_a2a0aac103e25975d0ba22350a71e70ae}{ignoreTimestamp} = (tmp == 1);
+109                 valueOK = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+110             \}
+111         \}
+112         \textcolor{keywordflow}{else}
+113         \{
+114             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a6b02336e691e2e0579d2a5bb06367296}{AVB\_LOGF\_WARNING}(\textcolor{stringliteral}{"Unknown configuration item: %s"}, name);
+115             nameOK = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+116         \}
+117 
+118         \textcolor{keywordflow}{if} (nameOK && !valueOK)
+119         \{
+120             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a6b02336e691e2e0579d2a5bb06367296}{AVB\_LOGF\_WARNING}(\textcolor{stringliteral}{"Bad value for configuration item: %s = %s"}, name, value);
+121         \}
+122     \}
+123 
+124     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a315e143b4a452e660d7bde93c3d1647d}{AVB\_TRACE\_INTF\_DETAIL});
+125 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__mpeg2ts__gst_8c_ae03b98612fbb827f9234771c0c00552e_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c@{openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c}!openavb\+Intf\+Mpeg2ts\+Gst\+End\+CB@{openavb\+Intf\+Mpeg2ts\+Gst\+End\+CB}}
+\index{openavb\+Intf\+Mpeg2ts\+Gst\+End\+CB@{openavb\+Intf\+Mpeg2ts\+Gst\+End\+CB}!openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c@{openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Intf\+Mpeg2ts\+Gst\+End\+C\+B(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q)}{openavbIntfMpeg2tsGstEndCB(media_q_t *pMediaQ)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Intf\+Mpeg2ts\+Gst\+End\+CB (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__intf__mpeg2ts__gst_8c_aabe3be10a1edeb5a4bcbc1e1011f13e5}{}\label{openavb__intf__mpeg2ts__gst_8c_aabe3be10a1edeb5a4bcbc1e1011f13e5}
+
+
+openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c 파일의 531 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+532 \{
+533     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a315e143b4a452e660d7bde93c3d1647d}{AVB\_TRACE\_INTF\_DETAIL});
+534 
+535     \textcolor{keywordflow}{if} (pMediaQ)
+536     \{
+537         \hyperlink{structpvt__data__t}{pvt\_data\_t} *pPvtData = pMediaQ->\hyperlink{structmedia__q__t_a453af4755f0cf9b8fe035e62ecea845f}{pPvtIntfInfo};
+538         \textcolor{keywordflow}{if} (!pPvtData)
+539         \{
+540             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Private interface module data not allocated."});
+541             \textcolor{keywordflow}{return};
+542         \}
+543 
+544         \textcolor{keywordflow}{if} (pPvtData->\hyperlink{structpvt__data__t_a14ebdf8573bc2c62435241226711f72b}{pipe})
+545         \{
+546             gst\_element\_set\_state(GST\_ELEMENT(pPvtData->\hyperlink{structpvt__data__t_a14ebdf8573bc2c62435241226711f72b}{pipe}), GST\_STATE\_NULL);
+547             \textcolor{keywordflow}{if} (pPvtData->\hyperlink{structpvt__data__t_a8069191ff53f2617a832b3ae528ef11d}{bus})
+548             \{
+549                 gst\_object\_unref(pPvtData->\hyperlink{structpvt__data__t_a8069191ff53f2617a832b3ae528ef11d}{bus});
+550                 pPvtData->\hyperlink{structpvt__data__t_a8069191ff53f2617a832b3ae528ef11d}{bus} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+551             \}
+552             \textcolor{keywordflow}{if} (pPvtData->\hyperlink{structpvt__data__t_a3831070f5306380e16c589d7035c5409}{appsink})
+553             \{
+554                 gst\_object\_unref(pPvtData->\hyperlink{structpvt__data__t_a3831070f5306380e16c589d7035c5409}{appsink});
+555                 pPvtData->\hyperlink{structpvt__data__t_a3831070f5306380e16c589d7035c5409}{appsink} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+556             \}
+557             \textcolor{keywordflow}{if} (pPvtData->\hyperlink{structpvt__data__t_a2475dfe3881dd35d1bee8401968eb94c}{appsrc})
+558             \{
+559                 gst\_object\_unref(pPvtData->\hyperlink{structpvt__data__t_a2475dfe3881dd35d1bee8401968eb94c}{appsrc});
+560                 pPvtData->\hyperlink{structpvt__data__t_a2475dfe3881dd35d1bee8401968eb94c}{appsrc} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+561             \}
+562             gst\_object\_unref(pPvtData->\hyperlink{structpvt__data__t_a14ebdf8573bc2c62435241226711f72b}{pipe});
+563             pPvtData->\hyperlink{structpvt__data__t_a14ebdf8573bc2c62435241226711f72b}{pipe} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+564         \}
+565     \}
+566 
+567     \textcolor{comment}{// Media Queue destroy cleans up all of our allocated data.}
+568     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a315e143b4a452e660d7bde93c3d1647d}{AVB\_TRACE\_INTF\_DETAIL});
+569 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__mpeg2ts__gst_8c_aabe3be10a1edeb5a4bcbc1e1011f13e5_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c@{openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c}!openavb\+Intf\+Mpeg2ts\+Gst\+Gen\+End\+CB@{openavb\+Intf\+Mpeg2ts\+Gst\+Gen\+End\+CB}}
+\index{openavb\+Intf\+Mpeg2ts\+Gst\+Gen\+End\+CB@{openavb\+Intf\+Mpeg2ts\+Gst\+Gen\+End\+CB}!openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c@{openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Intf\+Mpeg2ts\+Gst\+Gen\+End\+C\+B(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q)}{openavbIntfMpeg2tsGstGenEndCB(media_q_t *pMediaQ)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Intf\+Mpeg2ts\+Gst\+Gen\+End\+CB (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__intf__mpeg2ts__gst_8c_a0dea0065c8439b62680ac91e4e4bb42e}{}\label{openavb__intf__mpeg2ts__gst_8c_a0dea0065c8439b62680ac91e4e4bb42e}
+
+
+openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c 파일의 571 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+572 \{
+573     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+574     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+575 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__mpeg2ts__gst_8c_a0dea0065c8439b62680ac91e4e4bb42e_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c@{openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c}!openavb\+Intf\+Mpeg2ts\+Gst\+Gen\+Init\+CB@{openavb\+Intf\+Mpeg2ts\+Gst\+Gen\+Init\+CB}}
+\index{openavb\+Intf\+Mpeg2ts\+Gst\+Gen\+Init\+CB@{openavb\+Intf\+Mpeg2ts\+Gst\+Gen\+Init\+CB}!openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c@{openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Intf\+Mpeg2ts\+Gst\+Gen\+Init\+C\+B(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q)}{openavbIntfMpeg2tsGstGenInitCB(media_q_t *pMediaQ)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Intf\+Mpeg2ts\+Gst\+Gen\+Init\+CB (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__intf__mpeg2ts__gst_8c_a41f7561a3b456312ab02ee7bf0fd982b}{}\label{openavb__intf__mpeg2ts__gst_8c_a41f7561a3b456312ab02ee7bf0fd982b}
+
+
+openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c 파일의 127 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+128 \{
+129     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a315e143b4a452e660d7bde93c3d1647d}{AVB\_TRACE\_INTF\_DETAIL});
+130     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a315e143b4a452e660d7bde93c3d1647d}{AVB\_TRACE\_INTF\_DETAIL});
+131 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__mpeg2ts__gst_8c_a41f7561a3b456312ab02ee7bf0fd982b_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c@{openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c}!openavb\+Intf\+Mpeg2ts\+Gst\+Initialize@{openavb\+Intf\+Mpeg2ts\+Gst\+Initialize}}
+\index{openavb\+Intf\+Mpeg2ts\+Gst\+Initialize@{openavb\+Intf\+Mpeg2ts\+Gst\+Initialize}!openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c@{openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Intf\+Mpeg2ts\+Gst\+Initialize(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q, openavb\+\_\+intf\+\_\+cb\+\_\+t $\ast$p\+Intf\+C\+B)}{openavbIntfMpeg2tsGstInitialize(media_q_t *pMediaQ, openavb_intf_cb_t *pIntfCB)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf D\+L\+L\+\_\+\+E\+X\+P\+O\+RT} {\bf bool} openavb\+Intf\+Mpeg2ts\+Gst\+Initialize (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ, }
+\item[{{\bf openavb\+\_\+intf\+\_\+cb\+\_\+t} $\ast$}]{p\+Intf\+CB}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__intf__mpeg2ts__gst_8c_ab198cdcdbb5c15b188e5ae0decab917b}{}\label{openavb__intf__mpeg2ts__gst_8c_ab198cdcdbb5c15b188e5ae0decab917b}
+
+
+openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c 파일의 578 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+579 \{
+580     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+581 
+582     \textcolor{keywordflow}{if} (pMediaQ)
+583     \{
+584         pMediaQ->\hyperlink{structmedia__q__t_a453af4755f0cf9b8fe035e62ecea845f}{pPvtIntfInfo} = \hyperlink{_memory_leak_detector_malloc_macros_8h_a7cbb7b79af9d539af55b59dfc3598390}{calloc}(1, \textcolor{keyword}{sizeof}(\hyperlink{structpvt__data__t}{pvt\_data\_t}));      \textcolor{comment}{// Memory
+       freed by the media queue when the media queue is destroyed.}
+585 
+586         \textcolor{keywordflow}{if} (!pMediaQ->\hyperlink{structmedia__q__t_a453af4755f0cf9b8fe035e62ecea845f}{pPvtIntfInfo})
+587         \{
+588             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Unable to allocate memory for AVTP interface module."});
+589             \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+590         \}
+591 
+592         \textcolor{comment}{//pvt\_data\_t *pPvtData = pMediaQ->pPvtIntfInfo;}
+593 
+594         pIntfCB->\hyperlink{structopenavb__intf__cb__t_ac399da5e32ebb5e311f3c2fefc7c53e2}{intf\_cfg\_cb} = \hyperlink{openavb__intf__mpeg2ts__gst_8c_ae03b98612fbb827f9234771c0c00552e}{openavbIntfMpeg2tsGstCfgCB};
+595         pIntfCB->\hyperlink{structopenavb__intf__cb__t_abdfcb6b35075220160046e97e8c51b34}{intf\_gen\_init\_cb} = 
+      \hyperlink{openavb__intf__mpeg2ts__gst_8c_a41f7561a3b456312ab02ee7bf0fd982b}{openavbIntfMpeg2tsGstGenInitCB};
+596         pIntfCB->\hyperlink{structopenavb__intf__cb__t_a8c4365e897d7567f363435819ed2c795}{intf\_tx\_init\_cb} = \hyperlink{openavb__intf__mpeg2ts__gst_8c_a80081a9198f7f36919e4a8eca1a41e4d}{openavbIntfMpeg2tsGstTxInitCB}
+      ;
+597         pIntfCB->\hyperlink{structopenavb__intf__cb__t_a697ca0e024c5d38ae52fba581741c255}{intf\_tx\_cb} = \hyperlink{openavb__intf__mpeg2ts__gst_8c_ab0d0c90b0dfa121c1710a5bcc385fd19}{openavbIntfMpeg2tsGstTxCB};
+598         pIntfCB->\hyperlink{structopenavb__intf__cb__t_a9657b542d4ff314437568bd9566d7519}{intf\_rx\_init\_cb} = \hyperlink{openavb__intf__mpeg2ts__gst_8c_a7eb8740a3b3d78c10b73a7557d142c24}{openavbIntfMpeg2tsGstRxInitCB}
+      ;
+599         pIntfCB->\hyperlink{structopenavb__intf__cb__t_aa29c6a7d59d3dba57131b157f5634040}{intf\_rx\_cb} = \hyperlink{openavb__intf__mpeg2ts__gst_8c_a7ce63c23b9327e338457e0abe5f65e7f}{openavbIntfMpeg2tsGstRxCB};
+600         pIntfCB->\hyperlink{structopenavb__intf__cb__t_a438129d3c775eb25b490437fb5d43fbe}{intf\_end\_cb} = \hyperlink{openavb__intf__mpeg2ts__gst_8c_aabe3be10a1edeb5a4bcbc1e1011f13e5}{openavbIntfMpeg2tsGstEndCB};
+601         pIntfCB->\hyperlink{structopenavb__intf__cb__t_af5c808e5bf832dc6f7d8314c80892171}{intf\_gen\_end\_cb} = \hyperlink{openavb__intf__mpeg2ts__gst_8c_a0dea0065c8439b62680ac91e4e4bb42e}{openavbIntfMpeg2tsGstGenEndCB}
+      ;
+602     \}
+603 
+604     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1cb05991709184ca0eb2d8829d3e84fe}{AVB\_TRACE\_INTF});
+605     \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+606 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__mpeg2ts__gst_8c_ab198cdcdbb5c15b188e5ae0decab917b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=311pt]{openavb__intf__mpeg2ts__gst_8c_ab198cdcdbb5c15b188e5ae0decab917b_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c@{openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c}!openavb\+Intf\+Mpeg2ts\+Gst\+Rx\+CB@{openavb\+Intf\+Mpeg2ts\+Gst\+Rx\+CB}}
+\index{openavb\+Intf\+Mpeg2ts\+Gst\+Rx\+CB@{openavb\+Intf\+Mpeg2ts\+Gst\+Rx\+CB}!openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c@{openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Intf\+Mpeg2ts\+Gst\+Rx\+C\+B(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q)}{openavbIntfMpeg2tsGstRxCB(media_q_t *pMediaQ)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} openavb\+Intf\+Mpeg2ts\+Gst\+Rx\+CB (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__intf__mpeg2ts__gst_8c_a7ce63c23b9327e338457e0abe5f65e7f}{}\label{openavb__intf__mpeg2ts__gst_8c_a7ce63c23b9327e338457e0abe5f65e7f}
+
+
+openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c 파일의 462 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+463 \{
+464     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a315e143b4a452e660d7bde93c3d1647d}{AVB\_TRACE\_INTF\_DETAIL});
+465 
+466     \textcolor{keywordflow}{if} (!pMediaQ)
+467     \{
+468         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a315e143b4a452e660d7bde93c3d1647d}{AVB\_TRACE\_INTF\_DETAIL});
+469         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+470     \}
+471 
+472     \hyperlink{structpvt__data__t}{pvt\_data\_t} *pPvtData = pMediaQ->\hyperlink{structmedia__q__t_a453af4755f0cf9b8fe035e62ecea845f}{pPvtIntfInfo};
+473     \textcolor{keywordflow}{if} (!pPvtData)
+474     \{
+475         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Private interface module data not allocated."});
+476         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+477     \}
+478     \textcolor{keywordflow}{if} (!pPvtData->\hyperlink{structpvt__data__t_a2475dfe3881dd35d1bee8401968eb94c}{appsrc})
+479     \{
+480         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a315e143b4a452e660d7bde93c3d1647d}{AVB\_TRACE\_INTF\_DETAIL});
+481         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+482     \}
+483 
+484     \textcolor{keywordtype}{bool} moreData = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+485     \textcolor{keywordtype}{bool} retval = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+486 
+487     \textcolor{keywordflow}{while} (moreData)
+488     \{
+489         \hyperlink{structmedia__q__item__t}{media\_q\_item\_t} *pMediaQItem = \hyperlink{build_2sdk__eavb_2openavb__mediaq__pub_8h_aafa1645c7e234bd011a70063d368b995}{openavbMediaQTailLock}(pMediaQ, 
+      pPvtData->\hyperlink{structpvt__data__t_a2a0aac103e25975d0ba22350a71e70ae}{ignoreTimestamp});
+490         \textcolor{keywordflow}{if} (pMediaQItem)
+491         \{
+492             \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} len = pMediaQItem->\hyperlink{structmedia__q__item__t_a1dfc68b1003d0c64f82d4c19649c2c52}{dataLen};
+493             \textcolor{keywordflow}{if} (len > 0)
+494             \{
+495                 \hyperlink{struct___gst_al_buf}{GstAlBuf} *rxBuf = \hyperlink{gst__al_8h_a01e806d12d428b88fd5b374cacbd20f7}{gst\_al\_alloc\_buffer}(len);
+496 
+497                 \textcolor{keywordflow}{if} (rxBuf)
+498                 \{
+499                     \hyperlink{gst__al_8h_a3c6f555c1a93843a2d86720c1c29913a}{GST\_AL\_BUFFER\_TIMESTAMP}(rxBuf) = GST\_CLOCK\_TIME\_NONE;
+500                     \hyperlink{gst__al_8h_aad208eecd3a7afeabc0d3e2551be8420}{GST\_AL\_BUFFER\_DURATION}(rxBuf) = GST\_CLOCK\_TIME\_NONE;
+501 
+502                     memcpy(\hyperlink{gst__al_8h_a7eddd52da88b2b3446f2015102dd5eff}{GST\_AL\_BUF\_DATA}(rxBuf), pMediaQItem->
+      \hyperlink{structmedia__q__item__t_ac27724ac74fd97e91418f1539eccdfb0}{pPubData}, \hyperlink{gst__al_8h_a17a4cd8ec1756c5f470ff549c10ba157}{GST\_AL\_BUF\_SIZE}(rxBuf));
+503 
+504                     GstFlowReturn gstret = \hyperlink{gst__al_8h_a10320321d2f6ee9d4c7155d9ef993f5d}{gst\_al\_push\_buffer}(GST\_APP\_SRC(pPvtData->
+      \hyperlink{structpvt__data__t_a2475dfe3881dd35d1bee8401968eb94c}{appsrc}), rxBuf);
+505                     \textcolor{keywordflow}{if} (gstret != GST\_FLOW\_OK)
+506                     \{
+507                         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Pushing buffer to gstreamer failed: %d"}, gstret);
+508                         retval = moreData = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+509                     \}
+510                 \}
+511                 \textcolor{keywordflow}{else}
+512                 \{
+513                     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Failed to get gstreamer buffer"});
+514                     retval = moreData = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+515                 \}
+516             \}
+517             \hyperlink{build_2sdk__eavb_2openavb__mediaq__pub_8h_ab0525761a2b45c4c14d4fdc80fa24c47}{openavbMediaQTailPull}(pMediaQ);
+518         \}
+519         \textcolor{keywordflow}{else}
+520         \{
+521             moreData = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+522         \}
+523     \}
+524 
+525     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a315e143b4a452e660d7bde93c3d1647d}{AVB\_TRACE\_INTF\_DETAIL});
+526     \textcolor{keywordflow}{return} retval;
+527 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__mpeg2ts__gst_8c_a7ce63c23b9327e338457e0abe5f65e7f_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__mpeg2ts__gst_8c_a7ce63c23b9327e338457e0abe5f65e7f_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c@{openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c}!openavb\+Intf\+Mpeg2ts\+Gst\+Rx\+Init\+CB@{openavb\+Intf\+Mpeg2ts\+Gst\+Rx\+Init\+CB}}
+\index{openavb\+Intf\+Mpeg2ts\+Gst\+Rx\+Init\+CB@{openavb\+Intf\+Mpeg2ts\+Gst\+Rx\+Init\+CB}!openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c@{openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Intf\+Mpeg2ts\+Gst\+Rx\+Init\+C\+B(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q)}{openavbIntfMpeg2tsGstRxInitCB(media_q_t *pMediaQ)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Intf\+Mpeg2ts\+Gst\+Rx\+Init\+CB (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__intf__mpeg2ts__gst_8c_a7eb8740a3b3d78c10b73a7557d142c24}{}\label{openavb__intf__mpeg2ts__gst_8c_a7eb8740a3b3d78c10b73a7557d142c24}
+
+
+openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c 파일의 393 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+394 \{
+395     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a315e143b4a452e660d7bde93c3d1647d}{AVB\_TRACE\_INTF\_DETAIL});
+396 
+397     \textcolor{keywordflow}{if} (pMediaQ)
+398     \{
+399         \hyperlink{structpvt__data__t}{pvt\_data\_t} *pPvtData = pMediaQ->\hyperlink{structmedia__q__t_a453af4755f0cf9b8fe035e62ecea845f}{pPvtIntfInfo};
+400         \textcolor{keywordflow}{if} (!pPvtData)
+401         \{
+402             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Private interface module data not allocated."});
+403             \textcolor{keywordflow}{return};
+404         \}
+405 
+406         pPvtData->\hyperlink{structpvt__data__t_a14ebdf8573bc2c62435241226711f72b}{pipe} = (GstElement*)\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+407         pPvtData->\hyperlink{structpvt__data__t_a3831070f5306380e16c589d7035c5409}{appsink} = (GstAppSink*)\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+408         pPvtData->\hyperlink{structpvt__data__t_a2475dfe3881dd35d1bee8401968eb94c}{appsrc} = (GstAppSrc*)\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+409         pPvtData->\hyperlink{structpvt__data__t_a8069191ff53f2617a832b3ae528ef11d}{bus} = (GstBus*)\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+410         pPvtData->\hyperlink{structpvt__data__t_a51b21ed47332ea9205cdf1e7546a630d}{srcPaused} = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+411 
+412         GError *error = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+413         pPvtData->\hyperlink{structpvt__data__t_a14ebdf8573bc2c62435241226711f72b}{pipe} = gst\_parse\_launch(pPvtData->\hyperlink{structpvt__data__t_a1f92697b6354d417c841cb4cfdde7bf9}{pPipelineStr}, &error);
+414         \textcolor{keywordflow}{if} (error)
+415         \{
+416             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Error creating pipeline: %s"}, error->message);
+417             \textcolor{keywordflow}{return};
+418         \}
+419 
+420         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a2be7e90c7cb63f12b221ed1cd4999185}{AVB\_LOGF\_INFO}(\textcolor{stringliteral}{"Pipeline: %s"}, pPvtData->\hyperlink{structpvt__data__t_a1f92697b6354d417c841cb4cfdde7bf9}{pPipelineStr});
+421         pPvtData->\hyperlink{structpvt__data__t_a2475dfe3881dd35d1bee8401968eb94c}{appsrc} = GST\_APP\_SRC(gst\_bin\_get\_by\_name(GST\_BIN(pPvtData->
+      \hyperlink{structpvt__data__t_a14ebdf8573bc2c62435241226711f72b}{pipe}), \hyperlink{openavb__intf__mpeg2ts__gst_8c_af348a99bccfa4db4819fdb4b16b52155}{APPSRC\_NAME}));
+422         \textcolor{keywordflow}{if} (!pPvtData->\hyperlink{structpvt__data__t_a2475dfe3881dd35d1bee8401968eb94c}{appsrc})
+423         \{
+424             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Failed to find appsrc element"});
+425             \textcolor{keywordflow}{return};
+426         \}
+427 
+428         \textcolor{comment}{// Make appsrc non-blocking}
+429         g\_object\_set(G\_OBJECT(pPvtData->\hyperlink{structpvt__data__t_a2475dfe3881dd35d1bee8401968eb94c}{appsrc}), \textcolor{stringliteral}{"block"}, \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+430 
+431         \textcolor{comment}{// create bus}
+432         pPvtData->\hyperlink{structpvt__data__t_a8069191ff53f2617a832b3ae528ef11d}{bus} = gst\_pipeline\_get\_bus(GST\_PIPELINE(pPvtData->\hyperlink{structpvt__data__t_a14ebdf8573bc2c62435241226711f72b}{pipe}));
+433         \textcolor{keywordflow}{if} (!pPvtData->\hyperlink{structpvt__data__t_a8069191ff53f2617a832b3ae528ef11d}{bus})
+434         \{
+435             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Failed to create bus"});
+436             \textcolor{keywordflow}{return};
+437         \}
+438 
+439         \textcolor{comment}{/* add callback for bus messages */}
+440         gst\_bus\_add\_watch(pPvtData->\hyperlink{structpvt__data__t_a8069191ff53f2617a832b3ae528ef11d}{bus}, (GstBusFunc)\hyperlink{openavb__intf__mpeg2ts__gst_8c_a3177b6e76670c474806c40e8c8389950}{bus\_message}, pMediaQ);
+441 
+442         \textcolor{comment}{// Setup callback function to handle request from src to pause/start data flow}
+443         GstAppSrcCallbacks cbfns;
+444         memset(&cbfns, 0, \textcolor{keyword}{sizeof}(GstAppSrcCallbacks));
+445         cbfns.enough\_data = \hyperlink{openavb__intf__mpeg2ts__gst_8c_a6db70da2eaf4b4bfb7252e6846fb58f2}{srcStopFeed};
+446         cbfns.need\_data = \hyperlink{openavb__intf__mpeg2ts__gst_8c_a9a42fd07836b543ce27105fb72bef1cc}{srcStartFeed};
+447         gst\_app\_src\_set\_callbacks(pPvtData->\hyperlink{structpvt__data__t_a2475dfe3881dd35d1bee8401968eb94c}{appsrc}, &cbfns, (gpointer)(pMediaQ), 
+      \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+448 
+449         \textcolor{comment}{// Set most capabilities in pipeline (config), not code}
+450 
+451         \textcolor{comment}{// Don't block}
+452         g\_object\_set(pPvtData->\hyperlink{structpvt__data__t_a2475dfe3881dd35d1bee8401968eb94c}{appsrc}, \textcolor{stringliteral}{"block"}, 0, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+453 
+454         \textcolor{comment}{// PLAY}
+455         gst\_element\_set\_state(pPvtData->\hyperlink{structpvt__data__t_a14ebdf8573bc2c62435241226711f72b}{pipe}, GST\_STATE\_PLAYING);
+456     \}
+457 
+458     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a315e143b4a452e660d7bde93c3d1647d}{AVB\_TRACE\_INTF\_DETAIL});
+459 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__mpeg2ts__gst_8c_a7eb8740a3b3d78c10b73a7557d142c24_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__mpeg2ts__gst_8c_a7eb8740a3b3d78c10b73a7557d142c24_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c@{openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c}!openavb\+Intf\+Mpeg2ts\+Gst\+Tx\+CB@{openavb\+Intf\+Mpeg2ts\+Gst\+Tx\+CB}}
+\index{openavb\+Intf\+Mpeg2ts\+Gst\+Tx\+CB@{openavb\+Intf\+Mpeg2ts\+Gst\+Tx\+CB}!openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c@{openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Intf\+Mpeg2ts\+Gst\+Tx\+C\+B(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q)}{openavbIntfMpeg2tsGstTxCB(media_q_t *pMediaQ)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} openavb\+Intf\+Mpeg2ts\+Gst\+Tx\+CB (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__intf__mpeg2ts__gst_8c_ab0d0c90b0dfa121c1710a5bcc385fd19}{}\label{openavb__intf__mpeg2ts__gst_8c_ab0d0c90b0dfa121c1710a5bcc385fd19}
+
+
+openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c 파일의 313 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+314 \{
+315     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a315e143b4a452e660d7bde93c3d1647d}{AVB\_TRACE\_INTF\_DETAIL});
+316 
+317     \textcolor{keywordflow}{if} (!pMediaQ)
+318     \{
+319         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a315e143b4a452e660d7bde93c3d1647d}{AVB\_TRACE\_INTF\_DETAIL});
+320         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+321     \}
+322 
+323     \hyperlink{structpvt__data__t}{pvt\_data\_t} *pPvtData = pMediaQ->\hyperlink{structmedia__q__t_a453af4755f0cf9b8fe035e62ecea845f}{pPvtIntfInfo};
+324     \textcolor{keywordflow}{if} (!pPvtData)
+325     \{
+326         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Private interface module data not allocated."});
+327         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+328     \}
+329 
+330     \textcolor{keywordflow}{if} (!pPvtData->\hyperlink{structpvt__data__t_a3831070f5306380e16c589d7035c5409}{appsink})
+331     \{
+332         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a315e143b4a452e660d7bde93c3d1647d}{AVB\_TRACE\_INTF\_DETAIL});
+333         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+334     \}
+335 
+336     \hyperlink{structmedia__q__item__t}{media\_q\_item\_t} *pMediaQItem;
+337     \hyperlink{struct___gst_al_buf}{GstAlBuf} *txBuf;
+338 
+339     \textcolor{keywordflow}{while} (g\_atomic\_int\_get(&pPvtData->\hyperlink{structpvt__data__t_a8f3382ecb9f43a47a26e41407422d27b}{nWaiting}) > 0)
+340     \{
+341 
+342         \textcolor{comment}{// Get a mediaQItem to hold the buffered data}
+343         pMediaQItem = \hyperlink{build_2sdk__eavb_2openavb__mediaq__pub_8h_ae2ce807451447ec2dab9a4284ac61b99}{openavbMediaQHeadLock}(pMediaQ);
+344         \textcolor{keywordflow}{if} (!pMediaQItem)
+345         \{
+346             \hyperlink{maap__log_8h_ae9decd5440c360a6d0ab5175c9cf08be}{IF\_LOG\_INTERVAL}(1000) \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}("Media queue full");
+347             break;
+348         \}
+349 
+350         \textcolor{comment}{/* Retrieve the buffer}
+351 \textcolor{comment}{         */}
+352         txBuf = \hyperlink{gst__al_8h_adfb9b399e86f700a058c508687c1ec73}{gst\_al\_pull\_buffer}(pPvtData->appsink);
+353 
+354         if (txBuf)
+355         \{
+356             g\_atomic\_int\_add(&pPvtData->\hyperlink{structpvt__data__t_a8f3382ecb9f43a47a26e41407422d27b}{nWaiting}, -1);
+357             \textcolor{keywordflow}{if} ( \hyperlink{gst__al_8h_a17a4cd8ec1756c5f470ff549c10ba157}{GST\_AL\_BUF\_SIZE}(txBuf) > pMediaQItem->\hyperlink{structmedia__q__item__t_a91e248b2730fbe7951ac5d9d3aae1752}{itemSize} )
+358             \{
+359                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"GStreamer buffer too large (size=%d) for mediaQ item
+       (dataLen=%d)"},
+360                                \hyperlink{gst__al_8h_a17a4cd8ec1756c5f470ff549c10ba157}{GST\_AL\_BUF\_SIZE}(txBuf), pMediaQItem->
+      \hyperlink{structmedia__q__item__t_a91e248b2730fbe7951ac5d9d3aae1752}{itemSize});
+361                 pMediaQItem->\hyperlink{structmedia__q__item__t_a1dfc68b1003d0c64f82d4c19649c2c52}{dataLen} = 0;
+362                 \hyperlink{build_2sdk__eavb_2openavb__mediaq__pub_8h_ac73b08d1568f13b634e2a0f1ef35e11a}{openavbMediaQHeadUnlock}(pMediaQ);
+363             \}
+364             \textcolor{keywordflow}{else}
+365             \{
+366                 memcpy(pMediaQItem->\hyperlink{structmedia__q__item__t_ac27724ac74fd97e91418f1539eccdfb0}{pPubData}, \hyperlink{gst__al_8h_a7eddd52da88b2b3446f2015102dd5eff}{GST\_AL\_BUF\_DATA}(txBuf), 
+      \hyperlink{gst__al_8h_a17a4cd8ec1756c5f470ff549c10ba157}{GST\_AL\_BUF\_SIZE}(txBuf));
+367                 pMediaQItem->\hyperlink{structmedia__q__item__t_a1dfc68b1003d0c64f82d4c19649c2c52}{dataLen} = \hyperlink{gst__al_8h_a17a4cd8ec1756c5f470ff549c10ba157}{GST\_AL\_BUF\_SIZE}(txBuf);
+368                 \hyperlink{openavb__avtp__time_8c_a56b2ae4c29078846b941284d161f7d88}{openavbAvtpTimeSetToWallTime}(pMediaQItem->
+      \hyperlink{structmedia__q__item__t_aa7a475459f9c1a43c64ed85ff1c758cc}{pAvtpTime});
+369                 \hyperlink{build_2sdk__eavb_2openavb__mediaq__pub_8h_a0a57c275ac213fdd14c944741c6e9250}{openavbMediaQHeadPush}(pMediaQ);
+370             \}
+371             \hyperlink{gst__al_8h_a141a55b2dbd36cc6ae34678b43518026}{gst\_al\_buffer\_unref}(txBuf);
+372         \}
+373         \textcolor{keywordflow}{else}
+374         \{
+375             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"GStreamer buffer pull failed"});
+376             \textcolor{comment}{// assume the pipeline is empty}
+377             g\_atomic\_int\_set(&pPvtData->\hyperlink{structpvt__data__t_a8f3382ecb9f43a47a26e41407422d27b}{nWaiting}, 0);
+378             \textcolor{comment}{// abandon the mediaq item}
+379             pMediaQItem->\hyperlink{structmedia__q__item__t_a1dfc68b1003d0c64f82d4c19649c2c52}{dataLen} = 0;
+380             \hyperlink{build_2sdk__eavb_2openavb__mediaq__pub_8h_ac73b08d1568f13b634e2a0f1ef35e11a}{openavbMediaQHeadUnlock}(pMediaQ);
+381             \textcolor{comment}{// and get out}
+382             \textcolor{keywordflow}{break};
+383         \}
+384     \}
+385 
+386     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a315e143b4a452e660d7bde93c3d1647d}{AVB\_TRACE\_INTF\_DETAIL});
+387     \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+388 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__mpeg2ts__gst_8c_ab0d0c90b0dfa121c1710a5bcc385fd19_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__mpeg2ts__gst_8c_ab0d0c90b0dfa121c1710a5bcc385fd19_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c@{openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c}!openavb\+Intf\+Mpeg2ts\+Gst\+Tx\+Init\+CB@{openavb\+Intf\+Mpeg2ts\+Gst\+Tx\+Init\+CB}}
+\index{openavb\+Intf\+Mpeg2ts\+Gst\+Tx\+Init\+CB@{openavb\+Intf\+Mpeg2ts\+Gst\+Tx\+Init\+CB}!openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c@{openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Intf\+Mpeg2ts\+Gst\+Tx\+Init\+C\+B(media\+\_\+q\+\_\+t $\ast$p\+Media\+Q)}{openavbIntfMpeg2tsGstTxInitCB(media_q_t *pMediaQ)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Intf\+Mpeg2ts\+Gst\+Tx\+Init\+CB (
+\begin{DoxyParamCaption}
+\item[{{\bf media\+\_\+q\+\_\+t} $\ast$}]{p\+MediaQ}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__intf__mpeg2ts__gst_8c_a80081a9198f7f36919e4a8eca1a41e4d}{}\label{openavb__intf__mpeg2ts__gst_8c_a80081a9198f7f36919e4a8eca1a41e4d}
+
+
+openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c 파일의 247 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+248 \{
+249     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a315e143b4a452e660d7bde93c3d1647d}{AVB\_TRACE\_INTF\_DETAIL});
+250 
+251     \textcolor{keywordflow}{if} (pMediaQ)
+252     \{
+253         \hyperlink{structpvt__data__t}{pvt\_data\_t} *pPvtData = pMediaQ->\hyperlink{structmedia__q__t_a453af4755f0cf9b8fe035e62ecea845f}{pPvtIntfInfo};
+254         \textcolor{keywordflow}{if} (!pPvtData)
+255         \{
+256             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Private interface module data not allocated."});
+257             \textcolor{keywordflow}{return};
+258         \}
+259 
+260         pPvtData->\hyperlink{structpvt__data__t_a14ebdf8573bc2c62435241226711f72b}{pipe} = (GstElement*)\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+261         pPvtData->\hyperlink{structpvt__data__t_a3831070f5306380e16c589d7035c5409}{appsink} = (GstAppSink*)\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+262         pPvtData->\hyperlink{structpvt__data__t_a2475dfe3881dd35d1bee8401968eb94c}{appsrc} = (GstAppSrc*)\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+263         pPvtData->\hyperlink{structpvt__data__t_a8069191ff53f2617a832b3ae528ef11d}{bus} = (GstBus*)\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+264         pPvtData->\hyperlink{structpvt__data__t_a8f3382ecb9f43a47a26e41407422d27b}{nWaiting} = 0;
+265 
+266         GError *error = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+267         pPvtData->\hyperlink{structpvt__data__t_a14ebdf8573bc2c62435241226711f72b}{pipe} = gst\_parse\_launch(pPvtData->\hyperlink{structpvt__data__t_a1f92697b6354d417c841cb4cfdde7bf9}{pPipelineStr}, &error);
+268         \textcolor{keywordflow}{if} (error)
+269         \{
+270             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Error creating pipeline: %s"}, error->message);
+271             \textcolor{keywordflow}{return};
+272         \}
+273 
+274         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a2be7e90c7cb63f12b221ed1cd4999185}{AVB\_LOGF\_INFO}(\textcolor{stringliteral}{"Pipeline: %s"}, pPvtData->\hyperlink{structpvt__data__t_a1f92697b6354d417c841cb4cfdde7bf9}{pPipelineStr});
+275         pPvtData->\hyperlink{structpvt__data__t_a3831070f5306380e16c589d7035c5409}{appsink} = GST\_APP\_SINK(gst\_bin\_get\_by\_name(GST\_BIN(pPvtData->
+      \hyperlink{structpvt__data__t_a14ebdf8573bc2c62435241226711f72b}{pipe}), \hyperlink{openavb__intf__mpeg2ts__gst_8c_a64347bac1eda51bbef1ae8c8850872d3}{APPSINK\_NAME}));
+276         \textcolor{keywordflow}{if} (!pPvtData->\hyperlink{structpvt__data__t_a3831070f5306380e16c589d7035c5409}{appsink})
+277         \{
+278             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Failed to find appsink element"});
+279             \textcolor{keywordflow}{return};
+280         \}
+281 
+282         \textcolor{comment}{// create bus}
+283         pPvtData->\hyperlink{structpvt__data__t_a8069191ff53f2617a832b3ae528ef11d}{bus} = gst\_pipeline\_get\_bus(GST\_PIPELINE(pPvtData->\hyperlink{structpvt__data__t_a14ebdf8573bc2c62435241226711f72b}{pipe}));
+284         \textcolor{keywordflow}{if} (!pPvtData->\hyperlink{structpvt__data__t_a8069191ff53f2617a832b3ae528ef11d}{bus})
+285         \{
+286             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Failed to create bus"});
+287             \textcolor{keywordflow}{return};
+288         \}
+289 
+290         \textcolor{comment}{/* add callback for bus messages */}
+291         gst\_bus\_add\_watch(pPvtData->\hyperlink{structpvt__data__t_a8069191ff53f2617a832b3ae528ef11d}{bus}, (GstBusFunc)\hyperlink{openavb__intf__mpeg2ts__gst_8c_a3177b6e76670c474806c40e8c8389950}{bus\_message}, pMediaQ);
+292 
+293         \textcolor{comment}{// Setup callback function to handle new buffers delivered to sink}
+294         GstAppSinkCallbacks cbfns;
+295         memset(&cbfns, 0, \textcolor{keyword}{sizeof}(GstAppSinkCallbacks));
+296 
+297         \hyperlink{gst__al_8h_a73b681f06e28caa52f35ab862e9e08e1}{gst\_al\_set\_callback}(&cbfns, \hyperlink{openavb__intf__mpeg2ts__gst_8c_a67fa91286d09b88dce4a4c1d220e3ca9}{sinkNewBufferSample});
+298 
+299         gst\_app\_sink\_set\_callbacks(pPvtData->\hyperlink{structpvt__data__t_a3831070f5306380e16c589d7035c5409}{appsink}, &cbfns, (gpointer)(pMediaQ), 
+      \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+300 
+301         \textcolor{comment}{// Set most capabilities in pipeline (config), not code}
+302 
+303         \textcolor{comment}{// Don't drop buffers}
+304         g\_object\_set(pPvtData->\hyperlink{structpvt__data__t_a3831070f5306380e16c589d7035c5409}{appsink}, \textcolor{stringliteral}{"drop"}, 0, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+305 
+306         \textcolor{comment}{// Start playing}
+307         gst\_element\_set\_state(pPvtData->\hyperlink{structpvt__data__t_a14ebdf8573bc2c62435241226711f72b}{pipe}, GST\_STATE\_PLAYING);
+308     \}
+309 
+310     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a315e143b4a452e660d7bde93c3d1647d}{AVB\_TRACE\_INTF\_DETAIL});
+311 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__mpeg2ts__gst_8c_a80081a9198f7f36919e4a8eca1a41e4d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__mpeg2ts__gst_8c_a80081a9198f7f36919e4a8eca1a41e4d_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c@{openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c}!sink\+New\+Buffer\+Sample@{sink\+New\+Buffer\+Sample}}
+\index{sink\+New\+Buffer\+Sample@{sink\+New\+Buffer\+Sample}!openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c@{openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c}}
+\subsubsection[{\texorpdfstring{sink\+New\+Buffer\+Sample(\+Gst\+App\+Sink $\ast$sink, gpointer pv)}{sinkNewBufferSample(GstAppSink *sink, gpointer pv)}}]{\setlength{\rightskip}{0pt plus 5cm}static Gst\+Flow\+Return sink\+New\+Buffer\+Sample (
+\begin{DoxyParamCaption}
+\item[{Gst\+App\+Sink $\ast$}]{sink, }
+\item[{gpointer}]{pv}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__intf__mpeg2ts__gst_8c_a67fa91286d09b88dce4a4c1d220e3ca9}{}\label{openavb__intf__mpeg2ts__gst_8c_a67fa91286d09b88dce4a4c1d220e3ca9}
+
+
+openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c 파일의 233 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+234 \{
+235     assert(pv);
+236     \hyperlink{structmedia__q__t}{media\_q\_t} *pMediaQ = (\hyperlink{structmedia__q__t}{media\_q\_t} *)pv;
+237     \hyperlink{structpvt__data__t}{pvt\_data\_t} *pPvtData = pMediaQ->\hyperlink{structmedia__q__t_a453af4755f0cf9b8fe035e62ecea845f}{pPvtIntfInfo};
+238     assert(pPvtData);
+239 
+240     g\_atomic\_int\_add(&pPvtData->\hyperlink{structpvt__data__t_a8f3382ecb9f43a47a26e41407422d27b}{nWaiting}, 1);
+241 
+242     \textcolor{keywordflow}{return} GST\_FLOW\_OK;
+243 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__mpeg2ts__gst_8c_a67fa91286d09b88dce4a4c1d220e3ca9_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c@{openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c}!src\+Start\+Feed@{src\+Start\+Feed}}
+\index{src\+Start\+Feed@{src\+Start\+Feed}!openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c@{openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c}}
+\subsubsection[{\texorpdfstring{src\+Start\+Feed(\+Gst\+App\+Src $\ast$source, guint size, gpointer pv)}{srcStartFeed(GstAppSrc *source, guint size, gpointer pv)}}]{\setlength{\rightskip}{0pt plus 5cm}static void src\+Start\+Feed (
+\begin{DoxyParamCaption}
+\item[{Gst\+App\+Src $\ast$}]{source, }
+\item[{guint}]{size, }
+\item[{gpointer}]{pv}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__intf__mpeg2ts__gst_8c_a9a42fd07836b543ce27105fb72bef1cc}{}\label{openavb__intf__mpeg2ts__gst_8c_a9a42fd07836b543ce27105fb72bef1cc}
+
+
+openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c 파일의 209 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+210 \{
+211     \hyperlink{structmedia__q__t}{media\_q\_t} *pMediaQ = (\hyperlink{structmedia__q__t}{media\_q\_t} *)pv;
+212     assert(pMediaQ);
+213     \hyperlink{structpvt__data__t}{pvt\_data\_t} *pPvtData = pMediaQ->\hyperlink{structmedia__q__t_a453af4755f0cf9b8fe035e62ecea845f}{pPvtIntfInfo};
+214     assert(pPvtData);
+215     \textcolor{keywordflow}{if} (pPvtData->\hyperlink{structpvt__data__t_a51b21ed47332ea9205cdf1e7546a630d}{srcPaused})
+216     \{
+217 \textcolor{comment}{//      AVB\_LOG\_INFO("Restart");}
+218         pPvtData->\hyperlink{structpvt__data__t_a51b21ed47332ea9205cdf1e7546a630d}{srcPaused} = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+219     \}
+220 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__mpeg2ts__gst_8c_a9a42fd07836b543ce27105fb72bef1cc_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c@{openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c}!src\+Stop\+Feed@{src\+Stop\+Feed}}
+\index{src\+Stop\+Feed@{src\+Stop\+Feed}!openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c@{openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c}}
+\subsubsection[{\texorpdfstring{src\+Stop\+Feed(\+Gst\+App\+Src $\ast$source, gpointer pv)}{srcStopFeed(GstAppSrc *source, gpointer pv)}}]{\setlength{\rightskip}{0pt plus 5cm}static void src\+Stop\+Feed (
+\begin{DoxyParamCaption}
+\item[{Gst\+App\+Src $\ast$}]{source, }
+\item[{gpointer}]{pv}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__intf__mpeg2ts__gst_8c_a6db70da2eaf4b4bfb7252e6846fb58f2}{}\label{openavb__intf__mpeg2ts__gst_8c_a6db70da2eaf4b4bfb7252e6846fb58f2}
+
+
+openavb\+\_\+intf\+\_\+mpeg2ts\+\_\+gst.\+c 파일의 223 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+224 \{
+225     \hyperlink{structmedia__q__t}{media\_q\_t} *pMediaQ = (\hyperlink{structmedia__q__t}{media\_q\_t} *)pv;
+226     assert(pMediaQ);
+227     \hyperlink{structpvt__data__t}{pvt\_data\_t} *pPvtData = pMediaQ->\hyperlink{structmedia__q__t_a453af4755f0cf9b8fe035e62ecea845f}{pPvtIntfInfo};
+228     assert(pPvtData);
+229 \textcolor{comment}{//  AVB\_LOG\_INFO("Pause");}
+230     pPvtData->\hyperlink{structpvt__data__t_a51b21ed47332ea9205cdf1e7546a630d}{srcPaused} = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+231 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__intf__mpeg2ts__gst_8c_a6db70da2eaf4b4bfb7252e6846fb58f2_icgraph}
+\end{center}
+\end{figure}
+
+

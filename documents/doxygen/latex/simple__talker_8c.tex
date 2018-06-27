@@ -1,0 +1,1289 @@
+\hypertarget{simple__talker_8c}{}\section{examples/simple\+\_\+talker/simple\+\_\+talker.c 파일 참조}
+\label{simple__talker_8c}\index{examples/simple\+\_\+talker/simple\+\_\+talker.\+c@{examples/simple\+\_\+talker/simple\+\_\+talker.\+c}}
+{\ttfamily \#include $<$errno.\+h$>$}\\*
+{\ttfamily \#include $<$inttypes.\+h$>$}\\*
+{\ttfamily \#include $<$fcntl.\+h$>$}\\*
+{\ttfamily \#include $<$math.\+h$>$}\\*
+{\ttfamily \#include $<$signal.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$sys/ioctl.\+h$>$}\\*
+{\ttfamily \#include $<$sys/mman.\+h$>$}\\*
+{\ttfamily \#include $<$sys/socket.\+h$>$}\\*
+{\ttfamily \#include $<$linux/if.\+h$>$}\\*
+{\ttfamily \#include $<$pci/pci.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}talker\+\_\+mrp\+\_\+client.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}avb.\+h\char`\"{}}\\*
+simple\+\_\+talker.\+c에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{simple__talker_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{simple__talker_8c_acfc1668731750cb1ee8974b8a7c133ef}{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR}~\char`\"{}1.\+0\char`\"{}
+\item 
+\#define \hyperlink{simple__talker_8c_ad4ab9d10cd532fc63cca9204da41fdce}{S\+R\+C\+\_\+\+C\+H\+A\+N\+N\+E\+LS}~(2)
+\item 
+\#define \hyperlink{simple__talker_8c_a8c8f27b35dfa40ccf31c1ee31479a31c}{G\+A\+IN}~(0.\+5)
+\item 
+\#define \hyperlink{simple__talker_8c_a0455cdf8d4dd1f30c30918f9785a08fe}{L16\+\_\+\+P\+A\+Y\+L\+O\+A\+D\+\_\+\+T\+Y\+PE}~(96) /$\ast$ for layer 4 transport -\/ should be negotiated via R\+T\+SP $\ast$/
+\item 
+\#define \hyperlink{simple__talker_8c_ac6b84e5f9615676476762d194a4a50e7}{I\+D\+\_\+\+B\+\_\+\+H\+D\+R\+\_\+\+E\+X\+T\+\_\+\+ID}~(0) /$\ast$ for layer 4 transport -\/ should be negotiated via R\+T\+SP $\ast$/
+\item 
+\#define \hyperlink{simple__talker_8c_ab1be3c090fc25b14b302f1288cbe0486}{L2\+\_\+\+S\+A\+M\+P\+L\+E\+S\+\_\+\+P\+E\+R\+\_\+\+F\+R\+A\+ME}~(6)
+\item 
+\#define \hyperlink{simple__talker_8c_a91cd715dbb495cd1d938c7b77c884547}{L4\+\_\+\+S\+A\+M\+P\+L\+E\+S\+\_\+\+P\+E\+R\+\_\+\+F\+R\+A\+ME}~(60)
+\item 
+\#define \hyperlink{simple__talker_8c_a11da36c8114bdf86b7ae024b951ea051}{L4\+\_\+\+S\+A\+M\+P\+L\+E\+\_\+\+S\+I\+ZE}~(2)
+\item 
+\#define \hyperlink{simple__talker_8c_a19b7f1b22403d61234a92decaeb6953a}{C\+H\+A\+N\+N\+E\+LS}~(2)
+\item 
+\#define \hyperlink{simple__talker_8c_abb6aaa19ddf030c0d80161ffe2bb07b8}{R\+T\+P\+\_\+\+S\+U\+B\+N\+S\+\_\+\+S\+C\+A\+L\+E\+\_\+\+N\+UM}~(20000000)
+\item 
+\#define \hyperlink{simple__talker_8c_a743bcc4e6733f8e26c026b575bc5115f}{R\+T\+P\+\_\+\+S\+U\+B\+N\+S\+\_\+\+S\+C\+A\+L\+E\+\_\+\+D\+EN}~(4656613)
+\item 
+\#define \hyperlink{simple__talker_8c_ac68727566a4eb0566499959552eb6e7f}{X\+M\+I\+T\+\_\+\+D\+E\+L\+AY}~(200000000) /$\ast$ us $\ast$/
+\item 
+\#define \hyperlink{simple__talker_8c_ad67f15bfda3230674f801ea1a30c8164}{R\+E\+N\+D\+E\+R\+\_\+\+D\+E\+L\+AY}~(\hyperlink{simple__talker_8c_ac68727566a4eb0566499959552eb6e7f}{X\+M\+I\+T\+\_\+\+D\+E\+L\+AY}+2000000)	/$\ast$ us $\ast$/
+\item 
+\#define \hyperlink{simple__talker_8c_aeaf742554cea158d150ab213de7660e5}{L2\+\_\+\+P\+A\+C\+K\+E\+T\+\_\+\+I\+PG}~(125000) /$\ast$ (1) packet every 125 usec $\ast$/
+\item 
+\#define \hyperlink{simple__talker_8c_ac09b95f0954d755b6b9c4c889669862d}{L4\+\_\+\+P\+A\+C\+K\+E\+T\+\_\+\+I\+PG}~(1250000)	/$\ast$ (1) packet every 1.\+25 millisec $\ast$/
+\item 
+\#define \hyperlink{simple__talker_8c_a531477bf6f546196b63155f7eb95649a}{L4\+\_\+\+P\+O\+RT}~((uint16\+\_\+t)5004)
+\item 
+\#define \hyperlink{simple__talker_8c_a5e9891a4861298e1d749b3f95efb36da}{P\+K\+T\+\_\+\+SZ}~(100)
+\end{DoxyCompactItemize}
+\subsection*{타입정의}
+\begin{DoxyCompactItemize}
+\item 
+typedef long double \hyperlink{simple__talker_8c_a84de47dc2ed889ecd2b61706d3ad0f2e}{Frequency\+Ratio}
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{simple__talker_8c_ab898071398b359603a35c202e9c65f3b}{\+\_\+\+\_\+attribute\+\_\+\+\_\+} ((packed))
+\item 
+uint16\+\_\+t \hyperlink{simple__talker_8c_a590d9fcb41fa92555e368d3e54eb8cc0}{inet\+\_\+checksum} (\hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\+\_\+t} $\ast$ip, int len)
+\item 
+uint16\+\_\+t \hyperlink{simple__talker_8c_a7504fbb26f01db4ebfbd3fa58030dad4}{inet\+\_\+checksum\+\_\+sg} (struct iovec $\ast$buf\+\_\+iov, size\+\_\+t buf\+\_\+iovlen)
+\item 
+static \hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\+\_\+t} \hyperlink{simple__talker_8c_a59da93a1867091f1c8c69d996df768fe}{S\+T\+\_\+rdtsc} (void)
+\item 
+void \hyperlink{simple__talker_8c_a612c2ed2063c85e8bb88cb89edab1b4f}{gensine32} (\hyperlink{parse_8c_a37994e3b11c72957c6f454c6ec96d43d}{int32\+\_\+t} $\ast$buf, unsigned count)
+\item 
+int \hyperlink{simple__talker_8c_a519f3c8845b60660b82bd2f63d9dc2a3}{get\+\_\+samples} (unsigned count, \hyperlink{parse_8c_a37994e3b11c72957c6f454c6ec96d43d}{int32\+\_\+t} $\ast$\hyperlink{_hello_test_8cpp_a8be6d469a7cd1c8d66cc6d2d1e10c65b}{buffer})
+\item 
+void \hyperlink{simple__talker_8c_ab10c0c50c02a59ae9bd74c78c49b559d}{sigint\+\_\+handler} (int signum)
+\item 
+void \hyperlink{simple__talker_8c_aa423a9778f46aca42400684c64bf6dcb}{l3\+\_\+to\+\_\+l2\+\_\+multicast} (unsigned char $\ast$l2, unsigned char $\ast$l3)
+\item 
+int \hyperlink{simple__talker_8c_ae4545cedccbdf6aabb3a7686af318c2d}{get\+\_\+mac\+\_\+address} (char $\ast$\hyperlink{rawsock__tx_8c_af663a7576d2f8f288bb3996381484cd3}{interface})
+\item 
+static void \hyperlink{simple__talker_8c_ad96d407a911fbb914fa8e4cfbf2faf0f}{usage} (void)
+\item 
+int \hyperlink{simple__talker_8c_a0ddf1224851353fc92bfbff6f499fa97}{main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\subsection*{변수}
+\begin{DoxyCompactItemize}
+\item 
+volatile int $\ast$ \hyperlink{simple__talker_8c_a5059c66ee1e61cf56765092d87510188}{halt\+\_\+tx\+\_\+sig}
+\item 
+\hyperlink{simple__talker_8c_ac68085e899190564153bc7ba4f706e26}{I\+P\+\_\+\+R\+T\+P\+\_\+\+Header}
+\item 
+\hyperlink{simple__talker_8c_aa021529f3431a817c9c4adee60b4908e}{I\+P\+\_\+\+Pseudo\+Header}
+\item 
+static const char $\ast$ \hyperlink{simple__talker_8c_ae724265d048ace6b96a1e977ea11c1c7}{version\+\_\+str}
+\item 
+unsigned char \hyperlink{simple__talker_8c_a03a59e7923f04902334a837623b77cbf}{glob\+\_\+station\+\_\+addr} \mbox{[}$\,$\mbox{]} = \{ 0, 0, 0, 0, 0, 0 \}
+\item 
+unsigned char \hyperlink{simple__talker_8c_ace5ab964390fa61a4674f2021644249b}{glob\+\_\+stream\+\_\+id} \mbox{[}$\,$\mbox{]} = \{ 0, 0, 0, 0, 0, 0, 0, 0 \}
+\item 
+unsigned char \hyperlink{simple__talker_8c_ab35efd2db12d47999904d089e93023c6}{glob\+\_\+l2\+\_\+dest\+\_\+addr} \mbox{[}$\,$\mbox{]} = \{ 0x91, 0x\+E0, 0x\+F0, 0x00, 0x0e, 0x80 \}
+\item 
+unsigned char \hyperlink{simple__talker_8c_abeadf30c077d3de867f5f6a0c9e0fd5e}{glob\+\_\+l3\+\_\+dest\+\_\+addr} \mbox{[}$\,$\mbox{]} = \{ 224, 0, 0, 115 \}
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}!C\+H\+A\+N\+N\+E\+LS@{C\+H\+A\+N\+N\+E\+LS}}
+\index{C\+H\+A\+N\+N\+E\+LS@{C\+H\+A\+N\+N\+E\+LS}!simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{C\+H\+A\+N\+N\+E\+LS}{CHANNELS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+H\+A\+N\+N\+E\+LS~(2)}\hypertarget{simple__talker_8c_a19b7f1b22403d61234a92decaeb6953a}{}\label{simple__talker_8c_a19b7f1b22403d61234a92decaeb6953a}
+
+
+simple\+\_\+talker.\+c 파일의 61 번째 라인에서 정의되었습니다.
+
+\index{simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}!G\+A\+IN@{G\+A\+IN}}
+\index{G\+A\+IN@{G\+A\+IN}!simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{G\+A\+IN}{GAIN}}]{\setlength{\rightskip}{0pt plus 5cm}\#define G\+A\+IN~(0.\+5)}\hypertarget{simple__talker_8c_a8c8f27b35dfa40ccf31c1ee31479a31c}{}\label{simple__talker_8c_a8c8f27b35dfa40ccf31c1ee31479a31c}
+
+
+simple\+\_\+talker.\+c 파일의 55 번째 라인에서 정의되었습니다.
+
+\index{simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}!I\+D\+\_\+\+B\+\_\+\+H\+D\+R\+\_\+\+E\+X\+T\+\_\+\+ID@{I\+D\+\_\+\+B\+\_\+\+H\+D\+R\+\_\+\+E\+X\+T\+\_\+\+ID}}
+\index{I\+D\+\_\+\+B\+\_\+\+H\+D\+R\+\_\+\+E\+X\+T\+\_\+\+ID@{I\+D\+\_\+\+B\+\_\+\+H\+D\+R\+\_\+\+E\+X\+T\+\_\+\+ID}!simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{I\+D\+\_\+\+B\+\_\+\+H\+D\+R\+\_\+\+E\+X\+T\+\_\+\+ID}{ID_B_HDR_EXT_ID}}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\+D\+\_\+\+B\+\_\+\+H\+D\+R\+\_\+\+E\+X\+T\+\_\+\+ID~(0) /$\ast$ for layer 4 transport -\/ should be negotiated via R\+T\+SP $\ast$/}\hypertarget{simple__talker_8c_ac6b84e5f9615676476762d194a4a50e7}{}\label{simple__talker_8c_ac6b84e5f9615676476762d194a4a50e7}
+
+
+simple\+\_\+talker.\+c 파일의 57 번째 라인에서 정의되었습니다.
+
+\index{simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}!L16\+\_\+\+P\+A\+Y\+L\+O\+A\+D\+\_\+\+T\+Y\+PE@{L16\+\_\+\+P\+A\+Y\+L\+O\+A\+D\+\_\+\+T\+Y\+PE}}
+\index{L16\+\_\+\+P\+A\+Y\+L\+O\+A\+D\+\_\+\+T\+Y\+PE@{L16\+\_\+\+P\+A\+Y\+L\+O\+A\+D\+\_\+\+T\+Y\+PE}!simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{L16\+\_\+\+P\+A\+Y\+L\+O\+A\+D\+\_\+\+T\+Y\+PE}{L16_PAYLOAD_TYPE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define L16\+\_\+\+P\+A\+Y\+L\+O\+A\+D\+\_\+\+T\+Y\+PE~(96) /$\ast$ for layer 4 transport -\/ should be negotiated via R\+T\+SP $\ast$/}\hypertarget{simple__talker_8c_a0455cdf8d4dd1f30c30918f9785a08fe}{}\label{simple__talker_8c_a0455cdf8d4dd1f30c30918f9785a08fe}
+
+
+simple\+\_\+talker.\+c 파일의 56 번째 라인에서 정의되었습니다.
+
+\index{simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}!L2\+\_\+\+P\+A\+C\+K\+E\+T\+\_\+\+I\+PG@{L2\+\_\+\+P\+A\+C\+K\+E\+T\+\_\+\+I\+PG}}
+\index{L2\+\_\+\+P\+A\+C\+K\+E\+T\+\_\+\+I\+PG@{L2\+\_\+\+P\+A\+C\+K\+E\+T\+\_\+\+I\+PG}!simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{L2\+\_\+\+P\+A\+C\+K\+E\+T\+\_\+\+I\+PG}{L2_PACKET_IPG}}]{\setlength{\rightskip}{0pt plus 5cm}\#define L2\+\_\+\+P\+A\+C\+K\+E\+T\+\_\+\+I\+PG~(125000) /$\ast$ (1) packet every 125 usec $\ast$/}\hypertarget{simple__talker_8c_aeaf742554cea158d150ab213de7660e5}{}\label{simple__talker_8c_aeaf742554cea158d150ab213de7660e5}
+
+
+simple\+\_\+talker.\+c 파일의 66 번째 라인에서 정의되었습니다.
+
+\index{simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}!L2\+\_\+\+S\+A\+M\+P\+L\+E\+S\+\_\+\+P\+E\+R\+\_\+\+F\+R\+A\+ME@{L2\+\_\+\+S\+A\+M\+P\+L\+E\+S\+\_\+\+P\+E\+R\+\_\+\+F\+R\+A\+ME}}
+\index{L2\+\_\+\+S\+A\+M\+P\+L\+E\+S\+\_\+\+P\+E\+R\+\_\+\+F\+R\+A\+ME@{L2\+\_\+\+S\+A\+M\+P\+L\+E\+S\+\_\+\+P\+E\+R\+\_\+\+F\+R\+A\+ME}!simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{L2\+\_\+\+S\+A\+M\+P\+L\+E\+S\+\_\+\+P\+E\+R\+\_\+\+F\+R\+A\+ME}{L2_SAMPLES_PER_FRAME}}]{\setlength{\rightskip}{0pt plus 5cm}\#define L2\+\_\+\+S\+A\+M\+P\+L\+E\+S\+\_\+\+P\+E\+R\+\_\+\+F\+R\+A\+ME~(6)}\hypertarget{simple__talker_8c_ab1be3c090fc25b14b302f1288cbe0486}{}\label{simple__talker_8c_ab1be3c090fc25b14b302f1288cbe0486}
+
+
+simple\+\_\+talker.\+c 파일의 58 번째 라인에서 정의되었습니다.
+
+\index{simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}!L4\+\_\+\+P\+A\+C\+K\+E\+T\+\_\+\+I\+PG@{L4\+\_\+\+P\+A\+C\+K\+E\+T\+\_\+\+I\+PG}}
+\index{L4\+\_\+\+P\+A\+C\+K\+E\+T\+\_\+\+I\+PG@{L4\+\_\+\+P\+A\+C\+K\+E\+T\+\_\+\+I\+PG}!simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{L4\+\_\+\+P\+A\+C\+K\+E\+T\+\_\+\+I\+PG}{L4_PACKET_IPG}}]{\setlength{\rightskip}{0pt plus 5cm}\#define L4\+\_\+\+P\+A\+C\+K\+E\+T\+\_\+\+I\+PG~(1250000)	/$\ast$ (1) packet every 1.\+25 millisec $\ast$/}\hypertarget{simple__talker_8c_ac09b95f0954d755b6b9c4c889669862d}{}\label{simple__talker_8c_ac09b95f0954d755b6b9c4c889669862d}
+
+
+simple\+\_\+talker.\+c 파일의 67 번째 라인에서 정의되었습니다.
+
+\index{simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}!L4\+\_\+\+P\+O\+RT@{L4\+\_\+\+P\+O\+RT}}
+\index{L4\+\_\+\+P\+O\+RT@{L4\+\_\+\+P\+O\+RT}!simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{L4\+\_\+\+P\+O\+RT}{L4_PORT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define L4\+\_\+\+P\+O\+RT~((uint16\+\_\+t)5004)}\hypertarget{simple__talker_8c_a531477bf6f546196b63155f7eb95649a}{}\label{simple__talker_8c_a531477bf6f546196b63155f7eb95649a}
+
+
+simple\+\_\+talker.\+c 파일의 68 번째 라인에서 정의되었습니다.
+
+\index{simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}!L4\+\_\+\+S\+A\+M\+P\+L\+E\+\_\+\+S\+I\+ZE@{L4\+\_\+\+S\+A\+M\+P\+L\+E\+\_\+\+S\+I\+ZE}}
+\index{L4\+\_\+\+S\+A\+M\+P\+L\+E\+\_\+\+S\+I\+ZE@{L4\+\_\+\+S\+A\+M\+P\+L\+E\+\_\+\+S\+I\+ZE}!simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{L4\+\_\+\+S\+A\+M\+P\+L\+E\+\_\+\+S\+I\+ZE}{L4_SAMPLE_SIZE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define L4\+\_\+\+S\+A\+M\+P\+L\+E\+\_\+\+S\+I\+ZE~(2)}\hypertarget{simple__talker_8c_a11da36c8114bdf86b7ae024b951ea051}{}\label{simple__talker_8c_a11da36c8114bdf86b7ae024b951ea051}
+
+
+simple\+\_\+talker.\+c 파일의 60 번째 라인에서 정의되었습니다.
+
+\index{simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}!L4\+\_\+\+S\+A\+M\+P\+L\+E\+S\+\_\+\+P\+E\+R\+\_\+\+F\+R\+A\+ME@{L4\+\_\+\+S\+A\+M\+P\+L\+E\+S\+\_\+\+P\+E\+R\+\_\+\+F\+R\+A\+ME}}
+\index{L4\+\_\+\+S\+A\+M\+P\+L\+E\+S\+\_\+\+P\+E\+R\+\_\+\+F\+R\+A\+ME@{L4\+\_\+\+S\+A\+M\+P\+L\+E\+S\+\_\+\+P\+E\+R\+\_\+\+F\+R\+A\+ME}!simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{L4\+\_\+\+S\+A\+M\+P\+L\+E\+S\+\_\+\+P\+E\+R\+\_\+\+F\+R\+A\+ME}{L4_SAMPLES_PER_FRAME}}]{\setlength{\rightskip}{0pt plus 5cm}\#define L4\+\_\+\+S\+A\+M\+P\+L\+E\+S\+\_\+\+P\+E\+R\+\_\+\+F\+R\+A\+ME~(60)}\hypertarget{simple__talker_8c_a91cd715dbb495cd1d938c7b77c884547}{}\label{simple__talker_8c_a91cd715dbb495cd1d938c7b77c884547}
+
+
+simple\+\_\+talker.\+c 파일의 59 번째 라인에서 정의되었습니다.
+
+\index{simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}!P\+K\+T\+\_\+\+SZ@{P\+K\+T\+\_\+\+SZ}}
+\index{P\+K\+T\+\_\+\+SZ@{P\+K\+T\+\_\+\+SZ}!simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{P\+K\+T\+\_\+\+SZ}{PKT_SZ}}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+K\+T\+\_\+\+SZ~(100)}\hypertarget{simple__talker_8c_a5e9891a4861298e1d749b3f95efb36da}{}\label{simple__talker_8c_a5e9891a4861298e1d749b3f95efb36da}
+
+
+simple\+\_\+talker.\+c 파일의 69 번째 라인에서 정의되었습니다.
+
+\index{simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}!R\+E\+N\+D\+E\+R\+\_\+\+D\+E\+L\+AY@{R\+E\+N\+D\+E\+R\+\_\+\+D\+E\+L\+AY}}
+\index{R\+E\+N\+D\+E\+R\+\_\+\+D\+E\+L\+AY@{R\+E\+N\+D\+E\+R\+\_\+\+D\+E\+L\+AY}!simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{R\+E\+N\+D\+E\+R\+\_\+\+D\+E\+L\+AY}{RENDER_DELAY}}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+E\+N\+D\+E\+R\+\_\+\+D\+E\+L\+AY~({\bf X\+M\+I\+T\+\_\+\+D\+E\+L\+AY}+2000000)	/$\ast$ us $\ast$/}\hypertarget{simple__talker_8c_ad67f15bfda3230674f801ea1a30c8164}{}\label{simple__talker_8c_ad67f15bfda3230674f801ea1a30c8164}
+
+
+simple\+\_\+talker.\+c 파일의 65 번째 라인에서 정의되었습니다.
+
+\index{simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}!R\+T\+P\+\_\+\+S\+U\+B\+N\+S\+\_\+\+S\+C\+A\+L\+E\+\_\+\+D\+EN@{R\+T\+P\+\_\+\+S\+U\+B\+N\+S\+\_\+\+S\+C\+A\+L\+E\+\_\+\+D\+EN}}
+\index{R\+T\+P\+\_\+\+S\+U\+B\+N\+S\+\_\+\+S\+C\+A\+L\+E\+\_\+\+D\+EN@{R\+T\+P\+\_\+\+S\+U\+B\+N\+S\+\_\+\+S\+C\+A\+L\+E\+\_\+\+D\+EN}!simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{R\+T\+P\+\_\+\+S\+U\+B\+N\+S\+\_\+\+S\+C\+A\+L\+E\+\_\+\+D\+EN}{RTP_SUBNS_SCALE_DEN}}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+T\+P\+\_\+\+S\+U\+B\+N\+S\+\_\+\+S\+C\+A\+L\+E\+\_\+\+D\+EN~(4656613)}\hypertarget{simple__talker_8c_a743bcc4e6733f8e26c026b575bc5115f}{}\label{simple__talker_8c_a743bcc4e6733f8e26c026b575bc5115f}
+
+
+simple\+\_\+talker.\+c 파일의 63 번째 라인에서 정의되었습니다.
+
+\index{simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}!R\+T\+P\+\_\+\+S\+U\+B\+N\+S\+\_\+\+S\+C\+A\+L\+E\+\_\+\+N\+UM@{R\+T\+P\+\_\+\+S\+U\+B\+N\+S\+\_\+\+S\+C\+A\+L\+E\+\_\+\+N\+UM}}
+\index{R\+T\+P\+\_\+\+S\+U\+B\+N\+S\+\_\+\+S\+C\+A\+L\+E\+\_\+\+N\+UM@{R\+T\+P\+\_\+\+S\+U\+B\+N\+S\+\_\+\+S\+C\+A\+L\+E\+\_\+\+N\+UM}!simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{R\+T\+P\+\_\+\+S\+U\+B\+N\+S\+\_\+\+S\+C\+A\+L\+E\+\_\+\+N\+UM}{RTP_SUBNS_SCALE_NUM}}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+T\+P\+\_\+\+S\+U\+B\+N\+S\+\_\+\+S\+C\+A\+L\+E\+\_\+\+N\+UM~(20000000)}\hypertarget{simple__talker_8c_abb6aaa19ddf030c0d80161ffe2bb07b8}{}\label{simple__talker_8c_abb6aaa19ddf030c0d80161ffe2bb07b8}
+
+
+simple\+\_\+talker.\+c 파일의 62 번째 라인에서 정의되었습니다.
+
+\index{simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}!S\+R\+C\+\_\+\+C\+H\+A\+N\+N\+E\+LS@{S\+R\+C\+\_\+\+C\+H\+A\+N\+N\+E\+LS}}
+\index{S\+R\+C\+\_\+\+C\+H\+A\+N\+N\+E\+LS@{S\+R\+C\+\_\+\+C\+H\+A\+N\+N\+E\+LS}!simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{S\+R\+C\+\_\+\+C\+H\+A\+N\+N\+E\+LS}{SRC_CHANNELS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+R\+C\+\_\+\+C\+H\+A\+N\+N\+E\+LS~(2)}\hypertarget{simple__talker_8c_ad4ab9d10cd532fc63cca9204da41fdce}{}\label{simple__talker_8c_ad4ab9d10cd532fc63cca9204da41fdce}
+
+
+simple\+\_\+talker.\+c 파일의 54 번째 라인에서 정의되었습니다.
+
+\index{simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}!V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR@{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR}}
+\index{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR@{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR}!simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR}{VERSION_STR}}]{\setlength{\rightskip}{0pt plus 5cm}\#define V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR~\char`\"{}1.\+0\char`\"{}}\hypertarget{simple__talker_8c_acfc1668731750cb1ee8974b8a7c133ef}{}\label{simple__talker_8c_acfc1668731750cb1ee8974b8a7c133ef}
+
+
+simple\+\_\+talker.\+c 파일의 52 번째 라인에서 정의되었습니다.
+
+\index{simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}!X\+M\+I\+T\+\_\+\+D\+E\+L\+AY@{X\+M\+I\+T\+\_\+\+D\+E\+L\+AY}}
+\index{X\+M\+I\+T\+\_\+\+D\+E\+L\+AY@{X\+M\+I\+T\+\_\+\+D\+E\+L\+AY}!simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{X\+M\+I\+T\+\_\+\+D\+E\+L\+AY}{XMIT_DELAY}}]{\setlength{\rightskip}{0pt plus 5cm}\#define X\+M\+I\+T\+\_\+\+D\+E\+L\+AY~(200000000) /$\ast$ us $\ast$/}\hypertarget{simple__talker_8c_ac68727566a4eb0566499959552eb6e7f}{}\label{simple__talker_8c_ac68727566a4eb0566499959552eb6e7f}
+
+
+simple\+\_\+talker.\+c 파일의 64 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{타입정의 문서화}
+\index{simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}!Frequency\+Ratio@{Frequency\+Ratio}}
+\index{Frequency\+Ratio@{Frequency\+Ratio}!simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{Frequency\+Ratio}{FrequencyRatio}}]{\setlength{\rightskip}{0pt plus 5cm}typedef long double {\bf Frequency\+Ratio}}\hypertarget{simple__talker_8c_a84de47dc2ed889ecd2b61706d3ad0f2e}{}\label{simple__talker_8c_a84de47dc2ed889ecd2b61706d3ad0f2e}
+
+
+simple\+\_\+talker.\+c 파일의 71 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{함수 문서화}
+\index{simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}!\+\_\+\+\_\+attribute\+\_\+\+\_\+@{\+\_\+\+\_\+attribute\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+attribute\+\_\+\+\_\+@{\+\_\+\+\_\+attribute\+\_\+\+\_\+}!simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{\+\_\+\+\_\+attribute\+\_\+\+\_\+((packed))}{__attribute__((packed))}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf \+\_\+\+\_\+attribute\+\_\+\+\_\+} (
+\begin{DoxyParamCaption}
+\item[{(packed)}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{simple__talker_8c_ab898071398b359603a35c202e9c65f3b}{}\label{simple__talker_8c_ab898071398b359603a35c202e9c65f3b}
+
+
+simple\+\_\+talker.\+c 파일의 74 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+74                                         \{
+75     \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} version\_length;
+76     \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} DSCP\_ECN;
+77     uint16\_t ip\_length;
+78     uint16\_t id;
+79     uint16\_t fragmentation;
+80     \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} ttl;
+81     \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} protocol;
+82     uint16\_t hdr\_cksum;
+83     \hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\_t} src;
+84     \hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\_t} \hyperlink{namespaceastime__fitline_ab0bede79c5f4cbed9c2cd932a0ace201}{dest};
+85 
+86     uint16\_t source\_port;
+87     uint16\_t dest\_port;
+88     uint16\_t udp\_length;
+89     uint16\_t cksum;
+90 
+91     \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} version\_cc;
+92     \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} mark\_payload;
+93     uint16\_t sequence;
+94     \hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\_t} timestamp;
+95     \hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\_t} ssrc;
+96 
+97     \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} tag[2];
+98     uint16\_t total\_length;
+99     \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} tag\_length;
+100     \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} seconds[3];
+101     \hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\_t} nanoseconds;
+102 \} \hyperlink{simple__talker_8c_ac68085e899190564153bc7ba4f706e26}{IP\_RTP\_Header};
+\end{DoxyCode}
+\index{simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}!gensine32@{gensine32}}
+\index{gensine32@{gensine32}!simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{gensine32(int32\+\_\+t $\ast$buf, unsigned count)}{gensine32(int32_t *buf, unsigned count)}}]{\setlength{\rightskip}{0pt plus 5cm}void gensine32 (
+\begin{DoxyParamCaption}
+\item[{{\bf int32\+\_\+t} $\ast$}]{buf, }
+\item[{unsigned}]{count}
+\end{DoxyParamCaption}
+)}\hypertarget{simple__talker_8c_a612c2ed2063c85e8bb88cb89edab1b4f}{}\label{simple__talker_8c_a612c2ed2063c85e8bb88cb89edab1b4f}
+
+
+simple\+\_\+talker.\+c 파일의 205 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+206 \{
+207     \textcolor{keywordtype}{long} \textcolor{keywordtype}{double} interval = (2 * ((\textcolor{keywordtype}{long} double)M\_PI)) / count;
+208     \textcolor{keywordtype}{unsigned} i;
+209     \textcolor{keywordflow}{for} (i = 0; i < count; ++i) \{
+210         buf[i] =
+211             (\hyperlink{parse_8c_a37994e3b11c72957c6f454c6ec96d43d}{int32\_t}) (\hyperlink{jack__listener_8c_a9942bb720a8f43b3d2ec80ae5213b88a}{MAX\_SAMPLE\_VALUE} * sinl(i * interval) * 
+      \hyperlink{simple__talker_8c_a8c8f27b35dfa40ccf31c1ee31479a31c}{GAIN});
+212     \}
+213 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=323pt]{simple__talker_8c_a612c2ed2063c85e8bb88cb89edab1b4f_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}!get\+\_\+mac\+\_\+address@{get\+\_\+mac\+\_\+address}}
+\index{get\+\_\+mac\+\_\+address@{get\+\_\+mac\+\_\+address}!simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{get\+\_\+mac\+\_\+address(char $\ast$interface)}{get_mac_address(char *interface)}}]{\setlength{\rightskip}{0pt plus 5cm}int get\+\_\+mac\+\_\+address (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{interface}
+\end{DoxyParamCaption}
+)}\hypertarget{simple__talker_8c_ae4545cedccbdf6aabb3a7686af318c2d}{}\label{simple__talker_8c_ae4545cedccbdf6aabb3a7686af318c2d}
+
+
+simple\+\_\+talker.\+c 파일의 253 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+254 \{
+255     \textcolor{keyword}{struct }ifreq if\_request;
+256     \textcolor{keywordtype}{int} \hyperlink{openavb__avdecc__msg__server__osal_8c_a5fd2838acec3b3db522def9bdb11fba7}{lsock};
+257     \textcolor{keywordtype}{int} rc;
+258 
+259     lsock = socket(PF\_PACKET, SOCK\_RAW, htons(0x800));
+260     \textcolor{keywordflow}{if} (lsock < 0)
+261         \textcolor{keywordflow}{return} -1;
+262 
+263     memset(&if\_request, 0, \textcolor{keyword}{sizeof}(if\_request));
+264     strncpy(if\_request.ifr\_name, \hyperlink{mrpd_8c_af663a7576d2f8f288bb3996381484cd3}{interface}, \textcolor{keyword}{sizeof}(if\_request.ifr\_name) - 1);
+265     rc = ioctl(lsock, SIOCGIFHWADDR, &if\_request);
+266     \textcolor{keywordflow}{if} (rc < 0) \{
+267         close(lsock);
+268         \textcolor{keywordflow}{return} -1;
+269     \}
+270 
+271     memcpy(\hyperlink{simple__talker_8c_a03a59e7923f04902334a837623b77cbf}{glob\_station\_addr}, if\_request.ifr\_hwaddr.sa\_data,
+272            \textcolor{keyword}{sizeof}(\hyperlink{simple__talker_8c_a03a59e7923f04902334a837623b77cbf}{glob\_station\_addr}));
+273     close(lsock);
+274     \textcolor{keywordflow}{return} 0;
+275 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=248pt]{simple__talker_8c_ae4545cedccbdf6aabb3a7686af318c2d_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}!get\+\_\+samples@{get\+\_\+samples}}
+\index{get\+\_\+samples@{get\+\_\+samples}!simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{get\+\_\+samples(unsigned count, int32\+\_\+t $\ast$buffer)}{get_samples(unsigned count, int32_t *buffer)}}]{\setlength{\rightskip}{0pt plus 5cm}int get\+\_\+samples (
+\begin{DoxyParamCaption}
+\item[{unsigned}]{count, }
+\item[{{\bf int32\+\_\+t} $\ast$}]{buffer}
+\end{DoxyParamCaption}
+)}\hypertarget{simple__talker_8c_a519f3c8845b60660b82bd2f63d9dc2a3}{}\label{simple__talker_8c_a519f3c8845b60660b82bd2f63d9dc2a3}
+
+
+simple\+\_\+talker.\+c 파일의 215 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+216 \{
+217     \textcolor{keyword}{static} \textcolor{keywordtype}{int} init = 0;
+218     \textcolor{keyword}{static} \hyperlink{parse_8c_a37994e3b11c72957c6f454c6ec96d43d}{int32\_t} samples\_onechannel[100];
+219     \textcolor{keyword}{static} \textcolor{keywordtype}{unsigned} index = 0;
+220 
+221     \textcolor{keywordflow}{if} (init == 0) \{
+222         \hyperlink{simple__talker_8c_a612c2ed2063c85e8bb88cb89edab1b4f}{gensine32}(samples\_onechannel, 100);
+223         init = 1;
+224     \}
+225 
+226     \textcolor{keywordflow}{while} (count > 0) \{
+227         \textcolor{keywordtype}{int} i;
+228         \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{simple__talker_8c_ad4ab9d10cd532fc63cca9204da41fdce}{SRC\_CHANNELS}; ++i) \{
+229             *(\hyperlink{_hello_test_8cpp_a8be6d469a7cd1c8d66cc6d2d1e10c65b}{buffer}++) = samples\_onechannel[index];
+230         \}
+231         index = (index + 1) % 100;
+232         --count;
+233     \}
+234 
+235     \textcolor{keywordflow}{return} 0;
+236 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=249pt]{simple__talker_8c_a519f3c8845b60660b82bd2f63d9dc2a3_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=226pt]{simple__talker_8c_a519f3c8845b60660b82bd2f63d9dc2a3_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}!inet\+\_\+checksum@{inet\+\_\+checksum}}
+\index{inet\+\_\+checksum@{inet\+\_\+checksum}!simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{inet\+\_\+checksum(uint8\+\_\+t $\ast$ip, int len)}{inet_checksum(uint8_t *ip, int len)}}]{\setlength{\rightskip}{0pt plus 5cm}uint16\+\_\+t inet\+\_\+checksum (
+\begin{DoxyParamCaption}
+\item[{{\bf uint8\+\_\+t} $\ast$}]{ip, }
+\item[{int}]{len}
+\end{DoxyParamCaption}
+)}\hypertarget{simple__talker_8c_a590d9fcb41fa92555e368d3e54eb8cc0}{}\label{simple__talker_8c_a590d9fcb41fa92555e368d3e54eb8cc0}
+
+
+simple\+\_\+talker.\+c 파일의 123 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+123                                             \{
+124     \hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\_t} sum = 0;  \textcolor{comment}{/* assume 32 bit long, 16 bit short */}
+125 
+126     \textcolor{keywordflow}{while}(len > 1)\{
+127         sum += *(( uint16\_t *) ip); ip += 2;
+128         \textcolor{keywordflow}{if}(sum & 0x80000000)   \textcolor{comment}{/* if high order bit set, fold */}
+129             sum = (sum & 0xFFFF) + (sum >> 16);
+130         len -= 2;
+131     \}
+132 
+133     \textcolor{keywordflow}{if}(len)       \textcolor{comment}{/* take care of left over byte */}
+134         sum += (uint16\_t) *(\hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} *)ip;
+135 
+136     \textcolor{keywordflow}{while}(sum>>16)
+137         sum = (sum & 0xFFFF) + (sum >> 16);
+138 
+139     \textcolor{keywordflow}{return} ~sum;
+140 \}
+\end{DoxyCode}
+\index{simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}!inet\+\_\+checksum\+\_\+sg@{inet\+\_\+checksum\+\_\+sg}}
+\index{inet\+\_\+checksum\+\_\+sg@{inet\+\_\+checksum\+\_\+sg}!simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{inet\+\_\+checksum\+\_\+sg(struct iovec $\ast$buf\+\_\+iov, size\+\_\+t buf\+\_\+iovlen)}{inet_checksum_sg(struct iovec *buf_iov, size_t buf_iovlen)}}]{\setlength{\rightskip}{0pt plus 5cm}uint16\+\_\+t inet\+\_\+checksum\+\_\+sg (
+\begin{DoxyParamCaption}
+\item[{struct iovec $\ast$}]{buf\+\_\+iov, }
+\item[{size\+\_\+t}]{buf\+\_\+iovlen}
+\end{DoxyParamCaption}
+)}\hypertarget{simple__talker_8c_a7504fbb26f01db4ebfbd3fa58030dad4}{}\label{simple__talker_8c_a7504fbb26f01db4ebfbd3fa58030dad4}
+
+
+simple\+\_\+talker.\+c 파일의 151 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+151                                                                      \{
+152     \textcolor{keywordtype}{size\_t} i;
+153     \hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\_t} sum = 0;  \textcolor{comment}{/* assume 32 bit long, 16 bit short */}
+154     \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} residual;
+155     \textcolor{keywordtype}{int} has\_residual = 0;
+156 
+157     \textcolor{keywordflow}{for}( i = 0; i < buf\_iovlen; ++i,++buf\_iov ) \{
+158         \textcolor{keywordflow}{if}( has\_residual ) \{
+159             \textcolor{keywordflow}{if}( buf\_iov->iov\_len > 0 ) \{
+160                 \textcolor{keywordflow}{if}(sum & 0x80000000)   \textcolor{comment}{/* if high order bit set, fold */}
+161                     sum = (sum & 0xFFFF) + (sum >> 16);
+162                 sum += residual | (*(( \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} *) buf\_iov->iov\_base) << 8);
+163                 buf\_iov->iov\_base += 1;
+164                 buf\_iov->iov\_len -= 1;
+165             \} \textcolor{keywordflow}{else} \{
+166                 \textcolor{keywordflow}{if}(sum & 0x80000000)   \textcolor{comment}{/* if high order bit set, fold */}
+167                     sum = (sum & 0xFFFF) + (sum >> 16);
+168                 sum += (uint16\_t) residual;
+169             \}
+170             has\_residual = 0;
+171 
+172         \}
+173         \textcolor{keywordflow}{while}(buf\_iov->iov\_len > 1)\{
+174             \textcolor{keywordflow}{if}(sum & 0x80000000)   \textcolor{comment}{/* if high order bit set, fold */}
+175                 sum = (sum & 0xFFFF) + (sum >> 16);
+176             sum += *(( uint16\_t *) buf\_iov->iov\_base); buf\_iov->iov\_base += 2;
+177             buf\_iov->iov\_len -= 2;
+178         \}
+179         \textcolor{keywordflow}{if}( buf\_iov->iov\_len ) \{
+180             residual = *(( \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} *) buf\_iov->iov\_base);
+181             has\_residual = 1;
+182         \}
+183     \}
+184     \textcolor{keywordflow}{if}( has\_residual ) \{
+185         sum += (uint16\_t) residual;
+186     \}
+187 
+188     \textcolor{keywordflow}{while}(sum>>16)
+189         sum = (sum & 0xFFFF) + (sum >> 16);
+190 
+191     \textcolor{keywordflow}{return} ~sum;
+192 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=252pt]{simple__talker_8c_a7504fbb26f01db4ebfbd3fa58030dad4_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}!l3\+\_\+to\+\_\+l2\+\_\+multicast@{l3\+\_\+to\+\_\+l2\+\_\+multicast}}
+\index{l3\+\_\+to\+\_\+l2\+\_\+multicast@{l3\+\_\+to\+\_\+l2\+\_\+multicast}!simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{l3\+\_\+to\+\_\+l2\+\_\+multicast(unsigned char $\ast$l2, unsigned char $\ast$l3)}{l3_to_l2_multicast(unsigned char *l2, unsigned char *l3)}}]{\setlength{\rightskip}{0pt plus 5cm}void l3\+\_\+to\+\_\+l2\+\_\+multicast (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{l2, }
+\item[{unsigned char $\ast$}]{l3}
+\end{DoxyParamCaption}
+)}\hypertarget{simple__talker_8c_aa423a9778f46aca42400684c64bf6dcb}{}\label{simple__talker_8c_aa423a9778f46aca42400684c64bf6dcb}
+
+
+simple\+\_\+talker.\+c 파일의 244 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+244                                                                 \{
+245      l2[0]  = 0x1;
+246      l2[1]  = 0x0;
+247      l2[2]  = 0x5e;
+248      l2[3]  = l3[1] & 0x7F;
+249      l2[4]  = l3[2];
+250      l2[5]  = l3[3];
+251 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=249pt]{simple__talker_8c_aa423a9778f46aca42400684c64bf6dcb_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}!main@{main}}
+\index{main@{main}!simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{main(int argc, char $\ast$argv[])}{main(int argc, char *argv[])}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{simple__talker_8c_a0ddf1224851353fc92bfbff6f499fa97}{}\label{simple__talker_8c_a0ddf1224851353fc92bfbff6f499fa97}
+
+
+simple\+\_\+talker.\+c 파일의 290 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+291 \{
+292     \textcolor{keywordtype}{unsigned} i;
+293     \textcolor{keywordtype}{int} \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err};
+294     \hyperlink{struct__device__t}{device\_t} \hyperlink{gst__avb__playbin_8c_a456414422441623fbed2e3ba547b3524}{igb\_dev};
+295     \textcolor{keywordtype}{int} igb\_shm\_fd = -1;
+296     \textcolor{keywordtype}{char} *\hyperlink{igb__main_8c_ab1b42c6a3058ce5f661f5b02d1a5d16c}{igb\_mmap} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+297     \textcolor{keyword}{struct }\hyperlink{structigb__dma__alloc}{igb\_dma\_alloc} \hyperlink{gstavbsink_8c_a014c349ebc9b62f76ad8a63a80060e72}{a\_page};
+298     \textcolor{keyword}{struct }\hyperlink{structigb__packet}{igb\_packet} a\_packet;
+299     \textcolor{keyword}{struct }\hyperlink{structigb__packet}{igb\_packet} *\hyperlink{gstavbsink_8c_afaac9ace7e52a3bcf0ce79e59b9b3f92}{tmp\_packet};
+300     \textcolor{keyword}{struct }\hyperlink{structigb__packet}{igb\_packet} *\hyperlink{gstavbsink_8c_a03cc454be42935d04410937d1053eb60}{cleaned\_packets};
+301     \textcolor{keyword}{struct }\hyperlink{structigb__packet}{igb\_packet} *\hyperlink{gstavbsink_8c_a3d35f061de7f1a4b1d4155fa8b352479}{free\_packets};
+302     \textcolor{keyword}{struct }\hyperlink{structmrp__talker__ctx}{mrp\_talker\_ctx} *\hyperlink{jack_8h_a1cde2a2cf8a56164b5e83159035be03b}{ctx} = \hyperlink{_memory_leak_detector_malloc_macros_8h_ab8b25cd8f16d4a6552afe4e65c4f082d}{malloc}(\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} 
+      \hyperlink{structmrp__talker__ctx}{mrp\_talker\_ctx}));
+303     \textcolor{keywordtype}{int} \hyperlink{shaper__daemon_8c_a4e1e0e72dd773439e333c84dd762a9c3}{c};
+304     u\_int64\_t last\_time;
+305     \textcolor{keywordtype}{int} rc = 0;
+306     \textcolor{keywordtype}{char} *\textcolor{keyword}{interface }= \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+307     \textcolor{keywordtype}{int} transport = -1;
+308     uint16\_t \hyperlink{gstavbsink_8c_a54d0bde7289ee46d2643ee7c676635b3}{seqnum};
+309     \hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\_t} rtp\_timestamp;
+310     \hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\_t} time\_stamp;
+311     \textcolor{keywordtype}{unsigned} \hyperlink{gstavbsink_8c_a45fbc7e1478f172d8b8555e663984056}{total\_samples} = 0;
+312     \hyperlink{structg_ptp_time_data}{gPtpTimeData} td;
+313     \hyperlink{parse_8c_a37994e3b11c72957c6f454c6ec96d43d}{int32\_t} sample\_buffer[\hyperlink{simple__talker_8c_a91cd715dbb495cd1d938c7b77c884547}{L4\_SAMPLES\_PER\_FRAME} * 
+      \hyperlink{simple__talker_8c_ad4ab9d10cd532fc63cca9204da41fdce}{SRC\_CHANNELS}];
+314 
+315     \hyperlink{avb__avtp_8h_a67f05a7fb6b937cfa210e6814661e9d9}{seventeen22\_header} *l2\_header0;
+316     \hyperlink{structsix1883__header}{six1883\_header} *l2\_header1;
+317     \hyperlink{structsix1883__sample}{six1883\_sample} *sample;
+318 
+319     \hyperlink{simple__talker_8c_ac68085e899190564153bc7ba4f706e26}{IP\_RTP\_Header} *l4\_headers;
+320     \hyperlink{simple__talker_8c_aa021529f3431a817c9c4adee60b4908e}{IP\_PseudoHeader} pseudo\_hdr;
+321     \textcolor{keywordtype}{unsigned} l4\_local\_address = 0;
+322     \textcolor{keywordtype}{int} sd;
+323     \textcolor{keyword}{struct }sockaddr\_in local;
+324     \textcolor{keyword}{struct }ifreq if\_request;
+325 
+326     \hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\_t} now\_local, now\_8021as;
+327     \hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\_t} update\_8021as;
+328     \textcolor{keywordtype}{unsigned} delta\_8021as, delta\_local;
+329     \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} dest\_addr[6];
+330     \textcolor{keywordtype}{size\_t} packet\_size;
+331     \textcolor{keyword}{struct }\hyperlink{structmrp__domain__attr}{mrp\_domain\_attr} *class\_a = \hyperlink{_memory_leak_detector_malloc_macros_8h_ab8b25cd8f16d4a6552afe4e65c4f082d}{malloc}(\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} 
+      \hyperlink{structmrp__domain__attr}{mrp\_domain\_attr}));
+332     \textcolor{keyword}{struct }\hyperlink{structmrp__domain__attr}{mrp\_domain\_attr} *class\_b = \hyperlink{_memory_leak_detector_malloc_macros_8h_ab8b25cd8f16d4a6552afe4e65c4f082d}{malloc}(\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} 
+      \hyperlink{structmrp__domain__attr}{mrp\_domain\_attr}));
+333 
+334     \textcolor{keywordflow}{for} (;;) \{
+335         c = \hyperlink{getopt_8c_a5b4d105808f29eef11f1a690ccc4e04a}{getopt}(argc, argv, \textcolor{stringliteral}{"hi:t:"});
+336         \textcolor{keywordflow}{if} (c < 0)
+337             \textcolor{keywordflow}{break};
+338         \textcolor{keywordflow}{switch} (c) \{
+339         \textcolor{keywordflow}{case} \textcolor{charliteral}{'h'}:
+340             \hyperlink{simple__talker_8c_ad96d407a911fbb914fa8e4cfbf2faf0f}{usage}();
+341             \textcolor{keywordflow}{break};
+342         \textcolor{keywordflow}{case} \textcolor{charliteral}{'i'}:
+343             \textcolor{keywordflow}{if} (\hyperlink{mrpd_8c_af663a7576d2f8f288bb3996381484cd3}{interface}) \{
+344             printf(\textcolor{stringliteral}{"only one interface per daemon is supported\(\backslash\)n"});
+345                 \hyperlink{simple__talker_8c_ad96d407a911fbb914fa8e4cfbf2faf0f}{usage}();
+346             \}
+347             \textcolor{keyword}{interface }= strdup(optarg);
+348             \textcolor{keywordflow}{break};
+349         \textcolor{keywordflow}{case} \textcolor{charliteral}{'t'}:
+350             transport = strtoul( \hyperlink{getopt_8c_adb50a0eab9fed92fc3bfc7dfa4f2c410}{optarg}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, 10 );
+351         \}
+352     \}
+353     \textcolor{keywordflow}{if} (\hyperlink{getopt_8c_ad5e1c16213bbee2d5e8cc363309f418c}{optind} < argc)
+354         \hyperlink{simple__talker_8c_ad96d407a911fbb914fa8e4cfbf2faf0f}{usage}();
+355     \textcolor{keywordflow}{if} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} == \hyperlink{mrpd_8c_af663a7576d2f8f288bb3996381484cd3}{interface}) \{
+356         \hyperlink{simple__talker_8c_ad96d407a911fbb914fa8e4cfbf2faf0f}{usage}();
+357     \}
+358     \textcolor{keywordflow}{if}( transport < 2 || transport > 4 ) \{
+359         fprintf( stderr, \textcolor{stringliteral}{"Must specify valid transport\(\backslash\)n"} );
+360         \hyperlink{simple__talker_8c_ad96d407a911fbb914fa8e4cfbf2faf0f}{usage}();
+361     \}
+362 
+363     rc = \hyperlink{talker__mrp__client_8c_a74c2fc24c07fa72e2fd10a3a98f9dc9d}{mrp\_talker\_client\_init}(ctx);
+364     \textcolor{keywordflow}{if} (rc) \{
+365         printf(\textcolor{stringliteral}{"MRP talker client initialization failed\(\backslash\)n"});
+366         \textcolor{keywordflow}{return} errno;
+367     \}
+368 
+369     \hyperlink{simple__talker_8c_a5059c66ee1e61cf56765092d87510188}{halt\_tx\_sig} = &ctx->\hyperlink{structmrp__talker__ctx_a7c8176263e9704aa667fc335cc818a3f}{halt\_tx};
+370 
+371     rc = \hyperlink{talker__mrp__client_8c_aa94a906b50f9aca85cb00a18235c627f}{mrp\_connect}(ctx);
+372     \textcolor{keywordflow}{if} (rc) \{
+373         printf(\textcolor{stringliteral}{"socket creation failed\(\backslash\)n"});
+374         \textcolor{keywordflow}{return} errno;
+375     \}
+376     err = \hyperlink{linux__hal__i210_8cpp_a9a17c0a5cd13afce277fe14723862446}{pci\_connect}(&igb\_dev);
+377     \textcolor{keywordflow}{if} (err) \{
+378         printf(\textcolor{stringliteral}{"connect failed (%s) - are you running as root?\(\backslash\)n"},
+379                strerror(errno));
+380         \textcolor{keywordflow}{return} errno;
+381     \}
+382     err = \hyperlink{igb_8c_a923b0ffcf94a4a6ac8f36a7bacd6b0f3}{igb\_init}(&igb\_dev);
+383     \textcolor{keywordflow}{if} (err) \{
+384         printf(\textcolor{stringliteral}{"init failed (%s) - is the driver really loaded?\(\backslash\)n"},
+385                strerror(errno));
+386         \textcolor{keywordflow}{return} errno;
+387     \}
+388     err = \hyperlink{igb_8c_a4e2589d22e959c35c0902ef79ed3f059}{igb\_dma\_malloc\_page}(&igb\_dev, &\hyperlink{gstavbsink_8c_a014c349ebc9b62f76ad8a63a80060e72}{a\_page});
+389     \textcolor{keywordflow}{if} (err) \{
+390         printf(\textcolor{stringliteral}{"malloc failed (%s) - out of memory?\(\backslash\)n"},
+391                strerror(errno));
+392         \textcolor{keywordflow}{return} errno;
+393     \}
+394     signal(SIGINT, \hyperlink{simple__talker_8c_ab10c0c50c02a59ae9bd74c78c49b559d}{sigint\_handler});
+395     rc = \hyperlink{simple__talker_8c_ae4545cedccbdf6aabb3a7686af318c2d}{get\_mac\_address}(\hyperlink{mrpd_8c_af663a7576d2f8f288bb3996381484cd3}{interface});
+396     \textcolor{keywordflow}{if} (rc) \{
+397         printf(\textcolor{stringliteral}{"failed to open interface\(\backslash\)n"});
+398         \hyperlink{simple__talker_8c_ad96d407a911fbb914fa8e4cfbf2faf0f}{usage}();
+399     \}
+400     \textcolor{keywordflow}{if}( transport == 2 ) \{
+401         memcpy( dest\_addr, \hyperlink{simple__talker_8c_ab35efd2db12d47999904d089e93023c6}{glob\_l2\_dest\_addr}, \textcolor{keyword}{sizeof}(dest\_addr));
+402     \} \textcolor{keywordflow}{else} \{
+403         memset( &local, 0, \textcolor{keyword}{sizeof}( local ));
+404         local.sin\_family = PF\_INET;
+405         local.sin\_addr.s\_addr = htonl( INADDR\_ANY );
+406         local.sin\_port = htons(\hyperlink{simple__talker_8c_a531477bf6f546196b63155f7eb95649a}{L4\_PORT});
+407         \hyperlink{simple__talker_8c_aa423a9778f46aca42400684c64bf6dcb}{l3\_to\_l2\_multicast}( dest\_addr, \hyperlink{simple__talker_8c_abeadf30c077d3de867f5f6a0c9e0fd5e}{glob\_l3\_dest\_addr} );
+408         memset( &if\_request, 0, \textcolor{keyword}{sizeof}( if\_request ));
+409         strncpy(if\_request.ifr\_name, \hyperlink{mrpd_8c_af663a7576d2f8f288bb3996381484cd3}{interface}, \textcolor{keyword}{sizeof}(if\_request.ifr\_name)-1);
+410         sd = socket( AF\_INET, SOCK\_DGRAM, 0 );
+411         \textcolor{keywordflow}{if}( sd == -1 ) \{
+412             printf( \textcolor{stringliteral}{"Failed to open socket: %s\(\backslash\)n"}, strerror( errno ));
+413             \textcolor{keywordflow}{return} errno;
+414         \}
+415         \textcolor{keywordflow}{if}( bind( sd, (\textcolor{keyword}{struct} sockaddr *) &local, \textcolor{keyword}{sizeof}( local )) != 0 ) \{
+416             printf( \textcolor{stringliteral}{"Failed to bind on socket: %s\(\backslash\)n"}, strerror( errno ));
+417             \textcolor{keywordflow}{return} errno;
+418         \}
+419         \textcolor{keywordflow}{if}( ioctl( sd, SIOCGIFADDR, &if\_request ) != 0 ) \{
+420             printf
+421                 ( \textcolor{stringliteral}{"Failed to get interface address (ioctl) on socket: %s\(\backslash\)n"},
+422                   strerror( errno ));
+423             \textcolor{keywordflow}{return} errno;
+424         \}
+425         memcpy
+426             ( &l4\_local\_address,
+427               &(( \textcolor{keyword}{struct} sockaddr\_in *)&if\_request.ifr\_addr)->sin\_addr,
+428               \textcolor{keyword}{sizeof}( l4\_local\_address ));
+429 
+430     \}
+431 
+432     rc = \hyperlink{listener__mrp__client_8c_ad9e5734b8f3e186460f459b6c3c395b5}{mrp\_get\_domain}(ctx, class\_a, class\_b);
+433     \textcolor{keywordflow}{if} (rc) \{
+434         printf(\textcolor{stringliteral}{"failed calling msp\_get\_domain()\(\backslash\)n"});
+435         \textcolor{keywordflow}{return} EXIT\_FAILURE;
+436     \}
+437     printf(\textcolor{stringliteral}{"detected domain Class A PRIO=%d VID=%04x...\(\backslash\)n"},class\_a->\hyperlink{structmrp__domain__attr_acec9ce2df15222151ad66fcb1d74eb9f}{priority},
+438            class\_a->\hyperlink{structmrp__domain__attr_a066fae47f1854479570ecc0bf7e488c3}{vid});
+439 
+440     rc = \hyperlink{talker__mrp__client_8c_ad06b236726820804f4273102e9177efd}{mrp\_register\_domain}(class\_a, ctx);
+441     \textcolor{keywordflow}{if} (rc) \{
+442         printf(\textcolor{stringliteral}{"mrp\_register\_domain failed\(\backslash\)n"});
+443         \textcolor{keywordflow}{return} EXIT\_FAILURE;
+444     \}
+445 
+446     rc = \hyperlink{talker__mrp__client_8c_a5a1dbea67f6c32ce5de65b8f5d51c2de}{mrp\_join\_vlan}(class\_a, ctx);
+447     \textcolor{keywordflow}{if} (rc) \{
+448         printf(\textcolor{stringliteral}{"mrp\_join\_vlan failed\(\backslash\)n"});
+449         \textcolor{keywordflow}{return} EXIT\_FAILURE;
+450     \}
+451 
+452     \textcolor{keywordflow}{if}( transport == 2 ) \{
+453         \hyperlink{igb_8c_a8d49a6fa54c79c1b5bd5b6f006eeb8e1}{igb\_set\_class\_bandwidth}
+454             (&igb\_dev, 125000/\hyperlink{simple__talker_8c_aeaf742554cea158d150ab213de7660e5}{L2\_PACKET\_IPG}, 0, \hyperlink{simple__talker_8c_a5e9891a4861298e1d749b3f95efb36da}{PKT\_SZ} - 22, 0);
+455     \} \textcolor{keywordflow}{else} \{
+456         \hyperlink{igb_8c_a8d49a6fa54c79c1b5bd5b6f006eeb8e1}{igb\_set\_class\_bandwidth}
+457             (&igb\_dev, 1, 0,
+458              \textcolor{keyword}{sizeof}(*l4\_headers)+\hyperlink{simple__talker_8c_a91cd715dbb495cd1d938c7b77c884547}{L4\_SAMPLES\_PER\_FRAME}*
+      \hyperlink{simple__talker_8c_a19b7f1b22403d61234a92decaeb6953a}{CHANNELS}*2, 0);
+459     \}
+460 
+461     memset(\hyperlink{simple__talker_8c_ace5ab964390fa61a4674f2021644249b}{glob\_stream\_id}, 0, \textcolor{keyword}{sizeof}(\hyperlink{simple__talker_8c_ace5ab964390fa61a4674f2021644249b}{glob\_stream\_id}));
+462     memcpy(\hyperlink{simple__talker_8c_ace5ab964390fa61a4674f2021644249b}{glob\_stream\_id}, \hyperlink{simple__talker_8c_a03a59e7923f04902334a837623b77cbf}{glob\_station\_addr}, \textcolor{keyword}{sizeof}(
+      \hyperlink{simple__talker_8c_a03a59e7923f04902334a837623b77cbf}{glob\_station\_addr}));
+463 
+464     \textcolor{keywordflow}{if}( transport == 2 ) \{
+465         packet\_size = \hyperlink{simple__talker_8c_a5e9891a4861298e1d749b3f95efb36da}{PKT\_SZ};
+466     \} \textcolor{keywordflow}{else} \{
+467         packet\_size = 18 + \textcolor{keyword}{sizeof}(*l4\_headers) +
+468                 (\hyperlink{simple__talker_8c_a91cd715dbb495cd1d938c7b77c884547}{L4\_SAMPLES\_PER\_FRAME} * \hyperlink{simple__talker_8c_a19b7f1b22403d61234a92decaeb6953a}{CHANNELS} * 
+      \hyperlink{simple__talker_8c_a11da36c8114bdf86b7ae024b951ea051}{L4\_SAMPLE\_SIZE} );
+469     \}
+470 
+471     a\_packet.dmatime = a\_packet.attime = a\_packet.flags = 0;
+472     a\_packet.map.paddr = \hyperlink{gstavbsink_8c_a014c349ebc9b62f76ad8a63a80060e72}{a\_page}.\hyperlink{structigb__dma__alloc_a634628ebb0fecc5be46345b286cce0ef}{dma\_paddr};
+473     a\_packet.map.mmap\_size = \hyperlink{gstavbsink_8c_a014c349ebc9b62f76ad8a63a80060e72}{a\_page}.\hyperlink{structigb__dma__alloc_a8258a70481ee5ece54c23de98e767611}{mmap\_size};
+474     a\_packet.offset = 0;
+475     a\_packet.vaddr = \hyperlink{gstavbsink_8c_a014c349ebc9b62f76ad8a63a80060e72}{a\_page}.\hyperlink{structigb__dma__alloc_a1a7aec22103dc161f23a441da520af5b}{dma\_vaddr} + a\_packet.offset;
+476     a\_packet.len = packet\_size;
+477     a\_packet.next = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+478     free\_packets = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+479     seqnum = 0;
+480     rtp\_timestamp = 0; \textcolor{comment}{/* Should be random start */}
+481 
+482     \textcolor{comment}{/* divide the dma page into buffers for packets */}
+483     \textcolor{keywordflow}{for} (i = 1; i < ((\hyperlink{gstavbsink_8c_a014c349ebc9b62f76ad8a63a80060e72}{a\_page}.\hyperlink{structigb__dma__alloc_a8258a70481ee5ece54c23de98e767611}{mmap\_size}) / packet\_size); i++) \{
+484         tmp\_packet = \hyperlink{_memory_leak_detector_malloc_macros_8h_ab8b25cd8f16d4a6552afe4e65c4f082d}{malloc}(\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} \hyperlink{structigb__packet}{igb\_packet}));
+485         \textcolor{keywordflow}{if} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} == tmp\_packet) \{
+486             printf(\textcolor{stringliteral}{"failed to allocate igb\_packet memory!\(\backslash\)n"});
+487             \textcolor{keywordflow}{return} errno;
+488         \}
+489         *tmp\_packet = a\_packet;
+490         tmp\_packet->\hyperlink{structigb__packet_a29b5297d3393519050e3126c4cb07c1c}{offset} = (i * packet\_size);
+491         tmp\_packet->\hyperlink{structigb__packet_aa0bb68874ee9bcccfa45212ec3b12466}{vaddr} += tmp\_packet->\hyperlink{structigb__packet_a29b5297d3393519050e3126c4cb07c1c}{offset};
+492         tmp\_packet->\hyperlink{structigb__packet_a1a20432d28f575630a2562c1c728a40f}{next} = \hyperlink{gstavbsink_8c_a3d35f061de7f1a4b1d4155fa8b352479}{free\_packets};
+493         memset(tmp\_packet->\hyperlink{structigb__packet_aa0bb68874ee9bcccfa45212ec3b12466}{vaddr}, 0, packet\_size); \textcolor{comment}{/* MAC header at least */}
+494         memcpy(tmp\_packet->\hyperlink{structigb__packet_aa0bb68874ee9bcccfa45212ec3b12466}{vaddr}, dest\_addr, \textcolor{keyword}{sizeof}(dest\_addr));
+495         memcpy(tmp\_packet->\hyperlink{structigb__packet_aa0bb68874ee9bcccfa45212ec3b12466}{vaddr} + 6, \hyperlink{simple__talker_8c_a03a59e7923f04902334a837623b77cbf}{glob\_station\_addr},
+496                \textcolor{keyword}{sizeof}(\hyperlink{simple__talker_8c_a03a59e7923f04902334a837623b77cbf}{glob\_station\_addr}));
+497 
+498         \textcolor{comment}{/* Q-tag */}
+499         ((\textcolor{keywordtype}{char} *)tmp\_packet->\hyperlink{structigb__packet_aa0bb68874ee9bcccfa45212ec3b12466}{vaddr})[12] = 0x81;
+500         ((\textcolor{keywordtype}{char} *)tmp\_packet->\hyperlink{structigb__packet_aa0bb68874ee9bcccfa45212ec3b12466}{vaddr})[13] = 0x00;
+501         ((\textcolor{keywordtype}{char} *)tmp\_packet->\hyperlink{structigb__packet_aa0bb68874ee9bcccfa45212ec3b12466}{vaddr})[14] =
+502             ((ctx->\hyperlink{structmrp__talker__ctx_ac98b99ec0ffd190c1da93e6caffe36d4}{domain\_class\_a\_priority} << 13 | ctx->
+      \hyperlink{structmrp__talker__ctx_ac575246135a50baaf0c802ef29aa2779}{domain\_class\_a\_vid})) >> 8;
+503         ((\textcolor{keywordtype}{char} *)tmp\_packet->\hyperlink{structigb__packet_aa0bb68874ee9bcccfa45212ec3b12466}{vaddr})[15] =
+504             ((ctx->\hyperlink{structmrp__talker__ctx_ac98b99ec0ffd190c1da93e6caffe36d4}{domain\_class\_a\_priority} << 13 | ctx->
+      \hyperlink{structmrp__talker__ctx_ac575246135a50baaf0c802ef29aa2779}{domain\_class\_a\_vid})) & 0xFF;
+505         \textcolor{keywordflow}{if}( transport == 2 ) \{
+506             ((\textcolor{keywordtype}{char} *)tmp\_packet->\hyperlink{structigb__packet_aa0bb68874ee9bcccfa45212ec3b12466}{vaddr})[16] = 0x22;    \textcolor{comment}{/* 1722 eth type */}
+507             ((\textcolor{keywordtype}{char} *)tmp\_packet->\hyperlink{structigb__packet_aa0bb68874ee9bcccfa45212ec3b12466}{vaddr})[17] = 0xF0;
+508         \} \textcolor{keywordflow}{else} \{
+509             ((\textcolor{keywordtype}{char} *)tmp\_packet->\hyperlink{structigb__packet_aa0bb68874ee9bcccfa45212ec3b12466}{vaddr})[16] = 0x08;    \textcolor{comment}{/* IP eth type */}
+510             ((\textcolor{keywordtype}{char} *)tmp\_packet->\hyperlink{structigb__packet_aa0bb68874ee9bcccfa45212ec3b12466}{vaddr})[17] = 0x00;
+511         \}
+512 
+513         \textcolor{keywordflow}{if}( transport == 2 ) \{
+514             \textcolor{comment}{/* 1722 header update + payload */}
+515             l2\_header0 =
+516                 (\hyperlink{avb__avtp_8h_a67f05a7fb6b937cfa210e6814661e9d9}{seventeen22\_header} *) (((\textcolor{keywordtype}{char} *)tmp\_packet->
+      \hyperlink{structigb__packet_aa0bb68874ee9bcccfa45212ec3b12466}{vaddr}) + 18);
+517             l2\_header0->cd\_indicator = 0;
+518             l2\_header0->subtype = 0;
+519             l2\_header0->sid\_valid = 1;
+520             l2\_header0->version = 0;
+521             l2\_header0->reset = 0;
+522             l2\_header0->reserved0 = 0;
+523             l2\_header0->gateway\_valid = 0;
+524             l2\_header0->reserved1 = 0;
+525             l2\_header0->timestamp\_uncertain = 0;
+526             memset(&(l2\_header0->stream\_id), 0, \textcolor{keyword}{sizeof}(l2\_header0->stream\_id));
+527             memcpy(&(l2\_header0->stream\_id), \hyperlink{simple__talker_8c_a03a59e7923f04902334a837623b77cbf}{glob\_station\_addr},
+528                    \textcolor{keyword}{sizeof}(\hyperlink{simple__talker_8c_a03a59e7923f04902334a837623b77cbf}{glob\_station\_addr}));
+529             l2\_header0->length = htons(32);
+530             l2\_header1 = (\hyperlink{structsix1883__header}{six1883\_header} *) (l2\_header0 + 1);
+531             l2\_header1->\hyperlink{structsix1883__header_a137c7a0b8f5c096e24e535416b2c12c2}{format\_tag} = 1;
+532             l2\_header1->\hyperlink{structsix1883__header_a3ddfab5f02c3bd28ffb22c1d4478ba67}{packet\_channel} = 0x1F;
+533             l2\_header1->\hyperlink{structsix1883__header_ac86ef7cc33218945d4c73609a2fc58fb}{packet\_tcode} = 0xA;
+534             l2\_header1->\hyperlink{structsix1883__header_a3b52b2d4d5eb3909d1141c865563f246}{app\_control} = 0x0;
+535             l2\_header1->\hyperlink{structsix1883__header_af183276fcf5731396c007fa180c6c6b3}{reserved0} = 0;
+536             l2\_header1->\hyperlink{structsix1883__header_a66347b57ca499b03efde0826d99533fc}{source\_id} = 0x3F;
+537             l2\_header1->\hyperlink{structsix1883__header_a70463341a111fa9a10acb9c082870fce}{data\_block\_size} = 1;
+538             l2\_header1->\hyperlink{structsix1883__header_a1a119b57c43180e27c35bc0394930879}{fraction\_number} = 0;
+539             l2\_header1->\hyperlink{structsix1883__header_ab44f15fc10f7e3c635c930fe3d0551c6}{quadlet\_padding\_count} = 0;
+540             l2\_header1->\hyperlink{structsix1883__header_a249b482e00959f3c2d3596b684142a90}{source\_packet\_header} = 0;
+541             l2\_header1->\hyperlink{structsix1883__header_a6b89b86dfe0266be2fc46cf46f6e7b72}{reserved1} = 0;
+542             l2\_header1->\hyperlink{structsix1883__header_a0cb731a92907e54bc99bdad81dd3552a}{eoh} = 0x2;
+543             l2\_header1->\hyperlink{structsix1883__header_adbbe8dd364d054c89e7ffc75986b2d05}{format\_id} = 0x10;
+544             l2\_header1->\hyperlink{structsix1883__header_acd85be38e562935aed45a19b170ae501}{format\_dependent\_field} = 0x02;
+545             l2\_header1->\hyperlink{structsix1883__header_aec1f53b0b9c6795a8e0f8f4e029fa676}{syt} = 0xFFFF;
+546             tmp\_packet->\hyperlink{structigb__packet_a0c5f469bd681fb46e6f4203d5338e99f}{len} =
+547                 18 + \textcolor{keyword}{sizeof}(\hyperlink{avb__avtp_8h_a67f05a7fb6b937cfa210e6814661e9d9}{seventeen22\_header}) + \textcolor{keyword}{sizeof}(
+      \hyperlink{structsix1883__header}{six1883\_header}) +
+548                 (\hyperlink{simple__talker_8c_ab1be3c090fc25b14b302f1288cbe0486}{L2\_SAMPLES\_PER\_FRAME} * \hyperlink{simple__talker_8c_a19b7f1b22403d61234a92decaeb6953a}{CHANNELS} * \textcolor{keyword}{sizeof}(
+      \hyperlink{structsix1883__sample}{six1883\_sample}));
+549         \} \textcolor{keywordflow}{else} \{
+550             pseudo\_hdr.source = l4\_local\_address;
+551             memcpy
+552                 ( &pseudo\_hdr.dest, \hyperlink{simple__talker_8c_abeadf30c077d3de867f5f6a0c9e0fd5e}{glob\_l3\_dest\_addr}, \textcolor{keyword}{sizeof}( pseudo\_hdr.dest ));
+553             pseudo\_hdr.zero = 0;
+554             pseudo\_hdr.protocol = 0x11;
+555             pseudo\_hdr.length = htons(packet\_size-18-20);
+556 
+557             l4\_headers =
+558                 (\hyperlink{simple__talker_8c_ac68085e899190564153bc7ba4f706e26}{IP\_RTP\_Header} *) (((\textcolor{keywordtype}{char} *)tmp\_packet->\hyperlink{structigb__packet_aa0bb68874ee9bcccfa45212ec3b12466}{vaddr}) + 18);
+559             l4\_headers->version\_length = 0x45;
+560             l4\_headers->DSCP\_ECN = 0x20;
+561             l4\_headers->ip\_length = htons(packet\_size-18);
+562             l4\_headers->id = 0;
+563             l4\_headers->fragmentation = 0;
+564             l4\_headers->ttl = 64;
+565             l4\_headers->protocol = 0x11;
+566             l4\_headers->hdr\_cksum = 0;
+567             l4\_headers->src = l4\_local\_address;
+568             memcpy
+569                 ( &l4\_headers->dest, \hyperlink{simple__talker_8c_abeadf30c077d3de867f5f6a0c9e0fd5e}{glob\_l3\_dest\_addr}, \textcolor{keyword}{sizeof}( l4\_headers->dest ));
+570             \{
+571                 \textcolor{keyword}{struct }iovec iv0;
+572                 iv0.iov\_base = l4\_headers;
+573                 iv0.iov\_len = 20;
+574                 l4\_headers->hdr\_cksum =
+575                     \hyperlink{simple__talker_8c_a7504fbb26f01db4ebfbd3fa58030dad4}{inet\_checksum\_sg}( &iv0, 1 );
+576             \}
+577 
+578             l4\_headers->source\_port = htons(\hyperlink{simple__talker_8c_a531477bf6f546196b63155f7eb95649a}{L4\_PORT});
+579             l4\_headers->dest\_port = htons(\hyperlink{simple__talker_8c_a531477bf6f546196b63155f7eb95649a}{L4\_PORT});
+580             l4\_headers->udp\_length = htons(packet\_size-18-20);
+581 
+582             l4\_headers->version\_cc = 2;
+583             l4\_headers->mark\_payload = \hyperlink{simple__talker_8c_a0455cdf8d4dd1f30c30918f9785a08fe}{L16\_PAYLOAD\_TYPE};
+584             l4\_headers->sequence = 0;
+585             l4\_headers->timestamp = 0;
+586             l4\_headers->ssrc = 0;
+587 
+588             l4\_headers->tag[0] = 0xBE;
+589             l4\_headers->tag[1] = 0xDE;
+590             l4\_headers->total\_length = htons(2);
+591             l4\_headers->tag\_length = (6 << 4) | \hyperlink{simple__talker_8c_ac6b84e5f9615676476762d194a4a50e7}{ID\_B\_HDR\_EXT\_ID};
+592 
+593             tmp\_packet->\hyperlink{structigb__packet_a0c5f469bd681fb46e6f4203d5338e99f}{len} =
+594                 18 + \textcolor{keyword}{sizeof}(*l4\_headers) +
+595                 (\hyperlink{simple__talker_8c_a91cd715dbb495cd1d938c7b77c884547}{L4\_SAMPLES\_PER\_FRAME} * \hyperlink{simple__talker_8c_a19b7f1b22403d61234a92decaeb6953a}{CHANNELS} * 
+      \hyperlink{simple__talker_8c_a11da36c8114bdf86b7ae024b951ea051}{L4\_SAMPLE\_SIZE} );
+596 
+597         \}
+598         free\_packets = \hyperlink{gstavbsink_8c_afaac9ace7e52a3bcf0ce79e59b9b3f92}{tmp\_packet};
+599     \}
+600 
+601     \textcolor{comment}{/*}
+602 \textcolor{comment}{     * subtract 16 bytes for the MAC header/Q-tag - pktsz is limited to the}
+603 \textcolor{comment}{     * data payload of the ethernet frame.}
+604 \textcolor{comment}{     *}
+605 \textcolor{comment}{     * IPG is scaled to the Class (A) observation interval of packets per 125 usec.}
+606 \textcolor{comment}{     */}
+607     fprintf(stderr, \textcolor{stringliteral}{"advertising stream ...\(\backslash\)n"});
+608     \textcolor{keywordflow}{if}( transport == 2 ) \{
+609         rc = \hyperlink{talker__mrp__client_8c_a3677b13e5eb218df9fd6b310313439da}{mrp\_advertise\_stream}(\hyperlink{simple__talker_8c_ace5ab964390fa61a4674f2021644249b}{glob\_stream\_id}, dest\_addr,
+610                     \hyperlink{simple__talker_8c_a5e9891a4861298e1d749b3f95efb36da}{PKT\_SZ} - 16,
+611                     \hyperlink{simple__talker_8c_aeaf742554cea158d150ab213de7660e5}{L2\_PACKET\_IPG} / 125000,
+612                     3900,ctx);
+613     \} \textcolor{keywordflow}{else} \{
+614         \textcolor{comment}{/*}
+615 \textcolor{comment}{         * 1 is the wrong number for frame rate, but fractional values}
+616 \textcolor{comment}{         * not allowed, not sure the significance of the value 6, but}
+617 \textcolor{comment}{         * using it consistently}
+618 \textcolor{comment}{         */}
+619         rc = \hyperlink{talker__mrp__client_8c_a3677b13e5eb218df9fd6b310313439da}{mrp\_advertise\_stream}(\hyperlink{simple__talker_8c_ace5ab964390fa61a4674f2021644249b}{glob\_stream\_id}, dest\_addr,
+620                     \textcolor{keyword}{sizeof}(*l4\_headers) + \hyperlink{simple__talker_8c_a91cd715dbb495cd1d938c7b77c884547}{L4\_SAMPLES\_PER\_FRAME} * 
+      \hyperlink{simple__talker_8c_a19b7f1b22403d61234a92decaeb6953a}{CHANNELS} * 2 + 6,
+621                     1,
+622                     3900, ctx);
+623     \}
+624     \textcolor{keywordflow}{if} (rc) \{
+625         printf(\textcolor{stringliteral}{"mrp\_advertise\_stream failed\(\backslash\)n"});
+626         \textcolor{keywordflow}{return} EXIT\_FAILURE;
+627     \}
+628 
+629     fprintf(stderr, \textcolor{stringliteral}{"awaiting a listener ...\(\backslash\)n"});
+630     rc = \hyperlink{talker__mrp__client_8c_af1c01cfeeb99c9ebffcbc301aa5784e2}{mrp\_await\_listener}(\hyperlink{simple__talker_8c_ace5ab964390fa61a4674f2021644249b}{glob\_stream\_id}, ctx);
+631     \textcolor{keywordflow}{if} (rc) \{
+632         printf(\textcolor{stringliteral}{"mrp\_await\_listener failed\(\backslash\)n"});
+633         \textcolor{keywordflow}{return} EXIT\_FAILURE;
+634     \}
+635     ctx->\hyperlink{structmrp__talker__ctx_a70763450542106f6508fd1051eade47d}{listeners} = 1;
+636     printf(\textcolor{stringliteral}{"got a listener ...\(\backslash\)n"});
+637     ctx->\hyperlink{structmrp__talker__ctx_a7c8176263e9704aa667fc335cc818a3f}{halt\_tx} = 0;
+638 
+639     \textcolor{keywordflow}{if}(-1 == \hyperlink{avb__gptp_8c_a05ec877d6b574ac18e0d773f37958865}{gptpinit}(&igb\_shm\_fd, &igb\_mmap)) \{
+640         fprintf(stderr, \textcolor{stringliteral}{"GPTP init failed.\(\backslash\)n"});
+641         \textcolor{keywordflow}{return} EXIT\_FAILURE;
+642     \}
+643 
+644     \textcolor{keywordflow}{if} (-1 == \hyperlink{avb__gptp_8c_adb6415e08d5c177a4ea34f039e63f543}{gptpscaling}(igb\_mmap, &td)) \{
+645         fprintf(stderr, \textcolor{stringliteral}{"GPTP scaling failed.\(\backslash\)n"});
+646         \textcolor{keywordflow}{return} EXIT\_FAILURE;
+647     \}
+648 
+649     \textcolor{keywordflow}{if}(\hyperlink{igb_8c_aa45f65b8e5ac2a1d1d1a7081c499a690}{igb\_get\_wallclock}( &igb\_dev, &now\_local, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} ) > 0) \{
+650         fprintf( stderr, \textcolor{stringliteral}{"Failed to get wallclock time\(\backslash\)n"} );
+651         \textcolor{keywordflow}{return} EXIT\_FAILURE;
+652     \}
+653     update\_8021as = td.\hyperlink{structg_ptp_time_data_a77a3c33b68032d5db3c0c556a80ef651}{local\_time} - td.\hyperlink{structg_ptp_time_data_a707b32410dd96584191405fcc6b1b10d}{ml\_phoffset};
+654     delta\_local = (unsigned)(now\_local - td.\hyperlink{structg_ptp_time_data_a77a3c33b68032d5db3c0c556a80ef651}{local\_time});
+655     delta\_8021as = (unsigned)(td.\hyperlink{structg_ptp_time_data_aafeb4d0fa7d3cb53ee3686b804e47617}{ml\_freqoffset} * delta\_local);
+656     now\_8021as = update\_8021as + delta\_8021as;
+657 
+658     last\_time = now\_local + \hyperlink{simple__talker_8c_ac68727566a4eb0566499959552eb6e7f}{XMIT\_DELAY};
+659     time\_stamp = now\_8021as + \hyperlink{simple__talker_8c_ad67f15bfda3230674f801ea1a30c8164}{RENDER\_DELAY};
+660 
+661     rc = nice(-20);
+662 
+663     \textcolor{keywordflow}{while} (ctx->\hyperlink{structmrp__talker__ctx_a70763450542106f6508fd1051eade47d}{listeners} && !ctx->\hyperlink{structmrp__talker__ctx_a7c8176263e9704aa667fc335cc818a3f}{halt\_tx}) \{
+664         tmp\_packet = \hyperlink{gstavbsink_8c_a3d35f061de7f1a4b1d4155fa8b352479}{free\_packets};
+665         \textcolor{keywordflow}{if} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} == tmp\_packet)
+666             \textcolor{keywordflow}{goto} \hyperlink{simple__rx_8c_aeb94fbd457627182ceee7e505f432541}{cleanup};
+667 
+668         free\_packets = tmp\_packet->\hyperlink{structigb__packet_a1a20432d28f575630a2562c1c728a40f}{next};
+669 
+670         \textcolor{keywordflow}{if}( transport == 2 ) \{
+671             \hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\_t} timestamp\_l;
+672             \hyperlink{simple__talker_8c_a519f3c8845b60660b82bd2f63d9dc2a3}{get\_samples}( \hyperlink{simple__talker_8c_ab1be3c090fc25b14b302f1288cbe0486}{L2\_SAMPLES\_PER\_FRAME}, sample\_buffer );
+673             l2\_header0 =
+674                 (\hyperlink{avb__avtp_8h_a67f05a7fb6b937cfa210e6814661e9d9}{seventeen22\_header} *) (((\textcolor{keywordtype}{char} *)tmp\_packet->
+      \hyperlink{structigb__packet_aa0bb68874ee9bcccfa45212ec3b12466}{vaddr}) + 18);
+675             l2\_header1 = (\hyperlink{structsix1883__header}{six1883\_header} *) (l2\_header0 + 1);
+676 
+677             \textcolor{comment}{/* unfortuntely unless this thread is at rtprio}
+678 \textcolor{comment}{             * you get pre-empted between fetching the time}
+679 \textcolor{comment}{             * and programming the packet and get a late packet}
+680 \textcolor{comment}{             */}
+681             tmp\_packet->\hyperlink{structigb__packet_a7f67203ca8a69ba9e8d49e1233601ff6}{attime} = last\_time + \hyperlink{simple__talker_8c_aeaf742554cea158d150ab213de7660e5}{L2\_PACKET\_IPG};
+682             last\_time += \hyperlink{simple__talker_8c_aeaf742554cea158d150ab213de7660e5}{L2\_PACKET\_IPG};
+683 
+684             l2\_header0->seq\_number = seqnum++;
+685             \textcolor{keywordflow}{if} (seqnum % 4 == 0)
+686                 l2\_header0->timestamp\_valid = 0;
+687 
+688             \textcolor{keywordflow}{else}
+689                 l2\_header0->timestamp\_valid = 1;
+690 
+691             timestamp\_l = time\_stamp;
+692             l2\_header0->timestamp = htonl(timestamp\_l);
+693             time\_stamp += \hyperlink{simple__talker_8c_aeaf742554cea158d150ab213de7660e5}{L2\_PACKET\_IPG};
+694             l2\_header1->\hyperlink{structsix1883__header_a9a2bbc5c82d57a50a0b396a8f74b93d1}{data\_block\_continuity} = 
+      \hyperlink{gstavbsink_8c_a45fbc7e1478f172d8b8555e663984056}{total\_samples};
+695             total\_samples += \hyperlink{simple__talker_8c_ab1be3c090fc25b14b302f1288cbe0486}{L2\_SAMPLES\_PER\_FRAME}*\hyperlink{simple__talker_8c_a19b7f1b22403d61234a92decaeb6953a}{CHANNELS};
+696             sample =
+697                 (\hyperlink{structsix1883__sample}{six1883\_sample} *) (((\textcolor{keywordtype}{char} *)tmp\_packet->\hyperlink{structigb__packet_aa0bb68874ee9bcccfa45212ec3b12466}{vaddr}) +
+698                                     (18 + \textcolor{keyword}{sizeof}(\hyperlink{avb__avtp_8h_a67f05a7fb6b937cfa210e6814661e9d9}{seventeen22\_header}) +
+699                                      \textcolor{keyword}{sizeof}(\hyperlink{structsix1883__header}{six1883\_header})));
+700 
+701             \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{simple__talker_8c_ab1be3c090fc25b14b302f1288cbe0486}{L2\_SAMPLES\_PER\_FRAME} * \hyperlink{simple__talker_8c_a19b7f1b22403d61234a92decaeb6953a}{CHANNELS}; ++i) \{
+702                 \hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\_t} tmp = htonl(sample\_buffer[i]);
+703                 sample[i].\hyperlink{structsix1883__sample_a6abd170e74558ffbdb4fdfb852dbfe0c}{label} = 0x40;
+704                 memcpy(&(sample[i].value), &(tmp),
+705                        \textcolor{keyword}{sizeof}(sample[i].value));
+706             \}
+707         \} \textcolor{keywordflow}{else} \{
+708             uint16\_t *l16\_sample;
+709             \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} *tmp;
+710             \hyperlink{simple__talker_8c_a519f3c8845b60660b82bd2f63d9dc2a3}{get\_samples}( \hyperlink{simple__talker_8c_a91cd715dbb495cd1d938c7b77c884547}{L4\_SAMPLES\_PER\_FRAME}, sample\_buffer );
+711 
+712             l4\_headers =
+713                 (\hyperlink{simple__talker_8c_ac68085e899190564153bc7ba4f706e26}{IP\_RTP\_Header} *) (((\textcolor{keywordtype}{char} *)tmp\_packet->\hyperlink{structigb__packet_aa0bb68874ee9bcccfa45212ec3b12466}{vaddr}) + 18);
+714 
+715             l4\_headers->sequence =  seqnum++;
+716             l4\_headers->timestamp = rtp\_timestamp;
+717 
+718             tmp\_packet->\hyperlink{structigb__packet_a7f67203ca8a69ba9e8d49e1233601ff6}{attime} = last\_time + \hyperlink{simple__talker_8c_ac09b95f0954d755b6b9c4c889669862d}{L4\_PACKET\_IPG};
+719             last\_time += \hyperlink{simple__talker_8c_ac09b95f0954d755b6b9c4c889669862d}{L4\_PACKET\_IPG};
+720 
+721             l4\_headers->nanoseconds = time\_stamp/1000000000;
+722             tmp = (\hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} *) &l4\_headers->nanoseconds;
+723             l4\_headers->seconds[0] = tmp[2];
+724             l4\_headers->seconds[1] = tmp[1];
+725             l4\_headers->seconds[2] = tmp[0];
+726             \{
+727                 \hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\_t} tmp;
+728                 tmp  = time\_stamp % 1000000000;
+729                 tmp *= \hyperlink{simple__talker_8c_abb6aaa19ddf030c0d80161ffe2bb07b8}{RTP\_SUBNS\_SCALE\_NUM};
+730                 tmp /= \hyperlink{simple__talker_8c_a743bcc4e6733f8e26c026b575bc5115f}{RTP\_SUBNS\_SCALE\_DEN};
+731                 l4\_headers->nanoseconds = (\hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\_t}) tmp;
+732             \}
+733             l4\_headers->nanoseconds = htons(l4\_headers->nanoseconds);
+734 
+735 
+736             time\_stamp += \hyperlink{simple__talker_8c_ac09b95f0954d755b6b9c4c889669862d}{L4\_PACKET\_IPG};
+737 
+738             l16\_sample = (uint16\_t *) (l4\_headers+1);
+739 
+740             \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{simple__talker_8c_a91cd715dbb495cd1d938c7b77c884547}{L4\_SAMPLES\_PER\_FRAME} * \hyperlink{simple__talker_8c_a19b7f1b22403d61234a92decaeb6953a}{CHANNELS}; ++i) \{
+741                 uint16\_t tmp = sample\_buffer[i]/65536;
+742                 l16\_sample[i] = htons(tmp);
+743             \}
+744             l4\_headers->cksum = 0;
+745             \{
+746                 \textcolor{keyword}{struct }iovec iv[2];
+747                 iv[0].iov\_base = &pseudo\_hdr;
+748                 iv[0].iov\_len = \textcolor{keyword}{sizeof}(pseudo\_hdr);
+749                 iv[1].iov\_base = ((\hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} *)l4\_headers) + 20;
+750                 iv[1].iov\_len = packet\_size-18-20;
+751                 l4\_headers->cksum =
+752                     \hyperlink{simple__talker_8c_a7504fbb26f01db4ebfbd3fa58030dad4}{inet\_checksum\_sg}( iv, 2 );
+753             \}
+754         \}
+755 
+756         err = \hyperlink{igb_8c_a6c8e23bd2a93ab63646fd498ac8e2127}{igb\_xmit}(&igb\_dev, 0, tmp\_packet);
+757 
+758         \textcolor{keywordflow}{if} (!err) \{
+759             \textcolor{keywordflow}{continue};
+760         \}
+761 
+762         \textcolor{keywordflow}{if} (ENOSPC == err) \{
+763 
+764             \textcolor{comment}{/* put back for now */}
+765             tmp\_packet->\hyperlink{structigb__packet_a1a20432d28f575630a2562c1c728a40f}{next} = \hyperlink{gstavbsink_8c_a3d35f061de7f1a4b1d4155fa8b352479}{free\_packets};
+766             free\_packets = \hyperlink{gstavbsink_8c_afaac9ace7e52a3bcf0ce79e59b9b3f92}{tmp\_packet};
+767         \}
+768 
+769     \hyperlink{simple__rx_8c_aeb94fbd457627182ceee7e505f432541}{cleanup}:
+770         \hyperlink{igb_8c_a03eaebcc1732abe4fd77c1f79c8e2fee}{igb\_clean}(&igb\_dev, &cleaned\_packets);
+771         i = 0;
+772         \textcolor{keywordflow}{while} (cleaned\_packets) \{
+773             i++;
+774             tmp\_packet = \hyperlink{gstavbsink_8c_a03cc454be42935d04410937d1053eb60}{cleaned\_packets};
+775             cleaned\_packets = cleaned\_packets->\hyperlink{structigb__packet_a1a20432d28f575630a2562c1c728a40f}{next};
+776             tmp\_packet->\hyperlink{structigb__packet_a1a20432d28f575630a2562c1c728a40f}{next} = \hyperlink{gstavbsink_8c_a3d35f061de7f1a4b1d4155fa8b352479}{free\_packets};
+777             free\_packets = \hyperlink{gstavbsink_8c_afaac9ace7e52a3bcf0ce79e59b9b3f92}{tmp\_packet};
+778         \}
+779     \}
+780     rc = nice(0);
+781     \textcolor{keywordflow}{if} (ctx->\hyperlink{structmrp__talker__ctx_a7c8176263e9704aa667fc335cc818a3f}{halt\_tx} == 0)
+782         printf(\textcolor{stringliteral}{"listener left ...\(\backslash\)n"});
+783     ctx->\hyperlink{structmrp__talker__ctx_a7c8176263e9704aa667fc335cc818a3f}{halt\_tx} = 1;
+784     \textcolor{keywordflow}{if}( transport == 2 ) \{
+785         rc = \hyperlink{talker__mrp__client_8c_ad07070e607ae7c6127ffb3cc3e6e1d7b}{mrp\_unadvertise\_stream}
+786             (\hyperlink{simple__talker_8c_ace5ab964390fa61a4674f2021644249b}{glob\_stream\_id}, dest\_addr, \hyperlink{simple__talker_8c_a5e9891a4861298e1d749b3f95efb36da}{PKT\_SZ} - 16, L2\_PACKET\_IPG / 125000,
+787              3900, ctx);
+788     \} \textcolor{keywordflow}{else} \{
+789         rc = \hyperlink{talker__mrp__client_8c_ad07070e607ae7c6127ffb3cc3e6e1d7b}{mrp\_unadvertise\_stream}
+790             (\hyperlink{simple__talker_8c_ace5ab964390fa61a4674f2021644249b}{glob\_stream\_id}, dest\_addr,
+791              \textcolor{keyword}{sizeof}(*l4\_headers)+\hyperlink{simple__talker_8c_a91cd715dbb495cd1d938c7b77c884547}{L4\_SAMPLES\_PER\_FRAME}*CHANNELS*2 + 6, 1,
+792              3900, ctx);
+793     \}
+794     \textcolor{keywordflow}{if} (rc)
+795         printf(\textcolor{stringliteral}{"mrp\_unadvertise\_stream failed\(\backslash\)n"});
+796 
+797     \hyperlink{igb_8c_a8d49a6fa54c79c1b5bd5b6f006eeb8e1}{igb\_set\_class\_bandwidth}(&igb\_dev, 0, 0, 0, 0);   \textcolor{comment}{/* disable Qav */}
+798 
+799     rc = \hyperlink{listener__mrp__client_8c_a0057e5ce95d0d8ea29077cbb7bc03bb6}{mrp\_disconnect}(ctx);
+800     \textcolor{keywordflow}{if} (rc)
+801         printf(\textcolor{stringliteral}{"mrp\_disconnect failed\(\backslash\)n"});
+802     \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(ctx);
+803     \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(class\_a);
+804     \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(class\_b);
+805     \hyperlink{igb_8c_a850c73e1871342ff79fe6f0a5e6c26f3}{igb\_dma\_free\_page}(&igb\_dev, &\hyperlink{gstavbsink_8c_a014c349ebc9b62f76ad8a63a80060e72}{a\_page});
+806     rc = \hyperlink{avb__gptp_8c_ae4b9f53a01f896212e0c982fd10ce4c5}{gptpdeinit}(&igb\_shm\_fd, &igb\_mmap);
+807     err = \hyperlink{igb_8c_a234eba39e755b10f3ad1652c95072a77}{igb\_detach}(&igb\_dev);
+808 
+809     pthread\_exit(\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+810 
+811     \textcolor{keywordflow}{return} EXIT\_SUCCESS;
+812 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{simple__talker_8c_a0ddf1224851353fc92bfbff6f499fa97_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}!sigint\+\_\+handler@{sigint\+\_\+handler}}
+\index{sigint\+\_\+handler@{sigint\+\_\+handler}!simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{sigint\+\_\+handler(int signum)}{sigint_handler(int signum)}}]{\setlength{\rightskip}{0pt plus 5cm}void sigint\+\_\+handler (
+\begin{DoxyParamCaption}
+\item[{int}]{signum}
+\end{DoxyParamCaption}
+)}\hypertarget{simple__talker_8c_ab10c0c50c02a59ae9bd74c78c49b559d}{}\label{simple__talker_8c_ab10c0c50c02a59ae9bd74c78c49b559d}
+
+
+simple\+\_\+talker.\+c 파일의 238 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+239 \{
+240     printf(\textcolor{stringliteral}{"got SIGINT\(\backslash\)n"});
+241     *\hyperlink{simple__talker_8c_a5059c66ee1e61cf56765092d87510188}{halt\_tx\_sig} = signum;
+242 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=231pt]{simple__talker_8c_ab10c0c50c02a59ae9bd74c78c49b559d_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}!S\+T\+\_\+rdtsc@{S\+T\+\_\+rdtsc}}
+\index{S\+T\+\_\+rdtsc@{S\+T\+\_\+rdtsc}!simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{S\+T\+\_\+rdtsc(void)}{ST_rdtsc(void)}}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf uint64\+\_\+t} S\+T\+\_\+rdtsc (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{simple__talker_8c_a59da93a1867091f1c8c69d996df768fe}{}\label{simple__talker_8c_a59da93a1867091f1c8c69d996df768fe}
+
+
+simple\+\_\+talker.\+c 파일의 194 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+195 \{
+196     \hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\_t} ret;
+197     \textcolor{keywordtype}{unsigned} \hyperlink{shaper__daemon_8c_a4e1e0e72dd773439e333c84dd762a9c3}{c}, d;
+198     \textcolor{keyword}{asm} \textcolor{keyword}{volatile} (\textcolor{stringliteral}{"rdtsc"}:\textcolor{stringliteral}{"=a"} (\hyperlink{shaper__daemon_8c_a4e1e0e72dd773439e333c84dd762a9c3}{c}), \textcolor{stringliteral}{"=d"}(d));
+199     ret = d;
+200     ret <<= 32;
+201     ret |= \hyperlink{shaper__daemon_8c_a4e1e0e72dd773439e333c84dd762a9c3}{c};
+202     \textcolor{keywordflow}{return} ret;
+203 \}
+\end{DoxyCode}
+\index{simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}!usage@{usage}}
+\index{usage@{usage}!simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{usage(void)}{usage(void)}}]{\setlength{\rightskip}{0pt plus 5cm}static void usage (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{simple__talker_8c_ad96d407a911fbb914fa8e4cfbf2faf0f}{}\label{simple__talker_8c_ad96d407a911fbb914fa8e4cfbf2faf0f}
+
+
+simple\+\_\+talker.\+c 파일의 277 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+278 \{
+279     fprintf(stderr, \textcolor{stringliteral}{"\(\backslash\)n"}
+280         \textcolor{stringliteral}{"usage: simple\_talker [-h] -i interface-name"}
+281         \textcolor{stringliteral}{"\(\backslash\)n"}
+282         \textcolor{stringliteral}{"options:\(\backslash\)n"}
+283         \textcolor{stringliteral}{"    -h  show this message\(\backslash\)n"}
+284         \textcolor{stringliteral}{"    -i  specify interface for AVB connection\(\backslash\)n"}
+285         \textcolor{stringliteral}{"    -t  transport equal to 2 for 1722 or 3 for RTP\(\backslash\)n"}
+286         \textcolor{stringliteral}{"\(\backslash\)n"} \textcolor{stringliteral}{"%s"} \textcolor{stringliteral}{"\(\backslash\)n"}, \hyperlink{simple__talker_8c_ae724265d048ace6b96a1e977ea11c1c7}{version\_str});
+287     exit(EXIT\_FAILURE);
+288 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=197pt]{simple__talker_8c_ad96d407a911fbb914fa8e4cfbf2faf0f_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{변수 문서화}
+\index{simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}!glob\+\_\+l2\+\_\+dest\+\_\+addr@{glob\+\_\+l2\+\_\+dest\+\_\+addr}}
+\index{glob\+\_\+l2\+\_\+dest\+\_\+addr@{glob\+\_\+l2\+\_\+dest\+\_\+addr}!simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{glob\+\_\+l2\+\_\+dest\+\_\+addr}{glob_l2_dest_addr}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char glob\+\_\+l2\+\_\+dest\+\_\+addr\mbox{[}$\,$\mbox{]} = \{ 0x91, 0x\+E0, 0x\+F0, 0x00, 0x0e, 0x80 \}}\hypertarget{simple__talker_8c_ab35efd2db12d47999904d089e93023c6}{}\label{simple__talker_8c_ab35efd2db12d47999904d089e93023c6}
+
+
+simple\+\_\+talker.\+c 파일의 120 번째 라인에서 정의되었습니다.
+
+\index{simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}!glob\+\_\+l3\+\_\+dest\+\_\+addr@{glob\+\_\+l3\+\_\+dest\+\_\+addr}}
+\index{glob\+\_\+l3\+\_\+dest\+\_\+addr@{glob\+\_\+l3\+\_\+dest\+\_\+addr}!simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{glob\+\_\+l3\+\_\+dest\+\_\+addr}{glob_l3_dest_addr}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char glob\+\_\+l3\+\_\+dest\+\_\+addr\mbox{[}$\,$\mbox{]} = \{ 224, 0, 0, 115 \}}\hypertarget{simple__talker_8c_abeadf30c077d3de867f5f6a0c9e0fd5e}{}\label{simple__talker_8c_abeadf30c077d3de867f5f6a0c9e0fd5e}
+
+
+simple\+\_\+talker.\+c 파일의 121 번째 라인에서 정의되었습니다.
+
+\index{simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}!glob\+\_\+station\+\_\+addr@{glob\+\_\+station\+\_\+addr}}
+\index{glob\+\_\+station\+\_\+addr@{glob\+\_\+station\+\_\+addr}!simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{glob\+\_\+station\+\_\+addr}{glob_station_addr}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char glob\+\_\+station\+\_\+addr\mbox{[}$\,$\mbox{]} = \{ 0, 0, 0, 0, 0, 0 \}}\hypertarget{simple__talker_8c_a03a59e7923f04902334a837623b77cbf}{}\label{simple__talker_8c_a03a59e7923f04902334a837623b77cbf}
+
+
+simple\+\_\+talker.\+c 파일의 117 번째 라인에서 정의되었습니다.
+
+\index{simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}!glob\+\_\+stream\+\_\+id@{glob\+\_\+stream\+\_\+id}}
+\index{glob\+\_\+stream\+\_\+id@{glob\+\_\+stream\+\_\+id}!simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{glob\+\_\+stream\+\_\+id}{glob_stream_id}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char glob\+\_\+stream\+\_\+id\mbox{[}$\,$\mbox{]} = \{ 0, 0, 0, 0, 0, 0, 0, 0 \}}\hypertarget{simple__talker_8c_ace5ab964390fa61a4674f2021644249b}{}\label{simple__talker_8c_ace5ab964390fa61a4674f2021644249b}
+
+
+simple\+\_\+talker.\+c 파일의 118 번째 라인에서 정의되었습니다.
+
+\index{simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}!halt\+\_\+tx\+\_\+sig@{halt\+\_\+tx\+\_\+sig}}
+\index{halt\+\_\+tx\+\_\+sig@{halt\+\_\+tx\+\_\+sig}!simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{halt\+\_\+tx\+\_\+sig}{halt_tx_sig}}]{\setlength{\rightskip}{0pt plus 5cm}volatile int$\ast$ halt\+\_\+tx\+\_\+sig}\hypertarget{simple__talker_8c_a5059c66ee1e61cf56765092d87510188}{}\label{simple__talker_8c_a5059c66ee1e61cf56765092d87510188}
+
+
+simple\+\_\+talker.\+c 파일의 72 번째 라인에서 정의되었습니다.
+
+\index{simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}!I\+P\+\_\+\+Pseudo\+Header@{I\+P\+\_\+\+Pseudo\+Header}}
+\index{I\+P\+\_\+\+Pseudo\+Header@{I\+P\+\_\+\+Pseudo\+Header}!simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{I\+P\+\_\+\+Pseudo\+Header}{IP_PseudoHeader}}]{\setlength{\rightskip}{0pt plus 5cm}I\+P\+\_\+\+Pseudo\+Header}\hypertarget{simple__talker_8c_aa021529f3431a817c9c4adee60b4908e}{}\label{simple__talker_8c_aa021529f3431a817c9c4adee60b4908e}
+
+
+simple\+\_\+talker.\+c 파일의 110 번째 라인에서 정의되었습니다.
+
+\index{simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}!I\+P\+\_\+\+R\+T\+P\+\_\+\+Header@{I\+P\+\_\+\+R\+T\+P\+\_\+\+Header}}
+\index{I\+P\+\_\+\+R\+T\+P\+\_\+\+Header@{I\+P\+\_\+\+R\+T\+P\+\_\+\+Header}!simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{I\+P\+\_\+\+R\+T\+P\+\_\+\+Header}{IP_RTP_Header}}]{\setlength{\rightskip}{0pt plus 5cm}I\+P\+\_\+\+R\+T\+P\+\_\+\+Header}\hypertarget{simple__talker_8c_ac68085e899190564153bc7ba4f706e26}{}\label{simple__talker_8c_ac68085e899190564153bc7ba4f706e26}
+
+
+simple\+\_\+talker.\+c 파일의 102 번째 라인에서 정의되었습니다.
+
+\index{simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}!version\+\_\+str@{version\+\_\+str}}
+\index{version\+\_\+str@{version\+\_\+str}!simple\+\_\+talker.\+c@{simple\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{version\+\_\+str}{version_str}}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ version\+\_\+str\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{simple__talker_8c_ae724265d048ace6b96a1e977ea11c1c7}{}\label{simple__talker_8c_ae724265d048ace6b96a1e977ea11c1c7}
+{\bfseries 초기값\+:}
+\begin{DoxyCode}
+= \textcolor{stringliteral}{"simple\_talker v"} \hyperlink{simple__talker_8c_acfc1668731750cb1ee8974b8a7c133ef}{VERSION\_STR} \textcolor{stringliteral}{"\(\backslash\)n"}
+    \textcolor{stringliteral}{"Copyright (c) 2012, Intel Corporation\(\backslash\)n"}
+\end{DoxyCode}
+
+
+simple\+\_\+talker.\+c 파일의 114 번째 라인에서 정의되었습니다.
+

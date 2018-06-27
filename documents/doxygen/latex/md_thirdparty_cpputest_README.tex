@@ -1,0 +1,235 @@
+Cpp\+U\+Test unit testing and mocking framework for C/\+C++
+
+\href{http://cpputest.github.com}{\tt More information on the project page}
+
+Travis Linux build status\+: \href{https://travis-ci.org/cpputest/cpputest}{\tt }
+
+App\+Veyor Windows build status\+: \href{https://ci.appveyor.com/project/basvodde/cpputest}{\tt }
+
+Coverage\+: \href{https://coveralls.io/github/cpputest/cpputest?branch=master}{\tt }
+
+\subsection*{Getting Started}
+
+You\textquotesingle{}ll need to do the following to get started\+:
+
+Building from source (unix-\/based, cygwin, Mac\+O\+SX)\+:
+
+
+\begin{DoxyItemize}
+\item Download latest version
+\item autogen.\+sh
+\item configure
+\item make
+\item make check
+\item You can use \char`\"{}make install\char`\"{} if you want to install Cpp\+U\+Test system-\/wide
+\end{DoxyItemize}
+
+You can also use C\+Make, which also works for Windows Visual Studio.
+
+
+\begin{DoxyItemize}
+\item Download latest version
+\item cmake C\+Make\+List.\+txt
+\item make
+\end{DoxyItemize}
+
+Then to get started, you\textquotesingle{}ll need to do the following\+:
+\begin{DoxyItemize}
+\item Add the include path to the Makefile. Something like\+:
+\begin{DoxyItemize}
+\item C\+P\+P\+F\+L\+A\+GS += -\/I(C\+P\+P\+U\+T\+E\+S\+T\+\_\+\+H\+O\+ME)/include
+\end{DoxyItemize}
+\item Add the memory leak macros to your Makefile (needed for additional debug info!). Something like\+:
+\begin{DoxyItemize}
+\item C\+X\+X\+F\+L\+A\+GS += -\/include /include/\+Cpp\+U\+Test/\+Memory\+Leak\+Detector\+New\+Macros.h
+\item C\+F\+L\+A\+GS += -\/include /include/\+Cpp\+U\+Test/\+Memory\+Leak\+Detector\+Malloc\+Macros.h
+\end{DoxyItemize}
+\item Add the library linking to your Makefile. Something like\+:
+\begin{DoxyItemize}
+\item L\+D\+\_\+\+L\+I\+B\+R\+A\+R\+I\+ES = -\/L/lib -\/l\+Cpp\+U\+Test -\/l\+Cpp\+U\+Test\+Ext
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+After this, you can write your first test\+:
+
+
+\begin{DoxyCode}
+1 \{C++\}
+2 TEST\_GROUP(FirstTestGroup)
+3 \{
+4 \};
+5 
+6 TEST(FirstTestGroup, FirstTest)
+7 \{
+8    FAIL("Fail me!");
+9 \}
+\end{DoxyCode}
+
+
+\subsection*{Command line switches}
+
+
+\begin{DoxyItemize}
+\item -\/v verbose, print each test name as it runs
+\item -\/r\# repeat the tests some number of times, default is one, default if \# is not specified is 2. This is handy if you are experiencing memory leaks related to statics and caches.
+\item -\/g group only run test whose group contains the substring group
+\item -\/n name only run test whose name contains the substring name
+\end{DoxyItemize}
+
+\subsection*{Test Macros}
+
+
+\begin{DoxyItemize}
+\item \hyperlink{_utest_macros_8h_a13fb650bc56807117ccc8c53d4c957c9}{T\+E\+S\+T(group, name)} -\/ define a test
+\item \hyperlink{_utest_macros_8h_aa11fb982f62c73d1fd75103b428c3213}{I\+G\+N\+O\+R\+E\+\_\+\+T\+E\+S\+T(group, name)} -\/ turn off the execution of a test
+\item \hyperlink{_utest_macros_8h_a109b3c7ca51a87da0abc0a229663d7fd}{T\+E\+S\+T\+\_\+\+G\+R\+O\+U\+P(group)} -\/ Declare a test group to which certain tests belong. This will also create the link needed from another library.
+\item \hyperlink{_utest_macros_8h_a6fc66592d3cf110552a1c2a896ece04d}{T\+E\+S\+T\+\_\+\+G\+R\+O\+U\+P\+\_\+\+B\+A\+S\+E(group, base)} -\/ Same as T\+E\+S\+T\+\_\+\+G\+R\+O\+UP, just use a different base class than \hyperlink{class_utest}{Utest}
+\item \hyperlink{_utest_macros_8h_abb5b7b11b5ba4cbee48b5ba704eaf322}{T\+E\+S\+T\+\_\+\+S\+E\+T\+U\+P()} -\/ Declare a void setup method in a T\+E\+S\+T\+\_\+\+G\+R\+O\+UP -\/ this is the same as declaring void setup()
+\item \hyperlink{_utest_macros_8h_a87441b01f60d9bdae8f0a74b9c429a56}{T\+E\+S\+T\+\_\+\+T\+E\+A\+R\+D\+O\+W\+N()} -\/ Declare a void setup method in a T\+E\+S\+T\+\_\+\+G\+R\+O\+UP
+\item \hyperlink{_utest_macros_8h_a54a7b59102557310a5b8fe7e26a7045e}{I\+M\+P\+O\+R\+T\+\_\+\+T\+E\+S\+T\+\_\+\+G\+R\+O\+U\+P(group)} -\/ Export the name of a test group so it can be linked in from a library. Needs to be done in main.
+\end{DoxyItemize}
+
+\subsection*{Set up and tear down support}
+
+
+\begin{DoxyItemize}
+\item Each T\+E\+S\+T\+\_\+\+G\+R\+O\+UP may contain a setup and/or a teardown method.
+\item setup() is called prior to each T\+E\+ST body and teardown() is called after the test body.
+\end{DoxyItemize}
+
+\subsection*{Assertion Macros}
+
+The failure of one of these macros causes the current test to immediately exit
+
+
+\begin{DoxyItemize}
+\item \hyperlink{_utest_macros_8h_a3e1cfef60e774a81f30eaddf26a3a274}{C\+H\+E\+C\+K(boolean condition)} -\/ checks any boolean result
+\item \hyperlink{_utest_macros_8h_a92bdfb028cbcf7f3afb0c0646f75bd51}{C\+H\+E\+C\+K\+\_\+\+T\+R\+U\+E(boolean condition)} -\/ checks for true
+\item \hyperlink{_utest_macros_8h_a09b0ff9e6719b11399ebfa571d397a04}{C\+H\+E\+C\+K\+\_\+\+F\+A\+L\+S\+E(boolean condition)} -\/ checks for false
+\item \hyperlink{_utest_macros_8h_ad8fa79f5d491cc01af302832785e90fe}{C\+H\+E\+C\+K\+\_\+\+E\+Q\+U\+A\+L(expected, actual)} -\/ checks for equality between entities using ==. So if you have a class that supports \hyperlink{_simple_string_8cpp_a8bb3fb55107a2023bb828539fa6fe045}{operator==()} you can use this macro to compare two instances.
+\item \hyperlink{_utest_macros_8h_ade1dda09c948fee9ceb853bc6dd5f3cb}{S\+T\+R\+C\+M\+P\+\_\+\+E\+Q\+U\+A\+L(expected, actual)} -\/ check const char$\ast$ strings for equality using strcmp
+\item \hyperlink{_utest_macros_8h_a7921a0c4f152a7879e78fe6fc2905590}{L\+O\+N\+G\+S\+\_\+\+E\+Q\+U\+A\+L(expected, actual)} -\/ Compares two numbers
+\item \hyperlink{_utest_macros_8h_ab5c5a937e779cb320e847355f40107b0}{B\+Y\+T\+E\+S\+\_\+\+E\+Q\+U\+A\+L(expected, actual)} -\/ Compares two numbers, eight bits wide
+\item \hyperlink{_utest_macros_8h_a90ab7c47dd5332b46f916b8976c5a242}{P\+O\+I\+N\+T\+E\+R\+S\+\_\+\+E\+Q\+U\+A\+L(expected, actual)} -\/ Compares two const void $\ast$
+\item \hyperlink{_utest_macros_8h_a64bb32929e2c1f2ed5521a27e775327e}{D\+O\+U\+B\+L\+E\+S\+\_\+\+E\+Q\+U\+A\+L(expected, actual, tolerance)} -\/ Compares two doubles within some tolerance
+\item \hyperlink{_utest_macros_8h_a5b870ba9f143d10f76df4fa5aa01d58f}{F\+A\+I\+L(text)} -\/ always fails
+\item T\+E\+S\+T\+\_\+\+E\+X\+IT -\/ Exit the test without failure -\/ useful for contract testing (implementing an assert fake)
+\end{DoxyItemize}
+
+Customize C\+H\+E\+C\+K\+\_\+\+E\+Q\+U\+AL to work with your types that support \hyperlink{_simple_string_8cpp_a8bb3fb55107a2023bb828539fa6fe045}{operator==()}
+
+
+\begin{DoxyItemize}
+\item Create the function\+: {\ttfamily \hyperlink{class_simple_string}{Simple\+String} String\+From(const your\+Type\&)}
+\end{DoxyItemize}
+
+The Extensions directory has a few of these.
+
+\subsection*{Building default checks with \hyperlink{class_test_plugin}{Test\+Plugin}}
+
+
+\begin{DoxyItemize}
+\item Cpp\+U\+Test can support extra checking functionality by inserting Test\+Plugins
+\item \hyperlink{class_test_plugin}{Test\+Plugin} is derived from the \hyperlink{class_test_plugin}{Test\+Plugin} class and can be inserted in the \hyperlink{class_test_registry}{Test\+Registry} via the install\+Plugin method.
+\item Test\+Plugins can be used for, for example, system stability and resource handling like files, memory or network connection clean-\/up.
+\item In Cpp\+U\+Test, the memory leak detection is done via a default enabled \hyperlink{class_test_plugin}{Test\+Plugin}
+\end{DoxyItemize}
+
+Example of a main with a \hyperlink{class_test_plugin}{Test\+Plugin}\+:
+
+
+\begin{DoxyCode}
+1 \{C++\}
+2 int main(int ac, char** av)
+3 \{
+4    LogPlugin logPlugin;
+5    TestRegistry::getCurrentRegistry()->installPlugin(&logPlugin);
+6    int result = CommandLineTestRunner::RunAllTests(ac, av);
+7    TestRegistry::getCurrentRegistry()->resetPlugins();
+8    return result;
+9 \}
+\end{DoxyCode}
+
+
+Memory leak detection
+
+
+\begin{DoxyItemize}
+\item A platform specific memory leak detection mechanism is provided.
+\item If a test fails and has allocated memory prior to the fail and that memory is not cleaned up by Tear\+Down, a memory leak is reported. It is best to only chase memory leaks when other errors have been eliminated.
+\item Some code uses lazy initialization and appears to leak when it really does not (for example\+: gcc stringstream used to in an earlier release). One cause is that some standard library calls allocate something and do not free it until after main (or never). To find out if a memory leak is due to lazy initialization set the -\/r switch to run tests twice. The signature of this situation is that the first run shows leaks and the second run shows no leaks. When both runs show leaks, you have a leak to find.
+\end{DoxyItemize}
+
+\subsection*{How is memory leak detection implemented?}
+
+
+\begin{DoxyItemize}
+\item Before setup() a memory usage checkpoint is recorded
+\item After teardown() another checkpoint is taken and compared to the original checkpoint
+\item In Visual Studio the MS debug heap capabilities are used
+\item For G\+CC a simple new/delete count is used in overridden operators new, new\mbox{[}\mbox{]}, delete and delete\mbox{[}\mbox{]}
+\end{DoxyItemize}
+
+If you use some leaky code that you can\textquotesingle{}t or won\textquotesingle{}t fix you can tell a T\+E\+ST to ignore a certain number of leaks as in this example\+:
+
+
+\begin{DoxyCode}
+1 \{C++\}
+2 TEST(MemoryLeakWarningTest, Ignore1)
+3 \{
+4     EXPECT\_N\_LEAKS(1);
+5     char* arrayToLeak1 = new char[100];
+6 \}
+\end{DoxyCode}
+
+
+\subsection*{Example Main}
+
+
+\begin{DoxyCode}
+1 \{C++\}
+2 #include "CppUTest/CommandLineTestRunner.h"
+3 
+4 int main(int ac, char** av)
+5 \{
+6   return RUN\_ALL\_TESTS(ac, av);
+7 \}
+\end{DoxyCode}
+
+
+\subsection*{Example Test}
+
+
+\begin{DoxyCode}
+1 \{C++\}
+2 #include "CppUTest/TestHarness.h"
+3 #include "ClassName.h"
+4 
+5 TEST\_GROUP(ClassName)
+6 \{
+7   ClassName* className;
+8 
+9   void setup()
+10   \{
+11     className = new ClassName();
+12   \}
+13   void teardown()
+14   \{
+15     delete className;
+16   \}
+17 \}
+18 
+19 TEST(ClassName, Create)
+20 \{
+21   CHECK(0 != className);
+22   CHECK(true);
+23   CHECK\_EQUAL(1,1);
+24   LONGS\_EQUAL(1,1);
+25   DOUBLES\_EQUAL(1.000, 1.001, .01);
+26   STRCMP\_EQUAL("hello", "hello");
+27   FAIL("The prior tests pass, but this one doesn't");
+28 \}
+\end{DoxyCode}
+
+
+There are some scripts that are helpful in creating your initial h, cpp, and Test files. See scripts/\+R\+E\+A\+D\+M\+E.\+T\+XT 

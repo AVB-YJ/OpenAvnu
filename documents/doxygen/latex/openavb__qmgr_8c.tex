@@ -1,0 +1,555 @@
+\hypertarget{openavb__qmgr_8c}{}\section{lib/avtp\+\_\+pipeline/qmgr/openavb\+\_\+qmgr.c 파일 참조}
+\label{openavb__qmgr_8c}\index{lib/avtp\+\_\+pipeline/qmgr/openavb\+\_\+qmgr.\+c@{lib/avtp\+\_\+pipeline/qmgr/openavb\+\_\+qmgr.\+c}}
+{\ttfamily \#include $<$openavb\+\_\+types.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+log.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+trace.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+qmgr.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}avb\+\_\+sched.\+h\char`\"{}}\\*
+openavb\+\_\+qmgr.\+c에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__qmgr_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{데이타 구조}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structqdisc__data__t}{qdisc\+\_\+data\+\_\+t}
+\item 
+struct \hyperlink{structqmgr_class__t}{qmgr\+Class\+\_\+t}
+\item 
+struct \hyperlink{structqmgr_stream__t}{qmgr\+Stream\+\_\+t}
+\end{DoxyCompactItemize}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{openavb__qmgr_8c_abcfb21b6495585fe36058f57a9fe58fc}{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}~\char`\"{}Q\+M\+GR\char`\"{}
+\item 
+\#define \hyperlink{openavb__qmgr_8c_a8538ff07862b2a1d63c2aa1c3714546a}{A\+V\+B\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+Q\+D\+I\+S\+C\+\_\+\+M\+O\+DE}~\hyperlink{avb__sched_8h_a6e37b6a50ba2cedd2f394b7b239baa35a77bd871d7b995e1da9090e9ac599ca66}{A\+V\+B\+\_\+\+S\+H\+A\+P\+E\+R\+\_\+\+H\+W\+Q\+\_\+\+P\+E\+R\+\_\+\+C\+L\+A\+SS}
+\item 
+\#define \hyperlink{openavb__qmgr_8c_aefb7db7456a848e7cefe90816a5aaa88}{L\+O\+CK}()~pthread\+\_\+mutex\+\_\+lock(\&\hyperlink{openavb__qmgr_8c_abc53339b878febeed95449d0f546e3ee}{qmgr\+\_\+mutex})
+\item 
+\#define \hyperlink{openavb__qmgr_8c_a19b1665d85404627bdc076a60e21d926}{U\+N\+L\+O\+CK}()~pthread\+\_\+mutex\+\_\+unlock(\&\hyperlink{openavb__qmgr_8c_abc53339b878febeed95449d0f546e3ee}{qmgr\+\_\+mutex})
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__qmgr_8c_af90bc9418dc984bfd934f267ddfda747}{setup\+H\+W\+Queue} (int n\+Class, unsigned class\+Bytes\+Per\+Sec)
+\item 
+\hyperlink{openavb__types__base__pub_8h_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16} \hyperlink{openavb__qmgr_8c_ab756f0db8fdb1f13603997a1ea725147}{openavb\+Qmgr\+Add\+Stream} (\hyperlink{openavb__types__base__pub_8h_a4d8ccbeaf8ad040d8880e8971fc62752}{S\+R\+Class\+Idx\+\_\+t} n\+Class, unsigned class\+Rate, unsigned max\+Interval\+Frames, unsigned max\+Frame\+Size)
+\item 
+void \hyperlink{openavb__qmgr_8c_a6b0d8f6756d84c7c9a64ec11a0854129}{openavb\+Qmgr\+Remove\+Stream} (\hyperlink{openavb__types__base__pub_8h_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16} fwmark)
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__qmgr_8c_a45a1507f0db46895e0fe77201d5f0143}{openavb\+Qmgr\+Initialize} (int \hyperlink{rawsock__tx_8c_a1ea5d0cb93f22f7d0fdf804bd68c3326}{mode}, int ifindex, const char $\ast$\hyperlink{aaf-talker_8c_ac7b430acaa92a7a26fbcdad47d2efc20}{ifname}, unsigned mtu, unsigned link\+\_\+kbit, unsigned nsr\+\_\+kbit)
+\item 
+void \hyperlink{openavb__qmgr_8c_aa78f2f416e71b0e3a6e8aa386706abcc}{openavb\+Qmgr\+Finalize} (void)
+\end{DoxyCompactItemize}
+\subsection*{변수}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{structqdisc__data__t}{qdisc\+\_\+data\+\_\+t} \hyperlink{openavb__qmgr_8c_a55ebe81b5914e9fb40a8d2b56c3d2b1a}{qdisc\+\_\+data}
+\item 
+pthread\+\_\+mutex\+\_\+t \hyperlink{openavb__qmgr_8c_abc53339b878febeed95449d0f546e3ee}{qmgr\+\_\+mutex} = P\+T\+H\+R\+E\+A\+D\+\_\+\+R\+E\+C\+U\+R\+S\+I\+V\+E\+\_\+\+M\+U\+T\+E\+X\+\_\+\+I\+N\+I\+T\+I\+A\+L\+I\+Z\+E\+R\+\_\+\+NP
+\item 
+static \hyperlink{structqmgr_class__t}{qmgr\+Class\+\_\+t} \hyperlink{openavb__qmgr_8c_adae4cd87fe3f1e32a1b0628b06ed9a50}{qmgr\+\_\+classes} \mbox{[}\hyperlink{openavb__types__base__pub_8h_a4d8ccbeaf8ad040d8880e8971fc62752ae015ea745a07ffff031ec575f7e34525}{M\+A\+X\+\_\+\+A\+V\+B\+\_\+\+S\+R\+\_\+\+C\+L\+A\+S\+S\+ES}\mbox{]}
+\item 
+static \hyperlink{structqmgr_stream__t}{qmgr\+Stream\+\_\+t} \hyperlink{openavb__qmgr_8c_ad9516d979ffdbb1776c15773dc413f55}{qmgr\+\_\+streams} \mbox{[}\hyperlink{openavb__types__base_8h_a7e205a82b56683e5fc7c05d37160bf02}{M\+A\+X\+\_\+\+A\+V\+B\+\_\+\+S\+T\+R\+E\+A\+MS}\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{openavb\+\_\+qmgr.\+c@{openavb\+\_\+qmgr.\+c}!A\+V\+B\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+Q\+D\+I\+S\+C\+\_\+\+M\+O\+DE@{A\+V\+B\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+Q\+D\+I\+S\+C\+\_\+\+M\+O\+DE}}
+\index{A\+V\+B\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+Q\+D\+I\+S\+C\+\_\+\+M\+O\+DE@{A\+V\+B\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+Q\+D\+I\+S\+C\+\_\+\+M\+O\+DE}!openavb\+\_\+qmgr.\+c@{openavb\+\_\+qmgr.\+c}}
+\subsubsection[{\texorpdfstring{A\+V\+B\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+Q\+D\+I\+S\+C\+\_\+\+M\+O\+DE}{AVB_DEFAULT_QDISC_MODE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+V\+B\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+Q\+D\+I\+S\+C\+\_\+\+M\+O\+DE~{\bf A\+V\+B\+\_\+\+S\+H\+A\+P\+E\+R\+\_\+\+H\+W\+Q\+\_\+\+P\+E\+R\+\_\+\+C\+L\+A\+SS}}\hypertarget{openavb__qmgr_8c_a8538ff07862b2a1d63c2aa1c3714546a}{}\label{openavb__qmgr_8c_a8538ff07862b2a1d63c2aa1c3714546a}
+
+
+openavb\+\_\+qmgr.\+c 파일의 50 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+qmgr.\+c@{openavb\+\_\+qmgr.\+c}!A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT@{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}}
+\index{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT@{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}!openavb\+\_\+qmgr.\+c@{openavb\+\_\+qmgr.\+c}}
+\subsubsection[{\texorpdfstring{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}{AVB_LOG_COMPONENT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT~\char`\"{}Q\+M\+GR\char`\"{}}\hypertarget{openavb__qmgr_8c_abcfb21b6495585fe36058f57a9fe58fc}{}\label{openavb__qmgr_8c_abcfb21b6495585fe36058f57a9fe58fc}
+
+
+openavb\+\_\+qmgr.\+c 파일의 38 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+qmgr.\+c@{openavb\+\_\+qmgr.\+c}!L\+O\+CK@{L\+O\+CK}}
+\index{L\+O\+CK@{L\+O\+CK}!openavb\+\_\+qmgr.\+c@{openavb\+\_\+qmgr.\+c}}
+\subsubsection[{\texorpdfstring{L\+O\+CK}{LOCK}}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\+O\+CK(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~pthread\+\_\+mutex\+\_\+lock(\&{\bf qmgr\+\_\+mutex})}\hypertarget{openavb__qmgr_8c_aefb7db7456a848e7cefe90816a5aaa88}{}\label{openavb__qmgr_8c_aefb7db7456a848e7cefe90816a5aaa88}
+
+
+openavb\+\_\+qmgr.\+c 파일의 77 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+qmgr.\+c@{openavb\+\_\+qmgr.\+c}!U\+N\+L\+O\+CK@{U\+N\+L\+O\+CK}}
+\index{U\+N\+L\+O\+CK@{U\+N\+L\+O\+CK}!openavb\+\_\+qmgr.\+c@{openavb\+\_\+qmgr.\+c}}
+\subsubsection[{\texorpdfstring{U\+N\+L\+O\+CK}{UNLOCK}}]{\setlength{\rightskip}{0pt plus 5cm}\#define U\+N\+L\+O\+CK(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~pthread\+\_\+mutex\+\_\+unlock(\&{\bf qmgr\+\_\+mutex})}\hypertarget{openavb__qmgr_8c_a19b1665d85404627bdc076a60e21d926}{}\label{openavb__qmgr_8c_a19b1665d85404627bdc076a60e21d926}
+
+
+openavb\+\_\+qmgr.\+c 파일의 78 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{함수 문서화}
+\index{openavb\+\_\+qmgr.\+c@{openavb\+\_\+qmgr.\+c}!openavb\+Qmgr\+Add\+Stream@{openavb\+Qmgr\+Add\+Stream}}
+\index{openavb\+Qmgr\+Add\+Stream@{openavb\+Qmgr\+Add\+Stream}!openavb\+\_\+qmgr.\+c@{openavb\+\_\+qmgr.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Qmgr\+Add\+Stream(\+S\+R\+Class\+Idx\+\_\+t n\+Class, unsigned class\+Rate, unsigned max\+Interval\+Frames, unsigned max\+Frame\+Size)}{openavbQmgrAddStream(SRClassIdx_t nClass, unsigned classRate, unsigned maxIntervalFrames, unsigned maxFrameSize)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf U16} openavb\+Qmgr\+Add\+Stream (
+\begin{DoxyParamCaption}
+\item[{{\bf S\+R\+Class\+Idx\+\_\+t}}]{n\+Class, }
+\item[{unsigned}]{class\+Rate, }
+\item[{unsigned}]{max\+Interval\+Frames, }
+\item[{unsigned}]{max\+Frame\+Size}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__qmgr_8c_ab756f0db8fdb1f13603997a1ea725147}{}\label{openavb__qmgr_8c_ab756f0db8fdb1f13603997a1ea725147}
+
+
+openavb\+\_\+qmgr.\+c 파일의 137 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+138 \{
+139     \textcolor{keywordtype}{unsigned} fullFrameSize = maxFrameSize + \hyperlink{openavb__types__base_8h_ab06815d550a0c8e754b52b3603516ca8}{OPENAVB\_AVTP\_ETHER\_FRAME\_OVERHEAD}
+       + 1;
+140     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} streamBytesPerSec = fullFrameSize * maxIntervalFrames * classRate;
+141     \textcolor{keywordtype}{int} idx, nStream;
+142     \hyperlink{openavb__types__base__pub_8h_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16} fwmark = \hyperlink{openavb__qmgr_8h_a70995629747401a1c8bacaf61a92a012}{INVALID\_FWMARK};
+143 
+144     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_aa756811ace3be1f6cd33d3f09cd2a2f0}{AVB\_TRACE\_QUEUE\_MANAGER});
+145     \hyperlink{openavb__qmgr_8c_aefb7db7456a848e7cefe90816a5aaa88}{LOCK}();
+146 
+147     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afcf1f0c1d10ae9efe3782eb6cae78355}{AVB\_LOGF\_DEBUG}(\textcolor{stringliteral}{"Adding stream; class=%d, rate=%u frames=%u, size=%u(%u), bytes/sec=%lu"},
+148                    nClass, classRate, maxIntervalFrames, maxFrameSize,
+149                    fullFrameSize, streamBytesPerSec);
+150 
+151     \textcolor{keywordflow}{if} ((\textcolor{keywordtype}{int})nClass < 0 || nClass >= \hyperlink{openavb__types__base__pub_8h_a4d8ccbeaf8ad040d8880e8971fc62752ae015ea745a07ffff031ec575f7e34525}{MAX\_AVB\_SR\_CLASSES} || streamBytesPerSec == 0) \{
+152         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Adding stream; invalid argument"});
+153     \}
+154     \textcolor{keywordflow}{else} \{
+155         \textcolor{comment}{// Find an unused stream in the appropriate SR class}
+156         \textcolor{keywordflow}{for} (nStream = 0, idx = nClass * \hyperlink{openavb__types__base_8h_a40deb4a5cafe9fc78f1346c6cc256aad}{MAX\_AVB\_STREAMS\_PER\_CLASS}; nStream < 
+      \hyperlink{openavb__types__base_8h_a40deb4a5cafe9fc78f1346c6cc256aad}{MAX\_AVB\_STREAMS\_PER\_CLASS}; nStream++, idx++) \{
+157             \textcolor{keywordflow}{if} (0 == \hyperlink{openavb__qmgr_8c_ad9516d979ffdbb1776c15773dc413f55}{qmgr\_streams}[idx].streamBytesPerSec) \{
+158                 fwmark = \hyperlink{avb__sched_8h_a48f787000b0a65841d9a1475d6da3cd7}{TC\_AVB\_MARK}(nClass, nStream);
+159                 \textcolor{keywordflow}{break};
+160             \}
+161         \}
+162 
+163         \textcolor{keywordflow}{if} (fwmark == \hyperlink{openavb__qmgr_8h_a70995629747401a1c8bacaf61a92a012}{INVALID\_FWMARK}) \{
+164             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Adding stream; too many streams in class %d"}, nClass);
+165         \} \textcolor{keywordflow}{else} \{
+166 
+167             \textcolor{keywordflow}{if} (\hyperlink{openavb__qmgr_8c_a55ebe81b5914e9fb40a8d2b56c3d2b1a}{qdisc\_data}.\hyperlink{structqdisc__data__t_a1ea5d0cb93f22f7d0fdf804bd68c3326}{mode} != \hyperlink{avb__sched_8h_a6e37b6a50ba2cedd2f394b7b239baa35ad0850607b4ff354f5ef40f42115c51dd}{AVB\_SHAPER\_DISABLED}) \{
+168                 \textcolor{keywordflow}{if} (!\hyperlink{openavb__qmgr_8c_af90bc9418dc984bfd934f267ddfda747}{setupHWQueue}(nClass, \hyperlink{openavb__qmgr_8c_adae4cd87fe3f1e32a1b0628b06ed9a50}{qmgr\_classes}[nClass].classBytesPerSec + 
+      streamBytesPerSec)) \{
+169                     fwmark = \hyperlink{openavb__qmgr_8h_a70995629747401a1c8bacaf61a92a012}{INVALID\_FWMARK};
+170                 \}
+171             \}
+172 
+173             \textcolor{keywordflow}{if} (fwmark != \hyperlink{openavb__qmgr_8h_a70995629747401a1c8bacaf61a92a012}{INVALID\_FWMARK}) \{
+174                 \textcolor{comment}{// good to go - update stream}
+175                 \hyperlink{openavb__qmgr_8c_ad9516d979ffdbb1776c15773dc413f55}{qmgr\_streams}[idx].\hyperlink{structqmgr_stream__t_aa205bb2199ec3081785cc701ae7da809}{streamBytesPerSec} = streamBytesPerSec;
+176                 \hyperlink{openavb__qmgr_8c_ad9516d979ffdbb1776c15773dc413f55}{qmgr\_streams}[idx].\hyperlink{structqmgr_stream__t_af50080087f14150fb5d5fdc484ca79f5}{classRate} = classRate;
+177                 \hyperlink{openavb__qmgr_8c_ad9516d979ffdbb1776c15773dc413f55}{qmgr\_streams}[idx].\hyperlink{structqmgr_stream__t_aa49daeac307e6a8205c5d418a78d84d6}{maxIntervalFrames} = maxIntervalFrames;
+178                 \hyperlink{openavb__qmgr_8c_ad9516d979ffdbb1776c15773dc413f55}{qmgr\_streams}[idx].\hyperlink{structqmgr_stream__t_ab3d51dcd6637a6348d70a58a420d7d82}{maxFrameSize} = maxFrameSize;
+179                 \textcolor{comment}{// and class}
+180                 \hyperlink{openavb__qmgr_8c_adae4cd87fe3f1e32a1b0628b06ed9a50}{qmgr\_classes}[nClass].\hyperlink{structqmgr_class__t_a72dcfa242cf7919ce0eec71820685ca1}{classBytesPerSec} += streamBytesPerSec;
+181 
+182                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afcf1f0c1d10ae9efe3782eb6cae78355}{AVB\_LOGF\_DEBUG}(\textcolor{stringliteral}{"Added stream; classBPS=%u, streamBPS=%u"}, 
+      \hyperlink{openavb__qmgr_8c_adae4cd87fe3f1e32a1b0628b06ed9a50}{qmgr\_classes}[nClass].classBytesPerSec, \hyperlink{openavb__qmgr_8c_ad9516d979ffdbb1776c15773dc413f55}{qmgr\_streams}[idx].streamBytesPerSec);
+183             \}
+184         \}
+185     \}
+186 
+187     \hyperlink{openavb__qmgr_8c_a19b1665d85404627bdc076a60e21d926}{UNLOCK}();
+188     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_aa756811ace3be1f6cd33d3f09cd2a2f0}{AVB\_TRACE\_QUEUE\_MANAGER});
+189     \textcolor{keywordflow}{return} fwmark;
+190 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__qmgr_8c_ab756f0db8fdb1f13603997a1ea725147_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__qmgr_8c_ab756f0db8fdb1f13603997a1ea725147_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+qmgr.\+c@{openavb\+\_\+qmgr.\+c}!openavb\+Qmgr\+Finalize@{openavb\+Qmgr\+Finalize}}
+\index{openavb\+Qmgr\+Finalize@{openavb\+Qmgr\+Finalize}!openavb\+\_\+qmgr.\+c@{openavb\+\_\+qmgr.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Qmgr\+Finalize(void)}{openavbQmgrFinalize(void)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Qmgr\+Finalize (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__qmgr_8c_aa78f2f416e71b0e3a6e8aa386706abcc}{}\label{openavb__qmgr_8c_aa78f2f416e71b0e3a6e8aa386706abcc}
+
+
+openavb\+\_\+qmgr.\+c 파일의 297 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+298 \{
+299     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_aa756811ace3be1f6cd33d3f09cd2a2f0}{AVB\_TRACE\_QUEUE\_MANAGER});
+300     \hyperlink{openavb__qmgr_8c_aefb7db7456a848e7cefe90816a5aaa88}{LOCK}();
+301 
+302     \textcolor{keywordflow}{if} (--\hyperlink{openavb__qmgr_8c_a55ebe81b5914e9fb40a8d2b56c3d2b1a}{qdisc\_data}.\hyperlink{structqdisc__data__t_adb528a1cb1ca190150183394d082590d}{ref} == 0 && \hyperlink{openavb__qmgr_8c_a55ebe81b5914e9fb40a8d2b56c3d2b1a}{qdisc\_data}.\hyperlink{structqdisc__data__t_a1ea5d0cb93f22f7d0fdf804bd68c3326}{mode} != 
+      \hyperlink{avb__sched_8h_a6e37b6a50ba2cedd2f394b7b239baa35ad0850607b4ff354f5ef40f42115c51dd}{AVB\_SHAPER\_DISABLED}) \{
+303         \textcolor{keywordtype}{int} nClass;
+304         \textcolor{keywordflow}{for} (nClass = \hyperlink{openavb__types__base__pub_8h_a4d8ccbeaf8ad040d8880e8971fc62752a015950a62a4a997ead901490a42654aa}{SR\_CLASS\_A}; nClass < \hyperlink{openavb__types__base__pub_8h_a4d8ccbeaf8ad040d8880e8971fc62752ae015ea745a07ffff031ec575f7e34525}{MAX\_AVB\_SR\_CLASSES}; nClass++) \{
+305             \textcolor{keywordtype}{int} nStream, idx;
+306             \textcolor{keywordflow}{for} (nStream = 0, idx = nClass * \hyperlink{openavb__types__base_8h_a40deb4a5cafe9fc78f1346c6cc256aad}{MAX\_AVB\_STREAMS\_PER\_CLASS}; nStream < 
+      \hyperlink{openavb__types__base_8h_a40deb4a5cafe9fc78f1346c6cc256aad}{MAX\_AVB\_STREAMS\_PER\_CLASS}; nStream++, idx++) \{
+307                 \textcolor{keywordflow}{if} (\hyperlink{openavb__qmgr_8c_ad9516d979ffdbb1776c15773dc413f55}{qmgr\_streams}[idx].streamBytesPerSec) \{
+308                     \hyperlink{openavb__types__base__pub_8h_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16} fwmark = \hyperlink{avb__sched_8h_a48f787000b0a65841d9a1475d6da3cd7}{TC\_AVB\_MARK}(nClass, nStream);
+309                     \hyperlink{openavb__qmgr_8c_a6b0d8f6756d84c7c9a64ec11a0854129}{openavbQmgrRemoveStream}(fwmark);
+310                 \}
+311             \}
+312         \}
+313 
+314 \textcolor{preprocessor}{#if (AVB\_FEATURE\_IGB)}
+315         \hyperlink{openavb__igb_8c_aec1db7831e72cba888b0f652fbe37cc5}{igbReleaseDevice}(\hyperlink{openavb__qmgr_8c_a55ebe81b5914e9fb40a8d2b56c3d2b1a}{qdisc\_data}.igb\_dev);
+316         \hyperlink{openavb__qmgr_8c_a55ebe81b5914e9fb40a8d2b56c3d2b1a}{qdisc\_data}.igb\_dev = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+317 \textcolor{preprocessor}{#endif}
+318     \}
+319 
+320     \hyperlink{openavb__qmgr_8c_a19b1665d85404627bdc076a60e21d926}{UNLOCK}();
+321     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_aa756811ace3be1f6cd33d3f09cd2a2f0}{AVB\_TRACE\_QUEUE\_MANAGER});
+322 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__qmgr_8c_aa78f2f416e71b0e3a6e8aa386706abcc_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__qmgr_8c_aa78f2f416e71b0e3a6e8aa386706abcc_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+qmgr.\+c@{openavb\+\_\+qmgr.\+c}!openavb\+Qmgr\+Initialize@{openavb\+Qmgr\+Initialize}}
+\index{openavb\+Qmgr\+Initialize@{openavb\+Qmgr\+Initialize}!openavb\+\_\+qmgr.\+c@{openavb\+\_\+qmgr.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Qmgr\+Initialize(int mode, int ifindex, const char $\ast$ifname, unsigned mtu, unsigned link\+\_\+kbit, unsigned nsr\+\_\+kbit)}{openavbQmgrInitialize(int mode, int ifindex, const char *ifname, unsigned mtu, unsigned link_kbit, unsigned nsr_kbit)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} openavb\+Qmgr\+Initialize (
+\begin{DoxyParamCaption}
+\item[{int}]{mode, }
+\item[{int}]{ifindex, }
+\item[{const char $\ast$}]{ifname, }
+\item[{unsigned}]{mtu, }
+\item[{unsigned}]{link\+\_\+kbit, }
+\item[{unsigned}]{nsr\+\_\+kbit}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__qmgr_8c_a45a1507f0db46895e0fe77201d5f0143}{}\label{openavb__qmgr_8c_a45a1507f0db46895e0fe77201d5f0143}
+
+
+openavb\+\_\+qmgr.\+c 파일의 234 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+235 \{
+236     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_aa756811ace3be1f6cd33d3f09cd2a2f0}{AVB\_TRACE\_QUEUE\_MANAGER});
+237     \textcolor{keywordtype}{bool} ret = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+238 
+239 \textcolor{comment}{//  if (!ifname || mtu == 0 || link\_kbit == 0 || nsr\_kbit == 0) \{}
+240 \textcolor{comment}{//      AVB\_LOG\_ERROR("Initializing QMgr; invalid argument");}
+241 \textcolor{comment}{//      return FALSE;}
+242 \textcolor{comment}{//  \}}
+243 
+244     \hyperlink{openavb__qmgr_8c_aefb7db7456a848e7cefe90816a5aaa88}{LOCK}();
+245 
+246     \textcolor{keywordflow}{if} (\hyperlink{openavb__qmgr_8c_a55ebe81b5914e9fb40a8d2b56c3d2b1a}{qdisc\_data}.\hyperlink{structqdisc__data__t_adb528a1cb1ca190150183394d082590d}{ref}++ > 0) \{
+247         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a28a4d0350d530ad95c95b8383c00cd9c}{AVB\_LOG\_DEBUG}(\textcolor{stringliteral}{"Already initialized"});
+248 
+249         \hyperlink{openavb__qmgr_8c_a19b1665d85404627bdc076a60e21d926}{UNLOCK}();
+250         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_aa756811ace3be1f6cd33d3f09cd2a2f0}{AVB\_TRACE\_QUEUE\_MANAGER});
+251         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+252     \}
+253 
+254     \textcolor{keywordflow}{if} (\hyperlink{rawsock__tx_8c_a1ea5d0cb93f22f7d0fdf804bd68c3326}{mode} >= 0)
+255         \hyperlink{openavb__qmgr_8c_a55ebe81b5914e9fb40a8d2b56c3d2b1a}{qdisc\_data}.\hyperlink{structqdisc__data__t_a1ea5d0cb93f22f7d0fdf804bd68c3326}{mode} = \hyperlink{rawsock__tx_8c_a1ea5d0cb93f22f7d0fdf804bd68c3326}{mode};
+256     \textcolor{keywordflow}{else}
+257         \hyperlink{openavb__qmgr_8c_a55ebe81b5914e9fb40a8d2b56c3d2b1a}{qdisc\_data}.\hyperlink{structqdisc__data__t_a1ea5d0cb93f22f7d0fdf804bd68c3326}{mode} = \hyperlink{openavb__qmgr_8c_a8538ff07862b2a1d63c2aa1c3714546a}{AVB\_DEFAULT\_QDISC\_MODE};
+258 
+259 
+260     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afcf1f0c1d10ae9efe3782eb6cae78355}{AVB\_LOGF\_DEBUG}(\textcolor{stringliteral}{"Initializing QMgr; mode=%d, idx=%d, mtu=%u, link\_kbit=%u, nsr\_kbit=%u"},
+261                    \hyperlink{openavb__qmgr_8c_a55ebe81b5914e9fb40a8d2b56c3d2b1a}{qdisc\_data}.\hyperlink{structqdisc__data__t_a1ea5d0cb93f22f7d0fdf804bd68c3326}{mode}, ifindex, mtu, link\_kbit, nsr\_kbit);
+262 
+263 \textcolor{preprocessor}{#if (AVB\_FEATURE\_IGB)}
+264     \textcolor{keywordflow}{if} ( \hyperlink{openavb__qmgr_8c_a55ebe81b5914e9fb40a8d2b56c3d2b1a}{qdisc\_data}.\hyperlink{structqdisc__data__t_a1ea5d0cb93f22f7d0fdf804bd68c3326}{mode} != \hyperlink{avb__sched_8h_a6e37b6a50ba2cedd2f394b7b239baa35ad0850607b4ff354f5ef40f42115c51dd}{AVB\_SHAPER\_DISABLED}
+265          && (\hyperlink{openavb__qmgr_8c_a55ebe81b5914e9fb40a8d2b56c3d2b1a}{qdisc\_data}.igb\_dev = \hyperlink{openavb__igb_8c_a12829b65cffe8d87d9fbd04d18685cb4}{igbAcquireDevice}()) == 0)
+266     \{
+267         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Initializing QMgr; unable to acquire igb device"});
+268     \}
+269     \textcolor{keywordflow}{else}
+270 \textcolor{preprocessor}{#endif}
+271     \{
+272         \textcolor{comment}{// Initialize data for classes and streams}
+273         memset(\hyperlink{openavb__qmgr_8c_adae4cd87fe3f1e32a1b0628b06ed9a50}{qmgr\_classes}, 0, \textcolor{keyword}{sizeof}(\hyperlink{openavb__qmgr_8c_adae4cd87fe3f1e32a1b0628b06ed9a50}{qmgr\_classes}));
+274         memset(\hyperlink{openavb__qmgr_8c_ad9516d979ffdbb1776c15773dc413f55}{qmgr\_streams}, 0, \textcolor{keyword}{sizeof}(\hyperlink{openavb__qmgr_8c_ad9516d979ffdbb1776c15773dc413f55}{qmgr\_streams}));
+275 
+276         \textcolor{comment}{// Save the configuration}
+277         \textcolor{keywordflow}{if} (\hyperlink{aaf-talker_8c_ac7b430acaa92a7a26fbcdad47d2efc20}{ifname})
+278             strncpy(\hyperlink{openavb__qmgr_8c_a55ebe81b5914e9fb40a8d2b56c3d2b1a}{qdisc\_data}.\hyperlink{structqdisc__data__t_a11d6071e5fa37b0c5776e17651485f11}{ifname}, \hyperlink{aaf-talker_8c_ac7b430acaa92a7a26fbcdad47d2efc20}{ifname}, \textcolor{keyword}{sizeof}(
+      \hyperlink{openavb__qmgr_8c_a55ebe81b5914e9fb40a8d2b56c3d2b1a}{qdisc\_data}.\hyperlink{structqdisc__data__t_a11d6071e5fa37b0c5776e17651485f11}{ifname}) - 1);
+279         \hyperlink{openavb__qmgr_8c_a55ebe81b5914e9fb40a8d2b56c3d2b1a}{qdisc\_data}.\hyperlink{structqdisc__data__t_a01e636f8746c84f1cf3d45c4afbfde35}{ifindex} = ifindex;
+280         \hyperlink{openavb__qmgr_8c_a55ebe81b5914e9fb40a8d2b56c3d2b1a}{qdisc\_data}.\hyperlink{structqdisc__data__t_a5d1fd52b21b7b3355046dbbc59bdf6a5}{linkKbit} = link\_kbit;
+281         \hyperlink{openavb__qmgr_8c_a55ebe81b5914e9fb40a8d2b56c3d2b1a}{qdisc\_data}.\hyperlink{structqdisc__data__t_ad9503bcdf2668a6285abebf628f31735}{linkMTU} = mtu;
+282         \hyperlink{openavb__qmgr_8c_a55ebe81b5914e9fb40a8d2b56c3d2b1a}{qdisc\_data}.\hyperlink{structqdisc__data__t_aded4a95008961f9b7002fb1da40c59b6}{nsrKbit}  = nsr\_kbit;
+283 
+284         \textcolor{keywordflow}{if} (\hyperlink{openavb__qmgr_8c_a55ebe81b5914e9fb40a8d2b56c3d2b1a}{qdisc\_data}.\hyperlink{structqdisc__data__t_a1ea5d0cb93f22f7d0fdf804bd68c3326}{mode} == \hyperlink{avb__sched_8h_a6e37b6a50ba2cedd2f394b7b239baa35ad0850607b4ff354f5ef40f42115c51dd}{AVB\_SHAPER\_DISABLED}) \{
+285             ret = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+286         \} \textcolor{keywordflow}{else} \{
+287             ret = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+288             \textcolor{comment}{// igb device aquired, nothing more to do}
+289         \}
+290     \}
+291 
+292     \hyperlink{openavb__qmgr_8c_a19b1665d85404627bdc076a60e21d926}{UNLOCK}();
+293     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_aa756811ace3be1f6cd33d3f09cd2a2f0}{AVB\_TRACE\_QUEUE\_MANAGER});
+294     \textcolor{keywordflow}{return} ret;
+295 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__qmgr_8c_a45a1507f0db46895e0fe77201d5f0143_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__qmgr_8c_a45a1507f0db46895e0fe77201d5f0143_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+qmgr.\+c@{openavb\+\_\+qmgr.\+c}!openavb\+Qmgr\+Remove\+Stream@{openavb\+Qmgr\+Remove\+Stream}}
+\index{openavb\+Qmgr\+Remove\+Stream@{openavb\+Qmgr\+Remove\+Stream}!openavb\+\_\+qmgr.\+c@{openavb\+\_\+qmgr.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Qmgr\+Remove\+Stream(\+U16 fwmark)}{openavbQmgrRemoveStream(U16 fwmark)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Qmgr\+Remove\+Stream (
+\begin{DoxyParamCaption}
+\item[{{\bf U16}}]{fwmark}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__qmgr_8c_a6b0d8f6756d84c7c9a64ec11a0854129}{}\label{openavb__qmgr_8c_a6b0d8f6756d84c7c9a64ec11a0854129}
+
+
+openavb\+\_\+qmgr.\+c 파일의 193 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+194 \{
+195     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_aa756811ace3be1f6cd33d3f09cd2a2f0}{AVB\_TRACE\_QUEUE\_MANAGER});
+196 
+197     \textcolor{keywordflow}{if} (fwmark == \hyperlink{openavb__qmgr_8h_a70995629747401a1c8bacaf61a92a012}{INVALID\_FWMARK}) \{
+198         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Removing stream; invalid argument"});
+199         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_aa756811ace3be1f6cd33d3f09cd2a2f0}{AVB\_TRACE\_QUEUE\_MANAGER});
+200         \textcolor{keywordflow}{return};
+201     \}
+202 
+203     \textcolor{keywordtype}{int} nClass = \hyperlink{avb__sched_8h_ac47e990e76e8ff2b7dcf1aa9e0705495}{TC\_AVB\_MARK\_CLASS}(fwmark);
+204     \textcolor{keywordtype}{int} nStream  = \hyperlink{avb__sched_8h_ac48b1652bde27c55453dabe37bb14880}{TC\_AVB\_MARK\_STREAM}(fwmark);
+205     \textcolor{keywordtype}{int} idx = nClass * \hyperlink{openavb__types__base_8h_a40deb4a5cafe9fc78f1346c6cc256aad}{MAX\_AVB\_STREAMS\_PER\_CLASS} + nStream;
+206 
+207     \hyperlink{openavb__qmgr_8c_aefb7db7456a848e7cefe90816a5aaa88}{LOCK}();
+208 
+209     \textcolor{keywordflow}{if} (nStream < 0
+210         || nStream >= \hyperlink{openavb__types__base_8h_a7e205a82b56683e5fc7c05d37160bf02}{MAX\_AVB\_STREAMS}
+211         || nClass < 0
+212         || nClass >= \hyperlink{openavb__types__base__pub_8h_a4d8ccbeaf8ad040d8880e8971fc62752ae015ea745a07ffff031ec575f7e34525}{MAX\_AVB\_SR\_CLASSES}
+213         || \hyperlink{openavb__qmgr_8c_ad9516d979ffdbb1776c15773dc413f55}{qmgr\_streams}[idx].streamBytesPerSec == 0)
+214     \{
+215         \textcolor{comment}{// something is wrong}
+216         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Removing stream; invalid argument or data"});
+217     \}
+218     \textcolor{keywordflow}{else} \{
+219         \textcolor{keywordflow}{if} (\hyperlink{openavb__qmgr_8c_a55ebe81b5914e9fb40a8d2b56c3d2b1a}{qdisc\_data}.\hyperlink{structqdisc__data__t_a1ea5d0cb93f22f7d0fdf804bd68c3326}{mode} != \hyperlink{avb__sched_8h_a6e37b6a50ba2cedd2f394b7b239baa35ad0850607b4ff354f5ef40f42115c51dd}{AVB\_SHAPER\_DISABLED}) \{
+220             \hyperlink{openavb__qmgr_8c_af90bc9418dc984bfd934f267ddfda747}{setupHWQueue}(nClass, \hyperlink{openavb__qmgr_8c_adae4cd87fe3f1e32a1b0628b06ed9a50}{qmgr\_classes}[nClass].classBytesPerSec - 
+      \hyperlink{openavb__qmgr_8c_ad9516d979ffdbb1776c15773dc413f55}{qmgr\_streams}[idx].streamBytesPerSec);
+221         \}
+222 
+223         \textcolor{comment}{// update class}
+224         \hyperlink{openavb__qmgr_8c_adae4cd87fe3f1e32a1b0628b06ed9a50}{qmgr\_classes}[nClass].\hyperlink{structqmgr_class__t_a72dcfa242cf7919ce0eec71820685ca1}{classBytesPerSec} -= 
+      \hyperlink{openavb__qmgr_8c_ad9516d979ffdbb1776c15773dc413f55}{qmgr\_streams}[idx].\hyperlink{structqmgr_stream__t_aa205bb2199ec3081785cc701ae7da809}{streamBytesPerSec};
+225         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afcf1f0c1d10ae9efe3782eb6cae78355}{AVB\_LOGF\_DEBUG}(\textcolor{stringliteral}{"Removed stream; classBPS=%u, streamBPS=%u"}, 
+      \hyperlink{openavb__qmgr_8c_adae4cd87fe3f1e32a1b0628b06ed9a50}{qmgr\_classes}[nClass].classBytesPerSec, \hyperlink{openavb__qmgr_8c_ad9516d979ffdbb1776c15773dc413f55}{qmgr\_streams}[idx].streamBytesPerSec);
+226         \textcolor{comment}{// and stream}
+227         memset(&\hyperlink{openavb__qmgr_8c_ad9516d979ffdbb1776c15773dc413f55}{qmgr\_streams}[idx], 0, \textcolor{keyword}{sizeof}(\hyperlink{structqmgr_stream__t}{qmgrStream\_t}));
+228     \}
+229 
+230     \hyperlink{openavb__qmgr_8c_a19b1665d85404627bdc076a60e21d926}{UNLOCK}();
+231     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_aa756811ace3be1f6cd33d3f09cd2a2f0}{AVB\_TRACE\_QUEUE\_MANAGER});
+232 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__qmgr_8c_a6b0d8f6756d84c7c9a64ec11a0854129_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__qmgr_8c_a6b0d8f6756d84c7c9a64ec11a0854129_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+qmgr.\+c@{openavb\+\_\+qmgr.\+c}!setup\+H\+W\+Queue@{setup\+H\+W\+Queue}}
+\index{setup\+H\+W\+Queue@{setup\+H\+W\+Queue}!openavb\+\_\+qmgr.\+c@{openavb\+\_\+qmgr.\+c}}
+\subsubsection[{\texorpdfstring{setup\+H\+W\+Queue(int n\+Class, unsigned class\+Bytes\+Per\+Sec)}{setupHWQueue(int nClass, unsigned classBytesPerSec)}}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf bool} setup\+H\+W\+Queue (
+\begin{DoxyParamCaption}
+\item[{int}]{n\+Class, }
+\item[{unsigned}]{class\+Bytes\+Per\+Sec}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__qmgr_8c_af90bc9418dc984bfd934f267ddfda747}{}\label{openavb__qmgr_8c_af90bc9418dc984bfd934f267ddfda747}
+
+
+openavb\+\_\+qmgr.\+c 파일의 103 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+104 \{
+105     \textcolor{keywordtype}{int} \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err} = 0;
+106 \textcolor{preprocessor}{#if (AVB\_FEATURE\_IGB)}
+107     \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} class\_a\_bytes\_per\_sec, class\_b\_bytes\_per\_sec;
+108 \textcolor{preprocessor}{#endif}
+109 
+110     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_aa756811ace3be1f6cd33d3f09cd2a2f0}{AVB\_TRACE\_QUEUE\_MANAGER});
+111 
+112 \textcolor{preprocessor}{#if (AVB\_FEATURE\_IGB)}
+113     \textcolor{keywordflow}{if} (nClass == \hyperlink{openavb__types__base__pub_8h_a4d8ccbeaf8ad040d8880e8971fc62752a015950a62a4a997ead901490a42654aa}{SR\_CLASS\_A}) \{
+114         class\_a\_bytes\_per\_sec = classBytesPerSec;
+115         class\_b\_bytes\_per\_sec = \hyperlink{openavb__qmgr_8c_adae4cd87fe3f1e32a1b0628b06ed9a50}{qmgr\_classes}[\hyperlink{openavb__types__base__pub_8h_a4d8ccbeaf8ad040d8880e8971fc62752af7551cb7a50c430e663d601c2536ef30}{SR\_CLASS\_B}].
+      \hyperlink{structqmgr_class__t_a72dcfa242cf7919ce0eec71820685ca1}{classBytesPerSec};
+116     \} \textcolor{keywordflow}{else} \{
+117         class\_a\_bytes\_per\_sec = \hyperlink{openavb__qmgr_8c_adae4cd87fe3f1e32a1b0628b06ed9a50}{qmgr\_classes}[\hyperlink{openavb__types__base__pub_8h_a4d8ccbeaf8ad040d8880e8971fc62752a015950a62a4a997ead901490a42654aa}{SR\_CLASS\_A}].
+      \hyperlink{structqmgr_class__t_a72dcfa242cf7919ce0eec71820685ca1}{classBytesPerSec};
+118         class\_b\_bytes\_per\_sec = classBytesPerSec;
+119     \}
+120     err = \hyperlink{igb_8c_a08432a2e3faf4dc22641a6ee75f309c9}{igb\_set\_class\_bandwidth2}(\hyperlink{openavb__qmgr_8c_a55ebe81b5914e9fb40a8d2b56c3d2b1a}{qdisc\_data}.igb\_dev, 
+      class\_a\_bytes\_per\_sec, class\_b\_bytes\_per\_sec);
+121     \textcolor{keywordflow}{if} (err)
+122         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Adding stream; igb\_set\_class\_bandwidth failed: %s"}, strerror(err));
+123 \textcolor{preprocessor}{#endif}
+124 
+125     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_aa756811ace3be1f6cd33d3f09cd2a2f0}{AVB\_TRACE\_QUEUE\_MANAGER});
+126     \textcolor{keywordflow}{return} !\hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err};
+127 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__qmgr_8c_af90bc9418dc984bfd934f267ddfda747_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__qmgr_8c_af90bc9418dc984bfd934f267ddfda747_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{변수 문서화}
+\index{openavb\+\_\+qmgr.\+c@{openavb\+\_\+qmgr.\+c}!qdisc\+\_\+data@{qdisc\+\_\+data}}
+\index{qdisc\+\_\+data@{qdisc\+\_\+data}!openavb\+\_\+qmgr.\+c@{openavb\+\_\+qmgr.\+c}}
+\subsubsection[{\texorpdfstring{qdisc\+\_\+data}{qdisc_data}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf qdisc\+\_\+data\+\_\+t} qdisc\+\_\+data\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__qmgr_8c_a55ebe81b5914e9fb40a8d2b56c3d2b1a}{}\label{openavb__qmgr_8c_a55ebe81b5914e9fb40a8d2b56c3d2b1a}
+{\bfseries 초기값\+:}
+\begin{DoxyCode}
+= \{
+
+
+
+    0, 0, \{0\}, 0, 0, 0, 0
+\}
+\end{DoxyCode}
+
+
+openavb\+\_\+qmgr.\+c 파일의 68 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+qmgr.\+c@{openavb\+\_\+qmgr.\+c}!qmgr\+\_\+classes@{qmgr\+\_\+classes}}
+\index{qmgr\+\_\+classes@{qmgr\+\_\+classes}!openavb\+\_\+qmgr.\+c@{openavb\+\_\+qmgr.\+c}}
+\subsubsection[{\texorpdfstring{qmgr\+\_\+classes}{qmgr_classes}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf qmgr\+Class\+\_\+t} qmgr\+\_\+classes\mbox{[}{\bf M\+A\+X\+\_\+\+A\+V\+B\+\_\+\+S\+R\+\_\+\+C\+L\+A\+S\+S\+ES}\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__qmgr_8c_adae4cd87fe3f1e32a1b0628b06ed9a50}{}\label{openavb__qmgr_8c_adae4cd87fe3f1e32a1b0628b06ed9a50}
+
+
+openavb\+\_\+qmgr.\+c 파일의 94 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+qmgr.\+c@{openavb\+\_\+qmgr.\+c}!qmgr\+\_\+mutex@{qmgr\+\_\+mutex}}
+\index{qmgr\+\_\+mutex@{qmgr\+\_\+mutex}!openavb\+\_\+qmgr.\+c@{openavb\+\_\+qmgr.\+c}}
+\subsubsection[{\texorpdfstring{qmgr\+\_\+mutex}{qmgr_mutex}}]{\setlength{\rightskip}{0pt plus 5cm}pthread\+\_\+mutex\+\_\+t qmgr\+\_\+mutex = P\+T\+H\+R\+E\+A\+D\+\_\+\+R\+E\+C\+U\+R\+S\+I\+V\+E\+\_\+\+M\+U\+T\+E\+X\+\_\+\+I\+N\+I\+T\+I\+A\+L\+I\+Z\+E\+R\+\_\+\+NP}\hypertarget{openavb__qmgr_8c_abc53339b878febeed95449d0f546e3ee}{}\label{openavb__qmgr_8c_abc53339b878febeed95449d0f546e3ee}
+
+
+openavb\+\_\+qmgr.\+c 파일의 76 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+qmgr.\+c@{openavb\+\_\+qmgr.\+c}!qmgr\+\_\+streams@{qmgr\+\_\+streams}}
+\index{qmgr\+\_\+streams@{qmgr\+\_\+streams}!openavb\+\_\+qmgr.\+c@{openavb\+\_\+qmgr.\+c}}
+\subsubsection[{\texorpdfstring{qmgr\+\_\+streams}{qmgr_streams}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf qmgr\+Stream\+\_\+t} qmgr\+\_\+streams\mbox{[}{\bf M\+A\+X\+\_\+\+A\+V\+B\+\_\+\+S\+T\+R\+E\+A\+MS}\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__qmgr_8c_ad9516d979ffdbb1776c15773dc413f55}{}\label{openavb__qmgr_8c_ad9516d979ffdbb1776c15773dc413f55}
+
+
+openavb\+\_\+qmgr.\+c 파일의 95 번째 라인에서 정의되었습니다.
+

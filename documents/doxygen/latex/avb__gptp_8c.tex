@@ -1,0 +1,364 @@
+\hypertarget{avb__gptp_8c}{}\section{lib/common/avb\+\_\+gptp.c 파일 참조}
+\label{avb__gptp_8c}\index{lib/common/avb\+\_\+gptp.\+c@{lib/common/avb\+\_\+gptp.\+c}}
+{\ttfamily \#include \char`\"{}avb\+\_\+gptp.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$time.\+h$>$}\\*
+{\ttfamily \#include $<$unistd.\+h$>$}\\*
+{\ttfamily \#include $<$sys/mman.\+h$>$}\\*
+{\ttfamily \#include $<$fcntl.\+h$>$}\\*
+{\ttfamily \#include $<$pthread.\+h$>$}\\*
+avb\+\_\+gptp.\+c에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{avb__gptp_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{avb__gptp_8c_a05ec877d6b574ac18e0d773f37958865}{gptpinit} (int $\ast$shm\+\_\+fd, char $\ast$$\ast$shm\+\_\+map)
+\begin{DoxyCompactList}\small\item\em Open the memory mapping used for I\+PC. \end{DoxyCompactList}\item 
+int \hyperlink{avb__gptp_8c_ae4b9f53a01f896212e0c982fd10ce4c5}{gptpdeinit} (int $\ast$shm\+\_\+fd, char $\ast$$\ast$shm\+\_\+map)
+\begin{DoxyCompactList}\small\item\em Free the memory mapping used for I\+PC. \end{DoxyCompactList}\item 
+int \hyperlink{avb__gptp_8c_a8296f89653e0277070dcff8b6ae0d445}{gptpgetdata} (char $\ast$shm\+\_\+map, \hyperlink{structg_ptp_time_data}{g\+Ptp\+Time\+Data} $\ast$td)
+\begin{DoxyCompactList}\small\item\em Read the ptp data from I\+PC memory. \end{DoxyCompactList}\item 
+int \hyperlink{avb__gptp_8c_adb6415e08d5c177a4ea34f039e63f543}{gptpscaling} (char $\ast$shm\+\_\+map, \hyperlink{structg_ptp_time_data}{g\+Ptp\+Time\+Data} $\ast$td)
+\begin{DoxyCompactList}\small\item\em Read the ptp data from I\+PC memory and print its contents. \end{DoxyCompactList}\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{avb__gptp_8c_acfc56170109c580d06e8b84658cfcee1}{gptplocaltime} (const \hyperlink{structg_ptp_time_data}{g\+Ptp\+Time\+Data} $\ast$td, \hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\+\_\+t} $\ast$now\+\_\+local)
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{avb__gptp_8c_a47bd8c65cfc893eb5aaab6eccb7d46b0}{gptpmaster2local} (const \hyperlink{structg_ptp_time_data}{g\+Ptp\+Time\+Data} $\ast$td, const \hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\+\_\+t} master, \hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\+\_\+t} $\ast$local)
+\end{DoxyCompactItemize}
+
+
+\subsection{함수 문서화}
+\index{avb\+\_\+gptp.\+c@{avb\+\_\+gptp.\+c}!gptpdeinit@{gptpdeinit}}
+\index{gptpdeinit@{gptpdeinit}!avb\+\_\+gptp.\+c@{avb\+\_\+gptp.\+c}}
+\subsubsection[{\texorpdfstring{gptpdeinit(int $\ast$shm\+\_\+fd, char $\ast$$\ast$shm\+\_\+map)}{gptpdeinit(int *shm_fd, char **shm_map)}}]{\setlength{\rightskip}{0pt plus 5cm}int gptpdeinit (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{shm\+\_\+fd, }
+\item[{char $\ast$$\ast$}]{shm\+\_\+map}
+\end{DoxyParamCaption}
+)}\hypertarget{avb__gptp_8c_ae4b9f53a01f896212e0c982fd10ce4c5}{}\label{avb__gptp_8c_ae4b9f53a01f896212e0c982fd10ce4c5}
+
+
+Free the memory mapping used for I\+PC. 
+
+
+\begin{DoxyParams}{매개변수}
+{\em shm\+\_\+fd} & \mbox{[}in\mbox{]} File descriptor for mapping \\
+\hline
+{\em shm\+\_\+map} & \mbox{[}in\mbox{]} Pointer to mapping \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+0 for success, negative for failure -\/1 = close failed -\/2 = munmap failed -\/3 = close and munmap failed 
+\end{DoxyReturn}
+
+
+avb\+\_\+gptp.\+c 파일의 50 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+51 \{
+52     \textcolor{keywordtype}{int} ret = 0;
+53     \textcolor{keywordflow}{if} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} == shm\_fd || -1 == *shm\_fd) \{
+54         ret -= 1;
+55     \} \textcolor{keywordflow}{else} \{
+56         \textcolor{keywordflow}{if}(close(*shm\_fd) == -1) \{
+57             ret -= 1;
+58         \}
+59         *shm\_fd = -1;
+60     \}
+61     \textcolor{keywordflow}{if} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} == shm\_map || \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} == *shm\_map) \{
+62         ret -= 2;
+63     \} \textcolor{keywordflow}{else} \{
+64         \textcolor{keywordflow}{if} (munmap(*shm\_map, \hyperlink{linux__ipc_8hpp_a16e67aa18d42bbdb08ac9af1c8d0f4f9}{SHM\_SIZE}) == -1) \{
+65             ret -= 2;
+66         \}
+67         *shm\_map = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+68     \}
+69     \textcolor{keywordflow}{return} ret;
+70 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{avb__gptp_8c_ae4b9f53a01f896212e0c982fd10ce4c5_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{avb\+\_\+gptp.\+c@{avb\+\_\+gptp.\+c}!gptpgetdata@{gptpgetdata}}
+\index{gptpgetdata@{gptpgetdata}!avb\+\_\+gptp.\+c@{avb\+\_\+gptp.\+c}}
+\subsubsection[{\texorpdfstring{gptpgetdata(char $\ast$shm\+\_\+map, g\+Ptp\+Time\+Data $\ast$td)}{gptpgetdata(char *shm_map, gPtpTimeData *td)}}]{\setlength{\rightskip}{0pt plus 5cm}int gptpgetdata (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{shm\+\_\+map, }
+\item[{{\bf g\+Ptp\+Time\+Data} $\ast$}]{td}
+\end{DoxyParamCaption}
+)}\hypertarget{avb__gptp_8c_a8296f89653e0277070dcff8b6ae0d445}{}\label{avb__gptp_8c_a8296f89653e0277070dcff8b6ae0d445}
+
+
+Read the ptp data from I\+PC memory. 
+
+
+\begin{DoxyParams}{매개변수}
+{\em shm\+\_\+map} & \mbox{[}in\mbox{]} Pointer to mapping \\
+\hline
+{\em td} & \mbox{[}inout\mbox{]} Struct to read the data into \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+0 for success, negative for failure 
+\end{DoxyReturn}
+
+
+avb\+\_\+gptp.\+c 파일의 79 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+80 \{
+81     \textcolor{keywordflow}{if} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} == shm\_map || \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} == td) \{
+82         \textcolor{keywordflow}{return} -1;
+83     \}
+84     pthread\_mutex\_lock((pthread\_mutex\_t *) shm\_map);
+85     memcpy(td, shm\_map + \textcolor{keyword}{sizeof}(pthread\_mutex\_t), \textcolor{keyword}{sizeof}(*td));
+86     pthread\_mutex\_unlock((pthread\_mutex\_t *) shm\_map);
+87 
+88     \textcolor{keywordflow}{return} 0;
+89 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{avb__gptp_8c_a8296f89653e0277070dcff8b6ae0d445_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{avb\+\_\+gptp.\+c@{avb\+\_\+gptp.\+c}!gptpinit@{gptpinit}}
+\index{gptpinit@{gptpinit}!avb\+\_\+gptp.\+c@{avb\+\_\+gptp.\+c}}
+\subsubsection[{\texorpdfstring{gptpinit(int $\ast$shm\+\_\+fd, char $\ast$$\ast$shm\+\_\+map)}{gptpinit(int *shm_fd, char **shm_map)}}]{\setlength{\rightskip}{0pt plus 5cm}int gptpinit (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{shm\+\_\+fd, }
+\item[{char $\ast$$\ast$}]{shm\+\_\+map}
+\end{DoxyParamCaption}
+)}\hypertarget{avb__gptp_8c_a05ec877d6b574ac18e0d773f37958865}{}\label{avb__gptp_8c_a05ec877d6b574ac18e0d773f37958865}
+
+
+Open the memory mapping used for I\+PC. 
+
+
+\begin{DoxyParams}{매개변수}
+{\em shm\+\_\+fd} & \mbox{[}inout\mbox{]} File descriptor for mapping \\
+\hline
+{\em shm\+\_\+map} & \mbox{[}inout\mbox{]} Pointer to mapping \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+0 for success, negative for failure 
+\end{DoxyReturn}
+
+
+avb\+\_\+gptp.\+c 파일의 19 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+20 \{
+21     \textcolor{keywordflow}{if} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} == shm\_fd || \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} == shm\_map) \{
+22         \textcolor{keywordflow}{return} -1;
+23     \}
+24     *shm\_fd = shm\_open(\hyperlink{linux__ipc_8hpp_a86393b21e6f74e9870d92149e7fe7f20}{SHM\_NAME}, O\_RDWR, 0);
+25     \textcolor{keywordflow}{if} (*shm\_fd == -1) \{
+26         perror(\textcolor{stringliteral}{"shm\_open()"});
+27         \textcolor{keywordflow}{return} -1;
+28     \}
+29     *shm\_map = (\textcolor{keywordtype}{char} *)mmap(\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{linux__ipc_8hpp_a16e67aa18d42bbdb08ac9af1c8d0f4f9}{SHM\_SIZE}, PROT\_READ | PROT\_WRITE,
+30                 MAP\_SHARED, *shm\_fd, 0);
+31     \textcolor{keywordflow}{if} ((\textcolor{keywordtype}{char}*)-1 == *shm\_map) \{
+32         perror(\textcolor{stringliteral}{"mmap()"});
+33         *shm\_map = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+34         shm\_unlink(\hyperlink{linux__ipc_8hpp_a86393b21e6f74e9870d92149e7fe7f20}{SHM\_NAME});
+35         \textcolor{keywordflow}{return} -1;
+36     \}
+37     \textcolor{keywordflow}{return} 0;
+38 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{avb__gptp_8c_a05ec877d6b574ac18e0d773f37958865_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{avb\+\_\+gptp.\+c@{avb\+\_\+gptp.\+c}!gptplocaltime@{gptplocaltime}}
+\index{gptplocaltime@{gptplocaltime}!avb\+\_\+gptp.\+c@{avb\+\_\+gptp.\+c}}
+\subsubsection[{\texorpdfstring{gptplocaltime(const g\+Ptp\+Time\+Data $\ast$td, uint64\+\_\+t $\ast$now\+\_\+local)}{gptplocaltime(const gPtpTimeData *td, uint64_t *now_local)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} gptplocaltime (
+\begin{DoxyParamCaption}
+\item[{const {\bf g\+Ptp\+Time\+Data} $\ast$}]{td, }
+\item[{{\bf uint64\+\_\+t} $\ast$}]{now\+\_\+local}
+\end{DoxyParamCaption}
+)}\hypertarget{avb__gptp_8c_acfc56170109c580d06e8b84658cfcee1}{}\label{avb__gptp_8c_acfc56170109c580d06e8b84658cfcee1}
+
+
+avb\+\_\+gptp.\+c 파일의 112 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+113 \{
+114     \textcolor{keyword}{struct }timespec sys\_time;
+115     \hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\_t} now\_system;
+116     \hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\_t} system\_time;
+117     \hyperlink{parse_8c_a67a9885ef4908cb72ce26d75b694386c}{int64\_t} delta\_local;
+118     \hyperlink{parse_8c_a67a9885ef4908cb72ce26d75b694386c}{int64\_t} delta\_system;
+119 
+120     \textcolor{keywordflow}{if} (!td || !now\_local)
+121         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+122 
+123     \textcolor{keywordflow}{if} (clock\_gettime(CLOCK\_REALTIME, &sys\_time) != 0)
+124         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+125 
+126     now\_system = (\hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\_t})sys\_time.tv\_sec * 1000000000ULL + (\hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\_t})sys\_time.tv\_nsec;
+127 
+128     system\_time = td->\hyperlink{structg_ptp_time_data_a77a3c33b68032d5db3c0c556a80ef651}{local\_time} + td->\hyperlink{structg_ptp_time_data_a092b9f356daa2757877b51e4084366be}{ls\_phoffset};
+129     delta\_system = now\_system - system\_time;
+130     delta\_local = td->\hyperlink{structg_ptp_time_data_a396f365f5e7c66610f076359c5d99c6e}{ls\_freqoffset} * delta\_system;
+131     *now\_local = td->\hyperlink{structg_ptp_time_data_a77a3c33b68032d5db3c0c556a80ef651}{local\_time} + delta\_local;
+132 
+133     \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+134 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{avb__gptp_8c_acfc56170109c580d06e8b84658cfcee1_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{avb\+\_\+gptp.\+c@{avb\+\_\+gptp.\+c}!gptpmaster2local@{gptpmaster2local}}
+\index{gptpmaster2local@{gptpmaster2local}!avb\+\_\+gptp.\+c@{avb\+\_\+gptp.\+c}}
+\subsubsection[{\texorpdfstring{gptpmaster2local(const g\+Ptp\+Time\+Data $\ast$td, const uint64\+\_\+t master, uint64\+\_\+t $\ast$local)}{gptpmaster2local(const gPtpTimeData *td, const uint64_t master, uint64_t *local)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} gptpmaster2local (
+\begin{DoxyParamCaption}
+\item[{const {\bf g\+Ptp\+Time\+Data} $\ast$}]{td, }
+\item[{const {\bf uint64\+\_\+t}}]{master, }
+\item[{{\bf uint64\+\_\+t} $\ast$}]{local}
+\end{DoxyParamCaption}
+)}\hypertarget{avb__gptp_8c_a47bd8c65cfc893eb5aaab6eccb7d46b0}{}\label{avb__gptp_8c_a47bd8c65cfc893eb5aaab6eccb7d46b0}
+
+
+avb\+\_\+gptp.\+c 파일의 136 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+137 \{
+138     \hyperlink{parse_8c_a67a9885ef4908cb72ce26d75b694386c}{int64\_t} delta\_8021as;
+139     \hyperlink{parse_8c_a67a9885ef4908cb72ce26d75b694386c}{int64\_t} delta\_local;
+140 
+141     \textcolor{keywordflow}{if} (!td || !local)
+142         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+143 
+144     delta\_8021as = master - td->\hyperlink{structg_ptp_time_data_a77a3c33b68032d5db3c0c556a80ef651}{local\_time} + td->\hyperlink{structg_ptp_time_data_a707b32410dd96584191405fcc6b1b10d}{ml\_phoffset};
+145     delta\_local = delta\_8021as / td->\hyperlink{structg_ptp_time_data_aafeb4d0fa7d3cb53ee3686b804e47617}{ml\_freqoffset};
+146     *local = td->\hyperlink{structg_ptp_time_data_a77a3c33b68032d5db3c0c556a80ef651}{local\_time} + delta\_local;
+147 
+148     \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+149 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{avb__gptp_8c_a47bd8c65cfc893eb5aaab6eccb7d46b0_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{avb\+\_\+gptp.\+c@{avb\+\_\+gptp.\+c}!gptpscaling@{gptpscaling}}
+\index{gptpscaling@{gptpscaling}!avb\+\_\+gptp.\+c@{avb\+\_\+gptp.\+c}}
+\subsubsection[{\texorpdfstring{gptpscaling(char $\ast$shm\+\_\+map, g\+Ptp\+Time\+Data $\ast$td)}{gptpscaling(char *shm_map, gPtpTimeData *td)}}]{\setlength{\rightskip}{0pt plus 5cm}int gptpscaling (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{shm\+\_\+map, }
+\item[{{\bf g\+Ptp\+Time\+Data} $\ast$}]{td}
+\end{DoxyParamCaption}
+)}\hypertarget{avb__gptp_8c_adb6415e08d5c177a4ea34f039e63f543}{}\label{avb__gptp_8c_adb6415e08d5c177a4ea34f039e63f543}
+
+
+Read the ptp data from I\+PC memory and print its contents. 
+
+
+\begin{DoxyParams}{매개변수}
+{\em shm\+\_\+map} & \mbox{[}in\mbox{]} Pointer to mapping \\
+\hline
+{\em td} & \mbox{[}inout\mbox{]} Struct to read the data into \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+0 for success, negative for failure 
+\end{DoxyReturn}
+
+
+avb\+\_\+gptp.\+c 파일의 98 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+99 \{
+100     \textcolor{keywordtype}{int} i;
+101     \textcolor{keywordflow}{if} ((i = \hyperlink{avb__gptp_8c_a8296f89653e0277070dcff8b6ae0d445}{gptpgetdata}(shm\_map, td)) < 0) \{
+102         \textcolor{keywordflow}{return} i;
+103     \}
+104     fprintf(stderr, \textcolor{stringliteral}{"ml\_phoffset = %"} PRId64 \textcolor{stringliteral}{", ls\_phoffset = %"} PRId64 \textcolor{stringliteral}{"\(\backslash\)n"},
+105         td->\hyperlink{structg_ptp_time_data_a707b32410dd96584191405fcc6b1b10d}{ml\_phoffset}, td->\hyperlink{structg_ptp_time_data_a092b9f356daa2757877b51e4084366be}{ls\_phoffset});
+106     fprintf(stderr, \textcolor{stringliteral}{"ml\_freqffset = %Lf, ls\_freqoffset = %Lf\(\backslash\)n"},
+107         td->\hyperlink{structg_ptp_time_data_aafeb4d0fa7d3cb53ee3686b804e47617}{ml\_freqoffset}, td->\hyperlink{structg_ptp_time_data_a396f365f5e7c66610f076359c5d99c6e}{ls\_freqoffset});
+108 
+109     \textcolor{keywordflow}{return} 0;
+110 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=250pt]{avb__gptp_8c_adb6415e08d5c177a4ea34f039e63f543_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{avb__gptp_8c_adb6415e08d5c177a4ea34f039e63f543_icgraph}
+\end{center}
+\end{figure}
+
+

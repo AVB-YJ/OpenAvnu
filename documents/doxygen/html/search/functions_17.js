@@ -1,0 +1,24 @@
+var searchData=
+[
+  ['x_5favbaudioformattoalsaformat',['x_AVBAudioFormatToAlsaFormat',['../openavb__intf__alsa_8c.html#a7a9562ff43a53c2871f6c0a3a13a1a29',1,'openavb_intf_alsa.c']]],
+  ['x_5favtprxframe',['x_avtpRxFrame',['../openavb__avtp_8c.html#aa3abbfc87f0282ba0f1436f4a02c52b1',1,'openavb_avtp.c']]],
+  ['x_5fcalculatesizes',['x_calculateSizes',['../openavb__map__aaf__audio_8c.html#a2997a4fc5f01b30536a1b2fd054ee3e7',1,'x_calculateSizes(media_q_t *pMediaQ):&#160;openavb_map_aaf_audio.c'],['../openavb__map__uncmp__audio_8c.html#a2997a4fc5f01b30536a1b2fd054ee3e7',1,'x_calculateSizes(media_q_t *pMediaQ):&#160;openavb_map_uncmp_audio.c']]],
+  ['x_5fgetnstime',['x_getNsTime',['../openavb__avtp__time_8c.html#a817d18cb5d4dbe2ee7d771a9505ca0bb',1,'openavb_avtp_time.c']]],
+  ['x_5fgetptptime',['x_getPTPTime',['../openavb__time__osal_8c.html#a351b73db0ed86c5f01e18a5e05cee4e1',1,'openavb_time_osal.c']]],
+  ['x_5fgettimestamp',['x_getTimestamp',['../openavb__avtp__time_8c.html#af78b5748dc6bbf189a380cb647e6c8d2',1,'openavb_avtp_time.c']]],
+  ['x_5fgrandmasterinit',['x_grandmasterInit',['../openavb__grandmaster__osal_8c.html#a6700bc3be70c7371c03941252047100f',1,'openavb_grandmaster_osal.c']]],
+  ['x_5finitlinkupstatus',['x_initLinkUpStatus',['../linux__hal__common_8cpp.html#a28c50a89d3f2652ec9fe1b533043a959',1,'linux_hal_common.cpp']]],
+  ['x_5flistenerdetach',['x_listenerDetach',['../openavb__endpoint_8c.html#ae817ae182ed73b091fc053cc61d67b99',1,'x_listenerDetach(clientStream_t *ps):&#160;openavb_endpoint.c'],['../openavb__endpoint_8h.html#ae817ae182ed73b091fc053cc61d67b99',1,'x_listenerDetach(clientStream_t *ps):&#160;openavb_endpoint.c']]],
+  ['x_5fopenavbaemstreamformatfrombuf',['x_openavbAemStreamFormatFromBuf',['../openavb__descriptor__stream__io_8c.html#a928a13efa327e45065a11938bf7d7186',1,'openavb_descriptor_stream_io.c']]],
+  ['x_5fopenavbmediaqincrementhead',['x_openavbMediaQIncrementHead',['../openavb__mediaq_8c.html#a098b237f31cdc4de5d6ac7b97cfddb9d',1,'openavb_mediaq.c']]],
+  ['x_5fopenavbmediaqincrementtail',['x_openavbMediaQIncrementTail',['../openavb__mediaq_8c.html#a5cc16f3fba96f4b44c545416b65fb108',1,'openavb_mediaq.c']]],
+  ['x_5fopenavbmediaqpurgestaletail',['x_openavbMediaQPurgeStaleTail',['../openavb__mediaq_8c.html#a2e744734b4fe813ce2849a6daa613896',1,'openavb_mediaq.c']]],
+  ['x_5fparsewavefile',['x_parseWaveFile',['../openavb__intf__wav__file_8c.html#a7069daa388775fdacc035a7b90f150fa',1,'openavb_intf_wav_file.c']]],
+  ['x_5freadevent',['x_readEvent',['../linux__hal__common_8cpp.html#aa4cf76f24b5f699c50850d7c1cce3023',1,'linux_hal_common.cpp']]],
+  ['x_5ftalkerderegister',['x_talkerDeregister',['../openavb__endpoint_8c.html#a70b084593fa87feec709f9f340d5f301',1,'x_talkerDeregister(clientStream_t *ps):&#160;openavb_endpoint.c'],['../openavb__endpoint_8h.html#a70b084593fa87feec709f9f340d5f301',1,'x_talkerDeregister(clientStream_t *ps):&#160;openavb_endpoint.c']]],
+  ['x_5ftimeinit',['x_timeInit',['../openavb__time__osal_8c.html#aafdd300a43e74436c88aea81daeed98c',1,'openavb_time_osal.c']]],
+  ['xgetmelodytoneandduration',['xGetMelodyToneAndDuration',['../openavb__intf__tonegen_8c.html#a4184cd82013828b945b58cd136ff86d2',1,'openavb_intf_tonegen.c']]],
+  ['xsleepuntilnsec',['xSleepUntilNSec',['../maap__helper__linux_8h.html#a837c8d3a5d931c068caaae48b791bac6',1,'xSleepUntilNSec(uint64_t nSec):&#160;maap_helper_linux.h'],['../shaper__helper__linux_8h.html#a837c8d3a5d931c068caaae48b791bac6',1,'xSleepUntilNSec(uint64_t nSec):&#160;shaper_helper_linux.h'],['../openavb__os__services__osal_8h.html#aae071d49d0bd94071a1b541972783350',1,'xSleepUntilNSec(U64 nSec):&#160;openavb_os_services_osal.h']]],
+  ['xspinuntilnsec',['xSpinUntilNSec',['../openavb__os__services__osal_8h.html#af34c1df9bfe50549c9edeb9df0011408',1,'openavb_os_services_osal.h']]],
+  ['xsupportedmappingformat',['xSupportedMappingFormat',['../openavb__intf__tonegen_8c.html#a9f03e68f083c9d64d9d0ceaee29a19cf',1,'openavb_intf_tonegen.c']]]
+];

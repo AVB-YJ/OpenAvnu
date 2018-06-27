@@ -1,0 +1,319 @@
+\hypertarget{listener_8c}{}\section{examples/live\+\_\+stream/listener.c 파일 참조}
+\label{listener_8c}\index{examples/live\+\_\+stream/listener.\+c@{examples/live\+\_\+stream/listener.\+c}}
+{\ttfamily \#include $<$arpa/inet.\+h$>$}\\*
+{\ttfamily \#include $<$errno.\+h$>$}\\*
+{\ttfamily \#include $<$linux/if.\+h$>$}\\*
+{\ttfamily \#include $<$netpacket/packet.\+h$>$}\\*
+{\ttfamily \#include $<$pthread.\+h$>$}\\*
+{\ttfamily \#include $<$signal.\+h$>$}\\*
+{\ttfamily \#include $<$sys/ioctl.\+h$>$}\\*
+{\ttfamily \#include $<$pci/pci.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}avb.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}listener\+\_\+mrp\+\_\+client.\+h\char`\"{}}\\*
+listener.\+c에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{listener_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{listener_8c_a8f3e91be97db29aebdcd67ad0685997d}{U\+S\+E\+\_\+\+M\+R\+PD}~1
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{listener_8c_ab10c0c50c02a59ae9bd74c78c49b559d}{sigint\+\_\+handler} (int signum)
+\item 
+int \hyperlink{listener_8c_a0ddf1224851353fc92bfbff6f499fa97}{main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\subsection*{변수}
+\begin{DoxyCompactItemize}
+\item 
+unsigned char \hyperlink{listener_8c_aa3247f871e73815f945f2b99005e7bce}{glob\+\_\+dest\+\_\+addr} \mbox{[}$\,$\mbox{]} = \{ 0x91, 0x\+E0, 0x\+F0, 0x00, 0x0\+E, 0x80 \}
+\item 
+struct \hyperlink{structmrp__listener__ctx}{mrp\+\_\+listener\+\_\+ctx} $\ast$ \hyperlink{listener_8c_a9ecd7c3c0cc236715b8147e01893ca97}{ctx\+\_\+sig}
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{listener.\+c@{listener.\+c}!U\+S\+E\+\_\+\+M\+R\+PD@{U\+S\+E\+\_\+\+M\+R\+PD}}
+\index{U\+S\+E\+\_\+\+M\+R\+PD@{U\+S\+E\+\_\+\+M\+R\+PD}!listener.\+c@{listener.\+c}}
+\subsubsection[{\texorpdfstring{U\+S\+E\+\_\+\+M\+R\+PD}{USE_MRPD}}]{\setlength{\rightskip}{0pt plus 5cm}\#define U\+S\+E\+\_\+\+M\+R\+PD~1}\hypertarget{listener_8c_a8f3e91be97db29aebdcd67ad0685997d}{}\label{listener_8c_a8f3e91be97db29aebdcd67ad0685997d}
+
+
+listener.\+c 파일의 32 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{함수 문서화}
+\index{listener.\+c@{listener.\+c}!main@{main}}
+\index{main@{main}!listener.\+c@{listener.\+c}}
+\subsubsection[{\texorpdfstring{main(int argc, char $\ast$argv[])}{main(int argc, char *argv[])}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{listener_8c_a0ddf1224851353fc92bfbff6f499fa97}{}\label{listener_8c_a0ddf1224851353fc92bfbff6f499fa97}
+
+
+listener.\+c 파일의 61 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+62 \{
+63     \hyperlink{struct__device__t}{device\_t} \hyperlink{gst__avb__playbin_8c_a456414422441623fbed2e3ba547b3524}{igb\_dev};
+64     \textcolor{keyword}{struct }ifreq device;
+65     \textcolor{keywordtype}{int} error;
+66     \textcolor{keyword}{struct }sockaddr\_ll \hyperlink{gst__avb__playbin_8c_af0b4c4a7922dea9c701e7f3a813467e6}{ifsock\_addr};
+67     \textcolor{keyword}{struct }packet\_mreq mreq;
+68     \textcolor{keywordtype}{int} ifindex;
+69     \textcolor{keywordtype}{int} socket\_descriptor;
+70     \textcolor{keywordtype}{char} *iface;
+71     \hyperlink{avb__avtp_8h_a67f05a7fb6b937cfa210e6814661e9d9}{seventeen22\_header} *\hyperlink{gst__avb__playbin_8c_aa863c79d5dbc5de0efc3d9b8f749af59}{h1722};
+72     \textcolor{keywordtype}{long} \textcolor{keywordtype}{long} \textcolor{keywordtype}{int} \hyperlink{gst__avb__playbin_8c_a73f6455d8e0bd406fa3b5f25ddf7eb8f}{frame\_sequence} = 0;
+73     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} \hyperlink{gst__avb__playbin_8c_ac8e710e0b5e994c0545d75d69868c6f0}{frame}[\hyperlink{packet_8cpp_ad15d35a0d29a9dbf9324e3859ce3b008}{MAX\_FRAME\_SIZE}];
+74     \textcolor{keywordtype}{int} \hyperlink{gst__avb__playbin_8c_a439227feff9d7f55384e8780cfc2eb82}{size}, length;
+75     \textcolor{keyword}{struct }sched\_param \hyperlink{gst__avb__playbin_8c_a171503523b22d0611a62475b2b7481d8}{sched};
+76     \textcolor{keyword}{struct }\hyperlink{structmrp__listener__ctx}{mrp\_listener\_ctx} *\hyperlink{jack_8h_a1cde2a2cf8a56164b5e83159035be03b}{ctx} = \hyperlink{_memory_leak_detector_malloc_macros_8h_ab8b25cd8f16d4a6552afe4e65c4f082d}{malloc}(\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} 
+      \hyperlink{structmrp__listener__ctx}{mrp\_listener\_ctx}));
+77     \textcolor{keyword}{struct }\hyperlink{structmrp__domain__attr}{mrp\_domain\_attr} *class\_a = \hyperlink{_memory_leak_detector_malloc_macros_8h_ab8b25cd8f16d4a6552afe4e65c4f082d}{malloc}(\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} 
+      \hyperlink{structmrp__domain__attr}{mrp\_domain\_attr}));
+78     \textcolor{keyword}{struct }\hyperlink{structmrp__domain__attr}{mrp\_domain\_attr} *class\_b = \hyperlink{_memory_leak_detector_malloc_macros_8h_ab8b25cd8f16d4a6552afe4e65c4f082d}{malloc}(\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} 
+      \hyperlink{structmrp__domain__attr}{mrp\_domain\_attr}));
+79     \hyperlink{listener_8c_a9ecd7c3c0cc236715b8147e01893ca97}{ctx\_sig} = \hyperlink{jack_8h_a1cde2a2cf8a56164b5e83159035be03b}{ctx};
+80     \textcolor{keywordtype}{int} rc;
+81 
+82     \textcolor{keywordflow}{if} (argc < 2) \{
+83         fprintf(stderr, \textcolor{stringliteral}{"Usage : %s <interface\_name> <payload>\(\backslash\)n"},argv[0]);
+84         \textcolor{keywordflow}{return} EINVAL;
+85     \}
+86     signal(SIGINT, \hyperlink{listener_8c_ab10c0c50c02a59ae9bd74c78c49b559d}{sigint\_handler});
+87 
+88 \textcolor{preprocessor}{#if USE\_MRPD}
+89     rc = \hyperlink{listener__mrp__client_8c_a6c13af7ba5d48d218f1504b9a14314c0}{mrp\_listener\_client\_init}(ctx);
+90     \textcolor{keywordflow}{if} (rc)
+91     \{
+92         printf(\textcolor{stringliteral}{"failed to initialize global variables\(\backslash\)n"});
+93         \textcolor{keywordflow}{return} EXIT\_FAILURE;
+94     \}
+95     \textcolor{keywordflow}{if} (\hyperlink{listener__mrp__client_8c_abe45eedd55d5b13ad817c1adce0a5c7b}{create\_socket}(ctx)) \{
+96         fprintf(stderr, \textcolor{stringliteral}{"Socket creation failed.\(\backslash\)n"});
+97         \textcolor{keywordflow}{return} errno;
+98     \}
+99     rc = \hyperlink{listener__mrp__client_8c_ac298236801a3836999c032e006e55493}{mrp\_monitor}(ctx);
+100     \textcolor{keywordflow}{if} (rc)
+101     \{
+102         printf(\textcolor{stringliteral}{"failed creating MRP monitor thread\(\backslash\)n"});
+103         \textcolor{keywordflow}{return} EXIT\_FAILURE;
+104     \}
+105     rc=\hyperlink{listener__mrp__client_8c_ad9e5734b8f3e186460f459b6c3c395b5}{mrp\_get\_domain}(ctx, class\_a, class\_b);
+106     \textcolor{keywordflow}{if} (rc)
+107     \{
+108         printf(\textcolor{stringliteral}{"failed calling mrp\_get\_domain()\(\backslash\)n"});
+109         \textcolor{keywordflow}{return} EXIT\_FAILURE;
+110     \}
+111 
+112     printf(\textcolor{stringliteral}{"detected domain Class A PRIO=%d VID=%04x...\(\backslash\)n"},class\_a->\hyperlink{structmrp__domain__attr_acec9ce2df15222151ad66fcb1d74eb9f}{priority},class\_a->
+      \hyperlink{structmrp__domain__attr_a066fae47f1854479570ecc0bf7e488c3}{vid});
+113 
+114     rc = \hyperlink{listener__mrp__client_8c_a0ae45edb27d4d77bb4bf8d0c4d01f74e}{report\_domain\_status}(class\_a,ctx);
+115     \textcolor{keywordflow}{if} (rc) \{
+116         printf(\textcolor{stringliteral}{"report\_domain\_status failed\(\backslash\)n"});
+117         \textcolor{keywordflow}{return} EXIT\_FAILURE;
+118     \}
+119     rc = \hyperlink{listener__mrp__client_8c_a8036792ded75b687be4467c42ed21535}{join\_vlan}(class\_a, ctx);
+120     \textcolor{keywordflow}{if} (rc) \{
+121         printf(\textcolor{stringliteral}{"join\_vlan failed\(\backslash\)n"});
+122         \textcolor{keywordflow}{return} EXIT\_FAILURE;
+123     \}
+124 
+125     fprintf(stdout,\textcolor{stringliteral}{"Waiting for talker...\(\backslash\)n"});
+126     \hyperlink{listener__mrp__client_8c_ab5307bd3ef0032cd28d4f98e85e45345}{await\_talker}(ctx);
+127     rc = \hyperlink{listener__mrp__client_8c_a41c898fcba8bc3bc312e1a10b66b620c}{send\_ready}(ctx);
+128     \textcolor{keywordflow}{if} (rc) \{
+129         printf(\textcolor{stringliteral}{"send\_ready failed\(\backslash\)n"});
+130         \textcolor{keywordflow}{return} EXIT\_FAILURE;
+131     \}
+132 
+133 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* USE\_MRPD */}\textcolor{preprocessor}{}
+134     iface = strdup(argv[1]);
+135 
+136     error = \hyperlink{linux__hal__i210_8cpp_a9a17c0a5cd13afce277fe14723862446}{pci\_connect}(&igb\_dev);
+137     \textcolor{keywordflow}{if} (error) \{
+138         fprintf(stderr, \textcolor{stringliteral}{"connect failed (%s) - are you running as root?\(\backslash\)n"}, strerror(errno));
+139         \textcolor{keywordflow}{return} errno;
+140     \}
+141 
+142     error = \hyperlink{igb_8c_a923b0ffcf94a4a6ac8f36a7bacd6b0f3}{igb\_init}(&igb\_dev);
+143     \textcolor{keywordflow}{if} (error) \{
+144         fprintf(stderr, \textcolor{stringliteral}{"init failed (%s) - is the driver really loaded?\(\backslash\)n"}, strerror(errno));
+145         \textcolor{keywordflow}{return} errno;
+146     \}
+147 
+148     socket\_descriptor = socket(AF\_PACKET, SOCK\_RAW, htons(\hyperlink{avb__avtp_8h_a684c3ac2ed95f7eec60d2f76632b9aae}{ETHER\_TYPE\_AVTP}));
+149     \textcolor{keywordflow}{if} (socket\_descriptor < 0) \{
+150         fprintf(stderr, \textcolor{stringliteral}{"failed to open socket: %s \(\backslash\)n"}, strerror(errno));
+151         \textcolor{keywordflow}{return} EINVAL;
+152     \}
+153 
+154     memset(&device, 0, \textcolor{keyword}{sizeof}(device));
+155     memcpy(device.ifr\_name, iface, \hyperlink{openavb__avdecc__pub_8h_acd06da230a96d3b7e6f193c5b3142002}{IFNAMSIZ});
+156     error = ioctl(socket\_descriptor, SIOCGIFINDEX, &device);
+157     \textcolor{keywordflow}{if} (error < 0) \{
+158         fprintf(stderr, \textcolor{stringliteral}{"Failed to get index of iface %s: %s\(\backslash\)n"}, iface, strerror(errno));
+159         \textcolor{keywordflow}{return} EINVAL;
+160     \}
+161 
+162     ifindex = device.ifr\_ifindex;
+163     memset(&\hyperlink{gst__avb__playbin_8c_af0b4c4a7922dea9c701e7f3a813467e6}{ifsock\_addr}, 0, \textcolor{keyword}{sizeof}(\hyperlink{gst__avb__playbin_8c_af0b4c4a7922dea9c701e7f3a813467e6}{ifsock\_addr}));
+164     \hyperlink{gst__avb__playbin_8c_af0b4c4a7922dea9c701e7f3a813467e6}{ifsock\_addr}.sll\_family = AF\_PACKET;
+165     \hyperlink{gst__avb__playbin_8c_af0b4c4a7922dea9c701e7f3a813467e6}{ifsock\_addr}.sll\_ifindex = ifindex;
+166     \hyperlink{gst__avb__playbin_8c_af0b4c4a7922dea9c701e7f3a813467e6}{ifsock\_addr}.sll\_protocol = htons(\hyperlink{avb__avtp_8h_a684c3ac2ed95f7eec60d2f76632b9aae}{ETHER\_TYPE\_AVTP});
+167     error = bind(socket\_descriptor, (\textcolor{keyword}{struct} sockaddr *) & \hyperlink{gst__avb__playbin_8c_af0b4c4a7922dea9c701e7f3a813467e6}{ifsock\_addr}, \textcolor{keyword}{sizeof}(
+      \hyperlink{gst__avb__playbin_8c_af0b4c4a7922dea9c701e7f3a813467e6}{ifsock\_addr}));
+168     \textcolor{keywordflow}{if} (error < 0) \{
+169         fprintf(stderr, \textcolor{stringliteral}{"Failed to bind: %s\(\backslash\)n"}, strerror(errno));
+170         \textcolor{keywordflow}{return} EINVAL;
+171     \}
+172 
+173     memset(&mreq, 0, \textcolor{keyword}{sizeof}(mreq));
+174     mreq.mr\_ifindex = ifindex;
+175     mreq.mr\_type = PACKET\_MR\_MULTICAST;
+176     mreq.mr\_alen = 6;
+177     memcpy(mreq.mr\_address, \hyperlink{listener_8c_aa3247f871e73815f945f2b99005e7bce}{glob\_dest\_addr}, mreq.mr\_alen);
+178     error = setsockopt(socket\_descriptor, SOL\_PACKET, PACKET\_ADD\_MEMBERSHIP, &mreq, \textcolor{keyword}{sizeof}(mreq));
+179     \textcolor{keywordflow}{if} (error < 0) \{
+180         fprintf(stderr, \textcolor{stringliteral}{"Failed to add multi-cast addresses to port: %u\(\backslash\)n"}, ifindex);
+181         \textcolor{keywordflow}{return} EINVAL;
+182     \}
+183 
+184     size = \textcolor{keyword}{sizeof}(\hyperlink{gst__avb__playbin_8c_af0b4c4a7922dea9c701e7f3a813467e6}{ifsock\_addr});
+185     frame\_sequence = 0;
+186     memset(frame, 0, \textcolor{keyword}{sizeof}(frame));
+187 
+188     memset(&\hyperlink{gst__avb__playbin_8c_a171503523b22d0611a62475b2b7481d8}{sched}, 0, \textcolor{keyword}{sizeof} \hyperlink{gst__avb__playbin_8c_a171503523b22d0611a62475b2b7481d8}{sched});
+189     \hyperlink{gst__avb__playbin_8c_a171503523b22d0611a62475b2b7481d8}{sched}.sched\_priority = 1;
+190     error = sched\_setscheduler(0, SCHED\_RR, &\hyperlink{gst__avb__playbin_8c_a171503523b22d0611a62475b2b7481d8}{sched});
+191     \textcolor{keywordflow}{if} (error < 0)
+192         fprintf(stderr, \textcolor{stringliteral}{"Failed to select RR scheduler: %s (%d)\(\backslash\)n"},
+193             strerror(errno), errno);
+194 
+195     \textcolor{keywordflow}{while} (1) \{
+196         error = recvfrom(socket\_descriptor, frame, \hyperlink{packet_8cpp_ad15d35a0d29a9dbf9324e3859ce3b008}{MAX\_FRAME\_SIZE}, 0, (\textcolor{keyword}{struct} sockaddr *) &
+      \hyperlink{gst__avb__playbin_8c_af0b4c4a7922dea9c701e7f3a813467e6}{ifsock\_addr}, (socklen\_t *)&size);
+197         \textcolor{keywordflow}{if} (error > 0) \{
+198             fprintf(stderr,\textcolor{stringliteral}{"frame sequence = %lld\(\backslash\)n"}, frame\_sequence++);
+199             h1722 = (\hyperlink{avb__avtp_8h_a67f05a7fb6b937cfa210e6814661e9d9}{seventeen22\_header} *)((\hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t}*)frame + \textcolor{keyword}{sizeof}(
+      \hyperlink{avb__avtp_8h_a605c2dabb13492c54cbdf6afa4752898}{eth\_header}));
+200             length = ntohs(h1722->length) - \textcolor{keyword}{sizeof}(\hyperlink{structsix1883__header}{six1883\_header});
+201             rc = write(1, (\hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} *)((\hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t}*)frame + \textcolor{keyword}{sizeof}(
+      \hyperlink{avb__avtp_8h_a605c2dabb13492c54cbdf6afa4752898}{eth\_header}) + \textcolor{keyword}{sizeof}(\hyperlink{avb__avtp_8h_a67f05a7fb6b937cfa210e6814661e9d9}{seventeen22\_header}) +
+202                 \textcolor{keyword}{sizeof}(\hyperlink{structsix1883__header}{six1883\_header})), length);
+203             \textcolor{keywordflow}{if} (rc == -1) \{
+204                 fprintf(stderr, \textcolor{stringliteral}{"Failed to write %d bytes: %s (%d)\(\backslash\)n"}, length, strerror(errno), errno);
+205             \}
+206         \} \textcolor{keywordflow}{else} \{
+207             fprintf(stderr,\textcolor{stringliteral}{"recvfrom() error for frame sequence = %lld\(\backslash\)n"}, frame\_sequence++);
+208         \}
+209     \}
+210 
+211     usleep(100);
+212     close(socket\_descriptor);
+213     \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(ctx);
+214     \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(class\_a);
+215     \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(class\_b);
+216 
+217     \textcolor{keywordflow}{return} EXIT\_SUCCESS;
+218 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{listener_8c_a0ddf1224851353fc92bfbff6f499fa97_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{listener.\+c@{listener.\+c}!sigint\+\_\+handler@{sigint\+\_\+handler}}
+\index{sigint\+\_\+handler@{sigint\+\_\+handler}!listener.\+c@{listener.\+c}}
+\subsubsection[{\texorpdfstring{sigint\+\_\+handler(int signum)}{sigint_handler(int signum)}}]{\setlength{\rightskip}{0pt plus 5cm}void sigint\+\_\+handler (
+\begin{DoxyParamCaption}
+\item[{int}]{signum}
+\end{DoxyParamCaption}
+)}\hypertarget{listener_8c_ab10c0c50c02a59ae9bd74c78c49b559d}{}\label{listener_8c_ab10c0c50c02a59ae9bd74c78c49b559d}
+
+
+listener.\+c 파일의 39 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+40 \{
+41     \textcolor{keywordtype}{int} ret;
+42 
+43     fprintf(stderr, \textcolor{stringliteral}{"Received signal %d:leaving...\(\backslash\)n"}, signum);
+44 \textcolor{preprocessor}{#if USE\_MRPD}
+45     \textcolor{keywordflow}{if} (0 != \hyperlink{listener_8c_a9ecd7c3c0cc236715b8147e01893ca97}{ctx\_sig}->\hyperlink{structmrp__listener__ctx_afd1cfb96f67ad1b881b86ccbbf7af341}{talker}) \{
+46         ret = \hyperlink{listener__mrp__client_8c_a8dc430f53ecc32196e67faeb2de9049d}{send\_leave}(\hyperlink{listener_8c_a9ecd7c3c0cc236715b8147e01893ca97}{ctx\_sig});
+47         \textcolor{keywordflow}{if} (ret)
+48             printf(\textcolor{stringliteral}{"send\_leave failed\(\backslash\)n"});
+49     \}
+50 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* USE\_MRPD */}\textcolor{preprocessor}{}
+51     \textcolor{keywordflow}{if} (2 > \hyperlink{listener_8c_a9ecd7c3c0cc236715b8147e01893ca97}{ctx\_sig}->\hyperlink{structmrp__listener__ctx_ab16a0c776c464dcfb5cf8a013a137647}{control\_socket})
+52     \{
+53         close(\hyperlink{listener_8c_a9ecd7c3c0cc236715b8147e01893ca97}{ctx\_sig}->\hyperlink{structmrp__listener__ctx_ab16a0c776c464dcfb5cf8a013a137647}{control\_socket});
+54         ret = \hyperlink{listener__mrp__client_8c_a0057e5ce95d0d8ea29077cbb7bc03bb6}{mrp\_disconnect}(\hyperlink{listener_8c_a9ecd7c3c0cc236715b8147e01893ca97}{ctx\_sig});
+55         \textcolor{keywordflow}{if} (ret)
+56             printf(\textcolor{stringliteral}{"mrp\_disconnect failed\(\backslash\)n"});
+57     \}
+58     exit(EXIT\_SUCCESS);
+59 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{listener_8c_ab10c0c50c02a59ae9bd74c78c49b559d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=231pt]{listener_8c_ab10c0c50c02a59ae9bd74c78c49b559d_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{변수 문서화}
+\index{listener.\+c@{listener.\+c}!ctx\+\_\+sig@{ctx\+\_\+sig}}
+\index{ctx\+\_\+sig@{ctx\+\_\+sig}!listener.\+c@{listener.\+c}}
+\subsubsection[{\texorpdfstring{ctx\+\_\+sig}{ctx_sig}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf mrp\+\_\+listener\+\_\+ctx}$\ast$ ctx\+\_\+sig}\hypertarget{listener_8c_a9ecd7c3c0cc236715b8147e01893ca97}{}\label{listener_8c_a9ecd7c3c0cc236715b8147e01893ca97}
+
+
+listener.\+c 파일의 37 번째 라인에서 정의되었습니다.
+
+\index{listener.\+c@{listener.\+c}!glob\+\_\+dest\+\_\+addr@{glob\+\_\+dest\+\_\+addr}}
+\index{glob\+\_\+dest\+\_\+addr@{glob\+\_\+dest\+\_\+addr}!listener.\+c@{listener.\+c}}
+\subsubsection[{\texorpdfstring{glob\+\_\+dest\+\_\+addr}{glob_dest_addr}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char glob\+\_\+dest\+\_\+addr\mbox{[}$\,$\mbox{]} = \{ 0x91, 0x\+E0, 0x\+F0, 0x00, 0x0\+E, 0x80 \}}\hypertarget{listener_8c_aa3247f871e73815f945f2b99005e7bce}{}\label{listener_8c_aa3247f871e73815f945f2b99005e7bce}
+
+
+listener.\+c 파일의 36 번째 라인에서 정의되었습니다.
+

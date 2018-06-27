@@ -1,0 +1,1381 @@
+\hypertarget{mrp_validate_8c}{}\section{examples/mrp\+\_\+client/mrp\+Validate.c 파일 참조}
+\label{mrp_validate_8c}\index{examples/mrp\+\_\+client/mrp\+Validate.\+c@{examples/mrp\+\_\+client/mrp\+Validate.\+c}}
+{\ttfamily \#include $<$fcntl.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$sys/socket.\+h$>$}\\*
+{\ttfamily \#include $<$sys/un.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}mrpd.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}mrpdclient.\+h\char`\"{}}\\*
+mrp\+Validate.\+c에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrp_validate_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{데이타 구조}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structmenu__option}{menu\+\_\+option}
+\end{DoxyCompactItemize}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{mrp_validate_8c_acfc1668731750cb1ee8974b8a7c133ef}{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR}~\char`\"{}0.\+0\char`\"{}
+\item 
+\#define \hyperlink{mrp_validate_8c_ad67d7637234f1ca513d2366dd8a66854}{S\+T\+R\+E\+A\+M\+\_\+\+DA}~\char`\"{}010203040506\char`\"{}
+\item 
+\#define \hyperlink{mrp_validate_8c_ade86a80a3d067dece1f7e7cf957e3e92}{S\+T\+R\+E\+A\+M\+\_\+\+ID}~\char`\"{}D\+E\+A\+D\+B\+E\+E\+F\+B\+A\+D\+F\+C\+A11\char`\"{}
+\item 
+\#define \hyperlink{mrp_validate_8c_ac23326adfc4e624044916cc85d9bac2f}{V\+L\+A\+N\+\_\+\+ID}~\char`\"{}0002\char`\"{}
+\item 
+\#define \hyperlink{mrp_validate_8c_a8ad1ebec324e399a1fafe44e201f2f54}{T\+S\+P\+E\+C\+\_\+\+M\+A\+X\+\_\+\+F\+R\+A\+M\+E\+\_\+\+S\+I\+ZE}~\char`\"{}576\char`\"{}
+\item 
+\#define \hyperlink{mrp_validate_8c_a2f0ec09eab10749c9eb3c3da0de95949}{T\+S\+P\+E\+C\+\_\+\+M\+A\+X\+\_\+\+F\+R\+A\+M\+E\+\_\+\+I\+N\+T\+E\+R\+V\+AL}~\char`\"{}8000\char`\"{}
+\item 
+\#define \hyperlink{mrp_validate_8c_a21c9558f4a2da68c70811d70dd32151f}{P\+R\+I\+O\+R\+I\+T\+Y\+\_\+\+A\+N\+D\+\_\+\+R\+A\+NK}~\char`\"{}96\char`\"{}
+\item 
+\#define \hyperlink{mrp_validate_8c_aa87d70cd9ed0517369bd6eaf64fa4a96}{A\+C\+C\+U\+M\+U\+L\+A\+T\+E\+D\+\_\+\+L\+A\+T\+E\+N\+CY}~\char`\"{}1000\char`\"{}
+\item 
+\#define \hyperlink{mrp_validate_8c_a517651d0e939360fc119ca27bee2fa8c}{S\+R\+\_\+\+C\+L\+A\+S\+S\+\_\+\+ID}~\char`\"{}6\char`\"{}
+\item 
+\#define \hyperlink{mrp_validate_8c_af9dc616a7814cee63adee9d59839f959}{S\+R\+\_\+\+C\+L\+A\+S\+S\+\_\+\+P\+R\+I\+O\+R\+I\+TY}~\char`\"{}3\char`\"{}
+\item 
+\#define \hyperlink{mrp_validate_8c_a7d391ef7f173a04213e662964ca1f4cd}{B\+R\+I\+D\+G\+E\+\_\+\+ID}~\char`\"{}B\+A\+D\+C0\+F\+F\+E\+E\+C0\+F\+F\+E\+E0\char`\"{}
+\item 
+\#define \hyperlink{mrp_validate_8c_a410934913d5189847c3ffc568d7fe385}{F\+A\+I\+L\+U\+R\+E\+\_\+\+C\+O\+DE}~\char`\"{}1\char`\"{}
+\item 
+\#define \hyperlink{mrp_validate_8c_a294cbdb789d37dafcbf50f758d69d900}{M\+\_\+\+P\+L\+U\+S\+\_\+\+P\+L\+US}~\char`\"{}M++\+:M=\char`\"{} S\+T\+R\+E\+A\+M\+\_\+\+DA
+\item 
+\#define \hyperlink{mrp_validate_8c_a16ec4826210f6163c7c90e391c09e644}{M\+\_\+\+P\+L\+U\+S\+\_\+\+Q\+U\+E\+S\+T\+I\+ON}~\char`\"{}M+?\+:M=\char`\"{} S\+T\+R\+E\+A\+M\+\_\+\+DA
+\item 
+\#define \hyperlink{mrp_validate_8c_a4e4a9faffd66fd513bf8695a4be8546a}{M\+\_\+\+M\+I\+N\+U\+S\+\_\+\+M\+I\+N\+US}~\char`\"{}M-\/-\/\+:M=\char`\"{} S\+T\+R\+E\+A\+M\+\_\+\+DA
+\item 
+\#define \hyperlink{mrp_validate_8c_a2a8c9bc166880f7e343b9976cd109b6c}{M\+\_\+\+Q\+U\+E\+S\+T\+I\+O\+N\+\_\+\+Q\+U\+E\+S\+T\+I\+ON}~\char`\"{}M??\char`\"{}
+\item 
+\#define \hyperlink{mrp_validate_8c_a033bd72a27353ede08866dbebbacfc67}{V\+\_\+\+P\+L\+U\+S\+\_\+\+P\+L\+US}~\char`\"{}V++\+:I=\char`\"{} V\+L\+A\+N\+\_\+\+ID
+\item 
+\#define \hyperlink{mrp_validate_8c_a6ef0c3ea83f716864798118f39b18f22}{V\+\_\+\+P\+L\+U\+S\+\_\+\+Q\+U\+E\+S\+T\+I\+ON}~\char`\"{}V+?\+:I=\char`\"{} V\+L\+A\+N\+\_\+\+ID
+\item 
+\#define \hyperlink{mrp_validate_8c_a17510b8143a5b7fc4cffe97f1c3a49dc}{V\+\_\+\+M\+I\+N\+U\+S\+\_\+\+M\+I\+N\+US}~\char`\"{}V-\/-\/\+:I=\char`\"{} V\+L\+A\+N\+\_\+\+ID
+\item 
+\#define \hyperlink{mrp_validate_8c_ade2f5b88d4a9422ad10307717d4d3734}{V\+\_\+\+Q\+U\+E\+S\+T\+I\+O\+N\+\_\+\+Q\+U\+E\+S\+T\+I\+ON}~\char`\"{}V??\char`\"{}
+\item 
+\#define \hyperlink{mrp_validate_8c_a4af04818bc78580d3ddce8c7f289911c}{S\+T\+\_\+\+P\+L\+U\+S\+\_\+\+P\+L\+US}
+\item 
+\#define \hyperlink{mrp_validate_8c_a5fbc02ff2bef2ce41c3016b9299c51b8}{S\+T\+\_\+\+P\+L\+U\+S\+\_\+\+Q\+U\+E\+S\+T\+I\+ON}
+\item 
+\#define \hyperlink{mrp_validate_8c_a25d75126a57fee30b042805ed7d1a5ee}{S\+T\+\_\+\+M\+I\+N\+U\+S\+\_\+\+M\+I\+N\+US}~\char`\"{}S-\/-\/\+:S=\char`\"{} S\+T\+R\+E\+A\+M\+\_\+\+ID
+\item 
+\#define \hyperlink{mrp_validate_8c_a8bb1b649e10f4a0aeacc7412624b6c35}{S\+\_\+\+Q\+U\+E\+S\+T\+I\+O\+N\+\_\+\+Q\+U\+E\+S\+T\+I\+ON}~\char`\"{}S??\char`\"{}
+\item 
+\#define \hyperlink{mrp_validate_8c_a61b71fbab88e2519776c9f5effde904a}{S\+T\+F\+\_\+\+P\+L\+U\+S\+\_\+\+P\+L\+US}
+\item 
+\#define \hyperlink{mrp_validate_8c_aea3d70f6328881be54d4053d91274f34}{S\+T\+F\+\_\+\+P\+L\+U\+S\+\_\+\+Q\+U\+E\+S\+T\+I\+ON}
+\item 
+\#define \hyperlink{mrp_validate_8c_a990b5c6b011c8b06af614e8885196b1b}{S\+L\+\_\+\+P\+L\+U\+S\+\_\+\+P\+L\+US}~\char`\"{}S+L\+:L=\char`\"{} S\+T\+R\+E\+A\+M\+\_\+\+ID \char`\"{},D=2\char`\"{}
+\item 
+\#define \hyperlink{mrp_validate_8c_a9d9ade27e63b95c8d468e08978e6139e}{S\+L\+\_\+\+M\+I\+N\+U\+S\+\_\+\+M\+I\+N\+US}~\char`\"{}S-\/L\+:L=\char`\"{} S\+T\+R\+E\+A\+M\+\_\+\+ID
+\item 
+\#define \hyperlink{mrp_validate_8c_a341f05049913e78a1c163bf40af1b39f}{S\+D\+\_\+\+P\+L\+U\+S\+\_\+\+P\+L\+US}
+\item 
+\#define \hyperlink{mrp_validate_8c_a4bdb4a6401b827a8c26c05dedf9b9a40}{S\+D\+\_\+\+M\+I\+N\+U\+S\+\_\+\+M\+I\+N\+US}
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{mrp_validate_8c_ab633e3764b94c7df226459c01c7d4b2c}{process\+\_\+ctl\+\_\+msg} (char $\ast$buf, int buflen)
+\item 
+void \hyperlink{mrp_validate_8c_a6c579f04d2b8083a70d48ec8a050ae51}{display\+Status\+Msgs} (void)
+\item 
+int \hyperlink{mrp_validate_8c_aafa806c93ec64c98c53a83f4c8d33ad8}{fn\+Mplusplus} (void)
+\item 
+int \hyperlink{mrp_validate_8c_a11ddf39970b72afb26aae5dcdad866f2}{fn\+Mplusquestion} (void)
+\item 
+int \hyperlink{mrp_validate_8c_a61c5ebc045bf614fd12e84405f5b5fd8}{fn\+Mminusminus} (void)
+\item 
+int \hyperlink{mrp_validate_8c_ac23977a49b6215ac6c74598c46b4e363}{fn\+Mquestionquestion} (void)
+\item 
+int \hyperlink{mrp_validate_8c_a983496694ec3432d19cb44a9eafc2e71}{fn\+Vplusplus} (void)
+\item 
+int \hyperlink{mrp_validate_8c_a414c79e0a9d5905754ddda94c2d0ce7c}{fn\+Vplusquestion} (void)
+\item 
+int \hyperlink{mrp_validate_8c_ab162d3a25f10413c0d77fabf43697432}{fn\+Vminusminus} (void)
+\item 
+int \hyperlink{mrp_validate_8c_ac1d23d5e968d43ad1f5119bec074a47e}{fn\+Vquestionquestion} (void)
+\item 
+int \hyperlink{mrp_validate_8c_a9c67f398c3c2a999c64428c4d1c910da}{fn\+S\+Tplusplus} (void)
+\item 
+int \hyperlink{mrp_validate_8c_ae07c3d90306fe52bc1f4b08fe2270238}{fn\+S\+Tplusquestion} (void)
+\item 
+int \hyperlink{mrp_validate_8c_a973eb14e1dbf9e3b71278d2e0d7ec725}{fn\+S\+Tminusminus} (void)
+\item 
+int \hyperlink{mrp_validate_8c_a06da9e12edfb52810cf175078aa78029}{fn\+Squestionquestion} (void)
+\item 
+int \hyperlink{mrp_validate_8c_a604bb9362c5ed3cf904369e606c1ebb8}{fn\+S\+T\+Fplusplus} (void)
+\item 
+int \hyperlink{mrp_validate_8c_a6bdb7de9051228edb9f738107c64cea9}{fn\+S\+T\+Fplusquestion} (void)
+\item 
+int \hyperlink{mrp_validate_8c_a9290fc448ce1511a61326673f9e90340}{fn\+S\+Lplusplus} (void)
+\item 
+int \hyperlink{mrp_validate_8c_a27f5c54626f5dcbedcbe7b5edd394057}{fn\+S\+Lminusminus} (void)
+\item 
+int \hyperlink{mrp_validate_8c_a40f311ee6382150c461c35b6b50cbcf0}{fn\+S\+Dplusplus} (void)
+\item 
+int \hyperlink{mrp_validate_8c_ac284b2b85bf6fc9ac812a92edbba35ff}{fn\+S\+Dminusminus} (void)
+\item 
+int \hyperlink{mrp_validate_8c_aadb5269edb1e0756298e89220a448765}{fn\+Exit} (void)
+\item 
+int \hyperlink{mrp_validate_8c_ac60ccbcad7acf0878b5f9dc1e4cc4bdf}{dump\+\_\+ctl\+\_\+msg} (char $\ast$buf, int buflen)
+\item 
+int \hyperlink{mrp_validate_8c_a477729ec6e061e8dc6940a156c5bac78}{fn\+Monitor} (void)
+\item 
+void \hyperlink{mrp_validate_8c_a9c57b99552cfba7791690c8f57fd3e97}{display\+Menu} (void)
+\item 
+int \hyperlink{mrp_validate_8c_ae62e255ea5c53547f53b08a4d6aa820f}{run\+Menu\+Func} (char $\ast$\hyperlink{structoption}{option})
+\item 
+int \hyperlink{mrp_validate_8c_a0ddf1224851353fc92bfbff6f499fa97}{main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\subsection*{변수}
+\begin{DoxyCompactItemize}
+\item 
+static const char $\ast$ \hyperlink{mrp_validate_8c_ae724265d048ace6b96a1e977ea11c1c7}{version\+\_\+str}
+\item 
+int \hyperlink{mrp_validate_8c_a5992b274cfdcacdbc1fa8347fd01ebde}{done} = 0
+\item 
+S\+O\+C\+K\+ET \hyperlink{mrp_validate_8c_a7c6126ba8f26829f864321a56ba52389}{mrpd\+\_\+sock} = S\+O\+C\+K\+E\+T\+\_\+\+E\+R\+R\+OR
+\item 
+char $\ast$ \hyperlink{mrp_validate_8c_a3820841c4bbf28f04505bea65d6b84f7}{msgbuf}
+\item 
+struct \hyperlink{structmenu__option}{menu\+\_\+option} \hyperlink{mrp_validate_8c_aee082fb1be0db09ddbbac35559cf480f}{menu} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!A\+C\+C\+U\+M\+U\+L\+A\+T\+E\+D\+\_\+\+L\+A\+T\+E\+N\+CY@{A\+C\+C\+U\+M\+U\+L\+A\+T\+E\+D\+\_\+\+L\+A\+T\+E\+N\+CY}}
+\index{A\+C\+C\+U\+M\+U\+L\+A\+T\+E\+D\+\_\+\+L\+A\+T\+E\+N\+CY@{A\+C\+C\+U\+M\+U\+L\+A\+T\+E\+D\+\_\+\+L\+A\+T\+E\+N\+CY}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{A\+C\+C\+U\+M\+U\+L\+A\+T\+E\+D\+\_\+\+L\+A\+T\+E\+N\+CY}{ACCUMULATED_LATENCY}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+C\+C\+U\+M\+U\+L\+A\+T\+E\+D\+\_\+\+L\+A\+T\+E\+N\+CY~\char`\"{}1000\char`\"{}}\hypertarget{mrp_validate_8c_aa87d70cd9ed0517369bd6eaf64fa4a96}{}\label{mrp_validate_8c_aa87d70cd9ed0517369bd6eaf64fa4a96}
+
+
+mrp\+Validate.\+c 파일의 87 번째 라인에서 정의되었습니다.
+
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!B\+R\+I\+D\+G\+E\+\_\+\+ID@{B\+R\+I\+D\+G\+E\+\_\+\+ID}}
+\index{B\+R\+I\+D\+G\+E\+\_\+\+ID@{B\+R\+I\+D\+G\+E\+\_\+\+ID}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{B\+R\+I\+D\+G\+E\+\_\+\+ID}{BRIDGE_ID}}]{\setlength{\rightskip}{0pt plus 5cm}\#define B\+R\+I\+D\+G\+E\+\_\+\+ID~\char`\"{}B\+A\+D\+C0\+F\+F\+E\+E\+C0\+F\+F\+E\+E0\char`\"{}}\hypertarget{mrp_validate_8c_a7d391ef7f173a04213e662964ca1f4cd}{}\label{mrp_validate_8c_a7d391ef7f173a04213e662964ca1f4cd}
+
+
+mrp\+Validate.\+c 파일의 90 번째 라인에서 정의되었습니다.
+
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!F\+A\+I\+L\+U\+R\+E\+\_\+\+C\+O\+DE@{F\+A\+I\+L\+U\+R\+E\+\_\+\+C\+O\+DE}}
+\index{F\+A\+I\+L\+U\+R\+E\+\_\+\+C\+O\+DE@{F\+A\+I\+L\+U\+R\+E\+\_\+\+C\+O\+DE}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{F\+A\+I\+L\+U\+R\+E\+\_\+\+C\+O\+DE}{FAILURE_CODE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+A\+I\+L\+U\+R\+E\+\_\+\+C\+O\+DE~\char`\"{}1\char`\"{}}\hypertarget{mrp_validate_8c_a410934913d5189847c3ffc568d7fe385}{}\label{mrp_validate_8c_a410934913d5189847c3ffc568d7fe385}
+
+
+mrp\+Validate.\+c 파일의 91 번째 라인에서 정의되었습니다.
+
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!M\+\_\+\+M\+I\+N\+U\+S\+\_\+\+M\+I\+N\+US@{M\+\_\+\+M\+I\+N\+U\+S\+\_\+\+M\+I\+N\+US}}
+\index{M\+\_\+\+M\+I\+N\+U\+S\+\_\+\+M\+I\+N\+US@{M\+\_\+\+M\+I\+N\+U\+S\+\_\+\+M\+I\+N\+US}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{M\+\_\+\+M\+I\+N\+U\+S\+\_\+\+M\+I\+N\+US}{M_MINUS_MINUS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+\_\+\+M\+I\+N\+U\+S\+\_\+\+M\+I\+N\+US~\char`\"{}M-\/-\/\+:M=\char`\"{} S\+T\+R\+E\+A\+M\+\_\+\+DA}\hypertarget{mrp_validate_8c_a4e4a9faffd66fd513bf8695a4be8546a}{}\label{mrp_validate_8c_a4e4a9faffd66fd513bf8695a4be8546a}
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!M\+\_\+\+P\+L\+U\+S\+\_\+\+P\+L\+US@{M\+\_\+\+P\+L\+U\+S\+\_\+\+P\+L\+US}}
+\index{M\+\_\+\+P\+L\+U\+S\+\_\+\+P\+L\+US@{M\+\_\+\+P\+L\+U\+S\+\_\+\+P\+L\+US}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{M\+\_\+\+P\+L\+U\+S\+\_\+\+P\+L\+US}{M_PLUS_PLUS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+\_\+\+P\+L\+U\+S\+\_\+\+P\+L\+US~\char`\"{}M++\+:M=\char`\"{} S\+T\+R\+E\+A\+M\+\_\+\+DA}\hypertarget{mrp_validate_8c_a294cbdb789d37dafcbf50f758d69d900}{}\label{mrp_validate_8c_a294cbdb789d37dafcbf50f758d69d900}
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!M\+\_\+\+P\+L\+U\+S\+\_\+\+Q\+U\+E\+S\+T\+I\+ON@{M\+\_\+\+P\+L\+U\+S\+\_\+\+Q\+U\+E\+S\+T\+I\+ON}}
+\index{M\+\_\+\+P\+L\+U\+S\+\_\+\+Q\+U\+E\+S\+T\+I\+ON@{M\+\_\+\+P\+L\+U\+S\+\_\+\+Q\+U\+E\+S\+T\+I\+ON}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{M\+\_\+\+P\+L\+U\+S\+\_\+\+Q\+U\+E\+S\+T\+I\+ON}{M_PLUS_QUESTION}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+\_\+\+P\+L\+U\+S\+\_\+\+Q\+U\+E\+S\+T\+I\+ON~\char`\"{}M+?\+:M=\char`\"{} S\+T\+R\+E\+A\+M\+\_\+\+DA}\hypertarget{mrp_validate_8c_a16ec4826210f6163c7c90e391c09e644}{}\label{mrp_validate_8c_a16ec4826210f6163c7c90e391c09e644}
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!M\+\_\+\+Q\+U\+E\+S\+T\+I\+O\+N\+\_\+\+Q\+U\+E\+S\+T\+I\+ON@{M\+\_\+\+Q\+U\+E\+S\+T\+I\+O\+N\+\_\+\+Q\+U\+E\+S\+T\+I\+ON}}
+\index{M\+\_\+\+Q\+U\+E\+S\+T\+I\+O\+N\+\_\+\+Q\+U\+E\+S\+T\+I\+ON@{M\+\_\+\+Q\+U\+E\+S\+T\+I\+O\+N\+\_\+\+Q\+U\+E\+S\+T\+I\+ON}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{M\+\_\+\+Q\+U\+E\+S\+T\+I\+O\+N\+\_\+\+Q\+U\+E\+S\+T\+I\+ON}{M_QUESTION_QUESTION}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+\_\+\+Q\+U\+E\+S\+T\+I\+O\+N\+\_\+\+Q\+U\+E\+S\+T\+I\+ON~\char`\"{}M??\char`\"{}}\hypertarget{mrp_validate_8c_a2a8c9bc166880f7e343b9976cd109b6c}{}\label{mrp_validate_8c_a2a8c9bc166880f7e343b9976cd109b6c}
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!P\+R\+I\+O\+R\+I\+T\+Y\+\_\+\+A\+N\+D\+\_\+\+R\+A\+NK@{P\+R\+I\+O\+R\+I\+T\+Y\+\_\+\+A\+N\+D\+\_\+\+R\+A\+NK}}
+\index{P\+R\+I\+O\+R\+I\+T\+Y\+\_\+\+A\+N\+D\+\_\+\+R\+A\+NK@{P\+R\+I\+O\+R\+I\+T\+Y\+\_\+\+A\+N\+D\+\_\+\+R\+A\+NK}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{P\+R\+I\+O\+R\+I\+T\+Y\+\_\+\+A\+N\+D\+\_\+\+R\+A\+NK}{PRIORITY_AND_RANK}}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+R\+I\+O\+R\+I\+T\+Y\+\_\+\+A\+N\+D\+\_\+\+R\+A\+NK~\char`\"{}96\char`\"{}}\hypertarget{mrp_validate_8c_a21c9558f4a2da68c70811d70dd32151f}{}\label{mrp_validate_8c_a21c9558f4a2da68c70811d70dd32151f}
+
+
+mrp\+Validate.\+c 파일의 86 번째 라인에서 정의되었습니다.
+
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!S\+\_\+\+Q\+U\+E\+S\+T\+I\+O\+N\+\_\+\+Q\+U\+E\+S\+T\+I\+ON@{S\+\_\+\+Q\+U\+E\+S\+T\+I\+O\+N\+\_\+\+Q\+U\+E\+S\+T\+I\+ON}}
+\index{S\+\_\+\+Q\+U\+E\+S\+T\+I\+O\+N\+\_\+\+Q\+U\+E\+S\+T\+I\+ON@{S\+\_\+\+Q\+U\+E\+S\+T\+I\+O\+N\+\_\+\+Q\+U\+E\+S\+T\+I\+ON}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{S\+\_\+\+Q\+U\+E\+S\+T\+I\+O\+N\+\_\+\+Q\+U\+E\+S\+T\+I\+ON}{S_QUESTION_QUESTION}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+\_\+\+Q\+U\+E\+S\+T\+I\+O\+N\+\_\+\+Q\+U\+E\+S\+T\+I\+ON~\char`\"{}S??\char`\"{}}\hypertarget{mrp_validate_8c_a8bb1b649e10f4a0aeacc7412624b6c35}{}\label{mrp_validate_8c_a8bb1b649e10f4a0aeacc7412624b6c35}
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!S\+D\+\_\+\+M\+I\+N\+U\+S\+\_\+\+M\+I\+N\+US@{S\+D\+\_\+\+M\+I\+N\+U\+S\+\_\+\+M\+I\+N\+US}}
+\index{S\+D\+\_\+\+M\+I\+N\+U\+S\+\_\+\+M\+I\+N\+US@{S\+D\+\_\+\+M\+I\+N\+U\+S\+\_\+\+M\+I\+N\+US}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{S\+D\+\_\+\+M\+I\+N\+U\+S\+\_\+\+M\+I\+N\+US}{SD_MINUS_MINUS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+D\+\_\+\+M\+I\+N\+U\+S\+\_\+\+M\+I\+N\+US}\hypertarget{mrp_validate_8c_a4bdb4a6401b827a8c26c05dedf9b9a40}{}\label{mrp_validate_8c_a4bdb4a6401b827a8c26c05dedf9b9a40}
+{\bfseries 값\+:}
+\begin{DoxyCode}
+\textcolor{stringliteral}{"S-D:C="} \hyperlink{mrp_validate_8c_a517651d0e939360fc119ca27bee2fa8c}{SR\_CLASS\_ID} \(\backslash\)
+                       \textcolor{stringliteral}{",P="} \hyperlink{mrp_validate_8c_af9dc616a7814cee63adee9d59839f959}{SR\_CLASS\_PRIORITY} \(\backslash\)
+                       \textcolor{stringliteral}{",V="} \hyperlink{mrp_validate_8c_ac23326adfc4e624044916cc85d9bac2f}{VLAN\_ID}
+\end{DoxyCode}
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!S\+D\+\_\+\+P\+L\+U\+S\+\_\+\+P\+L\+US@{S\+D\+\_\+\+P\+L\+U\+S\+\_\+\+P\+L\+US}}
+\index{S\+D\+\_\+\+P\+L\+U\+S\+\_\+\+P\+L\+US@{S\+D\+\_\+\+P\+L\+U\+S\+\_\+\+P\+L\+US}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{S\+D\+\_\+\+P\+L\+U\+S\+\_\+\+P\+L\+US}{SD_PLUS_PLUS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+D\+\_\+\+P\+L\+U\+S\+\_\+\+P\+L\+US}\hypertarget{mrp_validate_8c_a341f05049913e78a1c163bf40af1b39f}{}\label{mrp_validate_8c_a341f05049913e78a1c163bf40af1b39f}
+{\bfseries 값\+:}
+\begin{DoxyCode}
+\textcolor{stringliteral}{"S+D:C="} \hyperlink{mrp_validate_8c_a517651d0e939360fc119ca27bee2fa8c}{SR\_CLASS\_ID} \(\backslash\)
+                     \textcolor{stringliteral}{",P="} \hyperlink{mrp_validate_8c_af9dc616a7814cee63adee9d59839f959}{SR\_CLASS\_PRIORITY} \(\backslash\)
+                     \textcolor{stringliteral}{",V="} \hyperlink{mrp_validate_8c_ac23326adfc4e624044916cc85d9bac2f}{VLAN\_ID}
+\end{DoxyCode}
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!S\+L\+\_\+\+M\+I\+N\+U\+S\+\_\+\+M\+I\+N\+US@{S\+L\+\_\+\+M\+I\+N\+U\+S\+\_\+\+M\+I\+N\+US}}
+\index{S\+L\+\_\+\+M\+I\+N\+U\+S\+\_\+\+M\+I\+N\+US@{S\+L\+\_\+\+M\+I\+N\+U\+S\+\_\+\+M\+I\+N\+US}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{S\+L\+\_\+\+M\+I\+N\+U\+S\+\_\+\+M\+I\+N\+US}{SL_MINUS_MINUS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+L\+\_\+\+M\+I\+N\+U\+S\+\_\+\+M\+I\+N\+US~\char`\"{}S-\/L\+:L=\char`\"{} S\+T\+R\+E\+A\+M\+\_\+\+ID}\hypertarget{mrp_validate_8c_a9d9ade27e63b95c8d468e08978e6139e}{}\label{mrp_validate_8c_a9d9ade27e63b95c8d468e08978e6139e}
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!S\+L\+\_\+\+P\+L\+U\+S\+\_\+\+P\+L\+US@{S\+L\+\_\+\+P\+L\+U\+S\+\_\+\+P\+L\+US}}
+\index{S\+L\+\_\+\+P\+L\+U\+S\+\_\+\+P\+L\+US@{S\+L\+\_\+\+P\+L\+U\+S\+\_\+\+P\+L\+US}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{S\+L\+\_\+\+P\+L\+U\+S\+\_\+\+P\+L\+US}{SL_PLUS_PLUS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+L\+\_\+\+P\+L\+U\+S\+\_\+\+P\+L\+US~\char`\"{}S+L\+:L=\char`\"{} S\+T\+R\+E\+A\+M\+\_\+\+ID \char`\"{},D=2\char`\"{}}\hypertarget{mrp_validate_8c_a990b5c6b011c8b06af614e8885196b1b}{}\label{mrp_validate_8c_a990b5c6b011c8b06af614e8885196b1b}
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!S\+R\+\_\+\+C\+L\+A\+S\+S\+\_\+\+ID@{S\+R\+\_\+\+C\+L\+A\+S\+S\+\_\+\+ID}}
+\index{S\+R\+\_\+\+C\+L\+A\+S\+S\+\_\+\+ID@{S\+R\+\_\+\+C\+L\+A\+S\+S\+\_\+\+ID}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{S\+R\+\_\+\+C\+L\+A\+S\+S\+\_\+\+ID}{SR_CLASS_ID}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+R\+\_\+\+C\+L\+A\+S\+S\+\_\+\+ID~\char`\"{}6\char`\"{}}\hypertarget{mrp_validate_8c_a517651d0e939360fc119ca27bee2fa8c}{}\label{mrp_validate_8c_a517651d0e939360fc119ca27bee2fa8c}
+
+
+mrp\+Validate.\+c 파일의 88 번째 라인에서 정의되었습니다.
+
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!S\+R\+\_\+\+C\+L\+A\+S\+S\+\_\+\+P\+R\+I\+O\+R\+I\+TY@{S\+R\+\_\+\+C\+L\+A\+S\+S\+\_\+\+P\+R\+I\+O\+R\+I\+TY}}
+\index{S\+R\+\_\+\+C\+L\+A\+S\+S\+\_\+\+P\+R\+I\+O\+R\+I\+TY@{S\+R\+\_\+\+C\+L\+A\+S\+S\+\_\+\+P\+R\+I\+O\+R\+I\+TY}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{S\+R\+\_\+\+C\+L\+A\+S\+S\+\_\+\+P\+R\+I\+O\+R\+I\+TY}{SR_CLASS_PRIORITY}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+R\+\_\+\+C\+L\+A\+S\+S\+\_\+\+P\+R\+I\+O\+R\+I\+TY~\char`\"{}3\char`\"{}}\hypertarget{mrp_validate_8c_af9dc616a7814cee63adee9d59839f959}{}\label{mrp_validate_8c_af9dc616a7814cee63adee9d59839f959}
+
+
+mrp\+Validate.\+c 파일의 89 번째 라인에서 정의되었습니다.
+
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!S\+T\+\_\+\+M\+I\+N\+U\+S\+\_\+\+M\+I\+N\+US@{S\+T\+\_\+\+M\+I\+N\+U\+S\+\_\+\+M\+I\+N\+US}}
+\index{S\+T\+\_\+\+M\+I\+N\+U\+S\+\_\+\+M\+I\+N\+US@{S\+T\+\_\+\+M\+I\+N\+U\+S\+\_\+\+M\+I\+N\+US}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{S\+T\+\_\+\+M\+I\+N\+U\+S\+\_\+\+M\+I\+N\+US}{ST_MINUS_MINUS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+T\+\_\+\+M\+I\+N\+U\+S\+\_\+\+M\+I\+N\+US~\char`\"{}S-\/-\/\+:S=\char`\"{} S\+T\+R\+E\+A\+M\+\_\+\+ID}\hypertarget{mrp_validate_8c_a25d75126a57fee30b042805ed7d1a5ee}{}\label{mrp_validate_8c_a25d75126a57fee30b042805ed7d1a5ee}
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!S\+T\+\_\+\+P\+L\+U\+S\+\_\+\+P\+L\+US@{S\+T\+\_\+\+P\+L\+U\+S\+\_\+\+P\+L\+US}}
+\index{S\+T\+\_\+\+P\+L\+U\+S\+\_\+\+P\+L\+US@{S\+T\+\_\+\+P\+L\+U\+S\+\_\+\+P\+L\+US}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{S\+T\+\_\+\+P\+L\+U\+S\+\_\+\+P\+L\+US}{ST_PLUS_PLUS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+T\+\_\+\+P\+L\+U\+S\+\_\+\+P\+L\+US}\hypertarget{mrp_validate_8c_a4af04818bc78580d3ddce8c7f289911c}{}\label{mrp_validate_8c_a4af04818bc78580d3ddce8c7f289911c}
+{\bfseries 값\+:}
+\begin{DoxyCode}
+\textcolor{stringliteral}{"S++:S="} \hyperlink{mrp_validate_8c_ade86a80a3d067dece1f7e7cf957e3e92}{STREAM\_ID} \(\backslash\)
+                     \textcolor{stringliteral}{",A="} \hyperlink{mrp_validate_8c_ad67d7637234f1ca513d2366dd8a66854}{STREAM\_DA} \(\backslash\)
+                     \textcolor{stringliteral}{",V="} \hyperlink{mrp_validate_8c_ac23326adfc4e624044916cc85d9bac2f}{VLAN\_ID} \(\backslash\)
+                     \textcolor{stringliteral}{",Z="} \hyperlink{mrp_validate_8c_a8ad1ebec324e399a1fafe44e201f2f54}{TSPEC\_MAX\_FRAME\_SIZE} \(\backslash\)
+                     \textcolor{stringliteral}{",I="} \hyperlink{mrp_validate_8c_a2f0ec09eab10749c9eb3c3da0de95949}{TSPEC\_MAX\_FRAME\_INTERVAL} \(\backslash\)
+                     \textcolor{stringliteral}{",P="} \hyperlink{mrp_validate_8c_a21c9558f4a2da68c70811d70dd32151f}{PRIORITY\_AND\_RANK} \(\backslash\)
+                     \textcolor{stringliteral}{",L="} \hyperlink{mrp_validate_8c_aa87d70cd9ed0517369bd6eaf64fa4a96}{ACCUMULATED\_LATENCY}
+\end{DoxyCode}
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!S\+T\+\_\+\+P\+L\+U\+S\+\_\+\+Q\+U\+E\+S\+T\+I\+ON@{S\+T\+\_\+\+P\+L\+U\+S\+\_\+\+Q\+U\+E\+S\+T\+I\+ON}}
+\index{S\+T\+\_\+\+P\+L\+U\+S\+\_\+\+Q\+U\+E\+S\+T\+I\+ON@{S\+T\+\_\+\+P\+L\+U\+S\+\_\+\+Q\+U\+E\+S\+T\+I\+ON}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{S\+T\+\_\+\+P\+L\+U\+S\+\_\+\+Q\+U\+E\+S\+T\+I\+ON}{ST_PLUS_QUESTION}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+T\+\_\+\+P\+L\+U\+S\+\_\+\+Q\+U\+E\+S\+T\+I\+ON}\hypertarget{mrp_validate_8c_a5fbc02ff2bef2ce41c3016b9299c51b8}{}\label{mrp_validate_8c_a5fbc02ff2bef2ce41c3016b9299c51b8}
+{\bfseries 값\+:}
+\begin{DoxyCode}
+\textcolor{stringliteral}{"S+?:S="} \hyperlink{mrp_validate_8c_ade86a80a3d067dece1f7e7cf957e3e92}{STREAM\_ID} \(\backslash\)
+                         \textcolor{stringliteral}{",A="} \hyperlink{mrp_validate_8c_ad67d7637234f1ca513d2366dd8a66854}{STREAM\_DA} \(\backslash\)
+                         \textcolor{stringliteral}{",V="} \hyperlink{mrp_validate_8c_ac23326adfc4e624044916cc85d9bac2f}{VLAN\_ID} \(\backslash\)
+                         \textcolor{stringliteral}{",Z="} \hyperlink{mrp_validate_8c_a8ad1ebec324e399a1fafe44e201f2f54}{TSPEC\_MAX\_FRAME\_SIZE} \(\backslash\)
+                         \textcolor{stringliteral}{",I="} \hyperlink{mrp_validate_8c_a2f0ec09eab10749c9eb3c3da0de95949}{TSPEC\_MAX\_FRAME\_INTERVAL} \(\backslash\)
+                         \textcolor{stringliteral}{",P="} \hyperlink{mrp_validate_8c_a21c9558f4a2da68c70811d70dd32151f}{PRIORITY\_AND\_RANK} \(\backslash\)
+                         \textcolor{stringliteral}{",L="} \hyperlink{mrp_validate_8c_aa87d70cd9ed0517369bd6eaf64fa4a96}{ACCUMULATED\_LATENCY}
+\end{DoxyCode}
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!S\+T\+F\+\_\+\+P\+L\+U\+S\+\_\+\+P\+L\+US@{S\+T\+F\+\_\+\+P\+L\+U\+S\+\_\+\+P\+L\+US}}
+\index{S\+T\+F\+\_\+\+P\+L\+U\+S\+\_\+\+P\+L\+US@{S\+T\+F\+\_\+\+P\+L\+U\+S\+\_\+\+P\+L\+US}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{S\+T\+F\+\_\+\+P\+L\+U\+S\+\_\+\+P\+L\+US}{STF_PLUS_PLUS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+T\+F\+\_\+\+P\+L\+U\+S\+\_\+\+P\+L\+US}\hypertarget{mrp_validate_8c_a61b71fbab88e2519776c9f5effde904a}{}\label{mrp_validate_8c_a61b71fbab88e2519776c9f5effde904a}
+{\bfseries 값\+:}
+\begin{DoxyCode}
+\textcolor{stringliteral}{"S++:S="} \hyperlink{mrp_validate_8c_ade86a80a3d067dece1f7e7cf957e3e92}{STREAM\_ID} \(\backslash\)
+                     \textcolor{stringliteral}{",A="} \hyperlink{mrp_validate_8c_ad67d7637234f1ca513d2366dd8a66854}{STREAM\_DA} \(\backslash\)
+                     \textcolor{stringliteral}{",V="} \hyperlink{mrp_validate_8c_ac23326adfc4e624044916cc85d9bac2f}{VLAN\_ID} \(\backslash\)
+                     \textcolor{stringliteral}{",Z="} \hyperlink{mrp_validate_8c_a8ad1ebec324e399a1fafe44e201f2f54}{TSPEC\_MAX\_FRAME\_SIZE} \(\backslash\)
+                     \textcolor{stringliteral}{",I="} \hyperlink{mrp_validate_8c_a2f0ec09eab10749c9eb3c3da0de95949}{TSPEC\_MAX\_FRAME\_INTERVAL} \(\backslash\)
+                     \textcolor{stringliteral}{",P="} \hyperlink{mrp_validate_8c_a21c9558f4a2da68c70811d70dd32151f}{PRIORITY\_AND\_RANK} \(\backslash\)
+                     \textcolor{stringliteral}{",L="} \hyperlink{mrp_validate_8c_aa87d70cd9ed0517369bd6eaf64fa4a96}{ACCUMULATED\_LATENCY} \(\backslash\)
+                     \textcolor{stringliteral}{",B="} \hyperlink{mrp_validate_8c_a7d391ef7f173a04213e662964ca1f4cd}{BRIDGE\_ID} \(\backslash\)
+                     \textcolor{stringliteral}{",C="} \hyperlink{mrp_validate_8c_a410934913d5189847c3ffc568d7fe385}{FAILURE\_CODE}
+\end{DoxyCode}
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!S\+T\+F\+\_\+\+P\+L\+U\+S\+\_\+\+Q\+U\+E\+S\+T\+I\+ON@{S\+T\+F\+\_\+\+P\+L\+U\+S\+\_\+\+Q\+U\+E\+S\+T\+I\+ON}}
+\index{S\+T\+F\+\_\+\+P\+L\+U\+S\+\_\+\+Q\+U\+E\+S\+T\+I\+ON@{S\+T\+F\+\_\+\+P\+L\+U\+S\+\_\+\+Q\+U\+E\+S\+T\+I\+ON}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{S\+T\+F\+\_\+\+P\+L\+U\+S\+\_\+\+Q\+U\+E\+S\+T\+I\+ON}{STF_PLUS_QUESTION}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+T\+F\+\_\+\+P\+L\+U\+S\+\_\+\+Q\+U\+E\+S\+T\+I\+ON}\hypertarget{mrp_validate_8c_aea3d70f6328881be54d4053d91274f34}{}\label{mrp_validate_8c_aea3d70f6328881be54d4053d91274f34}
+{\bfseries 값\+:}
+\begin{DoxyCode}
+\textcolor{stringliteral}{"S+?:S="} \hyperlink{mrp_validate_8c_ade86a80a3d067dece1f7e7cf957e3e92}{STREAM\_ID} \(\backslash\)
+                         \textcolor{stringliteral}{",A="} \hyperlink{mrp_validate_8c_ad67d7637234f1ca513d2366dd8a66854}{STREAM\_DA} \(\backslash\)
+                         \textcolor{stringliteral}{",V="} \hyperlink{mrp_validate_8c_ac23326adfc4e624044916cc85d9bac2f}{VLAN\_ID} \(\backslash\)
+                         \textcolor{stringliteral}{",Z="} \hyperlink{mrp_validate_8c_a8ad1ebec324e399a1fafe44e201f2f54}{TSPEC\_MAX\_FRAME\_SIZE} \(\backslash\)
+                         \textcolor{stringliteral}{",I="} \hyperlink{mrp_validate_8c_a2f0ec09eab10749c9eb3c3da0de95949}{TSPEC\_MAX\_FRAME\_INTERVAL} \(\backslash\)
+                         \textcolor{stringliteral}{",P="} \hyperlink{mrp_validate_8c_a21c9558f4a2da68c70811d70dd32151f}{PRIORITY\_AND\_RANK} \(\backslash\)
+                         \textcolor{stringliteral}{",L="} \hyperlink{mrp_validate_8c_aa87d70cd9ed0517369bd6eaf64fa4a96}{ACCUMULATED\_LATENCY} \(\backslash\)
+                         \textcolor{stringliteral}{",B="} \hyperlink{mrp_validate_8c_a7d391ef7f173a04213e662964ca1f4cd}{BRIDGE\_ID} \(\backslash\)
+                         \textcolor{stringliteral}{",C="} \hyperlink{mrp_validate_8c_a410934913d5189847c3ffc568d7fe385}{FAILURE\_CODE}
+\end{DoxyCode}
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!S\+T\+R\+E\+A\+M\+\_\+\+DA@{S\+T\+R\+E\+A\+M\+\_\+\+DA}}
+\index{S\+T\+R\+E\+A\+M\+\_\+\+DA@{S\+T\+R\+E\+A\+M\+\_\+\+DA}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{S\+T\+R\+E\+A\+M\+\_\+\+DA}{STREAM_DA}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+T\+R\+E\+A\+M\+\_\+\+DA~\char`\"{}010203040506\char`\"{}}\hypertarget{mrp_validate_8c_ad67d7637234f1ca513d2366dd8a66854}{}\label{mrp_validate_8c_ad67d7637234f1ca513d2366dd8a66854}
+
+
+mrp\+Validate.\+c 파일의 81 번째 라인에서 정의되었습니다.
+
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!S\+T\+R\+E\+A\+M\+\_\+\+ID@{S\+T\+R\+E\+A\+M\+\_\+\+ID}}
+\index{S\+T\+R\+E\+A\+M\+\_\+\+ID@{S\+T\+R\+E\+A\+M\+\_\+\+ID}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{S\+T\+R\+E\+A\+M\+\_\+\+ID}{STREAM_ID}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+T\+R\+E\+A\+M\+\_\+\+ID~\char`\"{}D\+E\+A\+D\+B\+E\+E\+F\+B\+A\+D\+F\+C\+A11\char`\"{}}\hypertarget{mrp_validate_8c_ade86a80a3d067dece1f7e7cf957e3e92}{}\label{mrp_validate_8c_ade86a80a3d067dece1f7e7cf957e3e92}
+
+
+mrp\+Validate.\+c 파일의 82 번째 라인에서 정의되었습니다.
+
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!T\+S\+P\+E\+C\+\_\+\+M\+A\+X\+\_\+\+F\+R\+A\+M\+E\+\_\+\+I\+N\+T\+E\+R\+V\+AL@{T\+S\+P\+E\+C\+\_\+\+M\+A\+X\+\_\+\+F\+R\+A\+M\+E\+\_\+\+I\+N\+T\+E\+R\+V\+AL}}
+\index{T\+S\+P\+E\+C\+\_\+\+M\+A\+X\+\_\+\+F\+R\+A\+M\+E\+\_\+\+I\+N\+T\+E\+R\+V\+AL@{T\+S\+P\+E\+C\+\_\+\+M\+A\+X\+\_\+\+F\+R\+A\+M\+E\+\_\+\+I\+N\+T\+E\+R\+V\+AL}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{T\+S\+P\+E\+C\+\_\+\+M\+A\+X\+\_\+\+F\+R\+A\+M\+E\+\_\+\+I\+N\+T\+E\+R\+V\+AL}{TSPEC_MAX_FRAME_INTERVAL}}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+S\+P\+E\+C\+\_\+\+M\+A\+X\+\_\+\+F\+R\+A\+M\+E\+\_\+\+I\+N\+T\+E\+R\+V\+AL~\char`\"{}8000\char`\"{}}\hypertarget{mrp_validate_8c_a2f0ec09eab10749c9eb3c3da0de95949}{}\label{mrp_validate_8c_a2f0ec09eab10749c9eb3c3da0de95949}
+
+
+mrp\+Validate.\+c 파일의 85 번째 라인에서 정의되었습니다.
+
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!T\+S\+P\+E\+C\+\_\+\+M\+A\+X\+\_\+\+F\+R\+A\+M\+E\+\_\+\+S\+I\+ZE@{T\+S\+P\+E\+C\+\_\+\+M\+A\+X\+\_\+\+F\+R\+A\+M\+E\+\_\+\+S\+I\+ZE}}
+\index{T\+S\+P\+E\+C\+\_\+\+M\+A\+X\+\_\+\+F\+R\+A\+M\+E\+\_\+\+S\+I\+ZE@{T\+S\+P\+E\+C\+\_\+\+M\+A\+X\+\_\+\+F\+R\+A\+M\+E\+\_\+\+S\+I\+ZE}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{T\+S\+P\+E\+C\+\_\+\+M\+A\+X\+\_\+\+F\+R\+A\+M\+E\+\_\+\+S\+I\+ZE}{TSPEC_MAX_FRAME_SIZE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+S\+P\+E\+C\+\_\+\+M\+A\+X\+\_\+\+F\+R\+A\+M\+E\+\_\+\+S\+I\+ZE~\char`\"{}576\char`\"{}}\hypertarget{mrp_validate_8c_a8ad1ebec324e399a1fafe44e201f2f54}{}\label{mrp_validate_8c_a8ad1ebec324e399a1fafe44e201f2f54}
+
+
+mrp\+Validate.\+c 파일의 84 번째 라인에서 정의되었습니다.
+
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!V\+\_\+\+M\+I\+N\+U\+S\+\_\+\+M\+I\+N\+US@{V\+\_\+\+M\+I\+N\+U\+S\+\_\+\+M\+I\+N\+US}}
+\index{V\+\_\+\+M\+I\+N\+U\+S\+\_\+\+M\+I\+N\+US@{V\+\_\+\+M\+I\+N\+U\+S\+\_\+\+M\+I\+N\+US}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{V\+\_\+\+M\+I\+N\+U\+S\+\_\+\+M\+I\+N\+US}{V_MINUS_MINUS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define V\+\_\+\+M\+I\+N\+U\+S\+\_\+\+M\+I\+N\+US~\char`\"{}V-\/-\/\+:I=\char`\"{} V\+L\+A\+N\+\_\+\+ID}\hypertarget{mrp_validate_8c_a17510b8143a5b7fc4cffe97f1c3a49dc}{}\label{mrp_validate_8c_a17510b8143a5b7fc4cffe97f1c3a49dc}
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!V\+\_\+\+P\+L\+U\+S\+\_\+\+P\+L\+US@{V\+\_\+\+P\+L\+U\+S\+\_\+\+P\+L\+US}}
+\index{V\+\_\+\+P\+L\+U\+S\+\_\+\+P\+L\+US@{V\+\_\+\+P\+L\+U\+S\+\_\+\+P\+L\+US}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{V\+\_\+\+P\+L\+U\+S\+\_\+\+P\+L\+US}{V_PLUS_PLUS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define V\+\_\+\+P\+L\+U\+S\+\_\+\+P\+L\+US~\char`\"{}V++\+:I=\char`\"{} V\+L\+A\+N\+\_\+\+ID}\hypertarget{mrp_validate_8c_a033bd72a27353ede08866dbebbacfc67}{}\label{mrp_validate_8c_a033bd72a27353ede08866dbebbacfc67}
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!V\+\_\+\+P\+L\+U\+S\+\_\+\+Q\+U\+E\+S\+T\+I\+ON@{V\+\_\+\+P\+L\+U\+S\+\_\+\+Q\+U\+E\+S\+T\+I\+ON}}
+\index{V\+\_\+\+P\+L\+U\+S\+\_\+\+Q\+U\+E\+S\+T\+I\+ON@{V\+\_\+\+P\+L\+U\+S\+\_\+\+Q\+U\+E\+S\+T\+I\+ON}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{V\+\_\+\+P\+L\+U\+S\+\_\+\+Q\+U\+E\+S\+T\+I\+ON}{V_PLUS_QUESTION}}]{\setlength{\rightskip}{0pt plus 5cm}\#define V\+\_\+\+P\+L\+U\+S\+\_\+\+Q\+U\+E\+S\+T\+I\+ON~\char`\"{}V+?\+:I=\char`\"{} V\+L\+A\+N\+\_\+\+ID}\hypertarget{mrp_validate_8c_a6ef0c3ea83f716864798118f39b18f22}{}\label{mrp_validate_8c_a6ef0c3ea83f716864798118f39b18f22}
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!V\+\_\+\+Q\+U\+E\+S\+T\+I\+O\+N\+\_\+\+Q\+U\+E\+S\+T\+I\+ON@{V\+\_\+\+Q\+U\+E\+S\+T\+I\+O\+N\+\_\+\+Q\+U\+E\+S\+T\+I\+ON}}
+\index{V\+\_\+\+Q\+U\+E\+S\+T\+I\+O\+N\+\_\+\+Q\+U\+E\+S\+T\+I\+ON@{V\+\_\+\+Q\+U\+E\+S\+T\+I\+O\+N\+\_\+\+Q\+U\+E\+S\+T\+I\+ON}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{V\+\_\+\+Q\+U\+E\+S\+T\+I\+O\+N\+\_\+\+Q\+U\+E\+S\+T\+I\+ON}{V_QUESTION_QUESTION}}]{\setlength{\rightskip}{0pt plus 5cm}\#define V\+\_\+\+Q\+U\+E\+S\+T\+I\+O\+N\+\_\+\+Q\+U\+E\+S\+T\+I\+ON~\char`\"{}V??\char`\"{}}\hypertarget{mrp_validate_8c_ade2f5b88d4a9422ad10307717d4d3734}{}\label{mrp_validate_8c_ade2f5b88d4a9422ad10307717d4d3734}
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR@{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR}}
+\index{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR@{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR}{VERSION_STR}}]{\setlength{\rightskip}{0pt plus 5cm}\#define V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR~\char`\"{}0.\+0\char`\"{}}\hypertarget{mrp_validate_8c_acfc1668731750cb1ee8974b8a7c133ef}{}\label{mrp_validate_8c_acfc1668731750cb1ee8974b8a7c133ef}
+
+
+mrp\+Validate.\+c 파일의 68 번째 라인에서 정의되었습니다.
+
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!V\+L\+A\+N\+\_\+\+ID@{V\+L\+A\+N\+\_\+\+ID}}
+\index{V\+L\+A\+N\+\_\+\+ID@{V\+L\+A\+N\+\_\+\+ID}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{V\+L\+A\+N\+\_\+\+ID}{VLAN_ID}}]{\setlength{\rightskip}{0pt plus 5cm}\#define V\+L\+A\+N\+\_\+\+ID~\char`\"{}0002\char`\"{}}\hypertarget{mrp_validate_8c_ac23326adfc4e624044916cc85d9bac2f}{}\label{mrp_validate_8c_ac23326adfc4e624044916cc85d9bac2f}
+
+
+mrp\+Validate.\+c 파일의 83 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{함수 문서화}
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!display\+Menu@{display\+Menu}}
+\index{display\+Menu@{display\+Menu}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{display\+Menu(void)}{displayMenu(void)}}]{\setlength{\rightskip}{0pt plus 5cm}void display\+Menu (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{mrp_validate_8c_a9c57b99552cfba7791690c8f57fd3e97}{}\label{mrp_validate_8c_a9c57b99552cfba7791690c8f57fd3e97}
+
+
+mrp\+Validate.\+c 파일의 392 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+392                   \{
+393     \textcolor{keywordtype}{int} i;
+394 
+395     printf(\textcolor{stringliteral}{"\(\backslash\)n\(\backslash\)nSelect from the following options:\(\backslash\)n"});
+396     \textcolor{keywordflow}{for} (i=0; 0 != \hyperlink{mrp_validate_8c_aee082fb1be0db09ddbbac35559cf480f}{menu}[i].\hyperlink{structmenu__option_a756aafa2c9b99eaa7eb7f8886c7a8cb2}{option}; i++) \{
+397         \textcolor{keywordflow}{if} (\textcolor{charliteral}{'\(\backslash\)0'} == \hyperlink{mrp_validate_8c_aee082fb1be0db09ddbbac35559cf480f}{menu}[i].desc[0]) \{
+398             printf(\textcolor{stringliteral}{"\(\backslash\)n"});
+399         \} \textcolor{keywordflow}{else} \{
+400             printf(\textcolor{stringliteral}{"%5s - %s\(\backslash\)n"}, \hyperlink{mrp_validate_8c_aee082fb1be0db09ddbbac35559cf480f}{menu}[i].\hyperlink{structoption}{option}, \hyperlink{mrp_validate_8c_aee082fb1be0db09ddbbac35559cf480f}{menu}[i].desc);
+401         \}
+402     \}
+403     printf(\textcolor{stringliteral}{"Note: StreamID="} \hyperlink{mrp_validate_8c_ade86a80a3d067dece1f7e7cf957e3e92}{STREAM\_ID} \textcolor{stringliteral}{", StreamDA="} \hyperlink{mrp_validate_8c_ad67d7637234f1ca513d2366dd8a66854}{STREAM\_DA}
+404            \textcolor{stringliteral}{", VLAN ID="} \hyperlink{mrp_validate_8c_ac23326adfc4e624044916cc85d9bac2f}{VLAN\_ID} \textcolor{stringliteral}{"\(\backslash\)n"});
+405 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=225pt]{mrp_validate_8c_a9c57b99552cfba7791690c8f57fd3e97_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!display\+Status\+Msgs@{display\+Status\+Msgs}}
+\index{display\+Status\+Msgs@{display\+Status\+Msgs}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{display\+Status\+Msgs(void)}{displayStatusMsgs(void)}}]{\setlength{\rightskip}{0pt plus 5cm}void display\+Status\+Msgs (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{mrp_validate_8c_a6c579f04d2b8083a70d48ec8a050ae51}{}\label{mrp_validate_8c_a6c579f04d2b8083a70d48ec8a050ae51}
+
+
+mrp\+Validate.\+c 파일의 110 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+110                         \{
+111     \textcolor{keywordtype}{int} status;
+112 
+113     status = 0;
+114     \textcolor{keywordflow}{while} (status >= 0) \{
+115         status = \hyperlink{mrpdclient_8c_aa06f3394689317153319bfcfc7a0b768}{mrpdclient\_recv}(\hyperlink{mrp_validate_8c_a7c6126ba8f26829f864321a56ba52389}{mrpd\_sock}, 
+      \hyperlink{mrp_validate_8c_ab633e3764b94c7df226459c01c7d4b2c}{process\_ctl\_msg});
+116     \}
+117 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=307pt]{mrp_validate_8c_a6c579f04d2b8083a70d48ec8a050ae51_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=323pt]{mrp_validate_8c_a6c579f04d2b8083a70d48ec8a050ae51_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!dump\+\_\+ctl\+\_\+msg@{dump\+\_\+ctl\+\_\+msg}}
+\index{dump\+\_\+ctl\+\_\+msg@{dump\+\_\+ctl\+\_\+msg}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{dump\+\_\+ctl\+\_\+msg(char $\ast$buf, int buflen)}{dump_ctl_msg(char *buf, int buflen)}}]{\setlength{\rightskip}{0pt plus 5cm}int dump\+\_\+ctl\+\_\+msg (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{buf, }
+\item[{int}]{buflen}
+\end{DoxyParamCaption}
+)}\hypertarget{mrp_validate_8c_ac60ccbcad7acf0878b5f9dc1e4cc4bdf}{}\label{mrp_validate_8c_ac60ccbcad7acf0878b5f9dc1e4cc4bdf}
+
+
+mrp\+Validate.\+c 파일의 319 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+320 \{
+321     \textcolor{comment}{/* Unused parameters */}
+322     (void)buflen;
+323 
+324     printf(\textcolor{stringliteral}{"%s"}, buf);
+325     fflush(stdout);
+326     \textcolor{keywordflow}{return}(0);
+327 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=253pt]{mrp_validate_8c_ac60ccbcad7acf0878b5f9dc1e4cc4bdf_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!fn\+Exit@{fn\+Exit}}
+\index{fn\+Exit@{fn\+Exit}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{fn\+Exit(void)}{fnExit(void)}}]{\setlength{\rightskip}{0pt plus 5cm}int fn\+Exit (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{mrp_validate_8c_aadb5269edb1e0756298e89220a448765}{}\label{mrp_validate_8c_aadb5269edb1e0756298e89220a448765}
+
+
+mrp\+Validate.\+c 파일의 313 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+313                  \{
+314     \hyperlink{mrp_validate_8c_a5992b274cfdcacdbc1fa8347fd01ebde}{done} = 1;
+315     \textcolor{keywordflow}{return} 0;
+316 \}
+\end{DoxyCode}
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!fn\+Mminusminus@{fn\+Mminusminus}}
+\index{fn\+Mminusminus@{fn\+Mminusminus}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{fn\+Mminusminus(void)}{fnMminusminus(void)}}]{\setlength{\rightskip}{0pt plus 5cm}int fn\+Mminusminus (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{mrp_validate_8c_a61c5ebc045bf614fd12e84405f5b5fd8}{}\label{mrp_validate_8c_a61c5ebc045bf614fd12e84405f5b5fd8}
+
+
+mrp\+Validate.\+c 파일의 140 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+140                     \{
+141 \textcolor{preprocessor}{#define M\_MINUS\_MINUS "M--:M=" STREAM\_DA}
+142     \textcolor{keywordflow}{return} (\hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(\hyperlink{mrp_validate_8c_a7c6126ba8f26829f864321a56ba52389}{mrpd\_sock}, \hyperlink{mrp_validate_8c_a4e4a9faffd66fd513bf8695a4be8546a}{M\_MINUS\_MINUS}, \textcolor{keyword}{sizeof}(
+      \hyperlink{mrp_validate_8c_a4e4a9faffd66fd513bf8695a4be8546a}{M\_MINUS\_MINUS})));
+143 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=298pt]{mrp_validate_8c_a61c5ebc045bf614fd12e84405f5b5fd8_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!fn\+Monitor@{fn\+Monitor}}
+\index{fn\+Monitor@{fn\+Monitor}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{fn\+Monitor(void)}{fnMonitor(void)}}]{\setlength{\rightskip}{0pt plus 5cm}int fn\+Monitor (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{mrp_validate_8c_a477729ec6e061e8dc6940a156c5bac78}{}\label{mrp_validate_8c_a477729ec6e061e8dc6940a156c5bac78}
+
+
+mrp\+Validate.\+c 파일의 329 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+329                     \{
+330     \textcolor{comment}{/* First we need to have the mrpd daemon put this application in the}
+331 \textcolor{comment}{     * list of attached clients that wish to receive reports when any MMRP,}
+332 \textcolor{comment}{     * MSRP or MVRP attributes are received.}
+333 \textcolor{comment}{     *}
+334 \textcolor{comment}{     * Note that any M*, S* or V* command will put this application in the}
+335 \textcolor{comment}{     * mrpd attached clients list.  However, the M??, S?? and V?? do not}
+336 \textcolor{comment}{     * cause any MRP attribute declarations or registrations, and are}
+337 \textcolor{comment}{     * therefore the preferred method for doing this for monitoring.}
+338 \textcolor{comment}{     */}
+339     \hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(\hyperlink{mrp_validate_8c_a7c6126ba8f26829f864321a56ba52389}{mrpd\_sock}, \hyperlink{mrp_validate_8c_a2a8c9bc166880f7e343b9976cd109b6c}{M\_QUESTION\_QUESTION}, \textcolor{keyword}{sizeof}(
+      \hyperlink{mrp_validate_8c_a2a8c9bc166880f7e343b9976cd109b6c}{M\_QUESTION\_QUESTION}));
+340     \hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(\hyperlink{mrp_validate_8c_a7c6126ba8f26829f864321a56ba52389}{mrpd\_sock}, \hyperlink{mrp_validate_8c_a8bb1b649e10f4a0aeacc7412624b6c35}{S\_QUESTION\_QUESTION}, \textcolor{keyword}{sizeof}(
+      \hyperlink{mrp_validate_8c_a8bb1b649e10f4a0aeacc7412624b6c35}{S\_QUESTION\_QUESTION}));
+341     \hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(\hyperlink{mrp_validate_8c_a7c6126ba8f26829f864321a56ba52389}{mrpd\_sock}, \hyperlink{mrp_validate_8c_ade2f5b88d4a9422ad10307717d4d3734}{V\_QUESTION\_QUESTION}, \textcolor{keyword}{sizeof}(
+      \hyperlink{mrp_validate_8c_ade2f5b88d4a9422ad10307717d4d3734}{V\_QUESTION\_QUESTION}));
+342 
+343     \textcolor{comment}{/* Now just wait for any MRPDUs to be received... */}
+344     \textcolor{keywordflow}{while} (1) \{
+345         \hyperlink{mrpdclient_8c_aa06f3394689317153319bfcfc7a0b768}{mrpdclient\_recv}(\hyperlink{mrp_validate_8c_a7c6126ba8f26829f864321a56ba52389}{mrpd\_sock}, \hyperlink{mrp_validate_8c_ac60ccbcad7acf0878b5f9dc1e4cc4bdf}{dump\_ctl\_msg});
+346     \}
+347 
+348   \textcolor{keywordflow}{return} 0;
+349 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=269pt]{mrp_validate_8c_a477729ec6e061e8dc6940a156c5bac78_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!fn\+Mplusplus@{fn\+Mplusplus}}
+\index{fn\+Mplusplus@{fn\+Mplusplus}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{fn\+Mplusplus(void)}{fnMplusplus(void)}}]{\setlength{\rightskip}{0pt plus 5cm}int fn\+Mplusplus (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{mrp_validate_8c_aafa806c93ec64c98c53a83f4c8d33ad8}{}\label{mrp_validate_8c_aafa806c93ec64c98c53a83f4c8d33ad8}
+
+
+mrp\+Validate.\+c 파일의 128 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+128                   \{
+129 \textcolor{preprocessor}{#define M\_PLUS\_PLUS "M++:M=" STREAM\_DA}
+130     \textcolor{keywordflow}{return} (\hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(\hyperlink{mrp_validate_8c_a7c6126ba8f26829f864321a56ba52389}{mrpd\_sock}, \hyperlink{mrp_validate_8c_a294cbdb789d37dafcbf50f758d69d900}{M\_PLUS\_PLUS}, \textcolor{keyword}{sizeof}(
+      \hyperlink{mrp_validate_8c_a294cbdb789d37dafcbf50f758d69d900}{M\_PLUS\_PLUS})));
+131 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=281pt]{mrp_validate_8c_aafa806c93ec64c98c53a83f4c8d33ad8_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!fn\+Mplusquestion@{fn\+Mplusquestion}}
+\index{fn\+Mplusquestion@{fn\+Mplusquestion}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{fn\+Mplusquestion(void)}{fnMplusquestion(void)}}]{\setlength{\rightskip}{0pt plus 5cm}int fn\+Mplusquestion (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{mrp_validate_8c_a11ddf39970b72afb26aae5dcdad866f2}{}\label{mrp_validate_8c_a11ddf39970b72afb26aae5dcdad866f2}
+
+
+mrp\+Validate.\+c 파일의 134 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+134                       \{
+135 \textcolor{preprocessor}{#define M\_PLUS\_QUESTION "M+?:M=" STREAM\_DA}
+136     \textcolor{keywordflow}{return} (\hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(\hyperlink{mrp_validate_8c_a7c6126ba8f26829f864321a56ba52389}{mrpd\_sock}, 
+      \hyperlink{mrp_validate_8c_a16ec4826210f6163c7c90e391c09e644}{M\_PLUS\_QUESTION}, \textcolor{keyword}{sizeof}(\hyperlink{mrp_validate_8c_a16ec4826210f6163c7c90e391c09e644}{M\_PLUS\_QUESTION})));
+137 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=300pt]{mrp_validate_8c_a11ddf39970b72afb26aae5dcdad866f2_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!fn\+Mquestionquestion@{fn\+Mquestionquestion}}
+\index{fn\+Mquestionquestion@{fn\+Mquestionquestion}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{fn\+Mquestionquestion(void)}{fnMquestionquestion(void)}}]{\setlength{\rightskip}{0pt plus 5cm}int fn\+Mquestionquestion (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{mrp_validate_8c_ac23977a49b6215ac6c74598c46b4e363}{}\label{mrp_validate_8c_ac23977a49b6215ac6c74598c46b4e363}
+
+
+mrp\+Validate.\+c 파일의 146 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+146                           \{
+147 \textcolor{preprocessor}{#define M\_QUESTION\_QUESTION "M??"}
+148     \hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(\hyperlink{mrp_validate_8c_a7c6126ba8f26829f864321a56ba52389}{mrpd\_sock}, \hyperlink{mrp_validate_8c_a2a8c9bc166880f7e343b9976cd109b6c}{M\_QUESTION\_QUESTION}, \textcolor{keyword}{sizeof}(
+      \hyperlink{mrp_validate_8c_a2a8c9bc166880f7e343b9976cd109b6c}{M\_QUESTION\_QUESTION}));
+149 
+150     \hyperlink{mrp_validate_8c_a6c579f04d2b8083a70d48ec8a050ae51}{displayStatusMsgs}();
+151     \textcolor{keywordflow}{return} 0;
+152 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrp_validate_8c_ac23977a49b6215ac6c74598c46b4e363_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!fn\+S\+Dminusminus@{fn\+S\+Dminusminus}}
+\index{fn\+S\+Dminusminus@{fn\+S\+Dminusminus}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{fn\+S\+Dminusminus(void)}{fnSDminusminus(void)}}]{\setlength{\rightskip}{0pt plus 5cm}int fn\+S\+Dminusminus (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{mrp_validate_8c_ac284b2b85bf6fc9ac812a92edbba35ff}{}\label{mrp_validate_8c_ac284b2b85bf6fc9ac812a92edbba35ff}
+
+
+mrp\+Validate.\+c 파일의 305 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+305                      \{
+306 \textcolor{preprocessor}{#define SD\_MINUS\_MINUS "S-D:C=" SR\_CLASS\_ID \(\backslash\)}
+307 \textcolor{preprocessor}{                       ",P=" SR\_CLASS\_PRIORITY \(\backslash\)}
+308 \textcolor{preprocessor}{                       ",V=" VLAN\_ID}
+309     \textcolor{keywordflow}{return} (\hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(\hyperlink{mrp_validate_8c_a7c6126ba8f26829f864321a56ba52389}{mrpd\_sock}, 
+      \hyperlink{mrp_validate_8c_a4bdb4a6401b827a8c26c05dedf9b9a40}{SD\_MINUS\_MINUS}, \textcolor{keyword}{sizeof}(\hyperlink{mrp_validate_8c_a4bdb4a6401b827a8c26c05dedf9b9a40}{SD\_MINUS\_MINUS})));
+310 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=304pt]{mrp_validate_8c_ac284b2b85bf6fc9ac812a92edbba35ff_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!fn\+S\+Dplusplus@{fn\+S\+Dplusplus}}
+\index{fn\+S\+Dplusplus@{fn\+S\+Dplusplus}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{fn\+S\+Dplusplus(void)}{fnSDplusplus(void)}}]{\setlength{\rightskip}{0pt plus 5cm}int fn\+S\+Dplusplus (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{mrp_validate_8c_a40f311ee6382150c461c35b6b50cbcf0}{}\label{mrp_validate_8c_a40f311ee6382150c461c35b6b50cbcf0}
+
+
+mrp\+Validate.\+c 파일의 297 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+297                    \{
+298 \textcolor{preprocessor}{#define SD\_PLUS\_PLUS "S+D:C=" SR\_CLASS\_ID \(\backslash\)}
+299 \textcolor{preprocessor}{                     ",P=" SR\_CLASS\_PRIORITY \(\backslash\)}
+300 \textcolor{preprocessor}{                     ",V=" VLAN\_ID}
+301     \textcolor{keywordflow}{return} (\hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(\hyperlink{mrp_validate_8c_a7c6126ba8f26829f864321a56ba52389}{mrpd\_sock}, \hyperlink{mrp_validate_8c_a341f05049913e78a1c163bf40af1b39f}{SD\_PLUS\_PLUS}, \textcolor{keyword}{sizeof}(
+      \hyperlink{mrp_validate_8c_a341f05049913e78a1c163bf40af1b39f}{SD\_PLUS\_PLUS})));
+302 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=287pt]{mrp_validate_8c_a40f311ee6382150c461c35b6b50cbcf0_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!fn\+S\+Lminusminus@{fn\+S\+Lminusminus}}
+\index{fn\+S\+Lminusminus@{fn\+S\+Lminusminus}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{fn\+S\+Lminusminus(void)}{fnSLminusminus(void)}}]{\setlength{\rightskip}{0pt plus 5cm}int fn\+S\+Lminusminus (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{mrp_validate_8c_a27f5c54626f5dcbedcbe7b5edd394057}{}\label{mrp_validate_8c_a27f5c54626f5dcbedcbe7b5edd394057}
+
+
+mrp\+Validate.\+c 파일의 285 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+285                      \{
+286 \textcolor{preprocessor}{#define SL\_MINUS\_MINUS "S-L:L=" STREAM\_ID}
+287     \textcolor{keywordflow}{return} (\hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(\hyperlink{mrp_validate_8c_a7c6126ba8f26829f864321a56ba52389}{mrpd\_sock}, 
+      \hyperlink{mrp_validate_8c_a9d9ade27e63b95c8d468e08978e6139e}{SL\_MINUS\_MINUS}, \textcolor{keyword}{sizeof}(\hyperlink{mrp_validate_8c_a9d9ade27e63b95c8d468e08978e6139e}{SL\_MINUS\_MINUS})));
+288 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=301pt]{mrp_validate_8c_a27f5c54626f5dcbedcbe7b5edd394057_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!fn\+S\+Lplusplus@{fn\+S\+Lplusplus}}
+\index{fn\+S\+Lplusplus@{fn\+S\+Lplusplus}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{fn\+S\+Lplusplus(void)}{fnSLplusplus(void)}}]{\setlength{\rightskip}{0pt plus 5cm}int fn\+S\+Lplusplus (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{mrp_validate_8c_a9290fc448ce1511a61326673f9e90340}{}\label{mrp_validate_8c_a9290fc448ce1511a61326673f9e90340}
+
+
+mrp\+Validate.\+c 파일의 279 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+279                    \{
+280 \textcolor{preprocessor}{#define SL\_PLUS\_PLUS "S+L:L=" STREAM\_ID ",D=2"}
+281     \textcolor{keywordflow}{return} (\hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(\hyperlink{mrp_validate_8c_a7c6126ba8f26829f864321a56ba52389}{mrpd\_sock}, \hyperlink{mrp_validate_8c_a990b5c6b011c8b06af614e8885196b1b}{SL\_PLUS\_PLUS}, \textcolor{keyword}{sizeof}(
+      \hyperlink{mrp_validate_8c_a990b5c6b011c8b06af614e8885196b1b}{SL\_PLUS\_PLUS})));
+282 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=285pt]{mrp_validate_8c_a9290fc448ce1511a61326673f9e90340_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!fn\+Squestionquestion@{fn\+Squestionquestion}}
+\index{fn\+Squestionquestion@{fn\+Squestionquestion}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{fn\+Squestionquestion(void)}{fnSquestionquestion(void)}}]{\setlength{\rightskip}{0pt plus 5cm}int fn\+Squestionquestion (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{mrp_validate_8c_a06da9e12edfb52810cf175078aa78029}{}\label{mrp_validate_8c_a06da9e12edfb52810cf175078aa78029}
+
+
+mrp\+Validate.\+c 파일의 228 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+228                           \{
+229 \textcolor{preprocessor}{#define S\_QUESTION\_QUESTION "S??"}
+230     \hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(\hyperlink{mrp_validate_8c_a7c6126ba8f26829f864321a56ba52389}{mrpd\_sock}, \hyperlink{mrp_validate_8c_a8bb1b649e10f4a0aeacc7412624b6c35}{S\_QUESTION\_QUESTION}, \textcolor{keyword}{sizeof}(
+      \hyperlink{mrp_validate_8c_a8bb1b649e10f4a0aeacc7412624b6c35}{S\_QUESTION\_QUESTION}));
+231 
+232     \hyperlink{mrp_validate_8c_a6c579f04d2b8083a70d48ec8a050ae51}{displayStatusMsgs}();
+233     \textcolor{keywordflow}{return} 0;
+234 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrp_validate_8c_a06da9e12edfb52810cf175078aa78029_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!fn\+S\+T\+Fplusplus@{fn\+S\+T\+Fplusplus}}
+\index{fn\+S\+T\+Fplusplus@{fn\+S\+T\+Fplusplus}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{fn\+S\+T\+Fplusplus(void)}{fnSTFplusplus(void)}}]{\setlength{\rightskip}{0pt plus 5cm}int fn\+S\+T\+Fplusplus (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{mrp_validate_8c_a604bb9362c5ed3cf904369e606c1ebb8}{}\label{mrp_validate_8c_a604bb9362c5ed3cf904369e606c1ebb8}
+
+
+mrp\+Validate.\+c 파일의 245 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+245                     \{
+246 \textcolor{preprocessor}{#define STF\_PLUS\_PLUS "S++:S=" STREAM\_ID \(\backslash\)}
+247 \textcolor{preprocessor}{                     ",A=" STREAM\_DA \(\backslash\)}
+248 \textcolor{preprocessor}{                     ",V=" VLAN\_ID \(\backslash\)}
+249 \textcolor{preprocessor}{                     ",Z=" TSPEC\_MAX\_FRAME\_SIZE \(\backslash\)}
+250 \textcolor{preprocessor}{                     ",I=" TSPEC\_MAX\_FRAME\_INTERVAL \(\backslash\)}
+251 \textcolor{preprocessor}{                     ",P=" PRIORITY\_AND\_RANK \(\backslash\)}
+252 \textcolor{preprocessor}{                     ",L=" ACCUMULATED\_LATENCY \(\backslash\)}
+253 \textcolor{preprocessor}{                     ",B=" BRIDGE\_ID \(\backslash\)}
+254 \textcolor{preprocessor}{                     ",C=" FAILURE\_CODE}
+255     \textcolor{keywordflow}{return} (\hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(\hyperlink{mrp_validate_8c_a7c6126ba8f26829f864321a56ba52389}{mrpd\_sock}, \hyperlink{mrp_validate_8c_a61b71fbab88e2519776c9f5effde904a}{STF\_PLUS\_PLUS}, \textcolor{keyword}{sizeof}(
+      \hyperlink{mrp_validate_8c_a61b71fbab88e2519776c9f5effde904a}{STF\_PLUS\_PLUS})));
+256 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=292pt]{mrp_validate_8c_a604bb9362c5ed3cf904369e606c1ebb8_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!fn\+S\+T\+Fplusquestion@{fn\+S\+T\+Fplusquestion}}
+\index{fn\+S\+T\+Fplusquestion@{fn\+S\+T\+Fplusquestion}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{fn\+S\+T\+Fplusquestion(void)}{fnSTFplusquestion(void)}}]{\setlength{\rightskip}{0pt plus 5cm}int fn\+S\+T\+Fplusquestion (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{mrp_validate_8c_a6bdb7de9051228edb9f738107c64cea9}{}\label{mrp_validate_8c_a6bdb7de9051228edb9f738107c64cea9}
+
+
+mrp\+Validate.\+c 파일의 259 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+259                         \{
+260 \textcolor{preprocessor}{#define STF\_PLUS\_QUESTION "S+?:S=" STREAM\_ID \(\backslash\)}
+261 \textcolor{preprocessor}{                         ",A=" STREAM\_DA \(\backslash\)}
+262 \textcolor{preprocessor}{                         ",V=" VLAN\_ID \(\backslash\)}
+263 \textcolor{preprocessor}{                         ",Z=" TSPEC\_MAX\_FRAME\_SIZE \(\backslash\)}
+264 \textcolor{preprocessor}{                         ",I=" TSPEC\_MAX\_FRAME\_INTERVAL \(\backslash\)}
+265 \textcolor{preprocessor}{                         ",P=" PRIORITY\_AND\_RANK \(\backslash\)}
+266 \textcolor{preprocessor}{                         ",L=" ACCUMULATED\_LATENCY \(\backslash\)}
+267 \textcolor{preprocessor}{                         ",B=" BRIDGE\_ID \(\backslash\)}
+268 \textcolor{preprocessor}{                         ",C=" FAILURE\_CODE}
+269     \textcolor{keywordflow}{return} (\hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(\hyperlink{mrp_validate_8c_a7c6126ba8f26829f864321a56ba52389}{mrpd\_sock}, 
+      \hyperlink{mrp_validate_8c_aea3d70f6328881be54d4053d91274f34}{STF\_PLUS\_QUESTION}, \textcolor{keyword}{sizeof}(\hyperlink{mrp_validate_8c_aea3d70f6328881be54d4053d91274f34}{STF\_PLUS\_QUESTION})));
+270 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=310pt]{mrp_validate_8c_a6bdb7de9051228edb9f738107c64cea9_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!fn\+S\+Tminusminus@{fn\+S\+Tminusminus}}
+\index{fn\+S\+Tminusminus@{fn\+S\+Tminusminus}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{fn\+S\+Tminusminus(void)}{fnSTminusminus(void)}}]{\setlength{\rightskip}{0pt plus 5cm}int fn\+S\+Tminusminus (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{mrp_validate_8c_a973eb14e1dbf9e3b71278d2e0d7ec725}{}\label{mrp_validate_8c_a973eb14e1dbf9e3b71278d2e0d7ec725}
+
+
+mrp\+Validate.\+c 파일의 222 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+222                      \{
+223 \textcolor{preprocessor}{#define ST\_MINUS\_MINUS "S--:S=" STREAM\_ID}
+224     \textcolor{keywordflow}{return} (\hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(\hyperlink{mrp_validate_8c_a7c6126ba8f26829f864321a56ba52389}{mrpd\_sock}, 
+      \hyperlink{mrp_validate_8c_a25d75126a57fee30b042805ed7d1a5ee}{ST\_MINUS\_MINUS}, \textcolor{keyword}{sizeof}(\hyperlink{mrp_validate_8c_a25d75126a57fee30b042805ed7d1a5ee}{ST\_MINUS\_MINUS})));
+225 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=302pt]{mrp_validate_8c_a973eb14e1dbf9e3b71278d2e0d7ec725_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!fn\+S\+Tplusplus@{fn\+S\+Tplusplus}}
+\index{fn\+S\+Tplusplus@{fn\+S\+Tplusplus}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{fn\+S\+Tplusplus(void)}{fnSTplusplus(void)}}]{\setlength{\rightskip}{0pt plus 5cm}int fn\+S\+Tplusplus (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{mrp_validate_8c_a9c67f398c3c2a999c64428c4d1c910da}{}\label{mrp_validate_8c_a9c67f398c3c2a999c64428c4d1c910da}
+
+
+mrp\+Validate.\+c 파일의 198 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+198                    \{
+199 \textcolor{preprocessor}{#define ST\_PLUS\_PLUS "S++:S=" STREAM\_ID \(\backslash\)}
+200 \textcolor{preprocessor}{                     ",A=" STREAM\_DA \(\backslash\)}
+201 \textcolor{preprocessor}{                     ",V=" VLAN\_ID \(\backslash\)}
+202 \textcolor{preprocessor}{                     ",Z=" TSPEC\_MAX\_FRAME\_SIZE \(\backslash\)}
+203 \textcolor{preprocessor}{                     ",I=" TSPEC\_MAX\_FRAME\_INTERVAL \(\backslash\)}
+204 \textcolor{preprocessor}{                     ",P=" PRIORITY\_AND\_RANK \(\backslash\)}
+205 \textcolor{preprocessor}{                     ",L=" ACCUMULATED\_LATENCY}
+206     \textcolor{keywordflow}{return} (\hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(\hyperlink{mrp_validate_8c_a7c6126ba8f26829f864321a56ba52389}{mrpd\_sock}, \hyperlink{mrp_validate_8c_a4af04818bc78580d3ddce8c7f289911c}{ST\_PLUS\_PLUS}, \textcolor{keyword}{sizeof}(
+      \hyperlink{mrp_validate_8c_a4af04818bc78580d3ddce8c7f289911c}{ST\_PLUS\_PLUS})));
+207 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=286pt]{mrp_validate_8c_a9c67f398c3c2a999c64428c4d1c910da_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!fn\+S\+Tplusquestion@{fn\+S\+Tplusquestion}}
+\index{fn\+S\+Tplusquestion@{fn\+S\+Tplusquestion}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{fn\+S\+Tplusquestion(void)}{fnSTplusquestion(void)}}]{\setlength{\rightskip}{0pt plus 5cm}int fn\+S\+Tplusquestion (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{mrp_validate_8c_ae07c3d90306fe52bc1f4b08fe2270238}{}\label{mrp_validate_8c_ae07c3d90306fe52bc1f4b08fe2270238}
+
+
+mrp\+Validate.\+c 파일의 210 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+210                        \{
+211 \textcolor{preprocessor}{#define ST\_PLUS\_QUESTION "S+?:S=" STREAM\_ID \(\backslash\)}
+212 \textcolor{preprocessor}{                         ",A=" STREAM\_DA \(\backslash\)}
+213 \textcolor{preprocessor}{                         ",V=" VLAN\_ID \(\backslash\)}
+214 \textcolor{preprocessor}{                         ",Z=" TSPEC\_MAX\_FRAME\_SIZE \(\backslash\)}
+215 \textcolor{preprocessor}{                         ",I=" TSPEC\_MAX\_FRAME\_INTERVAL \(\backslash\)}
+216 \textcolor{preprocessor}{                         ",P=" PRIORITY\_AND\_RANK \(\backslash\)}
+217 \textcolor{preprocessor}{                         ",L=" ACCUMULATED\_LATENCY}
+218     \textcolor{keywordflow}{return} (\hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(\hyperlink{mrp_validate_8c_a7c6126ba8f26829f864321a56ba52389}{mrpd\_sock}, 
+      \hyperlink{mrp_validate_8c_a5fbc02ff2bef2ce41c3016b9299c51b8}{ST\_PLUS\_QUESTION}, \textcolor{keyword}{sizeof}(\hyperlink{mrp_validate_8c_a5fbc02ff2bef2ce41c3016b9299c51b8}{ST\_PLUS\_QUESTION})));
+219 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=304pt]{mrp_validate_8c_ae07c3d90306fe52bc1f4b08fe2270238_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!fn\+Vminusminus@{fn\+Vminusminus}}
+\index{fn\+Vminusminus@{fn\+Vminusminus}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{fn\+Vminusminus(void)}{fnVminusminus(void)}}]{\setlength{\rightskip}{0pt plus 5cm}int fn\+Vminusminus (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{mrp_validate_8c_ab162d3a25f10413c0d77fabf43697432}{}\label{mrp_validate_8c_ab162d3a25f10413c0d77fabf43697432}
+
+
+mrp\+Validate.\+c 파일의 175 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+175                     \{
+176 \textcolor{preprocessor}{#define V\_MINUS\_MINUS "V--:I=" VLAN\_ID}
+177     \textcolor{keywordflow}{return} (\hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(\hyperlink{mrp_validate_8c_a7c6126ba8f26829f864321a56ba52389}{mrpd\_sock}, \hyperlink{mrp_validate_8c_a17510b8143a5b7fc4cffe97f1c3a49dc}{V\_MINUS\_MINUS}, \textcolor{keyword}{sizeof}(
+      \hyperlink{mrp_validate_8c_a17510b8143a5b7fc4cffe97f1c3a49dc}{V\_MINUS\_MINUS})));
+178 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=296pt]{mrp_validate_8c_ab162d3a25f10413c0d77fabf43697432_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!fn\+Vplusplus@{fn\+Vplusplus}}
+\index{fn\+Vplusplus@{fn\+Vplusplus}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{fn\+Vplusplus(void)}{fnVplusplus(void)}}]{\setlength{\rightskip}{0pt plus 5cm}int fn\+Vplusplus (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{mrp_validate_8c_a983496694ec3432d19cb44a9eafc2e71}{}\label{mrp_validate_8c_a983496694ec3432d19cb44a9eafc2e71}
+
+
+mrp\+Validate.\+c 파일의 163 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+163                   \{
+164 \textcolor{preprocessor}{#define V\_PLUS\_PLUS "V++:I=" VLAN\_ID}
+165     \textcolor{keywordflow}{return} (\hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(\hyperlink{mrp_validate_8c_a7c6126ba8f26829f864321a56ba52389}{mrpd\_sock}, \hyperlink{mrp_validate_8c_a033bd72a27353ede08866dbebbacfc67}{V\_PLUS\_PLUS}, \textcolor{keyword}{sizeof}(
+      \hyperlink{mrp_validate_8c_a033bd72a27353ede08866dbebbacfc67}{V\_PLUS\_PLUS})));
+166 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=280pt]{mrp_validate_8c_a983496694ec3432d19cb44a9eafc2e71_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!fn\+Vplusquestion@{fn\+Vplusquestion}}
+\index{fn\+Vplusquestion@{fn\+Vplusquestion}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{fn\+Vplusquestion(void)}{fnVplusquestion(void)}}]{\setlength{\rightskip}{0pt plus 5cm}int fn\+Vplusquestion (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{mrp_validate_8c_a414c79e0a9d5905754ddda94c2d0ce7c}{}\label{mrp_validate_8c_a414c79e0a9d5905754ddda94c2d0ce7c}
+
+
+mrp\+Validate.\+c 파일의 169 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+169                       \{
+170 \textcolor{preprocessor}{#define V\_PLUS\_QUESTION "V+?:I=" VLAN\_ID}
+171     \textcolor{keywordflow}{return} (\hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(\hyperlink{mrp_validate_8c_a7c6126ba8f26829f864321a56ba52389}{mrpd\_sock}, 
+      \hyperlink{mrp_validate_8c_a6ef0c3ea83f716864798118f39b18f22}{V\_PLUS\_QUESTION}, \textcolor{keyword}{sizeof}(\hyperlink{mrp_validate_8c_a6ef0c3ea83f716864798118f39b18f22}{V\_PLUS\_QUESTION})));
+172 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=298pt]{mrp_validate_8c_a414c79e0a9d5905754ddda94c2d0ce7c_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!fn\+Vquestionquestion@{fn\+Vquestionquestion}}
+\index{fn\+Vquestionquestion@{fn\+Vquestionquestion}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{fn\+Vquestionquestion(void)}{fnVquestionquestion(void)}}]{\setlength{\rightskip}{0pt plus 5cm}int fn\+Vquestionquestion (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{mrp_validate_8c_ac1d23d5e968d43ad1f5119bec074a47e}{}\label{mrp_validate_8c_ac1d23d5e968d43ad1f5119bec074a47e}
+
+
+mrp\+Validate.\+c 파일의 181 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+181                           \{
+182 \textcolor{preprocessor}{#define V\_QUESTION\_QUESTION "V??"}
+183     \hyperlink{mrpdclient_8c_a7e64db75589496619f99fe18357d2761}{mrpdclient\_sendto}(\hyperlink{mrp_validate_8c_a7c6126ba8f26829f864321a56ba52389}{mrpd\_sock}, \hyperlink{mrp_validate_8c_ade2f5b88d4a9422ad10307717d4d3734}{V\_QUESTION\_QUESTION}, \textcolor{keyword}{sizeof}(
+      \hyperlink{mrp_validate_8c_ade2f5b88d4a9422ad10307717d4d3734}{V\_QUESTION\_QUESTION}));
+184 
+185     \hyperlink{mrp_validate_8c_a6c579f04d2b8083a70d48ec8a050ae51}{displayStatusMsgs}();
+186     \textcolor{keywordflow}{return} 0;
+187 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrp_validate_8c_ac1d23d5e968d43ad1f5119bec074a47e_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!main@{main}}
+\index{main@{main}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{main(int argc, char $\ast$argv[])}{main(int argc, char *argv[])}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{mrp_validate_8c_a0ddf1224851353fc92bfbff6f499fa97}{}\label{mrp_validate_8c_a0ddf1224851353fc92bfbff6f499fa97}
+
+
+mrp\+Validate.\+c 파일의 428 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+428                              \{
+429     \textcolor{keywordtype}{char}    \hyperlink{structoption}{option}[10];
+430     \textcolor{keywordtype}{char}    saved[10];
+431     \textcolor{keywordtype}{int} rc = 0;
+432 
+433     (void) argc;
+434     (void) argv;
+435     (void) rc;
+436 
+437     printf(\textcolor{stringliteral}{"%s\(\backslash\)n"}, \hyperlink{mrp_validate_8c_ae724265d048ace6b96a1e977ea11c1c7}{version\_str});
+438 
+439     \hyperlink{mrp_validate_8c_a3820841c4bbf28f04505bea65d6b84f7}{msgbuf} = \hyperlink{_memory_leak_detector_malloc_macros_8h_ab8b25cd8f16d4a6552afe4e65c4f082d}{malloc}(\hyperlink{mrpdclient_8h_ada01ce924300456eaad557ae8f1c52ae}{MRPDCLIENT\_MAX\_MSG\_SIZE});
+440     \textcolor{keywordflow}{if} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} == \hyperlink{mrp_validate_8c_a3820841c4bbf28f04505bea65d6b84f7}{msgbuf}) \{
+441         printf(\textcolor{stringliteral}{"malloc failed\(\backslash\)n"});
+442         \textcolor{keywordflow}{return} EXIT\_FAILURE;
+443     \}
+444 
+445     \hyperlink{mrp_validate_8c_a7c6126ba8f26829f864321a56ba52389}{mrpd\_sock} = \hyperlink{mrpdclient_8c_a86398ff28353622452f6cb48917cc6ef}{mrpdclient\_init}();
+446     \textcolor{keywordflow}{if} (\hyperlink{mrp_validate_8c_a7c6126ba8f26829f864321a56ba52389}{mrpd\_sock} == SOCKET\_ERROR) \{
+447         printf(\textcolor{stringliteral}{"mrpdclient\_init failed\(\backslash\)n"});
+448         \textcolor{keywordflow}{goto} \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out};
+449     \}
+450 
+451     saved[0]=\textcolor{charliteral}{'\(\backslash\)0'};
+452     \textcolor{keywordflow}{while} (!\hyperlink{mrp_validate_8c_a5992b274cfdcacdbc1fa8347fd01ebde}{done}) \{
+453         \hyperlink{mrp_validate_8c_a9c57b99552cfba7791690c8f57fd3e97}{displayMenu}();
+454         printf(\textcolor{stringliteral}{"Option to run? "});
+455         \textcolor{keywordflow}{if} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} == fgets(option, \textcolor{keyword}{sizeof}(option), stdin)) \{
+456             \hyperlink{mrp_validate_8c_a5992b274cfdcacdbc1fa8347fd01ebde}{done} = 1;
+457             printf(\textcolor{stringliteral}{"\(\backslash\)n"});
+458             \textcolor{keywordflow}{continue};
+459         \}
+460         option[strlen(option)-1] = \textcolor{charliteral}{'\(\backslash\)0'}; \textcolor{comment}{// remove assumed LF}
+461         \textcolor{keywordflow}{if} (\textcolor{charliteral}{'\(\backslash\)0'} == option[0]) \{
+462             \textcolor{comment}{// Repeat last cmd if nothing entered}
+463             strncpy(option, saved, \textcolor{keyword}{sizeof}(option));
+464         \}
+465 
+466         rc = \hyperlink{mrp_validate_8c_ae62e255ea5c53547f53b08a4d6aa820f}{runMenuFunc}(option);
+467         \textcolor{keywordflow}{if} (rc >= 0) \{
+468             \textcolor{comment}{// Save last command if valid}
+469             strncpy(saved, option, \textcolor{keyword}{sizeof}(option));
+470         \}
+471     \}
+472 
+473     \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(\hyperlink{mrp_validate_8c_a3820841c4bbf28f04505bea65d6b84f7}{msgbuf});
+474     rc = \hyperlink{mrpdclient_8c_aa4b8e8554b0dd71a41dab7280373d736}{mrpdclient\_close}(&\hyperlink{mrp_validate_8c_a7c6126ba8f26829f864321a56ba52389}{mrpd\_sock});
+475 
+476 \hyperlink{jack__listener_8c_a1cdcf0ac9be9edf74b8fcedb01e26cf3}{out}:
+477     \textcolor{keywordflow}{if} (-1 == rc)
+478         \textcolor{keywordflow}{return} EXIT\_FAILURE;
+479     \textcolor{keywordflow}{else}
+480         \textcolor{keywordflow}{return} EXIT\_SUCCESS;
+481 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrp_validate_8c_a0ddf1224851353fc92bfbff6f499fa97_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!process\+\_\+ctl\+\_\+msg@{process\+\_\+ctl\+\_\+msg}}
+\index{process\+\_\+ctl\+\_\+msg@{process\+\_\+ctl\+\_\+msg}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{process\+\_\+ctl\+\_\+msg(char $\ast$buf, int buflen)}{process_ctl_msg(char *buf, int buflen)}}]{\setlength{\rightskip}{0pt plus 5cm}int process\+\_\+ctl\+\_\+msg (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{buf, }
+\item[{int}]{buflen}
+\end{DoxyParamCaption}
+)}\hypertarget{mrp_validate_8c_ab633e3764b94c7df226459c01c7d4b2c}{}\label{mrp_validate_8c_ab633e3764b94c7df226459c01c7d4b2c}
+
+
+mrp\+Validate.\+c 파일의 94 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+95 \{
+96     \textcolor{comment}{/* Unused parameters */}
+97     (void)buflen;
+98 
+99     \textcolor{keywordflow}{if} (buf[1] == \textcolor{charliteral}{':'}) \{
+100         printf(\textcolor{stringliteral}{"?? RESP:\(\backslash\)n%s"}, buf);
+101     \} \textcolor{keywordflow}{else} \{
+102         printf(\textcolor{stringliteral}{"MRPD ---> %s"}, buf);
+103     \}
+104     fflush(stdout);
+105     \textcolor{keywordflow}{return}(0);
+106 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mrp_validate_8c_ab633e3764b94c7df226459c01c7d4b2c_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!run\+Menu\+Func@{run\+Menu\+Func}}
+\index{run\+Menu\+Func@{run\+Menu\+Func}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{run\+Menu\+Func(char $\ast$option)}{runMenuFunc(char *option)}}]{\setlength{\rightskip}{0pt plus 5cm}int run\+Menu\+Func (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{option}
+\end{DoxyParamCaption}
+)}\hypertarget{mrp_validate_8c_ae62e255ea5c53547f53b08a4d6aa820f}{}\label{mrp_validate_8c_ae62e255ea5c53547f53b08a4d6aa820f}
+
+
+mrp\+Validate.\+c 파일의 408 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+408                           \{
+409     \textcolor{keywordtype}{int} i;
+410     \textcolor{keywordtype}{int} rc = -1;
+411 
+412     \textcolor{keywordflow}{for} (i=0; 0 != \hyperlink{mrp_validate_8c_aee082fb1be0db09ddbbac35559cf480f}{menu}[i].\hyperlink{structmenu__option_a756aafa2c9b99eaa7eb7f8886c7a8cb2}{option}; i++) \{
+413         \textcolor{keywordflow}{if} (0 == strcmp(\hyperlink{structoption}{option}, \hyperlink{mrp_validate_8c_aee082fb1be0db09ddbbac35559cf480f}{menu}[i].\hyperlink{structoption}{option})) \{
+414             rc = \hyperlink{mrp_validate_8c_aee082fb1be0db09ddbbac35559cf480f}{menu}[i].\hyperlink{structmenu__option_a99dd1ee43f3d0c2b26116fc4528bf21d}{fn}();
+415             \textcolor{keywordflow}{break};
+416         \}
+417     \}
+418     \textcolor{keywordflow}{if} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} == \hyperlink{mrp_validate_8c_aee082fb1be0db09ddbbac35559cf480f}{menu}[i].fn) \{
+419         printf(\textcolor{stringliteral}{"ERROR: '%s' is not a listed option\(\backslash\)n\(\backslash\)n"}, option);
+420 
+421     \}
+422     \textcolor{keywordflow}{return} rc;
+423 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=230pt]{mrp_validate_8c_ae62e255ea5c53547f53b08a4d6aa820f_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{변수 문서화}
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!done@{done}}
+\index{done@{done}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{done}{done}}]{\setlength{\rightskip}{0pt plus 5cm}int done = 0}\hypertarget{mrp_validate_8c_a5992b274cfdcacdbc1fa8347fd01ebde}{}\label{mrp_validate_8c_a5992b274cfdcacdbc1fa8347fd01ebde}
+
+
+mrp\+Validate.\+c 파일의 73 번째 라인에서 정의되었습니다.
+
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!menu@{menu}}
+\index{menu@{menu}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{menu}{menu}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf menu\+\_\+option} menu\mbox{[}$\,$\mbox{]}}\hypertarget{mrp_validate_8c_aee082fb1be0db09ddbbac35559cf480f}{}\label{mrp_validate_8c_aee082fb1be0db09ddbbac35559cf480f}
+{\bfseries 초기값\+:}
+\begin{DoxyCode}
+= \{
+    \{\textcolor{stringliteral}{"M++"},  \textcolor{stringliteral}{"Declare an MMRP MAC Address (NEW)"},    \hyperlink{mrp_validate_8c_aafa806c93ec64c98c53a83f4c8d33ad8}{fnMplusplus}\},
+    \{\textcolor{stringliteral}{"M+?"},  \textcolor{stringliteral}{"Declare an MMRP MAC Address (JOIN)"},   \hyperlink{mrp_validate_8c_a11ddf39970b72afb26aae5dcdad866f2}{fnMplusquestion}\},
+    \{\textcolor{stringliteral}{"M--"},  \textcolor{stringliteral}{"Withdraw an MMRP MAC Address (LEAVE)"}, \hyperlink{mrp_validate_8c_a61c5ebc045bf614fd12e84405f5b5fd8}{fnMminusminus}\},
+    \{\textcolor{stringliteral}{"M??"},  \textcolor{stringliteral}{"Dump the MMRP MAC Address table"},      \hyperlink{mrp_validate_8c_ac23977a49b6215ac6c74598c46b4e363}{fnMquestionquestion}\},
+    \{\textcolor{stringliteral}{"   "},  \textcolor{stringliteral}{""}, 0\},
+    \{\textcolor{stringliteral}{"V++"},  \textcolor{stringliteral}{"Declare a VLAN ID (NEW)"},              \hyperlink{mrp_validate_8c_a983496694ec3432d19cb44a9eafc2e71}{fnVplusplus}\},
+    \{\textcolor{stringliteral}{"V+?"},  \textcolor{stringliteral}{"Declare a VLAN ID (JOIN)"},             \hyperlink{mrp_validate_8c_a414c79e0a9d5905754ddda94c2d0ce7c}{fnVplusquestion}\},
+    \{\textcolor{stringliteral}{"V--"},  \textcolor{stringliteral}{"Withdraw a VLAN ID (LEAVE)"},           \hyperlink{mrp_validate_8c_ab162d3a25f10413c0d77fabf43697432}{fnVminusminus}\},
+    \{\textcolor{stringliteral}{"V??"},  \textcolor{stringliteral}{"Dump the VLAN ID table"},               \hyperlink{mrp_validate_8c_ac1d23d5e968d43ad1f5119bec074a47e}{fnVquestionquestion}\},
+    \{\textcolor{stringliteral}{"   "},  \textcolor{stringliteral}{""}, 0\},
+    \{\textcolor{stringliteral}{"S++"},  \textcolor{stringliteral}{"Declare a Talker Advertise (NEW)"},     \hyperlink{mrp_validate_8c_a9c67f398c3c2a999c64428c4d1c910da}{fnSTplusplus}\},
+    \{\textcolor{stringliteral}{"S+?"},  \textcolor{stringliteral}{"Declare a Talker Advertise (JOIN)"},    \hyperlink{mrp_validate_8c_ae07c3d90306fe52bc1f4b08fe2270238}{fnSTplusquestion}\},
+    \{\textcolor{stringliteral}{"S--"},  \textcolor{stringliteral}{"Withdraw a Talker Advertise (LEAVE)"},  \hyperlink{mrp_validate_8c_a973eb14e1dbf9e3b71278d2e0d7ec725}{fnSTminusminus}\},
+    \{\textcolor{stringliteral}{"S??"},  \textcolor{stringliteral}{"Dump the MSRP table"},                  \hyperlink{mrp_validate_8c_a06da9e12edfb52810cf175078aa78029}{fnSquestionquestion}\},
+    \{\textcolor{stringliteral}{"   "},  \textcolor{stringliteral}{""}, 0\},
+    \{\textcolor{stringliteral}{"SF++"}, \textcolor{stringliteral}{"Declare a Talker Failed (NEW)"},        \hyperlink{mrp_validate_8c_a604bb9362c5ed3cf904369e606c1ebb8}{fnSTFplusplus}\},
+    \{\textcolor{stringliteral}{"SF+?"}, \textcolor{stringliteral}{"Declare a Talker Failed (JOIN)"},       \hyperlink{mrp_validate_8c_a6bdb7de9051228edb9f738107c64cea9}{fnSTFplusquestion}\},
+    \{\textcolor{stringliteral}{"   "},  \textcolor{stringliteral}{""}, 0\},
+    \{\textcolor{stringliteral}{"S+L"},  \textcolor{stringliteral}{"Declare a Listener Ready (NEW)"},       \hyperlink{mrp_validate_8c_a9290fc448ce1511a61326673f9e90340}{fnSLplusplus}\},
+    \{\textcolor{stringliteral}{"S-L"},  \textcolor{stringliteral}{"Withdraw a Listener Ready (LEAVE)"},    \hyperlink{mrp_validate_8c_a27f5c54626f5dcbedcbe7b5edd394057}{fnSLminusminus}\},
+    \{\textcolor{stringliteral}{"   "},  \textcolor{stringliteral}{""}, 0\},
+    \{\textcolor{stringliteral}{"S+D"},  \textcolor{stringliteral}{"Declare a Domain (NEW)"},               \hyperlink{mrp_validate_8c_a40f311ee6382150c461c35b6b50cbcf0}{fnSDplusplus}\},
+    \{\textcolor{stringliteral}{"S-D"},  \textcolor{stringliteral}{"Withdraw a Domain (LEAVE)"},            \hyperlink{mrp_validate_8c_ac284b2b85bf6fc9ac812a92edbba35ff}{fnSDminusminus}\},
+    \{\textcolor{stringliteral}{"   "},  \textcolor{stringliteral}{""}, 0\},
+    \{\textcolor{stringliteral}{"mon"},  \textcolor{stringliteral}{"Monitor MRP notifications"},            \hyperlink{mrp_validate_8c_a477729ec6e061e8dc6940a156c5bac78}{fnMonitor}\},
+    \{\textcolor{stringliteral}{"   "},  \textcolor{stringliteral}{""}, 0\},
+    \{\textcolor{stringliteral}{"exit"}, \textcolor{stringliteral}{"Exit the program"},                     \hyperlink{mrp_validate_8c_aadb5269edb1e0756298e89220a448765}{fnExit}\},
+    \{0, 0, 0\}
+\}
+\end{DoxyCode}
+
+
+mrp\+Validate.\+c 파일의 360 번째 라인에서 정의되었습니다.
+
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!mrpd\+\_\+sock@{mrpd\+\_\+sock}}
+\index{mrpd\+\_\+sock@{mrpd\+\_\+sock}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{mrpd\+\_\+sock}{mrpd_sock}}]{\setlength{\rightskip}{0pt plus 5cm}S\+O\+C\+K\+ET mrpd\+\_\+sock = S\+O\+C\+K\+E\+T\+\_\+\+E\+R\+R\+OR}\hypertarget{mrp_validate_8c_a7c6126ba8f26829f864321a56ba52389}{}\label{mrp_validate_8c_a7c6126ba8f26829f864321a56ba52389}
+
+
+mrp\+Validate.\+c 파일의 74 번째 라인에서 정의되었습니다.
+
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!msgbuf@{msgbuf}}
+\index{msgbuf@{msgbuf}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{msgbuf}{msgbuf}}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ msgbuf}\hypertarget{mrp_validate_8c_a3820841c4bbf28f04505bea65d6b84f7}{}\label{mrp_validate_8c_a3820841c4bbf28f04505bea65d6b84f7}
+
+
+mrp\+Validate.\+c 파일의 75 번째 라인에서 정의되었습니다.
+
+\index{mrp\+Validate.\+c@{mrp\+Validate.\+c}!version\+\_\+str@{version\+\_\+str}}
+\index{version\+\_\+str@{version\+\_\+str}!mrp\+Validate.\+c@{mrp\+Validate.\+c}}
+\subsubsection[{\texorpdfstring{version\+\_\+str}{version_str}}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ version\+\_\+str\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{mrp_validate_8c_ae724265d048ace6b96a1e977ea11c1c7}{}\label{mrp_validate_8c_ae724265d048ace6b96a1e977ea11c1c7}
+{\bfseries 초기값\+:}
+\begin{DoxyCode}
+=
+    \textcolor{stringliteral}{"mrpValidate v"} \hyperlink{mrp_validate_8c_acfc1668731750cb1ee8974b8a7c133ef}{VERSION\_STR} \textcolor{stringliteral}{"\(\backslash\)n"}
+    \textcolor{stringliteral}{"Copyright (c) 2013, Harman International\(\backslash\)n"}
+\end{DoxyCode}
+
+
+mrp\+Validate.\+c 파일의 69 번째 라인에서 정의되었습니다.
+

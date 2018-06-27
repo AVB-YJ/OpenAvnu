@@ -1,0 +1,637 @@
+\hypertarget{openavb__adp__sm__advertise__entity_8c}{}\section{lib/avtp\+\_\+pipeline/adp/openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.c 파일 참조}
+\label{openavb__adp__sm__advertise__entity_8c}\index{lib/avtp\+\_\+pipeline/adp/openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c@{lib/avtp\+\_\+pipeline/adp/openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c}}
+{\ttfamily \#include \char`\"{}openavb\+\_\+platform.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$errno.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+log.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+time.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+adp.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+interface.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+h\char`\"{}}\\*
+openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__adp__sm__advertise__entity_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{openavb__adp__sm__advertise__entity_8c_abcfb21b6495585fe36058f57a9fe58fc}{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}~\char`\"{}A\+DP\char`\"{}
+\item 
+\#define \hyperlink{openavb__adp__sm__advertise__entity_8c_ae5c3487244f6f7a4b6d059cb198a2228}{A\+D\+P\+\_\+\+L\+O\+CK}()~\{ \hyperlink{openavb__os__services__osal__pub_8h_aee93da9d4ea28eeaa9c64bd938d5549b}{M\+U\+T\+E\+X\+\_\+\+C\+R\+E\+A\+T\+E\+\_\+\+E\+RR}(); \hyperlink{openavb__os__services__osal__pub_8h_aaa0e54e00ca1cc9cb5bf9ac824a5e4ef}{M\+U\+T\+E\+X\+\_\+\+L\+O\+CK}(openavb\+Adp\+Mutex); \hyperlink{openavb__os__services__osal__pub_8h_a08d33bd2184e24e7676bda0efb5a3e5e}{M\+U\+T\+E\+X\+\_\+\+L\+O\+G\+\_\+\+E\+RR}(\char`\"{}Mutex lock failure\char`\"{}); \}
+\item 
+\#define \hyperlink{openavb__adp__sm__advertise__entity_8c_ae0cdadf85582a39006df760ad7d2ad2c}{A\+D\+P\+\_\+\+U\+N\+L\+O\+CK}()~\{ \hyperlink{openavb__os__services__osal__pub_8h_aee93da9d4ea28eeaa9c64bd938d5549b}{M\+U\+T\+E\+X\+\_\+\+C\+R\+E\+A\+T\+E\+\_\+\+E\+RR}(); \hyperlink{openavb__os__services__osal__pub_8h_a0945f1588c967fbabfc91ddc7287cb32}{M\+U\+T\+E\+X\+\_\+\+U\+N\+L\+O\+CK}(openavb\+Adp\+Mutex); \hyperlink{openavb__os__services__osal__pub_8h_a08d33bd2184e24e7676bda0efb5a3e5e}{M\+U\+T\+E\+X\+\_\+\+L\+O\+G\+\_\+\+E\+RR}(\char`\"{}Mutex unlock failure\char`\"{}); \}
+\end{DoxyCompactItemize}
+\subsection*{열거형 타입}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{openavb__adp__sm__advertise__entity_8c_a3377e4bfcfdb61f0950a986df8c2726f}{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity\+\_\+state\+\_\+t} \{ \\*
+\hyperlink{openavb__adp__sm__advertise__entity_8c_a3377e4bfcfdb61f0950a986df8c2726fad17e1c3fd4127d49354365fd1e3b73d2}{O\+P\+E\+N\+A\+V\+B\+\_\+\+A\+D\+P\+\_\+\+S\+M\+\_\+\+A\+D\+V\+E\+R\+T\+I\+S\+E\+\_\+\+E\+N\+T\+I\+T\+Y\+\_\+\+S\+T\+A\+T\+E\+\_\+\+I\+N\+I\+T\+I\+A\+L\+I\+ZE}, 
+\hyperlink{openavb__adp__sm__advertise__entity_8c_a3377e4bfcfdb61f0950a986df8c2726faab4587fb8e88f04f933f3afb171554e9}{O\+P\+E\+N\+A\+V\+B\+\_\+\+A\+D\+P\+\_\+\+S\+M\+\_\+\+A\+D\+V\+E\+R\+T\+I\+S\+E\+\_\+\+E\+N\+T\+I\+T\+Y\+\_\+\+S\+T\+A\+T\+E\+\_\+\+A\+D\+V\+E\+R\+T\+I\+SE}, 
+\hyperlink{openavb__adp__sm__advertise__entity_8c_a3377e4bfcfdb61f0950a986df8c2726fad371342ba67e8f2b4ee7709fa339d81e}{O\+P\+E\+N\+A\+V\+B\+\_\+\+A\+D\+P\+\_\+\+S\+M\+\_\+\+A\+D\+V\+E\+R\+T\+I\+S\+E\+\_\+\+E\+N\+T\+I\+T\+Y\+\_\+\+S\+T\+A\+T\+E\+\_\+\+R\+E\+S\+E\+T\+\_\+\+W\+A\+IT}, 
+\hyperlink{openavb__adp__sm__advertise__entity_8c_a3377e4bfcfdb61f0950a986df8c2726fa9a8f6749b3883f10908fd6060fe344a9}{O\+P\+E\+N\+A\+V\+B\+\_\+\+A\+D\+P\+\_\+\+S\+M\+\_\+\+A\+D\+V\+E\+R\+T\+I\+S\+E\+\_\+\+E\+N\+T\+I\+T\+Y\+\_\+\+S\+T\+A\+T\+E\+\_\+\+W\+A\+I\+T\+I\+NG}, 
+\\*
+\hyperlink{openavb__adp__sm__advertise__entity_8c_a3377e4bfcfdb61f0950a986df8c2726faec394cffd5b7bd5988c4265f9d77cc7b}{O\+P\+E\+N\+A\+V\+B\+\_\+\+A\+D\+P\+\_\+\+S\+M\+\_\+\+A\+D\+V\+E\+R\+T\+I\+S\+E\+\_\+\+E\+N\+T\+I\+T\+Y\+\_\+\+S\+T\+A\+T\+E\+\_\+\+T\+E\+R\+M\+I\+N\+A\+TE}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{openavb__adp__sm__advertise__entity_8c_a49c06b7a462069c22adbffa929825144}{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+LE} (openavb\+Adp\+Mutex)
+\item 
+\hyperlink{openavb__adp__sm__advertise__entity_8c_a9f2cd21c15ce5831b8aa4a5bdc3c46a7}{S\+E\+M\+\_\+T} (openavb\+Adp\+S\+M\+Advertise\+Entity\+Semaphore)
+\item 
+\hyperlink{openavb__adp__sm__advertise__entity_8c_a5435d1664268a2bf04fb045dedeca1e2}{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE} (openavb\+Adp\+Sm\+Advertise\+Entity\+Thread)
+\item 
+\hyperlink{openavb__adp__sm__advertise__entity_8c_a5aeca5c2fc2457d8c0fce0316ba25753}{T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+ON} (openavb\+Adp\+Sm\+Advertise\+Entity\+Thread)
+\item 
+void \hyperlink{openavb__adp__sm__advertise__entity_8c_a3b5d64f6501bf636ff5d8b17066ff075}{openavb\+Adp\+S\+M\+Advertise\+Entity\+\_\+send\+Available} ()
+\item 
+void \hyperlink{openavb__adp__sm__advertise__entity_8c_a376bc7c4a4e077a8af7b46ebcd56ed3b}{openavb\+Adp\+S\+M\+Advertise\+Entity\+State\+Machine} ()
+\item 
+void $\ast$ \hyperlink{openavb__adp__sm__advertise__entity_8c_a3537e0d80a1e9297aef1a119ee345fbc}{openavb\+Adp\+S\+M\+Advertise\+Entity\+Thread\+Fn} (void $\ast$pv)
+\item 
+void \hyperlink{openavb__adp__sm__advertise__entity_8c_a7f6feca4d1d25946e6b10751e6c8a793}{openavb\+Adp\+S\+M\+Advertise\+Entity\+Start} ()
+\item 
+void \hyperlink{openavb__adp__sm__advertise__entity_8c_ac81cdd9901a951c32188c8cadd51203b}{openavb\+Adp\+S\+M\+Advertise\+Entity\+Stop} ()
+\item 
+void \hyperlink{openavb__adp__sm__advertise__entity_8c_ad778f7a9df1c41845da91398c0f661d0}{openavb\+Adp\+S\+M\+Advertise\+Entity\+Set\+\_\+needs\+Advertise} (\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} value)
+\item 
+void \hyperlink{openavb__adp__sm__advertise__entity_8c_aa392115dfad729caa73aa490a5471a1e}{openavb\+Adp\+S\+M\+Advertise\+Entity\+Set\+\_\+do\+Terminate} (\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} value)
+\end{DoxyCompactItemize}
+\subsection*{변수}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structopenavb__adp__sm__global__vars__t}{openavb\+\_\+adp\+\_\+sm\+\_\+global\+\_\+vars\+\_\+t} \hyperlink{openavb__adp__sm__advertise__entity_8c_a1a30a222ed39fa185fa222f43fe981e7}{openavb\+Adp\+S\+M\+Global\+Vars}
+\item 
+\hyperlink{structopenavb__adp__sm__advertise__interface__vars__t}{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+interface\+\_\+vars\+\_\+t} \hyperlink{openavb__adp__sm__advertise__entity_8c_a2ad37f805fc7b88b1a3fb17f5abffd7d}{openavb\+Adp\+S\+M\+Advertise\+Interface\+Vars}
+\item 
+\hyperlink{structopenavb__adp__sm__advertise__entity__vars__t}{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity\+\_\+vars\+\_\+t} \hyperlink{openavb__adp__sm__advertise__entity_8c_a2d3ca7d995600252a97c0880bd273254}{openavb\+Adp\+S\+M\+Advertise\+Entity\+Vars}
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c@{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c}!A\+D\+P\+\_\+\+L\+O\+CK@{A\+D\+P\+\_\+\+L\+O\+CK}}
+\index{A\+D\+P\+\_\+\+L\+O\+CK@{A\+D\+P\+\_\+\+L\+O\+CK}!openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c@{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c}}
+\subsubsection[{\texorpdfstring{A\+D\+P\+\_\+\+L\+O\+CK}{ADP_LOCK}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+D\+P\+\_\+\+L\+O\+CK(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~\{ {\bf M\+U\+T\+E\+X\+\_\+\+C\+R\+E\+A\+T\+E\+\_\+\+E\+RR}(); {\bf M\+U\+T\+E\+X\+\_\+\+L\+O\+CK}(openavb\+Adp\+Mutex); {\bf M\+U\+T\+E\+X\+\_\+\+L\+O\+G\+\_\+\+E\+RR}(\char`\"{}Mutex lock failure\char`\"{}); \}}\hypertarget{openavb__adp__sm__advertise__entity_8c_ae5c3487244f6f7a4b6d059cb198a2228}{}\label{openavb__adp__sm__advertise__entity_8c_ae5c3487244f6f7a4b6d059cb198a2228}
+
+
+openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c 파일의 65 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c@{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c}!A\+D\+P\+\_\+\+U\+N\+L\+O\+CK@{A\+D\+P\+\_\+\+U\+N\+L\+O\+CK}}
+\index{A\+D\+P\+\_\+\+U\+N\+L\+O\+CK@{A\+D\+P\+\_\+\+U\+N\+L\+O\+CK}!openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c@{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c}}
+\subsubsection[{\texorpdfstring{A\+D\+P\+\_\+\+U\+N\+L\+O\+CK}{ADP_UNLOCK}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+D\+P\+\_\+\+U\+N\+L\+O\+CK(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~\{ {\bf M\+U\+T\+E\+X\+\_\+\+C\+R\+E\+A\+T\+E\+\_\+\+E\+RR}(); {\bf M\+U\+T\+E\+X\+\_\+\+U\+N\+L\+O\+CK}(openavb\+Adp\+Mutex); {\bf M\+U\+T\+E\+X\+\_\+\+L\+O\+G\+\_\+\+E\+RR}(\char`\"{}Mutex unlock failure\char`\"{}); \}}\hypertarget{openavb__adp__sm__advertise__entity_8c_ae0cdadf85582a39006df760ad7d2ad2c}{}\label{openavb__adp__sm__advertise__entity_8c_ae0cdadf85582a39006df760ad7d2ad2c}
+
+
+openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c 파일의 66 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c@{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c}!A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT@{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}}
+\index{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT@{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}!openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c@{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c}}
+\subsubsection[{\texorpdfstring{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}{AVB_LOG_COMPONENT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT~\char`\"{}A\+DP\char`\"{}}\hypertarget{openavb__adp__sm__advertise__entity_8c_abcfb21b6495585fe36058f57a9fe58fc}{}\label{openavb__adp__sm__advertise__entity_8c_abcfb21b6495585fe36058f57a9fe58fc}
+
+
+openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c 파일의 44 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{열거형 타입 문서화}
+\index{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c@{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c}!openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity\+\_\+state\+\_\+t@{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity\+\_\+state\+\_\+t}}
+\index{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity\+\_\+state\+\_\+t@{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity\+\_\+state\+\_\+t}!openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c@{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity\+\_\+state\+\_\+t}{openavb_adp_sm_advertise_entity_state_t}}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity\+\_\+state\+\_\+t}}\hypertarget{openavb__adp__sm__advertise__entity_8c_a3377e4bfcfdb61f0950a986df8c2726f}{}\label{openavb__adp__sm__advertise__entity_8c_a3377e4bfcfdb61f0950a986df8c2726f}
+\begin{Desc}
+\item[열거형 멤버]\par
+\begin{description}
+\index{O\+P\+E\+N\+A\+V\+B\+\_\+\+A\+D\+P\+\_\+\+S\+M\+\_\+\+A\+D\+V\+E\+R\+T\+I\+S\+E\+\_\+\+E\+N\+T\+I\+T\+Y\+\_\+\+S\+T\+A\+T\+E\+\_\+\+I\+N\+I\+T\+I\+A\+L\+I\+ZE@{O\+P\+E\+N\+A\+V\+B\+\_\+\+A\+D\+P\+\_\+\+S\+M\+\_\+\+A\+D\+V\+E\+R\+T\+I\+S\+E\+\_\+\+E\+N\+T\+I\+T\+Y\+\_\+\+S\+T\+A\+T\+E\+\_\+\+I\+N\+I\+T\+I\+A\+L\+I\+ZE}!openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c@{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c}}\index{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c@{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c}!O\+P\+E\+N\+A\+V\+B\+\_\+\+A\+D\+P\+\_\+\+S\+M\+\_\+\+A\+D\+V\+E\+R\+T\+I\+S\+E\+\_\+\+E\+N\+T\+I\+T\+Y\+\_\+\+S\+T\+A\+T\+E\+\_\+\+I\+N\+I\+T\+I\+A\+L\+I\+ZE@{O\+P\+E\+N\+A\+V\+B\+\_\+\+A\+D\+P\+\_\+\+S\+M\+\_\+\+A\+D\+V\+E\+R\+T\+I\+S\+E\+\_\+\+E\+N\+T\+I\+T\+Y\+\_\+\+S\+T\+A\+T\+E\+\_\+\+I\+N\+I\+T\+I\+A\+L\+I\+ZE}}\item[{\em 
+O\+P\+E\+N\+A\+V\+B\+\_\+\+A\+D\+P\+\_\+\+S\+M\+\_\+\+A\+D\+V\+E\+R\+T\+I\+S\+E\+\_\+\+E\+N\+T\+I\+T\+Y\+\_\+\+S\+T\+A\+T\+E\+\_\+\+I\+N\+I\+T\+I\+A\+L\+I\+ZE\hypertarget{openavb__adp__sm__advertise__entity_8c_a3377e4bfcfdb61f0950a986df8c2726fad17e1c3fd4127d49354365fd1e3b73d2}{}\label{openavb__adp__sm__advertise__entity_8c_a3377e4bfcfdb61f0950a986df8c2726fad17e1c3fd4127d49354365fd1e3b73d2}
+}]\index{O\+P\+E\+N\+A\+V\+B\+\_\+\+A\+D\+P\+\_\+\+S\+M\+\_\+\+A\+D\+V\+E\+R\+T\+I\+S\+E\+\_\+\+E\+N\+T\+I\+T\+Y\+\_\+\+S\+T\+A\+T\+E\+\_\+\+A\+D\+V\+E\+R\+T\+I\+SE@{O\+P\+E\+N\+A\+V\+B\+\_\+\+A\+D\+P\+\_\+\+S\+M\+\_\+\+A\+D\+V\+E\+R\+T\+I\+S\+E\+\_\+\+E\+N\+T\+I\+T\+Y\+\_\+\+S\+T\+A\+T\+E\+\_\+\+A\+D\+V\+E\+R\+T\+I\+SE}!openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c@{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c}}\index{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c@{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c}!O\+P\+E\+N\+A\+V\+B\+\_\+\+A\+D\+P\+\_\+\+S\+M\+\_\+\+A\+D\+V\+E\+R\+T\+I\+S\+E\+\_\+\+E\+N\+T\+I\+T\+Y\+\_\+\+S\+T\+A\+T\+E\+\_\+\+A\+D\+V\+E\+R\+T\+I\+SE@{O\+P\+E\+N\+A\+V\+B\+\_\+\+A\+D\+P\+\_\+\+S\+M\+\_\+\+A\+D\+V\+E\+R\+T\+I\+S\+E\+\_\+\+E\+N\+T\+I\+T\+Y\+\_\+\+S\+T\+A\+T\+E\+\_\+\+A\+D\+V\+E\+R\+T\+I\+SE}}\item[{\em 
+O\+P\+E\+N\+A\+V\+B\+\_\+\+A\+D\+P\+\_\+\+S\+M\+\_\+\+A\+D\+V\+E\+R\+T\+I\+S\+E\+\_\+\+E\+N\+T\+I\+T\+Y\+\_\+\+S\+T\+A\+T\+E\+\_\+\+A\+D\+V\+E\+R\+T\+I\+SE\hypertarget{openavb__adp__sm__advertise__entity_8c_a3377e4bfcfdb61f0950a986df8c2726faab4587fb8e88f04f933f3afb171554e9}{}\label{openavb__adp__sm__advertise__entity_8c_a3377e4bfcfdb61f0950a986df8c2726faab4587fb8e88f04f933f3afb171554e9}
+}]\index{O\+P\+E\+N\+A\+V\+B\+\_\+\+A\+D\+P\+\_\+\+S\+M\+\_\+\+A\+D\+V\+E\+R\+T\+I\+S\+E\+\_\+\+E\+N\+T\+I\+T\+Y\+\_\+\+S\+T\+A\+T\+E\+\_\+\+R\+E\+S\+E\+T\+\_\+\+W\+A\+IT@{O\+P\+E\+N\+A\+V\+B\+\_\+\+A\+D\+P\+\_\+\+S\+M\+\_\+\+A\+D\+V\+E\+R\+T\+I\+S\+E\+\_\+\+E\+N\+T\+I\+T\+Y\+\_\+\+S\+T\+A\+T\+E\+\_\+\+R\+E\+S\+E\+T\+\_\+\+W\+A\+IT}!openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c@{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c}}\index{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c@{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c}!O\+P\+E\+N\+A\+V\+B\+\_\+\+A\+D\+P\+\_\+\+S\+M\+\_\+\+A\+D\+V\+E\+R\+T\+I\+S\+E\+\_\+\+E\+N\+T\+I\+T\+Y\+\_\+\+S\+T\+A\+T\+E\+\_\+\+R\+E\+S\+E\+T\+\_\+\+W\+A\+IT@{O\+P\+E\+N\+A\+V\+B\+\_\+\+A\+D\+P\+\_\+\+S\+M\+\_\+\+A\+D\+V\+E\+R\+T\+I\+S\+E\+\_\+\+E\+N\+T\+I\+T\+Y\+\_\+\+S\+T\+A\+T\+E\+\_\+\+R\+E\+S\+E\+T\+\_\+\+W\+A\+IT}}\item[{\em 
+O\+P\+E\+N\+A\+V\+B\+\_\+\+A\+D\+P\+\_\+\+S\+M\+\_\+\+A\+D\+V\+E\+R\+T\+I\+S\+E\+\_\+\+E\+N\+T\+I\+T\+Y\+\_\+\+S\+T\+A\+T\+E\+\_\+\+R\+E\+S\+E\+T\+\_\+\+W\+A\+IT\hypertarget{openavb__adp__sm__advertise__entity_8c_a3377e4bfcfdb61f0950a986df8c2726fad371342ba67e8f2b4ee7709fa339d81e}{}\label{openavb__adp__sm__advertise__entity_8c_a3377e4bfcfdb61f0950a986df8c2726fad371342ba67e8f2b4ee7709fa339d81e}
+}]\index{O\+P\+E\+N\+A\+V\+B\+\_\+\+A\+D\+P\+\_\+\+S\+M\+\_\+\+A\+D\+V\+E\+R\+T\+I\+S\+E\+\_\+\+E\+N\+T\+I\+T\+Y\+\_\+\+S\+T\+A\+T\+E\+\_\+\+W\+A\+I\+T\+I\+NG@{O\+P\+E\+N\+A\+V\+B\+\_\+\+A\+D\+P\+\_\+\+S\+M\+\_\+\+A\+D\+V\+E\+R\+T\+I\+S\+E\+\_\+\+E\+N\+T\+I\+T\+Y\+\_\+\+S\+T\+A\+T\+E\+\_\+\+W\+A\+I\+T\+I\+NG}!openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c@{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c}}\index{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c@{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c}!O\+P\+E\+N\+A\+V\+B\+\_\+\+A\+D\+P\+\_\+\+S\+M\+\_\+\+A\+D\+V\+E\+R\+T\+I\+S\+E\+\_\+\+E\+N\+T\+I\+T\+Y\+\_\+\+S\+T\+A\+T\+E\+\_\+\+W\+A\+I\+T\+I\+NG@{O\+P\+E\+N\+A\+V\+B\+\_\+\+A\+D\+P\+\_\+\+S\+M\+\_\+\+A\+D\+V\+E\+R\+T\+I\+S\+E\+\_\+\+E\+N\+T\+I\+T\+Y\+\_\+\+S\+T\+A\+T\+E\+\_\+\+W\+A\+I\+T\+I\+NG}}\item[{\em 
+O\+P\+E\+N\+A\+V\+B\+\_\+\+A\+D\+P\+\_\+\+S\+M\+\_\+\+A\+D\+V\+E\+R\+T\+I\+S\+E\+\_\+\+E\+N\+T\+I\+T\+Y\+\_\+\+S\+T\+A\+T\+E\+\_\+\+W\+A\+I\+T\+I\+NG\hypertarget{openavb__adp__sm__advertise__entity_8c_a3377e4bfcfdb61f0950a986df8c2726fa9a8f6749b3883f10908fd6060fe344a9}{}\label{openavb__adp__sm__advertise__entity_8c_a3377e4bfcfdb61f0950a986df8c2726fa9a8f6749b3883f10908fd6060fe344a9}
+}]\index{O\+P\+E\+N\+A\+V\+B\+\_\+\+A\+D\+P\+\_\+\+S\+M\+\_\+\+A\+D\+V\+E\+R\+T\+I\+S\+E\+\_\+\+E\+N\+T\+I\+T\+Y\+\_\+\+S\+T\+A\+T\+E\+\_\+\+T\+E\+R\+M\+I\+N\+A\+TE@{O\+P\+E\+N\+A\+V\+B\+\_\+\+A\+D\+P\+\_\+\+S\+M\+\_\+\+A\+D\+V\+E\+R\+T\+I\+S\+E\+\_\+\+E\+N\+T\+I\+T\+Y\+\_\+\+S\+T\+A\+T\+E\+\_\+\+T\+E\+R\+M\+I\+N\+A\+TE}!openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c@{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c}}\index{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c@{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c}!O\+P\+E\+N\+A\+V\+B\+\_\+\+A\+D\+P\+\_\+\+S\+M\+\_\+\+A\+D\+V\+E\+R\+T\+I\+S\+E\+\_\+\+E\+N\+T\+I\+T\+Y\+\_\+\+S\+T\+A\+T\+E\+\_\+\+T\+E\+R\+M\+I\+N\+A\+TE@{O\+P\+E\+N\+A\+V\+B\+\_\+\+A\+D\+P\+\_\+\+S\+M\+\_\+\+A\+D\+V\+E\+R\+T\+I\+S\+E\+\_\+\+E\+N\+T\+I\+T\+Y\+\_\+\+S\+T\+A\+T\+E\+\_\+\+T\+E\+R\+M\+I\+N\+A\+TE}}\item[{\em 
+O\+P\+E\+N\+A\+V\+B\+\_\+\+A\+D\+P\+\_\+\+S\+M\+\_\+\+A\+D\+V\+E\+R\+T\+I\+S\+E\+\_\+\+E\+N\+T\+I\+T\+Y\+\_\+\+S\+T\+A\+T\+E\+\_\+\+T\+E\+R\+M\+I\+N\+A\+TE\hypertarget{openavb__adp__sm__advertise__entity_8c_a3377e4bfcfdb61f0950a986df8c2726faec394cffd5b7bd5988c4265f9d77cc7b}{}\label{openavb__adp__sm__advertise__entity_8c_a3377e4bfcfdb61f0950a986df8c2726faec394cffd5b7bd5988c4265f9d77cc7b}
+}]\end{description}
+\end{Desc}
+
+
+openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c 파일의 52 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+52              \{
+53     \hyperlink{openavb__adp__sm__advertise__entity_8c_a3377e4bfcfdb61f0950a986df8c2726fad17e1c3fd4127d49354365fd1e3b73d2}{OPENAVB\_ADP\_SM\_ADVERTISE\_ENTITY\_STATE\_INITIALIZE},
+54     \hyperlink{openavb__adp__sm__advertise__entity_8c_a3377e4bfcfdb61f0950a986df8c2726faab4587fb8e88f04f933f3afb171554e9}{OPENAVB\_ADP\_SM\_ADVERTISE\_ENTITY\_STATE\_ADVERTISE},
+55     \hyperlink{openavb__adp__sm__advertise__entity_8c_a3377e4bfcfdb61f0950a986df8c2726fad371342ba67e8f2b4ee7709fa339d81e}{OPENAVB\_ADP\_SM\_ADVERTISE\_ENTITY\_STATE\_RESET\_WAIT},
+56     \hyperlink{openavb__adp__sm__advertise__entity_8c_a3377e4bfcfdb61f0950a986df8c2726fa9a8f6749b3883f10908fd6060fe344a9}{OPENAVB\_ADP\_SM\_ADVERTISE\_ENTITY\_STATE\_WAITING},
+57     \hyperlink{openavb__adp__sm__advertise__entity_8c_a3377e4bfcfdb61f0950a986df8c2726faec394cffd5b7bd5988c4265f9d77cc7b}{OPENAVB\_ADP\_SM\_ADVERTISE\_ENTITY\_STATE\_TERMINATE},
+58 \} \hyperlink{openavb__adp__sm__advertise__entity_8c_a3377e4bfcfdb61f0950a986df8c2726f}{openavb\_adp\_sm\_advertise\_entity\_state\_t};
+\end{DoxyCode}
+
+
+\subsection{함수 문서화}
+\index{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c@{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c}!M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+LE@{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+LE}}
+\index{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+LE@{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+LE}!openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c@{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c}}
+\subsubsection[{\texorpdfstring{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+L\+E(openavb\+Adp\+Mutex)}{MUTEX_HANDLE(openavbAdpMutex)}}]{\setlength{\rightskip}{0pt plus 5cm}M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+LE (
+\begin{DoxyParamCaption}
+\item[{openavb\+Adp\+Mutex}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__adp__sm__advertise__entity_8c_a49c06b7a462069c22adbffa929825144}{}\label{openavb__adp__sm__advertise__entity_8c_a49c06b7a462069c22adbffa929825144}
+\index{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c@{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c}!openavb\+Adp\+S\+M\+Advertise\+Entity\+\_\+send\+Available@{openavb\+Adp\+S\+M\+Advertise\+Entity\+\_\+send\+Available}}
+\index{openavb\+Adp\+S\+M\+Advertise\+Entity\+\_\+send\+Available@{openavb\+Adp\+S\+M\+Advertise\+Entity\+\_\+send\+Available}!openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c@{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Adp\+S\+M\+Advertise\+Entity\+\_\+send\+Available()}{openavbAdpSMAdvertiseEntity_sendAvailable()}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Adp\+S\+M\+Advertise\+Entity\+\_\+send\+Available (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__adp__sm__advertise__entity_8c_a3b5d64f6501bf636ff5d8b17066ff075}{}\label{openavb__adp__sm__advertise__entity_8c_a3b5d64f6501bf636ff5d8b17066ff075}
+
+
+openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c 파일의 72 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+73 \{
+74     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a4f95bb7c7f4eddadad84c8dffb6da6db}{AVB\_TRACE\_ADP});
+75     \hyperlink{openavb__adp__sm__advertise__interface_8c_ae10d7f5911f1cbe47daa5f1ec688c336}{openavbAdpSMAdvertiseInterfaceSet\_doAdvertise}(
+      \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+76     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a4f95bb7c7f4eddadad84c8dffb6da6db}{AVB\_TRACE\_ADP});
+77 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__adp__sm__advertise__entity_8c_a3b5d64f6501bf636ff5d8b17066ff075_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__adp__sm__advertise__entity_8c_a3b5d64f6501bf636ff5d8b17066ff075_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c@{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c}!openavb\+Adp\+S\+M\+Advertise\+Entity\+Set\+\_\+do\+Terminate@{openavb\+Adp\+S\+M\+Advertise\+Entity\+Set\+\_\+do\+Terminate}}
+\index{openavb\+Adp\+S\+M\+Advertise\+Entity\+Set\+\_\+do\+Terminate@{openavb\+Adp\+S\+M\+Advertise\+Entity\+Set\+\_\+do\+Terminate}!openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c@{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Adp\+S\+M\+Advertise\+Entity\+Set\+\_\+do\+Terminate(bool value)}{openavbAdpSMAdvertiseEntitySet_doTerminate(bool value)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Adp\+S\+M\+Advertise\+Entity\+Set\+\_\+do\+Terminate (
+\begin{DoxyParamCaption}
+\item[{{\bf bool}}]{value}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__adp__sm__advertise__entity_8c_aa392115dfad729caa73aa490a5471a1e}{}\label{openavb__adp__sm__advertise__entity_8c_aa392115dfad729caa73aa490a5471a1e}
+
+
+openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c 파일의 236 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+237 \{
+238     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a4f95bb7c7f4eddadad84c8dffb6da6db}{AVB\_TRACE\_ADP});
+239 
+240     \hyperlink{openavb__adp__sm__advertise__entity_8c_a2d3ca7d995600252a97c0880bd273254}{openavbAdpSMAdvertiseEntityVars}.\hyperlink{structopenavb__adp__sm__advertise__entity__vars__t_a5fc548cdb095393450f28eab966a626f}{doTerminate} = value;
+241 
+242     \hyperlink{maap__helper__linux_8h_add4f36a57028e23387408318ea1bdc21}{SEM\_ERR\_T}(\hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err});
+243     \hyperlink{maap__helper__linux_8h_a4c1a42ac475ca66956659d7bc8445646}{SEM\_POST}(openavbAdpSMAdvertiseEntitySemaphore, \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err});
+244     \hyperlink{maap__helper__linux_8h_a08ee4f392e8b70afcdf34b9803814d9e}{SEM\_LOG\_ERR}(\hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err});
+245 
+246     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a4f95bb7c7f4eddadad84c8dffb6da6db}{AVB\_TRACE\_ADP});
+247 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__adp__sm__advertise__entity_8c_aa392115dfad729caa73aa490a5471a1e_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c@{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c}!openavb\+Adp\+S\+M\+Advertise\+Entity\+Set\+\_\+needs\+Advertise@{openavb\+Adp\+S\+M\+Advertise\+Entity\+Set\+\_\+needs\+Advertise}}
+\index{openavb\+Adp\+S\+M\+Advertise\+Entity\+Set\+\_\+needs\+Advertise@{openavb\+Adp\+S\+M\+Advertise\+Entity\+Set\+\_\+needs\+Advertise}!openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c@{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Adp\+S\+M\+Advertise\+Entity\+Set\+\_\+needs\+Advertise(bool value)}{openavbAdpSMAdvertiseEntitySet_needsAdvertise(bool value)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Adp\+S\+M\+Advertise\+Entity\+Set\+\_\+needs\+Advertise (
+\begin{DoxyParamCaption}
+\item[{{\bf bool}}]{value}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__adp__sm__advertise__entity_8c_ad778f7a9df1c41845da91398c0f661d0}{}\label{openavb__adp__sm__advertise__entity_8c_ad778f7a9df1c41845da91398c0f661d0}
+
+
+openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c 파일의 223 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+224 \{
+225     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a4f95bb7c7f4eddadad84c8dffb6da6db}{AVB\_TRACE\_ADP});
+226 
+227     \hyperlink{openavb__adp__sm__advertise__entity_8c_a2d3ca7d995600252a97c0880bd273254}{openavbAdpSMAdvertiseEntityVars}.
+      \hyperlink{structopenavb__adp__sm__advertise__entity__vars__t_a611772ff7133678dce5edb7324e0be58}{needsAdvertise} = value;
+228 
+229     \hyperlink{maap__helper__linux_8h_add4f36a57028e23387408318ea1bdc21}{SEM\_ERR\_T}(\hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err});
+230     \hyperlink{maap__helper__linux_8h_a4c1a42ac475ca66956659d7bc8445646}{SEM\_POST}(openavbAdpSMAdvertiseEntitySemaphore, \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err});
+231     \hyperlink{maap__helper__linux_8h_a08ee4f392e8b70afcdf34b9803814d9e}{SEM\_LOG\_ERR}(\hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err});
+232 
+233     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a4f95bb7c7f4eddadad84c8dffb6da6db}{AVB\_TRACE\_ADP});
+234 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__adp__sm__advertise__entity_8c_ad778f7a9df1c41845da91398c0f661d0_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c@{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c}!openavb\+Adp\+S\+M\+Advertise\+Entity\+Start@{openavb\+Adp\+S\+M\+Advertise\+Entity\+Start}}
+\index{openavb\+Adp\+S\+M\+Advertise\+Entity\+Start@{openavb\+Adp\+S\+M\+Advertise\+Entity\+Start}!openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c@{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Adp\+S\+M\+Advertise\+Entity\+Start()}{openavbAdpSMAdvertiseEntityStart()}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Adp\+S\+M\+Advertise\+Entity\+Start (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__adp__sm__advertise__entity_8c_a7f6feca4d1d25946e6b10751e6c8a793}{}\label{openavb__adp__sm__advertise__entity_8c_a7f6feca4d1d25946e6b10751e6c8a793}
+
+
+openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c 파일의 187 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+188 \{
+189     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a4f95bb7c7f4eddadad84c8dffb6da6db}{AVB\_TRACE\_ADP});
+190 
+191     \hyperlink{maap__helper__linux_8h_add4f36a57028e23387408318ea1bdc21}{SEM\_ERR\_T}(\hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err});
+192     \hyperlink{maap__helper__linux_8h_ad53fcda7761618d19a05cd5e4fb1d302}{SEM\_INIT}(openavbAdpSMAdvertiseEntitySemaphore, 1, \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err});
+193     \hyperlink{maap__helper__linux_8h_a08ee4f392e8b70afcdf34b9803814d9e}{SEM\_LOG\_ERR}(\hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err});
+194 
+195     \hyperlink{openavb__adp__sm__advertise__entity_8c_ae5c3487244f6f7a4b6d059cb198a2228}{ADP\_LOCK}();
+196     \hyperlink{openavb__adp__sm__advertise__entity_8c_a2d3ca7d995600252a97c0880bd273254}{openavbAdpSMAdvertiseEntityVars}.
+      \hyperlink{structopenavb__adp__sm__advertise__entity__vars__t_a611772ff7133678dce5edb7324e0be58}{needsAdvertise} = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+197     \hyperlink{openavb__adp__sm__advertise__entity_8c_a2d3ca7d995600252a97c0880bd273254}{openavbAdpSMAdvertiseEntityVars}.\hyperlink{structopenavb__adp__sm__advertise__entity__vars__t_a5fc548cdb095393450f28eab966a626f}{doTerminate} = 
+      \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+198     \hyperlink{openavb__adp__sm__advertise__entity_8c_ae0cdadf85582a39006df760ad7d2ad2c}{ADP\_UNLOCK}();
+199 
+200     \textcolor{comment}{// Start the Advertise Entity State Machine}
+201     \textcolor{keywordtype}{bool} errResult;
+202     \hyperlink{maap__helper__linux_8h_a153e2ca1dd20bd23c619f8d2bafcc764}{THREAD\_CREATE}(openavbAdpSmAdvertiseEntityThread, openavbAdpSmAdvertiseEntityThread, 
+      \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{openavb__adp__sm__advertise__entity_8c_a3537e0d80a1e9297aef1a119ee345fbc}{openavbAdpSMAdvertiseEntityThreadFn}, 
+      \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+203     \hyperlink{maap__helper__linux_8h_a2d61dbf377bb5ab560d4b4bddf49c9c2}{THREAD\_CHECK\_ERROR}(openavbAdpSmAdvertiseEntityThread, \textcolor{stringliteral}{"Thread / task creation failed"}
+      , errResult);
+204     \textcolor{keywordflow}{if} (errResult);     \textcolor{comment}{// Already reported}
+205 
+206     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a4f95bb7c7f4eddadad84c8dffb6da6db}{AVB\_TRACE\_ADP});
+207 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__adp__sm__advertise__entity_8c_a7f6feca4d1d25946e6b10751e6c8a793_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__adp__sm__advertise__entity_8c_a7f6feca4d1d25946e6b10751e6c8a793_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c@{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c}!openavb\+Adp\+S\+M\+Advertise\+Entity\+State\+Machine@{openavb\+Adp\+S\+M\+Advertise\+Entity\+State\+Machine}}
+\index{openavb\+Adp\+S\+M\+Advertise\+Entity\+State\+Machine@{openavb\+Adp\+S\+M\+Advertise\+Entity\+State\+Machine}!openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c@{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Adp\+S\+M\+Advertise\+Entity\+State\+Machine()}{openavbAdpSMAdvertiseEntityStateMachine()}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Adp\+S\+M\+Advertise\+Entity\+State\+Machine (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__adp__sm__advertise__entity_8c_a376bc7c4a4e077a8af7b46ebcd56ed3b}{}\label{openavb__adp__sm__advertise__entity_8c_a376bc7c4a4e077a8af7b46ebcd56ed3b}
+
+
+openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c 파일의 79 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+80 \{
+81     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a4f95bb7c7f4eddadad84c8dffb6da6db}{AVB\_TRACE\_ADP});
+82     \textcolor{keywordtype}{bool} \hyperlink{openavb__acmp__message_8c_acf182b7b2127314d5d00c6df827734b5}{bRunning} = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+83 
+84     \hyperlink{openavb__adp__sm__advertise__entity_8c_a3377e4bfcfdb61f0950a986df8c2726f}{openavb\_adp\_sm\_advertise\_entity\_state\_t} state = 
+      \hyperlink{openavb__adp__sm__advertise__entity_8c_a3377e4bfcfdb61f0950a986df8c2726fad17e1c3fd4127d49354365fd1e3b73d2}{OPENAVB\_ADP\_SM\_ADVERTISE\_ENTITY\_STATE\_INITIALIZE};
+85 
+86     \textcolor{keywordflow}{while} (bRunning) \{
+87         \textcolor{keywordflow}{switch} (state) \{
+88             \textcolor{keywordflow}{case} \hyperlink{openavb__adp__sm__advertise__entity_8c_a3377e4bfcfdb61f0950a986df8c2726fad17e1c3fd4127d49354365fd1e3b73d2}{OPENAVB\_ADP\_SM\_ADVERTISE\_ENTITY\_STATE\_INITIALIZE}
+      :
+89                 \{
+90                     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1ba49b1b3841555131e277b8ab63e782}{AVB\_TRACE\_LINE}(\hyperlink{openavb__trace_8h_a4f95bb7c7f4eddadad84c8dffb6da6db}{AVB\_TRACE\_ADP});
+91                     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a28a4d0350d530ad95c95b8383c00cd9c}{AVB\_LOG\_DEBUG}(\textcolor{stringliteral}{"State:  OPENAVB\_ADP\_SM\_ADVERTISE\_ENTITY\_STATE\_INITIALIZE"});
+92 
+93                     \hyperlink{openavb__adp__sm__advertise__entity_8c_ae5c3487244f6f7a4b6d059cb198a2228}{ADP\_LOCK}();
+94                     \hyperlink{openavb__adp__sm__advertise__entity_8c_a1a30a222ed39fa185fa222f43fe981e7}{openavbAdpSMGlobalVars}.\hyperlink{structopenavb__adp__sm__global__vars__t_a0a53d1ffa923d38bed8b74cbf8629070}{entityInfo}.
+      \hyperlink{structopenavb__adp__entity__info__t_a572a822389c9b7885725f32e0deaa340}{pdu}.\hyperlink{structopenavb__adp__data__unit__t_afd1f3dd8f9e3b3a1ab9e658dca9e7f6b}{available\_index} = 0;
+95                     \hyperlink{openavb__adp__sm__advertise__entity_8c_ae0cdadf85582a39006df760ad7d2ad2c}{ADP\_UNLOCK}();
+96 
+97                     \textcolor{comment}{// The advertise interface will send the first advertisement on startup.}
+98                     \textcolor{comment}{// This entity will be responsible for sending subsequent advertisements.}
+99                     \textcolor{comment}{// This allows the advertise entity and advertise interface to startup without any
+       inter-dependencies.}
+100                     state = \hyperlink{openavb__adp__sm__advertise__entity_8c_a3377e4bfcfdb61f0950a986df8c2726fad371342ba67e8f2b4ee7709fa339d81e}{OPENAVB\_ADP\_SM\_ADVERTISE\_ENTITY\_STATE\_RESET\_WAIT}
+      ;
+101                 \}
+102                 \textcolor{keywordflow}{break};
+103             \textcolor{keywordflow}{case} \hyperlink{openavb__adp__sm__advertise__entity_8c_a3377e4bfcfdb61f0950a986df8c2726faab4587fb8e88f04f933f3afb171554e9}{OPENAVB\_ADP\_SM\_ADVERTISE\_ENTITY\_STATE\_ADVERTISE}
+      :
+104                 \{
+105                     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1ba49b1b3841555131e277b8ab63e782}{AVB\_TRACE\_LINE}(\hyperlink{openavb__trace_8h_a4f95bb7c7f4eddadad84c8dffb6da6db}{AVB\_TRACE\_ADP});
+106                     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a28a4d0350d530ad95c95b8383c00cd9c}{AVB\_LOG\_DEBUG}(\textcolor{stringliteral}{"State:  OPENAVB\_ADP\_SM\_ADVERTISE\_ENTITY\_STATE\_ADVERTISE"});
+107 
+108                     \hyperlink{openavb__adp__sm__advertise__entity_8c_a3b5d64f6501bf636ff5d8b17066ff075}{openavbAdpSMAdvertiseEntity\_sendAvailable}();
+109                     \hyperlink{openavb__adp__sm__advertise__entity_8c_ae5c3487244f6f7a4b6d059cb198a2228}{ADP\_LOCK}();
+110                     \hyperlink{openavb__adp__sm__advertise__entity_8c_a2d3ca7d995600252a97c0880bd273254}{openavbAdpSMAdvertiseEntityVars}.
+      \hyperlink{structopenavb__adp__sm__advertise__entity__vars__t_a611772ff7133678dce5edb7324e0be58}{needsAdvertise} = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+111                     \hyperlink{openavb__adp__sm__advertise__entity_8c_ae0cdadf85582a39006df760ad7d2ad2c}{ADP\_UNLOCK}();
+112                     state = \hyperlink{openavb__adp__sm__advertise__entity_8c_a3377e4bfcfdb61f0950a986df8c2726fad371342ba67e8f2b4ee7709fa339d81e}{OPENAVB\_ADP\_SM\_ADVERTISE\_ENTITY\_STATE\_RESET\_WAIT}
+      ;
+113                 \}
+114                 \textcolor{keywordflow}{break};
+115             \textcolor{keywordflow}{case} \hyperlink{openavb__adp__sm__advertise__entity_8c_a3377e4bfcfdb61f0950a986df8c2726fad371342ba67e8f2b4ee7709fa339d81e}{OPENAVB\_ADP\_SM\_ADVERTISE\_ENTITY\_STATE\_RESET\_WAIT}
+      :
+116                 \{
+117                     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1ba49b1b3841555131e277b8ab63e782}{AVB\_TRACE\_LINE}(\hyperlink{openavb__trace_8h_a4f95bb7c7f4eddadad84c8dffb6da6db}{AVB\_TRACE\_ADP});
+118                     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a28a4d0350d530ad95c95b8383c00cd9c}{AVB\_LOG\_DEBUG}(\textcolor{stringliteral}{"State:  OPENAVB\_ADP\_SM\_ADVERTISE\_ENTITY\_STATE\_RESET\_WAIT"});
+119 
+120                     \hyperlink{openavb__adp__sm__advertise__entity_8c_ae5c3487244f6f7a4b6d059cb198a2228}{ADP\_LOCK}();
+121                     \hyperlink{build_2sdk__eavb_2openavb__time__osal__pub_8h_adcbbf5c8513dfa6442d6669d5b190b7e}{CLOCK\_GETTIME}(\hyperlink{build_2sdk__eavb_2openavb__time__osal__pub_8h_a8a087678c40dd3f078c5bce1297a62b8a94d9239257b8a212a60a5dcb7ae1b9bb}{OPENAVB\_CLOCK\_REALTIME}, &
+      \hyperlink{openavb__adp__sm__advertise__entity_8c_a2d3ca7d995600252a97c0880bd273254}{openavbAdpSMAdvertiseEntityVars}.
+      \hyperlink{structopenavb__adp__sm__advertise__entity__vars__t_a5a923bb84c550b6215326f2b61b61317}{reannounceTimerTimeout});
+122                     \textcolor{comment}{/* The advertisements should be sent at intervals of 1/4 valid\_time, where valid\_time
+       is in 2-second units.}
+123 \textcolor{comment}{                     * See IEEE Std 1722.1-2013 clauses 6.2.1.6 and 6.2.4. */}
+124                     \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} advDelayUsec = \hyperlink{openavb__adp__sm__advertise__entity_8c_a1a30a222ed39fa185fa222f43fe981e7}{openavbAdpSMGlobalVars}.
+      \hyperlink{structopenavb__adp__sm__global__vars__t_a0a53d1ffa923d38bed8b74cbf8629070}{entityInfo}.\hyperlink{structopenavb__adp__entity__info__t_ae9ac3201c2ad757d43a8c75f430a39c3}{header}.\hyperlink{structopenavb__adp__control__header__t_aebe5bad8aaf2356c644fc10e5c3f8fdf}{valid\_time} / 2 * 
+      \hyperlink{maap__helper__linux_8h_a8a708413d6171e7d86056793abe2cd1a}{MICROSECONDS\_PER\_SECOND};
+125                     \textcolor{keywordflow}{if} (advDelayUsec < \hyperlink{maap__helper__linux_8h_a8a708413d6171e7d86056793abe2cd1a}{MICROSECONDS\_PER\_SECOND}) \{
+126                         advDelayUsec = \hyperlink{maap__helper__linux_8h_a8a708413d6171e7d86056793abe2cd1a}{MICROSECONDS\_PER\_SECOND};
+127                     \}
+128                     \hyperlink{openavb__time_8c_a7b7e16b15efdbf7392626ee7cd38a1f5}{openavbTimeTimespecAddUsec}(&
+      \hyperlink{openavb__adp__sm__advertise__entity_8c_a2d3ca7d995600252a97c0880bd273254}{openavbAdpSMAdvertiseEntityVars}.
+      \hyperlink{structopenavb__adp__sm__advertise__entity__vars__t_a5a923bb84c550b6215326f2b61b61317}{reannounceTimerTimeout}, advDelayUsec);
+129                     \hyperlink{openavb__adp__sm__advertise__entity_8c_ae0cdadf85582a39006df760ad7d2ad2c}{ADP\_UNLOCK}();
+130                     state = \hyperlink{openavb__adp__sm__advertise__entity_8c_a3377e4bfcfdb61f0950a986df8c2726fa9a8f6749b3883f10908fd6060fe344a9}{OPENAVB\_ADP\_SM\_ADVERTISE\_ENTITY\_STATE\_WAITING}
+      ;
+131                 \}
+132                 \textcolor{keywordflow}{break};
+133             \textcolor{keywordflow}{case} \hyperlink{openavb__adp__sm__advertise__entity_8c_a3377e4bfcfdb61f0950a986df8c2726fa9a8f6749b3883f10908fd6060fe344a9}{OPENAVB\_ADP\_SM\_ADVERTISE\_ENTITY\_STATE\_WAITING}
+      :
+134                 \{
+135                     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a1ba49b1b3841555131e277b8ab63e782}{AVB\_TRACE\_LINE}(\hyperlink{openavb__trace_8h_a4f95bb7c7f4eddadad84c8dffb6da6db}{AVB\_TRACE\_ADP});
+136                     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a28a4d0350d530ad95c95b8383c00cd9c}{AVB\_LOG\_DEBUG}(\textcolor{stringliteral}{"State:  OPENAVB\_ADP\_SM\_ADVERTISE\_ENTITY\_STATE\_WAITING"});
+137 
+138                     \hyperlink{openavb__adp__sm__advertise__entity_8c_ae5c3487244f6f7a4b6d059cb198a2228}{ADP\_LOCK}();
+139                     \hyperlink{openavb__adp__sm__advertise__interface_8c_af66b8ce2053aaed2ea94785a1d4bbabc}{openavbAdpSMAdvertiseInterfaceSet\_rcvdDiscover}
+      (\hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+140                     \hyperlink{openavb__adp__sm__advertise__entity_8c_a1a30a222ed39fa185fa222f43fe981e7}{openavbAdpSMGlobalVars}.\hyperlink{structopenavb__adp__sm__global__vars__t_a0a53d1ffa923d38bed8b74cbf8629070}{entityInfo}.
+      \hyperlink{structopenavb__adp__entity__info__t_a572a822389c9b7885725f32e0deaa340}{pdu}.\hyperlink{structopenavb__adp__data__unit__t_afd1f3dd8f9e3b3a1ab9e658dca9e7f6b}{available\_index}++;
+141                     \hyperlink{openavb__adp__sm__advertise__entity_8c_ae0cdadf85582a39006df760ad7d2ad2c}{ADP\_UNLOCK}();
+142 
+143                     \textcolor{comment}{// Wait for change in state}
+144                     \textcolor{keywordflow}{while} (state == 
+      \hyperlink{openavb__adp__sm__advertise__entity_8c_a3377e4bfcfdb61f0950a986df8c2726fa9a8f6749b3883f10908fd6060fe344a9}{OPENAVB\_ADP\_SM\_ADVERTISE\_ENTITY\_STATE\_WAITING} && bRunning) \{
+145                         \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} timeoutMSec;
+146                         \textcolor{keyword}{struct }timespec now;
+147                         \hyperlink{build_2sdk__eavb_2openavb__time__osal__pub_8h_adcbbf5c8513dfa6442d6669d5b190b7e}{CLOCK\_GETTIME}(\hyperlink{build_2sdk__eavb_2openavb__time__osal__pub_8h_a8a087678c40dd3f078c5bce1297a62b8a94d9239257b8a212a60a5dcb7ae1b9bb}{OPENAVB\_CLOCK\_REALTIME}, &now);
+148                         timeoutMSec = \hyperlink{openavb__time_8c_ab5370e5a41499032e56f1b706d654253}{openavbTimeUntilMSec}(&now, &
+      \hyperlink{openavb__adp__sm__advertise__entity_8c_a2d3ca7d995600252a97c0880bd273254}{openavbAdpSMAdvertiseEntityVars}.
+      \hyperlink{structopenavb__adp__sm__advertise__entity__vars__t_a5a923bb84c550b6215326f2b61b61317}{reannounceTimerTimeout});
+149 
+150                         \textcolor{keywordflow}{if} (timeoutMSec == 0) \{
+151                             \textcolor{comment}{/* No need to wait. */}
+152                             state = 
+      \hyperlink{openavb__adp__sm__advertise__entity_8c_a3377e4bfcfdb61f0950a986df8c2726faab4587fb8e88f04f933f3afb171554e9}{OPENAVB\_ADP\_SM\_ADVERTISE\_ENTITY\_STATE\_ADVERTISE};
+153                         \}
+154                         \textcolor{keywordflow}{else} \{
+155                             \hyperlink{maap__helper__linux_8h_add4f36a57028e23387408318ea1bdc21}{SEM\_ERR\_T}(\hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err});
+156                             \hyperlink{openavb__os__services__osal_8h_addb345bd33172ab34c0a14a41cf8f06b}{SEM\_TIMEDWAIT}(openavbAdpSMAdvertiseEntitySemaphore, timeoutMSec, 
+      \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err});
+157                             \textcolor{keywordflow}{if} (!\hyperlink{maap__helper__linux_8h_ac56ef0866aba0eacf90e851092f6e905}{SEM\_IS\_ERR\_NONE}(\hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err}) && !
+      \hyperlink{maap__helper__linux_8h_a337a9b632d9f02bbd1021ab8f37ce0b9}{SEM\_IS\_ERR\_TIMEOUT}(\hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err})) \{ \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a6b02336e691e2e0579d2a5bb06367296}{AVB\_LOGF\_WARNING}(\textcolor{stringliteral}{"Semaphore error %d"}, 
+      \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err}); \}
+158 
+159                             \textcolor{keywordflow}{if} (\hyperlink{openavb__adp__sm__advertise__entity_8c_a2d3ca7d995600252a97c0880bd273254}{openavbAdpSMAdvertiseEntityVars}.
+      \hyperlink{structopenavb__adp__sm__advertise__entity__vars__t_a5fc548cdb095393450f28eab966a626f}{doTerminate}) \{
+160                                 bRunning = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+161                             \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{maap__helper__linux_8h_a337a9b632d9f02bbd1021ab8f37ce0b9}{SEM\_IS\_ERR\_TIMEOUT}(\hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err}) ||
+162                                 \hyperlink{openavb__adp__sm__advertise__entity_8c_a2d3ca7d995600252a97c0880bd273254}{openavbAdpSMAdvertiseEntityVars}.
+      \hyperlink{structopenavb__adp__sm__advertise__entity__vars__t_a611772ff7133678dce5edb7324e0be58}{needsAdvertise}) \{
+163                                 state = 
+      \hyperlink{openavb__adp__sm__advertise__entity_8c_a3377e4bfcfdb61f0950a986df8c2726faab4587fb8e88f04f933f3afb171554e9}{OPENAVB\_ADP\_SM\_ADVERTISE\_ENTITY\_STATE\_ADVERTISE};
+164                             \}
+165                         \}
+166                     \}
+167                 \}
+168                 \textcolor{keywordflow}{break};
+169 
+170             \textcolor{keywordflow}{default}:
+171                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"State:  Unexpected!"});
+172                 bRunning = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};  \textcolor{comment}{// Unexpected}
+173                 \textcolor{keywordflow}{break};
+174         \}
+175     \}
+176     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a4f95bb7c7f4eddadad84c8dffb6da6db}{AVB\_TRACE\_ADP});
+177 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__adp__sm__advertise__entity_8c_a376bc7c4a4e077a8af7b46ebcd56ed3b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__adp__sm__advertise__entity_8c_a376bc7c4a4e077a8af7b46ebcd56ed3b_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c@{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c}!openavb\+Adp\+S\+M\+Advertise\+Entity\+Stop@{openavb\+Adp\+S\+M\+Advertise\+Entity\+Stop}}
+\index{openavb\+Adp\+S\+M\+Advertise\+Entity\+Stop@{openavb\+Adp\+S\+M\+Advertise\+Entity\+Stop}!openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c@{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Adp\+S\+M\+Advertise\+Entity\+Stop()}{openavbAdpSMAdvertiseEntityStop()}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Adp\+S\+M\+Advertise\+Entity\+Stop (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__adp__sm__advertise__entity_8c_ac81cdd9901a951c32188c8cadd51203b}{}\label{openavb__adp__sm__advertise__entity_8c_ac81cdd9901a951c32188c8cadd51203b}
+
+
+openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c 파일의 209 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+210 \{
+211     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a4f95bb7c7f4eddadad84c8dffb6da6db}{AVB\_TRACE\_ADP});
+212 
+213     \hyperlink{openavb__adp__sm__advertise__entity_8c_aa392115dfad729caa73aa490a5471a1e}{openavbAdpSMAdvertiseEntitySet\_doTerminate}(
+      \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+214     \hyperlink{maap__helper__linux_8h_ab2bcb74112112a2ed181d5784e0530f3}{THREAD\_JOIN}(openavbAdpSmAdvertiseEntityThread, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+215 
+216     \hyperlink{maap__helper__linux_8h_add4f36a57028e23387408318ea1bdc21}{SEM\_ERR\_T}(\hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err});
+217     \hyperlink{maap__helper__linux_8h_a5da8c88af746155c30c249e0d53c7519}{SEM\_DESTROY}(openavbAdpSMAdvertiseEntitySemaphore, \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err});
+218     \hyperlink{maap__helper__linux_8h_a08ee4f392e8b70afcdf34b9803814d9e}{SEM\_LOG\_ERR}(\hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err});
+219 
+220     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a4f95bb7c7f4eddadad84c8dffb6da6db}{AVB\_TRACE\_ADP});
+221 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__adp__sm__advertise__entity_8c_ac81cdd9901a951c32188c8cadd51203b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__adp__sm__advertise__entity_8c_ac81cdd9901a951c32188c8cadd51203b_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c@{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c}!openavb\+Adp\+S\+M\+Advertise\+Entity\+Thread\+Fn@{openavb\+Adp\+S\+M\+Advertise\+Entity\+Thread\+Fn}}
+\index{openavb\+Adp\+S\+M\+Advertise\+Entity\+Thread\+Fn@{openavb\+Adp\+S\+M\+Advertise\+Entity\+Thread\+Fn}!openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c@{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Adp\+S\+M\+Advertise\+Entity\+Thread\+Fn(void $\ast$pv)}{openavbAdpSMAdvertiseEntityThreadFn(void *pv)}}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ openavb\+Adp\+S\+M\+Advertise\+Entity\+Thread\+Fn (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{pv}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__adp__sm__advertise__entity_8c_a3537e0d80a1e9297aef1a119ee345fbc}{}\label{openavb__adp__sm__advertise__entity_8c_a3537e0d80a1e9297aef1a119ee345fbc}
+
+
+openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c 파일의 179 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+180 \{
+181     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a4f95bb7c7f4eddadad84c8dffb6da6db}{AVB\_TRACE\_ADP});
+182     \hyperlink{openavb__adp__sm__advertise__entity_8c_a376bc7c4a4e077a8af7b46ebcd56ed3b}{openavbAdpSMAdvertiseEntityStateMachine}();
+183     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a4f95bb7c7f4eddadad84c8dffb6da6db}{AVB\_TRACE\_ADP});
+184     \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+185 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__adp__sm__advertise__entity_8c_a3537e0d80a1e9297aef1a119ee345fbc_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__adp__sm__advertise__entity_8c_a3537e0d80a1e9297aef1a119ee345fbc_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c@{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c}!S\+E\+M\+\_\+T@{S\+E\+M\+\_\+T}}
+\index{S\+E\+M\+\_\+T@{S\+E\+M\+\_\+T}!openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c@{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c}}
+\subsubsection[{\texorpdfstring{S\+E\+M\+\_\+\+T(openavb\+Adp\+S\+M\+Advertise\+Entity\+Semaphore)}{SEM_T(openavbAdpSMAdvertiseEntitySemaphore)}}]{\setlength{\rightskip}{0pt plus 5cm}S\+E\+M\+\_\+T (
+\begin{DoxyParamCaption}
+\item[{openavb\+Adp\+S\+M\+Advertise\+Entity\+Semaphore}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__adp__sm__advertise__entity_8c_a9f2cd21c15ce5831b8aa4a5bdc3c46a7}{}\label{openavb__adp__sm__advertise__entity_8c_a9f2cd21c15ce5831b8aa4a5bdc3c46a7}
+\index{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c@{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c}!T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+ON@{T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+ON}}
+\index{T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+ON@{T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+ON}!openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c@{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c}}
+\subsubsection[{\texorpdfstring{T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+O\+N(openavb\+Adp\+Sm\+Advertise\+Entity\+Thread)}{THREAD_DEFINITON(openavbAdpSmAdvertiseEntityThread)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+ON (
+\begin{DoxyParamCaption}
+\item[{openavb\+Adp\+Sm\+Advertise\+Entity\+Thread}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__adp__sm__advertise__entity_8c_a5aeca5c2fc2457d8c0fce0316ba25753}{}\label{openavb__adp__sm__advertise__entity_8c_a5aeca5c2fc2457d8c0fce0316ba25753}
+\index{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c@{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c}!T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE@{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE}}
+\index{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE@{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE}!openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c@{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c}}
+\subsubsection[{\texorpdfstring{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+P\+E(openavb\+Adp\+Sm\+Advertise\+Entity\+Thread)}{THREAD_TYPE(openavbAdpSmAdvertiseEntityThread)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE (
+\begin{DoxyParamCaption}
+\item[{openavb\+Adp\+Sm\+Advertise\+Entity\+Thread}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__adp__sm__advertise__entity_8c_a5435d1664268a2bf04fb045dedeca1e2}{}\label{openavb__adp__sm__advertise__entity_8c_a5435d1664268a2bf04fb045dedeca1e2}
+
+
+\subsection{변수 문서화}
+\index{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c@{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c}!openavb\+Adp\+S\+M\+Advertise\+Entity\+Vars@{openavb\+Adp\+S\+M\+Advertise\+Entity\+Vars}}
+\index{openavb\+Adp\+S\+M\+Advertise\+Entity\+Vars@{openavb\+Adp\+S\+M\+Advertise\+Entity\+Vars}!openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c@{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Adp\+S\+M\+Advertise\+Entity\+Vars}{openavbAdpSMAdvertiseEntityVars}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity\+\_\+vars\+\_\+t} openavb\+Adp\+S\+M\+Advertise\+Entity\+Vars}\hypertarget{openavb__adp__sm__advertise__entity_8c_a2d3ca7d995600252a97c0880bd273254}{}\label{openavb__adp__sm__advertise__entity_8c_a2d3ca7d995600252a97c0880bd273254}
+
+
+openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c 파일의 62 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c@{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c}!openavb\+Adp\+S\+M\+Advertise\+Interface\+Vars@{openavb\+Adp\+S\+M\+Advertise\+Interface\+Vars}}
+\index{openavb\+Adp\+S\+M\+Advertise\+Interface\+Vars@{openavb\+Adp\+S\+M\+Advertise\+Interface\+Vars}!openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c@{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Adp\+S\+M\+Advertise\+Interface\+Vars}{openavbAdpSMAdvertiseInterfaceVars}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+interface\+\_\+vars\+\_\+t} openavb\+Adp\+S\+M\+Advertise\+Interface\+Vars}\hypertarget{openavb__adp__sm__advertise__entity_8c_a2ad37f805fc7b88b1a3fb17f5abffd7d}{}\label{openavb__adp__sm__advertise__entity_8c_a2ad37f805fc7b88b1a3fb17f5abffd7d}
+
+
+openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+interface.\+c 파일의 70 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c@{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c}!openavb\+Adp\+S\+M\+Global\+Vars@{openavb\+Adp\+S\+M\+Global\+Vars}}
+\index{openavb\+Adp\+S\+M\+Global\+Vars@{openavb\+Adp\+S\+M\+Global\+Vars}!openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c@{openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+entity.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Adp\+S\+M\+Global\+Vars}{openavbAdpSMGlobalVars}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf openavb\+\_\+adp\+\_\+sm\+\_\+global\+\_\+vars\+\_\+t} openavb\+Adp\+S\+M\+Global\+Vars}\hypertarget{openavb__adp__sm__advertise__entity_8c_a1a30a222ed39fa185fa222f43fe981e7}{}\label{openavb__adp__sm__advertise__entity_8c_a1a30a222ed39fa185fa222f43fe981e7}
+
+
+openavb\+\_\+adp.\+c 파일의 63 번째 라인에서 정의되었습니다.
+

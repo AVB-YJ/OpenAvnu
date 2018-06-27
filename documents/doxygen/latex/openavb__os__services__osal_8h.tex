@@ -1,0 +1,657 @@
+\hypertarget{openavb__os__services__osal_8h}{}\section{lib/avtp\+\_\+pipeline/platform/\+Linux/openavb\+\_\+os\+\_\+services\+\_\+osal.h 파일 참조}
+\label{openavb__os__services__osal_8h}\index{lib/avtp\+\_\+pipeline/platform/\+Linux/openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{lib/avtp\+\_\+pipeline/platform/\+Linux/openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}}
+{\ttfamily \#include \char`\"{}openavb\+\_\+hal.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$unistd.\+h$>$}\\*
+{\ttfamily \#include $<$pthread.\+h$>$}\\*
+{\ttfamily \#include $<$signal.\+h$>$}\\*
+{\ttfamily \#include $<$time.\+h$>$}\\*
+{\ttfamily \#include $<$semaphore.\+h$>$}\\*
+{\ttfamily \#include $<$arpa/inet.\+h$>$}\\*
+{\ttfamily \#include $<$errno.\+h$>$}\\*
+{\ttfamily \#include $<$sys/mman.\+h$>$}\\*
+{\ttfamily \#include $<$poll.\+h$>$}\\*
+{\ttfamily \#include $<$fcntl.\+h$>$}\\*
+{\ttfamily \#include $<$net/if.\+h$>$}\\*
+{\ttfamily \#include $<$dlfcn.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+tasks.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+osal\+\_\+pub.\+h\char`\"{}}\\*
+openavb\+\_\+os\+\_\+services\+\_\+osal.\+h에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__os__services__osal_8h__incl}
+\end{center}
+\end{figure}
+이 그래프는 이 파일을 직/간접적으로 include 하는 파일들을 보여줍니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__os__services__osal_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{데이타 구조}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structlink__lib__t}{link\+\_\+lib\+\_\+t}
+\end{DoxyCompactItemize}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{openavb__os__services__osal_8h_a6623223a0fdc15097aef480765cd3e5d}{E\+X\+T\+E\+R\+N\+\_\+\+D\+L\+L\+\_\+\+E\+X\+P\+O\+RT}~extern \hyperlink{include_2openavb__types__pub_8h_a1ca888bd091694c05472e1b91df1a97b}{D\+L\+L\+\_\+\+E\+X\+P\+O\+RT}
+\item 
+\#define \hyperlink{openavb__os__services__osal_8h_a715e9644a7183d98cb2c9dd41cb89645}{P\+T\+H\+R\+E\+A\+D\+\_\+\+M\+U\+T\+E\+X\+\_\+\+R\+E\+C\+U\+R\+S\+I\+VE}~P\+T\+H\+R\+E\+A\+D\+\_\+\+M\+U\+T\+E\+X\+\_\+\+R\+E\+C\+U\+R\+S\+I\+V\+E\+\_\+\+NP
+\item 
+\#define \hyperlink{openavb__os__services__osal_8h_a52de065c3b48c7720a6ee81304b8e223}{R\+A\+W\+S\+O\+C\+K\+\_\+\+M\+I\+N\+\_\+\+T\+I\+M\+E\+O\+U\+T\+\_\+\+U\+S\+EC}~1
+\item 
+\#define \hyperlink{openavb__os__services__osal_8h_ace78aa460400bce4cd196668fd1079bd}{S\+L\+E\+EP}(sec)~sleep(sec)
+\item 
+\#define \hyperlink{openavb__os__services__osal_8h_a63121b744a6265fe4bae4963b032ac02}{S\+L\+E\+E\+P\+\_\+\+M\+S\+EC}(m\+Sec)~usleep(m\+Sec $\ast$ 1000)
+\item 
+\#define \hyperlink{openavb__os__services__osal_8h_a05bd45062a4d5672b10dceac6a7db32f}{S\+L\+E\+E\+P\+\_\+\+N\+S\+EC}(n\+Sec)~usleep(n\+Sec / 1000)
+\item 
+\#define \hyperlink{openavb__os__services__osal_8h_a4b5c613e83d1ac39a9a6e48b7532c0c7}{S\+L\+E\+E\+P\+\_\+\+U\+N\+T\+I\+L\+\_\+\+N\+S\+EC}(n\+Sec)~\hyperlink{openavb__os__services__osal_8h_aae071d49d0bd94071a1b541972783350}{x\+Sleep\+Until\+N\+Sec}(n\+Sec)
+\item 
+\#define \hyperlink{openavb__os__services__osal_8h_a55353fc8f47d4fa61265b4ebb553ad92}{S\+P\+I\+N\+\_\+\+U\+N\+T\+I\+L\+\_\+\+N\+S\+EC}(nsec)~\hyperlink{openavb__os__services__osal_8h_af34c1df9bfe50549c9edeb9df0011408}{x\+Spin\+Until\+N\+Sec}(nsec)
+\item 
+\#define \hyperlink{openavb__os__services__osal_8h_aae1349d6c6ad44726e4e0721ae0c3264}{R\+A\+ND}()~random()
+\item 
+\#define \hyperlink{openavb__os__services__osal_8h_a4d0de661655f1180da59735050749061}{S\+R\+A\+ND}(seed)~srandom(seed)
+\item 
+\#define \hyperlink{openavb__os__services__osal_8h_a96a275c50131304bb21d3b71ffe9e4a5}{P\+R\+A\+G\+M\+A\+\_\+\+A\+L\+I\+G\+N\+\_\+8}
+\item 
+\#define \hyperlink{openavb__os__services__osal_8h_a47a392bf549833530fc6fe22349c4b03}{S\+I\+G\+N\+A\+L\+\_\+\+C\+A\+L\+L\+B\+A\+C\+K\+\_\+\+S\+E\+T\+UP}(\+\_\+\+\_\+\+N\+AM,  \+\_\+\+\_\+\+CB)
+\item 
+\#define \hyperlink{openavb__os__services__osal_8h_a57a17c956d857629d063da5a8e276227}{S\+I\+G\+N\+A\+L\+\_\+\+S\+I\+G\+N\+A\+L\+\_\+\+S\+E\+T\+UP}(\+\_\+\+\_\+\+S\+IG,  \+\_\+\+\_\+\+N\+AM,  \+\_\+\+\_\+\+CB,  \+\_\+\+\_\+\+E\+RR)
+\item 
+\#define \hyperlink{openavb__os__services__osal_8h_af9c5ee67c09a84c128e270ef81c0f13a}{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE}(thread)
+\item 
+\#define \hyperlink{openavb__os__services__osal_8h_afc13e75af8bd27e0b1e10e83d255e1c3}{T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+ON}(thread)~thread\#\#\+\_\+type	thread\#\#\+\_\+\+Thread\+Data
+\item 
+\#define \hyperlink{openavb__os__services__osal_8h_a153e2ca1dd20bd23c619f8d2bafcc764}{T\+H\+R\+E\+A\+D\+\_\+\+C\+R\+E\+A\+TE}(thread\+Name,  threadhandle,  thread\+\_\+attr\+\_\+name,  thread\+\_\+function,  thread\+\_\+function\+\_\+arg)
+\item 
+\#define \hyperlink{openavb__os__services__osal_8h_a3b03a9323e764b881258cb8b7841cf02}{T\+H\+R\+E\+A\+D\+\_\+\+S\+E\+T\+\_\+\+R\+T\+\_\+\+P\+R\+I\+O\+R\+I\+TY}(threadhandle,  \hyperlink{aaf-talker_8c_acec9ce2df15222151ad66fcb1d74eb9f}{priority})
+\item 
+\#define \hyperlink{openavb__os__services__osal_8h_af813fb18112bc0badd9248a217965df4}{T\+H\+R\+E\+A\+D\+\_\+\+P\+IN}(threadhandle,  affinity)
+\item 
+\#define \hyperlink{openavb__os__services__osal_8h_a2d61dbf377bb5ab560d4b4bddf49c9c2}{T\+H\+R\+E\+A\+D\+\_\+\+C\+H\+E\+C\+K\+\_\+\+E\+R\+R\+OR}(threadhandle,  message,  error)
+\item 
+\#define \hyperlink{openavb__os__services__osal_8h_a4230cab5d2f762640f2d0eda68af2b28}{T\+H\+R\+E\+A\+D\+\_\+\+S\+T\+A\+R\+T\+T\+H\+R\+E\+AD}(\hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err})
+\item 
+\#define \hyperlink{openavb__os__services__osal_8h_a19cbc566240391c899e8b82c56e01368}{T\+H\+R\+E\+A\+D\+\_\+\+K\+I\+LL}(threadhandle,  signal)~pthread\+\_\+kill(threadhandle\#\#\+\_\+\+Thread\+Data.\+pthread, signal)
+\item 
+\#define \hyperlink{openavb__os__services__osal_8h_a75c94f5239423fe515fb11ce578b2801}{T\+H\+R\+E\+A\+D\+\_\+\+J\+O\+I\+N\+A\+B\+LE}(threadhandle)
+\item 
+\#define \hyperlink{openavb__os__services__osal_8h_ab2bcb74112112a2ed181d5784e0530f3}{T\+H\+R\+E\+A\+D\+\_\+\+J\+O\+IN}(threadhandle,  signal)~pthread\+\_\+join(threadhandle\#\#\+\_\+\+Thread\+Data.\+pthread, (void$\ast$$\ast$)signal)
+\item 
+\#define \hyperlink{openavb__os__services__osal_8h_aa36128d9fb7864d66eccdeab4d7e628f}{T\+H\+R\+E\+A\+D\+\_\+\+S\+L\+E\+EP}(threadhandle,  secs)~sleep(secs)
+\item 
+\#define \hyperlink{openavb__os__services__osal_8h_a0e7e6cd2fc2282037e51d1157ae218d4}{S\+E\+M\+\_\+T}(sem)~sem\+\_\+t sem;
+\item 
+\#define \hyperlink{openavb__os__services__osal_8h_add4f36a57028e23387408318ea1bdc21}{S\+E\+M\+\_\+\+E\+R\+R\+\_\+T}(\hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err})~int \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err};
+\item 
+\#define \hyperlink{openavb__os__services__osal_8h_ad53fcda7761618d19a05cd5e4fb1d302}{S\+E\+M\+\_\+\+I\+N\+IT}(sem,  init,  \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err})~\hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err} = sem\+\_\+init(\&sem, 0, init);
+\item 
+\#define \hyperlink{openavb__os__services__osal_8h_a8120527bb34794a40dedcda544d1c140}{S\+E\+M\+\_\+\+W\+A\+IT}(sem,  \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err})~\hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err} = sem\+\_\+wait(\&sem);
+\item 
+\#define \hyperlink{openavb__os__services__osal_8h_addb345bd33172ab34c0a14a41cf8f06b}{S\+E\+M\+\_\+\+T\+I\+M\+E\+D\+W\+A\+IT}(sem,  timeout\+M\+Sec,  \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err})
+\item 
+\#define \hyperlink{openavb__os__services__osal_8h_a4c1a42ac475ca66956659d7bc8445646}{S\+E\+M\+\_\+\+P\+O\+ST}(sem,  \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err})~\hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err} = sem\+\_\+post(\&sem);
+\item 
+\#define \hyperlink{openavb__os__services__osal_8h_a5da8c88af746155c30c249e0d53c7519}{S\+E\+M\+\_\+\+D\+E\+S\+T\+R\+OY}(sem,  \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err})~\hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err} = sem\+\_\+destroy(\&sem);
+\item 
+\#define \hyperlink{openavb__os__services__osal_8h_ac56ef0866aba0eacf90e851092f6e905}{S\+E\+M\+\_\+\+I\+S\+\_\+\+E\+R\+R\+\_\+\+N\+O\+NE}(\hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err})~(0 == \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err})
+\item 
+\#define \hyperlink{openavb__os__services__osal_8h_a337a9b632d9f02bbd1021ab8f37ce0b9}{S\+E\+M\+\_\+\+I\+S\+\_\+\+E\+R\+R\+\_\+\+T\+I\+M\+E\+O\+UT}(\hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err})~(E\+T\+I\+M\+E\+D\+O\+UT == \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err} $\vert$$\vert$ ((-\/1 == \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err}) \&\& (E\+T\+I\+M\+E\+D\+O\+UT == errno)))
+\item 
+\#define \hyperlink{openavb__os__services__osal_8h_a08ee4f392e8b70afcdf34b9803814d9e}{S\+E\+M\+\_\+\+L\+O\+G\+\_\+\+E\+RR}(\hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err})~if (0 != \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err}) \hyperlink{include_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{A\+V\+B\+\_\+\+L\+O\+G\+F\+\_\+\+E\+R\+R\+OR}(\char`\"{}Semaphore error code\+: \%d\char`\"{}, err);
+\item 
+\#define \hyperlink{openavb__os__services__osal_8h_a2672918c192da9451c40dd9cfccaac3d}{L\+I\+N\+K\+\_\+\+L\+IB}(library)~\hyperlink{structlink__lib__t}{link\+\_\+lib\+\_\+t} library
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{openavb__os__services__osal_8h_aae071d49d0bd94071a1b541972783350}{x\+Sleep\+Until\+N\+Sec} (\hyperlink{openavb__types__base__pub_8h_a25809e0734a149248fcf5831efa4e33d}{U64} n\+Sec)
+\item 
+static void \hyperlink{openavb__os__services__osal_8h_af34c1df9bfe50549c9edeb9df0011408}{x\+Spin\+Until\+N\+Sec} (\hyperlink{openavb__types__base__pub_8h_a25809e0734a149248fcf5831efa4e33d}{U64} n\+Sec)
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}!E\+X\+T\+E\+R\+N\+\_\+\+D\+L\+L\+\_\+\+E\+X\+P\+O\+RT@{E\+X\+T\+E\+R\+N\+\_\+\+D\+L\+L\+\_\+\+E\+X\+P\+O\+RT}}
+\index{E\+X\+T\+E\+R\+N\+\_\+\+D\+L\+L\+\_\+\+E\+X\+P\+O\+RT@{E\+X\+T\+E\+R\+N\+\_\+\+D\+L\+L\+\_\+\+E\+X\+P\+O\+RT}!openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}}
+\subsubsection[{\texorpdfstring{E\+X\+T\+E\+R\+N\+\_\+\+D\+L\+L\+\_\+\+E\+X\+P\+O\+RT}{EXTERN_DLL_EXPORT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\+X\+T\+E\+R\+N\+\_\+\+D\+L\+L\+\_\+\+E\+X\+P\+O\+RT~extern {\bf D\+L\+L\+\_\+\+E\+X\+P\+O\+RT}}\hypertarget{openavb__os__services__osal_8h_a6623223a0fdc15097aef480765cd3e5d}{}\label{openavb__os__services__osal_8h_a6623223a0fdc15097aef480765cd3e5d}
+
+
+openavb\+\_\+os\+\_\+services\+\_\+osal.\+h 파일의 52 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}!L\+I\+N\+K\+\_\+\+L\+IB@{L\+I\+N\+K\+\_\+\+L\+IB}}
+\index{L\+I\+N\+K\+\_\+\+L\+IB@{L\+I\+N\+K\+\_\+\+L\+IB}!openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}}
+\subsubsection[{\texorpdfstring{L\+I\+N\+K\+\_\+\+L\+IB}{LINK_LIB}}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\+I\+N\+K\+\_\+\+L\+IB(
+\begin{DoxyParamCaption}
+\item[{}]{library}
+\end{DoxyParamCaption}
+)~{\bf link\+\_\+lib\+\_\+t} library}\hypertarget{openavb__os__services__osal_8h_a2672918c192da9451c40dd9cfccaac3d}{}\label{openavb__os__services__osal_8h_a2672918c192da9451c40dd9cfccaac3d}
+
+
+openavb\+\_\+os\+\_\+services\+\_\+osal.\+h 파일의 194 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}!P\+R\+A\+G\+M\+A\+\_\+\+A\+L\+I\+G\+N\+\_\+8@{P\+R\+A\+G\+M\+A\+\_\+\+A\+L\+I\+G\+N\+\_\+8}}
+\index{P\+R\+A\+G\+M\+A\+\_\+\+A\+L\+I\+G\+N\+\_\+8@{P\+R\+A\+G\+M\+A\+\_\+\+A\+L\+I\+G\+N\+\_\+8}!openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}}
+\subsubsection[{\texorpdfstring{P\+R\+A\+G\+M\+A\+\_\+\+A\+L\+I\+G\+N\+\_\+8}{PRAGMA_ALIGN_8}}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+R\+A\+G\+M\+A\+\_\+\+A\+L\+I\+G\+N\+\_\+8}\hypertarget{openavb__os__services__osal_8h_a96a275c50131304bb21d3b71ffe9e4a5}{}\label{openavb__os__services__osal_8h_a96a275c50131304bb21d3b71ffe9e4a5}
+
+
+openavb\+\_\+os\+\_\+services\+\_\+osal.\+h 파일의 93 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}!P\+T\+H\+R\+E\+A\+D\+\_\+\+M\+U\+T\+E\+X\+\_\+\+R\+E\+C\+U\+R\+S\+I\+VE@{P\+T\+H\+R\+E\+A\+D\+\_\+\+M\+U\+T\+E\+X\+\_\+\+R\+E\+C\+U\+R\+S\+I\+VE}}
+\index{P\+T\+H\+R\+E\+A\+D\+\_\+\+M\+U\+T\+E\+X\+\_\+\+R\+E\+C\+U\+R\+S\+I\+VE@{P\+T\+H\+R\+E\+A\+D\+\_\+\+M\+U\+T\+E\+X\+\_\+\+R\+E\+C\+U\+R\+S\+I\+VE}!openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}}
+\subsubsection[{\texorpdfstring{P\+T\+H\+R\+E\+A\+D\+\_\+\+M\+U\+T\+E\+X\+\_\+\+R\+E\+C\+U\+R\+S\+I\+VE}{PTHREAD_MUTEX_RECURSIVE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+T\+H\+R\+E\+A\+D\+\_\+\+M\+U\+T\+E\+X\+\_\+\+R\+E\+C\+U\+R\+S\+I\+VE~P\+T\+H\+R\+E\+A\+D\+\_\+\+M\+U\+T\+E\+X\+\_\+\+R\+E\+C\+U\+R\+S\+I\+V\+E\+\_\+\+NP}\hypertarget{openavb__os__services__osal_8h_a715e9644a7183d98cb2c9dd41cb89645}{}\label{openavb__os__services__osal_8h_a715e9644a7183d98cb2c9dd41cb89645}
+
+
+openavb\+\_\+os\+\_\+services\+\_\+osal.\+h 파일의 55 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}!R\+A\+ND@{R\+A\+ND}}
+\index{R\+A\+ND@{R\+A\+ND}!openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}}
+\subsubsection[{\texorpdfstring{R\+A\+ND}{RAND}}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+A\+ND(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~random()}\hypertarget{openavb__os__services__osal_8h_aae1349d6c6ad44726e4e0721ae0c3264}{}\label{openavb__os__services__osal_8h_aae1349d6c6ad44726e4e0721ae0c3264}
+
+
+openavb\+\_\+os\+\_\+services\+\_\+osal.\+h 파일의 90 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}!R\+A\+W\+S\+O\+C\+K\+\_\+\+M\+I\+N\+\_\+\+T\+I\+M\+E\+O\+U\+T\+\_\+\+U\+S\+EC@{R\+A\+W\+S\+O\+C\+K\+\_\+\+M\+I\+N\+\_\+\+T\+I\+M\+E\+O\+U\+T\+\_\+\+U\+S\+EC}}
+\index{R\+A\+W\+S\+O\+C\+K\+\_\+\+M\+I\+N\+\_\+\+T\+I\+M\+E\+O\+U\+T\+\_\+\+U\+S\+EC@{R\+A\+W\+S\+O\+C\+K\+\_\+\+M\+I\+N\+\_\+\+T\+I\+M\+E\+O\+U\+T\+\_\+\+U\+S\+EC}!openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}}
+\subsubsection[{\texorpdfstring{R\+A\+W\+S\+O\+C\+K\+\_\+\+M\+I\+N\+\_\+\+T\+I\+M\+E\+O\+U\+T\+\_\+\+U\+S\+EC}{RAWSOCK_MIN_TIMEOUT_USEC}}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+A\+W\+S\+O\+C\+K\+\_\+\+M\+I\+N\+\_\+\+T\+I\+M\+E\+O\+U\+T\+\_\+\+U\+S\+EC~1}\hypertarget{openavb__os__services__osal_8h_a52de065c3b48c7720a6ee81304b8e223}{}\label{openavb__os__services__osal_8h_a52de065c3b48c7720a6ee81304b8e223}
+
+
+openavb\+\_\+os\+\_\+services\+\_\+osal.\+h 파일의 64 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}!S\+E\+M\+\_\+\+D\+E\+S\+T\+R\+OY@{S\+E\+M\+\_\+\+D\+E\+S\+T\+R\+OY}}
+\index{S\+E\+M\+\_\+\+D\+E\+S\+T\+R\+OY@{S\+E\+M\+\_\+\+D\+E\+S\+T\+R\+OY}!openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}}
+\subsubsection[{\texorpdfstring{S\+E\+M\+\_\+\+D\+E\+S\+T\+R\+OY}{SEM_DESTROY}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+E\+M\+\_\+\+D\+E\+S\+T\+R\+OY(
+\begin{DoxyParamCaption}
+\item[{}]{sem, }
+\item[{}]{{\bf err}}
+\end{DoxyParamCaption}
+)~{\bf err} = sem\+\_\+destroy(\&sem);}\hypertarget{openavb__os__services__osal_8h_a5da8c88af746155c30c249e0d53c7519}{}\label{openavb__os__services__osal_8h_a5da8c88af746155c30c249e0d53c7519}
+
+
+openavb\+\_\+os\+\_\+services\+\_\+osal.\+h 파일의 181 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}!S\+E\+M\+\_\+\+E\+R\+R\+\_\+T@{S\+E\+M\+\_\+\+E\+R\+R\+\_\+T}}
+\index{S\+E\+M\+\_\+\+E\+R\+R\+\_\+T@{S\+E\+M\+\_\+\+E\+R\+R\+\_\+T}!openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}}
+\subsubsection[{\texorpdfstring{S\+E\+M\+\_\+\+E\+R\+R\+\_\+T}{SEM_ERR_T}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+E\+M\+\_\+\+E\+R\+R\+\_\+T(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf err}}
+\end{DoxyParamCaption}
+)~int {\bf err};}\hypertarget{openavb__os__services__osal_8h_add4f36a57028e23387408318ea1bdc21}{}\label{openavb__os__services__osal_8h_add4f36a57028e23387408318ea1bdc21}
+
+
+openavb\+\_\+os\+\_\+services\+\_\+osal.\+h 파일의 170 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}!S\+E\+M\+\_\+\+I\+N\+IT@{S\+E\+M\+\_\+\+I\+N\+IT}}
+\index{S\+E\+M\+\_\+\+I\+N\+IT@{S\+E\+M\+\_\+\+I\+N\+IT}!openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}}
+\subsubsection[{\texorpdfstring{S\+E\+M\+\_\+\+I\+N\+IT}{SEM_INIT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+E\+M\+\_\+\+I\+N\+IT(
+\begin{DoxyParamCaption}
+\item[{}]{sem, }
+\item[{}]{init, }
+\item[{}]{{\bf err}}
+\end{DoxyParamCaption}
+)~{\bf err} = sem\+\_\+init(\&sem, 0, init);}\hypertarget{openavb__os__services__osal_8h_ad53fcda7761618d19a05cd5e4fb1d302}{}\label{openavb__os__services__osal_8h_ad53fcda7761618d19a05cd5e4fb1d302}
+
+
+openavb\+\_\+os\+\_\+services\+\_\+osal.\+h 파일의 171 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}!S\+E\+M\+\_\+\+I\+S\+\_\+\+E\+R\+R\+\_\+\+N\+O\+NE@{S\+E\+M\+\_\+\+I\+S\+\_\+\+E\+R\+R\+\_\+\+N\+O\+NE}}
+\index{S\+E\+M\+\_\+\+I\+S\+\_\+\+E\+R\+R\+\_\+\+N\+O\+NE@{S\+E\+M\+\_\+\+I\+S\+\_\+\+E\+R\+R\+\_\+\+N\+O\+NE}!openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}}
+\subsubsection[{\texorpdfstring{S\+E\+M\+\_\+\+I\+S\+\_\+\+E\+R\+R\+\_\+\+N\+O\+NE}{SEM_IS_ERR_NONE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+E\+M\+\_\+\+I\+S\+\_\+\+E\+R\+R\+\_\+\+N\+O\+NE(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf err}}
+\end{DoxyParamCaption}
+)~(0 == {\bf err})}\hypertarget{openavb__os__services__osal_8h_ac56ef0866aba0eacf90e851092f6e905}{}\label{openavb__os__services__osal_8h_ac56ef0866aba0eacf90e851092f6e905}
+
+
+openavb\+\_\+os\+\_\+services\+\_\+osal.\+h 파일의 182 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}!S\+E\+M\+\_\+\+I\+S\+\_\+\+E\+R\+R\+\_\+\+T\+I\+M\+E\+O\+UT@{S\+E\+M\+\_\+\+I\+S\+\_\+\+E\+R\+R\+\_\+\+T\+I\+M\+E\+O\+UT}}
+\index{S\+E\+M\+\_\+\+I\+S\+\_\+\+E\+R\+R\+\_\+\+T\+I\+M\+E\+O\+UT@{S\+E\+M\+\_\+\+I\+S\+\_\+\+E\+R\+R\+\_\+\+T\+I\+M\+E\+O\+UT}!openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}}
+\subsubsection[{\texorpdfstring{S\+E\+M\+\_\+\+I\+S\+\_\+\+E\+R\+R\+\_\+\+T\+I\+M\+E\+O\+UT}{SEM_IS_ERR_TIMEOUT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+E\+M\+\_\+\+I\+S\+\_\+\+E\+R\+R\+\_\+\+T\+I\+M\+E\+O\+UT(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf err}}
+\end{DoxyParamCaption}
+)~(E\+T\+I\+M\+E\+D\+O\+UT == {\bf err} $\vert$$\vert$ ((-\/1 == {\bf err}) \&\& (E\+T\+I\+M\+E\+D\+O\+UT == errno)))}\hypertarget{openavb__os__services__osal_8h_a337a9b632d9f02bbd1021ab8f37ce0b9}{}\label{openavb__os__services__osal_8h_a337a9b632d9f02bbd1021ab8f37ce0b9}
+
+
+openavb\+\_\+os\+\_\+services\+\_\+osal.\+h 파일의 183 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}!S\+E\+M\+\_\+\+L\+O\+G\+\_\+\+E\+RR@{S\+E\+M\+\_\+\+L\+O\+G\+\_\+\+E\+RR}}
+\index{S\+E\+M\+\_\+\+L\+O\+G\+\_\+\+E\+RR@{S\+E\+M\+\_\+\+L\+O\+G\+\_\+\+E\+RR}!openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}}
+\subsubsection[{\texorpdfstring{S\+E\+M\+\_\+\+L\+O\+G\+\_\+\+E\+RR}{SEM_LOG_ERR}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+E\+M\+\_\+\+L\+O\+G\+\_\+\+E\+RR(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf err}}
+\end{DoxyParamCaption}
+)~if (0 != {\bf err}) {\bf A\+V\+B\+\_\+\+L\+O\+G\+F\+\_\+\+E\+R\+R\+OR}(\char`\"{}Semaphore error code\+: \%d\char`\"{}, err);}\hypertarget{openavb__os__services__osal_8h_a08ee4f392e8b70afcdf34b9803814d9e}{}\label{openavb__os__services__osal_8h_a08ee4f392e8b70afcdf34b9803814d9e}
+
+
+openavb\+\_\+os\+\_\+services\+\_\+osal.\+h 파일의 184 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}!S\+E\+M\+\_\+\+P\+O\+ST@{S\+E\+M\+\_\+\+P\+O\+ST}}
+\index{S\+E\+M\+\_\+\+P\+O\+ST@{S\+E\+M\+\_\+\+P\+O\+ST}!openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}}
+\subsubsection[{\texorpdfstring{S\+E\+M\+\_\+\+P\+O\+ST}{SEM_POST}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+E\+M\+\_\+\+P\+O\+ST(
+\begin{DoxyParamCaption}
+\item[{}]{sem, }
+\item[{}]{{\bf err}}
+\end{DoxyParamCaption}
+)~{\bf err} = sem\+\_\+post(\&sem);}\hypertarget{openavb__os__services__osal_8h_a4c1a42ac475ca66956659d7bc8445646}{}\label{openavb__os__services__osal_8h_a4c1a42ac475ca66956659d7bc8445646}
+
+
+openavb\+\_\+os\+\_\+services\+\_\+osal.\+h 파일의 180 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}!S\+E\+M\+\_\+T@{S\+E\+M\+\_\+T}}
+\index{S\+E\+M\+\_\+T@{S\+E\+M\+\_\+T}!openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}}
+\subsubsection[{\texorpdfstring{S\+E\+M\+\_\+T}{SEM_T}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+E\+M\+\_\+T(
+\begin{DoxyParamCaption}
+\item[{}]{sem}
+\end{DoxyParamCaption}
+)~sem\+\_\+t sem;}\hypertarget{openavb__os__services__osal_8h_a0e7e6cd2fc2282037e51d1157ae218d4}{}\label{openavb__os__services__osal_8h_a0e7e6cd2fc2282037e51d1157ae218d4}
+
+
+openavb\+\_\+os\+\_\+services\+\_\+osal.\+h 파일의 169 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}!S\+E\+M\+\_\+\+T\+I\+M\+E\+D\+W\+A\+IT@{S\+E\+M\+\_\+\+T\+I\+M\+E\+D\+W\+A\+IT}}
+\index{S\+E\+M\+\_\+\+T\+I\+M\+E\+D\+W\+A\+IT@{S\+E\+M\+\_\+\+T\+I\+M\+E\+D\+W\+A\+IT}!openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}}
+\subsubsection[{\texorpdfstring{S\+E\+M\+\_\+\+T\+I\+M\+E\+D\+W\+A\+IT}{SEM_TIMEDWAIT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+E\+M\+\_\+\+T\+I\+M\+E\+D\+W\+A\+IT(
+\begin{DoxyParamCaption}
+\item[{}]{sem, }
+\item[{}]{timeout\+M\+Sec, }
+\item[{}]{{\bf err}}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__os__services__osal_8h_addb345bd33172ab34c0a14a41cf8f06b}{}\label{openavb__os__services__osal_8h_addb345bd33172ab34c0a14a41cf8f06b}
+{\bfseries 값\+:}
+\begin{DoxyCode}
+\{                                                                           \(\backslash\)
+    struct timespec \hyperlink{aaf-listener_8c_a869c60cb165af7b6177060c00c5c416c}{timeout};                                             
+      \hyperlink{build_2sdk__eavb_2openavb__time__osal__pub_8h_adcbbf5c8513dfa6442d6669d5b190b7e}{\(\backslash\)}
+\hyperlink{build_2sdk__eavb_2openavb__time__osal__pub_8h_adcbbf5c8513dfa6442d6669d5b190b7e}{    CLOCK\_GETTIME}(\hyperlink{build_2sdk__eavb_2openavb__time__osal__pub_8h_a8a087678c40dd3f078c5bce1297a62b8a94d9239257b8a212a60a5dcb7ae1b9bb}{OPENAVB\_CLOCK\_REALTIME}, &timeout);                                
+      \hyperlink{openavb__time_8c_a7b7e16b15efdbf7392626ee7cd38a1f5}{\(\backslash\)}
+\hyperlink{openavb__time_8c_a7b7e16b15efdbf7392626ee7cd38a1f5}{    openavbTimeTimespecAddUsec}(&timeout, timeoutMSec * 
+      \hyperlink{maap__helper__linux_8h_a755c3bf7fe83b64e12bf570117433f93}{MICROSECONDS\_PER\_MSEC});    \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{\(\backslash\)}
+\hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{    err} = sem\_timedwait(&sem, &timeout);                                    \(\backslash\)
+\}
+\end{DoxyCode}
+
+
+openavb\+\_\+os\+\_\+services\+\_\+osal.\+h 파일의 173 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}!S\+E\+M\+\_\+\+W\+A\+IT@{S\+E\+M\+\_\+\+W\+A\+IT}}
+\index{S\+E\+M\+\_\+\+W\+A\+IT@{S\+E\+M\+\_\+\+W\+A\+IT}!openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}}
+\subsubsection[{\texorpdfstring{S\+E\+M\+\_\+\+W\+A\+IT}{SEM_WAIT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+E\+M\+\_\+\+W\+A\+IT(
+\begin{DoxyParamCaption}
+\item[{}]{sem, }
+\item[{}]{{\bf err}}
+\end{DoxyParamCaption}
+)~{\bf err} = sem\+\_\+wait(\&sem);}\hypertarget{openavb__os__services__osal_8h_a8120527bb34794a40dedcda544d1c140}{}\label{openavb__os__services__osal_8h_a8120527bb34794a40dedcda544d1c140}
+
+
+openavb\+\_\+os\+\_\+services\+\_\+osal.\+h 파일의 172 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}!S\+I\+G\+N\+A\+L\+\_\+\+C\+A\+L\+L\+B\+A\+C\+K\+\_\+\+S\+E\+T\+UP@{S\+I\+G\+N\+A\+L\+\_\+\+C\+A\+L\+L\+B\+A\+C\+K\+\_\+\+S\+E\+T\+UP}}
+\index{S\+I\+G\+N\+A\+L\+\_\+\+C\+A\+L\+L\+B\+A\+C\+K\+\_\+\+S\+E\+T\+UP@{S\+I\+G\+N\+A\+L\+\_\+\+C\+A\+L\+L\+B\+A\+C\+K\+\_\+\+S\+E\+T\+UP}!openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}}
+\subsubsection[{\texorpdfstring{S\+I\+G\+N\+A\+L\+\_\+\+C\+A\+L\+L\+B\+A\+C\+K\+\_\+\+S\+E\+T\+UP}{SIGNAL_CALLBACK_SETUP}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+I\+G\+N\+A\+L\+\_\+\+C\+A\+L\+L\+B\+A\+C\+K\+\_\+\+S\+E\+T\+UP(
+\begin{DoxyParamCaption}
+\item[{}]{\+\_\+\+\_\+\+N\+AM, }
+\item[{}]{\+\_\+\+\_\+\+CB}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__os__services__osal_8h_a47a392bf549833530fc6fe22349c4b03}{}\label{openavb__os__services__osal_8h_a47a392bf549833530fc6fe22349c4b03}
+{\bfseries 값\+:}
+\begin{DoxyCode}
+\textcolor{keyword}{struct }sigaction \_\_NAM;                                     \(\backslash\)
+    \_\_NAM.sa\_handler = \_\_CB
+\end{DoxyCode}
+
+
+openavb\+\_\+os\+\_\+services\+\_\+osal.\+h 파일의 95 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}!S\+I\+G\+N\+A\+L\+\_\+\+S\+I\+G\+N\+A\+L\+\_\+\+S\+E\+T\+UP@{S\+I\+G\+N\+A\+L\+\_\+\+S\+I\+G\+N\+A\+L\+\_\+\+S\+E\+T\+UP}}
+\index{S\+I\+G\+N\+A\+L\+\_\+\+S\+I\+G\+N\+A\+L\+\_\+\+S\+E\+T\+UP@{S\+I\+G\+N\+A\+L\+\_\+\+S\+I\+G\+N\+A\+L\+\_\+\+S\+E\+T\+UP}!openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}}
+\subsubsection[{\texorpdfstring{S\+I\+G\+N\+A\+L\+\_\+\+S\+I\+G\+N\+A\+L\+\_\+\+S\+E\+T\+UP}{SIGNAL_SIGNAL_SETUP}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+I\+G\+N\+A\+L\+\_\+\+S\+I\+G\+N\+A\+L\+\_\+\+S\+E\+T\+UP(
+\begin{DoxyParamCaption}
+\item[{}]{\+\_\+\+\_\+\+S\+IG, }
+\item[{}]{\+\_\+\+\_\+\+N\+AM, }
+\item[{}]{\+\_\+\+\_\+\+CB, }
+\item[{}]{\+\_\+\+\_\+\+E\+RR}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__os__services__osal_8h_a57a17c956d857629d063da5a8e276227}{}\label{openavb__os__services__osal_8h_a57a17c956d857629d063da5a8e276227}
+{\bfseries 값\+:}
+\begin{DoxyCode}
+sigemptyset(&\_\_NAM.sa\_mask);                                \(\backslash\)
+    \_\_NAM.sa\_flags = 0;                                         \(\backslash\)
+    \_\_ERR = sigaction(\_\_SIG, &\_\_NAM, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL})
+\end{DoxyCode}
+
+
+openavb\+\_\+os\+\_\+services\+\_\+osal.\+h 파일의 99 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}!S\+L\+E\+EP@{S\+L\+E\+EP}}
+\index{S\+L\+E\+EP@{S\+L\+E\+EP}!openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}}
+\subsubsection[{\texorpdfstring{S\+L\+E\+EP}{SLEEP}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+L\+E\+EP(
+\begin{DoxyParamCaption}
+\item[{}]{sec}
+\end{DoxyParamCaption}
+)~sleep(sec)}\hypertarget{openavb__os__services__osal_8h_ace78aa460400bce4cd196668fd1079bd}{}\label{openavb__os__services__osal_8h_ace78aa460400bce4cd196668fd1079bd}
+
+
+openavb\+\_\+os\+\_\+services\+\_\+osal.\+h 파일의 66 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}!S\+L\+E\+E\+P\+\_\+\+M\+S\+EC@{S\+L\+E\+E\+P\+\_\+\+M\+S\+EC}}
+\index{S\+L\+E\+E\+P\+\_\+\+M\+S\+EC@{S\+L\+E\+E\+P\+\_\+\+M\+S\+EC}!openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}}
+\subsubsection[{\texorpdfstring{S\+L\+E\+E\+P\+\_\+\+M\+S\+EC}{SLEEP_MSEC}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+L\+E\+E\+P\+\_\+\+M\+S\+EC(
+\begin{DoxyParamCaption}
+\item[{}]{m\+Sec}
+\end{DoxyParamCaption}
+)~usleep(m\+Sec $\ast$ 1000)}\hypertarget{openavb__os__services__osal_8h_a63121b744a6265fe4bae4963b032ac02}{}\label{openavb__os__services__osal_8h_a63121b744a6265fe4bae4963b032ac02}
+
+
+openavb\+\_\+os\+\_\+services\+\_\+osal.\+h 파일의 67 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}!S\+L\+E\+E\+P\+\_\+\+N\+S\+EC@{S\+L\+E\+E\+P\+\_\+\+N\+S\+EC}}
+\index{S\+L\+E\+E\+P\+\_\+\+N\+S\+EC@{S\+L\+E\+E\+P\+\_\+\+N\+S\+EC}!openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}}
+\subsubsection[{\texorpdfstring{S\+L\+E\+E\+P\+\_\+\+N\+S\+EC}{SLEEP_NSEC}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+L\+E\+E\+P\+\_\+\+N\+S\+EC(
+\begin{DoxyParamCaption}
+\item[{}]{n\+Sec}
+\end{DoxyParamCaption}
+)~usleep(n\+Sec / 1000)}\hypertarget{openavb__os__services__osal_8h_a05bd45062a4d5672b10dceac6a7db32f}{}\label{openavb__os__services__osal_8h_a05bd45062a4d5672b10dceac6a7db32f}
+
+
+openavb\+\_\+os\+\_\+services\+\_\+osal.\+h 파일의 68 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}!S\+L\+E\+E\+P\+\_\+\+U\+N\+T\+I\+L\+\_\+\+N\+S\+EC@{S\+L\+E\+E\+P\+\_\+\+U\+N\+T\+I\+L\+\_\+\+N\+S\+EC}}
+\index{S\+L\+E\+E\+P\+\_\+\+U\+N\+T\+I\+L\+\_\+\+N\+S\+EC@{S\+L\+E\+E\+P\+\_\+\+U\+N\+T\+I\+L\+\_\+\+N\+S\+EC}!openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}}
+\subsubsection[{\texorpdfstring{S\+L\+E\+E\+P\+\_\+\+U\+N\+T\+I\+L\+\_\+\+N\+S\+EC}{SLEEP_UNTIL_NSEC}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+L\+E\+E\+P\+\_\+\+U\+N\+T\+I\+L\+\_\+\+N\+S\+EC(
+\begin{DoxyParamCaption}
+\item[{}]{n\+Sec}
+\end{DoxyParamCaption}
+)~{\bf x\+Sleep\+Until\+N\+Sec}(n\+Sec)}\hypertarget{openavb__os__services__osal_8h_a4b5c613e83d1ac39a9a6e48b7532c0c7}{}\label{openavb__os__services__osal_8h_a4b5c613e83d1ac39a9a6e48b7532c0c7}
+
+
+openavb\+\_\+os\+\_\+services\+\_\+osal.\+h 파일의 69 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}!S\+P\+I\+N\+\_\+\+U\+N\+T\+I\+L\+\_\+\+N\+S\+EC@{S\+P\+I\+N\+\_\+\+U\+N\+T\+I\+L\+\_\+\+N\+S\+EC}}
+\index{S\+P\+I\+N\+\_\+\+U\+N\+T\+I\+L\+\_\+\+N\+S\+EC@{S\+P\+I\+N\+\_\+\+U\+N\+T\+I\+L\+\_\+\+N\+S\+EC}!openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}}
+\subsubsection[{\texorpdfstring{S\+P\+I\+N\+\_\+\+U\+N\+T\+I\+L\+\_\+\+N\+S\+EC}{SPIN_UNTIL_NSEC}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+P\+I\+N\+\_\+\+U\+N\+T\+I\+L\+\_\+\+N\+S\+EC(
+\begin{DoxyParamCaption}
+\item[{}]{nsec}
+\end{DoxyParamCaption}
+)~{\bf x\+Spin\+Until\+N\+Sec}(nsec)}\hypertarget{openavb__os__services__osal_8h_a55353fc8f47d4fa61265b4ebb553ad92}{}\label{openavb__os__services__osal_8h_a55353fc8f47d4fa61265b4ebb553ad92}
+
+
+openavb\+\_\+os\+\_\+services\+\_\+osal.\+h 파일의 78 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}!S\+R\+A\+ND@{S\+R\+A\+ND}}
+\index{S\+R\+A\+ND@{S\+R\+A\+ND}!openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}}
+\subsubsection[{\texorpdfstring{S\+R\+A\+ND}{SRAND}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+R\+A\+ND(
+\begin{DoxyParamCaption}
+\item[{}]{seed}
+\end{DoxyParamCaption}
+)~srandom(seed)}\hypertarget{openavb__os__services__osal_8h_a4d0de661655f1180da59735050749061}{}\label{openavb__os__services__osal_8h_a4d0de661655f1180da59735050749061}
+
+
+openavb\+\_\+os\+\_\+services\+\_\+osal.\+h 파일의 91 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}!T\+H\+R\+E\+A\+D\+\_\+\+C\+H\+E\+C\+K\+\_\+\+E\+R\+R\+OR@{T\+H\+R\+E\+A\+D\+\_\+\+C\+H\+E\+C\+K\+\_\+\+E\+R\+R\+OR}}
+\index{T\+H\+R\+E\+A\+D\+\_\+\+C\+H\+E\+C\+K\+\_\+\+E\+R\+R\+OR@{T\+H\+R\+E\+A\+D\+\_\+\+C\+H\+E\+C\+K\+\_\+\+E\+R\+R\+OR}!openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}}
+\subsubsection[{\texorpdfstring{T\+H\+R\+E\+A\+D\+\_\+\+C\+H\+E\+C\+K\+\_\+\+E\+R\+R\+OR}{THREAD_CHECK_ERROR}}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+H\+R\+E\+A\+D\+\_\+\+C\+H\+E\+C\+K\+\_\+\+E\+R\+R\+OR(
+\begin{DoxyParamCaption}
+\item[{}]{threadhandle, }
+\item[{}]{message, }
+\item[{}]{error}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__os__services__osal_8h_a2d61dbf377bb5ab560d4b4bddf49c9c2}{}\label{openavb__os__services__osal_8h_a2d61dbf377bb5ab560d4b4bddf49c9c2}
+{\bfseries 값\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{                                                                                        \(\backslash\)
+        error=\hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};                                                                           \(\backslash\)
+        if (threadhandle##\_ThreadData.err != 0)                                                 \(\backslash\)
+        \{                                                                                       
+      \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{\(\backslash\)}
+\hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{            AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Thread error: %s code: %d"}, message, threadhandle##\_ThreadData
+      .err);   \(\backslash\)
+            error=\hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};                                                                         \(\backslash\)
+            break;                                                                              \(\backslash\)
+        \}                                                                                       \(\backslash\)
+    \} \textcolor{keywordflow}{while} (0)
+\end{DoxyCode}
+
+
+openavb\+\_\+os\+\_\+services\+\_\+osal.\+h 파일의 151 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}!T\+H\+R\+E\+A\+D\+\_\+\+C\+R\+E\+A\+TE@{T\+H\+R\+E\+A\+D\+\_\+\+C\+R\+E\+A\+TE}}
+\index{T\+H\+R\+E\+A\+D\+\_\+\+C\+R\+E\+A\+TE@{T\+H\+R\+E\+A\+D\+\_\+\+C\+R\+E\+A\+TE}!openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}}
+\subsubsection[{\texorpdfstring{T\+H\+R\+E\+A\+D\+\_\+\+C\+R\+E\+A\+TE}{THREAD_CREATE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+H\+R\+E\+A\+D\+\_\+\+C\+R\+E\+A\+TE(
+\begin{DoxyParamCaption}
+\item[{}]{thread\+Name, }
+\item[{}]{threadhandle, }
+\item[{}]{thread\+\_\+attr\+\_\+name, }
+\item[{}]{thread\+\_\+function, }
+\item[{}]{thread\+\_\+function\+\_\+arg}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__os__services__osal_8h_a153e2ca1dd20bd23c619f8d2bafcc764}{}\label{openavb__os__services__osal_8h_a153e2ca1dd20bd23c619f8d2bafcc764}
+{\bfseries 값\+:}
+\begin{DoxyCode}
+\{                                                                                                               
+      \(\backslash\)
+        pthread\_attr\_t thread\_attr;                                                                                 
+      \(\backslash\)
+        do \{                                                                                                        
+      \(\backslash\)
+            threadhandle##\_ThreadData.err = pthread\_attr\_init(&thread\_attr);                                        
+      \(\backslash\)
+            if (threadhandle##\_ThreadData.err) break;                                                               
+      \(\backslash\)
+            threadhandle\textcolor{preprocessor}{##\_ThreadData.err = pthread\_attr\_setstacksize(&thread\_attr,
+       threadName##\_THREAD\_STK\_SIZE);  \(\backslash\)}
+\textcolor{preprocessor}{            if (threadhandle##\_ThreadData.err) break;                                                               
+      \(\backslash\)}
+\textcolor{preprocessor}{            threadhandle##\_ThreadData.err = pthread\_create(                                                         
+      \(\backslash\)}
+\textcolor{preprocessor}{                (pthread\_t*)&threadhandle##\_ThreadData.pthread,                                                     
+      \(\backslash\)}
+\textcolor{preprocessor}{                &thread\_attr,                                                                                       
+      \(\backslash\)}
+\textcolor{preprocessor}{                thread\_function,                                                                                    
+      \(\backslash\)}
+\textcolor{preprocessor}{                (void*)thread\_function\_arg);                                                                        
+      \(\backslash\)}
+\textcolor{preprocessor}{        \} while (0);                                                                                                
+      \(\backslash\)}
+\textcolor{preprocessor}{        pthread\_attr\_destroy(&thread\_attr);                                                                         
+      \(\backslash\)}
+\textcolor{preprocessor}{    \}}
+\end{DoxyCode}
+
+
+openavb\+\_\+os\+\_\+services\+\_\+osal.\+h 파일의 116 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}!T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+ON@{T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+ON}}
+\index{T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+ON@{T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+ON}!openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}}
+\subsubsection[{\texorpdfstring{T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+ON}{THREAD_DEFINITON}}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+ON(
+\begin{DoxyParamCaption}
+\item[{}]{thread}
+\end{DoxyParamCaption}
+)~thread\#\#\+\_\+type	thread\#\#\+\_\+\+Thread\+Data}\hypertarget{openavb__os__services__osal_8h_afc13e75af8bd27e0b1e10e83d255e1c3}{}\label{openavb__os__services__osal_8h_afc13e75af8bd27e0b1e10e83d255e1c3}
+
+
+openavb\+\_\+os\+\_\+services\+\_\+osal.\+h 파일의 113 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}!T\+H\+R\+E\+A\+D\+\_\+\+J\+O\+IN@{T\+H\+R\+E\+A\+D\+\_\+\+J\+O\+IN}}
+\index{T\+H\+R\+E\+A\+D\+\_\+\+J\+O\+IN@{T\+H\+R\+E\+A\+D\+\_\+\+J\+O\+IN}!openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}}
+\subsubsection[{\texorpdfstring{T\+H\+R\+E\+A\+D\+\_\+\+J\+O\+IN}{THREAD_JOIN}}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+H\+R\+E\+A\+D\+\_\+\+J\+O\+IN(
+\begin{DoxyParamCaption}
+\item[{}]{threadhandle, }
+\item[{}]{signal}
+\end{DoxyParamCaption}
+)~pthread\+\_\+join(threadhandle\#\#\+\_\+\+Thread\+Data.\+pthread, (void$\ast$$\ast$)signal)}\hypertarget{openavb__os__services__osal_8h_ab2bcb74112112a2ed181d5784e0530f3}{}\label{openavb__os__services__osal_8h_ab2bcb74112112a2ed181d5784e0530f3}
+
+
+openavb\+\_\+os\+\_\+services\+\_\+osal.\+h 파일의 165 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}!T\+H\+R\+E\+A\+D\+\_\+\+J\+O\+I\+N\+A\+B\+LE@{T\+H\+R\+E\+A\+D\+\_\+\+J\+O\+I\+N\+A\+B\+LE}}
+\index{T\+H\+R\+E\+A\+D\+\_\+\+J\+O\+I\+N\+A\+B\+LE@{T\+H\+R\+E\+A\+D\+\_\+\+J\+O\+I\+N\+A\+B\+LE}!openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}}
+\subsubsection[{\texorpdfstring{T\+H\+R\+E\+A\+D\+\_\+\+J\+O\+I\+N\+A\+B\+LE}{THREAD_JOINABLE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+H\+R\+E\+A\+D\+\_\+\+J\+O\+I\+N\+A\+B\+LE(
+\begin{DoxyParamCaption}
+\item[{}]{threadhandle}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__os__services__osal_8h_a75c94f5239423fe515fb11ce578b2801}{}\label{openavb__os__services__osal_8h_a75c94f5239423fe515fb11ce578b2801}
+
+
+openavb\+\_\+os\+\_\+services\+\_\+osal.\+h 파일의 164 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}!T\+H\+R\+E\+A\+D\+\_\+\+K\+I\+LL@{T\+H\+R\+E\+A\+D\+\_\+\+K\+I\+LL}}
+\index{T\+H\+R\+E\+A\+D\+\_\+\+K\+I\+LL@{T\+H\+R\+E\+A\+D\+\_\+\+K\+I\+LL}!openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}}
+\subsubsection[{\texorpdfstring{T\+H\+R\+E\+A\+D\+\_\+\+K\+I\+LL}{THREAD_KILL}}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+H\+R\+E\+A\+D\+\_\+\+K\+I\+LL(
+\begin{DoxyParamCaption}
+\item[{}]{threadhandle, }
+\item[{}]{signal}
+\end{DoxyParamCaption}
+)~pthread\+\_\+kill(threadhandle\#\#\+\_\+\+Thread\+Data.\+pthread, signal)}\hypertarget{openavb__os__services__osal_8h_a19cbc566240391c899e8b82c56e01368}{}\label{openavb__os__services__osal_8h_a19cbc566240391c899e8b82c56e01368}
+
+
+openavb\+\_\+os\+\_\+services\+\_\+osal.\+h 파일의 163 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}!T\+H\+R\+E\+A\+D\+\_\+\+P\+IN@{T\+H\+R\+E\+A\+D\+\_\+\+P\+IN}}
+\index{T\+H\+R\+E\+A\+D\+\_\+\+P\+IN@{T\+H\+R\+E\+A\+D\+\_\+\+P\+IN}!openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}}
+\subsubsection[{\texorpdfstring{T\+H\+R\+E\+A\+D\+\_\+\+P\+IN}{THREAD_PIN}}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+H\+R\+E\+A\+D\+\_\+\+P\+IN(
+\begin{DoxyParamCaption}
+\item[{}]{threadhandle, }
+\item[{}]{affinity}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__os__services__osal_8h_af813fb18112bc0badd9248a217965df4}{}\label{openavb__os__services__osal_8h_af813fb18112bc0badd9248a217965df4}
+{\bfseries 값\+:}
+\begin{DoxyCode}
+\{                                                                                                   \(\backslash\)
+        cpu\_set\_t cpuset;                                                                               \(\backslash\)
+        int i1;                                                                                         \(\backslash\)
+        CPU\_ZERO(&cpuset);                                                                              \(\backslash\)
+        for (i1 = 0; i1 < 32; i1++) \{                                                                   \(\backslash\)
+            if (affinity & (1 << i1)) CPU\_SET(i1, &cpuset);                                                                     
+      \(\backslash\)
+        \}                                                                                               \(\backslash\)
+        pthread\_setaffinity\_np(threadhandle\textcolor{preprocessor}{##\_ThreadData.pthread, sizeof(cpu\_set\_t), &cpuset);          \(\backslash\)}
+\textcolor{preprocessor}{    \}}
+\end{DoxyCode}
+
+
+openavb\+\_\+os\+\_\+services\+\_\+osal.\+h 파일의 140 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}!T\+H\+R\+E\+A\+D\+\_\+\+S\+E\+T\+\_\+\+R\+T\+\_\+\+P\+R\+I\+O\+R\+I\+TY@{T\+H\+R\+E\+A\+D\+\_\+\+S\+E\+T\+\_\+\+R\+T\+\_\+\+P\+R\+I\+O\+R\+I\+TY}}
+\index{T\+H\+R\+E\+A\+D\+\_\+\+S\+E\+T\+\_\+\+R\+T\+\_\+\+P\+R\+I\+O\+R\+I\+TY@{T\+H\+R\+E\+A\+D\+\_\+\+S\+E\+T\+\_\+\+R\+T\+\_\+\+P\+R\+I\+O\+R\+I\+TY}!openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}}
+\subsubsection[{\texorpdfstring{T\+H\+R\+E\+A\+D\+\_\+\+S\+E\+T\+\_\+\+R\+T\+\_\+\+P\+R\+I\+O\+R\+I\+TY}{THREAD_SET_RT_PRIORITY}}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+H\+R\+E\+A\+D\+\_\+\+S\+E\+T\+\_\+\+R\+T\+\_\+\+P\+R\+I\+O\+R\+I\+TY(
+\begin{DoxyParamCaption}
+\item[{}]{threadhandle, }
+\item[{}]{{\bf priority}}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__os__services__osal_8h_a3b03a9323e764b881258cb8b7841cf02}{}\label{openavb__os__services__osal_8h_a3b03a9323e764b881258cb8b7841cf02}
+{\bfseries 값\+:}
+\begin{DoxyCode}
+\{                                                                                                   \(\backslash\)
+        struct sched\_param param;                                                                       \(\backslash\)
+        param.\_\_sched\_priority = \hyperlink{aaf-talker_8c_acec9ce2df15222151ad66fcb1d74eb9f}{priority};                                                              
+      \(\backslash\)
+        pthread\_setschedparam(threadhandle##\_ThreadData.pthread, SCHED\_RR, &param);                     \(\backslash\)
+    \}
+\end{DoxyCode}
+
+
+openavb\+\_\+os\+\_\+services\+\_\+osal.\+h 파일의 133 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}!T\+H\+R\+E\+A\+D\+\_\+\+S\+L\+E\+EP@{T\+H\+R\+E\+A\+D\+\_\+\+S\+L\+E\+EP}}
+\index{T\+H\+R\+E\+A\+D\+\_\+\+S\+L\+E\+EP@{T\+H\+R\+E\+A\+D\+\_\+\+S\+L\+E\+EP}!openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}}
+\subsubsection[{\texorpdfstring{T\+H\+R\+E\+A\+D\+\_\+\+S\+L\+E\+EP}{THREAD_SLEEP}}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+H\+R\+E\+A\+D\+\_\+\+S\+L\+E\+EP(
+\begin{DoxyParamCaption}
+\item[{}]{threadhandle, }
+\item[{}]{secs}
+\end{DoxyParamCaption}
+)~sleep(secs)}\hypertarget{openavb__os__services__osal_8h_aa36128d9fb7864d66eccdeab4d7e628f}{}\label{openavb__os__services__osal_8h_aa36128d9fb7864d66eccdeab4d7e628f}
+
+
+openavb\+\_\+os\+\_\+services\+\_\+osal.\+h 파일의 166 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}!T\+H\+R\+E\+A\+D\+\_\+\+S\+T\+A\+R\+T\+T\+H\+R\+E\+AD@{T\+H\+R\+E\+A\+D\+\_\+\+S\+T\+A\+R\+T\+T\+H\+R\+E\+AD}}
+\index{T\+H\+R\+E\+A\+D\+\_\+\+S\+T\+A\+R\+T\+T\+H\+R\+E\+AD@{T\+H\+R\+E\+A\+D\+\_\+\+S\+T\+A\+R\+T\+T\+H\+R\+E\+AD}!openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}}
+\subsubsection[{\texorpdfstring{T\+H\+R\+E\+A\+D\+\_\+\+S\+T\+A\+R\+T\+T\+H\+R\+E\+AD}{THREAD_STARTTHREAD}}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+H\+R\+E\+A\+D\+\_\+\+S\+T\+A\+R\+T\+T\+H\+R\+E\+AD(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf err}}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__os__services__osal_8h_a4230cab5d2f762640f2d0eda68af2b28}{}\label{openavb__os__services__osal_8h_a4230cab5d2f762640f2d0eda68af2b28}
+
+
+openavb\+\_\+os\+\_\+services\+\_\+osal.\+h 파일의 162 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}!T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE@{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE}}
+\index{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE@{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE}!openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}}
+\subsubsection[{\texorpdfstring{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE}{THREAD_TYPE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE(
+\begin{DoxyParamCaption}
+\item[{}]{thread}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__os__services__osal_8h_af9c5ee67c09a84c128e270ef81c0f13a}{}\label{openavb__os__services__osal_8h_af9c5ee67c09a84c128e270ef81c0f13a}
+{\bfseries 값\+:}
+\begin{DoxyCode}
+\textcolor{keyword}{typedef} \textcolor{keyword}{struct                                      }\(\backslash\)
+\{                                                   \(\backslash\)
+    pthread\_t pthread;                              \(\backslash\)
+    int \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err};                                     \(\backslash\)
+\} thread##\_type;
+\end{DoxyCode}
+
+
+openavb\+\_\+os\+\_\+services\+\_\+osal.\+h 파일의 106 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{함수 문서화}
+\index{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}!x\+Sleep\+Until\+N\+Sec@{x\+Sleep\+Until\+N\+Sec}}
+\index{x\+Sleep\+Until\+N\+Sec@{x\+Sleep\+Until\+N\+Sec}!openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}}
+\subsubsection[{\texorpdfstring{x\+Sleep\+Until\+N\+Sec(\+U64 n\+Sec)}{xSleepUntilNSec(U64 nSec)}}]{\setlength{\rightskip}{0pt plus 5cm}static void x\+Sleep\+Until\+N\+Sec (
+\begin{DoxyParamCaption}
+\item[{{\bf U64}}]{n\+Sec}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{openavb__os__services__osal_8h_aae071d49d0bd94071a1b541972783350}{}\label{openavb__os__services__osal_8h_aae071d49d0bd94071a1b541972783350}
+
+
+openavb\+\_\+os\+\_\+services\+\_\+osal.\+h 파일의 70 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+71 \{
+72     \textcolor{keyword}{struct }timespec tmpTime;
+73     tmpTime.tv\_sec = nSec / \hyperlink{maap__helper__linux_8h_a5df38c677104658963501aa1e2a88e60}{NANOSECONDS\_PER\_SECOND};
+74     tmpTime.tv\_nsec = nSec % \hyperlink{maap__helper__linux_8h_a5df38c677104658963501aa1e2a88e60}{NANOSECONDS\_PER\_SECOND};
+75     clock\_nanosleep(CLOCK\_MONOTONIC, TIMER\_ABSTIME, &tmpTime, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+76 \}
+\end{DoxyCode}
+\index{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}!x\+Spin\+Until\+N\+Sec@{x\+Spin\+Until\+N\+Sec}}
+\index{x\+Spin\+Until\+N\+Sec@{x\+Spin\+Until\+N\+Sec}!openavb\+\_\+os\+\_\+services\+\_\+osal.\+h@{openavb\+\_\+os\+\_\+services\+\_\+osal.\+h}}
+\subsubsection[{\texorpdfstring{x\+Spin\+Until\+N\+Sec(\+U64 n\+Sec)}{xSpinUntilNSec(U64 nSec)}}]{\setlength{\rightskip}{0pt plus 5cm}static void x\+Spin\+Until\+N\+Sec (
+\begin{DoxyParamCaption}
+\item[{{\bf U64}}]{n\+Sec}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{openavb__os__services__osal_8h_af34c1df9bfe50549c9edeb9df0011408}{}\label{openavb__os__services__osal_8h_af34c1df9bfe50549c9edeb9df0011408}
+
+
+openavb\+\_\+os\+\_\+services\+\_\+osal.\+h 파일의 79 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+80 \{
+81     \textcolor{keywordflow}{do} \{
+82         \hyperlink{openavb__types__base__pub_8h_a25809e0734a149248fcf5831efa4e33d}{U64} spinNowNS;
+83         \hyperlink{build_2sdk__eavb_2openavb__time__osal__pub_8h_a8878dd2cd297356518c25b98f7c73334}{CLOCK\_GETTIME64}(\hyperlink{build_2sdk__eavb_2openavb__time__osal__pub_8h_a8a087678c40dd3f078c5bce1297a62b8ae71d321a7408e8d6a69b10dd9a94f360}{OPENAVB\_CLOCK\_WALLTIME}, &spinNowNS);
+84         \textcolor{keywordflow}{if} (spinNowNS > nSec)
+85             \textcolor{keywordflow}{break};
+86     \}
+87     \textcolor{keywordflow}{while} (1);
+88 \}
+\end{DoxyCode}

@@ -1,0 +1,851 @@
+\hypertarget{group__jdks__log}{}\section{Logging mechanism using multicast A\+E\+CP A\+EM Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+OL Response}
+\label{group__jdks__log}\index{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}}
+Logging mechanism using multicast A\+E\+CP A\+EM Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+OL Response에 대한 협력 다이어그램\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__jdks__log}
+\end{center}
+\end{figure}
+\subsection*{데이타 구조}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structjdksavdecc__jdks__log__control}{jdksavdecc\+\_\+jdks\+\_\+log\+\_\+control}
+\begin{DoxyCompactList}\small\item\em The \hyperlink{structjdksavdecc__jdks__log__control}{jdksavdecc\+\_\+jdks\+\_\+log\+\_\+control} struct is a high level representation of the data transported in a log message to a controller from an entity via an A\+EM S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+OL unsolicited response. \end{DoxyCompactList}\item 
+struct \hyperlink{structjdksavdecc__jdks__log__console__command}{jdksavdecc\+\_\+jdks\+\_\+log\+\_\+console\+\_\+command}
+\begin{DoxyCompactList}\small\item\em The \hyperlink{structjdksavdecc__jdks__log__console__command}{jdksavdecc\+\_\+jdks\+\_\+log\+\_\+console\+\_\+command} struct is a high level representation of the data transported in a console message to an entity from a controller via an A\+EM S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+OL command. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{group__jdks__log_gab4244a790ff2c0aa1fa3a077b7b7e935}{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+E\+R\+R\+OR}~( 0 )
+\item 
+\#define \hyperlink{group__jdks__log_gab00fb723ba991ceb1e80dfb91b91af5d}{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+W\+A\+R\+N\+I\+NG}~( 1 )
+\item 
+\#define \hyperlink{group__jdks__log_ga21fdc8ed4fe36814540b461a4b72d9eb}{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+I\+N\+FO}~( 2 )
+\item 
+\#define \hyperlink{group__jdks__log_ga64e80ebc82c6c88ac37806ac0da6cef0}{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+D\+E\+B\+U\+G1}~( 3 )
+\item 
+\#define \hyperlink{group__jdks__log_ga4ed4c60943c2bf8efe5670badab16a79}{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+D\+E\+B\+U\+G2}~( 4 )
+\item 
+\#define \hyperlink{group__jdks__log_ga04ac1c6799542605464015ecb9bbd207}{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+D\+E\+B\+U\+G3}~( 5 )
+\item 
+\#define \hyperlink{group__jdks__log_ga9ced78c29484cde4fb6d621e8be5c65b}{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+S\+O\+LE}~( 0xff )
+\item 
+\#define \hyperlink{group__jdks__log_ga1eb9143013c3f45edaa1605695e5a6f1}{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+N\+O\+T\+I\+F\+I\+C\+A\+T\+I\+O\+N\+S\+\_\+\+C\+O\+N\+T\+R\+O\+L\+L\+E\+R\+\_\+\+E\+N\+T\+I\+T\+Y\+\_\+\+ID}
+\item 
+\#define \hyperlink{group__jdks__log_gabc09ee25e033c56beeee59de6ce2fc6a}{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+M\+U\+L\+T\+I\+C\+A\+S\+T\+\_\+\+L\+OG}
+\item 
+\#define \hyperlink{group__jdks__log_ga2540d677bf8f7ee2ab29e06e74c384bf}{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+A\+E\+M\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+L\+O\+G\+\_\+\+T\+E\+XT}
+\item 
+\#define \hyperlink{group__jdks__log_gaa09f0dec1864081c2abbc426b9e387fd}{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+V\+E\+N\+D\+O\+R\+\_\+\+E\+U\+I64}~( \hyperlink{group__command__set__control__response_gad54c9d8dd021fce5cb24c880401d316f}{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+A\+E\+M\+\_\+\+C\+O\+M\+M\+A\+N\+D\+\_\+\+S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+R\+E\+S\+P\+O\+N\+S\+E\+\_\+\+L\+EN} + 0 )
+\item 
+\#define \hyperlink{group__jdks__log_ga14027480ca9c47f6e02e3d96e3e9a1ad}{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+B\+L\+O\+B\+\_\+\+S\+I\+ZE}~( \hyperlink{group__command__set__control__response_gad54c9d8dd021fce5cb24c880401d316f}{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+A\+E\+M\+\_\+\+C\+O\+M\+M\+A\+N\+D\+\_\+\+S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+R\+E\+S\+P\+O\+N\+S\+E\+\_\+\+L\+EN} + 8 )
+\item 
+\#define \hyperlink{group__jdks__log_ga15244e4065b3ef420cd990e0d2e6bc0d}{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+L\+O\+G\+\_\+\+D\+E\+T\+A\+IL}~( \hyperlink{group__command__set__control__response_gad54c9d8dd021fce5cb24c880401d316f}{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+A\+E\+M\+\_\+\+C\+O\+M\+M\+A\+N\+D\+\_\+\+S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+R\+E\+S\+P\+O\+N\+S\+E\+\_\+\+L\+EN} + 12 )
+\item 
+\#define \hyperlink{group__jdks__log_gad860e4d61ae3f91cd3f9799e6b1dd3c5}{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+R\+E\+S\+E\+R\+V\+ED}~( \hyperlink{group__command__set__control__response_gad54c9d8dd021fce5cb24c880401d316f}{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+A\+E\+M\+\_\+\+C\+O\+M\+M\+A\+N\+D\+\_\+\+S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+R\+E\+S\+P\+O\+N\+S\+E\+\_\+\+L\+EN} + 13 )
+\item 
+\#define \hyperlink{group__jdks__log_gaa3f2c42190fdfb5a9f8927254dcc38f0}{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+T\+E\+XT}~( \hyperlink{group__command__set__control__response_gad54c9d8dd021fce5cb24c880401d316f}{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+A\+E\+M\+\_\+\+C\+O\+M\+M\+A\+N\+D\+\_\+\+S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+R\+E\+S\+P\+O\+N\+S\+E\+\_\+\+L\+EN} + 14 )
+\item 
+\#define \hyperlink{group__jdks__log_gaade756dffaac6e4f6d3d3b16e4cea38b}{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+L\+EN}~\hyperlink{group__jdks__log_gaa3f2c42190fdfb5a9f8927254dcc38f0}{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+T\+E\+XT}
+\item 
+\#define \hyperlink{group__jdks__log_gaaa43d62d581d06b4c563a3ac9f689730}{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+M\+A\+X\+\_\+\+T\+E\+X\+T\+\_\+\+L\+EN}~( \hyperlink{group__aem__command_ga91176affe15020f1b22b04518eeb3d30}{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+A\+E\+M\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+V\+A\+L\+U\+E\+\_\+\+T\+Y\+P\+E\+\_\+\+B\+L\+O\+B\+\_\+\+M\+A\+X\+\_\+\+S\+I\+ZE} -\/ 2 )
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+static ssize\+\_\+t \hyperlink{group__jdks__log_gac5d38dde1fbdb45e3d413b9e1cae5ac3}{jdksavdecc\+\_\+jdks\+\_\+log\+\_\+control\+\_\+generate} (struct \hyperlink{structjdksavdecc__eui64}{jdksavdecc\+\_\+eui64} const $\ast$my\+\_\+entity\+\_\+id, uint16\+\_\+t descriptor\+\_\+index, uint16\+\_\+t $\ast$sequence\+\_\+id, \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\+\_\+t} log\+\_\+detail, \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\+\_\+t} reserved, const char $\ast$utf8\+\_\+log\+\_\+string, void $\ast$buf, size\+\_\+t len)
+\item 
+static ssize\+\_\+t \hyperlink{group__jdks__log_gafe5b02f5ce9b2bf01f6b6f2213e1a209}{jdksavdecc\+\_\+jdks\+\_\+log\+\_\+console\+\_\+generate} (struct \hyperlink{structjdksavdecc__eui64}{jdksavdecc\+\_\+eui64} const $\ast$my\+\_\+entity\+\_\+id, struct \hyperlink{structjdksavdecc__eui64}{jdksavdecc\+\_\+eui64} const $\ast$target\+\_\+entity\+\_\+id, uint16\+\_\+t descriptor\+\_\+index, uint16\+\_\+t $\ast$sequence\+\_\+id, \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\+\_\+t} log\+\_\+detail, \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\+\_\+t} reserved, const char $\ast$utf8\+\_\+log\+\_\+string, \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\+\_\+t} $\ast$buf, size\+\_\+t len)
+\item 
+static \hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{group__jdks__log_ga794436f7d0288c29ac4c0002b27c615b}{jdksavdecc\+\_\+jdks\+\_\+is\+\_\+log} (struct \hyperlink{structjdksavdecc__jdks__log__control}{jdksavdecc\+\_\+jdks\+\_\+log\+\_\+control} $\ast$p, void const $\ast$buf, size\+\_\+t len)
+\begin{DoxyCompactList}\small\item\em jdksavdecc\+\_\+jdks\+\_\+is\+\_\+log checks to see if an etherent frame is a log message unsolicited response. \end{DoxyCompactList}\item 
+static \hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{group__jdks__log_gada9d0277e95b72f1841157ad9941cfbc}{jdksavdecc\+\_\+jdks\+\_\+is\+\_\+console\+\_\+command} (struct \hyperlink{structjdksavdecc__jdks__log__console__command}{jdksavdecc\+\_\+jdks\+\_\+log\+\_\+console\+\_\+command} $\ast$p, void const $\ast$buf, size\+\_\+t len)
+\begin{DoxyCompactList}\small\item\em jdksavdecc\+\_\+jdks\+\_\+is\+\_\+console\+\_\+command checks to see if an etherent frame is a log console command. \end{DoxyCompactList}\item 
+static ssize\+\_\+t \hyperlink{group__jdks__log_ga564507c73741faa269e846895bae6e16}{jdksavdecc\+\_\+jdks\+\_\+log\+\_\+control\+\_\+read} (struct \hyperlink{structjdksavdecc__jdks__log__control}{jdksavdecc\+\_\+jdks\+\_\+log\+\_\+control} $\ast$p, void const $\ast$buf, size\+\_\+t len)
+\begin{DoxyCompactList}\small\item\em jdksavdecc\+\_\+jdks\+\_\+log\+\_\+control\+\_\+read parses all the data in a J\+D\+KS L\+OG unsolicited response \end{DoxyCompactList}\item 
+static ssize\+\_\+t \hyperlink{group__jdks__log_gae585c2248e5de55f0cc52a0241a8cd21}{jdksavdecc\+\_\+jdks\+\_\+log\+\_\+console\+\_\+read} (struct \hyperlink{structjdksavdecc__jdks__log__console__command}{jdksavdecc\+\_\+jdks\+\_\+log\+\_\+console\+\_\+command} $\ast$p, void const $\ast$buf, size\+\_\+t len)
+\begin{DoxyCompactList}\small\item\em jdksavdecc\+\_\+jdks\+\_\+log\+\_\+console\+\_\+read parses all the data in a J\+D\+KS L\+OG unsolicited response \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{변수}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structjdksavdecc__eui64}{jdksavdecc\+\_\+eui64} \hyperlink{group__jdks__log_gaa8a55f45c47024872aea1d756c51cd7d}{jdksavdecc\+\_\+jdks\+\_\+notifications\+\_\+controller\+\_\+entity\+\_\+id}
+\item 
+struct \hyperlink{structjdksavdecc__eui48}{jdksavdecc\+\_\+eui48} \hyperlink{group__jdks__log_gae6aee409d176c6cbbc79c18ec2bed520}{jdksavdecc\+\_\+jdks\+\_\+multicast\+\_\+log}
+\item 
+struct \hyperlink{structjdksavdecc__eui64}{jdksavdecc\+\_\+eui64} \hyperlink{group__jdks__log_ga492c3be3079a48fdf9366bdc514c0333}{jdksavdecc\+\_\+jdks\+\_\+aem\+\_\+control\+\_\+log\+\_\+text}
+\end{DoxyCompactItemize}
+
+
+\subsection{상세한 설명}
+to the jdks notifications controller entity id (70\+:b3\+:d5\+:ed\+:cf\+:ff\+:ff\+:ff) with a vendor defined blob control type. Any A\+EM S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+OL Response sent to the multicast M\+AC address 71\+:b3\+:d5\+:ed\+:cf\+:ff and controller\+\_\+entity\+\_\+id of 70\+:b3\+:d5\+:ff\+:ff\+:ed\+:cf\+:ff may be interpreted as a vendor specific blob control value (See Clause 7.\+3.\+5.\+2.\+9) if the vendor\+\_\+eui64 field is 70\+:b3\+:d5\+:ed\+:c0\+:00\+:00\+:00 then the message is a logging message and shall be interpreted as defined\+: \begin{DoxyVerb}Offset  0:  EUI64: vendor_eui64 is JDKSAVDECC_JDKS_AEM_CONTROL_LOG_TEXT ( 70:b3:d5:ed:c0:00:00:00 )
+Offset  8:  Quadlet: blob_length is 2+text_length
+Offset 12:  Octet: log_priority { 0 = error, 1=warning, 2=info, 3..0x7f = debug/trace, 0xff=console data }
+Offset 13:  Octet: reserved
+Offset 14:  Octet array: utf8_chars[0..356]
+\end{DoxyVerb}
+
+
+There can be a path back from the logging console to the logging source as well. In this case, the A\+E\+CP S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+OL Command is sent from the actual controller entity id, to the targets entity id via the targets unicast M\+AC address. The content is the same as the response except the source\+\_\+descriptor information is now target\+\_\+descriptor and the log\+\_\+priority shall be 0xff for console data. \begin{DoxyVerb} Offset  0:  EUI64: vendor_eui64 is JDKSAVDECC_JDKS_AEM_CONTROL_LOG_TEXT ( 70:b3:d5:ed:c0:00:00:00 )
+ Offset  8:  Quadlet: blob_length is 2+text_length
+ Offset 12:  Octet: log_priority { 0xff=console data }
+ Offset 13:  Octet: reserved
+ Offset 14:  Octet array: utf8_chars[0..356]\end{DoxyVerb}
+
+
+\subsection{매크로 문서화}
+\index{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}!J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+A\+E\+M\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+L\+O\+G\+\_\+\+T\+E\+XT@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+A\+E\+M\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+L\+O\+G\+\_\+\+T\+E\+XT}}
+\index{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+A\+E\+M\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+L\+O\+G\+\_\+\+T\+E\+XT@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+A\+E\+M\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+L\+O\+G\+\_\+\+T\+E\+XT}!Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}}
+\subsubsection[{\texorpdfstring{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+A\+E\+M\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+L\+O\+G\+\_\+\+T\+E\+XT}{JDKSAVDECC_JDKS_AEM_CONTROL_LOG_TEXT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+A\+E\+M\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+L\+O\+G\+\_\+\+T\+E\+XT}\hypertarget{group__jdks__log_ga2540d677bf8f7ee2ab29e06e74c384bf}{}\label{group__jdks__log_ga2540d677bf8f7ee2ab29e06e74c384bf}
+{\bfseries 값\+:}
+\begin{DoxyCode}
+\{                                                                                                          
+                      \(\backslash\)
+        \{                                                                                                  
+                          \(\backslash\)
+            0x70, 0xb3, 0xd5, 0xed, 0xc0, 0x00, 0x00, 0x00                                                 
+                          \(\backslash\)
+        \}                                                                                                  
+                          \(\backslash\)
+    \}
+\end{DoxyCode}
+
+
+jdksavdecc\+\_\+jdks.\+h 파일의 125 번째 라인에서 정의되었습니다.
+
+\index{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}!J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+S\+O\+LE@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+S\+O\+LE}}
+\index{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+S\+O\+LE@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+S\+O\+LE}!Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}}
+\subsubsection[{\texorpdfstring{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+S\+O\+LE}{JDKSAVDECC_JDKS_LOG_CONSOLE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+S\+O\+LE~( 0xff )}\hypertarget{group__jdks__log_ga9ced78c29484cde4fb6d621e8be5c65b}{}\label{group__jdks__log_ga9ced78c29484cde4fb6d621e8be5c65b}
+
+
+jdksavdecc\+\_\+jdks.\+h 파일의 99 번째 라인에서 정의되었습니다.
+
+\index{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}!J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+L\+EN@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+L\+EN}}
+\index{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+L\+EN@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+L\+EN}!Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}}
+\subsubsection[{\texorpdfstring{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+L\+EN}{JDKSAVDECC_JDKS_LOG_CONTROL_HEADER_LEN}}]{\setlength{\rightskip}{0pt plus 5cm}\#define J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+L\+EN~{\bf J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+T\+E\+XT}}\hypertarget{group__jdks__log_gaade756dffaac6e4f6d3d3b16e4cea38b}{}\label{group__jdks__log_gaade756dffaac6e4f6d3d3b16e4cea38b}
+
+
+jdksavdecc\+\_\+jdks.\+h 파일의 139 번째 라인에서 정의되었습니다.
+
+\index{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}!J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+M\+A\+X\+\_\+\+T\+E\+X\+T\+\_\+\+L\+EN@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+M\+A\+X\+\_\+\+T\+E\+X\+T\+\_\+\+L\+EN}}
+\index{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+M\+A\+X\+\_\+\+T\+E\+X\+T\+\_\+\+L\+EN@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+M\+A\+X\+\_\+\+T\+E\+X\+T\+\_\+\+L\+EN}!Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}}
+\subsubsection[{\texorpdfstring{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+M\+A\+X\+\_\+\+T\+E\+X\+T\+\_\+\+L\+EN}{JDKSAVDECC_JDKS_LOG_CONTROL_MAX_TEXT_LEN}}]{\setlength{\rightskip}{0pt plus 5cm}\#define J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+M\+A\+X\+\_\+\+T\+E\+X\+T\+\_\+\+L\+EN~( {\bf J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+A\+E\+M\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+V\+A\+L\+U\+E\+\_\+\+T\+Y\+P\+E\+\_\+\+B\+L\+O\+B\+\_\+\+M\+A\+X\+\_\+\+S\+I\+ZE} -\/ 2 )}\hypertarget{group__jdks__log_gaaa43d62d581d06b4c563a3ac9f689730}{}\label{group__jdks__log_gaaa43d62d581d06b4c563a3ac9f689730}
+
+
+jdksavdecc\+\_\+jdks.\+h 파일의 140 번째 라인에서 정의되었습니다.
+
+\index{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}!J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+B\+L\+O\+B\+\_\+\+S\+I\+ZE@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+B\+L\+O\+B\+\_\+\+S\+I\+ZE}}
+\index{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+B\+L\+O\+B\+\_\+\+S\+I\+ZE@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+B\+L\+O\+B\+\_\+\+S\+I\+ZE}!Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}}
+\subsubsection[{\texorpdfstring{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+B\+L\+O\+B\+\_\+\+S\+I\+ZE}{JDKSAVDECC_JDKS_LOG_CONTROL_OFFSET_BLOB_SIZE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+B\+L\+O\+B\+\_\+\+S\+I\+ZE~( {\bf J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+A\+E\+M\+\_\+\+C\+O\+M\+M\+A\+N\+D\+\_\+\+S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+R\+E\+S\+P\+O\+N\+S\+E\+\_\+\+L\+EN} + 8 )}\hypertarget{group__jdks__log_ga14027480ca9c47f6e02e3d96e3e9a1ad}{}\label{group__jdks__log_ga14027480ca9c47f6e02e3d96e3e9a1ad}
+
+
+jdksavdecc\+\_\+jdks.\+h 파일의 135 번째 라인에서 정의되었습니다.
+
+\index{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}!J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+L\+O\+G\+\_\+\+D\+E\+T\+A\+IL@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+L\+O\+G\+\_\+\+D\+E\+T\+A\+IL}}
+\index{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+L\+O\+G\+\_\+\+D\+E\+T\+A\+IL@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+L\+O\+G\+\_\+\+D\+E\+T\+A\+IL}!Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}}
+\subsubsection[{\texorpdfstring{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+L\+O\+G\+\_\+\+D\+E\+T\+A\+IL}{JDKSAVDECC_JDKS_LOG_CONTROL_OFFSET_LOG_DETAIL}}]{\setlength{\rightskip}{0pt plus 5cm}\#define J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+L\+O\+G\+\_\+\+D\+E\+T\+A\+IL~( {\bf J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+A\+E\+M\+\_\+\+C\+O\+M\+M\+A\+N\+D\+\_\+\+S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+R\+E\+S\+P\+O\+N\+S\+E\+\_\+\+L\+EN} + 12 )}\hypertarget{group__jdks__log_ga15244e4065b3ef420cd990e0d2e6bc0d}{}\label{group__jdks__log_ga15244e4065b3ef420cd990e0d2e6bc0d}
+
+
+jdksavdecc\+\_\+jdks.\+h 파일의 136 번째 라인에서 정의되었습니다.
+
+\index{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}!J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+R\+E\+S\+E\+R\+V\+ED@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+R\+E\+S\+E\+R\+V\+ED}}
+\index{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+R\+E\+S\+E\+R\+V\+ED@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+R\+E\+S\+E\+R\+V\+ED}!Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}}
+\subsubsection[{\texorpdfstring{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+R\+E\+S\+E\+R\+V\+ED}{JDKSAVDECC_JDKS_LOG_CONTROL_OFFSET_RESERVED}}]{\setlength{\rightskip}{0pt plus 5cm}\#define J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+R\+E\+S\+E\+R\+V\+ED~( {\bf J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+A\+E\+M\+\_\+\+C\+O\+M\+M\+A\+N\+D\+\_\+\+S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+R\+E\+S\+P\+O\+N\+S\+E\+\_\+\+L\+EN} + 13 )}\hypertarget{group__jdks__log_gad860e4d61ae3f91cd3f9799e6b1dd3c5}{}\label{group__jdks__log_gad860e4d61ae3f91cd3f9799e6b1dd3c5}
+
+
+jdksavdecc\+\_\+jdks.\+h 파일의 137 번째 라인에서 정의되었습니다.
+
+\index{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}!J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+T\+E\+XT@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+T\+E\+XT}}
+\index{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+T\+E\+XT@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+T\+E\+XT}!Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}}
+\subsubsection[{\texorpdfstring{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+T\+E\+XT}{JDKSAVDECC_JDKS_LOG_CONTROL_OFFSET_TEXT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+T\+E\+XT~( {\bf J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+A\+E\+M\+\_\+\+C\+O\+M\+M\+A\+N\+D\+\_\+\+S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+R\+E\+S\+P\+O\+N\+S\+E\+\_\+\+L\+EN} + 14 )}\hypertarget{group__jdks__log_gaa3f2c42190fdfb5a9f8927254dcc38f0}{}\label{group__jdks__log_gaa3f2c42190fdfb5a9f8927254dcc38f0}
+
+
+jdksavdecc\+\_\+jdks.\+h 파일의 138 번째 라인에서 정의되었습니다.
+
+\index{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}!J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+V\+E\+N\+D\+O\+R\+\_\+\+E\+U\+I64@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+V\+E\+N\+D\+O\+R\+\_\+\+E\+U\+I64}}
+\index{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+V\+E\+N\+D\+O\+R\+\_\+\+E\+U\+I64@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+V\+E\+N\+D\+O\+R\+\_\+\+E\+U\+I64}!Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}}
+\subsubsection[{\texorpdfstring{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+V\+E\+N\+D\+O\+R\+\_\+\+E\+U\+I64}{JDKSAVDECC_JDKS_LOG_CONTROL_OFFSET_VENDOR_EUI64}}]{\setlength{\rightskip}{0pt plus 5cm}\#define J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+V\+E\+N\+D\+O\+R\+\_\+\+E\+U\+I64~( {\bf J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+A\+E\+M\+\_\+\+C\+O\+M\+M\+A\+N\+D\+\_\+\+S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+R\+E\+S\+P\+O\+N\+S\+E\+\_\+\+L\+EN} + 0 )}\hypertarget{group__jdks__log_gaa09f0dec1864081c2abbc426b9e387fd}{}\label{group__jdks__log_gaa09f0dec1864081c2abbc426b9e387fd}
+
+
+jdksavdecc\+\_\+jdks.\+h 파일의 134 번째 라인에서 정의되었습니다.
+
+\index{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}!J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+D\+E\+B\+U\+G1@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+D\+E\+B\+U\+G1}}
+\index{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+D\+E\+B\+U\+G1@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+D\+E\+B\+U\+G1}!Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}}
+\subsubsection[{\texorpdfstring{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+D\+E\+B\+U\+G1}{JDKSAVDECC_JDKS_LOG_DEBUG1}}]{\setlength{\rightskip}{0pt plus 5cm}\#define J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+D\+E\+B\+U\+G1~( 3 )}\hypertarget{group__jdks__log_ga64e80ebc82c6c88ac37806ac0da6cef0}{}\label{group__jdks__log_ga64e80ebc82c6c88ac37806ac0da6cef0}
+
+
+jdksavdecc\+\_\+jdks.\+h 파일의 96 번째 라인에서 정의되었습니다.
+
+\index{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}!J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+D\+E\+B\+U\+G2@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+D\+E\+B\+U\+G2}}
+\index{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+D\+E\+B\+U\+G2@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+D\+E\+B\+U\+G2}!Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}}
+\subsubsection[{\texorpdfstring{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+D\+E\+B\+U\+G2}{JDKSAVDECC_JDKS_LOG_DEBUG2}}]{\setlength{\rightskip}{0pt plus 5cm}\#define J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+D\+E\+B\+U\+G2~( 4 )}\hypertarget{group__jdks__log_ga4ed4c60943c2bf8efe5670badab16a79}{}\label{group__jdks__log_ga4ed4c60943c2bf8efe5670badab16a79}
+
+
+jdksavdecc\+\_\+jdks.\+h 파일의 97 번째 라인에서 정의되었습니다.
+
+\index{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}!J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+D\+E\+B\+U\+G3@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+D\+E\+B\+U\+G3}}
+\index{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+D\+E\+B\+U\+G3@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+D\+E\+B\+U\+G3}!Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}}
+\subsubsection[{\texorpdfstring{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+D\+E\+B\+U\+G3}{JDKSAVDECC_JDKS_LOG_DEBUG3}}]{\setlength{\rightskip}{0pt plus 5cm}\#define J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+D\+E\+B\+U\+G3~( 5 )}\hypertarget{group__jdks__log_ga04ac1c6799542605464015ecb9bbd207}{}\label{group__jdks__log_ga04ac1c6799542605464015ecb9bbd207}
+
+
+jdksavdecc\+\_\+jdks.\+h 파일의 98 번째 라인에서 정의되었습니다.
+
+\index{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}!J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+E\+R\+R\+OR@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+E\+R\+R\+OR}}
+\index{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+E\+R\+R\+OR@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+E\+R\+R\+OR}!Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}}
+\subsubsection[{\texorpdfstring{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+E\+R\+R\+OR}{JDKSAVDECC_JDKS_LOG_ERROR}}]{\setlength{\rightskip}{0pt plus 5cm}\#define J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+E\+R\+R\+OR~( 0 )}\hypertarget{group__jdks__log_gab4244a790ff2c0aa1fa3a077b7b7e935}{}\label{group__jdks__log_gab4244a790ff2c0aa1fa3a077b7b7e935}
+
+
+jdksavdecc\+\_\+jdks.\+h 파일의 93 번째 라인에서 정의되었습니다.
+
+\index{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}!J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+I\+N\+FO@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+I\+N\+FO}}
+\index{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+I\+N\+FO@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+I\+N\+FO}!Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}}
+\subsubsection[{\texorpdfstring{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+I\+N\+FO}{JDKSAVDECC_JDKS_LOG_INFO}}]{\setlength{\rightskip}{0pt plus 5cm}\#define J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+I\+N\+FO~( 2 )}\hypertarget{group__jdks__log_ga21fdc8ed4fe36814540b461a4b72d9eb}{}\label{group__jdks__log_ga21fdc8ed4fe36814540b461a4b72d9eb}
+
+
+jdksavdecc\+\_\+jdks.\+h 파일의 95 번째 라인에서 정의되었습니다.
+
+\index{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}!J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+W\+A\+R\+N\+I\+NG@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+W\+A\+R\+N\+I\+NG}}
+\index{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+W\+A\+R\+N\+I\+NG@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+W\+A\+R\+N\+I\+NG}!Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}}
+\subsubsection[{\texorpdfstring{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+W\+A\+R\+N\+I\+NG}{JDKSAVDECC_JDKS_LOG_WARNING}}]{\setlength{\rightskip}{0pt plus 5cm}\#define J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+L\+O\+G\+\_\+\+W\+A\+R\+N\+I\+NG~( 1 )}\hypertarget{group__jdks__log_gab00fb723ba991ceb1e80dfb91b91af5d}{}\label{group__jdks__log_gab00fb723ba991ceb1e80dfb91b91af5d}
+
+
+jdksavdecc\+\_\+jdks.\+h 파일의 94 번째 라인에서 정의되었습니다.
+
+\index{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}!J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+M\+U\+L\+T\+I\+C\+A\+S\+T\+\_\+\+L\+OG@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+M\+U\+L\+T\+I\+C\+A\+S\+T\+\_\+\+L\+OG}}
+\index{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+M\+U\+L\+T\+I\+C\+A\+S\+T\+\_\+\+L\+OG@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+M\+U\+L\+T\+I\+C\+A\+S\+T\+\_\+\+L\+OG}!Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}}
+\subsubsection[{\texorpdfstring{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+M\+U\+L\+T\+I\+C\+A\+S\+T\+\_\+\+L\+OG}{JDKSAVDECC_JDKS_MULTICAST_LOG}}]{\setlength{\rightskip}{0pt plus 5cm}\#define J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+M\+U\+L\+T\+I\+C\+A\+S\+T\+\_\+\+L\+OG}\hypertarget{group__jdks__log_gabc09ee25e033c56beeee59de6ce2fc6a}{}\label{group__jdks__log_gabc09ee25e033c56beeee59de6ce2fc6a}
+{\bfseries 값\+:}
+\begin{DoxyCode}
+\{                                                                                                          
+                      \(\backslash\)
+        \{                                                                                                  
+                          \(\backslash\)
+            0x71, 0xb3, 0xd5, 0xed, 0xcf, 0xff                                                             
+                          \(\backslash\)
+        \}                                                                                                  
+                          \(\backslash\)
+    \}
+\end{DoxyCode}
+
+
+jdksavdecc\+\_\+jdks.\+h 파일의 116 번째 라인에서 정의되었습니다.
+
+\index{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}!J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+N\+O\+T\+I\+F\+I\+C\+A\+T\+I\+O\+N\+S\+\_\+\+C\+O\+N\+T\+R\+O\+L\+L\+E\+R\+\_\+\+E\+N\+T\+I\+T\+Y\+\_\+\+ID@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+N\+O\+T\+I\+F\+I\+C\+A\+T\+I\+O\+N\+S\+\_\+\+C\+O\+N\+T\+R\+O\+L\+L\+E\+R\+\_\+\+E\+N\+T\+I\+T\+Y\+\_\+\+ID}}
+\index{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+N\+O\+T\+I\+F\+I\+C\+A\+T\+I\+O\+N\+S\+\_\+\+C\+O\+N\+T\+R\+O\+L\+L\+E\+R\+\_\+\+E\+N\+T\+I\+T\+Y\+\_\+\+ID@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+N\+O\+T\+I\+F\+I\+C\+A\+T\+I\+O\+N\+S\+\_\+\+C\+O\+N\+T\+R\+O\+L\+L\+E\+R\+\_\+\+E\+N\+T\+I\+T\+Y\+\_\+\+ID}!Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}}
+\subsubsection[{\texorpdfstring{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+N\+O\+T\+I\+F\+I\+C\+A\+T\+I\+O\+N\+S\+\_\+\+C\+O\+N\+T\+R\+O\+L\+L\+E\+R\+\_\+\+E\+N\+T\+I\+T\+Y\+\_\+\+ID}{JDKSAVDECC_JDKS_NOTIFICATIONS_CONTROLLER_ENTITY_ID}}]{\setlength{\rightskip}{0pt plus 5cm}\#define J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+J\+D\+K\+S\+\_\+\+N\+O\+T\+I\+F\+I\+C\+A\+T\+I\+O\+N\+S\+\_\+\+C\+O\+N\+T\+R\+O\+L\+L\+E\+R\+\_\+\+E\+N\+T\+I\+T\+Y\+\_\+\+ID}\hypertarget{group__jdks__log_ga1eb9143013c3f45edaa1605695e5a6f1}{}\label{group__jdks__log_ga1eb9143013c3f45edaa1605695e5a6f1}
+{\bfseries 값\+:}
+\begin{DoxyCode}
+\{                                                                                                          
+                      \(\backslash\)
+        \{                                                                                                  
+                          \(\backslash\)
+            0x70, 0xb3, 0xd5, 0xff, 0xff, 0xed, 0xcf, 0xff                                                 
+                          \(\backslash\)
+        \}                                                                                                  
+                          \(\backslash\)
+    \}
+\end{DoxyCode}
+
+
+jdksavdecc\+\_\+jdks.\+h 파일의 104 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{함수 문서화}
+\index{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}!jdksavdecc\+\_\+jdks\+\_\+is\+\_\+console\+\_\+command@{jdksavdecc\+\_\+jdks\+\_\+is\+\_\+console\+\_\+command}}
+\index{jdksavdecc\+\_\+jdks\+\_\+is\+\_\+console\+\_\+command@{jdksavdecc\+\_\+jdks\+\_\+is\+\_\+console\+\_\+command}!Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}}
+\subsubsection[{\texorpdfstring{jdksavdecc\+\_\+jdks\+\_\+is\+\_\+console\+\_\+command(struct jdksavdecc\+\_\+jdks\+\_\+log\+\_\+console\+\_\+command $\ast$p, void const $\ast$buf, size\+\_\+t len)}{jdksavdecc_jdks_is_console_command(struct jdksavdecc_jdks_log_console_command *p, void const *buf, size_t len)}}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf bool} jdksavdecc\+\_\+jdks\+\_\+is\+\_\+console\+\_\+command (
+\begin{DoxyParamCaption}
+\item[{struct {\bf jdksavdecc\+\_\+jdks\+\_\+log\+\_\+console\+\_\+command} $\ast$}]{p, }
+\item[{void const $\ast$}]{buf, }
+\item[{size\+\_\+t}]{len}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{group__jdks__log_gada9d0277e95b72f1841157ad9941cfbc}{}\label{group__jdks__log_gada9d0277e95b72f1841157ad9941cfbc}
+
+
+jdksavdecc\+\_\+jdks\+\_\+is\+\_\+console\+\_\+command checks to see if an etherent frame is a log console command. 
+
+
+\begin{DoxyParams}{매개변수}
+{\em p} & Pointer to the \hyperlink{structjdksavdecc__jdks__log__console__command}{jdksavdecc\+\_\+jdks\+\_\+log\+\_\+console\+\_\+command} structure that will be partially filled in on success\\
+\hline
+{\em buf} & The raw ethernet frame packet, starting at DA,SA,Ethertype\\
+\hline
+{\em len} & The length of the memory at buf\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+true if the P\+DU is a J\+D\+KS log message and it is safe to call jdksavdecc\+\_\+jdks\+\_\+log\+\_\+console\+\_\+read 
+\end{DoxyReturn}
+
+
+jdksavdecc\+\_\+jdks.\+h 파일의 391 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+392 \{
+393     \textcolor{keywordtype}{bool} is\_console = \textcolor{keyword}{false};
+394     \textcolor{keywordtype}{int} pos = 14;
+395     ssize\_t r = \hyperlink{group__util_ga9c02bdfe76c69163647c3196db7a73a1}{jdksavdecc\_validate\_range}( pos, len, 
+      \hyperlink{group__jdks__log_gaade756dffaac6e4f6d3d3b16e4cea38b}{JDKSAVDECC\_JDKS\_LOG\_CONTROL\_HEADER\_LEN} );
+396     \textcolor{keywordflow}{if} ( r >= 0 )
+397     \{
+398         \hyperlink{group__command__set__control_ga3bffaa14c2bd112de565accfef21fedd}{jdksavdecc\_aem\_command\_set\_control\_read}( &p->
+      \hyperlink{group__jdks_ga0c878e1ddbac611b7218077c5c482cde}{cmd}, buf, pos, len );
+399         \hyperlink{group__eui64_ga7c7ee5c2d293106f4d997affcbc3ef15}{jdksavdecc\_eui64\_read}( &p->\hyperlink{group__jdks_ga6183c85748a8af0003d293d653c4ae9b}{vendor\_eui64}, buf, 
+      \hyperlink{group__jdks__log_gaa09f0dec1864081c2abbc426b9e387fd}{JDKSAVDECC\_JDKS\_LOG\_CONTROL\_OFFSET\_VENDOR\_EUI64} + pos, len )
+      ;
+400         \textcolor{keywordflow}{if} ( \hyperlink{group__eui64_ga1d7414dc665866d8ad0af100f8a52ef2}{jdksavdecc\_eui64\_compare}( &
+      \hyperlink{group__jdks__log_ga492c3be3079a48fdf9366bdc514c0333}{jdksavdecc\_jdks\_aem\_control\_log\_text}, &p->
+      \hyperlink{group__jdks_ga6183c85748a8af0003d293d653c4ae9b}{vendor\_eui64} ) == 0 )
+401         \{
+402             \hyperlink{group__endian_gaf75f53076978e7b51f12c19414e6070e}{jdksavdecc\_uint32\_read}( &p->\hyperlink{group__jdks_ga32143551b70893faef60f6e35f88ed50}{blob\_size}, buf, 
+      \hyperlink{group__jdks__log_ga14027480ca9c47f6e02e3d96e3e9a1ad}{JDKSAVDECC\_JDKS\_LOG\_CONTROL\_OFFSET\_BLOB\_SIZE} + pos, len );
+403             \textcolor{keywordflow}{if} ( p->\hyperlink{group__jdks_ga32143551b70893faef60f6e35f88ed50}{blob\_size} > ( 
+      \hyperlink{group__jdks__log_gaa3f2c42190fdfb5a9f8927254dcc38f0}{JDKSAVDECC\_JDKS\_LOG\_CONTROL\_OFFSET\_TEXT} - 
+      \hyperlink{group__command__set__control__response_gad54c9d8dd021fce5cb24c880401d316f}{JDKSAVDECC\_AEM\_COMMAND\_SET\_CONTROL\_RESPONSE\_LEN} )
+404                  && p->\hyperlink{group__jdks_ga32143551b70893faef60f6e35f88ed50}{blob\_size} <= 
+      \hyperlink{group__aem__command_ga91176affe15020f1b22b04518eeb3d30}{JDKSAVDECC\_AEM\_CONTROL\_VALUE\_TYPE\_BLOB\_MAX\_SIZE} )
+405             \{
+406                 is\_console = \textcolor{keyword}{true};
+407             \}
+408         \}
+409     \}
+410     \textcolor{keywordflow}{return} is\_console;
+411 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__jdks__log_gada9d0277e95b72f1841157ad9941cfbc_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}!jdksavdecc\+\_\+jdks\+\_\+is\+\_\+log@{jdksavdecc\+\_\+jdks\+\_\+is\+\_\+log}}
+\index{jdksavdecc\+\_\+jdks\+\_\+is\+\_\+log@{jdksavdecc\+\_\+jdks\+\_\+is\+\_\+log}!Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}}
+\subsubsection[{\texorpdfstring{jdksavdecc\+\_\+jdks\+\_\+is\+\_\+log(struct jdksavdecc\+\_\+jdks\+\_\+log\+\_\+control $\ast$p, void const $\ast$buf, size\+\_\+t len)}{jdksavdecc_jdks_is_log(struct jdksavdecc_jdks_log_control *p, void const *buf, size_t len)}}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf bool} jdksavdecc\+\_\+jdks\+\_\+is\+\_\+log (
+\begin{DoxyParamCaption}
+\item[{struct {\bf jdksavdecc\+\_\+jdks\+\_\+log\+\_\+control} $\ast$}]{p, }
+\item[{void const $\ast$}]{buf, }
+\item[{size\+\_\+t}]{len}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{group__jdks__log_ga794436f7d0288c29ac4c0002b27c615b}{}\label{group__jdks__log_ga794436f7d0288c29ac4c0002b27c615b}
+
+
+jdksavdecc\+\_\+jdks\+\_\+is\+\_\+log checks to see if an etherent frame is a log message unsolicited response. 
+
+
+\begin{DoxyParams}{매개변수}
+{\em p} & Pointer to the \hyperlink{structjdksavdecc__jdks__log__control}{jdksavdecc\+\_\+jdks\+\_\+log\+\_\+control} structure that will be partially filled in on success\\
+\hline
+{\em buf} & The raw ethernet frame packet, starting at DA,SA,Ethertype\\
+\hline
+{\em len} & The length of the memory at buf\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+true if the P\+DU is a J\+D\+KS log message and it is safe to call jdksavdecc\+\_\+jdks\+\_\+log\+\_\+control\+\_\+read 
+\end{DoxyReturn}
+
+
+jdksavdecc\+\_\+jdks.\+h 파일의 354 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+355 \{
+356     \textcolor{keywordtype}{bool} is\_log\_response = \textcolor{keyword}{false};
+357     \textcolor{keywordtype}{int} pos = 14;
+358     ssize\_t r = \hyperlink{group__util_ga9c02bdfe76c69163647c3196db7a73a1}{jdksavdecc\_validate\_range}( pos, len, 
+      \hyperlink{group__jdks__log_gaade756dffaac6e4f6d3d3b16e4cea38b}{JDKSAVDECC\_JDKS\_LOG\_CONTROL\_HEADER\_LEN} );
+359     \textcolor{keywordflow}{if} ( r >= 0 )
+360     \{
+361         \hyperlink{group__command__set__control__response_ga51e9c0e9f925de9340edeb0c66bb6b5a}{jdksavdecc\_aem\_command\_set\_control\_response\_read}( &
+      p->\hyperlink{group__jdks_ga38de55b081b42c70b4caeb189e999cef}{cmd}, buf, pos, len );
+362         \hyperlink{group__eui64_ga7c7ee5c2d293106f4d997affcbc3ef15}{jdksavdecc\_eui64\_read}( &p->\hyperlink{group__jdks_ga6183c85748a8af0003d293d653c4ae9b}{vendor\_eui64}, buf, 
+      \hyperlink{group__jdks__log_gaa09f0dec1864081c2abbc426b9e387fd}{JDKSAVDECC\_JDKS\_LOG\_CONTROL\_OFFSET\_VENDOR\_EUI64} + pos, len )
+      ;
+363         \textcolor{keywordflow}{if} ( \hyperlink{group__eui64_ga1d7414dc665866d8ad0af100f8a52ef2}{jdksavdecc\_eui64\_compare}( &
+      \hyperlink{group__jdks__log_ga492c3be3079a48fdf9366bdc514c0333}{jdksavdecc\_jdks\_aem\_control\_log\_text}, &p->
+      \hyperlink{group__jdks_ga6183c85748a8af0003d293d653c4ae9b}{vendor\_eui64} ) == 0 )
+364         \{
+365             \hyperlink{group__endian_gaf75f53076978e7b51f12c19414e6070e}{jdksavdecc\_uint32\_read}( &p->\hyperlink{group__jdks_ga32143551b70893faef60f6e35f88ed50}{blob\_size}, buf, 
+      \hyperlink{group__jdks__log_ga14027480ca9c47f6e02e3d96e3e9a1ad}{JDKSAVDECC\_JDKS\_LOG\_CONTROL\_OFFSET\_BLOB\_SIZE} + pos, len );
+366             \textcolor{keywordflow}{if} ( p->\hyperlink{group__jdks_ga32143551b70893faef60f6e35f88ed50}{blob\_size} > ( 
+      \hyperlink{group__jdks__log_gaa3f2c42190fdfb5a9f8927254dcc38f0}{JDKSAVDECC\_JDKS\_LOG\_CONTROL\_OFFSET\_TEXT} - 
+      \hyperlink{group__command__set__control__response_gad54c9d8dd021fce5cb24c880401d316f}{JDKSAVDECC\_AEM\_COMMAND\_SET\_CONTROL\_RESPONSE\_LEN} )
+367                  && p->\hyperlink{group__jdks_ga32143551b70893faef60f6e35f88ed50}{blob\_size} <= 
+      \hyperlink{group__aem__command_ga91176affe15020f1b22b04518eeb3d30}{JDKSAVDECC\_AEM\_CONTROL\_VALUE\_TYPE\_BLOB\_MAX\_SIZE} )
+368             \{
+369                 is\_log\_response = \textcolor{keyword}{true};
+370             \}
+371         \}
+372     \}
+373     \textcolor{keywordflow}{return} is\_log\_response;
+374 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__jdks__log_ga794436f7d0288c29ac4c0002b27c615b_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}!jdksavdecc\+\_\+jdks\+\_\+log\+\_\+console\+\_\+generate@{jdksavdecc\+\_\+jdks\+\_\+log\+\_\+console\+\_\+generate}}
+\index{jdksavdecc\+\_\+jdks\+\_\+log\+\_\+console\+\_\+generate@{jdksavdecc\+\_\+jdks\+\_\+log\+\_\+console\+\_\+generate}!Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}}
+\subsubsection[{\texorpdfstring{jdksavdecc\+\_\+jdks\+\_\+log\+\_\+console\+\_\+generate(struct jdksavdecc\+\_\+eui64 const $\ast$my\+\_\+entity\+\_\+id, struct jdksavdecc\+\_\+eui64 const $\ast$target\+\_\+entity\+\_\+id, uint16\+\_\+t descriptor\+\_\+index, uint16\+\_\+t $\ast$sequence\+\_\+id, uint8\+\_\+t log\+\_\+detail, uint8\+\_\+t reserved, const char $\ast$utf8\+\_\+log\+\_\+string, uint8\+\_\+t $\ast$buf, size\+\_\+t len)}{jdksavdecc_jdks_log_console_generate(struct jdksavdecc_eui64 const *my_entity_id, struct jdksavdecc_eui64 const *target_entity_id, uint16_t descriptor_index, uint16_t *sequence_id, uint8_t log_detail, uint8_t reserved, const char *utf8_log_string, uint8_t *buf, size_t len)}}]{\setlength{\rightskip}{0pt plus 5cm}static ssize\+\_\+t jdksavdecc\+\_\+jdks\+\_\+log\+\_\+console\+\_\+generate (
+\begin{DoxyParamCaption}
+\item[{struct {\bf jdksavdecc\+\_\+eui64} const $\ast$}]{my\+\_\+entity\+\_\+id, }
+\item[{struct {\bf jdksavdecc\+\_\+eui64} const $\ast$}]{target\+\_\+entity\+\_\+id, }
+\item[{uint16\+\_\+t}]{descriptor\+\_\+index, }
+\item[{uint16\+\_\+t $\ast$}]{sequence\+\_\+id, }
+\item[{{\bf uint8\+\_\+t}}]{log\+\_\+detail, }
+\item[{{\bf uint8\+\_\+t}}]{reserved, }
+\item[{const char $\ast$}]{utf8\+\_\+log\+\_\+string, }
+\item[{{\bf uint8\+\_\+t} $\ast$}]{buf, }
+\item[{size\+\_\+t}]{len}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{group__jdks__log_gafe5b02f5ce9b2bf01f6b6f2213e1a209}{}\label{group__jdks__log_gafe5b02f5ce9b2bf01f6b6f2213e1a209}
+jdksavdecc\+\_\+jdks\+\_\+log\+\_\+console\+\_\+generate generates a J\+D\+KS Log P\+DU as an A\+E\+M\+\_\+\+R\+E\+S\+P\+O\+N\+SE unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+OL message.
+
+
+\begin{DoxyParams}{매개변수}
+{\em target\+\_\+entity\+\_\+id} & Pointer to the targets entity id.\\
+\hline
+{\em my\+\_\+entity\+\_\+id} & Pointer to the controllers entity id.\\
+\hline
+{\em descriptor\+\_\+index} & index of the C\+O\+N\+T\+R\+OL descriptor that we are using for this data\\
+\hline
+{\em sequence\+\_\+id} & The pointer to the uint16\+\_\+t of the variable used to track unsolicited response sequence\+\_\+id. This variable will be incremented on success\\
+\hline
+{\em log\+\_\+detail} & The logging detail of this message\+:  0 = Error  1 = Warning  2 = Info  3 = Debug1  4 = Debug2  5 = Debug3  6..0xfe = reserved  0xff = Console\\
+\hline
+{\em reserved} & reserved value\\
+\hline
+{\em utf8\+\_\+log\+\_\+string} & The utf8 data for the string to be sent. Limited to 352 bytes, not including null termination.\\
+\hline
+{\em buf} & The raw ethernet frame packet, starting at DA,SA,Ethertype\\
+\hline
+{\em len} & The length of the memory at buf\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+ssize\+\_\+t length of the data filled in at buf, or -\/1 on error. 
+\end{DoxyReturn}
+
+
+jdksavdecc\+\_\+jdks.\+h 파일의 294 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+303 \{
+304     \textcolor{keywordtype}{int} pos = 14;
+305     ssize\_t text\_len = (ssize\_t)strlen( utf8\_log\_string );
+306     ssize\_t expected\_length = \hyperlink{group__jdks__log_gaade756dffaac6e4f6d3d3b16e4cea38b}{JDKSAVDECC\_JDKS\_LOG\_CONTROL\_HEADER\_LEN} 
+      + text\_len;
+307     ssize\_t r = \hyperlink{group__util_ga9c02bdfe76c69163647c3196db7a73a1}{jdksavdecc\_validate\_range}( pos, len, expected\_length );
+308     \textcolor{keywordflow}{if} ( r >= 0 )
+309     \{
+310         \textcolor{keyword}{struct }\hyperlink{structjdksavdecc__aem__command__set__control__response}{jdksavdecc\_aem\_command\_set\_control\_response} 
+      setctrl;
+311         setctrl.\hyperlink{structjdksavdecc__aem__command__set__control__response_ae1e77ccb75ff5021ad923221eab38294}{aem\_header}.\hyperlink{structjdksavdecc__aecpdu__aem_ae8460ae179666e7ce268ed1ef33d0de3}{aecpdu\_header}.\hyperlink{structjdksavdecc__aecpdu__common_a314cacb6a61bcf18749030c0b6fb7510}{header}.\hyperlink{structjdksavdecc__aecpdu__common__control__header_a8bdacfca3faaf5f7d020bbe533855525}{cd} = \textcolor{keyword}{true};
+312         setctrl.aem\_header.aecpdu\_header.header.subtype = 
+      \hyperlink{group__subtype_ga4f1d76227a738f442d15ebaf2253b6b3}{JDKSAVDECC\_SUBTYPE\_AECP};
+313         setctrl.aem\_header.aecpdu\_header.header.sv = \textcolor{keyword}{false};
+314         setctrl.aem\_header.aecpdu\_header.header.version = 0;
+315         setctrl.aem\_header.aecpdu\_header.header.message\_type = 
+      \hyperlink{group__aecp__message__type_ga4625ce189cc209f42deb0629f48faf69}{JDKSAVDECC\_AECP\_MESSAGE\_TYPE\_AEM\_COMMAND};
+316         setctrl.aem\_header.aecpdu\_header.header.status = 
+      \hyperlink{group__aecpdu__aem__status_gaa4d43ea279e119485de1282522a7fb67}{JDKSAVDECC\_AEM\_STATUS\_SUCCESS};
+317         setctrl.aem\_header.aecpdu\_header.header.control\_data\_length
+318             = (uint16\_t)text\_len + \hyperlink{group__jdks__log_gaade756dffaac6e4f6d3d3b16e4cea38b}{JDKSAVDECC\_JDKS\_LOG\_CONTROL\_HEADER\_LEN}
+       - \hyperlink{group__jdksavdecc__avtp__common__control__header_gaae84052886fb1bb42f3bc5f85b741dff}{JDKSAVDECC\_COMMON\_CONTROL\_HEADER\_LEN} + 2;
+319         setctrl.aem\_header.aecpdu\_header.header.target\_entity\_id = *target\_entity\_id;
+320         setctrl.aem\_header.aecpdu\_header.controller\_entity\_id = *my\_entity\_id;
+321         setctrl.aem\_header.aecpdu\_header.sequence\_id = *sequence\_id;
+322         setctrl.aem\_header.command\_type = \hyperlink{group__command_ga78648020206806d2992e010573f0ef27}{JDKSAVDECC\_AEM\_COMMAND\_SET\_CONTROL}
+      ;
+323         setctrl.descriptor\_type = \hyperlink{group__descriptor_gaafb6bdc564bbe2b62cb6f91bdb8185a8}{JDKSAVDECC\_DESCRIPTOR\_CONTROL};
+324         setctrl.descriptor\_index = \hyperlink{structjdksavdecc__aem__command__set__control__response_a042bbc76d835b82d27c1932431ee38d4}{descriptor\_index};
+325         \hyperlink{group__command__set__control__response_ga1baf427e932ebec21bb6bc41e2fb4d74}{jdksavdecc\_aem\_command\_set\_control\_response\_write}(
+       &setctrl, buf, pos, len );
+326         \hyperlink{group__eui64_ga9a35f8b0a8e81f3f169892e3d0f3c7ad}{jdksavdecc\_eui64\_write}(
+327             &\hyperlink{group__jdks__log_ga492c3be3079a48fdf9366bdc514c0333}{jdksavdecc\_jdks\_aem\_control\_log\_text}, buf, pos + 
+      \hyperlink{group__jdks__log_gaa09f0dec1864081c2abbc426b9e387fd}{JDKSAVDECC\_JDKS\_LOG\_CONTROL\_OFFSET\_VENDOR\_EUI64}, len );
+328         \hyperlink{group__endian_ga5c8d1aadb6e4ea355503a1945cfdbb92}{jdksavdecc\_uint32\_write}( (\hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\_t})text\_len + 2, buf, pos + 
+      \hyperlink{group__jdks__log_ga14027480ca9c47f6e02e3d96e3e9a1ad}{JDKSAVDECC\_JDKS\_LOG\_CONTROL\_OFFSET\_BLOB\_SIZE}, len );
+329         \hyperlink{group__endian_ga76773f9a39ae810aec586d2bb3b617e5}{jdksavdecc\_uint8\_write}( log\_detail, buf, pos + 
+      \hyperlink{group__jdks__log_ga15244e4065b3ef420cd990e0d2e6bc0d}{JDKSAVDECC\_JDKS\_LOG\_CONTROL\_OFFSET\_LOG\_DETAIL}, len );
+330         \hyperlink{group__endian_ga76773f9a39ae810aec586d2bb3b617e5}{jdksavdecc\_uint8\_write}( reserved, buf, pos + 
+      \hyperlink{group__jdks__log_gad860e4d61ae3f91cd3f9799e6b1dd3c5}{JDKSAVDECC\_JDKS\_LOG\_CONTROL\_OFFSET\_RESERVED}, len );
+331         memcpy( ( (\hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} *)buf ) + pos + 
+      \hyperlink{group__jdks__log_gaa3f2c42190fdfb5a9f8927254dcc38f0}{JDKSAVDECC\_JDKS\_LOG\_CONTROL\_OFFSET\_TEXT}, utf8\_log\_string, text\_len )
+      ;
+332         memcpy( ( (\hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} *)buf ) + \hyperlink{group__pdu_ga1ca97f0df513588adc216b94f3ddea47}{JDKSAVDECC\_FRAME\_HEADER\_DA\_OFFSET}
+      , \hyperlink{group__jdks__log_gae6aee409d176c6cbbc79c18ec2bed520}{jdksavdecc\_jdks\_multicast\_log}.\hyperlink{structjdksavdecc__eui48_a18b93f04637cf37688ec10a33a0cbc26}{value}, 6 );
+333         \hyperlink{group__endian_ga14b9eeadc05f94334096c127c955a60b}{jdksavdecc\_uint16\_set}( \hyperlink{group__pdu_ga9fe7bd6b7d7b0f92f5fdbb910068197f}{JDKSAVDECC\_AVTP\_ETHERTYPE}, buf
+      , \hyperlink{group__pdu_ga8dde9191880d2dd9f96462655467f90f}{JDKSAVDECC\_FRAME\_HEADER\_ETHERTYPE\_OFFSET} );
+334 
+335         *sequence\_id = *sequence\_id + 1;
+336     \}
+337     \textcolor{keywordflow}{return} r;
+338 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__jdks__log_gafe5b02f5ce9b2bf01f6b6f2213e1a209_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}!jdksavdecc\+\_\+jdks\+\_\+log\+\_\+console\+\_\+read@{jdksavdecc\+\_\+jdks\+\_\+log\+\_\+console\+\_\+read}}
+\index{jdksavdecc\+\_\+jdks\+\_\+log\+\_\+console\+\_\+read@{jdksavdecc\+\_\+jdks\+\_\+log\+\_\+console\+\_\+read}!Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}}
+\subsubsection[{\texorpdfstring{jdksavdecc\+\_\+jdks\+\_\+log\+\_\+console\+\_\+read(struct jdksavdecc\+\_\+jdks\+\_\+log\+\_\+console\+\_\+command $\ast$p, void const $\ast$buf, size\+\_\+t len)}{jdksavdecc_jdks_log_console_read(struct jdksavdecc_jdks_log_console_command *p, void const *buf, size_t len)}}]{\setlength{\rightskip}{0pt plus 5cm}static ssize\+\_\+t jdksavdecc\+\_\+jdks\+\_\+log\+\_\+console\+\_\+read (
+\begin{DoxyParamCaption}
+\item[{struct {\bf jdksavdecc\+\_\+jdks\+\_\+log\+\_\+console\+\_\+command} $\ast$}]{p, }
+\item[{void const $\ast$}]{buf, }
+\item[{size\+\_\+t}]{len}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{group__jdks__log_gae585c2248e5de55f0cc52a0241a8cd21}{}\label{group__jdks__log_gae585c2248e5de55f0cc52a0241a8cd21}
+
+
+jdksavdecc\+\_\+jdks\+\_\+log\+\_\+console\+\_\+read parses all the data in a J\+D\+KS L\+OG unsolicited response 
+
+
+\begin{DoxyParams}{매개변수}
+{\em p} & Pointer to the \hyperlink{structjdksavdecc__jdks__log__console__command}{jdksavdecc\+\_\+jdks\+\_\+log\+\_\+console\+\_\+command} structure that will be filled in on success\\
+\hline
+{\em buf} & The raw ethernet frame packet, starting at DA,SA,Ethertype $\ast$\\
+\hline
+{\em len} & The length of the memory at buf\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+The length of the data parsed, or -\/1 on error 
+\end{DoxyReturn}
+
+
+jdksavdecc\+\_\+jdks.\+h 파일의 491 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+492 \{
+493     \textcolor{keywordtype}{int} pos = 14;
+494     ssize\_t r = \hyperlink{group__util_ga9c02bdfe76c69163647c3196db7a73a1}{jdksavdecc\_validate\_range}( pos, len, 
+      \hyperlink{group__jdks__log_gaade756dffaac6e4f6d3d3b16e4cea38b}{JDKSAVDECC\_JDKS\_LOG\_CONTROL\_HEADER\_LEN} );
+495     \textcolor{keywordflow}{if} ( r >= 0 )
+496     \{
+497         \hyperlink{group__command__set__control_ga3bffaa14c2bd112de565accfef21fedd}{jdksavdecc\_aem\_command\_set\_control\_read}( &p->
+      \hyperlink{group__jdks_ga0c878e1ddbac611b7218077c5c482cde}{cmd}, buf, pos, len );
+498         \hyperlink{group__eui64_ga7c7ee5c2d293106f4d997affcbc3ef15}{jdksavdecc\_eui64\_read}( &p->\hyperlink{group__jdks_ga6183c85748a8af0003d293d653c4ae9b}{vendor\_eui64}, buf, 
+      \hyperlink{group__jdks__log_gaa09f0dec1864081c2abbc426b9e387fd}{JDKSAVDECC\_JDKS\_LOG\_CONTROL\_OFFSET\_VENDOR\_EUI64} + pos, len )
+      ;
+499         \textcolor{keywordflow}{if} ( \hyperlink{group__eui64_ga1d7414dc665866d8ad0af100f8a52ef2}{jdksavdecc\_eui64\_compare}( &
+      \hyperlink{group__jdks__log_ga492c3be3079a48fdf9366bdc514c0333}{jdksavdecc\_jdks\_aem\_control\_log\_text}, &p->
+      \hyperlink{group__jdks_ga6183c85748a8af0003d293d653c4ae9b}{vendor\_eui64} ) == 0 )
+500         \{
+501             \hyperlink{group__endian_gaf75f53076978e7b51f12c19414e6070e}{jdksavdecc\_uint32\_read}( &p->\hyperlink{group__jdks_ga32143551b70893faef60f6e35f88ed50}{blob\_size}, buf, 
+      \hyperlink{group__jdks__log_ga14027480ca9c47f6e02e3d96e3e9a1ad}{JDKSAVDECC\_JDKS\_LOG\_CONTROL\_OFFSET\_BLOB\_SIZE} + pos, len );
+502             \textcolor{keywordflow}{if} ( p->\hyperlink{group__jdks_ga32143551b70893faef60f6e35f88ed50}{blob\_size} >= 2 && p->\hyperlink{group__jdks_ga32143551b70893faef60f6e35f88ed50}{blob\_size} <= 
+      \hyperlink{group__aem__command_ga91176affe15020f1b22b04518eeb3d30}{JDKSAVDECC\_AEM\_CONTROL\_VALUE\_TYPE\_BLOB\_MAX\_SIZE} )
+503             \{
+504                 \hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\_t} text\_len = p->\hyperlink{group__jdks_ga32143551b70893faef60f6e35f88ed50}{blob\_size} - 2;
+505 
+506                 \hyperlink{group__endian_ga25eac79531675b56aaa5d7870d880b33}{jdksavdecc\_uint8\_read}( &p->\hyperlink{group__jdks_ga61044f81305d515f41eea13f02f3cb81}{log\_detail}, buf, 
+      \hyperlink{group__jdks__log_ga15244e4065b3ef420cd990e0d2e6bc0d}{JDKSAVDECC\_JDKS\_LOG\_CONTROL\_OFFSET\_LOG\_DETAIL} + pos, len );
+507 
+508                 \hyperlink{group__endian_ga25eac79531675b56aaa5d7870d880b33}{jdksavdecc\_uint8\_read}( &p->\hyperlink{group__jdks_gacb7bc06bed6f6408d719334fc41698c7}{reserved}, buf, 
+      \hyperlink{group__jdks__log_gad860e4d61ae3f91cd3f9799e6b1dd3c5}{JDKSAVDECC\_JDKS\_LOG\_CONTROL\_OFFSET\_RESERVED} + pos, len );
+509 
+510                 \textcolor{keywordflow}{if} ( text\_len < \hyperlink{group__jdks__log_gaaa43d62d581d06b4c563a3ac9f689730}{JDKSAVDECC\_JDKS\_LOG\_CONTROL\_MAX\_TEXT\_LEN}
+       )
+511                 \{
+512                     r = pos + \hyperlink{group__jdks__log_gaa3f2c42190fdfb5a9f8927254dcc38f0}{JDKSAVDECC\_JDKS\_LOG\_CONTROL\_OFFSET\_TEXT}
+      ;
+513                     \textcolor{keywordflow}{if} ( text\_len > 0 )
+514                     \{
+515                         memcpy( p->\hyperlink{group__jdks_ga77513c59b654d8ce1e07a7f3bcdf70db}{text}, (\hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} \textcolor{keyword}{const} *)buf + r, text\_len );
+516                         p->\hyperlink{group__jdks_ga77513c59b654d8ce1e07a7f3bcdf70db}{text}[text\_len] = \textcolor{charliteral}{'\(\backslash\)0'};
+517                     \}
+518                     r = text\_len;
+519                 \}
+520                 \textcolor{keywordflow}{else}
+521                 \{
+522                     r = -1;
+523                 \}
+524             \}
+525             \textcolor{keywordflow}{else}
+526             \{
+527                 r = -1;
+528             \}
+529         \}
+530         \textcolor{keywordflow}{else}
+531         \{
+532             r = -1;
+533         \}
+534     \}
+535     \textcolor{keywordflow}{return} r;
+536 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__jdks__log_gae585c2248e5de55f0cc52a0241a8cd21_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}!jdksavdecc\+\_\+jdks\+\_\+log\+\_\+control\+\_\+generate@{jdksavdecc\+\_\+jdks\+\_\+log\+\_\+control\+\_\+generate}}
+\index{jdksavdecc\+\_\+jdks\+\_\+log\+\_\+control\+\_\+generate@{jdksavdecc\+\_\+jdks\+\_\+log\+\_\+control\+\_\+generate}!Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}}
+\subsubsection[{\texorpdfstring{jdksavdecc\+\_\+jdks\+\_\+log\+\_\+control\+\_\+generate(struct jdksavdecc\+\_\+eui64 const $\ast$my\+\_\+entity\+\_\+id, uint16\+\_\+t descriptor\+\_\+index, uint16\+\_\+t $\ast$sequence\+\_\+id, uint8\+\_\+t log\+\_\+detail, uint8\+\_\+t reserved, const char $\ast$utf8\+\_\+log\+\_\+string, void $\ast$buf, size\+\_\+t len)}{jdksavdecc_jdks_log_control_generate(struct jdksavdecc_eui64 const *my_entity_id, uint16_t descriptor_index, uint16_t *sequence_id, uint8_t log_detail, uint8_t reserved, const char *utf8_log_string, void *buf, size_t len)}}]{\setlength{\rightskip}{0pt plus 5cm}static ssize\+\_\+t jdksavdecc\+\_\+jdks\+\_\+log\+\_\+control\+\_\+generate (
+\begin{DoxyParamCaption}
+\item[{struct {\bf jdksavdecc\+\_\+eui64} const $\ast$}]{my\+\_\+entity\+\_\+id, }
+\item[{uint16\+\_\+t}]{descriptor\+\_\+index, }
+\item[{uint16\+\_\+t $\ast$}]{sequence\+\_\+id, }
+\item[{{\bf uint8\+\_\+t}}]{log\+\_\+detail, }
+\item[{{\bf uint8\+\_\+t}}]{reserved, }
+\item[{const char $\ast$}]{utf8\+\_\+log\+\_\+string, }
+\item[{void $\ast$}]{buf, }
+\item[{size\+\_\+t}]{len}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{group__jdks__log_gac5d38dde1fbdb45e3d413b9e1cae5ac3}{}\label{group__jdks__log_gac5d38dde1fbdb45e3d413b9e1cae5ac3}
+jdksavdecc\+\_\+jdks\+\_\+log\+\_\+control\+\_\+generate generates a J\+D\+KS Log P\+DU as an A\+E\+M\+\_\+\+R\+E\+S\+P\+O\+N\+SE unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+OL message.
+
+
+\begin{DoxyParams}{매개변수}
+{\em my\+\_\+entity\+\_\+id} & Pointer to the source\textquotesingle{}s entity id.\\
+\hline
+{\em descriptor\+\_\+index} & index of the C\+O\+N\+T\+R\+OL descriptor that we are using for this data\\
+\hline
+{\em sequence\+\_\+id} & The pointer to the uint16\+\_\+t of the variable used to track unsolicited response sequence\+\_\+id. This variable will be incremented on success\\
+\hline
+{\em log\+\_\+detail} & The logging detail of this message\+:  0 = Error  1 = Warning  2 = Info  3 = Debug1  4 = Debug2  5 = Debug3  6..0xfe = reserved  0xff = Console\\
+\hline
+{\em reserved} & reserved value\\
+\hline
+{\em utf8\+\_\+log\+\_\+string} & The utf8 data for the string to be sent. Limited to 352 bytes, not including null termination.\\
+\hline
+{\em buf} & The raw ethernet frame packet, starting at DA,SA,Ethertype\\
+\hline
+{\em len} & The length of the memory at buf\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+ssize\+\_\+t length of the data filled in at buf, or -\/1 on error. 
+\end{DoxyReturn}
+
+
+jdksavdecc\+\_\+jdks.\+h 파일의 208 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+216 \{
+217     \textcolor{keywordtype}{int} pos = 14;
+218     ssize\_t text\_len = (ssize\_t)strlen( utf8\_log\_string );
+219     ssize\_t expected\_length = \hyperlink{group__jdks__log_gaade756dffaac6e4f6d3d3b16e4cea38b}{JDKSAVDECC\_JDKS\_LOG\_CONTROL\_HEADER\_LEN} 
+      + text\_len;
+220     ssize\_t r = \hyperlink{group__util_ga9c02bdfe76c69163647c3196db7a73a1}{jdksavdecc\_validate\_range}( pos, len, expected\_length );
+221     \textcolor{keywordflow}{if} ( r >= 0 )
+222     \{
+223         \textcolor{keyword}{struct }\hyperlink{structjdksavdecc__aem__command__set__control__response}{jdksavdecc\_aem\_command\_set\_control\_response} 
+      setctrl;
+224         setctrl.\hyperlink{structjdksavdecc__aem__command__set__control__response_ae1e77ccb75ff5021ad923221eab38294}{aem\_header}.\hyperlink{structjdksavdecc__aecpdu__aem_ae8460ae179666e7ce268ed1ef33d0de3}{aecpdu\_header}.\hyperlink{structjdksavdecc__aecpdu__common_a314cacb6a61bcf18749030c0b6fb7510}{header}.\hyperlink{structjdksavdecc__aecpdu__common__control__header_a8bdacfca3faaf5f7d020bbe533855525}{cd} = \textcolor{keyword}{true};
+225         setctrl.aem\_header.aecpdu\_header.header.subtype = 
+      \hyperlink{group__subtype_ga4f1d76227a738f442d15ebaf2253b6b3}{JDKSAVDECC\_SUBTYPE\_AECP};
+226         setctrl.aem\_header.aecpdu\_header.header.sv = \textcolor{keyword}{false};
+227         setctrl.aem\_header.aecpdu\_header.header.version = 0;
+228         setctrl.aem\_header.aecpdu\_header.header.message\_type = 
+      \hyperlink{group__aecp__message__type_ga9cad401e0f60634a8f084d93b0374d31}{JDKSAVDECC\_AECP\_MESSAGE\_TYPE\_AEM\_RESPONSE};
+229         setctrl.aem\_header.aecpdu\_header.header.status = 
+      \hyperlink{group__aecpdu__aem__status_gaa4d43ea279e119485de1282522a7fb67}{JDKSAVDECC\_AEM\_STATUS\_SUCCESS};
+230         setctrl.aem\_header.aecpdu\_header.header.control\_data\_length
+231             = (uint16\_t)text\_len + \hyperlink{group__jdks__log_gaade756dffaac6e4f6d3d3b16e4cea38b}{JDKSAVDECC\_JDKS\_LOG\_CONTROL\_HEADER\_LEN}
+       - \hyperlink{group__jdksavdecc__avtp__common__control__header_gaae84052886fb1bb42f3bc5f85b741dff}{JDKSAVDECC\_COMMON\_CONTROL\_HEADER\_LEN} + 2;
+232         setctrl.aem\_header.aecpdu\_header.header.target\_entity\_id = *my\_entity\_id;
+233         setctrl.aem\_header.aecpdu\_header.controller\_entity\_id = 
+      \hyperlink{group__jdks__log_gaa8a55f45c47024872aea1d756c51cd7d}{jdksavdecc\_jdks\_notifications\_controller\_entity\_id};
+234         setctrl.aem\_header.aecpdu\_header.sequence\_id = *sequence\_id;
+235         setctrl.aem\_header.command\_type = \hyperlink{group__command_ga78648020206806d2992e010573f0ef27}{JDKSAVDECC\_AEM\_COMMAND\_SET\_CONTROL}
+       | 0x8000;
+236         setctrl.descriptor\_type = \hyperlink{group__descriptor_gaafb6bdc564bbe2b62cb6f91bdb8185a8}{JDKSAVDECC\_DESCRIPTOR\_CONTROL};
+237         setctrl.descriptor\_index = \hyperlink{structjdksavdecc__aem__command__set__control__response_a042bbc76d835b82d27c1932431ee38d4}{descriptor\_index};
+238         \hyperlink{group__command__set__control__response_ga1baf427e932ebec21bb6bc41e2fb4d74}{jdksavdecc\_aem\_command\_set\_control\_response\_write}(
+       &setctrl, buf, pos, len );
+239         \hyperlink{group__eui64_ga9a35f8b0a8e81f3f169892e3d0f3c7ad}{jdksavdecc\_eui64\_write}(
+240             &\hyperlink{group__jdks__log_ga492c3be3079a48fdf9366bdc514c0333}{jdksavdecc\_jdks\_aem\_control\_log\_text}, buf, pos + 
+      \hyperlink{group__jdks__log_gaa09f0dec1864081c2abbc426b9e387fd}{JDKSAVDECC\_JDKS\_LOG\_CONTROL\_OFFSET\_VENDOR\_EUI64}, len );
+241         \hyperlink{group__endian_ga5c8d1aadb6e4ea355503a1945cfdbb92}{jdksavdecc\_uint32\_write}( (\hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\_t})text\_len + 2, buf, pos + 
+      \hyperlink{group__jdks__log_ga14027480ca9c47f6e02e3d96e3e9a1ad}{JDKSAVDECC\_JDKS\_LOG\_CONTROL\_OFFSET\_BLOB\_SIZE}, len );
+242         \hyperlink{group__endian_ga76773f9a39ae810aec586d2bb3b617e5}{jdksavdecc\_uint8\_write}( log\_detail, buf, pos + 
+      \hyperlink{group__jdks__log_ga15244e4065b3ef420cd990e0d2e6bc0d}{JDKSAVDECC\_JDKS\_LOG\_CONTROL\_OFFSET\_LOG\_DETAIL}, len );
+243         \hyperlink{group__endian_ga76773f9a39ae810aec586d2bb3b617e5}{jdksavdecc\_uint8\_write}( reserved, buf, pos + 
+      \hyperlink{group__jdks__log_gad860e4d61ae3f91cd3f9799e6b1dd3c5}{JDKSAVDECC\_JDKS\_LOG\_CONTROL\_OFFSET\_RESERVED}, len );
+244         memcpy( ( (\hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} *)buf ) + pos + 
+      \hyperlink{group__jdks__log_gaa3f2c42190fdfb5a9f8927254dcc38f0}{JDKSAVDECC\_JDKS\_LOG\_CONTROL\_OFFSET\_TEXT}, utf8\_log\_string, text\_len )
+      ;
+245         memcpy( ( (\hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} *)buf ) + \hyperlink{group__pdu_ga1ca97f0df513588adc216b94f3ddea47}{JDKSAVDECC\_FRAME\_HEADER\_DA\_OFFSET}
+      , \hyperlink{group__jdks__log_gae6aee409d176c6cbbc79c18ec2bed520}{jdksavdecc\_jdks\_multicast\_log}.\hyperlink{structjdksavdecc__eui48_a18b93f04637cf37688ec10a33a0cbc26}{value}, 6 );
+246         \hyperlink{group__endian_ga14b9eeadc05f94334096c127c955a60b}{jdksavdecc\_uint16\_set}( \hyperlink{group__pdu_ga9fe7bd6b7d7b0f92f5fdbb910068197f}{JDKSAVDECC\_AVTP\_ETHERTYPE}, buf
+      , \hyperlink{group__pdu_ga8dde9191880d2dd9f96462655467f90f}{JDKSAVDECC\_FRAME\_HEADER\_ETHERTYPE\_OFFSET} );
+247 
+248         *sequence\_id = *sequence\_id + 1;
+249     \}
+250     \textcolor{keywordflow}{return} r;
+251 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__jdks__log_gac5d38dde1fbdb45e3d413b9e1cae5ac3_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}!jdksavdecc\+\_\+jdks\+\_\+log\+\_\+control\+\_\+read@{jdksavdecc\+\_\+jdks\+\_\+log\+\_\+control\+\_\+read}}
+\index{jdksavdecc\+\_\+jdks\+\_\+log\+\_\+control\+\_\+read@{jdksavdecc\+\_\+jdks\+\_\+log\+\_\+control\+\_\+read}!Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}}
+\subsubsection[{\texorpdfstring{jdksavdecc\+\_\+jdks\+\_\+log\+\_\+control\+\_\+read(struct jdksavdecc\+\_\+jdks\+\_\+log\+\_\+control $\ast$p, void const $\ast$buf, size\+\_\+t len)}{jdksavdecc_jdks_log_control_read(struct jdksavdecc_jdks_log_control *p, void const *buf, size_t len)}}]{\setlength{\rightskip}{0pt plus 5cm}static ssize\+\_\+t jdksavdecc\+\_\+jdks\+\_\+log\+\_\+control\+\_\+read (
+\begin{DoxyParamCaption}
+\item[{struct {\bf jdksavdecc\+\_\+jdks\+\_\+log\+\_\+control} $\ast$}]{p, }
+\item[{void const $\ast$}]{buf, }
+\item[{size\+\_\+t}]{len}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{group__jdks__log_ga564507c73741faa269e846895bae6e16}{}\label{group__jdks__log_ga564507c73741faa269e846895bae6e16}
+
+
+jdksavdecc\+\_\+jdks\+\_\+log\+\_\+control\+\_\+read parses all the data in a J\+D\+KS L\+OG unsolicited response 
+
+
+\begin{DoxyParams}{매개변수}
+{\em p} & Pointer to the \hyperlink{structjdksavdecc__jdks__log__control}{jdksavdecc\+\_\+jdks\+\_\+log\+\_\+control} structure that will be partially filled in on success\\
+\hline
+{\em buf} & The raw ethernet frame packet, starting at DA,SA,Ethertype\\
+\hline
+{\em len} & The length of the memory at buf\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+The length of the data parsed, or -\/1 on error 
+\end{DoxyReturn}
+
+
+jdksavdecc\+\_\+jdks.\+h 파일의 428 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+429 \{
+430     \textcolor{keywordtype}{int} pos = 14;
+431     ssize\_t r = \hyperlink{group__util_ga9c02bdfe76c69163647c3196db7a73a1}{jdksavdecc\_validate\_range}( pos, len, 
+      \hyperlink{group__jdks__log_gaade756dffaac6e4f6d3d3b16e4cea38b}{JDKSAVDECC\_JDKS\_LOG\_CONTROL\_HEADER\_LEN} );
+432     \textcolor{keywordflow}{if} ( r >= 0 )
+433     \{
+434         \hyperlink{group__command__set__control__response_ga51e9c0e9f925de9340edeb0c66bb6b5a}{jdksavdecc\_aem\_command\_set\_control\_response\_read}( &
+      p->\hyperlink{group__jdks_ga38de55b081b42c70b4caeb189e999cef}{cmd}, buf, pos, len );
+435         \hyperlink{group__eui64_ga7c7ee5c2d293106f4d997affcbc3ef15}{jdksavdecc\_eui64\_read}( &p->\hyperlink{group__jdks_ga6183c85748a8af0003d293d653c4ae9b}{vendor\_eui64}, buf, 
+      \hyperlink{group__jdks__log_gaa09f0dec1864081c2abbc426b9e387fd}{JDKSAVDECC\_JDKS\_LOG\_CONTROL\_OFFSET\_VENDOR\_EUI64} + pos, len )
+      ;
+436         \textcolor{keywordflow}{if} ( \hyperlink{group__eui64_ga1d7414dc665866d8ad0af100f8a52ef2}{jdksavdecc\_eui64\_compare}( &
+      \hyperlink{group__jdks__log_ga492c3be3079a48fdf9366bdc514c0333}{jdksavdecc\_jdks\_aem\_control\_log\_text}, &p->
+      \hyperlink{group__jdks_ga6183c85748a8af0003d293d653c4ae9b}{vendor\_eui64} ) == 0 )
+437         \{
+438             \hyperlink{group__endian_gaf75f53076978e7b51f12c19414e6070e}{jdksavdecc\_uint32\_read}( &p->\hyperlink{group__jdks_ga32143551b70893faef60f6e35f88ed50}{blob\_size}, buf, 
+      \hyperlink{group__jdks__log_ga14027480ca9c47f6e02e3d96e3e9a1ad}{JDKSAVDECC\_JDKS\_LOG\_CONTROL\_OFFSET\_BLOB\_SIZE} + pos, len );
+439             \textcolor{keywordflow}{if} ( p->\hyperlink{group__jdks_ga32143551b70893faef60f6e35f88ed50}{blob\_size} >= 2 && p->\hyperlink{group__jdks_ga32143551b70893faef60f6e35f88ed50}{blob\_size} <= 
+      \hyperlink{group__aem__command_ga91176affe15020f1b22b04518eeb3d30}{JDKSAVDECC\_AEM\_CONTROL\_VALUE\_TYPE\_BLOB\_MAX\_SIZE} )
+440             \{
+441                 \hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\_t} text\_len = p->\hyperlink{group__jdks_ga32143551b70893faef60f6e35f88ed50}{blob\_size} - 2;
+442 
+443                 \hyperlink{group__endian_ga25eac79531675b56aaa5d7870d880b33}{jdksavdecc\_uint8\_read}( &p->\hyperlink{group__jdks_ga61044f81305d515f41eea13f02f3cb81}{log\_detail}, buf, 
+      \hyperlink{group__jdks__log_ga15244e4065b3ef420cd990e0d2e6bc0d}{JDKSAVDECC\_JDKS\_LOG\_CONTROL\_OFFSET\_LOG\_DETAIL} + pos, len );
+444 
+445                 \hyperlink{group__endian_ga25eac79531675b56aaa5d7870d880b33}{jdksavdecc\_uint8\_read}( &p->\hyperlink{group__jdks_gacb7bc06bed6f6408d719334fc41698c7}{reserved}, buf, 
+      \hyperlink{group__jdks__log_gad860e4d61ae3f91cd3f9799e6b1dd3c5}{JDKSAVDECC\_JDKS\_LOG\_CONTROL\_OFFSET\_RESERVED} + pos, len );
+446 
+447                 \textcolor{keywordflow}{if} ( text\_len < \hyperlink{group__jdks__log_gaaa43d62d581d06b4c563a3ac9f689730}{JDKSAVDECC\_JDKS\_LOG\_CONTROL\_MAX\_TEXT\_LEN}
+       )
+448                 \{
+449                     r = pos + \hyperlink{group__jdks__log_gaa3f2c42190fdfb5a9f8927254dcc38f0}{JDKSAVDECC\_JDKS\_LOG\_CONTROL\_OFFSET\_TEXT}
+      ;
+450                     \textcolor{keywordflow}{if} ( text\_len > 0 )
+451                     \{
+452                         memcpy( p->\hyperlink{group__jdks_ga77513c59b654d8ce1e07a7f3bcdf70db}{text}, (\hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} \textcolor{keyword}{const} *)buf + r, text\_len );
+453                         p->\hyperlink{group__jdks_ga77513c59b654d8ce1e07a7f3bcdf70db}{text}[text\_len] = \textcolor{charliteral}{'\(\backslash\)0'};
+454                     \}
+455                     r = text\_len;
+456                 \}
+457                 \textcolor{keywordflow}{else}
+458                 \{
+459                     r = -1;
+460                 \}
+461             \}
+462             \textcolor{keywordflow}{else}
+463             \{
+464                 r = -1;
+465             \}
+466         \}
+467         \textcolor{keywordflow}{else}
+468         \{
+469             r = -1;
+470         \}
+471     \}
+472     \textcolor{keywordflow}{return} r;
+473 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__jdks__log_ga564507c73741faa269e846895bae6e16_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{변수 문서화}
+\index{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}!jdksavdecc\+\_\+jdks\+\_\+aem\+\_\+control\+\_\+log\+\_\+text@{jdksavdecc\+\_\+jdks\+\_\+aem\+\_\+control\+\_\+log\+\_\+text}}
+\index{jdksavdecc\+\_\+jdks\+\_\+aem\+\_\+control\+\_\+log\+\_\+text@{jdksavdecc\+\_\+jdks\+\_\+aem\+\_\+control\+\_\+log\+\_\+text}!Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}}
+\subsubsection[{\texorpdfstring{jdksavdecc\+\_\+jdks\+\_\+aem\+\_\+control\+\_\+log\+\_\+text}{jdksavdecc_jdks_aem_control_log_text}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf jdksavdecc\+\_\+eui64} jdksavdecc\+\_\+jdks\+\_\+aem\+\_\+control\+\_\+log\+\_\+text}\hypertarget{group__jdks__log_ga492c3be3079a48fdf9366bdc514c0333}{}\label{group__jdks__log_ga492c3be3079a48fdf9366bdc514c0333}
+
+
+jdksavdecc\+\_\+jdks.\+c 파일의 38 번째 라인에서 정의되었습니다.
+
+\index{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}!jdksavdecc\+\_\+jdks\+\_\+multicast\+\_\+log@{jdksavdecc\+\_\+jdks\+\_\+multicast\+\_\+log}}
+\index{jdksavdecc\+\_\+jdks\+\_\+multicast\+\_\+log@{jdksavdecc\+\_\+jdks\+\_\+multicast\+\_\+log}!Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}}
+\subsubsection[{\texorpdfstring{jdksavdecc\+\_\+jdks\+\_\+multicast\+\_\+log}{jdksavdecc_jdks_multicast_log}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf jdksavdecc\+\_\+eui48} jdksavdecc\+\_\+jdks\+\_\+multicast\+\_\+log}\hypertarget{group__jdks__log_gae6aee409d176c6cbbc79c18ec2bed520}{}\label{group__jdks__log_gae6aee409d176c6cbbc79c18ec2bed520}
+
+
+jdksavdecc\+\_\+jdks.\+c 파일의 36 번째 라인에서 정의되었습니다.
+
+\index{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}!jdksavdecc\+\_\+jdks\+\_\+notifications\+\_\+controller\+\_\+entity\+\_\+id@{jdksavdecc\+\_\+jdks\+\_\+notifications\+\_\+controller\+\_\+entity\+\_\+id}}
+\index{jdksavdecc\+\_\+jdks\+\_\+notifications\+\_\+controller\+\_\+entity\+\_\+id@{jdksavdecc\+\_\+jdks\+\_\+notifications\+\_\+controller\+\_\+entity\+\_\+id}!Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response@{Logging mechanism using multicast A\+E\+C\+P A\+E\+M Unsolicited S\+E\+T\+\_\+\+C\+O\+N\+T\+R\+O\+L Response}}
+\subsubsection[{\texorpdfstring{jdksavdecc\+\_\+jdks\+\_\+notifications\+\_\+controller\+\_\+entity\+\_\+id}{jdksavdecc_jdks_notifications_controller_entity_id}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf jdksavdecc\+\_\+eui64} jdksavdecc\+\_\+jdks\+\_\+notifications\+\_\+controller\+\_\+entity\+\_\+id}\hypertarget{group__jdks__log_gaa8a55f45c47024872aea1d756c51cd7d}{}\label{group__jdks__log_gaa8a55f45c47024872aea1d756c51cd7d}
+
+
+jdksavdecc\+\_\+jdks.\+c 파일의 37 번째 라인에서 정의되었습니다.
+

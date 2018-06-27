@@ -1,0 +1,25 @@
+var interface_outline_view_controller =
+[
+    [ "add:", "interface_outline_view_controller.html#a760d909508462c2fce590cc906b2c77c", null ],
+    [ "changedSelection:", "interface_outline_view_controller.html#ac06c003bf6f6212fe2c0148158f15420", null ],
+    [ "refresh:", "interface_outline_view_controller.html#aceda7436ce6fed1c886a08ac19621689", null ],
+    [ "remove:", "interface_outline_view_controller.html#aa15aab45b7c52c88f09ead1801d2da53", null ],
+    [ "updateDeviceList:", "interface_outline_view_controller.html#ae0fde79c58d30bdb92b065bda8e9eda7", null ],
+    [ "avbDevices", "interface_outline_view_controller.html#a20a915915c748191825c263c1e590e10", null ],
+    [ "avbInterface", "interface_outline_view_controller.html#aa2eb2773d9828983a52f0c3d23170b8a", null ],
+    [ "detailsDeviceId", "interface_outline_view_controller.html#ac80161778b5979fffdc02a7de71bf762", null ],
+    [ "detailsImage", "interface_outline_view_controller.html#a39e8e2bf1c9771ad4df7ca12b2fc44bd", null ],
+    [ "detailsIsController", "interface_outline_view_controller.html#abdb488283412f83c5cde219dda7cc543", null ],
+    [ "detailsIsListener", "interface_outline_view_controller.html#a627aa74cdaf3b30d128506a71f0ab370", null ],
+    [ "detailsIsLocal", "interface_outline_view_controller.html#a4ecd1fb010b36933aca363f1bc2cddf8", null ],
+    [ "detailsIsTalker", "interface_outline_view_controller.html#a65c0b4ab07c845325e04a290e594d26f", null ],
+    [ "detailsListenerStreams", "interface_outline_view_controller.html#ab8bcb90be6d07db7886e0e1234d76c98", null ],
+    [ "detailsListenerType", "interface_outline_view_controller.html#a003d3d3cc242b2edc4281a236cf6f2ea", null ],
+    [ "detailsMacAddresses", "interface_outline_view_controller.html#a19f74cf027687add4d1e4c15268ceffe", null ],
+    [ "detailsModelId", "interface_outline_view_controller.html#a0d0fd477fde079e7e594bd8576ba10fd", null ],
+    [ "detailsName", "interface_outline_view_controller.html#a7a9756ea9cb4e3a8b300d1906e020ec3", null ],
+    [ "detailsTalkerStreams", "interface_outline_view_controller.html#a070a2c6cab3e46934349fe45fbf40926", null ],
+    [ "detailsTalkerType", "interface_outline_view_controller.html#a6d5dab8105a95f098a2e48ec855a6962", null ],
+    [ "detailsVendorId", "interface_outline_view_controller.html#a05fc46c77c4ab0a7c0d67420f4a97fe4", null ],
+    [ "outlineView", "interface_outline_view_controller.html#a2df5f78f79ebb8f68653c3b54304e6e8", null ]
+];

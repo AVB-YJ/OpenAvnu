@@ -1,0 +1,998 @@
+\hypertarget{getopt_8c}{}\section{avdecc-\/lib/controller/app/cmdline/src/msvc/getopt.c 파일 참조}
+\label{getopt_8c}\index{avdecc-\/lib/controller/app/cmdline/src/msvc/getopt.\+c@{avdecc-\/lib/controller/app/cmdline/src/msvc/getopt.\+c}}
+{\ttfamily \#include $<$errno.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$getopt.\+h$>$}\\*
+{\ttfamily \#include $<$stdarg.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$windows.\+h$>$}\\*
+getopt.\+c에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{getopt_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{getopt_8c_a77fd2f19b813fdd8d7d4964c550485f8}{R\+E\+P\+L\+A\+C\+E\+\_\+\+G\+E\+T\+O\+PT}~/$\ast$ use this \hyperlink{getopt_8h_a5b4d105808f29eef11f1a690ccc4e04a}{getopt} as the system \hyperlink{getopt_8h_a5b4d105808f29eef11f1a690ccc4e04a}{getopt}(3) $\ast$/
+\item 
+\#define \hyperlink{getopt_8c_ab95d1b25e0c8b7aa1c5c1b427d3c1c0a}{optreset}~\+\_\+\+\_\+mingw\+\_\+optreset
+\item 
+\#define \hyperlink{getopt_8c_aa0004d1735f5c5a47cd385525c5bdbc0}{P\+R\+I\+N\+T\+\_\+\+E\+R\+R\+OR}~((\hyperlink{getopt_8h_ae30f05ee1e2e5652f174a35c7875d25e}{opterr}) \&\& ($\ast$\hyperlink{aaf-talker_8c_abc1fd3a47aea6a8944038c9100eb9135}{options} != \textquotesingle{}\+:\textquotesingle{}))
+\item 
+\#define \hyperlink{getopt_8c_a749f21f580ce8e232eec1cdfccbbdb29}{F\+L\+A\+G\+\_\+\+P\+E\+R\+M\+U\+TE}~0x01	/$\ast$ permute non-\/options to the end of argv $\ast$/
+\item 
+\#define \hyperlink{getopt_8c_a39578296f05cb6eeaab7bbcda14c7828}{F\+L\+A\+G\+\_\+\+A\+L\+L\+A\+R\+GS}~0x02	/$\ast$ treat non-\/options as args to option \char`\"{}-\/1\char`\"{} $\ast$/
+\item 
+\#define \hyperlink{getopt_8c_a1c1f2fbb3773c9af64610d077ffe4d92}{F\+L\+A\+G\+\_\+\+L\+O\+N\+G\+O\+N\+LY}~0x04	/$\ast$ operate as getopt\+\_\+long\+\_\+only $\ast$/
+\item 
+\#define \hyperlink{getopt_8c_a1c8c2c090f7416155b04f9d6eb50faa0}{B\+A\+D\+CH}~(int)\textquotesingle{}?\textquotesingle{}
+\item 
+\#define \hyperlink{getopt_8c_aa66fa298ed3187720cb609e15cd7d22c}{B\+A\+D\+A\+RG}~(($\ast$\hyperlink{aaf-talker_8c_abc1fd3a47aea6a8944038c9100eb9135}{options} == \textquotesingle{}\+:\textquotesingle{}) ? (int)\textquotesingle{}\+:\textquotesingle{} \+: (int)\textquotesingle{}?\textquotesingle{})
+\item 
+\#define \hyperlink{getopt_8c_ab043c5480fc290137f7fe7fb33ce6141}{I\+N\+O\+R\+D\+ER}~(int)1
+\item 
+\#define \hyperlink{getopt_8c_a41c2f9db0a7e23392fbbebb1d1c185ec}{\+\_\+\+\_\+progname}~\+\_\+\+\_\+argv\mbox{[}0\mbox{]}
+\item 
+\#define \hyperlink{getopt_8c_ac393ec775622430dfe25cd2ac9dec9f4}{E\+M\+SG}~\char`\"{}\char`\"{}
+\item 
+\#define \hyperlink{getopt_8c_aa11eefdd832b1ad32bf339233a172e8e}{I\+D\+E\+N\+T\+I\+C\+A\+L\+\_\+\+I\+N\+T\+E\+R\+P\+R\+E\+T\+A\+T\+I\+ON}(\+\_\+x,  \+\_\+y)
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+static int \hyperlink{getopt_8c_a8bcfc41ffd83b00297822b5644eb895d}{getopt\+\_\+internal} (int, char $\ast$const $\ast$, const char $\ast$, const struct \hyperlink{structoption}{option} $\ast$, int $\ast$, int)
+\item 
+static int \hyperlink{getopt_8c_ad438c4fc1ef360289d6d94c526350074}{parse\+\_\+long\+\_\+options} (char $\ast$const $\ast$, const char $\ast$, const struct \hyperlink{structoption}{option} $\ast$, int $\ast$, int)
+\item 
+static int \hyperlink{getopt_8c_ade4a5e5ef73343f680d9c75ddc6c5d24}{gcd} (int, int)
+\item 
+static void \hyperlink{getopt_8c_a9c22539bcd7939ce1f988d443187bd38}{permute\+\_\+args} (int, int, int, char $\ast$const $\ast$)
+\item 
+static void \hyperlink{getopt_8c_a2a5ff59b0a3735eef0073c8aca269456}{\+\_\+vwarnx} (const char $\ast$fmt, va\+\_\+list ap)
+\item 
+static void \hyperlink{getopt_8c_acece1548dfba3be0fbea0cbd38959768}{warnx} (const char $\ast$fmt,...)
+\item 
+int \hyperlink{getopt_8c_a5b4d105808f29eef11f1a690ccc4e04a}{getopt} (int nargc, char $\ast$const $\ast$nargv, const char $\ast$\hyperlink{aaf-talker_8c_abc1fd3a47aea6a8944038c9100eb9135}{options})
+\item 
+int \hyperlink{getopt_8c_a670b3d6580b88001f22388938a15504d}{getopt\+\_\+long} (int nargc, char $\ast$const $\ast$nargv, const char $\ast$\hyperlink{aaf-talker_8c_abc1fd3a47aea6a8944038c9100eb9135}{options}, const struct \hyperlink{structoption}{option} $\ast$long\+\_\+options, int $\ast$idx)
+\item 
+int \hyperlink{getopt_8c_a03caa4d76bf3b2def1c61df69d34f593}{getopt\+\_\+long\+\_\+only} (int nargc, char $\ast$const $\ast$nargv, const char $\ast$\hyperlink{aaf-talker_8c_abc1fd3a47aea6a8944038c9100eb9135}{options}, const struct \hyperlink{structoption}{option} $\ast$long\+\_\+options, int $\ast$idx)
+\end{DoxyCompactItemize}
+\subsection*{변수}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{getopt_8c_ae30f05ee1e2e5652f174a35c7875d25e}{opterr} = 1
+\item 
+int \hyperlink{getopt_8c_ad5e1c16213bbee2d5e8cc363309f418c}{optind} = 1
+\item 
+int \hyperlink{getopt_8c_a475b8db98445da73e5f62a1ef6324b95}{optopt} = \textquotesingle{}?\textquotesingle{}
+\item 
+int \hyperlink{getopt_8c_a62231492adf03e02ff80d0bfb3b3ebd6}{optreset}
+\item 
+char $\ast$ \hyperlink{getopt_8c_adb50a0eab9fed92fc3bfc7dfa4f2c410}{optarg}
+\item 
+static char $\ast$ \hyperlink{getopt_8c_a8671bb5de7c967469d95cf71b4ae06cd}{place} = \hyperlink{getopt_8c_ac393ec775622430dfe25cd2ac9dec9f4}{E\+M\+SG}
+\item 
+static int \hyperlink{getopt_8c_a75f896093f2e8b7e7bb1a6bd797133e5}{nonopt\+\_\+start} = -\/1
+\item 
+static int \hyperlink{getopt_8c_a91a70adb23f329d93d16503991ae4b11}{nonopt\+\_\+end} = -\/1
+\item 
+static const char \hyperlink{getopt_8c_ad4baf3be33fb50c0f2015b8821ed9398}{recargchar} \mbox{[}$\,$\mbox{]} = \char`\"{}option requires an argument -\/-\/ \%\hyperlink{shaper__daemon_8c_a4e1e0e72dd773439e333c84dd762a9c3}{c}\char`\"{}
+\item 
+static const char \hyperlink{getopt_8c_a2b3c29bd6cb47d564ec2f12b6c6a8790}{recargstring} \mbox{[}$\,$\mbox{]} = \char`\"{}option requires an argument -\/-\/ \%s\char`\"{}
+\item 
+static const char \hyperlink{getopt_8c_ada1709fe1ad82fed216b6e56e46f28b3}{ambig} \mbox{[}$\,$\mbox{]} = \char`\"{}ambiguous \hyperlink{structoption}{option} -\/-\/ \%.$\ast$s\char`\"{}
+\item 
+static const char \hyperlink{getopt_8c_a22f41dd73790609a61798e2a98e0cc41}{noarg} \mbox{[}$\,$\mbox{]} = \char`\"{}option doesn\textquotesingle{}t take an argument -\/-\/ \%.$\ast$s\char`\"{}
+\item 
+static const char \hyperlink{getopt_8c_a7f563abcc4195a52b02eb9e6b43edc3d}{illoptchar} \mbox{[}$\,$\mbox{]} = \char`\"{}unknown \hyperlink{structoption}{option} -\/-\/ \%\hyperlink{shaper__daemon_8c_a4e1e0e72dd773439e333c84dd762a9c3}{c}\char`\"{}
+\item 
+static const char \hyperlink{getopt_8c_a58dd1a457abacf295251fb7d3b6e0c1d}{illoptstring} \mbox{[}$\,$\mbox{]} = \char`\"{}unknown \hyperlink{structoption}{option} -\/-\/ \%s\char`\"{}
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{getopt.\+c@{getopt.\+c}!\+\_\+\+\_\+progname@{\+\_\+\+\_\+progname}}
+\index{\+\_\+\+\_\+progname@{\+\_\+\+\_\+progname}!getopt.\+c@{getopt.\+c}}
+\subsubsection[{\texorpdfstring{\+\_\+\+\_\+progname}{__progname}}]{\setlength{\rightskip}{0pt plus 5cm}\#define \+\_\+\+\_\+progname~\+\_\+\+\_\+argv\mbox{[}0\mbox{]}}\hypertarget{getopt_8c_a41c2f9db0a7e23392fbbebb1d1c185ec}{}\label{getopt_8c_a41c2f9db0a7e23392fbbebb1d1c185ec}
+
+
+getopt.\+c 파일의 84 번째 라인에서 정의되었습니다.
+
+\index{getopt.\+c@{getopt.\+c}!B\+A\+D\+A\+RG@{B\+A\+D\+A\+RG}}
+\index{B\+A\+D\+A\+RG@{B\+A\+D\+A\+RG}!getopt.\+c@{getopt.\+c}}
+\subsubsection[{\texorpdfstring{B\+A\+D\+A\+RG}{BADARG}}]{\setlength{\rightskip}{0pt plus 5cm}\#define B\+A\+D\+A\+RG~(($\ast${\bf options} == \textquotesingle{}\+:\textquotesingle{}) ? (int)\textquotesingle{}\+:\textquotesingle{} \+: (int)\textquotesingle{}?\textquotesingle{})}\hypertarget{getopt_8c_aa66fa298ed3187720cb609e15cd7d22c}{}\label{getopt_8c_aa66fa298ed3187720cb609e15cd7d22c}
+
+
+getopt.\+c 파일의 80 번째 라인에서 정의되었습니다.
+
+\index{getopt.\+c@{getopt.\+c}!B\+A\+D\+CH@{B\+A\+D\+CH}}
+\index{B\+A\+D\+CH@{B\+A\+D\+CH}!getopt.\+c@{getopt.\+c}}
+\subsubsection[{\texorpdfstring{B\+A\+D\+CH}{BADCH}}]{\setlength{\rightskip}{0pt plus 5cm}\#define B\+A\+D\+CH~(int)\textquotesingle{}?\textquotesingle{}}\hypertarget{getopt_8c_a1c8c2c090f7416155b04f9d6eb50faa0}{}\label{getopt_8c_a1c8c2c090f7416155b04f9d6eb50faa0}
+
+
+getopt.\+c 파일의 79 번째 라인에서 정의되었습니다.
+
+\index{getopt.\+c@{getopt.\+c}!E\+M\+SG@{E\+M\+SG}}
+\index{E\+M\+SG@{E\+M\+SG}!getopt.\+c@{getopt.\+c}}
+\subsubsection[{\texorpdfstring{E\+M\+SG}{EMSG}}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\+M\+SG~\char`\"{}\char`\"{}}\hypertarget{getopt_8c_ac393ec775622430dfe25cd2ac9dec9f4}{}\label{getopt_8c_ac393ec775622430dfe25cd2ac9dec9f4}
+
+
+getopt.\+c 파일의 92 번째 라인에서 정의되었습니다.
+
+\index{getopt.\+c@{getopt.\+c}!F\+L\+A\+G\+\_\+\+A\+L\+L\+A\+R\+GS@{F\+L\+A\+G\+\_\+\+A\+L\+L\+A\+R\+GS}}
+\index{F\+L\+A\+G\+\_\+\+A\+L\+L\+A\+R\+GS@{F\+L\+A\+G\+\_\+\+A\+L\+L\+A\+R\+GS}!getopt.\+c@{getopt.\+c}}
+\subsubsection[{\texorpdfstring{F\+L\+A\+G\+\_\+\+A\+L\+L\+A\+R\+GS}{FLAG_ALLARGS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+L\+A\+G\+\_\+\+A\+L\+L\+A\+R\+GS~0x02	/$\ast$ treat non-\/options as args to option \char`\"{}-\/1\char`\"{} $\ast$/}\hypertarget{getopt_8c_a39578296f05cb6eeaab7bbcda14c7828}{}\label{getopt_8c_a39578296f05cb6eeaab7bbcda14c7828}
+
+
+getopt.\+c 파일의 75 번째 라인에서 정의되었습니다.
+
+\index{getopt.\+c@{getopt.\+c}!F\+L\+A\+G\+\_\+\+L\+O\+N\+G\+O\+N\+LY@{F\+L\+A\+G\+\_\+\+L\+O\+N\+G\+O\+N\+LY}}
+\index{F\+L\+A\+G\+\_\+\+L\+O\+N\+G\+O\+N\+LY@{F\+L\+A\+G\+\_\+\+L\+O\+N\+G\+O\+N\+LY}!getopt.\+c@{getopt.\+c}}
+\subsubsection[{\texorpdfstring{F\+L\+A\+G\+\_\+\+L\+O\+N\+G\+O\+N\+LY}{FLAG_LONGONLY}}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+L\+A\+G\+\_\+\+L\+O\+N\+G\+O\+N\+LY~0x04	/$\ast$ operate as getopt\+\_\+long\+\_\+only $\ast$/}\hypertarget{getopt_8c_a1c1f2fbb3773c9af64610d077ffe4d92}{}\label{getopt_8c_a1c1f2fbb3773c9af64610d077ffe4d92}
+
+
+getopt.\+c 파일의 76 번째 라인에서 정의되었습니다.
+
+\index{getopt.\+c@{getopt.\+c}!F\+L\+A\+G\+\_\+\+P\+E\+R\+M\+U\+TE@{F\+L\+A\+G\+\_\+\+P\+E\+R\+M\+U\+TE}}
+\index{F\+L\+A\+G\+\_\+\+P\+E\+R\+M\+U\+TE@{F\+L\+A\+G\+\_\+\+P\+E\+R\+M\+U\+TE}!getopt.\+c@{getopt.\+c}}
+\subsubsection[{\texorpdfstring{F\+L\+A\+G\+\_\+\+P\+E\+R\+M\+U\+TE}{FLAG_PERMUTE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+L\+A\+G\+\_\+\+P\+E\+R\+M\+U\+TE~0x01	/$\ast$ permute non-\/options to the end of argv $\ast$/}\hypertarget{getopt_8c_a749f21f580ce8e232eec1cdfccbbdb29}{}\label{getopt_8c_a749f21f580ce8e232eec1cdfccbbdb29}
+
+
+getopt.\+c 파일의 74 번째 라인에서 정의되었습니다.
+
+\index{getopt.\+c@{getopt.\+c}!I\+D\+E\+N\+T\+I\+C\+A\+L\+\_\+\+I\+N\+T\+E\+R\+P\+R\+E\+T\+A\+T\+I\+ON@{I\+D\+E\+N\+T\+I\+C\+A\+L\+\_\+\+I\+N\+T\+E\+R\+P\+R\+E\+T\+A\+T\+I\+ON}}
+\index{I\+D\+E\+N\+T\+I\+C\+A\+L\+\_\+\+I\+N\+T\+E\+R\+P\+R\+E\+T\+A\+T\+I\+ON@{I\+D\+E\+N\+T\+I\+C\+A\+L\+\_\+\+I\+N\+T\+E\+R\+P\+R\+E\+T\+A\+T\+I\+ON}!getopt.\+c@{getopt.\+c}}
+\subsubsection[{\texorpdfstring{I\+D\+E\+N\+T\+I\+C\+A\+L\+\_\+\+I\+N\+T\+E\+R\+P\+R\+E\+T\+A\+T\+I\+ON}{IDENTICAL_INTERPRETATION}}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\+D\+E\+N\+T\+I\+C\+A\+L\+\_\+\+I\+N\+T\+E\+R\+P\+R\+E\+T\+A\+T\+I\+ON(
+\begin{DoxyParamCaption}
+\item[{}]{\+\_\+x, }
+\item[{}]{\+\_\+y}
+\end{DoxyParamCaption}
+)}\hypertarget{getopt_8c_aa11eefdd832b1ad32bf339233a172e8e}{}\label{getopt_8c_aa11eefdd832b1ad32bf339233a172e8e}
+{\bfseries 값\+:}
+\begin{DoxyCode}
+(long\_options[(\_x)].has\_arg == long\_options[(\_y)].has\_arg &&    \(\backslash\)
+     long\_options[(\_x)].flag == long\_options[(\_y)].flag &&          \(\backslash\)
+     long\_options[(\_x)].val == long\_options[(\_y)].val)
+\end{DoxyCode}
+\index{getopt.\+c@{getopt.\+c}!I\+N\+O\+R\+D\+ER@{I\+N\+O\+R\+D\+ER}}
+\index{I\+N\+O\+R\+D\+ER@{I\+N\+O\+R\+D\+ER}!getopt.\+c@{getopt.\+c}}
+\subsubsection[{\texorpdfstring{I\+N\+O\+R\+D\+ER}{INORDER}}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\+N\+O\+R\+D\+ER~(int)1}\hypertarget{getopt_8c_ab043c5480fc290137f7fe7fb33ce6141}{}\label{getopt_8c_ab043c5480fc290137f7fe7fb33ce6141}
+
+
+getopt.\+c 파일의 81 번째 라인에서 정의되었습니다.
+
+\index{getopt.\+c@{getopt.\+c}!optreset@{optreset}}
+\index{optreset@{optreset}!getopt.\+c@{getopt.\+c}}
+\subsubsection[{\texorpdfstring{optreset}{optreset}}]{\setlength{\rightskip}{0pt plus 5cm}\#define optreset~\+\_\+\+\_\+mingw\+\_\+optreset}\hypertarget{getopt_8c_ab95d1b25e0c8b7aa1c5c1b427d3c1c0a}{}\label{getopt_8c_ab95d1b25e0c8b7aa1c5c1b427d3c1c0a}
+
+
+getopt.\+c 파일의 67 번째 라인에서 정의되었습니다.
+
+\index{getopt.\+c@{getopt.\+c}!P\+R\+I\+N\+T\+\_\+\+E\+R\+R\+OR@{P\+R\+I\+N\+T\+\_\+\+E\+R\+R\+OR}}
+\index{P\+R\+I\+N\+T\+\_\+\+E\+R\+R\+OR@{P\+R\+I\+N\+T\+\_\+\+E\+R\+R\+OR}!getopt.\+c@{getopt.\+c}}
+\subsubsection[{\texorpdfstring{P\+R\+I\+N\+T\+\_\+\+E\+R\+R\+OR}{PRINT_ERROR}}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+R\+I\+N\+T\+\_\+\+E\+R\+R\+OR~(({\bf opterr}) \&\& ($\ast${\bf options} != \textquotesingle{}\+:\textquotesingle{}))}\hypertarget{getopt_8c_aa0004d1735f5c5a47cd385525c5bdbc0}{}\label{getopt_8c_aa0004d1735f5c5a47cd385525c5bdbc0}
+
+
+getopt.\+c 파일의 72 번째 라인에서 정의되었습니다.
+
+\index{getopt.\+c@{getopt.\+c}!R\+E\+P\+L\+A\+C\+E\+\_\+\+G\+E\+T\+O\+PT@{R\+E\+P\+L\+A\+C\+E\+\_\+\+G\+E\+T\+O\+PT}}
+\index{R\+E\+P\+L\+A\+C\+E\+\_\+\+G\+E\+T\+O\+PT@{R\+E\+P\+L\+A\+C\+E\+\_\+\+G\+E\+T\+O\+PT}!getopt.\+c@{getopt.\+c}}
+\subsubsection[{\texorpdfstring{R\+E\+P\+L\+A\+C\+E\+\_\+\+G\+E\+T\+O\+PT}{REPLACE_GETOPT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+E\+P\+L\+A\+C\+E\+\_\+\+G\+E\+T\+O\+PT~/$\ast$ use this {\bf getopt} as the system {\bf getopt}(3) $\ast$/}\hypertarget{getopt_8c_a77fd2f19b813fdd8d7d4964c550485f8}{}\label{getopt_8c_a77fd2f19b813fdd8d7d4964c550485f8}
+
+
+getopt.\+c 파일의 60 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{함수 문서화}
+\index{getopt.\+c@{getopt.\+c}!\+\_\+vwarnx@{\+\_\+vwarnx}}
+\index{\+\_\+vwarnx@{\+\_\+vwarnx}!getopt.\+c@{getopt.\+c}}
+\subsubsection[{\texorpdfstring{\+\_\+vwarnx(const char $\ast$fmt, va\+\_\+list ap)}{_vwarnx(const char *fmt, va_list ap)}}]{\setlength{\rightskip}{0pt plus 5cm}static void \+\_\+vwarnx (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fmt, }
+\item[{va\+\_\+list}]{ap}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{getopt_8c_a2a5ff59b0a3735eef0073c8aca269456}{}\label{getopt_8c_a2a5ff59b0a3735eef0073c8aca269456}
+
+
+getopt.\+c 파일의 117 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+118 \{
+119     (void)fprintf(stderr,\textcolor{stringliteral}{"%s: "},\hyperlink{getopt_8c_a41c2f9db0a7e23392fbbebb1d1c185ec}{\_\_progname});
+120     \textcolor{keywordflow}{if} (fmt != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL})
+121         (void)vfprintf(stderr,fmt,ap);
+122     (void)fprintf(stderr,\textcolor{stringliteral}{"\(\backslash\)n"});
+123 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{getopt_8c_a2a5ff59b0a3735eef0073c8aca269456_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{getopt.\+c@{getopt.\+c}!gcd@{gcd}}
+\index{gcd@{gcd}!getopt.\+c@{getopt.\+c}}
+\subsubsection[{\texorpdfstring{gcd(int, int)}{gcd(int, int)}}]{\setlength{\rightskip}{0pt plus 5cm}static int gcd (
+\begin{DoxyParamCaption}
+\item[{int}]{a, }
+\item[{int}]{b}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{getopt_8c_ade4a5e5ef73343f680d9c75ddc6c5d24}{}\label{getopt_8c_ade4a5e5ef73343f680d9c75ddc6c5d24}
+
+
+getopt.\+c 파일의 138 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+139 \{
+140     \textcolor{keywordtype}{int} \hyperlink{shaper__daemon_8c_a4e1e0e72dd773439e333c84dd762a9c3}{c};
+141 
+142     c = a % b;
+143     \textcolor{keywordflow}{while} (c != 0) \{
+144         a = b;
+145         b = \hyperlink{shaper__daemon_8c_a4e1e0e72dd773439e333c84dd762a9c3}{c};
+146         c = a % b;
+147     \}
+148 
+149     \textcolor{keywordflow}{return} (b);
+150 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{getopt_8c_ade4a5e5ef73343f680d9c75ddc6c5d24_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{getopt.\+c@{getopt.\+c}!getopt@{getopt}}
+\index{getopt@{getopt}!getopt.\+c@{getopt.\+c}}
+\subsubsection[{\texorpdfstring{getopt(int nargc, char $\ast$const $\ast$nargv, const char $\ast$options)}{getopt(int nargc, char *const *nargv, const char *options)}}]{\setlength{\rightskip}{0pt plus 5cm}int getopt (
+\begin{DoxyParamCaption}
+\item[{int}]{nargc, }
+\item[{char $\ast$const $\ast$}]{nargv, }
+\item[{const char $\ast$}]{options}
+\end{DoxyParamCaption}
+)}\hypertarget{getopt_8c_a5b4d105808f29eef11f1a690ccc4e04a}{}\label{getopt_8c_a5b4d105808f29eef11f1a690ccc4e04a}
+
+
+getopt.\+c 파일의 523 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+524 \{
+525 
+526     \textcolor{comment}{/*}
+527 \textcolor{comment}{     * We don't pass FLAG\_PERMUTE to getopt\_internal() since}
+528 \textcolor{comment}{     * the BSD getopt(3) (unlike GNU) has never done this.}
+529 \textcolor{comment}{     *}
+530 \textcolor{comment}{     * Furthermore, since many privileged programs call getopt()}
+531 \textcolor{comment}{     * before dropping privileges it makes sense to keep things}
+532 \textcolor{comment}{     * as simple (and bug-free) as possible.}
+533 \textcolor{comment}{     */}
+534     \textcolor{keywordflow}{return} (\hyperlink{getopt_8c_a8bcfc41ffd83b00297822b5644eb895d}{getopt\_internal}(nargc, nargv, \hyperlink{aaf-talker_8c_abc1fd3a47aea6a8944038c9100eb9135}{options}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, 
+      \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, 0));
+535 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{getopt_8c_a5b4d105808f29eef11f1a690ccc4e04a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=198pt]{getopt_8c_a5b4d105808f29eef11f1a690ccc4e04a_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{getopt.\+c@{getopt.\+c}!getopt\+\_\+internal@{getopt\+\_\+internal}}
+\index{getopt\+\_\+internal@{getopt\+\_\+internal}!getopt.\+c@{getopt.\+c}}
+\subsubsection[{\texorpdfstring{getopt\+\_\+internal(int, char $\ast$const $\ast$, const char $\ast$, const struct option $\ast$, int $\ast$, int)}{getopt_internal(int, char *const *, const char *, const struct option *, int *, int)}}]{\setlength{\rightskip}{0pt plus 5cm}static int getopt\+\_\+internal (
+\begin{DoxyParamCaption}
+\item[{int}]{nargc, }
+\item[{char $\ast$const $\ast$}]{nargv, }
+\item[{const char $\ast$}]{options, }
+\item[{const struct {\bf option} $\ast$}]{long\+\_\+options, }
+\item[{int $\ast$}]{idx, }
+\item[{int}]{flags}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{getopt_8c_a8bcfc41ffd83b00297822b5644eb895d}{}\label{getopt_8c_a8bcfc41ffd83b00297822b5644eb895d}
+
+
+getopt.\+c 파일의 323 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+325 \{
+326     \textcolor{keywordtype}{char} *oli;              \textcolor{comment}{/* option letter list index */}
+327     \textcolor{keywordtype}{int} optchar, short\_too;
+328     \textcolor{keyword}{static} \textcolor{keywordtype}{int} posixly\_correct = -1;
+329 
+330     \textcolor{keywordflow}{if} (\hyperlink{aaf-talker_8c_abc1fd3a47aea6a8944038c9100eb9135}{options} == \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL})
+331         \textcolor{keywordflow}{return} (-1);
+332 
+333     \textcolor{comment}{/*}
+334 \textcolor{comment}{     * XXX Some GNU programs (like cvs) set optind to 0 instead of}
+335 \textcolor{comment}{     * XXX using optreset.  Work around this braindamage.}
+336 \textcolor{comment}{     */}
+337     \textcolor{keywordflow}{if} (\hyperlink{getopt_8c_ad5e1c16213bbee2d5e8cc363309f418c}{optind} == 0)
+338         \hyperlink{getopt_8c_ad5e1c16213bbee2d5e8cc363309f418c}{optind} = \hyperlink{getopt_8c_ab95d1b25e0c8b7aa1c5c1b427d3c1c0a}{optreset} = 1;
+339 
+340     \textcolor{comment}{/*}
+341 \textcolor{comment}{     * Disable GNU extensions if POSIXLY\_CORRECT is set or options}
+342 \textcolor{comment}{     * string begins with a '+'.}
+343 \textcolor{comment}{     *}
+344 \textcolor{comment}{     * CV, 2009-12-14: Check POSIXLY\_CORRECT anew if optind == 0 or}
+345 \textcolor{comment}{     *                 optreset != 0 for GNU compatibility.}
+346 \textcolor{comment}{     */}
+347     \textcolor{keywordflow}{if} (posixly\_correct == -1 || \hyperlink{getopt_8c_ab95d1b25e0c8b7aa1c5c1b427d3c1c0a}{optreset} != 0)
+348         posixly\_correct = (getenv(\textcolor{stringliteral}{"POSIXLY\_CORRECT"}) != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+349     \textcolor{keywordflow}{if} (*\hyperlink{aaf-talker_8c_abc1fd3a47aea6a8944038c9100eb9135}{options} == \textcolor{charliteral}{'-'})
+350         \hyperlink{namespaceavdecc__lib_ab6b306ef981f5e21bb41ea2c2dbe8cd9}{flags} |= \hyperlink{getopt_8c_a39578296f05cb6eeaab7bbcda14c7828}{FLAG\_ALLARGS};
+351     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (posixly\_correct || *\hyperlink{aaf-talker_8c_abc1fd3a47aea6a8944038c9100eb9135}{options} == \textcolor{charliteral}{'+'})
+352         \hyperlink{namespaceavdecc__lib_ab6b306ef981f5e21bb41ea2c2dbe8cd9}{flags} &= ~\hyperlink{getopt_8c_a749f21f580ce8e232eec1cdfccbbdb29}{FLAG\_PERMUTE};
+353     \textcolor{keywordflow}{if} (*\hyperlink{aaf-talker_8c_abc1fd3a47aea6a8944038c9100eb9135}{options} == \textcolor{charliteral}{'+'} || *\hyperlink{aaf-talker_8c_abc1fd3a47aea6a8944038c9100eb9135}{options} == \textcolor{charliteral}{'-'})
+354         \hyperlink{aaf-talker_8c_abc1fd3a47aea6a8944038c9100eb9135}{options}++;
+355 
+356     \hyperlink{getopt_8c_adb50a0eab9fed92fc3bfc7dfa4f2c410}{optarg} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+357     \textcolor{keywordflow}{if} (\hyperlink{getopt_8c_ab95d1b25e0c8b7aa1c5c1b427d3c1c0a}{optreset})
+358         \hyperlink{getopt_8c_a75f896093f2e8b7e7bb1a6bd797133e5}{nonopt\_start} = \hyperlink{getopt_8c_a91a70adb23f329d93d16503991ae4b11}{nonopt\_end} = -1;
+359 start:
+360     \textcolor{keywordflow}{if} (\hyperlink{getopt_8c_ab95d1b25e0c8b7aa1c5c1b427d3c1c0a}{optreset} || !*\hyperlink{getopt_8c_a8671bb5de7c967469d95cf71b4ae06cd}{place}) \{     \textcolor{comment}{/* update scanning pointer */}
+361         \hyperlink{getopt_8c_ab95d1b25e0c8b7aa1c5c1b427d3c1c0a}{optreset} = 0;
+362         \textcolor{keywordflow}{if} (\hyperlink{getopt_8c_ad5e1c16213bbee2d5e8cc363309f418c}{optind} >= nargc) \{          \textcolor{comment}{/* end of argument vector */}
+363             \hyperlink{getopt_8c_a8671bb5de7c967469d95cf71b4ae06cd}{place} = \hyperlink{getopt_8c_ac393ec775622430dfe25cd2ac9dec9f4}{EMSG};
+364             \textcolor{keywordflow}{if} (\hyperlink{getopt_8c_a91a70adb23f329d93d16503991ae4b11}{nonopt\_end} != -1) \{
+365                 \textcolor{comment}{/* do permutation, if we have to */}
+366                 \hyperlink{getopt_8c_a9c22539bcd7939ce1f988d443187bd38}{permute\_args}(\hyperlink{getopt_8c_a75f896093f2e8b7e7bb1a6bd797133e5}{nonopt\_start}, \hyperlink{getopt_8c_a91a70adb23f329d93d16503991ae4b11}{nonopt\_end},
+367                              \hyperlink{getopt_8c_ad5e1c16213bbee2d5e8cc363309f418c}{optind}, nargv);
+368                 \hyperlink{getopt_8c_ad5e1c16213bbee2d5e8cc363309f418c}{optind} -= \hyperlink{getopt_8c_a91a70adb23f329d93d16503991ae4b11}{nonopt\_end} - \hyperlink{getopt_8c_a75f896093f2e8b7e7bb1a6bd797133e5}{nonopt\_start};
+369             \}
+370             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{getopt_8c_a75f896093f2e8b7e7bb1a6bd797133e5}{nonopt\_start} != -1) \{
+371                 \textcolor{comment}{/*}
+372 \textcolor{comment}{                 * If we skipped non-options, set optind}
+373 \textcolor{comment}{                 * to the first of them.}
+374 \textcolor{comment}{                 */}
+375                 \hyperlink{getopt_8c_ad5e1c16213bbee2d5e8cc363309f418c}{optind} = \hyperlink{getopt_8c_a75f896093f2e8b7e7bb1a6bd797133e5}{nonopt\_start};
+376             \}
+377             \hyperlink{getopt_8c_a75f896093f2e8b7e7bb1a6bd797133e5}{nonopt\_start} = \hyperlink{getopt_8c_a91a70adb23f329d93d16503991ae4b11}{nonopt\_end} = -1;
+378             \textcolor{keywordflow}{return} (-1);
+379         \}
+380         \textcolor{keywordflow}{if} (*(\hyperlink{getopt_8c_a8671bb5de7c967469d95cf71b4ae06cd}{place} = nargv[\hyperlink{getopt_8c_ad5e1c16213bbee2d5e8cc363309f418c}{optind}]) != \textcolor{charliteral}{'-'} ||
+381             (\hyperlink{getopt_8c_a8671bb5de7c967469d95cf71b4ae06cd}{place}[1] == \textcolor{charliteral}{'\(\backslash\)0'} && strchr(\hyperlink{aaf-talker_8c_abc1fd3a47aea6a8944038c9100eb9135}{options}, \textcolor{charliteral}{'-'}) == \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL})) \{
+382             \hyperlink{getopt_8c_a8671bb5de7c967469d95cf71b4ae06cd}{place} = \hyperlink{getopt_8c_ac393ec775622430dfe25cd2ac9dec9f4}{EMSG};      \textcolor{comment}{/* found non-option */}
+383             \textcolor{keywordflow}{if} (\hyperlink{namespaceavdecc__lib_ab6b306ef981f5e21bb41ea2c2dbe8cd9}{flags} & \hyperlink{getopt_8c_a39578296f05cb6eeaab7bbcda14c7828}{FLAG\_ALLARGS}) \{
+384                 \textcolor{comment}{/*}
+385 \textcolor{comment}{                 * GNU extension:}
+386 \textcolor{comment}{                 * return non-option as argument to option 1}
+387 \textcolor{comment}{                 */}
+388                 \hyperlink{getopt_8c_adb50a0eab9fed92fc3bfc7dfa4f2c410}{optarg} = nargv[optind++];
+389                 \textcolor{keywordflow}{return} (\hyperlink{getopt_8c_ab043c5480fc290137f7fe7fb33ce6141}{INORDER});
+390             \}
+391             \textcolor{keywordflow}{if} (!(\hyperlink{namespaceavdecc__lib_ab6b306ef981f5e21bb41ea2c2dbe8cd9}{flags} & \hyperlink{getopt_8c_a749f21f580ce8e232eec1cdfccbbdb29}{FLAG\_PERMUTE})) \{
+392                 \textcolor{comment}{/*}
+393 \textcolor{comment}{                 * If no permutation wanted, stop parsing}
+394 \textcolor{comment}{                 * at first non-option.}
+395 \textcolor{comment}{                 */}
+396                 \textcolor{keywordflow}{return} (-1);
+397             \}
+398             \textcolor{comment}{/* do permutation */}
+399             \textcolor{keywordflow}{if} (\hyperlink{getopt_8c_a75f896093f2e8b7e7bb1a6bd797133e5}{nonopt\_start} == -1)
+400                 \hyperlink{getopt_8c_a75f896093f2e8b7e7bb1a6bd797133e5}{nonopt\_start} = \hyperlink{getopt_8c_ad5e1c16213bbee2d5e8cc363309f418c}{optind};
+401             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{getopt_8c_a91a70adb23f329d93d16503991ae4b11}{nonopt\_end} != -1) \{
+402                 \hyperlink{getopt_8c_a9c22539bcd7939ce1f988d443187bd38}{permute\_args}(\hyperlink{getopt_8c_a75f896093f2e8b7e7bb1a6bd797133e5}{nonopt\_start}, \hyperlink{getopt_8c_a91a70adb23f329d93d16503991ae4b11}{nonopt\_end},
+403                              optind, nargv);
+404                 \hyperlink{getopt_8c_a75f896093f2e8b7e7bb1a6bd797133e5}{nonopt\_start} = optind -
+405                                (\hyperlink{getopt_8c_a91a70adb23f329d93d16503991ae4b11}{nonopt\_end} - \hyperlink{getopt_8c_a75f896093f2e8b7e7bb1a6bd797133e5}{nonopt\_start});
+406                 \hyperlink{getopt_8c_a91a70adb23f329d93d16503991ae4b11}{nonopt\_end} = -1;
+407             \}
+408             optind++;
+409             \textcolor{comment}{/* process next argument */}
+410             \textcolor{keywordflow}{goto} start;
+411         \}
+412         \textcolor{keywordflow}{if} (\hyperlink{getopt_8c_a75f896093f2e8b7e7bb1a6bd797133e5}{nonopt\_start} != -1 && \hyperlink{getopt_8c_a91a70adb23f329d93d16503991ae4b11}{nonopt\_end} == -1)
+413             \hyperlink{getopt_8c_a91a70adb23f329d93d16503991ae4b11}{nonopt\_end} = \hyperlink{getopt_8c_ad5e1c16213bbee2d5e8cc363309f418c}{optind};
+414 
+415         \textcolor{comment}{/*}
+416 \textcolor{comment}{         * If we have "-" do nothing, if "--" we are done.}
+417 \textcolor{comment}{         */}
+418         \textcolor{keywordflow}{if} (\hyperlink{getopt_8c_a8671bb5de7c967469d95cf71b4ae06cd}{place}[1] != \textcolor{charliteral}{'\(\backslash\)0'} && *++\hyperlink{getopt_8c_a8671bb5de7c967469d95cf71b4ae06cd}{place} == \textcolor{charliteral}{'-'} && \hyperlink{getopt_8c_a8671bb5de7c967469d95cf71b4ae06cd}{place}[1] == \textcolor{charliteral}{'\(\backslash\)0'}) \{
+419             optind++;
+420             \hyperlink{getopt_8c_a8671bb5de7c967469d95cf71b4ae06cd}{place} = \hyperlink{getopt_8c_ac393ec775622430dfe25cd2ac9dec9f4}{EMSG};
+421             \textcolor{comment}{/*}
+422 \textcolor{comment}{             * We found an option (--), so if we skipped}
+423 \textcolor{comment}{             * non-options, we have to permute.}
+424 \textcolor{comment}{             */}
+425             \textcolor{keywordflow}{if} (\hyperlink{getopt_8c_a91a70adb23f329d93d16503991ae4b11}{nonopt\_end} != -1) \{
+426                 \hyperlink{getopt_8c_a9c22539bcd7939ce1f988d443187bd38}{permute\_args}(\hyperlink{getopt_8c_a75f896093f2e8b7e7bb1a6bd797133e5}{nonopt\_start}, \hyperlink{getopt_8c_a91a70adb23f329d93d16503991ae4b11}{nonopt\_end},
+427                              optind, nargv);
+428                 optind -= \hyperlink{getopt_8c_a91a70adb23f329d93d16503991ae4b11}{nonopt\_end} - \hyperlink{getopt_8c_a75f896093f2e8b7e7bb1a6bd797133e5}{nonopt\_start};
+429             \}
+430             \hyperlink{getopt_8c_a75f896093f2e8b7e7bb1a6bd797133e5}{nonopt\_start} = \hyperlink{getopt_8c_a91a70adb23f329d93d16503991ae4b11}{nonopt\_end} = -1;
+431             \textcolor{keywordflow}{return} (-1);
+432         \}
+433     \}
+434 
+435     \textcolor{comment}{/*}
+436 \textcolor{comment}{     * Check long options if:}
+437 \textcolor{comment}{     *  1) we were passed some}
+438 \textcolor{comment}{     *  2) the arg is not just "-"}
+439 \textcolor{comment}{     *  3) either the arg starts with -- we are getopt\_long\_only()}
+440 \textcolor{comment}{     */}
+441     \textcolor{keywordflow}{if} (long\_options != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} && \hyperlink{getopt_8c_a8671bb5de7c967469d95cf71b4ae06cd}{place} != nargv[optind] &&
+442         (*\hyperlink{getopt_8c_a8671bb5de7c967469d95cf71b4ae06cd}{place} == \textcolor{charliteral}{'-'} || (\hyperlink{namespaceavdecc__lib_ab6b306ef981f5e21bb41ea2c2dbe8cd9}{flags} & \hyperlink{getopt_8c_a1c1f2fbb3773c9af64610d077ffe4d92}{FLAG\_LONGONLY}))) \{
+443         short\_too = 0;
+444         \textcolor{keywordflow}{if} (*\hyperlink{getopt_8c_a8671bb5de7c967469d95cf71b4ae06cd}{place} == \textcolor{charliteral}{'-'})
+445             \hyperlink{getopt_8c_a8671bb5de7c967469d95cf71b4ae06cd}{place}++;       \textcolor{comment}{/* --foo long option */}
+446         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (*\hyperlink{getopt_8c_a8671bb5de7c967469d95cf71b4ae06cd}{place} != \textcolor{charliteral}{':'} && strchr(\hyperlink{aaf-talker_8c_abc1fd3a47aea6a8944038c9100eb9135}{options}, *\hyperlink{getopt_8c_a8671bb5de7c967469d95cf71b4ae06cd}{place}) != 
+      \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL})
+447             short\_too = 1;      \textcolor{comment}{/* could be short option too */}
+448 
+449         optchar = \hyperlink{getopt_8c_ad438c4fc1ef360289d6d94c526350074}{parse\_long\_options}(nargv, \hyperlink{aaf-talker_8c_abc1fd3a47aea6a8944038c9100eb9135}{options}, long\_options,
+450                                      idx, short\_too);
+451         \textcolor{keywordflow}{if} (optchar != -1) \{
+452             \hyperlink{getopt_8c_a8671bb5de7c967469d95cf71b4ae06cd}{place} = \hyperlink{getopt_8c_ac393ec775622430dfe25cd2ac9dec9f4}{EMSG};
+453             \textcolor{keywordflow}{return} (optchar);
+454         \}
+455     \}
+456 
+457     \textcolor{keywordflow}{if} ((optchar = (\textcolor{keywordtype}{int})*\hyperlink{getopt_8c_a8671bb5de7c967469d95cf71b4ae06cd}{place}++) == (\textcolor{keywordtype}{int})\textcolor{charliteral}{':'} ||
+458         (optchar == (\textcolor{keywordtype}{int})\textcolor{charliteral}{'-'} && *\hyperlink{getopt_8c_a8671bb5de7c967469d95cf71b4ae06cd}{place} != \textcolor{charliteral}{'\(\backslash\)0'}) ||
+459         (oli = strchr(\hyperlink{aaf-talker_8c_abc1fd3a47aea6a8944038c9100eb9135}{options}, optchar)) == \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \{
+460         \textcolor{comment}{/*}
+461 \textcolor{comment}{         * If the user specified "-" and  '-' isn't listed in}
+462 \textcolor{comment}{         * options, return -1 (non-option) as per POSIX.}
+463 \textcolor{comment}{         * Otherwise, it is an unknown option character (or ':').}
+464 \textcolor{comment}{         */}
+465         \textcolor{keywordflow}{if} (optchar == (\textcolor{keywordtype}{int})\textcolor{charliteral}{'-'} && *\hyperlink{getopt_8c_a8671bb5de7c967469d95cf71b4ae06cd}{place} == \textcolor{charliteral}{'\(\backslash\)0'})
+466             \textcolor{keywordflow}{return} (-1);
+467         \textcolor{keywordflow}{if} (!*\hyperlink{getopt_8c_a8671bb5de7c967469d95cf71b4ae06cd}{place})
+468             ++\hyperlink{getopt_8c_ad5e1c16213bbee2d5e8cc363309f418c}{optind};
+469         \textcolor{keywordflow}{if} (\hyperlink{getopt_8c_aa0004d1735f5c5a47cd385525c5bdbc0}{PRINT\_ERROR})
+470             \hyperlink{getopt_8c_acece1548dfba3be0fbea0cbd38959768}{warnx}(\hyperlink{getopt_8c_a7f563abcc4195a52b02eb9e6b43edc3d}{illoptchar}, optchar);
+471         \hyperlink{getopt_8c_a475b8db98445da73e5f62a1ef6324b95}{optopt} = optchar;
+472         \textcolor{keywordflow}{return} (\hyperlink{getopt_8c_a1c8c2c090f7416155b04f9d6eb50faa0}{BADCH});
+473     \}
+474     \textcolor{keywordflow}{if} (long\_options != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} && optchar == \textcolor{charliteral}{'W'} && oli[1] == \textcolor{charliteral}{';'}) \{
+475         \textcolor{comment}{/* -W long-option */}
+476         \textcolor{keywordflow}{if} (*\hyperlink{getopt_8c_a8671bb5de7c967469d95cf71b4ae06cd}{place})            \textcolor{comment}{/* no space */}
+477             \textcolor{comment}{/* NOTHING */};
+478         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (++optind >= nargc) \{   \textcolor{comment}{/* no arg */}
+479             \hyperlink{getopt_8c_a8671bb5de7c967469d95cf71b4ae06cd}{place} = \hyperlink{getopt_8c_ac393ec775622430dfe25cd2ac9dec9f4}{EMSG};
+480             \textcolor{keywordflow}{if} (\hyperlink{getopt_8c_aa0004d1735f5c5a47cd385525c5bdbc0}{PRINT\_ERROR})
+481                 \hyperlink{getopt_8c_acece1548dfba3be0fbea0cbd38959768}{warnx}(\hyperlink{getopt_8c_ad4baf3be33fb50c0f2015b8821ed9398}{recargchar}, optchar);
+482             \hyperlink{getopt_8c_a475b8db98445da73e5f62a1ef6324b95}{optopt} = optchar;
+483             \textcolor{keywordflow}{return} (\hyperlink{getopt_8c_aa66fa298ed3187720cb609e15cd7d22c}{BADARG});
+484         \} \textcolor{keywordflow}{else}              \textcolor{comment}{/* white space */}
+485             \hyperlink{getopt_8c_a8671bb5de7c967469d95cf71b4ae06cd}{place} = nargv[\hyperlink{getopt_8c_ad5e1c16213bbee2d5e8cc363309f418c}{optind}];
+486         optchar = \hyperlink{getopt_8c_ad438c4fc1ef360289d6d94c526350074}{parse\_long\_options}(nargv, \hyperlink{aaf-talker_8c_abc1fd3a47aea6a8944038c9100eb9135}{options}, long\_options,
+487                                      idx, 0);
+488         \hyperlink{getopt_8c_a8671bb5de7c967469d95cf71b4ae06cd}{place} = \hyperlink{getopt_8c_ac393ec775622430dfe25cd2ac9dec9f4}{EMSG};
+489         \textcolor{keywordflow}{return} (optchar);
+490     \}
+491     \textcolor{keywordflow}{if} (*++oli != \textcolor{charliteral}{':'}) \{            \textcolor{comment}{/* doesn't take argument */}
+492         \textcolor{keywordflow}{if} (!*\hyperlink{getopt_8c_a8671bb5de7c967469d95cf71b4ae06cd}{place})
+493             ++\hyperlink{getopt_8c_ad5e1c16213bbee2d5e8cc363309f418c}{optind};
+494     \} \textcolor{keywordflow}{else} \{                \textcolor{comment}{/* takes (optional) argument */}
+495         \hyperlink{getopt_8c_adb50a0eab9fed92fc3bfc7dfa4f2c410}{optarg} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+496         \textcolor{keywordflow}{if} (*\hyperlink{getopt_8c_a8671bb5de7c967469d95cf71b4ae06cd}{place})            \textcolor{comment}{/* no white space */}
+497             \hyperlink{getopt_8c_adb50a0eab9fed92fc3bfc7dfa4f2c410}{optarg} = \hyperlink{getopt_8c_a8671bb5de7c967469d95cf71b4ae06cd}{place};
+498         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (oli[1] != \textcolor{charliteral}{':'}) \{   \textcolor{comment}{/* arg not optional */}
+499             \textcolor{keywordflow}{if} (++optind >= nargc) \{    \textcolor{comment}{/* no arg */}
+500                 \hyperlink{getopt_8c_a8671bb5de7c967469d95cf71b4ae06cd}{place} = \hyperlink{getopt_8c_ac393ec775622430dfe25cd2ac9dec9f4}{EMSG};
+501                 \textcolor{keywordflow}{if} (\hyperlink{getopt_8c_aa0004d1735f5c5a47cd385525c5bdbc0}{PRINT\_ERROR})
+502                     \hyperlink{getopt_8c_acece1548dfba3be0fbea0cbd38959768}{warnx}(\hyperlink{getopt_8c_ad4baf3be33fb50c0f2015b8821ed9398}{recargchar}, optchar);
+503                 \hyperlink{getopt_8c_a475b8db98445da73e5f62a1ef6324b95}{optopt} = optchar;
+504                 \textcolor{keywordflow}{return} (\hyperlink{getopt_8c_aa66fa298ed3187720cb609e15cd7d22c}{BADARG});
+505             \} \textcolor{keywordflow}{else}
+506                 \hyperlink{getopt_8c_adb50a0eab9fed92fc3bfc7dfa4f2c410}{optarg} = nargv[\hyperlink{getopt_8c_ad5e1c16213bbee2d5e8cc363309f418c}{optind}];
+507         \}
+508         \hyperlink{getopt_8c_a8671bb5de7c967469d95cf71b4ae06cd}{place} = \hyperlink{getopt_8c_ac393ec775622430dfe25cd2ac9dec9f4}{EMSG};
+509         ++\hyperlink{getopt_8c_ad5e1c16213bbee2d5e8cc363309f418c}{optind};
+510     \}
+511     \textcolor{comment}{/* dump back option letter */}
+512     \textcolor{keywordflow}{return} (optchar);
+513 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{getopt_8c_a8bcfc41ffd83b00297822b5644eb895d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{getopt_8c_a8bcfc41ffd83b00297822b5644eb895d_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{getopt.\+c@{getopt.\+c}!getopt\+\_\+long@{getopt\+\_\+long}}
+\index{getopt\+\_\+long@{getopt\+\_\+long}!getopt.\+c@{getopt.\+c}}
+\subsubsection[{\texorpdfstring{getopt\+\_\+long(int nargc, char $\ast$const $\ast$nargv, const char $\ast$options, const struct option $\ast$long\+\_\+options, int $\ast$idx)}{getopt_long(int nargc, char *const *nargv, const char *options, const struct option *long_options, int *idx)}}]{\setlength{\rightskip}{0pt plus 5cm}int getopt\+\_\+long (
+\begin{DoxyParamCaption}
+\item[{int}]{nargc, }
+\item[{char $\ast$const $\ast$}]{nargv, }
+\item[{const char $\ast$}]{options, }
+\item[{const struct {\bf option} $\ast$}]{long\+\_\+options, }
+\item[{int $\ast$}]{idx}
+\end{DoxyParamCaption}
+)}\hypertarget{getopt_8c_a670b3d6580b88001f22388938a15504d}{}\label{getopt_8c_a670b3d6580b88001f22388938a15504d}
+
+
+getopt.\+c 파일의 543 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+545 \{
+546 
+547     \textcolor{keywordflow}{return} (\hyperlink{getopt_8c_a8bcfc41ffd83b00297822b5644eb895d}{getopt\_internal}(nargc, nargv, \hyperlink{aaf-talker_8c_abc1fd3a47aea6a8944038c9100eb9135}{options}, long\_options, idx,
+548                             \hyperlink{getopt_8c_a749f21f580ce8e232eec1cdfccbbdb29}{FLAG\_PERMUTE}));
+549 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{getopt_8c_a670b3d6580b88001f22388938a15504d_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{getopt.\+c@{getopt.\+c}!getopt\+\_\+long\+\_\+only@{getopt\+\_\+long\+\_\+only}}
+\index{getopt\+\_\+long\+\_\+only@{getopt\+\_\+long\+\_\+only}!getopt.\+c@{getopt.\+c}}
+\subsubsection[{\texorpdfstring{getopt\+\_\+long\+\_\+only(int nargc, char $\ast$const $\ast$nargv, const char $\ast$options, const struct option $\ast$long\+\_\+options, int $\ast$idx)}{getopt_long_only(int nargc, char *const *nargv, const char *options, const struct option *long_options, int *idx)}}]{\setlength{\rightskip}{0pt plus 5cm}int getopt\+\_\+long\+\_\+only (
+\begin{DoxyParamCaption}
+\item[{int}]{nargc, }
+\item[{char $\ast$const $\ast$}]{nargv, }
+\item[{const char $\ast$}]{options, }
+\item[{const struct {\bf option} $\ast$}]{long\+\_\+options, }
+\item[{int $\ast$}]{idx}
+\end{DoxyParamCaption}
+)}\hypertarget{getopt_8c_a03caa4d76bf3b2def1c61df69d34f593}{}\label{getopt_8c_a03caa4d76bf3b2def1c61df69d34f593}
+
+
+getopt.\+c 파일의 556 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+558 \{
+559 
+560     \textcolor{keywordflow}{return} (\hyperlink{getopt_8c_a8bcfc41ffd83b00297822b5644eb895d}{getopt\_internal}(nargc, nargv, \hyperlink{aaf-talker_8c_abc1fd3a47aea6a8944038c9100eb9135}{options}, long\_options, idx,
+561                             \hyperlink{getopt_8c_a749f21f580ce8e232eec1cdfccbbdb29}{FLAG\_PERMUTE}|\hyperlink{getopt_8c_a1c1f2fbb3773c9af64610d077ffe4d92}{FLAG\_LONGONLY}));
+562 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{getopt_8c_a03caa4d76bf3b2def1c61df69d34f593_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{getopt.\+c@{getopt.\+c}!parse\+\_\+long\+\_\+options@{parse\+\_\+long\+\_\+options}}
+\index{parse\+\_\+long\+\_\+options@{parse\+\_\+long\+\_\+options}!getopt.\+c@{getopt.\+c}}
+\subsubsection[{\texorpdfstring{parse\+\_\+long\+\_\+options(char $\ast$const $\ast$, const char $\ast$, const struct option $\ast$, int $\ast$, int)}{parse_long_options(char *const *, const char *, const struct option *, int *, int)}}]{\setlength{\rightskip}{0pt plus 5cm}static int parse\+\_\+long\+\_\+options (
+\begin{DoxyParamCaption}
+\item[{char $\ast$const $\ast$}]{nargv, }
+\item[{const char $\ast$}]{options, }
+\item[{const struct {\bf option} $\ast$}]{long\+\_\+options, }
+\item[{int $\ast$}]{idx, }
+\item[{int}]{short\+\_\+too}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{getopt_8c_ad438c4fc1ef360289d6d94c526350074}{}\label{getopt_8c_ad438c4fc1ef360289d6d94c526350074}
+
+
+getopt.\+c 파일의 195 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+197 \{
+198     \textcolor{keywordtype}{char} *current\_argv, *has\_equal;
+199     \textcolor{keywordtype}{size\_t} current\_argv\_len;
+200     \textcolor{keywordtype}{int} i, ambiguous, match;
+201 
+202 \textcolor{preprocessor}{#define IDENTICAL\_INTERPRETATION(\_x, \_y)                                \(\backslash\)}
+203 \textcolor{preprocessor}{    (long\_options[(\_x)].has\_arg == long\_options[(\_y)].has\_arg &&    \(\backslash\)}
+204 \textcolor{preprocessor}{     long\_options[(\_x)].flag == long\_options[(\_y)].flag &&          \(\backslash\)}
+205 \textcolor{preprocessor}{     long\_options[(\_x)].val == long\_options[(\_y)].val)}
+206 
+207     current\_argv = \hyperlink{getopt_8c_a8671bb5de7c967469d95cf71b4ae06cd}{place};
+208     match = -1;
+209     ambiguous = 0;
+210 
+211     \hyperlink{getopt_8c_ad5e1c16213bbee2d5e8cc363309f418c}{optind}++;
+212 
+213     \textcolor{keywordflow}{if} ((has\_equal = strchr(current\_argv, \textcolor{charliteral}{'='})) != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \{
+214         \textcolor{comment}{/* argument found (--option=arg) */}
+215         current\_argv\_len = has\_equal - current\_argv;
+216         has\_equal++;
+217     \} \textcolor{keywordflow}{else}
+218         current\_argv\_len = strlen(current\_argv);
+219 
+220     \textcolor{keywordflow}{for} (i = 0; long\_options[i].\hyperlink{structoption_a8f8f80d37794cde9472343e4487ba3eb}{name}; i++) \{
+221         \textcolor{comment}{/* find matching long option */}
+222         \textcolor{keywordflow}{if} (strncmp(current\_argv, long\_options[i].name,
+223                     current\_argv\_len))
+224             \textcolor{keywordflow}{continue};
+225 
+226         \textcolor{keywordflow}{if} (strlen(long\_options[i].name) == current\_argv\_len) \{
+227             \textcolor{comment}{/* exact match */}
+228             match = i;
+229             ambiguous = 0;
+230             \textcolor{keywordflow}{break};
+231         \}
+232         \textcolor{comment}{/*}
+233 \textcolor{comment}{         * If this is a known short option, don't allow}
+234 \textcolor{comment}{         * a partial match of a single character.}
+235 \textcolor{comment}{         */}
+236         \textcolor{keywordflow}{if} (short\_too && current\_argv\_len == 1)
+237             \textcolor{keywordflow}{continue};
+238 
+239         \textcolor{keywordflow}{if} (match == -1)    \textcolor{comment}{/* partial match */}
+240             match = i;
+241         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!\hyperlink{getopt_8c_aa11eefdd832b1ad32bf339233a172e8e}{IDENTICAL\_INTERPRETATION}(i, match))
+242             ambiguous = 1;
+243     \}
+244     \textcolor{keywordflow}{if} (ambiguous) \{
+245         \textcolor{comment}{/* ambiguous abbreviation */}
+246         \textcolor{keywordflow}{if} (\hyperlink{getopt_8c_aa0004d1735f5c5a47cd385525c5bdbc0}{PRINT\_ERROR})
+247             \hyperlink{getopt_8c_acece1548dfba3be0fbea0cbd38959768}{warnx}(\hyperlink{getopt_8c_ada1709fe1ad82fed216b6e56e46f28b3}{ambig}, (\textcolor{keywordtype}{int})current\_argv\_len,
+248                   current\_argv);
+249         \hyperlink{getopt_8c_a475b8db98445da73e5f62a1ef6324b95}{optopt} = 0;
+250         \textcolor{keywordflow}{return} (\hyperlink{getopt_8c_a1c8c2c090f7416155b04f9d6eb50faa0}{BADCH});
+251     \}
+252     \textcolor{keywordflow}{if} (match != -1) \{      \textcolor{comment}{/* option found */}
+253         \textcolor{keywordflow}{if} (long\_options[match].has\_arg == \hyperlink{getopt_8h_a06fc87d81c62e9abb8790b6e5713c55bac5bf117fca352609d0e6cd02ddb3a008}{no\_argument}
+254             && has\_equal) \{
+255             \textcolor{keywordflow}{if} (\hyperlink{getopt_8c_aa0004d1735f5c5a47cd385525c5bdbc0}{PRINT\_ERROR})
+256                 \hyperlink{getopt_8c_acece1548dfba3be0fbea0cbd38959768}{warnx}(\hyperlink{getopt_8c_a22f41dd73790609a61798e2a98e0cc41}{noarg}, (\textcolor{keywordtype}{int})current\_argv\_len,
+257                       current\_argv);
+258             \textcolor{comment}{/*}
+259 \textcolor{comment}{             * XXX: GNU sets optopt to val regardless of flag}
+260 \textcolor{comment}{             */}
+261             \textcolor{keywordflow}{if} (long\_options[match].flag == \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL})
+262                 \hyperlink{getopt_8c_a475b8db98445da73e5f62a1ef6324b95}{optopt} = long\_options[match].\hyperlink{structoption_aa0ccb5ee6d882ee3605ff47745c6467b}{val};
+263             \textcolor{keywordflow}{else}
+264                 \hyperlink{getopt_8c_a475b8db98445da73e5f62a1ef6324b95}{optopt} = 0;
+265             \textcolor{keywordflow}{return} (\hyperlink{getopt_8c_aa66fa298ed3187720cb609e15cd7d22c}{BADARG});
+266         \}
+267         \textcolor{keywordflow}{if} (long\_options[match].has\_arg == \hyperlink{getopt_8h_a06fc87d81c62e9abb8790b6e5713c55ba0b017dfd3a757dbd00fbb8d62caf0e33}{required\_argument} ||
+268             long\_options[match].has\_arg == \hyperlink{getopt_8h_a06fc87d81c62e9abb8790b6e5713c55bab78b2ae97087d17f362530b184e3217b}{optional\_argument}) \{
+269             \textcolor{keywordflow}{if} (has\_equal)
+270                 \hyperlink{getopt_8c_adb50a0eab9fed92fc3bfc7dfa4f2c410}{optarg} = has\_equal;
+271             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (long\_options[match].has\_arg ==
+272                      \hyperlink{getopt_8h_a06fc87d81c62e9abb8790b6e5713c55ba0b017dfd3a757dbd00fbb8d62caf0e33}{required\_argument}) \{
+273                 \textcolor{comment}{/*}
+274 \textcolor{comment}{                 * optional argument doesn't use next nargv}
+275 \textcolor{comment}{                 */}
+276                 \hyperlink{getopt_8c_adb50a0eab9fed92fc3bfc7dfa4f2c410}{optarg} = nargv[\hyperlink{getopt_8c_ad5e1c16213bbee2d5e8cc363309f418c}{optind}++];
+277             \}
+278         \}
+279         \textcolor{keywordflow}{if} ((long\_options[match].has\_arg == \hyperlink{getopt_8h_a06fc87d81c62e9abb8790b6e5713c55ba0b017dfd3a757dbd00fbb8d62caf0e33}{required\_argument})
+280             && (\hyperlink{getopt_8c_adb50a0eab9fed92fc3bfc7dfa4f2c410}{optarg} == \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL})) \{
+281             \textcolor{comment}{/*}
+282 \textcolor{comment}{             * Missing argument; leading ':' indicates no error}
+283 \textcolor{comment}{             * should be generated.}
+284 \textcolor{comment}{             */}
+285             \textcolor{keywordflow}{if} (\hyperlink{getopt_8c_aa0004d1735f5c5a47cd385525c5bdbc0}{PRINT\_ERROR})
+286                 \hyperlink{getopt_8c_acece1548dfba3be0fbea0cbd38959768}{warnx}(\hyperlink{getopt_8c_a2b3c29bd6cb47d564ec2f12b6c6a8790}{recargstring},
+287                       current\_argv);
+288             \textcolor{comment}{/*}
+289 \textcolor{comment}{             * XXX: GNU sets optopt to val regardless of flag}
+290 \textcolor{comment}{             */}
+291             \textcolor{keywordflow}{if} (long\_options[match].flag == \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL})
+292                 \hyperlink{getopt_8c_a475b8db98445da73e5f62a1ef6324b95}{optopt} = long\_options[match].\hyperlink{structoption_aa0ccb5ee6d882ee3605ff47745c6467b}{val};
+293             \textcolor{keywordflow}{else}
+294                 \hyperlink{getopt_8c_a475b8db98445da73e5f62a1ef6324b95}{optopt} = 0;
+295             --\hyperlink{getopt_8c_ad5e1c16213bbee2d5e8cc363309f418c}{optind};
+296             \textcolor{keywordflow}{return} (\hyperlink{getopt_8c_aa66fa298ed3187720cb609e15cd7d22c}{BADARG});
+297         \}
+298     \} \textcolor{keywordflow}{else} \{            \textcolor{comment}{/* unknown option */}
+299         \textcolor{keywordflow}{if} (short\_too) \{
+300             --\hyperlink{getopt_8c_ad5e1c16213bbee2d5e8cc363309f418c}{optind};
+301             \textcolor{keywordflow}{return} (-1);
+302         \}
+303         \textcolor{keywordflow}{if} (\hyperlink{getopt_8c_aa0004d1735f5c5a47cd385525c5bdbc0}{PRINT\_ERROR})
+304             \hyperlink{getopt_8c_acece1548dfba3be0fbea0cbd38959768}{warnx}(\hyperlink{getopt_8c_a58dd1a457abacf295251fb7d3b6e0c1d}{illoptstring}, current\_argv);
+305         \hyperlink{getopt_8c_a475b8db98445da73e5f62a1ef6324b95}{optopt} = 0;
+306         \textcolor{keywordflow}{return} (\hyperlink{getopt_8c_a1c8c2c090f7416155b04f9d6eb50faa0}{BADCH});
+307     \}
+308     \textcolor{keywordflow}{if} (idx)
+309         *idx = match;
+310     \textcolor{keywordflow}{if} (long\_options[match].flag) \{
+311         *long\_options[match].\hyperlink{structoption_a4f1a91bc2d61b12ffb90ff2857d6a4d8}{flag} = long\_options[match].\hyperlink{structoption_aa0ccb5ee6d882ee3605ff47745c6467b}{val};
+312         \textcolor{keywordflow}{return} (0);
+313     \} \textcolor{keywordflow}{else}
+314         \textcolor{keywordflow}{return} (long\_options[match].val);
+315 \textcolor{preprocessor}{#undef IDENTICAL\_INTERPRETATION}
+316 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=349pt]{getopt_8c_ad438c4fc1ef360289d6d94c526350074_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{getopt_8c_ad438c4fc1ef360289d6d94c526350074_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{getopt.\+c@{getopt.\+c}!permute\+\_\+args@{permute\+\_\+args}}
+\index{permute\+\_\+args@{permute\+\_\+args}!getopt.\+c@{getopt.\+c}}
+\subsubsection[{\texorpdfstring{permute\+\_\+args(int, int, int, char $\ast$const $\ast$)}{permute_args(int, int, int, char *const *)}}]{\setlength{\rightskip}{0pt plus 5cm}static void permute\+\_\+args (
+\begin{DoxyParamCaption}
+\item[{int}]{panonopt\+\_\+start, }
+\item[{int}]{panonopt\+\_\+end, }
+\item[{int}]{opt\+\_\+end, }
+\item[{char $\ast$const $\ast$}]{nargv}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{getopt_8c_a9c22539bcd7939ce1f988d443187bd38}{}\label{getopt_8c_a9c22539bcd7939ce1f988d443187bd38}
+
+
+getopt.\+c 파일의 158 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+160 \{
+161     \textcolor{keywordtype}{int} cstart, cyclelen, i, j, ncycle, nnonopts, nopts, pos;
+162     \textcolor{keywordtype}{char} *swap;
+163 
+164     \textcolor{comment}{/*}
+165 \textcolor{comment}{     * compute lengths of blocks and number and size of cycles}
+166 \textcolor{comment}{     */}
+167     nnonopts = panonopt\_end - panonopt\_start;
+168     nopts = opt\_end - panonopt\_end;
+169     ncycle = \hyperlink{getopt_8c_ade4a5e5ef73343f680d9c75ddc6c5d24}{gcd}(nnonopts, nopts);
+170     cyclelen = (opt\_end - panonopt\_start) / ncycle;
+171 
+172     \textcolor{keywordflow}{for} (i = 0; i < ncycle; i++) \{
+173         cstart = panonopt\_end+i;
+174         pos = cstart;
+175         \textcolor{keywordflow}{for} (j = 0; j < cyclelen; j++) \{
+176             \textcolor{keywordflow}{if} (pos >= panonopt\_end)
+177                 pos -= nnonopts;
+178             \textcolor{keywordflow}{else}
+179                 pos += nopts;
+180             swap = nargv[pos];
+181             \textcolor{comment}{/* LINTED const cast */}
+182             ((\textcolor{keywordtype}{char} **) nargv)[pos] = nargv[cstart];
+183             \textcolor{comment}{/* LINTED const cast */}
+184             ((\textcolor{keywordtype}{char} **)nargv)[cstart] = swap;
+185         \}
+186     \}
+187 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=224pt]{getopt_8c_a9c22539bcd7939ce1f988d443187bd38_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{getopt_8c_a9c22539bcd7939ce1f988d443187bd38_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{getopt.\+c@{getopt.\+c}!warnx@{warnx}}
+\index{warnx@{warnx}!getopt.\+c@{getopt.\+c}}
+\subsubsection[{\texorpdfstring{warnx(const char $\ast$fmt,...)}{warnx(const char *fmt,...)}}]{\setlength{\rightskip}{0pt plus 5cm}static void warnx (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{fmt, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{getopt_8c_acece1548dfba3be0fbea0cbd38959768}{}\label{getopt_8c_acece1548dfba3be0fbea0cbd38959768}
+
+
+getopt.\+c 파일의 126 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+127 \{
+128     va\_list ap;
+129     va\_start(ap,fmt);
+130     \hyperlink{getopt_8c_a2a5ff59b0a3735eef0073c8aca269456}{\_vwarnx}(fmt,ap);
+131     va\_end(ap);
+132 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=212pt]{getopt_8c_acece1548dfba3be0fbea0cbd38959768_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{getopt_8c_acece1548dfba3be0fbea0cbd38959768_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{변수 문서화}
+\index{getopt.\+c@{getopt.\+c}!ambig@{ambig}}
+\index{ambig@{ambig}!getopt.\+c@{getopt.\+c}}
+\subsubsection[{\texorpdfstring{ambig}{ambig}}]{\setlength{\rightskip}{0pt plus 5cm}const char ambig\mbox{[}$\,$\mbox{]} = \char`\"{}ambiguous {\bf option} -\/-\/ \%.$\ast$s\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{getopt_8c_ada1709fe1ad82fed216b6e56e46f28b3}{}\label{getopt_8c_ada1709fe1ad82fed216b6e56e46f28b3}
+
+
+getopt.\+c 파일의 111 번째 라인에서 정의되었습니다.
+
+\index{getopt.\+c@{getopt.\+c}!illoptchar@{illoptchar}}
+\index{illoptchar@{illoptchar}!getopt.\+c@{getopt.\+c}}
+\subsubsection[{\texorpdfstring{illoptchar}{illoptchar}}]{\setlength{\rightskip}{0pt plus 5cm}const char illoptchar\mbox{[}$\,$\mbox{]} = \char`\"{}unknown {\bf option} -\/-\/ \%{\bf c}\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{getopt_8c_a7f563abcc4195a52b02eb9e6b43edc3d}{}\label{getopt_8c_a7f563abcc4195a52b02eb9e6b43edc3d}
+
+
+getopt.\+c 파일의 113 번째 라인에서 정의되었습니다.
+
+\index{getopt.\+c@{getopt.\+c}!illoptstring@{illoptstring}}
+\index{illoptstring@{illoptstring}!getopt.\+c@{getopt.\+c}}
+\subsubsection[{\texorpdfstring{illoptstring}{illoptstring}}]{\setlength{\rightskip}{0pt plus 5cm}const char illoptstring\mbox{[}$\,$\mbox{]} = \char`\"{}unknown {\bf option} -\/-\/ \%s\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{getopt_8c_a58dd1a457abacf295251fb7d3b6e0c1d}{}\label{getopt_8c_a58dd1a457abacf295251fb7d3b6e0c1d}
+
+
+getopt.\+c 파일의 114 번째 라인에서 정의되었습니다.
+
+\index{getopt.\+c@{getopt.\+c}!noarg@{noarg}}
+\index{noarg@{noarg}!getopt.\+c@{getopt.\+c}}
+\subsubsection[{\texorpdfstring{noarg}{noarg}}]{\setlength{\rightskip}{0pt plus 5cm}const char noarg\mbox{[}$\,$\mbox{]} = \char`\"{}option doesn\textquotesingle{}t take an argument -\/-\/ \%.$\ast$s\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{getopt_8c_a22f41dd73790609a61798e2a98e0cc41}{}\label{getopt_8c_a22f41dd73790609a61798e2a98e0cc41}
+
+
+getopt.\+c 파일의 112 번째 라인에서 정의되었습니다.
+
+\index{getopt.\+c@{getopt.\+c}!nonopt\+\_\+end@{nonopt\+\_\+end}}
+\index{nonopt\+\_\+end@{nonopt\+\_\+end}!getopt.\+c@{getopt.\+c}}
+\subsubsection[{\texorpdfstring{nonopt\+\_\+end}{nonopt_end}}]{\setlength{\rightskip}{0pt plus 5cm}int nonopt\+\_\+end = -\/1\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{getopt_8c_a91a70adb23f329d93d16503991ae4b11}{}\label{getopt_8c_a91a70adb23f329d93d16503991ae4b11}
+
+
+getopt.\+c 파일의 106 번째 라인에서 정의되었습니다.
+
+\index{getopt.\+c@{getopt.\+c}!nonopt\+\_\+start@{nonopt\+\_\+start}}
+\index{nonopt\+\_\+start@{nonopt\+\_\+start}!getopt.\+c@{getopt.\+c}}
+\subsubsection[{\texorpdfstring{nonopt\+\_\+start}{nonopt_start}}]{\setlength{\rightskip}{0pt plus 5cm}int nonopt\+\_\+start = -\/1\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{getopt_8c_a75f896093f2e8b7e7bb1a6bd797133e5}{}\label{getopt_8c_a75f896093f2e8b7e7bb1a6bd797133e5}
+
+
+getopt.\+c 파일의 105 번째 라인에서 정의되었습니다.
+
+\index{getopt.\+c@{getopt.\+c}!optarg@{optarg}}
+\index{optarg@{optarg}!getopt.\+c@{getopt.\+c}}
+\subsubsection[{\texorpdfstring{optarg}{optarg}}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ optarg}\hypertarget{getopt_8c_adb50a0eab9fed92fc3bfc7dfa4f2c410}{}\label{getopt_8c_adb50a0eab9fed92fc3bfc7dfa4f2c410}
+
+
+getopt.\+c 파일의 69 번째 라인에서 정의되었습니다.
+
+\index{getopt.\+c@{getopt.\+c}!opterr@{opterr}}
+\index{opterr@{opterr}!getopt.\+c@{getopt.\+c}}
+\subsubsection[{\texorpdfstring{opterr}{opterr}}]{\setlength{\rightskip}{0pt plus 5cm}int opterr = 1}\hypertarget{getopt_8c_ae30f05ee1e2e5652f174a35c7875d25e}{}\label{getopt_8c_ae30f05ee1e2e5652f174a35c7875d25e}
+
+
+getopt.\+c 파일의 63 번째 라인에서 정의되었습니다.
+
+\index{getopt.\+c@{getopt.\+c}!optind@{optind}}
+\index{optind@{optind}!getopt.\+c@{getopt.\+c}}
+\subsubsection[{\texorpdfstring{optind}{optind}}]{\setlength{\rightskip}{0pt plus 5cm}int optind = 1}\hypertarget{getopt_8c_ad5e1c16213bbee2d5e8cc363309f418c}{}\label{getopt_8c_ad5e1c16213bbee2d5e8cc363309f418c}
+
+
+getopt.\+c 파일의 64 번째 라인에서 정의되었습니다.
+
+\index{getopt.\+c@{getopt.\+c}!optopt@{optopt}}
+\index{optopt@{optopt}!getopt.\+c@{getopt.\+c}}
+\subsubsection[{\texorpdfstring{optopt}{optopt}}]{\setlength{\rightskip}{0pt plus 5cm}int optopt = \textquotesingle{}?\textquotesingle{}}\hypertarget{getopt_8c_a475b8db98445da73e5f62a1ef6324b95}{}\label{getopt_8c_a475b8db98445da73e5f62a1ef6324b95}
+
+
+getopt.\+c 파일의 65 번째 라인에서 정의되었습니다.
+
+\index{getopt.\+c@{getopt.\+c}!optreset@{optreset}}
+\index{optreset@{optreset}!getopt.\+c@{getopt.\+c}}
+\subsubsection[{\texorpdfstring{optreset}{optreset}}]{\setlength{\rightskip}{0pt plus 5cm}int optreset}\hypertarget{getopt_8c_a62231492adf03e02ff80d0bfb3b3ebd6}{}\label{getopt_8c_a62231492adf03e02ff80d0bfb3b3ebd6}
+
+
+getopt.\+c 파일의 68 번째 라인에서 정의되었습니다.
+
+\index{getopt.\+c@{getopt.\+c}!place@{place}}
+\index{place@{place}!getopt.\+c@{getopt.\+c}}
+\subsubsection[{\texorpdfstring{place}{place}}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ place = {\bf E\+M\+SG}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{getopt_8c_a8671bb5de7c967469d95cf71b4ae06cd}{}\label{getopt_8c_a8671bb5de7c967469d95cf71b4ae06cd}
+
+
+getopt.\+c 파일의 102 번째 라인에서 정의되었습니다.
+
+\index{getopt.\+c@{getopt.\+c}!recargchar@{recargchar}}
+\index{recargchar@{recargchar}!getopt.\+c@{getopt.\+c}}
+\subsubsection[{\texorpdfstring{recargchar}{recargchar}}]{\setlength{\rightskip}{0pt plus 5cm}const char recargchar\mbox{[}$\,$\mbox{]} = \char`\"{}option requires an argument -\/-\/ \%{\bf c}\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{getopt_8c_ad4baf3be33fb50c0f2015b8821ed9398}{}\label{getopt_8c_ad4baf3be33fb50c0f2015b8821ed9398}
+
+
+getopt.\+c 파일의 109 번째 라인에서 정의되었습니다.
+
+\index{getopt.\+c@{getopt.\+c}!recargstring@{recargstring}}
+\index{recargstring@{recargstring}!getopt.\+c@{getopt.\+c}}
+\subsubsection[{\texorpdfstring{recargstring}{recargstring}}]{\setlength{\rightskip}{0pt plus 5cm}const char recargstring\mbox{[}$\,$\mbox{]} = \char`\"{}option requires an argument -\/-\/ \%s\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{getopt_8c_a2b3c29bd6cb47d564ec2f12b6c6a8790}{}\label{getopt_8c_a2b3c29bd6cb47d564ec2f12b6c6a8790}
+
+
+getopt.\+c 파일의 110 번째 라인에서 정의되었습니다.
+

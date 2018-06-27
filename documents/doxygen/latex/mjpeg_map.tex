@@ -1,0 +1,28 @@
+\section*{Description}
+
+Motion Jpeg mapping module conforming to 1722A R\+TP payload encapsulation.
+
+\section*{Mapping module configuration parameters}
+
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*2{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}{\bf Name }&{\bf Description  }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}{\bf Name }&{\bf Description  }\\\cline{1-2}
+\endhead
+map\+\_\+nv\+\_\+item\+\_\+count &The number of media queue elements to hold. \\\cline{1-2}
+map\+\_\+nv\+\_\+tx\+\_\+rate or map\+\_\+nv\+\_\+tx\+\_\+interval &Transmit interval in frames per second. \textbackslash{} \\\cline{1-2}
+\end{longtabu}
+0 = default for talker class
+
+\section*{Notes}
+
+This module also uses the field \hyperlink{structmedia__q__item__map__mjpeg__pub__data__t_a1db3399abba4fe879f482e7b6b144ace}{media\+\_\+q\+\_\+item\+\_\+map\+\_\+mjpeg\+\_\+pub\+\_\+data\+\_\+t\+::last\+Fragment} in both RX and TX. The usage depends on situation, for\+:
+\begin{DoxyItemize}
+\item TX -\/ stores in the A\+V\+TP header information that this is the last fragment of this frame. The interface module has to set this variable to correct value,
+\item RX -\/ extracts from the A\+V\+TP header information if this fragment is the last one of current video frame and sets field accordingly. The interface module might use it later during frame composition. 
+\end{DoxyItemize}

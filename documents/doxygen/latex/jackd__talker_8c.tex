@@ -1,0 +1,870 @@
+\hypertarget{jackd__talker_8c}{}\section{examples/jackd-\/talker/jackd\+\_\+talker.c 파일 참조}
+\label{jackd__talker_8c}\index{examples/jackd-\/talker/jackd\+\_\+talker.\+c@{examples/jackd-\/talker/jackd\+\_\+talker.\+c}}
+{\ttfamily \#include $<$errno.\+h$>$}\\*
+{\ttfamily \#include $<$inttypes.\+h$>$}\\*
+{\ttfamily \#include $<$fcntl.\+h$>$}\\*
+{\ttfamily \#include $<$math.\+h$>$}\\*
+{\ttfamily \#include $<$signal.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$sys/ioctl.\+h$>$}\\*
+{\ttfamily \#include $<$sys/mman.\+h$>$}\\*
+{\ttfamily \#include $<$sys/socket.\+h$>$}\\*
+{\ttfamily \#include $<$linux/if.\+h$>$}\\*
+{\ttfamily \#include $<$pci/pci.\+h$>$}\\*
+{\ttfamily \#include $<$jack/jack.\+h$>$}\\*
+{\ttfamily \#include $<$jack/ringbuffer.\+h$>$}\\*
+{\ttfamily \#include $<$jack/thread.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}talker\+\_\+mrp\+\_\+client.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}jack.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}defines.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}avb.\+h\char`\"{}}\\*
+jackd\+\_\+talker.\+c에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{jackd__talker_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{jackd__talker_8c_acfc1668731750cb1ee8974b8a7c133ef}{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR}~\char`\"{}1.\+0\char`\"{}
+\item 
+\#define \hyperlink{jackd__talker_8c_ac68727566a4eb0566499959552eb6e7f}{X\+M\+I\+T\+\_\+\+D\+E\+L\+AY}~(200000000) /$\ast$ us $\ast$/
+\item 
+\#define \hyperlink{jackd__talker_8c_ad67f15bfda3230674f801ea1a30c8164}{R\+E\+N\+D\+E\+R\+\_\+\+D\+E\+L\+AY}~(\hyperlink{simple__talker_8c_ac68727566a4eb0566499959552eb6e7f}{X\+M\+I\+T\+\_\+\+D\+E\+L\+AY}+2000000) /$\ast$ us $\ast$/
+\item 
+\#define \hyperlink{jackd__talker_8c_a05df1adf5da9e07f79d935f1bde3d32f}{P\+A\+C\+K\+E\+T\+\_\+\+I\+PG}~(125000) /$\ast$ (1) packet every 125 usec $\ast$/
+\item 
+\#define \hyperlink{jackd__talker_8c_a5e9891a4861298e1d749b3f95efb36da}{P\+K\+T\+\_\+\+SZ}~(100)
+\end{DoxyCompactItemize}
+\subsection*{타입정의}
+\begin{DoxyCompactItemize}
+\item 
+typedef long double \hyperlink{jackd__talker_8c_a84de47dc2ed889ecd2b61706d3ad0f2e}{Frequency\+Ratio}
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\+\_\+t} \hyperlink{jackd__talker_8c_a59da93a1867091f1c8c69d996df768fe}{S\+T\+\_\+rdtsc} (void)
+\item 
+void \hyperlink{jackd__talker_8c_ab10c0c50c02a59ae9bd74c78c49b559d}{sigint\+\_\+handler} (int signum)
+\item 
+int \hyperlink{jackd__talker_8c_ae4545cedccbdf6aabb3a7686af318c2d}{get\+\_\+mac\+\_\+address} (char $\ast$\hyperlink{rawsock__tx_8c_af663a7576d2f8f288bb3996381484cd3}{interface})
+\item 
+static void \hyperlink{jackd__talker_8c_ad96d407a911fbb914fa8e4cfbf2faf0f}{usage} (void)
+\item 
+static void $\ast$ \hyperlink{jackd__talker_8c_a1bee9f325ffe39035df3009b5fd3b2f8}{packetizer\+\_\+thread} (void $\ast$arg)
+\item 
+static void \hyperlink{jackd__talker_8c_aa9ae3e1ec57ed87da6be285cd6b390c5}{run\+\_\+packetizer} (void)
+\item 
+int \hyperlink{jackd__talker_8c_a0ddf1224851353fc92bfbff6f499fa97}{main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\subsection*{변수}
+\begin{DoxyCompactItemize}
+\item 
+volatile int $\ast$ \hyperlink{jackd__talker_8c_a5059c66ee1e61cf56765092d87510188}{halt\+\_\+tx\+\_\+sig}
+\item 
+static const char $\ast$ \hyperlink{jackd__talker_8c_ae724265d048ace6b96a1e977ea11c1c7}{version\+\_\+str}
+\item 
+\hyperlink{lib_2igb_2igb_8h_ae819c345449e1c44d253068a0a3ab5e5}{device\+\_\+t} \hyperlink{jackd__talker_8c_a945da6bf4d19c8fc72c57c327422bfb1}{glob\+\_\+igb\+\_\+dev}
+\item 
+volatile int \hyperlink{jackd__talker_8c_aedbf9721a241c9fd2960593606e7ed48}{glob\+\_\+unleash\+\_\+jack} = 0
+\item 
+pthread\+\_\+t \hyperlink{jackd__talker_8c_a1c26e38666cec8f970e769cc3e447c47}{glob\+\_\+packetizer\+\_\+id}
+\item 
+u\+\_\+int64\+\_\+t \hyperlink{jackd__talker_8c_a4f46d0f1d490caaab9c28921576d6662}{glob\+\_\+last\+\_\+time}
+\item 
+int \hyperlink{jackd__talker_8c_a0fa8e2b3e2f22599ae4b901bd8dfb18a}{glob\+\_\+seqnum}
+\item 
+\hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\+\_\+t} \hyperlink{jackd__talker_8c_a7e648185bcd68436e0d3569875c807b7}{glob\+\_\+time\+\_\+stamp}
+\item 
+\hyperlink{avb__avtp_8h_a67f05a7fb6b937cfa210e6814661e9d9}{seventeen22\+\_\+header} $\ast$ \hyperlink{jackd__talker_8c_a39b124a14c5fcc320d9adfc39c98f907}{glob\+\_\+header1722}
+\item 
+\hyperlink{structsix1883__header}{six1883\+\_\+header} $\ast$ \hyperlink{jackd__talker_8c_a04cc64e2d0349a543db6e57e946d7a28}{glob\+\_\+header61883}
+\item 
+struct \hyperlink{structigb__packet}{igb\+\_\+packet} $\ast$ \hyperlink{jackd__talker_8c_a2987de9c01a85966006eea40b2a33f22}{glob\+\_\+tmp\+\_\+packet}
+\item 
+struct \hyperlink{structigb__packet}{igb\+\_\+packet} $\ast$ \hyperlink{jackd__talker_8c_afaf5a15a2657666759912cddba720aa5}{glob\+\_\+free\+\_\+packets}
+\item 
+unsigned char \hyperlink{jackd__talker_8c_a03a59e7923f04902334a837623b77cbf}{glob\+\_\+station\+\_\+addr} \mbox{[}$\,$\mbox{]} = \{ 0, 0, 0, 0, 0, 0 \}
+\item 
+unsigned char \hyperlink{jackd__talker_8c_ace5ab964390fa61a4674f2021644249b}{glob\+\_\+stream\+\_\+id} \mbox{[}$\,$\mbox{]} = \{ 0, 0, 0, 0, 0, 0, 0, 0 \}
+\item 
+unsigned char \hyperlink{jackd__talker_8c_aa3247f871e73815f945f2b99005e7bce}{glob\+\_\+dest\+\_\+addr} \mbox{[}$\,$\mbox{]} = \{ 0x91, 0x\+E0, 0x\+F0, 0x00, 0x0e, 0x80 \}
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}!P\+A\+C\+K\+E\+T\+\_\+\+I\+PG@{P\+A\+C\+K\+E\+T\+\_\+\+I\+PG}}
+\index{P\+A\+C\+K\+E\+T\+\_\+\+I\+PG@{P\+A\+C\+K\+E\+T\+\_\+\+I\+PG}!jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{P\+A\+C\+K\+E\+T\+\_\+\+I\+PG}{PACKET_IPG}}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+A\+C\+K\+E\+T\+\_\+\+I\+PG~(125000) /$\ast$ (1) packet every 125 usec $\ast$/}\hypertarget{jackd__talker_8c_a05df1adf5da9e07f79d935f1bde3d32f}{}\label{jackd__talker_8c_a05df1adf5da9e07f79d935f1bde3d32f}
+
+
+jackd\+\_\+talker.\+c 파일의 61 번째 라인에서 정의되었습니다.
+
+\index{jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}!P\+K\+T\+\_\+\+SZ@{P\+K\+T\+\_\+\+SZ}}
+\index{P\+K\+T\+\_\+\+SZ@{P\+K\+T\+\_\+\+SZ}!jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{P\+K\+T\+\_\+\+SZ}{PKT_SZ}}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+K\+T\+\_\+\+SZ~(100)}\hypertarget{jackd__talker_8c_a5e9891a4861298e1d749b3f95efb36da}{}\label{jackd__talker_8c_a5e9891a4861298e1d749b3f95efb36da}
+
+
+jackd\+\_\+talker.\+c 파일의 62 번째 라인에서 정의되었습니다.
+
+\index{jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}!R\+E\+N\+D\+E\+R\+\_\+\+D\+E\+L\+AY@{R\+E\+N\+D\+E\+R\+\_\+\+D\+E\+L\+AY}}
+\index{R\+E\+N\+D\+E\+R\+\_\+\+D\+E\+L\+AY@{R\+E\+N\+D\+E\+R\+\_\+\+D\+E\+L\+AY}!jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{R\+E\+N\+D\+E\+R\+\_\+\+D\+E\+L\+AY}{RENDER_DELAY}}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+E\+N\+D\+E\+R\+\_\+\+D\+E\+L\+AY~({\bf X\+M\+I\+T\+\_\+\+D\+E\+L\+AY}+2000000) /$\ast$ us $\ast$/}\hypertarget{jackd__talker_8c_ad67f15bfda3230674f801ea1a30c8164}{}\label{jackd__talker_8c_ad67f15bfda3230674f801ea1a30c8164}
+
+
+jackd\+\_\+talker.\+c 파일의 60 번째 라인에서 정의되었습니다.
+
+\index{jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}!V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR@{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR}}
+\index{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR@{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR}!jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR}{VERSION_STR}}]{\setlength{\rightskip}{0pt plus 5cm}\#define V\+E\+R\+S\+I\+O\+N\+\_\+\+S\+TR~\char`\"{}1.\+0\char`\"{}}\hypertarget{jackd__talker_8c_acfc1668731750cb1ee8974b8a7c133ef}{}\label{jackd__talker_8c_acfc1668731750cb1ee8974b8a7c133ef}
+
+
+jackd\+\_\+talker.\+c 파일의 57 번째 라인에서 정의되었습니다.
+
+\index{jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}!X\+M\+I\+T\+\_\+\+D\+E\+L\+AY@{X\+M\+I\+T\+\_\+\+D\+E\+L\+AY}}
+\index{X\+M\+I\+T\+\_\+\+D\+E\+L\+AY@{X\+M\+I\+T\+\_\+\+D\+E\+L\+AY}!jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{X\+M\+I\+T\+\_\+\+D\+E\+L\+AY}{XMIT_DELAY}}]{\setlength{\rightskip}{0pt plus 5cm}\#define X\+M\+I\+T\+\_\+\+D\+E\+L\+AY~(200000000) /$\ast$ us $\ast$/}\hypertarget{jackd__talker_8c_ac68727566a4eb0566499959552eb6e7f}{}\label{jackd__talker_8c_ac68727566a4eb0566499959552eb6e7f}
+
+
+jackd\+\_\+talker.\+c 파일의 59 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{타입정의 문서화}
+\index{jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}!Frequency\+Ratio@{Frequency\+Ratio}}
+\index{Frequency\+Ratio@{Frequency\+Ratio}!jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{Frequency\+Ratio}{FrequencyRatio}}]{\setlength{\rightskip}{0pt plus 5cm}typedef long double {\bf Frequency\+Ratio}}\hypertarget{jackd__talker_8c_a84de47dc2ed889ecd2b61706d3ad0f2e}{}\label{jackd__talker_8c_a84de47dc2ed889ecd2b61706d3ad0f2e}
+
+
+jackd\+\_\+talker.\+c 파일의 65 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{함수 문서화}
+\index{jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}!get\+\_\+mac\+\_\+address@{get\+\_\+mac\+\_\+address}}
+\index{get\+\_\+mac\+\_\+address@{get\+\_\+mac\+\_\+address}!jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{get\+\_\+mac\+\_\+address(char $\ast$interface)}{get_mac_address(char *interface)}}]{\setlength{\rightskip}{0pt plus 5cm}int get\+\_\+mac\+\_\+address (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{interface}
+\end{DoxyParamCaption}
+)}\hypertarget{jackd__talker_8c_ae4545cedccbdf6aabb3a7686af318c2d}{}\label{jackd__talker_8c_ae4545cedccbdf6aabb3a7686af318c2d}
+
+
+jackd\+\_\+talker.\+c 파일의 105 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+106 \{
+107     \textcolor{keyword}{struct }ifreq if\_request;
+108     \textcolor{keywordtype}{int} \hyperlink{openavb__avdecc__msg__server__osal_8c_a5fd2838acec3b3db522def9bdb11fba7}{lsock};
+109     \textcolor{keywordtype}{int} rc;
+110     lsock = socket(PF\_PACKET, SOCK\_RAW, htons(0x800));
+111     \textcolor{keywordflow}{if} (lsock < 0)
+112         \textcolor{keywordflow}{return} -1;
+113     memset(&if\_request, 0, \textcolor{keyword}{sizeof}(if\_request));
+114     strncpy(if\_request.ifr\_name, \hyperlink{mrpd_8c_af663a7576d2f8f288bb3996381484cd3}{interface}, \textcolor{keyword}{sizeof}(if\_request.ifr\_name));
+115     rc = ioctl(lsock, SIOCGIFHWADDR, &if\_request);
+116     \textcolor{keywordflow}{if} (rc < 0) \{
+117         close(lsock);
+118         \textcolor{keywordflow}{return} -1;
+119     \}
+120     memcpy(\hyperlink{jackd__talker_8c_a03a59e7923f04902334a837623b77cbf}{glob\_station\_addr}, if\_request.ifr\_hwaddr.sa\_data,
+121            \textcolor{keyword}{sizeof}(\hyperlink{jackd__talker_8c_a03a59e7923f04902334a837623b77cbf}{glob\_station\_addr}));
+122     close(lsock);
+123     \textcolor{keywordflow}{return} 0;
+124 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=248pt]{jackd__talker_8c_ae4545cedccbdf6aabb3a7686af318c2d_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}!main@{main}}
+\index{main@{main}!jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{main(int argc, char $\ast$argv[])}{main(int argc, char *argv[])}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{jackd__talker_8c_a0ddf1224851353fc92bfbff6f499fa97}{}\label{jackd__talker_8c_a0ddf1224851353fc92bfbff6f499fa97}
+
+
+jackd\+\_\+talker.\+c 파일의 239 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+240 \{
+241     \textcolor{keywordtype}{unsigned} i;
+242     \textcolor{keywordtype}{int} \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err};
+243     \textcolor{keywordtype}{int} igb\_shm\_fd = -1;
+244     \textcolor{keywordtype}{char} *\hyperlink{igb__main_8c_ab1b42c6a3058ce5f661f5b02d1a5d16c}{igb\_mmap} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+245     \textcolor{keyword}{struct }\hyperlink{structigb__dma__alloc}{igb\_dma\_alloc} \hyperlink{gstavbsink_8c_a014c349ebc9b62f76ad8a63a80060e72}{a\_page};
+246     \textcolor{keyword}{struct }\hyperlink{structigb__packet}{igb\_packet} a\_packet;
+247     \textcolor{keywordtype}{int} \hyperlink{shaper__daemon_8c_a4e1e0e72dd773439e333c84dd762a9c3}{c};
+248     \textcolor{keywordtype}{int} rc = 0;
+249     \textcolor{keywordtype}{char} *\textcolor{keyword}{interface }= \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+250     \hyperlink{structg_ptp_time_data}{gPtpTimeData} td;
+251     \hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\_t} now\_local, now\_8021as;
+252     \hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\_t} update\_8021as;
+253     \textcolor{keywordtype}{unsigned} delta\_8021as, delta\_local;
+254     jack\_client\_t* \_jackclient;
+255     \textcolor{keyword}{struct }\hyperlink{structmrp__talker__ctx}{mrp\_talker\_ctx} *\hyperlink{jack_8h_a1cde2a2cf8a56164b5e83159035be03b}{ctx} = \hyperlink{_memory_leak_detector_malloc_macros_8h_ab8b25cd8f16d4a6552afe4e65c4f082d}{malloc}(\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} 
+      \hyperlink{structmrp__talker__ctx}{mrp\_talker\_ctx}));
+256     \textcolor{keyword}{struct }\hyperlink{structmrp__domain__attr}{mrp\_domain\_attr} *class\_a = \hyperlink{_memory_leak_detector_malloc_macros_8h_ab8b25cd8f16d4a6552afe4e65c4f082d}{malloc}(\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} 
+      \hyperlink{structmrp__domain__attr}{mrp\_domain\_attr}));
+257     \textcolor{keyword}{struct }\hyperlink{structmrp__domain__attr}{mrp\_domain\_attr} *class\_b = \hyperlink{_memory_leak_detector_malloc_macros_8h_ab8b25cd8f16d4a6552afe4e65c4f082d}{malloc}(\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} 
+      \hyperlink{structmrp__domain__attr}{mrp\_domain\_attr}));
+258 
+259     \textcolor{keywordflow}{for} (;;) \{
+260         c = \hyperlink{getopt_8c_a5b4d105808f29eef11f1a690ccc4e04a}{getopt}(argc, argv, \textcolor{stringliteral}{"hi:"});
+261         \textcolor{keywordflow}{if} (c < 0)
+262             \textcolor{keywordflow}{break};
+263         \textcolor{keywordflow}{switch} (c) \{
+264         \textcolor{keywordflow}{case} \textcolor{charliteral}{'h'}:
+265             \hyperlink{jackd__talker_8c_ad96d407a911fbb914fa8e4cfbf2faf0f}{usage}();
+266             \textcolor{keywordflow}{break};
+267         \textcolor{keywordflow}{case} \textcolor{charliteral}{'i'}:
+268             \textcolor{keywordflow}{if} (\hyperlink{mrpd_8c_af663a7576d2f8f288bb3996381484cd3}{interface}) \{
+269                 printf
+270                     (\textcolor{stringliteral}{"only one interface per daemon is supported\(\backslash\)n"});
+271                 \hyperlink{jackd__talker_8c_ad96d407a911fbb914fa8e4cfbf2faf0f}{usage}();
+272             \}
+273             \textcolor{keyword}{interface }= strdup(optarg);
+274             \textcolor{keywordflow}{break};
+275         \}
+276     \}
+277     \textcolor{keywordflow}{if} (\hyperlink{getopt_8c_ad5e1c16213bbee2d5e8cc363309f418c}{optind} < argc)
+278         \hyperlink{jackd__talker_8c_ad96d407a911fbb914fa8e4cfbf2faf0f}{usage}();
+279     \textcolor{keywordflow}{if} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} == \hyperlink{mrpd_8c_af663a7576d2f8f288bb3996381484cd3}{interface}) \{
+280         \hyperlink{jackd__talker_8c_ad96d407a911fbb914fa8e4cfbf2faf0f}{usage}();
+281     \}
+282     rc = \hyperlink{talker__mrp__client_8c_a74c2fc24c07fa72e2fd10a3a98f9dc9d}{mrp\_talker\_client\_init}(ctx);
+283     \textcolor{keywordflow}{if} (rc) \{
+284         printf(\textcolor{stringliteral}{"MRP talker client initialization failed\(\backslash\)n"});
+285         \textcolor{keywordflow}{return} errno;
+286     \}
+287     \hyperlink{jackd__talker_8c_a5059c66ee1e61cf56765092d87510188}{halt\_tx\_sig} = &ctx->\hyperlink{structmrp__talker__ctx_a7c8176263e9704aa667fc335cc818a3f}{halt\_tx};
+288 
+289     rc = \hyperlink{talker__mrp__client_8c_aa94a906b50f9aca85cb00a18235c627f}{mrp\_connect}(ctx);
+290     \textcolor{keywordflow}{if} (rc) \{
+291         printf(\textcolor{stringliteral}{"socket creation failed\(\backslash\)n"});
+292         \textcolor{keywordflow}{return} errno;
+293     \}
+294     err = \hyperlink{linux__hal__i210_8cpp_a9a17c0a5cd13afce277fe14723862446}{pci\_connect}(&\hyperlink{jackd__talker_8c_a945da6bf4d19c8fc72c57c327422bfb1}{glob\_igb\_dev});
+295     \textcolor{keywordflow}{if} (err) \{
+296         printf(\textcolor{stringliteral}{"connect failed (%s) - are you running as root?\(\backslash\)n"},
+297                strerror(errno));
+298         \textcolor{keywordflow}{return} errno;
+299     \}
+300     err = \hyperlink{igb_8c_a923b0ffcf94a4a6ac8f36a7bacd6b0f3}{igb\_init}(&\hyperlink{jackd__talker_8c_a945da6bf4d19c8fc72c57c327422bfb1}{glob\_igb\_dev});
+301     \textcolor{keywordflow}{if} (err) \{
+302         printf(\textcolor{stringliteral}{"init failed (%s) - is the driver really loaded?\(\backslash\)n"},
+303                strerror(errno));
+304         \textcolor{keywordflow}{return} errno;
+305     \}
+306     err = \hyperlink{igb_8c_a4e2589d22e959c35c0902ef79ed3f059}{igb\_dma\_malloc\_page}(&\hyperlink{jackd__talker_8c_a945da6bf4d19c8fc72c57c327422bfb1}{glob\_igb\_dev}, &
+      \hyperlink{gstavbsink_8c_a014c349ebc9b62f76ad8a63a80060e72}{a\_page});
+307     \textcolor{keywordflow}{if} (err) \{
+308         printf(\textcolor{stringliteral}{"malloc failed (%s) - out of memory?\(\backslash\)n"},
+309                strerror(errno));
+310         \textcolor{keywordflow}{return} errno;
+311     \}
+312     signal(SIGINT, \hyperlink{jackd__talker_8c_ab10c0c50c02a59ae9bd74c78c49b559d}{sigint\_handler});
+313     rc = \hyperlink{jackd__talker_8c_ae4545cedccbdf6aabb3a7686af318c2d}{get\_mac\_address}(\hyperlink{mrpd_8c_af663a7576d2f8f288bb3996381484cd3}{interface});
+314     \textcolor{keywordflow}{if} (rc) \{
+315         printf(\textcolor{stringliteral}{"failed to open interface\(\backslash\)n"});
+316         \hyperlink{jackd__talker_8c_ad96d407a911fbb914fa8e4cfbf2faf0f}{usage}();
+317     \}
+318 
+319     rc = \hyperlink{listener__mrp__client_8c_ad9e5734b8f3e186460f459b6c3c395b5}{mrp\_get\_domain}(ctx, class\_a, class\_b);
+320     \textcolor{keywordflow}{if} (rc) \{
+321         printf(\textcolor{stringliteral}{"failed calling msp\_get\_domain()\(\backslash\)n"});
+322         \textcolor{keywordflow}{return} EXIT\_FAILURE;
+323     \}
+324     printf(\textcolor{stringliteral}{"detected domain Class A PRIO=%d VID=%04x...\(\backslash\)n"},class\_a->\hyperlink{structmrp__domain__attr_acec9ce2df15222151ad66fcb1d74eb9f}{priority},
+325            class\_a->\hyperlink{structmrp__domain__attr_a066fae47f1854479570ecc0bf7e488c3}{vid});
+326 
+327     rc = \hyperlink{talker__mrp__client_8c_ad06b236726820804f4273102e9177efd}{mrp\_register\_domain}(class\_a, ctx);
+328     \textcolor{keywordflow}{if} (rc) \{
+329         printf(\textcolor{stringliteral}{"mrp\_register\_domain failed\(\backslash\)n"});
+330         \textcolor{keywordflow}{return} EXIT\_FAILURE;
+331     \}
+332     rc = \hyperlink{talker__mrp__client_8c_a5a1dbea67f6c32ce5de65b8f5d51c2de}{mrp\_join\_vlan}(class\_a, ctx);
+333     \textcolor{keywordflow}{if} (rc) \{
+334         printf(\textcolor{stringliteral}{"mrp\_join\_vlan failed\(\backslash\)n"});
+335         \textcolor{keywordflow}{return} EXIT\_FAILURE;
+336     \}
+337 
+338     \hyperlink{igb_8c_a8d49a6fa54c79c1b5bd5b6f006eeb8e1}{igb\_set\_class\_bandwidth}(&\hyperlink{jackd__talker_8c_a945da6bf4d19c8fc72c57c327422bfb1}{glob\_igb\_dev}, 
+      \hyperlink{jackd__talker_8c_a05df1adf5da9e07f79d935f1bde3d32f}{PACKET\_IPG} / 125000, 0, \hyperlink{jackd__talker_8c_a5e9891a4861298e1d749b3f95efb36da}{PKT\_SZ} - 22,
+339                 0);
+340 
+341     memset(\hyperlink{jackd__talker_8c_ace5ab964390fa61a4674f2021644249b}{glob\_stream\_id}, 0, \textcolor{keyword}{sizeof}(\hyperlink{jackd__talker_8c_ace5ab964390fa61a4674f2021644249b}{glob\_stream\_id}));
+342     memcpy(\hyperlink{jackd__talker_8c_ace5ab964390fa61a4674f2021644249b}{glob\_stream\_id}, \hyperlink{jackd__talker_8c_a03a59e7923f04902334a837623b77cbf}{glob\_station\_addr}, \textcolor{keyword}{sizeof}(
+      \hyperlink{jackd__talker_8c_a03a59e7923f04902334a837623b77cbf}{glob\_station\_addr}));
+343 
+344     a\_packet.dmatime = a\_packet.attime = a\_packet.flags = 0;
+345     a\_packet.map.paddr = \hyperlink{gstavbsink_8c_a014c349ebc9b62f76ad8a63a80060e72}{a\_page}.\hyperlink{structigb__dma__alloc_a634628ebb0fecc5be46345b286cce0ef}{dma\_paddr};
+346     a\_packet.map.mmap\_size = \hyperlink{gstavbsink_8c_a014c349ebc9b62f76ad8a63a80060e72}{a\_page}.\hyperlink{structigb__dma__alloc_a8258a70481ee5ece54c23de98e767611}{mmap\_size};
+347     a\_packet.offset = 0;
+348     a\_packet.vaddr = \hyperlink{gstavbsink_8c_a014c349ebc9b62f76ad8a63a80060e72}{a\_page}.\hyperlink{structigb__dma__alloc_a1a7aec22103dc161f23a441da520af5b}{dma\_vaddr} + a\_packet.offset;
+349     a\_packet.len = \hyperlink{jackd__talker_8c_a5e9891a4861298e1d749b3f95efb36da}{PKT\_SZ};
+350     \hyperlink{jackd__talker_8c_afaf5a15a2657666759912cddba720aa5}{glob\_free\_packets} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+351     \hyperlink{jackd__talker_8c_a0fa8e2b3e2f22599ae4b901bd8dfb18a}{glob\_seqnum} = 0;
+352 
+353     \textcolor{comment}{/* divide the dma page into buffers for packets */}
+354     \textcolor{keywordflow}{for} (i = 1; i < ((\hyperlink{gstavbsink_8c_a014c349ebc9b62f76ad8a63a80060e72}{a\_page}.\hyperlink{structigb__dma__alloc_a8258a70481ee5ece54c23de98e767611}{mmap\_size}) / \hyperlink{jackd__talker_8c_a5e9891a4861298e1d749b3f95efb36da}{PKT\_SZ}); i++) \{
+355         \hyperlink{jackd__talker_8c_a2987de9c01a85966006eea40b2a33f22}{glob\_tmp\_packet} = \hyperlink{_memory_leak_detector_malloc_macros_8h_ab8b25cd8f16d4a6552afe4e65c4f082d}{malloc}(\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} \hyperlink{structigb__packet}{igb\_packet}));
+356         \textcolor{keywordflow}{if} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} == \hyperlink{jackd__talker_8c_a2987de9c01a85966006eea40b2a33f22}{glob\_tmp\_packet}) \{
+357             printf(\textcolor{stringliteral}{"failed to allocate igb\_packet memory!\(\backslash\)n"});
+358             \textcolor{keywordflow}{return} errno;
+359         \}
+360         *\hyperlink{jackd__talker_8c_a2987de9c01a85966006eea40b2a33f22}{glob\_tmp\_packet} = a\_packet;
+361         \hyperlink{jackd__talker_8c_a2987de9c01a85966006eea40b2a33f22}{glob\_tmp\_packet}->\hyperlink{structigb__packet_a29b5297d3393519050e3126c4cb07c1c}{offset} = (i * \hyperlink{jackd__talker_8c_a5e9891a4861298e1d749b3f95efb36da}{PKT\_SZ});
+362         \hyperlink{jackd__talker_8c_a2987de9c01a85966006eea40b2a33f22}{glob\_tmp\_packet}->\hyperlink{structigb__packet_aa0bb68874ee9bcccfa45212ec3b12466}{vaddr} += \hyperlink{jackd__talker_8c_a2987de9c01a85966006eea40b2a33f22}{glob\_tmp\_packet}->
+      \hyperlink{structigb__packet_a29b5297d3393519050e3126c4cb07c1c}{offset};
+363         \hyperlink{jackd__talker_8c_a2987de9c01a85966006eea40b2a33f22}{glob\_tmp\_packet}->\hyperlink{structigb__packet_a1a20432d28f575630a2562c1c728a40f}{next} = \hyperlink{jackd__talker_8c_afaf5a15a2657666759912cddba720aa5}{glob\_free\_packets};
+364         memset(\hyperlink{jackd__talker_8c_a2987de9c01a85966006eea40b2a33f22}{glob\_tmp\_packet}->\hyperlink{structigb__packet_aa0bb68874ee9bcccfa45212ec3b12466}{vaddr}, 0, \hyperlink{jackd__talker_8c_a5e9891a4861298e1d749b3f95efb36da}{PKT\_SZ});    \textcolor{comment}{/* MAC header at least */}
+365         memcpy(\hyperlink{jackd__talker_8c_a2987de9c01a85966006eea40b2a33f22}{glob\_tmp\_packet}->\hyperlink{structigb__packet_aa0bb68874ee9bcccfa45212ec3b12466}{vaddr}, \hyperlink{jackd__talker_8c_aa3247f871e73815f945f2b99005e7bce}{glob\_dest\_addr}, \textcolor{keyword}{sizeof}(
+      \hyperlink{jackd__talker_8c_aa3247f871e73815f945f2b99005e7bce}{glob\_dest\_addr}));
+366         memcpy(\hyperlink{jackd__talker_8c_a2987de9c01a85966006eea40b2a33f22}{glob\_tmp\_packet}->\hyperlink{structigb__packet_aa0bb68874ee9bcccfa45212ec3b12466}{vaddr} + 6, \hyperlink{jackd__talker_8c_a03a59e7923f04902334a837623b77cbf}{glob\_station\_addr},
+367                \textcolor{keyword}{sizeof}(\hyperlink{jackd__talker_8c_a03a59e7923f04902334a837623b77cbf}{glob\_station\_addr}));
+368 
+369         \textcolor{comment}{/* Q-tag */}
+370         ((\textcolor{keywordtype}{char} *)\hyperlink{jackd__talker_8c_a2987de9c01a85966006eea40b2a33f22}{glob\_tmp\_packet}->\hyperlink{structigb__packet_aa0bb68874ee9bcccfa45212ec3b12466}{vaddr})[12] = 0x81;
+371         ((\textcolor{keywordtype}{char} *)\hyperlink{jackd__talker_8c_a2987de9c01a85966006eea40b2a33f22}{glob\_tmp\_packet}->\hyperlink{structigb__packet_aa0bb68874ee9bcccfa45212ec3b12466}{vaddr})[13] = 0x00;
+372         ((\textcolor{keywordtype}{char} *)\hyperlink{jackd__talker_8c_a2987de9c01a85966006eea40b2a33f22}{glob\_tmp\_packet}->\hyperlink{structigb__packet_aa0bb68874ee9bcccfa45212ec3b12466}{vaddr})[14] =
+373             ((ctx->\hyperlink{structmrp__talker__ctx_ac98b99ec0ffd190c1da93e6caffe36d4}{domain\_class\_a\_priority} << 13 | ctx->
+      \hyperlink{structmrp__talker__ctx_ac575246135a50baaf0c802ef29aa2779}{domain\_class\_a\_vid})) >> 8;
+374         ((\textcolor{keywordtype}{char} *)\hyperlink{jackd__talker_8c_a2987de9c01a85966006eea40b2a33f22}{glob\_tmp\_packet}->\hyperlink{structigb__packet_aa0bb68874ee9bcccfa45212ec3b12466}{vaddr})[15] =
+375             ((ctx->\hyperlink{structmrp__talker__ctx_ac98b99ec0ffd190c1da93e6caffe36d4}{domain\_class\_a\_priority} << 13 | ctx->
+      \hyperlink{structmrp__talker__ctx_ac575246135a50baaf0c802ef29aa2779}{domain\_class\_a\_vid})) & 0xFF;
+376         ((\textcolor{keywordtype}{char} *)\hyperlink{jackd__talker_8c_a2987de9c01a85966006eea40b2a33f22}{glob\_tmp\_packet}->\hyperlink{structigb__packet_aa0bb68874ee9bcccfa45212ec3b12466}{vaddr})[16] = 0x22;    \textcolor{comment}{/* 1722 eth type */}
+377         ((\textcolor{keywordtype}{char} *)\hyperlink{jackd__talker_8c_a2987de9c01a85966006eea40b2a33f22}{glob\_tmp\_packet}->\hyperlink{structigb__packet_aa0bb68874ee9bcccfa45212ec3b12466}{vaddr})[17] = 0xF0;
+378 
+379         \textcolor{comment}{/* 1722 header update + payload */}
+380         \hyperlink{jackd__talker_8c_a39b124a14c5fcc320d9adfc39c98f907}{glob\_header1722} =
+381             (\hyperlink{avb__avtp_8h_a67f05a7fb6b937cfa210e6814661e9d9}{seventeen22\_header} *) (((\textcolor{keywordtype}{char} *)\hyperlink{jackd__talker_8c_a2987de9c01a85966006eea40b2a33f22}{glob\_tmp\_packet}->
+      \hyperlink{structigb__packet_aa0bb68874ee9bcccfa45212ec3b12466}{vaddr}) + 18);
+382         \hyperlink{jackd__talker_8c_a39b124a14c5fcc320d9adfc39c98f907}{glob\_header1722}->cd\_indicator = 0;
+383         \hyperlink{jackd__talker_8c_a39b124a14c5fcc320d9adfc39c98f907}{glob\_header1722}->subtype = 0;
+384         \hyperlink{jackd__talker_8c_a39b124a14c5fcc320d9adfc39c98f907}{glob\_header1722}->sid\_valid = 1;
+385         \hyperlink{jackd__talker_8c_a39b124a14c5fcc320d9adfc39c98f907}{glob\_header1722}->version = 0;
+386         \hyperlink{jackd__talker_8c_a39b124a14c5fcc320d9adfc39c98f907}{glob\_header1722}->reset = 0;
+387         \hyperlink{jackd__talker_8c_a39b124a14c5fcc320d9adfc39c98f907}{glob\_header1722}->reserved0 = 0;
+388         \hyperlink{jackd__talker_8c_a39b124a14c5fcc320d9adfc39c98f907}{glob\_header1722}->gateway\_valid = 0;
+389         \hyperlink{jackd__talker_8c_a39b124a14c5fcc320d9adfc39c98f907}{glob\_header1722}->reserved1 = 0;
+390         \hyperlink{jackd__talker_8c_a39b124a14c5fcc320d9adfc39c98f907}{glob\_header1722}->timestamp\_uncertain = 0;
+391         memset(&(\hyperlink{jackd__talker_8c_a39b124a14c5fcc320d9adfc39c98f907}{glob\_header1722}->stream\_id), 0, \textcolor{keyword}{sizeof}(
+      \hyperlink{jackd__talker_8c_a39b124a14c5fcc320d9adfc39c98f907}{glob\_header1722}->stream\_id));
+392         memcpy(&(\hyperlink{jackd__talker_8c_a39b124a14c5fcc320d9adfc39c98f907}{glob\_header1722}->stream\_id), \hyperlink{jackd__talker_8c_a03a59e7923f04902334a837623b77cbf}{glob\_station\_addr},
+393                \textcolor{keyword}{sizeof}(\hyperlink{jackd__talker_8c_a03a59e7923f04902334a837623b77cbf}{glob\_station\_addr}));
+394         \hyperlink{jackd__talker_8c_a39b124a14c5fcc320d9adfc39c98f907}{glob\_header1722}->length = htons(32);
+395         \hyperlink{jackd__talker_8c_a04cc64e2d0349a543db6e57e946d7a28}{glob\_header61883} = (\hyperlink{structsix1883__header}{six1883\_header} *) (
+      \hyperlink{jackd__talker_8c_a39b124a14c5fcc320d9adfc39c98f907}{glob\_header1722} + 1);
+396         \hyperlink{jackd__talker_8c_a04cc64e2d0349a543db6e57e946d7a28}{glob\_header61883}->\hyperlink{structsix1883__header_a137c7a0b8f5c096e24e535416b2c12c2}{format\_tag} = 1;
+397         \hyperlink{jackd__talker_8c_a04cc64e2d0349a543db6e57e946d7a28}{glob\_header61883}->\hyperlink{structsix1883__header_a3ddfab5f02c3bd28ffb22c1d4478ba67}{packet\_channel} = 0x1F;
+398         \hyperlink{jackd__talker_8c_a04cc64e2d0349a543db6e57e946d7a28}{glob\_header61883}->\hyperlink{structsix1883__header_ac86ef7cc33218945d4c73609a2fc58fb}{packet\_tcode} = 0xA;
+399         \hyperlink{jackd__talker_8c_a04cc64e2d0349a543db6e57e946d7a28}{glob\_header61883}->\hyperlink{structsix1883__header_a3b52b2d4d5eb3909d1141c865563f246}{app\_control} = 0x0;
+400         \hyperlink{jackd__talker_8c_a04cc64e2d0349a543db6e57e946d7a28}{glob\_header61883}->\hyperlink{structsix1883__header_af183276fcf5731396c007fa180c6c6b3}{reserved0} = 0;
+401         \hyperlink{jackd__talker_8c_a04cc64e2d0349a543db6e57e946d7a28}{glob\_header61883}->\hyperlink{structsix1883__header_a66347b57ca499b03efde0826d99533fc}{source\_id} = 0x3F;
+402         \hyperlink{jackd__talker_8c_a04cc64e2d0349a543db6e57e946d7a28}{glob\_header61883}->\hyperlink{structsix1883__header_a70463341a111fa9a10acb9c082870fce}{data\_block\_size} = 1;
+403         \hyperlink{jackd__talker_8c_a04cc64e2d0349a543db6e57e946d7a28}{glob\_header61883}->\hyperlink{structsix1883__header_a1a119b57c43180e27c35bc0394930879}{fraction\_number} = 0;
+404         \hyperlink{jackd__talker_8c_a04cc64e2d0349a543db6e57e946d7a28}{glob\_header61883}->\hyperlink{structsix1883__header_ab44f15fc10f7e3c635c930fe3d0551c6}{quadlet\_padding\_count} = 0;
+405         \hyperlink{jackd__talker_8c_a04cc64e2d0349a543db6e57e946d7a28}{glob\_header61883}->\hyperlink{structsix1883__header_a249b482e00959f3c2d3596b684142a90}{source\_packet\_header} = 0;
+406         \hyperlink{jackd__talker_8c_a04cc64e2d0349a543db6e57e946d7a28}{glob\_header61883}->\hyperlink{structsix1883__header_a6b89b86dfe0266be2fc46cf46f6e7b72}{reserved1} = 0;
+407         \hyperlink{jackd__talker_8c_a04cc64e2d0349a543db6e57e946d7a28}{glob\_header61883}->\hyperlink{structsix1883__header_a0cb731a92907e54bc99bdad81dd3552a}{eoh} = 0x2;
+408         \hyperlink{jackd__talker_8c_a04cc64e2d0349a543db6e57e946d7a28}{glob\_header61883}->\hyperlink{structsix1883__header_adbbe8dd364d054c89e7ffc75986b2d05}{format\_id} = 0x10;
+409         \hyperlink{jackd__talker_8c_a04cc64e2d0349a543db6e57e946d7a28}{glob\_header61883}->\hyperlink{structsix1883__header_acd85be38e562935aed45a19b170ae501}{format\_dependent\_field} = 0x02;
+410         \hyperlink{jackd__talker_8c_a04cc64e2d0349a543db6e57e946d7a28}{glob\_header61883}->\hyperlink{structsix1883__header_aec1f53b0b9c6795a8e0f8f4e029fa676}{syt} = 0xFFFF;
+411         \hyperlink{jackd__talker_8c_a2987de9c01a85966006eea40b2a33f22}{glob\_tmp\_packet}->\hyperlink{structigb__packet_a0c5f469bd681fb46e6f4203d5338e99f}{len} =
+412             18 + \textcolor{keyword}{sizeof}(\hyperlink{avb__avtp_8h_a67f05a7fb6b937cfa210e6814661e9d9}{seventeen22\_header}) + \textcolor{keyword}{sizeof}(
+      \hyperlink{structsix1883__header}{six1883\_header}) +
+413             (\hyperlink{jack__listener_8c_a8746ae57f53e99e184ab1e64e71d24c5}{SAMPLES\_PER\_FRAME} * \hyperlink{jack__listener_8c_a19b7f1b22403d61234a92decaeb6953a}{CHANNELS} * \textcolor{keyword}{sizeof}(
+      \hyperlink{structsix1883__sample}{six1883\_sample}));
+414         \hyperlink{jackd__talker_8c_afaf5a15a2657666759912cddba720aa5}{glob\_free\_packets} = \hyperlink{jackd__talker_8c_a2987de9c01a85966006eea40b2a33f22}{glob\_tmp\_packet};
+415     \}
+416 
+417     \textcolor{comment}{/*}
+418 \textcolor{comment}{     * subtract 16 bytes for the MAC header/Q-tag - pktsz is limited to the}
+419 \textcolor{comment}{     * data payload of the ethernet frame .}
+420 \textcolor{comment}{     *}
+421 \textcolor{comment}{     * IPG is scaled to the Class (A) observation interval of packets per 125 usec}
+422 \textcolor{comment}{     */}
+423 
+424     \_jackclient = \hyperlink{jack__listener_8c_aec0bed7c17e68537e08a344567bfc8c7}{init\_jack}(ctx);
+425 
+426     fprintf(stderr, \textcolor{stringliteral}{"advertising stream ...\(\backslash\)n"});
+427     rc = \hyperlink{talker__mrp__client_8c_a3677b13e5eb218df9fd6b310313439da}{mrp\_advertise\_stream}(\hyperlink{jackd__talker_8c_ace5ab964390fa61a4674f2021644249b}{glob\_stream\_id}, 
+      \hyperlink{jackd__talker_8c_aa3247f871e73815f945f2b99005e7bce}{glob\_dest\_addr}, \hyperlink{jackd__talker_8c_a5e9891a4861298e1d749b3f95efb36da}{PKT\_SZ} - 16,
+428                 \hyperlink{jackd__talker_8c_a05df1adf5da9e07f79d935f1bde3d32f}{PACKET\_IPG} / 125000, 3900, ctx);
+429     \textcolor{keywordflow}{if} (rc) \{
+430         printf(\textcolor{stringliteral}{"mrp\_advertise\_stream failed\(\backslash\)n"});
+431         \textcolor{keywordflow}{return} EXIT\_FAILURE;
+432     \}
+433 
+434     fprintf(stderr, \textcolor{stringliteral}{"awaiting a listener ...\(\backslash\)n"});
+435     rc = \hyperlink{talker__mrp__client_8c_af1c01cfeeb99c9ebffcbc301aa5784e2}{mrp\_await\_listener}(\hyperlink{jackd__talker_8c_ace5ab964390fa61a4674f2021644249b}{glob\_stream\_id},ctx);
+436     \textcolor{keywordflow}{if} (rc) \{
+437         printf(\textcolor{stringliteral}{"mrp\_await\_listener failed\(\backslash\)n"});
+438         \textcolor{keywordflow}{return} EXIT\_FAILURE;
+439     \}
+440     ctx->\hyperlink{structmrp__talker__ctx_a70763450542106f6508fd1051eade47d}{listeners} = 1;
+441     printf(\textcolor{stringliteral}{"got a listener ...\(\backslash\)n"});
+442     ctx->\hyperlink{structmrp__talker__ctx_a7c8176263e9704aa667fc335cc818a3f}{halt\_tx} = 0;
+443 
+444     \textcolor{keywordflow}{if}(-1 == \hyperlink{avb__gptp_8c_a05ec877d6b574ac18e0d773f37958865}{gptpinit}(&igb\_shm\_fd, &igb\_mmap)) \{
+445         \textcolor{keywordflow}{return} EXIT\_FAILURE;
+446     \}
+447 
+448     \textcolor{keywordflow}{if} (-1 == \hyperlink{avb__gptp_8c_adb6415e08d5c177a4ea34f039e63f543}{gptpscaling}(igb\_mmap, &td)) \{
+449         \textcolor{keywordflow}{return} EXIT\_FAILURE;
+450     \}
+451 
+452     \textcolor{keywordflow}{if}( \hyperlink{igb_8c_aa45f65b8e5ac2a1d1d1a7081c499a690}{igb\_get\_wallclock}( &\hyperlink{jackd__talker_8c_a945da6bf4d19c8fc72c57c327422bfb1}{glob\_igb\_dev}, &now\_local, 
+      \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} ) != 0 ) \{
+453       fprintf( stderr, \textcolor{stringliteral}{"Failed to get wallclock time\(\backslash\)n"} );
+454       \textcolor{keywordflow}{return} EXIT\_FAILURE;
+455     \}
+456     update\_8021as = td.local\_time - td.ml\_phoffset;
+457     delta\_local = (unsigned)(now\_local - td.local\_time);
+458     delta\_8021as = (unsigned)(td.ml\_freqoffset * delta\_local);
+459     now\_8021as = update\_8021as + delta\_8021as;
+460 
+461     \hyperlink{jackd__talker_8c_a4f46d0f1d490caaab9c28921576d6662}{glob\_last\_time} = now\_local + \hyperlink{jackd__talker_8c_ac68727566a4eb0566499959552eb6e7f}{XMIT\_DELAY};
+462     \hyperlink{jackd__talker_8c_a7e648185bcd68436e0d3569875c807b7}{glob\_time\_stamp} = now\_8021as + \hyperlink{jackd__talker_8c_ad67f15bfda3230674f801ea1a30c8164}{RENDER\_DELAY};
+463 
+464     rc = nice(-20);
+465 
+466     pthread\_create (&\hyperlink{jackd__talker_8c_a1c26e38666cec8f970e769cc3e447c47}{glob\_packetizer\_id}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, 
+      \hyperlink{jackd__talker_8c_a1bee9f325ffe39035df3009b5fd3b2f8}{packetizer\_thread}, (\textcolor{keywordtype}{void} *)ctx);
+467     \hyperlink{jackd__talker_8c_aa9ae3e1ec57ed87da6be285cd6b390c5}{run\_packetizer}();
+468 
+469     rc = nice(0);
+470 
+471     \hyperlink{jack_8c_a10849149b0ccd6ae882f60c100aa7243}{stop\_jack}(\_jackclient);
+472 
+473     \textcolor{keywordflow}{if} (ctx->\hyperlink{structmrp__talker__ctx_a7c8176263e9704aa667fc335cc818a3f}{halt\_tx} == 0)
+474         printf(\textcolor{stringliteral}{"listener left ...\(\backslash\)n"});
+475     ctx->\hyperlink{structmrp__talker__ctx_a7c8176263e9704aa667fc335cc818a3f}{halt\_tx} = 1;
+476 
+477     rc = \hyperlink{talker__mrp__client_8c_ad07070e607ae7c6127ffb3cc3e6e1d7b}{mrp\_unadvertise\_stream}(\hyperlink{jackd__talker_8c_ace5ab964390fa61a4674f2021644249b}{glob\_stream\_id}, 
+      \hyperlink{jackd__talker_8c_aa3247f871e73815f945f2b99005e7bce}{glob\_dest\_addr}, \hyperlink{jackd__talker_8c_a5e9891a4861298e1d749b3f95efb36da}{PKT\_SZ} - 16,
+478                 \hyperlink{jackd__talker_8c_a05df1adf5da9e07f79d935f1bde3d32f}{PACKET\_IPG} / 125000, 3900, ctx);
+479     \textcolor{keywordflow}{if} (rc)
+480         printf(\textcolor{stringliteral}{"mrp\_unadvertise\_stream failed\(\backslash\)n"});
+481 
+482     \hyperlink{igb_8c_a8d49a6fa54c79c1b5bd5b6f006eeb8e1}{igb\_set\_class\_bandwidth}(&\hyperlink{jackd__talker_8c_a945da6bf4d19c8fc72c57c327422bfb1}{glob\_igb\_dev}, 0, 0, 0, 0);  \textcolor{comment}{/* disable Qav 
+      */}
+483 
+484     rc = \hyperlink{listener__mrp__client_8c_a0057e5ce95d0d8ea29077cbb7bc03bb6}{mrp\_disconnect}(ctx);
+485     \textcolor{keywordflow}{if} (rc)
+486         printf(\textcolor{stringliteral}{"mrp\_disconnect failed\(\backslash\)n"});
+487 
+488     \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(ctx);
+489     \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(class\_a);
+490     \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(class\_b);
+491     \hyperlink{igb_8c_a850c73e1871342ff79fe6f0a5e6c26f3}{igb\_dma\_free\_page}(&\hyperlink{jackd__talker_8c_a945da6bf4d19c8fc72c57c327422bfb1}{glob\_igb\_dev}, &\hyperlink{gstavbsink_8c_a014c349ebc9b62f76ad8a63a80060e72}{a\_page});
+492     rc = \hyperlink{avb__gptp_8c_ae4b9f53a01f896212e0c982fd10ce4c5}{gptpdeinit}(&igb\_shm\_fd, &igb\_mmap);
+493     err = \hyperlink{igb_8c_a234eba39e755b10f3ad1652c95072a77}{igb\_detach}(&\hyperlink{jackd__talker_8c_a945da6bf4d19c8fc72c57c327422bfb1}{glob\_igb\_dev});
+494 
+495     pthread\_exit(\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+496 
+497     \textcolor{keywordflow}{return} EXIT\_SUCCESS;
+498 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{jackd__talker_8c_a0ddf1224851353fc92bfbff6f499fa97_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}!packetizer\+\_\+thread@{packetizer\+\_\+thread}}
+\index{packetizer\+\_\+thread@{packetizer\+\_\+thread}!jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{packetizer\+\_\+thread(void $\ast$arg)}{packetizer_thread(void *arg)}}]{\setlength{\rightskip}{0pt plus 5cm}static void$\ast$ packetizer\+\_\+thread (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{arg}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{jackd__talker_8c_a1bee9f325ffe39035df3009b5fd3b2f8}{}\label{jackd__talker_8c_a1bee9f325ffe39035df3009b5fd3b2f8}
+
+
+jackd\+\_\+talker.\+c 파일의 138 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+138                                           \{
+139     \textcolor{keyword}{struct }\hyperlink{structigb__packet}{igb\_packet} *\hyperlink{gstavbsink_8c_a03cc454be42935d04410937d1053eb60}{cleaned\_packets};
+140     \textcolor{keyword}{struct }\hyperlink{structmrp__talker__ctx}{mrp\_talker\_ctx} *\hyperlink{jack_8h_a1cde2a2cf8a56164b5e83159035be03b}{ctx} = (\textcolor{keyword}{struct }\hyperlink{structmrp__talker__ctx}{mrp\_talker\_ctx} *)arg;
+141     \hyperlink{structsix1883__sample}{six1883\_sample} *sample;
+142     \textcolor{keywordtype}{unsigned} \hyperlink{gstavbsink_8c_a45fbc7e1478f172d8b8555e663984056}{total\_samples} = 0;
+143     \textcolor{keywordtype}{int} \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err};
+144     \textcolor{keywordtype}{int} i;
+145     (void) arg; \textcolor{comment}{/* unused */}
+146 
+147     \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} bytes\_to\_read = \hyperlink{jack__listener_8c_a19b7f1b22403d61234a92decaeb6953a}{CHANNELS} * \hyperlink{jack__listener_8c_a8746ae57f53e99e184ab1e64e71d24c5}{SAMPLES\_PER\_FRAME} *
+148         \hyperlink{jack__listener_8c_ae25e0da7cdb20c758a56dc6aece92ba7}{SAMPLE\_SIZE};
+149     jack\_default\_audio\_sample\_t* framebuf = \hyperlink{_memory_leak_detector_malloc_macros_8h_ab8b25cd8f16d4a6552afe4e65c4f082d}{malloc} (bytes\_to\_read);
+150     \textcolor{keyword}{extern} jack\_ringbuffer\_t* \hyperlink{jack__listener_8c_a0f76ccda93252f6c928a1e0293766384}{ringbuffer};
+151     \textcolor{keyword}{extern} pthread\_mutex\_t \hyperlink{jack_8c_ad8e7d1e1652e5502c02f660bab28b19b}{threadLock};
+152     \textcolor{keyword}{extern} pthread\_cond\_t \hyperlink{jack_8c_ae1b9c392413ebfdc94298a697ada73e8}{dataReady};
+153 
+154     pthread\_setcanceltype (PTHREAD\_CANCEL\_ASYNCHRONOUS, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+155     pthread\_mutex\_lock(&threadLock);
+156 
+157     \textcolor{keywordflow}{while} (ctx->\hyperlink{structmrp__talker__ctx_a70763450542106f6508fd1051eade47d}{listeners} && !ctx->\hyperlink{structmrp__talker__ctx_a7c8176263e9704aa667fc335cc818a3f}{halt\_tx}) \{
+158         pthread\_cond\_wait(&dataReady, &threadLock);
+159 
+160         \textcolor{keywordflow}{while} ((jack\_ringbuffer\_read\_space(ringbuffer) >= bytes\_to\_read)) \{
+161 
+162             \hyperlink{jackd__talker_8c_a2987de9c01a85966006eea40b2a33f22}{glob\_tmp\_packet} = \hyperlink{jackd__talker_8c_afaf5a15a2657666759912cddba720aa5}{glob\_free\_packets};
+163             \textcolor{keywordflow}{if} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} == \hyperlink{jackd__talker_8c_a2987de9c01a85966006eea40b2a33f22}{glob\_tmp\_packet})
+164                 \textcolor{keywordflow}{goto} \hyperlink{simple__rx_8c_aeb94fbd457627182ceee7e505f432541}{cleanup};
+165             \hyperlink{jackd__talker_8c_a39b124a14c5fcc320d9adfc39c98f907}{glob\_header1722} =
+166                 (\hyperlink{avb__avtp_8h_a67f05a7fb6b937cfa210e6814661e9d9}{seventeen22\_header} *) (((\textcolor{keywordtype}{char} *)
+      \hyperlink{jackd__talker_8c_a2987de9c01a85966006eea40b2a33f22}{glob\_tmp\_packet}->\hyperlink{structigb__packet_aa0bb68874ee9bcccfa45212ec3b12466}{vaddr}) + 18);
+167             \hyperlink{jackd__talker_8c_a04cc64e2d0349a543db6e57e946d7a28}{glob\_header61883} = (\hyperlink{structsix1883__header}{six1883\_header} *) (
+      \hyperlink{jackd__talker_8c_a39b124a14c5fcc320d9adfc39c98f907}{glob\_header1722} + 1);
+168             \hyperlink{jackd__talker_8c_afaf5a15a2657666759912cddba720aa5}{glob\_free\_packets} = \hyperlink{jackd__talker_8c_a2987de9c01a85966006eea40b2a33f22}{glob\_tmp\_packet}->
+      \hyperlink{structigb__packet_a1a20432d28f575630a2562c1c728a40f}{next};
+169 
+170             \textcolor{comment}{/* unfortuntely unless this thread is at rtprio}
+171 \textcolor{comment}{             * you get pre-empted between fetching the time}
+172 \textcolor{comment}{             * and programming the packet and get a late packet}
+173 \textcolor{comment}{             */}
+174             \hyperlink{jackd__talker_8c_a2987de9c01a85966006eea40b2a33f22}{glob\_tmp\_packet}->\hyperlink{structigb__packet_a7f67203ca8a69ba9e8d49e1233601ff6}{attime} = \hyperlink{jackd__talker_8c_a4f46d0f1d490caaab9c28921576d6662}{glob\_last\_time} + 
+      \hyperlink{jackd__talker_8c_a05df1adf5da9e07f79d935f1bde3d32f}{PACKET\_IPG};
+175             \hyperlink{jackd__talker_8c_a4f46d0f1d490caaab9c28921576d6662}{glob\_last\_time} += \hyperlink{jackd__talker_8c_a05df1adf5da9e07f79d935f1bde3d32f}{PACKET\_IPG};
+176 
+177             jack\_ringbuffer\_read (ringbuffer, (\textcolor{keywordtype}{char}*)&framebuf[0], bytes\_to\_read);
+178 
+179             \hyperlink{jackd__talker_8c_a39b124a14c5fcc320d9adfc39c98f907}{glob\_header1722}->seq\_number = \hyperlink{jackd__talker_8c_a0fa8e2b3e2f22599ae4b901bd8dfb18a}{glob\_seqnum}++;
+180             \textcolor{keywordflow}{if} (\hyperlink{jackd__talker_8c_a0fa8e2b3e2f22599ae4b901bd8dfb18a}{glob\_seqnum} % 4 == 0)
+181                 \hyperlink{jackd__talker_8c_a39b124a14c5fcc320d9adfc39c98f907}{glob\_header1722}->timestamp\_valid = 0;
+182 
+183             \textcolor{keywordflow}{else}
+184                 \hyperlink{jackd__talker_8c_a39b124a14c5fcc320d9adfc39c98f907}{glob\_header1722}->timestamp\_valid = 1;
+185 
+186             \hyperlink{jackd__talker_8c_a7e648185bcd68436e0d3569875c807b7}{glob\_time\_stamp} = htonl(\hyperlink{jackd__talker_8c_a7e648185bcd68436e0d3569875c807b7}{glob\_time\_stamp});
+187             \hyperlink{jackd__talker_8c_a39b124a14c5fcc320d9adfc39c98f907}{glob\_header1722}->timestamp = \hyperlink{jackd__talker_8c_a7e648185bcd68436e0d3569875c807b7}{glob\_time\_stamp};
+188             \hyperlink{jackd__talker_8c_a7e648185bcd68436e0d3569875c807b7}{glob\_time\_stamp} = ntohl(\hyperlink{jackd__talker_8c_a7e648185bcd68436e0d3569875c807b7}{glob\_time\_stamp});
+189             \hyperlink{jackd__talker_8c_a7e648185bcd68436e0d3569875c807b7}{glob\_time\_stamp} += \hyperlink{jackd__talker_8c_a05df1adf5da9e07f79d935f1bde3d32f}{PACKET\_IPG};
+190             \hyperlink{jackd__talker_8c_a04cc64e2d0349a543db6e57e946d7a28}{glob\_header61883}->\hyperlink{structsix1883__header_a9a2bbc5c82d57a50a0b396a8f74b93d1}{data\_block\_continuity} = 
+      \hyperlink{gstavbsink_8c_a45fbc7e1478f172d8b8555e663984056}{total\_samples};
+191             total\_samples += \hyperlink{jack__listener_8c_a8746ae57f53e99e184ab1e64e71d24c5}{SAMPLES\_PER\_FRAME}*\hyperlink{jack__listener_8c_a19b7f1b22403d61234a92decaeb6953a}{CHANNELS};
+192             sample =
+193                 (\hyperlink{structsix1883__sample}{six1883\_sample} *) (((\textcolor{keywordtype}{char} *)\hyperlink{jackd__talker_8c_a2987de9c01a85966006eea40b2a33f22}{glob\_tmp\_packet}->
+      \hyperlink{structigb__packet_aa0bb68874ee9bcccfa45212ec3b12466}{vaddr}) +
+194                         (18 + \textcolor{keyword}{sizeof}(\hyperlink{avb__avtp_8h_a67f05a7fb6b937cfa210e6814661e9d9}{seventeen22\_header}) +
+195                          \textcolor{keyword}{sizeof}(\hyperlink{structsix1883__header}{six1883\_header})));
+196 
+197             \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{jack__listener_8c_a8746ae57f53e99e184ab1e64e71d24c5}{SAMPLES\_PER\_FRAME} * \hyperlink{jack__listener_8c_a19b7f1b22403d61234a92decaeb6953a}{CHANNELS}; ++i) \{
+198                 \hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\_t} tmp = htonl(\hyperlink{jack__listener_8c_a9942bb720a8f43b3d2ec80ae5213b88a}{MAX\_SAMPLE\_VALUE} * framebuf[i]);
+199                 sample[i].\hyperlink{structsix1883__sample_a6abd170e74558ffbdb4fdfb852dbfe0c}{label} = 0x40;
+200                 memcpy(&(sample[i].value), &(tmp),
+201                         \textcolor{keyword}{sizeof}(sample[i].value));
+202             \}
+203 
+204             err = \hyperlink{igb_8c_a6c8e23bd2a93ab63646fd498ac8e2127}{igb\_xmit}(&\hyperlink{jackd__talker_8c_a945da6bf4d19c8fc72c57c327422bfb1}{glob\_igb\_dev}, 0, \hyperlink{jackd__talker_8c_a2987de9c01a85966006eea40b2a33f22}{glob\_tmp\_packet});
+205 
+206             \textcolor{keywordflow}{if} (!err) \{
+207                 \textcolor{keywordflow}{continue};
+208             \}
+209 
+210             \textcolor{keywordflow}{if} (ENOSPC == err) \{
+211 
+212                 \textcolor{comment}{/* put back for now */}
+213                 \hyperlink{jackd__talker_8c_a2987de9c01a85966006eea40b2a33f22}{glob\_tmp\_packet}->\hyperlink{structigb__packet_a1a20432d28f575630a2562c1c728a40f}{next} = \hyperlink{jackd__talker_8c_afaf5a15a2657666759912cddba720aa5}{glob\_free\_packets};
+214                 \hyperlink{jackd__talker_8c_afaf5a15a2657666759912cddba720aa5}{glob\_free\_packets} = \hyperlink{jackd__talker_8c_a2987de9c01a85966006eea40b2a33f22}{glob\_tmp\_packet};
+215             \}
+216 
+217 \hyperlink{simple__rx_8c_aeb94fbd457627182ceee7e505f432541}{cleanup}:     \hyperlink{igb_8c_a03eaebcc1732abe4fd77c1f79c8e2fee}{igb\_clean}(&\hyperlink{jackd__talker_8c_a945da6bf4d19c8fc72c57c327422bfb1}{glob\_igb\_dev}, &cleaned\_packets);
+218             i = 0;
+219             \textcolor{keywordflow}{while} (cleaned\_packets) \{
+220                 i++;
+221                 \hyperlink{jackd__talker_8c_a2987de9c01a85966006eea40b2a33f22}{glob\_tmp\_packet} = \hyperlink{gstavbsink_8c_a03cc454be42935d04410937d1053eb60}{cleaned\_packets};
+222                 cleaned\_packets = cleaned\_packets->\hyperlink{structigb__packet_a1a20432d28f575630a2562c1c728a40f}{next};
+223                 \hyperlink{jackd__talker_8c_a2987de9c01a85966006eea40b2a33f22}{glob\_tmp\_packet}->\hyperlink{structigb__packet_a1a20432d28f575630a2562c1c728a40f}{next} = \hyperlink{jackd__talker_8c_afaf5a15a2657666759912cddba720aa5}{glob\_free\_packets};
+224                 \hyperlink{jackd__talker_8c_afaf5a15a2657666759912cddba720aa5}{glob\_free\_packets} = \hyperlink{jackd__talker_8c_a2987de9c01a85966006eea40b2a33f22}{glob\_tmp\_packet};
+225             \}
+226         \}
+227     \}
+228     \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+229 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{jackd__talker_8c_a1bee9f325ffe39035df3009b5fd3b2f8_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=248pt]{jackd__talker_8c_a1bee9f325ffe39035df3009b5fd3b2f8_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}!run\+\_\+packetizer@{run\+\_\+packetizer}}
+\index{run\+\_\+packetizer@{run\+\_\+packetizer}!jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{run\+\_\+packetizer(void)}{run_packetizer(void)}}]{\setlength{\rightskip}{0pt plus 5cm}static void run\+\_\+packetizer (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{jackd__talker_8c_aa9ae3e1ec57ed87da6be285cd6b390c5}{}\label{jackd__talker_8c_aa9ae3e1ec57ed87da6be285cd6b390c5}
+
+
+jackd\+\_\+talker.\+c 파일의 232 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+233 \{
+234     jack\_acquire\_real\_time\_scheduling(\hyperlink{jackd__talker_8c_a1c26e38666cec8f970e769cc3e447c47}{glob\_packetizer\_id}, 70);
+235     \hyperlink{jackd__talker_8c_aedbf9721a241c9fd2960593606e7ed48}{glob\_unleash\_jack} = 1;
+236     pthread\_join (\hyperlink{jackd__talker_8c_a1c26e38666cec8f970e769cc3e447c47}{glob\_packetizer\_id}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+237 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{jackd__talker_8c_aa9ae3e1ec57ed87da6be285cd6b390c5_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}!sigint\+\_\+handler@{sigint\+\_\+handler}}
+\index{sigint\+\_\+handler@{sigint\+\_\+handler}!jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{sigint\+\_\+handler(int signum)}{sigint_handler(int signum)}}]{\setlength{\rightskip}{0pt plus 5cm}void sigint\+\_\+handler (
+\begin{DoxyParamCaption}
+\item[{int}]{signum}
+\end{DoxyParamCaption}
+)}\hypertarget{jackd__talker_8c_ab10c0c50c02a59ae9bd74c78c49b559d}{}\label{jackd__talker_8c_ab10c0c50c02a59ae9bd74c78c49b559d}
+
+
+jackd\+\_\+talker.\+c 파일의 98 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+99 \{
+100     printf(\textcolor{stringliteral}{"got SIGINT\(\backslash\)n"});
+101     *\hyperlink{jackd__talker_8c_a5059c66ee1e61cf56765092d87510188}{halt\_tx\_sig} = signum;
+102     \hyperlink{jackd__talker_8c_aedbf9721a241c9fd2960593606e7ed48}{glob\_unleash\_jack} = 0;
+103 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=231pt]{jackd__talker_8c_ab10c0c50c02a59ae9bd74c78c49b559d_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}!S\+T\+\_\+rdtsc@{S\+T\+\_\+rdtsc}}
+\index{S\+T\+\_\+rdtsc@{S\+T\+\_\+rdtsc}!jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{S\+T\+\_\+rdtsc(void)}{ST_rdtsc(void)}}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf uint64\+\_\+t} S\+T\+\_\+rdtsc (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{jackd__talker_8c_a59da93a1867091f1c8c69d996df768fe}{}\label{jackd__talker_8c_a59da93a1867091f1c8c69d996df768fe}
+
+
+jackd\+\_\+talker.\+c 파일의 87 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+88 \{
+89     \hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\_t} ret;
+90     \textcolor{keywordtype}{unsigned} \hyperlink{shaper__daemon_8c_a4e1e0e72dd773439e333c84dd762a9c3}{c}, d;
+91     \textcolor{keyword}{asm} \textcolor{keyword}{volatile} (\textcolor{stringliteral}{"rdtsc"}:\textcolor{stringliteral}{"=a"} (\hyperlink{shaper__daemon_8c_a4e1e0e72dd773439e333c84dd762a9c3}{c}), \textcolor{stringliteral}{"=d"}(d));
+92     ret = d;
+93     ret <<= 32;
+94     ret |= \hyperlink{shaper__daemon_8c_a4e1e0e72dd773439e333c84dd762a9c3}{c};
+95     \textcolor{keywordflow}{return} ret;
+96 \}
+\end{DoxyCode}
+\index{jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}!usage@{usage}}
+\index{usage@{usage}!jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{usage(void)}{usage(void)}}]{\setlength{\rightskip}{0pt plus 5cm}static void usage (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{jackd__talker_8c_ad96d407a911fbb914fa8e4cfbf2faf0f}{}\label{jackd__talker_8c_ad96d407a911fbb914fa8e4cfbf2faf0f}
+
+
+jackd\+\_\+talker.\+c 파일의 126 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+127 \{
+128     fprintf(stderr, \textcolor{stringliteral}{"\(\backslash\)n"}
+129         \textcolor{stringliteral}{"usage: simple\_talker [-h] -i interface-name"}
+130         \textcolor{stringliteral}{"\(\backslash\)n"}
+131         \textcolor{stringliteral}{"options:\(\backslash\)n"}
+132         \textcolor{stringliteral}{"    -h  show this message\(\backslash\)n"}
+133         \textcolor{stringliteral}{"    -i  specify interface for AVB connection\(\backslash\)n"}
+134         \textcolor{stringliteral}{"\(\backslash\)n"} \textcolor{stringliteral}{"%s"} \textcolor{stringliteral}{"\(\backslash\)n"}, \hyperlink{jackd__talker_8c_ae724265d048ace6b96a1e977ea11c1c7}{version\_str});
+135     exit(EXIT\_FAILURE);
+136 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=197pt]{jackd__talker_8c_ad96d407a911fbb914fa8e4cfbf2faf0f_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{변수 문서화}
+\index{jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}!glob\+\_\+dest\+\_\+addr@{glob\+\_\+dest\+\_\+addr}}
+\index{glob\+\_\+dest\+\_\+addr@{glob\+\_\+dest\+\_\+addr}!jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{glob\+\_\+dest\+\_\+addr}{glob_dest_addr}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char glob\+\_\+dest\+\_\+addr\mbox{[}$\,$\mbox{]} = \{ 0x91, 0x\+E0, 0x\+F0, 0x00, 0x0e, 0x80 \}}\hypertarget{jackd__talker_8c_aa3247f871e73815f945f2b99005e7bce}{}\label{jackd__talker_8c_aa3247f871e73815f945f2b99005e7bce}
+
+
+jackd\+\_\+talker.\+c 파일의 85 번째 라인에서 정의되었습니다.
+
+\index{jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}!glob\+\_\+free\+\_\+packets@{glob\+\_\+free\+\_\+packets}}
+\index{glob\+\_\+free\+\_\+packets@{glob\+\_\+free\+\_\+packets}!jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{glob\+\_\+free\+\_\+packets}{glob_free_packets}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf igb\+\_\+packet}$\ast$ glob\+\_\+free\+\_\+packets}\hypertarget{jackd__talker_8c_afaf5a15a2657666759912cddba720aa5}{}\label{jackd__talker_8c_afaf5a15a2657666759912cddba720aa5}
+
+
+jackd\+\_\+talker.\+c 파일의 81 번째 라인에서 정의되었습니다.
+
+\index{jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}!glob\+\_\+header1722@{glob\+\_\+header1722}}
+\index{glob\+\_\+header1722@{glob\+\_\+header1722}!jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{glob\+\_\+header1722}{glob_header1722}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf seventeen22\+\_\+header}$\ast$ glob\+\_\+header1722}\hypertarget{jackd__talker_8c_a39b124a14c5fcc320d9adfc39c98f907}{}\label{jackd__talker_8c_a39b124a14c5fcc320d9adfc39c98f907}
+
+
+jackd\+\_\+talker.\+c 파일의 78 번째 라인에서 정의되었습니다.
+
+\index{jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}!glob\+\_\+header61883@{glob\+\_\+header61883}}
+\index{glob\+\_\+header61883@{glob\+\_\+header61883}!jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{glob\+\_\+header61883}{glob_header61883}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf six1883\+\_\+header}$\ast$ glob\+\_\+header61883}\hypertarget{jackd__talker_8c_a04cc64e2d0349a543db6e57e946d7a28}{}\label{jackd__talker_8c_a04cc64e2d0349a543db6e57e946d7a28}
+
+
+jackd\+\_\+talker.\+c 파일의 79 번째 라인에서 정의되었습니다.
+
+\index{jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}!glob\+\_\+igb\+\_\+dev@{glob\+\_\+igb\+\_\+dev}}
+\index{glob\+\_\+igb\+\_\+dev@{glob\+\_\+igb\+\_\+dev}!jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{glob\+\_\+igb\+\_\+dev}{glob_igb_dev}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf device\+\_\+t} glob\+\_\+igb\+\_\+dev}\hypertarget{jackd__talker_8c_a945da6bf4d19c8fc72c57c327422bfb1}{}\label{jackd__talker_8c_a945da6bf4d19c8fc72c57c327422bfb1}
+
+
+jackd\+\_\+talker.\+c 파일의 72 번째 라인에서 정의되었습니다.
+
+\index{jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}!glob\+\_\+last\+\_\+time@{glob\+\_\+last\+\_\+time}}
+\index{glob\+\_\+last\+\_\+time@{glob\+\_\+last\+\_\+time}!jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{glob\+\_\+last\+\_\+time}{glob_last_time}}]{\setlength{\rightskip}{0pt plus 5cm}u\+\_\+int64\+\_\+t glob\+\_\+last\+\_\+time}\hypertarget{jackd__talker_8c_a4f46d0f1d490caaab9c28921576d6662}{}\label{jackd__talker_8c_a4f46d0f1d490caaab9c28921576d6662}
+
+
+jackd\+\_\+talker.\+c 파일의 75 번째 라인에서 정의되었습니다.
+
+\index{jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}!glob\+\_\+packetizer\+\_\+id@{glob\+\_\+packetizer\+\_\+id}}
+\index{glob\+\_\+packetizer\+\_\+id@{glob\+\_\+packetizer\+\_\+id}!jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{glob\+\_\+packetizer\+\_\+id}{glob_packetizer_id}}]{\setlength{\rightskip}{0pt plus 5cm}pthread\+\_\+t glob\+\_\+packetizer\+\_\+id}\hypertarget{jackd__talker_8c_a1c26e38666cec8f970e769cc3e447c47}{}\label{jackd__talker_8c_a1c26e38666cec8f970e769cc3e447c47}
+
+
+jackd\+\_\+talker.\+c 파일의 74 번째 라인에서 정의되었습니다.
+
+\index{jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}!glob\+\_\+seqnum@{glob\+\_\+seqnum}}
+\index{glob\+\_\+seqnum@{glob\+\_\+seqnum}!jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{glob\+\_\+seqnum}{glob_seqnum}}]{\setlength{\rightskip}{0pt plus 5cm}int glob\+\_\+seqnum}\hypertarget{jackd__talker_8c_a0fa8e2b3e2f22599ae4b901bd8dfb18a}{}\label{jackd__talker_8c_a0fa8e2b3e2f22599ae4b901bd8dfb18a}
+
+
+jackd\+\_\+talker.\+c 파일의 76 번째 라인에서 정의되었습니다.
+
+\index{jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}!glob\+\_\+station\+\_\+addr@{glob\+\_\+station\+\_\+addr}}
+\index{glob\+\_\+station\+\_\+addr@{glob\+\_\+station\+\_\+addr}!jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{glob\+\_\+station\+\_\+addr}{glob_station_addr}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char glob\+\_\+station\+\_\+addr\mbox{[}$\,$\mbox{]} = \{ 0, 0, 0, 0, 0, 0 \}}\hypertarget{jackd__talker_8c_a03a59e7923f04902334a837623b77cbf}{}\label{jackd__talker_8c_a03a59e7923f04902334a837623b77cbf}
+
+
+jackd\+\_\+talker.\+c 파일의 82 번째 라인에서 정의되었습니다.
+
+\index{jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}!glob\+\_\+stream\+\_\+id@{glob\+\_\+stream\+\_\+id}}
+\index{glob\+\_\+stream\+\_\+id@{glob\+\_\+stream\+\_\+id}!jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{glob\+\_\+stream\+\_\+id}{glob_stream_id}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char glob\+\_\+stream\+\_\+id\mbox{[}$\,$\mbox{]} = \{ 0, 0, 0, 0, 0, 0, 0, 0 \}}\hypertarget{jackd__talker_8c_ace5ab964390fa61a4674f2021644249b}{}\label{jackd__talker_8c_ace5ab964390fa61a4674f2021644249b}
+
+
+jackd\+\_\+talker.\+c 파일의 83 번째 라인에서 정의되었습니다.
+
+\index{jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}!glob\+\_\+time\+\_\+stamp@{glob\+\_\+time\+\_\+stamp}}
+\index{glob\+\_\+time\+\_\+stamp@{glob\+\_\+time\+\_\+stamp}!jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{glob\+\_\+time\+\_\+stamp}{glob_time_stamp}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint32\+\_\+t} glob\+\_\+time\+\_\+stamp}\hypertarget{jackd__talker_8c_a7e648185bcd68436e0d3569875c807b7}{}\label{jackd__talker_8c_a7e648185bcd68436e0d3569875c807b7}
+
+
+jackd\+\_\+talker.\+c 파일의 77 번째 라인에서 정의되었습니다.
+
+\index{jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}!glob\+\_\+tmp\+\_\+packet@{glob\+\_\+tmp\+\_\+packet}}
+\index{glob\+\_\+tmp\+\_\+packet@{glob\+\_\+tmp\+\_\+packet}!jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{glob\+\_\+tmp\+\_\+packet}{glob_tmp_packet}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf igb\+\_\+packet}$\ast$ glob\+\_\+tmp\+\_\+packet}\hypertarget{jackd__talker_8c_a2987de9c01a85966006eea40b2a33f22}{}\label{jackd__talker_8c_a2987de9c01a85966006eea40b2a33f22}
+
+
+jackd\+\_\+talker.\+c 파일의 80 번째 라인에서 정의되었습니다.
+
+\index{jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}!glob\+\_\+unleash\+\_\+jack@{glob\+\_\+unleash\+\_\+jack}}
+\index{glob\+\_\+unleash\+\_\+jack@{glob\+\_\+unleash\+\_\+jack}!jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{glob\+\_\+unleash\+\_\+jack}{glob_unleash_jack}}]{\setlength{\rightskip}{0pt plus 5cm}volatile int glob\+\_\+unleash\+\_\+jack = 0}\hypertarget{jackd__talker_8c_aedbf9721a241c9fd2960593606e7ed48}{}\label{jackd__talker_8c_aedbf9721a241c9fd2960593606e7ed48}
+
+
+jackd\+\_\+talker.\+c 파일의 73 번째 라인에서 정의되었습니다.
+
+\index{jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}!halt\+\_\+tx\+\_\+sig@{halt\+\_\+tx\+\_\+sig}}
+\index{halt\+\_\+tx\+\_\+sig@{halt\+\_\+tx\+\_\+sig}!jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{halt\+\_\+tx\+\_\+sig}{halt_tx_sig}}]{\setlength{\rightskip}{0pt plus 5cm}volatile int$\ast$ halt\+\_\+tx\+\_\+sig}\hypertarget{jackd__talker_8c_a5059c66ee1e61cf56765092d87510188}{}\label{jackd__talker_8c_a5059c66ee1e61cf56765092d87510188}
+
+
+jackd\+\_\+talker.\+c 파일의 63 번째 라인에서 정의되었습니다.
+
+\index{jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}!version\+\_\+str@{version\+\_\+str}}
+\index{version\+\_\+str@{version\+\_\+str}!jackd\+\_\+talker.\+c@{jackd\+\_\+talker.\+c}}
+\subsubsection[{\texorpdfstring{version\+\_\+str}{version_str}}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ version\+\_\+str\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{jackd__talker_8c_ae724265d048ace6b96a1e977ea11c1c7}{}\label{jackd__talker_8c_ae724265d048ace6b96a1e977ea11c1c7}
+{\bfseries 초기값\+:}
+\begin{DoxyCode}
+= \textcolor{stringliteral}{"simple\_talker v"} \hyperlink{jackd__talker_8c_acfc1668731750cb1ee8974b8a7c133ef}{VERSION\_STR} \textcolor{stringliteral}{"\(\backslash\)n"}
+    \textcolor{stringliteral}{"Copyright (c) 2012, Intel Corporation\(\backslash\)n"}
+\end{DoxyCode}
+
+
+jackd\+\_\+talker.\+c 파일의 69 번째 라인에서 정의되었습니다.
+

@@ -1,0 +1,26 @@
+var structg_ptp_time_data =
+[
+    [ "asCapable", "structg_ptp_time_data.html#a15a09cf240fb37b905e4d4e1e9f5b9a1", null ],
+    [ "clock_accuracy", "structg_ptp_time_data.html#a708d6d971b6be997cf8d3e683951ceb0", null ],
+    [ "clock_class", "structg_ptp_time_data.html#aafe98ca785cdce0ce5eaa26f2930d2fe", null ],
+    [ "clock_identity", "structg_ptp_time_data.html#af57b2186850d88240e6095da54758a2e", null ],
+    [ "domain_number", "structg_ptp_time_data.html#a96702548f5b9222af26319c695764b29", null ],
+    [ "gptp_domain_number", "structg_ptp_time_data.html#ac53b4e61c0f960e16c86cfe678ca256d", null ],
+    [ "gptp_grandmaster_id", "structg_ptp_time_data.html#a91da646ac8f2da272fe3b8941c3f4d54", null ],
+    [ "local_time", "structg_ptp_time_data.html#a77a3c33b68032d5db3c0c556a80ef651", null ],
+    [ "log_announce_interval", "structg_ptp_time_data.html#a15bb50a04ecd3ec11563012afc7e24a7", null ],
+    [ "log_pdelay_interval", "structg_ptp_time_data.html#a26544b553c0b251da8e632533f260a5d", null ],
+    [ "log_sync_interval", "structg_ptp_time_data.html#a2d4950b4c6da4dfa67688dcaf6139c9d", null ],
+    [ "ls_freqoffset", "structg_ptp_time_data.html#a396f365f5e7c66610f076359c5d99c6e", null ],
+    [ "ls_phoffset", "structg_ptp_time_data.html#a092b9f356daa2757877b51e4084366be", null ],
+    [ "ml_freqoffset", "structg_ptp_time_data.html#aafeb4d0fa7d3cb53ee3686b804e47617", null ],
+    [ "ml_phoffset", "structg_ptp_time_data.html#a707b32410dd96584191405fcc6b1b10d", null ],
+    [ "offset_scaled_log_variance", "structg_ptp_time_data.html#a022841cfc4d83dc906f116eec53f1d9a", null ],
+    [ "pdelay_count", "structg_ptp_time_data.html#a7557e8c3c5a258ba096b5c1c274f17bf", null ],
+    [ "port_number", "structg_ptp_time_data.html#af0afa7bb85d49ac5ff873fad86a48ec5", null ],
+    [ "port_state", "structg_ptp_time_data.html#ae66554126902ed959a3b296ddd3204e8", null ],
+    [ "priority1", "structg_ptp_time_data.html#af98f08e3d1b016cd549310197ba8673c", null ],
+    [ "priority2", "structg_ptp_time_data.html#ac04b889463a96b43985cb82020e3c39b", null ],
+    [ "process_id", "structg_ptp_time_data.html#aa5e5e89995d6bfb4b61b08fa89656812", null ],
+    [ "sync_count", "structg_ptp_time_data.html#ab918355ca94ac81d7397800a7ef77c0a", null ]
+];

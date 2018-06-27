@@ -1,0 +1,26 @@
+var mvrp_8c =
+[
+    [ "mvrp_add", "mvrp_8c.html#a1ca6b8c0621f5a40b0b5de0a526db154", null ],
+    [ "mvrp_alloc", "mvrp_8c.html#a17aeb6c26258446d2331fd16484a51a4", null ],
+    [ "mvrp_bye", "mvrp_8c.html#a27761658967d18d903b98ca32d9bdd63", null ],
+    [ "mvrp_cmd_parse_vid", "mvrp_8c.html#a79d16d49759017ec0c4b078c4908a80a", null ],
+    [ "mvrp_cmd_vid", "mvrp_8c.html#afa3f36fd78135a64f46a68637255e3be", null ],
+    [ "mvrp_conditional_reclaim", "mvrp_8c.html#a96d69ff04be1d4076b91b438b64f709a", null ],
+    [ "mvrp_dumptable", "mvrp_8c.html#a8be58d5b5ac577c732c27c4949ee321c", null ],
+    [ "mvrp_emit_vidvectors", "mvrp_8c.html#a95582881519a798e34e71a06896fb08a", null ],
+    [ "mvrp_event", "mvrp_8c.html#a8233b6c80e371d771ecf46b527a1dbf1", null ],
+    [ "mvrp_init", "mvrp_8c.html#ad47f57aadab06ad5d8fd73656beaedb7", null ],
+    [ "mvrp_lookup", "mvrp_8c.html#aea1eabcd7ef518ab12fb740b7cb40101", null ],
+    [ "mvrp_merge", "mvrp_8c.html#a1fb84ac28b60cca073833e89f47e686d", null ],
+    [ "mvrp_reclaim", "mvrp_8c.html#ab97cad47467dfaf8e55c7aa048b9e226", null ],
+    [ "mvrp_recv_cmd", "mvrp_8c.html#a3f72134f3c8f16b0ad7d1aec0daf61a2", null ],
+    [ "mvrp_recv_msg", "mvrp_8c.html#abc8ecd8b4fb3b7fc7442c162f0a893e7", null ],
+    [ "mvrp_reset", "mvrp_8c.html#a9e947608dafe561a56664cdc29133589", null ],
+    [ "mvrp_send_notifications", "mvrp_8c.html#a19375320a72b88ef17e4077be3f50b60", null ],
+    [ "mvrp_txpdu", "mvrp_8c.html#ac2d184afe8684a044eb9b556e1091e42", null ],
+    [ "MVRP_CUSTOMER_BRIDGE_ADDR", "mvrp_8c.html#a23e7031812943e281baf0daab7c0ebdb", null ],
+    [ "MVRP_db", "mvrp_8c.html#a69153097f1eb68878b4a0eb4d4f5810f", null ],
+    [ "MVRP_PROVIDER_BRIDGE_ADDR", "mvrp_8c.html#aade0b91c38173666283782922eecc8f8", null ],
+    [ "mvrp_socket", "mvrp_8c.html#af6724e3786b97cec4803af3f5372166c", null ],
+    [ "STATION_ADDR", "mvrp_8c.html#ab42ba46b155e06fe7850ed877f07de86", null ]
+];

@@ -1,0 +1,25 @@
+var class_dummy_memory_leak_detector =
+[
+    [ "memory_corruption_buffer_size", "class_dummy_memory_leak_detector.html#a81929fb3d21206b62f55bcb744f71d5da5220cc4ba0bebf171c9984d05561bcc2", null ],
+    [ "DummyMemoryLeakDetector", "class_dummy_memory_leak_detector.html#a6cf556e6cc5e22c9d1ac0dfd96b1eab9", null ],
+    [ "~DummyMemoryLeakDetector", "class_dummy_memory_leak_detector.html#aa69633ef4e03585da2bea27233f39338", null ],
+    [ "allocMemory", "class_dummy_memory_leak_detector.html#a15c9b9fb87d6e63d8972f03e25fb3cf5", null ],
+    [ "allocMemory", "class_dummy_memory_leak_detector.html#ace7838f234f5dea076a6ab2528a66164", null ],
+    [ "clearAllAccounting", "class_dummy_memory_leak_detector.html#a6c18f981e1c2139528a10aa573ffeaa9", null ],
+    [ "deallocMemory", "class_dummy_memory_leak_detector.html#a1526d6f241a7f41eaeae20fd2c712873", null ],
+    [ "deallocMemory", "class_dummy_memory_leak_detector.html#a235bec7842c694f869f6edbf131a6c55", null ],
+    [ "disable", "class_dummy_memory_leak_detector.html#a8cfbbe53c1cf6e3054736daea3044c0f", null ],
+    [ "disableAllocationTypeChecking", "class_dummy_memory_leak_detector.html#a87bbe373712386442509ec83e9444021", null ],
+    [ "enable", "class_dummy_memory_leak_detector.html#a486f22824bd83c5308a0d70ffac6f758", null ],
+    [ "enableAllocationTypeChecking", "class_dummy_memory_leak_detector.html#a4ef0d2380dbe5ecfa77d2d477d9047e9", null ],
+    [ "getCurrentAllocationNumber", "class_dummy_memory_leak_detector.html#a774a54e55a1203f145f722609ae18317", null ],
+    [ "getMutex", "class_dummy_memory_leak_detector.html#a19d27cb7dd06173cc88f58543bfe3020", null ],
+    [ "invalidateMemory", "class_dummy_memory_leak_detector.html#a1b924f98e6bf1203714985e0b0c3de5d", null ],
+    [ "markCheckingPeriodLeaksAsNonCheckingPeriod", "class_dummy_memory_leak_detector.html#a6db202697cf20e8d84748b129c403545", null ],
+    [ "reallocMemory", "class_dummy_memory_leak_detector.html#a6aded764a2297f52a104b75eae2d4b5c", null ],
+    [ "removeMemoryLeakInformationWithoutCheckingOrDeallocatingTheMemoryButDeallocatingTheAccountInformation", "class_dummy_memory_leak_detector.html#ac17764ba8c2ced15cbbbca1731f6b21e", null ],
+    [ "report", "class_dummy_memory_leak_detector.html#acc70330c27080c4b09b96342929dc9ca", null ],
+    [ "startChecking", "class_dummy_memory_leak_detector.html#ae912c5ee9034b76f13f1c9dbab55e512", null ],
+    [ "stopChecking", "class_dummy_memory_leak_detector.html#a9e85551d474d895ba8852b8e56481c7c", null ],
+    [ "totalMemoryLeaks", "class_dummy_memory_leak_detector.html#a7b0c5d9c4d678d6e0081802416660803", null ]
+];

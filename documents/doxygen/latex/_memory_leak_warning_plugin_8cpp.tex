@@ -1,0 +1,337 @@
+\hypertarget{_memory_leak_warning_plugin_8cpp}{}\section{thirdparty/cpputest/src/\+Cpp\+U\+Test/\+Memory\+Leak\+Warning\+Plugin.cpp 파일 참조}
+\label{_memory_leak_warning_plugin_8cpp}\index{thirdparty/cpputest/src/\+Cpp\+U\+Test/\+Memory\+Leak\+Warning\+Plugin.\+cpp@{thirdparty/cpputest/src/\+Cpp\+U\+Test/\+Memory\+Leak\+Warning\+Plugin.\+cpp}}
+{\ttfamily \#include \char`\"{}Cpp\+U\+Test/\+Test\+Harness.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Cpp\+U\+Test/\+Memory\+Leak\+Warning\+Plugin.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Cpp\+U\+Test/\+Memory\+Leak\+Detector.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Cpp\+U\+Test/\+Test\+Memory\+Allocator.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Cpp\+U\+Test/\+Platform\+Specific\+Functions.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Cpp\+U\+Test/\+Simple\+Mutex.\+h\char`\"{}}\\*
+Memory\+Leak\+Warning\+Plugin.\+cpp에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_memory_leak_warning_plugin_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{데이타 구조}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_memory_leak_warning_reporter}{Memory\+Leak\+Warning\+Reporter}
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+static void $\ast$ \hyperlink{_memory_leak_warning_plugin_8cpp_a1c0093d783344875e6a37bd63be49548}{normal\+\_\+malloc} (size\+\_\+t \hyperlink{gst__avb__playbin_8c_a439227feff9d7f55384e8780cfc2eb82}{size}, const char $\ast$, int)
+\item 
+static void $\ast$ \hyperlink{_memory_leak_warning_plugin_8cpp_a5a331aa3abfacb69258cb85d22082960}{normal\+\_\+realloc} (void $\ast$memory, size\+\_\+t \hyperlink{gst__avb__playbin_8c_a439227feff9d7f55384e8780cfc2eb82}{size}, const char $\ast$, int)
+\item 
+static void \hyperlink{_memory_leak_warning_plugin_8cpp_a6198b177acc6177c1595d8b43249a52c}{normal\+\_\+free} (void $\ast$\hyperlink{_hello_test_8cpp_a8be6d469a7cd1c8d66cc6d2d1e10c65b}{buffer}, const char $\ast$, int)
+\item 
+void $\ast$ \hyperlink{_memory_leak_warning_plugin_8cpp_aad689c9954533466179799c2a2720c68}{cpputest\+\_\+malloc\+\_\+location\+\_\+with\+\_\+leak\+\_\+detection} (size\+\_\+t \hyperlink{gst__avb__playbin_8c_a439227feff9d7f55384e8780cfc2eb82}{size}, const char $\ast$file, int line)
+\item 
+void $\ast$ \hyperlink{_memory_leak_warning_plugin_8cpp_a4019d8bc5ad7a5dbcb5825fa4ca956da}{cpputest\+\_\+realloc\+\_\+location\+\_\+with\+\_\+leak\+\_\+detection} (void $\ast$memory, size\+\_\+t \hyperlink{gst__avb__playbin_8c_a439227feff9d7f55384e8780cfc2eb82}{size}, const char $\ast$file, int line)
+\item 
+void \hyperlink{_memory_leak_warning_plugin_8cpp_abb845cb4e67f15bc022b08c3cef3e5f8}{cpputest\+\_\+free\+\_\+location\+\_\+with\+\_\+leak\+\_\+detection} (void $\ast$\hyperlink{_hello_test_8cpp_a8be6d469a7cd1c8d66cc6d2d1e10c65b}{buffer}, const char $\ast$file, int line)
+\item 
+void \hyperlink{_memory_leak_warning_plugin_8cpp_a4158faae113a04b07855a5837582f17a}{crash\+\_\+on\+\_\+allocation\+\_\+number} (unsigned alloc\+\_\+number)
+\end{DoxyCompactItemize}
+\subsection*{변수}
+\begin{DoxyCompactItemize}
+\item 
+static void $\ast$($\ast$ \hyperlink{_memory_leak_warning_plugin_8cpp_a8d005fdb88aed6453d5f26d35acb705d}{malloc\+\_\+fptr} )(size\+\_\+t \hyperlink{gst__avb__playbin_8c_a439227feff9d7f55384e8780cfc2eb82}{size}, const char $\ast$file, int line) = \hyperlink{_memory_leak_warning_plugin_8cpp_a1c0093d783344875e6a37bd63be49548}{normal\+\_\+malloc}
+\item 
+static void($\ast$ \hyperlink{_memory_leak_warning_plugin_8cpp_a11b58fefb96bd7e1547b86cd961ceb41}{free\+\_\+fptr} )(void $\ast$mem, const char $\ast$file, int line) = \hyperlink{_memory_leak_warning_plugin_8cpp_a6198b177acc6177c1595d8b43249a52c}{normal\+\_\+free}
+\item 
+static void $\ast$($\ast$ \hyperlink{_memory_leak_warning_plugin_8cpp_a0fd37df1d2f3e1064e6cd2ca5acf2297}{realloc\+\_\+fptr} )(void $\ast$memory, size\+\_\+t \hyperlink{gst__avb__playbin_8c_a439227feff9d7f55384e8780cfc2eb82}{size}, const char $\ast$file, int line) = \hyperlink{_memory_leak_warning_plugin_8cpp_a5a331aa3abfacb69258cb85d22082960}{normal\+\_\+realloc}
+\item 
+static \hyperlink{class_memory_leak_failure}{Memory\+Leak\+Failure} $\ast$ \hyperlink{_memory_leak_warning_plugin_8cpp_a49f30fa2e3b2703da2c79d49af91b4ba}{global\+Reporter} = 0
+\item 
+static \hyperlink{class_memory_leak_detector}{Memory\+Leak\+Detector} $\ast$ \hyperlink{_memory_leak_warning_plugin_8cpp_a683045477f23bad53a4b3ba10e29c002}{global\+Detector} = 0
+\end{DoxyCompactItemize}
+
+
+\subsection{함수 문서화}
+\index{Memory\+Leak\+Warning\+Plugin.\+cpp@{Memory\+Leak\+Warning\+Plugin.\+cpp}!cpputest\+\_\+free\+\_\+location\+\_\+with\+\_\+leak\+\_\+detection@{cpputest\+\_\+free\+\_\+location\+\_\+with\+\_\+leak\+\_\+detection}}
+\index{cpputest\+\_\+free\+\_\+location\+\_\+with\+\_\+leak\+\_\+detection@{cpputest\+\_\+free\+\_\+location\+\_\+with\+\_\+leak\+\_\+detection}!Memory\+Leak\+Warning\+Plugin.\+cpp@{Memory\+Leak\+Warning\+Plugin.\+cpp}}
+\subsubsection[{\texorpdfstring{cpputest\+\_\+free\+\_\+location\+\_\+with\+\_\+leak\+\_\+detection(void $\ast$buffer, const char $\ast$file, int line)}{cpputest_free_location_with_leak_detection(void *buffer, const char *file, int line)}}]{\setlength{\rightskip}{0pt plus 5cm}void cpputest\+\_\+free\+\_\+location\+\_\+with\+\_\+leak\+\_\+detection (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{buffer, }
+\item[{const char $\ast$}]{file, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}\hypertarget{_memory_leak_warning_plugin_8cpp_abb845cb4e67f15bc022b08c3cef3e5f8}{}\label{_memory_leak_warning_plugin_8cpp_abb845cb4e67f15bc022b08c3cef3e5f8}
+
+
+Memory\+Leak\+Warning\+Plugin.\+cpp 파일의 120 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+121 \{
+122     \hyperlink{_memory_leak_warning_plugin_8cpp_a11b58fefb96bd7e1547b86cd961ceb41}{free\_fptr}(\hyperlink{_hello_test_8cpp_a8be6d469a7cd1c8d66cc6d2d1e10c65b}{buffer}, file, line);
+123 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_memory_leak_warning_plugin_8cpp_abb845cb4e67f15bc022b08c3cef3e5f8_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_memory_leak_warning_plugin_8cpp_abb845cb4e67f15bc022b08c3cef3e5f8_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Memory\+Leak\+Warning\+Plugin.\+cpp@{Memory\+Leak\+Warning\+Plugin.\+cpp}!cpputest\+\_\+malloc\+\_\+location\+\_\+with\+\_\+leak\+\_\+detection@{cpputest\+\_\+malloc\+\_\+location\+\_\+with\+\_\+leak\+\_\+detection}}
+\index{cpputest\+\_\+malloc\+\_\+location\+\_\+with\+\_\+leak\+\_\+detection@{cpputest\+\_\+malloc\+\_\+location\+\_\+with\+\_\+leak\+\_\+detection}!Memory\+Leak\+Warning\+Plugin.\+cpp@{Memory\+Leak\+Warning\+Plugin.\+cpp}}
+\subsubsection[{\texorpdfstring{cpputest\+\_\+malloc\+\_\+location\+\_\+with\+\_\+leak\+\_\+detection(size\+\_\+t size, const char $\ast$file, int line)}{cpputest_malloc_location_with_leak_detection(size_t size, const char *file, int line)}}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ cpputest\+\_\+malloc\+\_\+location\+\_\+with\+\_\+leak\+\_\+detection (
+\begin{DoxyParamCaption}
+\item[{size\+\_\+t}]{size, }
+\item[{const char $\ast$}]{file, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}\hypertarget{_memory_leak_warning_plugin_8cpp_aad689c9954533466179799c2a2720c68}{}\label{_memory_leak_warning_plugin_8cpp_aad689c9954533466179799c2a2720c68}
+
+
+Memory\+Leak\+Warning\+Plugin.\+cpp 파일의 110 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+111 \{
+112     \textcolor{keywordflow}{return} \hyperlink{_memory_leak_warning_plugin_8cpp_a8d005fdb88aed6453d5f26d35acb705d}{malloc\_fptr}(\hyperlink{gst__avb__playbin_8c_a439227feff9d7f55384e8780cfc2eb82}{size}, file, line);
+113 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_memory_leak_warning_plugin_8cpp_aad689c9954533466179799c2a2720c68_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Memory\+Leak\+Warning\+Plugin.\+cpp@{Memory\+Leak\+Warning\+Plugin.\+cpp}!cpputest\+\_\+realloc\+\_\+location\+\_\+with\+\_\+leak\+\_\+detection@{cpputest\+\_\+realloc\+\_\+location\+\_\+with\+\_\+leak\+\_\+detection}}
+\index{cpputest\+\_\+realloc\+\_\+location\+\_\+with\+\_\+leak\+\_\+detection@{cpputest\+\_\+realloc\+\_\+location\+\_\+with\+\_\+leak\+\_\+detection}!Memory\+Leak\+Warning\+Plugin.\+cpp@{Memory\+Leak\+Warning\+Plugin.\+cpp}}
+\subsubsection[{\texorpdfstring{cpputest\+\_\+realloc\+\_\+location\+\_\+with\+\_\+leak\+\_\+detection(void $\ast$memory, size\+\_\+t size, const char $\ast$file, int line)}{cpputest_realloc_location_with_leak_detection(void *memory, size_t size, const char *file, int line)}}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ cpputest\+\_\+realloc\+\_\+location\+\_\+with\+\_\+leak\+\_\+detection (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{memory, }
+\item[{size\+\_\+t}]{size, }
+\item[{const char $\ast$}]{file, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}\hypertarget{_memory_leak_warning_plugin_8cpp_a4019d8bc5ad7a5dbcb5825fa4ca956da}{}\label{_memory_leak_warning_plugin_8cpp_a4019d8bc5ad7a5dbcb5825fa4ca956da}
+
+
+Memory\+Leak\+Warning\+Plugin.\+cpp 파일의 115 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+116 \{
+117     \textcolor{keywordflow}{return} \hyperlink{_memory_leak_warning_plugin_8cpp_a0fd37df1d2f3e1064e6cd2ca5acf2297}{realloc\_fptr}(memory, \hyperlink{gst__avb__playbin_8c_a439227feff9d7f55384e8780cfc2eb82}{size}, file, line);
+118 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_memory_leak_warning_plugin_8cpp_a4019d8bc5ad7a5dbcb5825fa4ca956da_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Memory\+Leak\+Warning\+Plugin.\+cpp@{Memory\+Leak\+Warning\+Plugin.\+cpp}!crash\+\_\+on\+\_\+allocation\+\_\+number@{crash\+\_\+on\+\_\+allocation\+\_\+number}}
+\index{crash\+\_\+on\+\_\+allocation\+\_\+number@{crash\+\_\+on\+\_\+allocation\+\_\+number}!Memory\+Leak\+Warning\+Plugin.\+cpp@{Memory\+Leak\+Warning\+Plugin.\+cpp}}
+\subsubsection[{\texorpdfstring{crash\+\_\+on\+\_\+allocation\+\_\+number(unsigned alloc\+\_\+number)}{crash_on_allocation_number(unsigned alloc_number)}}]{\setlength{\rightskip}{0pt plus 5cm}void crash\+\_\+on\+\_\+allocation\+\_\+number (
+\begin{DoxyParamCaption}
+\item[{unsigned}]{alloc\+\_\+number}
+\end{DoxyParamCaption}
+)}\hypertarget{_memory_leak_warning_plugin_8cpp_a4158faae113a04b07855a5837582f17a}{}\label{_memory_leak_warning_plugin_8cpp_a4158faae113a04b07855a5837582f17a}
+
+
+Memory\+Leak\+Warning\+Plugin.\+cpp 파일의 455 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+456 \{
+457     \textcolor{keyword}{static} \hyperlink{class_crash_on_allocation_allocator}{CrashOnAllocationAllocator} crashAllocator;
+458     crashAllocator.\hyperlink{class_crash_on_allocation_allocator_a58b38fa14a916934ff8664d04e725011}{setNumberToCrashOn}(alloc\_number);
+459     \hyperlink{_test_memory_allocator_8h_ac06ad435c63d58e1bfdfdb9f64f2153a}{setCurrentMallocAllocator}(&crashAllocator);
+460     \hyperlink{_test_memory_allocator_8h_ab43dd49b1676f9c2e3e9cf1e17b38eff}{setCurrentNewAllocator}(&crashAllocator);
+461     \hyperlink{_test_memory_allocator_8h_a72424b9f39847a16faf8552bab210c97}{setCurrentNewArrayAllocator}(&crashAllocator);
+462 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_memory_leak_warning_plugin_8cpp_a4158faae113a04b07855a5837582f17a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=261pt]{_memory_leak_warning_plugin_8cpp_a4158faae113a04b07855a5837582f17a_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Memory\+Leak\+Warning\+Plugin.\+cpp@{Memory\+Leak\+Warning\+Plugin.\+cpp}!normal\+\_\+free@{normal\+\_\+free}}
+\index{normal\+\_\+free@{normal\+\_\+free}!Memory\+Leak\+Warning\+Plugin.\+cpp@{Memory\+Leak\+Warning\+Plugin.\+cpp}}
+\subsubsection[{\texorpdfstring{normal\+\_\+free(void $\ast$buffer, const char $\ast$, int)}{normal_free(void *buffer, const char *, int)}}]{\setlength{\rightskip}{0pt plus 5cm}static void normal\+\_\+free (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{buffer, }
+\item[{const char $\ast$}]{, }
+\item[{int}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{_memory_leak_warning_plugin_8cpp_a6198b177acc6177c1595d8b43249a52c}{}\label{_memory_leak_warning_plugin_8cpp_a6198b177acc6177c1595d8b43249a52c}
+
+
+Memory\+Leak\+Warning\+Plugin.\+cpp 파일의 95 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+96 \{
+97     \hyperlink{_platform_specific_functions__c_8h_ab6e55e1039f55ca7f3efb4d6a60c5d7f}{PlatformSpecificFree}(\hyperlink{_hello_test_8cpp_a8be6d469a7cd1c8d66cc6d2d1e10c65b}{buffer});
+98 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_memory_leak_warning_plugin_8cpp_a6198b177acc6177c1595d8b43249a52c_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Memory\+Leak\+Warning\+Plugin.\+cpp@{Memory\+Leak\+Warning\+Plugin.\+cpp}!normal\+\_\+malloc@{normal\+\_\+malloc}}
+\index{normal\+\_\+malloc@{normal\+\_\+malloc}!Memory\+Leak\+Warning\+Plugin.\+cpp@{Memory\+Leak\+Warning\+Plugin.\+cpp}}
+\subsubsection[{\texorpdfstring{normal\+\_\+malloc(size\+\_\+t size, const char $\ast$, int)}{normal_malloc(size_t size, const char *, int)}}]{\setlength{\rightskip}{0pt plus 5cm}static void$\ast$ normal\+\_\+malloc (
+\begin{DoxyParamCaption}
+\item[{size\+\_\+t}]{size, }
+\item[{const char $\ast$}]{, }
+\item[{int}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{_memory_leak_warning_plugin_8cpp_a1c0093d783344875e6a37bd63be49548}{}\label{_memory_leak_warning_plugin_8cpp_a1c0093d783344875e6a37bd63be49548}
+
+
+Memory\+Leak\+Warning\+Plugin.\+cpp 파일의 85 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+86 \{
+87     \textcolor{keywordflow}{return} \hyperlink{_platform_specific_functions__c_8h_a76412c7221f57a12f420255f88baeab5}{PlatformSpecificMalloc}(\hyperlink{gst__avb__playbin_8c_a439227feff9d7f55384e8780cfc2eb82}{size});
+88 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_memory_leak_warning_plugin_8cpp_a1c0093d783344875e6a37bd63be49548_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Memory\+Leak\+Warning\+Plugin.\+cpp@{Memory\+Leak\+Warning\+Plugin.\+cpp}!normal\+\_\+realloc@{normal\+\_\+realloc}}
+\index{normal\+\_\+realloc@{normal\+\_\+realloc}!Memory\+Leak\+Warning\+Plugin.\+cpp@{Memory\+Leak\+Warning\+Plugin.\+cpp}}
+\subsubsection[{\texorpdfstring{normal\+\_\+realloc(void $\ast$memory, size\+\_\+t size, const char $\ast$, int)}{normal_realloc(void *memory, size_t size, const char *, int)}}]{\setlength{\rightskip}{0pt plus 5cm}static void$\ast$ normal\+\_\+realloc (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{memory, }
+\item[{size\+\_\+t}]{size, }
+\item[{const char $\ast$}]{, }
+\item[{int}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{_memory_leak_warning_plugin_8cpp_a5a331aa3abfacb69258cb85d22082960}{}\label{_memory_leak_warning_plugin_8cpp_a5a331aa3abfacb69258cb85d22082960}
+
+
+Memory\+Leak\+Warning\+Plugin.\+cpp 파일의 90 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+91 \{
+92     \textcolor{keywordflow}{return} \hyperlink{_platform_specific_functions__c_8h_a88c88cdd66504c42256c03763b9454b5}{PlatformSpecificRealloc}(memory, \hyperlink{gst__avb__playbin_8c_a439227feff9d7f55384e8780cfc2eb82}{size});
+93 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_memory_leak_warning_plugin_8cpp_a5a331aa3abfacb69258cb85d22082960_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{변수 문서화}
+\index{Memory\+Leak\+Warning\+Plugin.\+cpp@{Memory\+Leak\+Warning\+Plugin.\+cpp}!free\+\_\+fptr@{free\+\_\+fptr}}
+\index{free\+\_\+fptr@{free\+\_\+fptr}!Memory\+Leak\+Warning\+Plugin.\+cpp@{Memory\+Leak\+Warning\+Plugin.\+cpp}}
+\subsubsection[{\texorpdfstring{free\+\_\+fptr}{free_fptr}}]{\setlength{\rightskip}{0pt plus 5cm}void($\ast$ free\+\_\+fptr) (void $\ast$mem, const char $\ast$file, int line) = {\bf normal\+\_\+free}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{_memory_leak_warning_plugin_8cpp_a11b58fefb96bd7e1547b86cd961ceb41}{}\label{_memory_leak_warning_plugin_8cpp_a11b58fefb96bd7e1547b86cd961ceb41}
+
+
+Memory\+Leak\+Warning\+Plugin.\+cpp 파일의 106 번째 라인에서 정의되었습니다.
+
+\index{Memory\+Leak\+Warning\+Plugin.\+cpp@{Memory\+Leak\+Warning\+Plugin.\+cpp}!global\+Detector@{global\+Detector}}
+\index{global\+Detector@{global\+Detector}!Memory\+Leak\+Warning\+Plugin.\+cpp@{Memory\+Leak\+Warning\+Plugin.\+cpp}}
+\subsubsection[{\texorpdfstring{global\+Detector}{globalDetector}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Memory\+Leak\+Detector}$\ast$ global\+Detector = 0\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{_memory_leak_warning_plugin_8cpp_a683045477f23bad53a4b3ba10e29c002}{}\label{_memory_leak_warning_plugin_8cpp_a683045477f23bad53a4b3ba10e29c002}
+
+
+Memory\+Leak\+Warning\+Plugin.\+cpp 파일의 479 번째 라인에서 정의되었습니다.
+
+\index{Memory\+Leak\+Warning\+Plugin.\+cpp@{Memory\+Leak\+Warning\+Plugin.\+cpp}!global\+Reporter@{global\+Reporter}}
+\index{global\+Reporter@{global\+Reporter}!Memory\+Leak\+Warning\+Plugin.\+cpp@{Memory\+Leak\+Warning\+Plugin.\+cpp}}
+\subsubsection[{\texorpdfstring{global\+Reporter}{globalReporter}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Memory\+Leak\+Failure}$\ast$ global\+Reporter = 0\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{_memory_leak_warning_plugin_8cpp_a49f30fa2e3b2703da2c79d49af91b4ba}{}\label{_memory_leak_warning_plugin_8cpp_a49f30fa2e3b2703da2c79d49af91b4ba}
+
+
+Memory\+Leak\+Warning\+Plugin.\+cpp 파일의 478 번째 라인에서 정의되었습니다.
+
+\index{Memory\+Leak\+Warning\+Plugin.\+cpp@{Memory\+Leak\+Warning\+Plugin.\+cpp}!malloc\+\_\+fptr@{malloc\+\_\+fptr}}
+\index{malloc\+\_\+fptr@{malloc\+\_\+fptr}!Memory\+Leak\+Warning\+Plugin.\+cpp@{Memory\+Leak\+Warning\+Plugin.\+cpp}}
+\subsubsection[{\texorpdfstring{malloc\+\_\+fptr}{malloc_fptr}}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$($\ast$ malloc\+\_\+fptr) (size\+\_\+t {\bf size}, const char $\ast$file, int line) = {\bf normal\+\_\+malloc}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{_memory_leak_warning_plugin_8cpp_a8d005fdb88aed6453d5f26d35acb705d}{}\label{_memory_leak_warning_plugin_8cpp_a8d005fdb88aed6453d5f26d35acb705d}
+
+
+Memory\+Leak\+Warning\+Plugin.\+cpp 파일의 105 번째 라인에서 정의되었습니다.
+
+\index{Memory\+Leak\+Warning\+Plugin.\+cpp@{Memory\+Leak\+Warning\+Plugin.\+cpp}!realloc\+\_\+fptr@{realloc\+\_\+fptr}}
+\index{realloc\+\_\+fptr@{realloc\+\_\+fptr}!Memory\+Leak\+Warning\+Plugin.\+cpp@{Memory\+Leak\+Warning\+Plugin.\+cpp}}
+\subsubsection[{\texorpdfstring{realloc\+\_\+fptr}{realloc_fptr}}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$($\ast$ realloc\+\_\+fptr) (void $\ast$memory, size\+\_\+t {\bf size}, const char $\ast$file, int line) = {\bf normal\+\_\+realloc}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{_memory_leak_warning_plugin_8cpp_a0fd37df1d2f3e1064e6cd2ca5acf2297}{}\label{_memory_leak_warning_plugin_8cpp_a0fd37df1d2f3e1064e6cd2ca5acf2297}
+
+
+Memory\+Leak\+Warning\+Plugin.\+cpp 파일의 107 번째 라인에서 정의되었습니다.
+

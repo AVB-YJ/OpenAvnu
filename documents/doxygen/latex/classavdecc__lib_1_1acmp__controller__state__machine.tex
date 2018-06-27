@@ -1,0 +1,826 @@
+\hypertarget{classavdecc__lib_1_1acmp__controller__state__machine}{}\section{acmp\+\_\+controller\+\_\+state\+\_\+machine 클래스 참조}
+\label{classavdecc__lib_1_1acmp__controller__state__machine}\index{acmp\+\_\+controller\+\_\+state\+\_\+machine@{acmp\+\_\+controller\+\_\+state\+\_\+machine}}
+
+
+{\ttfamily \#include $<$acmp\+\_\+controller\+\_\+state\+\_\+machine.\+h$>$}
+
+
+
+acmp\+\_\+controller\+\_\+state\+\_\+machine에 대한 협력 다이어그램\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=208pt]{classavdecc__lib_1_1acmp__controller__state__machine__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public 멤버 함수}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classavdecc__lib_1_1acmp__controller__state__machine_a2f1e9cfe35d0ddaf473cafe9f62913c7}{acmp\+\_\+controller\+\_\+state\+\_\+machine} ()
+\item 
+\hyperlink{classavdecc__lib_1_1acmp__controller__state__machine_a00a722af6db0f936f7c26773a34c674c}{$\sim$acmp\+\_\+controller\+\_\+state\+\_\+machine} ()
+\item 
+int \hyperlink{classavdecc__lib_1_1acmp__controller__state__machine_a0a43868a3e99a6cef740e4562d006345}{ether\+\_\+frame\+\_\+init} (struct \hyperlink{structjdksavdecc__frame}{jdksavdecc\+\_\+frame} $\ast$cmd\+\_\+frame)
+\item 
+void \hyperlink{classavdecc__lib_1_1acmp__controller__state__machine_ae93a117baf9620a7311f950271610506}{common\+\_\+hdr\+\_\+init} (\hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\+\_\+t} msg\+\_\+type, struct \hyperlink{structjdksavdecc__frame}{jdksavdecc\+\_\+frame} $\ast$cmd\+\_\+frame)
+\item 
+int \hyperlink{classavdecc__lib_1_1acmp__controller__state__machine_a96616c92d34da4a6859d5a653691e21b}{state\+\_\+command} (void $\ast$notification\+\_\+id, \hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\+\_\+t} notification\+\_\+flag, struct \hyperlink{structjdksavdecc__frame}{jdksavdecc\+\_\+frame} $\ast$cmd\+\_\+frame)
+\item 
+int \hyperlink{classavdecc__lib_1_1acmp__controller__state__machine_affdd2e72c0e7a518e4b8993e23750aa9}{state\+\_\+resp} (void $\ast$\&notification\+\_\+id, struct \hyperlink{structjdksavdecc__frame}{jdksavdecc\+\_\+frame} $\ast$cmd\+\_\+frame)
+\item 
+void \hyperlink{classavdecc__lib_1_1acmp__controller__state__machine_a873dd91783f9efb4a590aded1f70d6b0}{tick} ()
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{classavdecc__lib_1_1acmp__controller__state__machine_aa5c3cd6eac3ef43eb32c176106a182e6}{is\+\_\+inflight\+\_\+cmd\+\_\+with\+\_\+notification\+\_\+id} (void $\ast$notification\+\_\+id)
+\end{DoxyCompactItemize}
+\subsection*{Private 멤버 함수}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classavdecc__lib_1_1acmp__controller__state__machine_a1e6e8844609ddaee9d544e95210c495c}{state\+\_\+timeout} (\hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\+\_\+t} inflight\+\_\+cmd\+\_\+index)
+\item 
+int \hyperlink{classavdecc__lib_1_1acmp__controller__state__machine_a1a1c2c9ae3773c01cbad352f2a2c2dfc}{tx\+\_\+cmd} (void $\ast$notification\+\_\+id, \hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\+\_\+t} notification\+\_\+flag, struct \hyperlink{structjdksavdecc__frame}{jdksavdecc\+\_\+frame} $\ast$cmd\+\_\+frame, \hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} resend)
+\item 
+int \hyperlink{classavdecc__lib_1_1acmp__controller__state__machine_a81d345252361d6b1650316379916ccf6}{proc\+\_\+resp} (void $\ast$\&notification\+\_\+id, struct \hyperlink{structjdksavdecc__frame}{jdksavdecc\+\_\+frame} $\ast$cmd\+\_\+frame)
+\item 
+int \hyperlink{classavdecc__lib_1_1acmp__controller__state__machine_a5803ae7099ff1a9c0721244e3d9b77b4}{callback} (void $\ast$notification\+\_\+id, \hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\+\_\+t} notification\+\_\+flag, \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\+\_\+t} $\ast$\hyperlink{gst__avb__playbin_8c_ac8e710e0b5e994c0545d75d69868c6f0}{frame})
+\end{DoxyCompactItemize}
+\subsection*{Private 속성}
+\begin{DoxyCompactItemize}
+\item 
+uint16\+\_\+t \hyperlink{classavdecc__lib_1_1acmp__controller__state__machine_abc8353807adf298f195ae2f0dc170b51}{acmp\+\_\+seq\+\_\+id}
+\item 
+std\+::vector$<$ \hyperlink{classavdecc__lib_1_1inflight}{inflight} $>$ \hyperlink{classavdecc__lib_1_1acmp__controller__state__machine_a0475b054c1890c88809394d9cef2a4c0}{inflight\+\_\+cmds}
+\end{DoxyCompactItemize}
+
+
+\subsection{상세한 설명}
+
+
+acmp\+\_\+controller\+\_\+state\+\_\+machine.\+h 파일의 36 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{생성자 \& 소멸자 문서화}
+\index{avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine@{avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine}!acmp\+\_\+controller\+\_\+state\+\_\+machine@{acmp\+\_\+controller\+\_\+state\+\_\+machine}}
+\index{acmp\+\_\+controller\+\_\+state\+\_\+machine@{acmp\+\_\+controller\+\_\+state\+\_\+machine}!avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine@{avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine}}
+\subsubsection[{\texorpdfstring{acmp\+\_\+controller\+\_\+state\+\_\+machine()}{acmp_controller_state_machine()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf acmp\+\_\+controller\+\_\+state\+\_\+machine} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classavdecc__lib_1_1acmp__controller__state__machine_a2f1e9cfe35d0ddaf473cafe9f62913c7}{}\label{classavdecc__lib_1_1acmp__controller__state__machine_a2f1e9cfe35d0ddaf473cafe9f62913c7}
+
+
+acmp\+\_\+controller\+\_\+state\+\_\+machine.\+cpp 파일의 46 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+47 \{
+48     \hyperlink{classavdecc__lib_1_1acmp__controller__state__machine_abc8353807adf298f195ae2f0dc170b51}{acmp\_seq\_id} = 0;
+49 \}
+\end{DoxyCode}
+\index{avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine@{avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine}!````~acmp\+\_\+controller\+\_\+state\+\_\+machine@{$\sim$acmp\+\_\+controller\+\_\+state\+\_\+machine}}
+\index{````~acmp\+\_\+controller\+\_\+state\+\_\+machine@{$\sim$acmp\+\_\+controller\+\_\+state\+\_\+machine}!avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine@{avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine}}
+\subsubsection[{\texorpdfstring{$\sim$acmp\+\_\+controller\+\_\+state\+\_\+machine()}{~acmp_controller_state_machine()}}]{\setlength{\rightskip}{0pt plus 5cm}$\sim${\bf acmp\+\_\+controller\+\_\+state\+\_\+machine} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classavdecc__lib_1_1acmp__controller__state__machine_a00a722af6db0f936f7c26773a34c674c}{}\label{classavdecc__lib_1_1acmp__controller__state__machine_a00a722af6db0f936f7c26773a34c674c}
+
+
+acmp\+\_\+controller\+\_\+state\+\_\+machine.\+cpp 파일의 51 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+51 \{\}
+\end{DoxyCode}
+
+
+\subsection{멤버 함수 문서화}
+\index{avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine@{avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine}!callback@{callback}}
+\index{callback@{callback}!avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine@{avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine}}
+\subsubsection[{\texorpdfstring{callback(void $\ast$notification\+\_\+id, uint32\+\_\+t notification\+\_\+flag, uint8\+\_\+t $\ast$frame)}{callback(void *notification_id, uint32_t notification_flag, uint8_t *frame)}}]{\setlength{\rightskip}{0pt plus 5cm}int callback (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{notification\+\_\+id, }
+\item[{{\bf uint32\+\_\+t}}]{notification\+\_\+flag, }
+\item[{{\bf uint8\+\_\+t} $\ast$}]{frame}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classavdecc__lib_1_1acmp__controller__state__machine_a5803ae7099ff1a9c0721244e3d9b77b4}{}\label{classavdecc__lib_1_1acmp__controller__state__machine_a5803ae7099ff1a9c0721244e3d9b77b4}
+Call notification or post\+\_\+log\+\_\+msg callback function for the command sent or response received. 
+
+acmp\+\_\+controller\+\_\+state\+\_\+machine.\+cpp 파일의 243 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+244 \{
+245     \hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\_t} msg\_type = 
+      \hyperlink{group__jdksavdecc__avtp__common__control__header_gacb435e5d647474931972cb9eb93b4e41}{jdksavdecc\_common\_control\_header\_get\_control\_data}(
+      \hyperlink{gst__avb__playbin_8c_ac8e710e0b5e994c0545d75d69868c6f0}{frame}, \hyperlink{namespaceavdecc__lib_a6c827b1a0d973e18119c5e3da518e65ca9512ad9b34302ba7048d88197e0a2dc0}{ETHER\_HDR\_SIZE});
+246     uint16\_t seq\_id = \hyperlink{group__acmpdu_gaf20d00ac6431b19d3f1213b4b6bf6fd5}{jdksavdecc\_acmpdu\_get\_sequence\_id}(
+      \hyperlink{gst__avb__playbin_8c_ac8e710e0b5e994c0545d75d69868c6f0}{frame}, \hyperlink{namespaceavdecc__lib_a6c827b1a0d973e18119c5e3da518e65ca9512ad9b34302ba7048d88197e0a2dc0}{ETHER\_HDR\_SIZE});
+247     \hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\_t} status = \hyperlink{group__jdksavdecc__avtp__common__control__header_ga4a4d44fa74bdb873eab982d74862273c}{jdksavdecc\_common\_control\_header\_get\_status}
+      (\hyperlink{gst__avb__playbin_8c_ac8e710e0b5e994c0545d75d69868c6f0}{frame}, \hyperlink{namespaceavdecc__lib_a6c827b1a0d973e18119c5e3da518e65ca9512ad9b34302ba7048d88197e0a2dc0}{ETHER\_HDR\_SIZE});
+248     \hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\_t} end\_station\_entity\_id;
+249 
+250     \textcolor{keywordflow}{if} ((notification\_flag == \hyperlink{namespaceavdecc__lib_aabcadff06aa62be0ce47bc0646823604aba48b8a017e06fb240b650cdea965178}{CMD\_WITH\_NOTIFICATION}) &&
+251         ((msg\_type == \hyperlink{group__acmp__message__type_gaf9b24b0190d5bf9cae7e37c4a31cda12}{JDKSAVDECC\_ACMP\_MESSAGE\_TYPE\_GET\_TX\_STATE\_RESPONSE}
+      ) ||
+252          (msg\_type == \hyperlink{group__acmp__message__type_gac8d2fee5822f733200680da98472958f}{JDKSAVDECC\_ACMP\_MESSAGE\_TYPE\_GET\_TX\_CONNECTION\_RESPONSE}
+      )))
+253     \{
+254         \textcolor{keyword}{struct }\hyperlink{structjdksavdecc__eui64}{jdksavdecc\_eui64} \_end\_station\_entity\_id = 
+      \hyperlink{group__acmpdu_ga9efe0b94b146760a8849d872d2a00da7}{jdksavdecc\_acmpdu\_get\_talker\_entity\_id}(
+      \hyperlink{gst__avb__playbin_8c_ac8e710e0b5e994c0545d75d69868c6f0}{frame}, \hyperlink{namespaceavdecc__lib_a6c827b1a0d973e18119c5e3da518e65ca9512ad9b34302ba7048d88197e0a2dc0}{ETHER\_HDR\_SIZE});
+255         end\_station\_entity\_id = \hyperlink{group__endian_gac8c2b48b7d7db101708e0197e366ac42}{jdksavdecc\_uint64\_get}(&\_end\_station\_entity\_id, 0);
+256 
+257         \hyperlink{namespaceavdecc__lib_aca078f7550e970a17b3f732c26bc3d83}{notification\_imp\_ref}->\hyperlink{classavdecc__lib_1_1notification_a2775ca78354ea78d68bf107c084b3822}{post\_notification\_msg}(
+      \hyperlink{namespaceavdecc__lib_ad2a3e740ca3019cf9fd0f9514afb6419a76526acf7fff481667c4ec404347c3ce}{RESPONSE\_RECEIVED},
+258                                                     end\_station\_entity\_id,
+259                                                     (uint16\_t)msg\_type + 
+      \hyperlink{namespaceavdecc__lib_ab6b306ef981f5e21bb41ea2c2dbe8cd9a3d122abbe03d5d839b4708ad02b7586d}{CMD\_LOOKUP},
+260                                                     0,
+261                                                     0,
+262                                                     status,
+263                                                     notification\_id);
+264 
+265         \textcolor{keywordflow}{if} (status != \hyperlink{namespaceavdecc__lib_ae0a51eed2d4dfed01460049a240d6f34a6e7347496acf3a05a9b3dab05deb8765}{ACMP\_STATUS\_SUCCESS})
+266         \{
+267             \hyperlink{namespaceavdecc__lib_acbe3e2a96ae6524943ca532c87a28529}{log\_imp\_ref}->\hyperlink{classavdecc__lib_1_1log_a68139a6297697e4ccebf36ccfd02e44a}{post\_log\_msg}(\hyperlink{namespaceavdecc__lib_a501055c431e6872ef46f252ad13f85cdaf2c4481208273451a6f5c7bb9770ec8a}{LOGGING\_LEVEL\_ERROR},
+268                                       \textcolor{stringliteral}{"RESPONSE\_RECEIVED, 0x%llx, %s, %s, %s, %s, %d"},
+269                                       end\_station\_entity\_id,
+270                                       \hyperlink{namespaceavdecc__lib_1_1utility_a89e861257b12dded819c0e1966cbb798}{utility::acmp\_cmd\_value\_to\_name}(
+      msg\_type),
+271                                       \textcolor{stringliteral}{"NULL"},
+272                                       \textcolor{stringliteral}{"NULL"},
+273                                       \hyperlink{namespaceavdecc__lib_1_1utility_a997ca93009ef89352844dec17b15719f}{utility::acmp\_cmd\_status\_value\_to\_name}
+      (status),
+274                                       seq\_id);
+275         \}
+276     \}
+277     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} ((notification\_flag == \hyperlink{namespaceavdecc__lib_aabcadff06aa62be0ce47bc0646823604aba48b8a017e06fb240b650cdea965178}{CMD\_WITH\_NOTIFICATION}) &&
+278              ((msg\_type == \hyperlink{group__acmp__message__type_ga387118815f681eccff5e5b1a2025b1c4}{JDKSAVDECC\_ACMP\_MESSAGE\_TYPE\_CONNECT\_RX\_RESPONSE}
+      ) ||
+279               (msg\_type == \hyperlink{group__acmp__message__type_ga5bdc8bcdbdc39ae196eebe87d912f3e3}{JDKSAVDECC\_ACMP\_MESSAGE\_TYPE\_DISCONNECT\_RX\_RESPONSE}
+      ) ||
+280               (msg\_type == \hyperlink{group__acmp__message__type_ga30ae864d402e25fc3f458f742507ff26}{JDKSAVDECC\_ACMP\_MESSAGE\_TYPE\_GET\_RX\_STATE\_RESPONSE}
+      ) ||
+281               (msg\_type == \hyperlink{group__acmp__message__type_ga30ae864d402e25fc3f458f742507ff26}{JDKSAVDECC\_ACMP\_MESSAGE\_TYPE\_GET\_RX\_STATE\_RESPONSE}
+      )))
+282     \{
+283         \textcolor{keyword}{struct }\hyperlink{structjdksavdecc__eui64}{jdksavdecc\_eui64} \_end\_station\_entity\_id = 
+      \hyperlink{group__acmpdu_ga138eb586d71333fa5c27c226373c771f}{jdksavdecc\_acmpdu\_get\_listener\_entity\_id}(
+      \hyperlink{gst__avb__playbin_8c_ac8e710e0b5e994c0545d75d69868c6f0}{frame}, \hyperlink{namespaceavdecc__lib_a6c827b1a0d973e18119c5e3da518e65ca9512ad9b34302ba7048d88197e0a2dc0}{ETHER\_HDR\_SIZE});
+284         end\_station\_entity\_id = \hyperlink{group__endian_gac8c2b48b7d7db101708e0197e366ac42}{jdksavdecc\_uint64\_get}(&\_end\_station\_entity\_id, 0);
+285         \hyperlink{namespaceavdecc__lib_aca078f7550e970a17b3f732c26bc3d83}{notification\_imp\_ref}->\hyperlink{classavdecc__lib_1_1notification_a2775ca78354ea78d68bf107c084b3822}{post\_notification\_msg}(
+      \hyperlink{namespaceavdecc__lib_ad2a3e740ca3019cf9fd0f9514afb6419a76526acf7fff481667c4ec404347c3ce}{RESPONSE\_RECEIVED},
+286                                                     end\_station\_entity\_id,
+287                                                     (uint16\_t)msg\_type + 
+      \hyperlink{namespaceavdecc__lib_ab6b306ef981f5e21bb41ea2c2dbe8cd9a3d122abbe03d5d839b4708ad02b7586d}{CMD\_LOOKUP},
+288                                                     0,
+289                                                     0,
+290                                                     status,
+291                                                     notification\_id);
+292 
+293         \textcolor{keywordflow}{if} (status != \hyperlink{namespaceavdecc__lib_ae0a51eed2d4dfed01460049a240d6f34a6e7347496acf3a05a9b3dab05deb8765}{ACMP\_STATUS\_SUCCESS})
+294         \{
+295             \hyperlink{namespaceavdecc__lib_acbe3e2a96ae6524943ca532c87a28529}{log\_imp\_ref}->\hyperlink{classavdecc__lib_1_1log_a68139a6297697e4ccebf36ccfd02e44a}{post\_log\_msg}(\hyperlink{namespaceavdecc__lib_a501055c431e6872ef46f252ad13f85cdaf2c4481208273451a6f5c7bb9770ec8a}{LOGGING\_LEVEL\_ERROR},
+296                                       \textcolor{stringliteral}{"RESPONSE\_RECEIVED, 0x%llx, %s, %s, %s, %s, %d"},
+297                                       end\_station\_entity\_id,
+298                                       \hyperlink{namespaceavdecc__lib_1_1utility_a89e861257b12dded819c0e1966cbb798}{utility::acmp\_cmd\_value\_to\_name}(
+      msg\_type),
+299                                       \textcolor{stringliteral}{"NULL"},
+300                                       \textcolor{stringliteral}{"NULL"},
+301                                       \hyperlink{namespaceavdecc__lib_1_1utility_a997ca93009ef89352844dec17b15719f}{utility::acmp\_cmd\_status\_value\_to\_name}
+      (status),
+302                                       seq\_id);
+303         \}
+304     \}
+305     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} ((msg\_type == \hyperlink{group__acmp__message__type_gaf9b24b0190d5bf9cae7e37c4a31cda12}{JDKSAVDECC\_ACMP\_MESSAGE\_TYPE\_GET\_TX\_STATE\_RESPONSE}
+      ) ||
+306              (msg\_type == 
+      \hyperlink{group__acmp__message__type_gac8d2fee5822f733200680da98472958f}{JDKSAVDECC\_ACMP\_MESSAGE\_TYPE\_GET\_TX\_CONNECTION\_RESPONSE}
+      ))
+307     \{
+308         \textcolor{keyword}{struct }\hyperlink{structjdksavdecc__eui64}{jdksavdecc\_eui64} \_end\_station\_entity\_id = 
+      \hyperlink{group__acmpdu_ga9efe0b94b146760a8849d872d2a00da7}{jdksavdecc\_acmpdu\_get\_talker\_entity\_id}(
+      \hyperlink{gst__avb__playbin_8c_ac8e710e0b5e994c0545d75d69868c6f0}{frame}, \hyperlink{namespaceavdecc__lib_a6c827b1a0d973e18119c5e3da518e65ca9512ad9b34302ba7048d88197e0a2dc0}{ETHER\_HDR\_SIZE});
+309         end\_station\_entity\_id = \hyperlink{group__endian_gac8c2b48b7d7db101708e0197e366ac42}{jdksavdecc\_uint64\_get}(&\_end\_station\_entity\_id, 0);
+310         \hyperlink{namespaceavdecc__lib_acbe3e2a96ae6524943ca532c87a28529}{log\_imp\_ref}->\hyperlink{classavdecc__lib_1_1log_a68139a6297697e4ccebf36ccfd02e44a}{post\_log\_msg}(\hyperlink{namespaceavdecc__lib_a501055c431e6872ef46f252ad13f85cdae3138c2a0a71a6404155ff912e450406}{LOGGING\_LEVEL\_DEBUG},
+311                                   \textcolor{stringliteral}{"RESPONSE\_RECEIVED, 0x%llx, %s, %s, %s, %s, %d"},
+312                                   end\_station\_entity\_id,
+313                                   \hyperlink{namespaceavdecc__lib_1_1utility_a89e861257b12dded819c0e1966cbb798}{utility::acmp\_cmd\_value\_to\_name}(msg\_type),
+314                                   \textcolor{stringliteral}{"NULL"},
+315                                   \textcolor{stringliteral}{"NULL"},
+316                                   \hyperlink{namespaceavdecc__lib_1_1utility_a997ca93009ef89352844dec17b15719f}{utility::acmp\_cmd\_status\_value\_to\_name}
+      (status),
+317                                   seq\_id);
+318     \}
+319     \textcolor{keywordflow}{else}
+320     \{
+321         \textcolor{keyword}{struct }\hyperlink{structjdksavdecc__eui64}{jdksavdecc\_eui64} \_end\_station\_entity\_id = 
+      \hyperlink{group__acmpdu_ga138eb586d71333fa5c27c226373c771f}{jdksavdecc\_acmpdu\_get\_listener\_entity\_id}(
+      \hyperlink{gst__avb__playbin_8c_ac8e710e0b5e994c0545d75d69868c6f0}{frame}, \hyperlink{namespaceavdecc__lib_a6c827b1a0d973e18119c5e3da518e65ca9512ad9b34302ba7048d88197e0a2dc0}{ETHER\_HDR\_SIZE});
+322         end\_station\_entity\_id = \hyperlink{group__endian_gac8c2b48b7d7db101708e0197e366ac42}{jdksavdecc\_uint64\_get}(&\_end\_station\_entity\_id, 0);
+323         \hyperlink{namespaceavdecc__lib_acbe3e2a96ae6524943ca532c87a28529}{log\_imp\_ref}->\hyperlink{classavdecc__lib_1_1log_a68139a6297697e4ccebf36ccfd02e44a}{post\_log\_msg}(\hyperlink{namespaceavdecc__lib_a501055c431e6872ef46f252ad13f85cdae3138c2a0a71a6404155ff912e450406}{LOGGING\_LEVEL\_DEBUG},
+324                                   \textcolor{stringliteral}{"COMMAND\_SENT, 0x%llx, %s, %s, %s, %s, %d"},
+325                                   end\_station\_entity\_id,
+326                                   \hyperlink{namespaceavdecc__lib_1_1utility_a89e861257b12dded819c0e1966cbb798}{utility::acmp\_cmd\_value\_to\_name}(msg\_type),
+327                                   \textcolor{stringliteral}{"NULL"},
+328                                   \textcolor{stringliteral}{"NULL"},
+329                                   \hyperlink{namespaceavdecc__lib_1_1utility_a997ca93009ef89352844dec17b15719f}{utility::acmp\_cmd\_status\_value\_to\_name}
+      (status),
+330                                   seq\_id);
+331     \}
+332 
+333     \textcolor{keywordflow}{return} 0;
+334 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classavdecc__lib_1_1acmp__controller__state__machine_a5803ae7099ff1a9c0721244e3d9b77b4_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classavdecc__lib_1_1acmp__controller__state__machine_a5803ae7099ff1a9c0721244e3d9b77b4_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine@{avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine}!common\+\_\+hdr\+\_\+init@{common\+\_\+hdr\+\_\+init}}
+\index{common\+\_\+hdr\+\_\+init@{common\+\_\+hdr\+\_\+init}!avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine@{avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine}}
+\subsubsection[{\texorpdfstring{common\+\_\+hdr\+\_\+init(uint32\+\_\+t msg\+\_\+type, struct jdksavdecc\+\_\+frame $\ast$cmd\+\_\+frame)}{common_hdr_init(uint32_t msg_type, struct jdksavdecc_frame *cmd_frame)}}]{\setlength{\rightskip}{0pt plus 5cm}void common\+\_\+hdr\+\_\+init (
+\begin{DoxyParamCaption}
+\item[{{\bf uint32\+\_\+t}}]{msg\+\_\+type, }
+\item[{struct {\bf jdksavdecc\+\_\+frame} $\ast$}]{cmd\+\_\+frame}
+\end{DoxyParamCaption}
+)}\hypertarget{classavdecc__lib_1_1acmp__controller__state__machine_ae93a117baf9620a7311f950271610506}{}\label{classavdecc__lib_1_1acmp__controller__state__machine_ae93a117baf9620a7311f950271610506}
+Initialize and fill Ethernet frame payload with 1722 A\+C\+MP Header information. 
+
+acmp\+\_\+controller\+\_\+state\+\_\+machine.\+cpp 파일의 71 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+72 \{
+73     \textcolor{keyword}{struct }\hyperlink{structjdksavdecc__acmpdu__common__control__header}{jdksavdecc\_acmpdu\_common\_control\_header} 
+      acmpdu\_common\_ctrl\_hdr;
+74     ssize\_t acmpdu\_common\_ctrl\_hdr\_returned;
+75     ssize\_t acmpdu\_common\_pos;
+76 
+77     \textcolor{comment}{/***** Offset to write the field to ****/}
+78     acmpdu\_common\_pos = \hyperlink{namespaceavdecc__lib_a6c827b1a0d973e18119c5e3da518e65ca9512ad9b34302ba7048d88197e0a2dc0}{ETHER\_HDR\_SIZE};
+79 
+80     \textcolor{comment}{/******************* 1722 Protocol Header *********************/}
+81     acmpdu\_common\_ctrl\_hdr.cd = 1;
+82     acmpdu\_common\_ctrl\_hdr.subtype = \hyperlink{group__subtype_gadcdd50d34325df28c29ca6249a4c307e}{JDKSAVDECC\_SUBTYPE\_ACMP};
+83     acmpdu\_common\_ctrl\_hdr.sv = 0;
+84     acmpdu\_common\_ctrl\_hdr.version = 0;
+85     acmpdu\_common\_ctrl\_hdr.message\_type = msg\_type;
+86     acmpdu\_common\_ctrl\_hdr.status = \hyperlink{group__acmp__status_gaf66306114de2faa8476897fec5d21cd8}{JDKSAVDECC\_ACMP\_STATUS\_SUCCESS};
+87     acmpdu\_common\_ctrl\_hdr.control\_data\_length = 44;
+88     \hyperlink{group__eui64_ga6eda4ed21b6f0d526b180ac633eeba69}{jdksavdecc\_eui64\_init}(&acmpdu\_common\_ctrl\_hdr.stream\_id);
+89 
+90     \textcolor{comment}{/********************** Fill frame payload with AECP Common Control Header information ****************
+      *****/}
+91     acmpdu\_common\_ctrl\_hdr\_returned = 
+      \hyperlink{group__acmpdu_gac16d3a1b77049d801599ad8887570a42}{jdksavdecc\_acmpdu\_common\_control\_header\_write}(&
+      acmpdu\_common\_ctrl\_hdr,
+92                                                                                     cmd\_frame->
+      \hyperlink{structjdksavdecc__frame_a220ad076814a31ae0163e722e523de46}{payload},
+93                                                                                     acmpdu\_common\_pos,
+94                                                                                     \textcolor{keyword}{sizeof}(cmd\_frame->
+      \hyperlink{structjdksavdecc__frame_a220ad076814a31ae0163e722e523de46}{payload}));
+95 
+96     \textcolor{keywordflow}{if} (acmpdu\_common\_ctrl\_hdr\_returned < 0)
+97     \{
+98         \hyperlink{namespaceavdecc__lib_acbe3e2a96ae6524943ca532c87a28529}{log\_imp\_ref}->\hyperlink{classavdecc__lib_1_1log_a68139a6297697e4ccebf36ccfd02e44a}{post\_log\_msg}(\hyperlink{namespaceavdecc__lib_a501055c431e6872ef46f252ad13f85cdaf2c4481208273451a6f5c7bb9770ec8a}{LOGGING\_LEVEL\_ERROR}, \textcolor{stringliteral}{"
+      acmpdu\_common\_ctrl\_hdr\_write error"});
+99         assert(acmpdu\_common\_ctrl\_hdr\_returned >= 0);
+100     \}
+101 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classavdecc__lib_1_1acmp__controller__state__machine_ae93a117baf9620a7311f950271610506_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classavdecc__lib_1_1acmp__controller__state__machine_ae93a117baf9620a7311f950271610506_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine@{avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine}!ether\+\_\+frame\+\_\+init@{ether\+\_\+frame\+\_\+init}}
+\index{ether\+\_\+frame\+\_\+init@{ether\+\_\+frame\+\_\+init}!avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine@{avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine}}
+\subsubsection[{\texorpdfstring{ether\+\_\+frame\+\_\+init(struct jdksavdecc\+\_\+frame $\ast$cmd\+\_\+frame)}{ether_frame_init(struct jdksavdecc_frame *cmd_frame)}}]{\setlength{\rightskip}{0pt plus 5cm}int ether\+\_\+frame\+\_\+init (
+\begin{DoxyParamCaption}
+\item[{struct {\bf jdksavdecc\+\_\+frame} $\ast$}]{cmd\+\_\+frame}
+\end{DoxyParamCaption}
+)}\hypertarget{classavdecc__lib_1_1acmp__controller__state__machine_a0a43868a3e99a6cef740e4562d006345}{}\label{classavdecc__lib_1_1acmp__controller__state__machine_a0a43868a3e99a6cef740e4562d006345}
+Initialize and fill Ethernet frame payload with Ethernet frame information for A\+EM commands. 
+
+acmp\+\_\+controller\+\_\+state\+\_\+machine.\+cpp 파일의 53 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+54 \{
+55     \textcolor{comment}{/*** Offset to write the field to ***/}
+56     \textcolor{keywordtype}{size\_t} ether\_frame\_pos = 0;
+57     \hyperlink{group__frame_ga14d8effbd6816c69743c5be3e98fea27}{jdksavdecc\_frame\_init}(cmd\_frame);
+58 
+59     \textcolor{comment}{/************************************************************ Ethernet Frame **************************
+      ******************************/}
+60     cmd\_frame->\hyperlink{structjdksavdecc__frame_aa9296c58dc24c63c4ee927db394a97d7}{ethertype} = \hyperlink{group__pdu_ga9fe7bd6b7d7b0f92f5fdbb910068197f}{JDKSAVDECC\_AVTP\_ETHERTYPE};
+61     \hyperlink{namespaceavdecc__lib_1_1utility_a723fa51b0a25cbec764d4e7fa1f5daac}{utility::convert\_uint64\_to\_eui48}(
+      \hyperlink{namespaceavdecc__lib_adb4da03bc65b7846cc240ee919bbde19}{net\_interface\_ref}->\hyperlink{classavdecc__lib_1_1net__interface__imp_a742e975c065f9067f42182847df080da}{mac\_addr}(), cmd\_frame->\hyperlink{structjdksavdecc__frame_a74855d22d112da72f29ba4959ebc639b}{src\_address}.
+      \hyperlink{structjdksavdecc__eui48_a18b93f04637cf37688ec10a33a0cbc26}{value}); \textcolor{comment}{// Send from the Controller MAC address}
+62     cmd\_frame->\hyperlink{structjdksavdecc__frame_a104d37031c593f66765dc66d8ac8962b}{dest\_address} = \hyperlink{group__pdu_ga151652dc8a9ab46279afe5930fe815d5}{jdksavdecc\_multicast\_adp\_acmp};      
+                                       \textcolor{comment}{// Send to the ACMP multicast destination MAC address}
+63     cmd\_frame->\hyperlink{structjdksavdecc__frame_a1892eba2086d12ac2b09005aeb09ea3b}{length} = \hyperlink{namespaceavdecc__lib_a2b5e266e2064669372f6c59e977c6c88a72da19de32961d6bc4541a6d7408b6e2}{ACMP\_FRAME\_LEN};                                                
+                  \textcolor{comment}{// Length of ACMP packet is 70 bytes}
+64 
+65     \textcolor{comment}{/****************** Fill frame payload with Ethernet frame information ****************/}
+66     \hyperlink{group__frame_gaba1e860c060886e82198907b17214aee}{jdksavdecc\_frame\_write}(cmd\_frame, cmd\_frame->\hyperlink{structjdksavdecc__frame_a220ad076814a31ae0163e722e523de46}{payload}, ether\_frame\_pos, 
+      \hyperlink{namespaceavdecc__lib_a6c827b1a0d973e18119c5e3da518e65ca9512ad9b34302ba7048d88197e0a2dc0}{ETHER\_HDR\_SIZE});
+67 
+68     \textcolor{keywordflow}{return} 0;
+69 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classavdecc__lib_1_1acmp__controller__state__machine_a0a43868a3e99a6cef740e4562d006345_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classavdecc__lib_1_1acmp__controller__state__machine_a0a43868a3e99a6cef740e4562d006345_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine@{avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine}!is\+\_\+inflight\+\_\+cmd\+\_\+with\+\_\+notification\+\_\+id@{is\+\_\+inflight\+\_\+cmd\+\_\+with\+\_\+notification\+\_\+id}}
+\index{is\+\_\+inflight\+\_\+cmd\+\_\+with\+\_\+notification\+\_\+id@{is\+\_\+inflight\+\_\+cmd\+\_\+with\+\_\+notification\+\_\+id}!avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine@{avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine}}
+\subsubsection[{\texorpdfstring{is\+\_\+inflight\+\_\+cmd\+\_\+with\+\_\+notification\+\_\+id(void $\ast$notification\+\_\+id)}{is_inflight_cmd_with_notification_id(void *notification_id)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} is\+\_\+inflight\+\_\+cmd\+\_\+with\+\_\+notification\+\_\+id (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{notification\+\_\+id}
+\end{DoxyParamCaption}
+)}\hypertarget{classavdecc__lib_1_1acmp__controller__state__machine_aa5c3cd6eac3ef43eb32c176106a182e6}{}\label{classavdecc__lib_1_1acmp__controller__state__machine_aa5c3cd6eac3ef43eb32c176106a182e6}
+Check if the command with the corresponding notification id is already in the inflight command vector. 
+
+acmp\+\_\+controller\+\_\+state\+\_\+machine.\+cpp 파일의 230 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+231 \{
+232     std::vector<inflight>::iterator j =
+233         std::find\_if(\hyperlink{classavdecc__lib_1_1acmp__controller__state__machine_a0475b054c1890c88809394d9cef2a4c0}{inflight\_cmds}.begin(), \hyperlink{classavdecc__lib_1_1acmp__controller__state__machine_a0475b054c1890c88809394d9cef2a4c0}{inflight\_cmds}.end(), NotificationComp
+      (notification\_id));
+234 
+235     \textcolor{keywordflow}{if} (j != \hyperlink{classavdecc__lib_1_1acmp__controller__state__machine_a0475b054c1890c88809394d9cef2a4c0}{inflight\_cmds}.end()) \textcolor{comment}{// found?}
+236     \{
+237         \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+238     \}
+239 
+240     \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+241 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classavdecc__lib_1_1acmp__controller__state__machine_aa5c3cd6eac3ef43eb32c176106a182e6_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine@{avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine}!proc\+\_\+resp@{proc\+\_\+resp}}
+\index{proc\+\_\+resp@{proc\+\_\+resp}!avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine@{avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine}}
+\subsubsection[{\texorpdfstring{proc\+\_\+resp(void $\ast$\&notification\+\_\+id, struct jdksavdecc\+\_\+frame $\ast$cmd\+\_\+frame)}{proc_resp(void *&notification_id, struct jdksavdecc_frame *cmd_frame)}}]{\setlength{\rightskip}{0pt plus 5cm}int proc\+\_\+resp (
+\begin{DoxyParamCaption}
+\item[{void $\ast$\&}]{notification\+\_\+id, }
+\item[{struct {\bf jdksavdecc\+\_\+frame} $\ast$}]{cmd\+\_\+frame}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classavdecc__lib_1_1acmp__controller__state__machine_a81d345252361d6b1650316379916ccf6}{}\label{classavdecc__lib_1_1acmp__controller__state__machine_a81d345252361d6b1650316379916ccf6}
+Handle the receipt and processing of a received response for a command sent. 
+
+acmp\+\_\+controller\+\_\+state\+\_\+machine.\+cpp 파일의 199 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+200 \{
+201     uint16\_t seq\_id = \hyperlink{group__acmpdu_gaf20d00ac6431b19d3f1213b4b6bf6fd5}{jdksavdecc\_acmpdu\_get\_sequence\_id}(cmd\_frame->
+      \hyperlink{structjdksavdecc__frame_a220ad076814a31ae0163e722e523de46}{payload}, \hyperlink{namespaceavdecc__lib_a6c827b1a0d973e18119c5e3da518e65ca9512ad9b34302ba7048d88197e0a2dc0}{ETHER\_HDR\_SIZE});
+202     \hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\_t} notification\_flag = 0;
+203 
+204     std::vector<inflight>::iterator j =
+205         std::find\_if(\hyperlink{classavdecc__lib_1_1acmp__controller__state__machine_a0475b054c1890c88809394d9cef2a4c0}{inflight\_cmds}.begin(), \hyperlink{classavdecc__lib_1_1acmp__controller__state__machine_a0475b054c1890c88809394d9cef2a4c0}{inflight\_cmds}.end(), SeqIdComp(seq\_id
+      ));
+206 
+207     \textcolor{keywordflow}{if} (j != \hyperlink{classavdecc__lib_1_1acmp__controller__state__machine_a0475b054c1890c88809394d9cef2a4c0}{inflight\_cmds}.end()) \textcolor{comment}{// found?}
+208     \{
+209         notification\_id = (*j).cmd\_notification\_id;
+210         notification\_flag = (*j).notification\_flag();
+211         \hyperlink{classavdecc__lib_1_1acmp__controller__state__machine_a5803ae7099ff1a9c0721244e3d9b77b4}{callback}(notification\_id, notification\_flag, cmd\_frame->\hyperlink{structjdksavdecc__frame_a220ad076814a31ae0163e722e523de46}{payload});
+212         \hyperlink{classavdecc__lib_1_1acmp__controller__state__machine_a0475b054c1890c88809394d9cef2a4c0}{inflight\_cmds}.erase(j);
+213         \textcolor{keywordflow}{return} 1;
+214     \}
+215 
+216     \textcolor{keywordflow}{return} -1;
+217 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classavdecc__lib_1_1acmp__controller__state__machine_a81d345252361d6b1650316379916ccf6_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classavdecc__lib_1_1acmp__controller__state__machine_a81d345252361d6b1650316379916ccf6_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine@{avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine}!state\+\_\+command@{state\+\_\+command}}
+\index{state\+\_\+command@{state\+\_\+command}!avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine@{avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine}}
+\subsubsection[{\texorpdfstring{state\+\_\+command(void $\ast$notification\+\_\+id, uint32\+\_\+t notification\+\_\+flag, struct jdksavdecc\+\_\+frame $\ast$cmd\+\_\+frame)}{state_command(void *notification_id, uint32_t notification_flag, struct jdksavdecc_frame *cmd_frame)}}]{\setlength{\rightskip}{0pt plus 5cm}int state\+\_\+command (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{notification\+\_\+id, }
+\item[{{\bf uint32\+\_\+t}}]{notification\+\_\+flag, }
+\item[{struct {\bf jdksavdecc\+\_\+frame} $\ast$}]{cmd\+\_\+frame}
+\end{DoxyParamCaption}
+)}\hypertarget{classavdecc__lib_1_1acmp__controller__state__machine_a96616c92d34da4a6859d5a653691e21b}{}\label{classavdecc__lib_1_1acmp__controller__state__machine_a96616c92d34da4a6859d5a653691e21b}
+Process the Command state of the A\+C\+MP Controller State Machine. 
+
+acmp\+\_\+controller\+\_\+state\+\_\+machine.\+cpp 파일의 103 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+104 \{
+105     \textcolor{keywordflow}{return} \hyperlink{classavdecc__lib_1_1acmp__controller__state__machine_a1a1c2c9ae3773c01cbad352f2a2c2dfc}{tx\_cmd}(notification\_id, notification\_flag, cmd\_frame, \textcolor{keyword}{false});
+106 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classavdecc__lib_1_1acmp__controller__state__machine_a96616c92d34da4a6859d5a653691e21b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classavdecc__lib_1_1acmp__controller__state__machine_a96616c92d34da4a6859d5a653691e21b_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine@{avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine}!state\+\_\+resp@{state\+\_\+resp}}
+\index{state\+\_\+resp@{state\+\_\+resp}!avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine@{avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine}}
+\subsubsection[{\texorpdfstring{state\+\_\+resp(void $\ast$\&notification\+\_\+id, struct jdksavdecc\+\_\+frame $\ast$cmd\+\_\+frame)}{state_resp(void *&notification_id, struct jdksavdecc_frame *cmd_frame)}}]{\setlength{\rightskip}{0pt plus 5cm}int state\+\_\+resp (
+\begin{DoxyParamCaption}
+\item[{void $\ast$\&}]{notification\+\_\+id, }
+\item[{struct {\bf jdksavdecc\+\_\+frame} $\ast$}]{cmd\+\_\+frame}
+\end{DoxyParamCaption}
+)}\hypertarget{classavdecc__lib_1_1acmp__controller__state__machine_affdd2e72c0e7a518e4b8993e23750aa9}{}\label{classavdecc__lib_1_1acmp__controller__state__machine_affdd2e72c0e7a518e4b8993e23750aa9}
+Process the Response state of the A\+C\+MP Controller State Machine. 
+
+acmp\+\_\+controller\+\_\+state\+\_\+machine.\+cpp 파일의 108 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+109 \{
+110     \textcolor{keywordflow}{return} \hyperlink{classavdecc__lib_1_1acmp__controller__state__machine_a81d345252361d6b1650316379916ccf6}{proc\_resp}(notification\_id, cmd\_frame);
+111 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classavdecc__lib_1_1acmp__controller__state__machine_affdd2e72c0e7a518e4b8993e23750aa9_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classavdecc__lib_1_1acmp__controller__state__machine_affdd2e72c0e7a518e4b8993e23750aa9_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine@{avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine}!state\+\_\+timeout@{state\+\_\+timeout}}
+\index{state\+\_\+timeout@{state\+\_\+timeout}!avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine@{avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine}}
+\subsubsection[{\texorpdfstring{state\+\_\+timeout(uint32\+\_\+t inflight\+\_\+cmd\+\_\+index)}{state_timeout(uint32_t inflight_cmd_index)}}]{\setlength{\rightskip}{0pt plus 5cm}void state\+\_\+timeout (
+\begin{DoxyParamCaption}
+\item[{{\bf uint32\+\_\+t}}]{inflight\+\_\+cmd\+\_\+index}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classavdecc__lib_1_1acmp__controller__state__machine_a1e6e8844609ddaee9d544e95210c495c}{}\label{classavdecc__lib_1_1acmp__controller__state__machine_a1e6e8844609ddaee9d544e95210c495c}
+Process the Timeout state of the A\+C\+MP Controller State Machine. 
+
+acmp\+\_\+controller\+\_\+state\+\_\+machine.\+cpp 파일의 113 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+114 \{
+115     \textcolor{keyword}{struct }\hyperlink{structjdksavdecc__frame}{jdksavdecc\_frame} \hyperlink{gst__avb__playbin_8c_ac8e710e0b5e994c0545d75d69868c6f0}{frame} = \hyperlink{classavdecc__lib_1_1acmp__controller__state__machine_a0475b054c1890c88809394d9cef2a4c0}{inflight\_cmds}.at(inflight\_cmd\_index).
+      frame();
+116     \textcolor{keywordtype}{bool} is\_retried = \hyperlink{classavdecc__lib_1_1acmp__controller__state__machine_a0475b054c1890c88809394d9cef2a4c0}{inflight\_cmds}.at(inflight\_cmd\_index).retried();
+117 
+118     \textcolor{keywordflow}{if} (is\_retried)
+119     \{
+120         \textcolor{keyword}{struct }\hyperlink{structjdksavdecc__eui64}{jdksavdecc\_eui64} \_end\_station\_entity\_id = 
+      \hyperlink{group__acmpdu_ga138eb586d71333fa5c27c226373c771f}{jdksavdecc\_acmpdu\_get\_listener\_entity\_id}(frame.
+      \hyperlink{structjdksavdecc__frame_a220ad076814a31ae0163e722e523de46}{payload}, \hyperlink{namespaceavdecc__lib_a6c827b1a0d973e18119c5e3da518e65ca9512ad9b34302ba7048d88197e0a2dc0}{ETHER\_HDR\_SIZE});
+121         \hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\_t} end\_station\_entity\_id = \hyperlink{group__endian_gac8c2b48b7d7db101708e0197e366ac42}{jdksavdecc\_uint64\_get}(&
+      \_end\_station\_entity\_id, 0);
+122         \hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\_t} msg\_type = 
+      \hyperlink{group__jdksavdecc__avtp__common__control__header_gacb435e5d647474931972cb9eb93b4e41}{jdksavdecc\_common\_control\_header\_get\_control\_data}(frame.
+      \hyperlink{structjdksavdecc__frame_a220ad076814a31ae0163e722e523de46}{payload}, \hyperlink{namespaceavdecc__lib_a6c827b1a0d973e18119c5e3da518e65ca9512ad9b34302ba7048d88197e0a2dc0}{ETHER\_HDR\_SIZE});
+123 
+124         \hyperlink{namespaceavdecc__lib_aca078f7550e970a17b3f732c26bc3d83}{notification\_imp\_ref}->\hyperlink{classavdecc__lib_1_1notification_a2775ca78354ea78d68bf107c084b3822}{post\_notification\_msg}(
+      \hyperlink{namespaceavdecc__lib_ad2a3e740ca3019cf9fd0f9514afb6419a76526acf7fff481667c4ec404347c3ce}{RESPONSE\_RECEIVED},
+125                                                     end\_station\_entity\_id,
+126                                                     (uint16\_t)msg\_type + 
+      \hyperlink{namespaceavdecc__lib_ab6b306ef981f5e21bb41ea2c2dbe8cd9a3d122abbe03d5d839b4708ad02b7586d}{CMD\_LOOKUP},
+127                                                     0,
+128                                                     0,
+129                                                     UINT\_MAX,
+130                                                     \hyperlink{classavdecc__lib_1_1acmp__controller__state__machine_a0475b054c1890c88809394d9cef2a4c0}{inflight\_cmds}.at(inflight\_cmd\_index).
+      cmd\_notification\_id);
+131 
+132         \hyperlink{namespaceavdecc__lib_acbe3e2a96ae6524943ca532c87a28529}{log\_imp\_ref}->\hyperlink{classavdecc__lib_1_1log_a68139a6297697e4ccebf36ccfd02e44a}{post\_log\_msg}(\hyperlink{namespaceavdecc__lib_a501055c431e6872ef46f252ad13f85cdaf2c4481208273451a6f5c7bb9770ec8a}{LOGGING\_LEVEL\_ERROR},
+133                                   \textcolor{stringliteral}{"Command Timeout, 0x%llx, %s, %s, %s, %d"},
+134                                   end\_station\_entity\_id,
+135                                   \hyperlink{namespaceavdecc__lib_1_1utility_a89e861257b12dded819c0e1966cbb798}{utility::acmp\_cmd\_value\_to\_name}(msg\_type),
+136                                   \textcolor{stringliteral}{"NULL"},
+137                                   \textcolor{stringliteral}{"NULL"},
+138                                   \hyperlink{classavdecc__lib_1_1acmp__controller__state__machine_a0475b054c1890c88809394d9cef2a4c0}{inflight\_cmds}.at(inflight\_cmd\_index).cmd\_seq\_id);
+139 
+140         \hyperlink{classavdecc__lib_1_1acmp__controller__state__machine_a0475b054c1890c88809394d9cef2a4c0}{inflight\_cmds}.erase(\hyperlink{classavdecc__lib_1_1acmp__controller__state__machine_a0475b054c1890c88809394d9cef2a4c0}{inflight\_cmds}.begin() + inflight\_cmd\_index);
+141     \}
+142     \textcolor{keywordflow}{else}
+143     \{
+144         \hyperlink{namespaceavdecc__lib_acbe3e2a96ae6524943ca532c87a28529}{log\_imp\_ref}->\hyperlink{classavdecc__lib_1_1log_a68139a6297697e4ccebf36ccfd02e44a}{post\_log\_msg}(\hyperlink{namespaceavdecc__lib_a501055c431e6872ef46f252ad13f85cdae3138c2a0a71a6404155ff912e450406}{LOGGING\_LEVEL\_DEBUG},
+145                                   \textcolor{stringliteral}{"Resend the command with sequence id = %d"},
+146                                   \hyperlink{classavdecc__lib_1_1acmp__controller__state__machine_a0475b054c1890c88809394d9cef2a4c0}{inflight\_cmds}.at(inflight\_cmd\_index).cmd\_seq\_id);
+147 
+148         \hyperlink{classavdecc__lib_1_1acmp__controller__state__machine_a1a1c2c9ae3773c01cbad352f2a2c2dfc}{tx\_cmd}(\hyperlink{classavdecc__lib_1_1acmp__controller__state__machine_a0475b054c1890c88809394d9cef2a4c0}{inflight\_cmds}.at(inflight\_cmd\_index).cmd\_notification\_id,
+149                \hyperlink{classavdecc__lib_1_1acmp__controller__state__machine_a0475b054c1890c88809394d9cef2a4c0}{inflight\_cmds}.at(inflight\_cmd\_index).notification\_flag(),
+150                &\hyperlink{gst__avb__playbin_8c_ac8e710e0b5e994c0545d75d69868c6f0}{frame},
+151                \textcolor{keyword}{true});
+152     \}
+153 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classavdecc__lib_1_1acmp__controller__state__machine_a1e6e8844609ddaee9d544e95210c495c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classavdecc__lib_1_1acmp__controller__state__machine_a1e6e8844609ddaee9d544e95210c495c_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine@{avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine}!tick@{tick}}
+\index{tick@{tick}!avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine@{avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine}}
+\subsubsection[{\texorpdfstring{tick()}{tick()}}]{\setlength{\rightskip}{0pt plus 5cm}void tick (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classavdecc__lib_1_1acmp__controller__state__machine_a873dd91783f9efb4a590aded1f70d6b0}{}\label{classavdecc__lib_1_1acmp__controller__state__machine_a873dd91783f9efb4a590aded1f70d6b0}
+Check timeout for the inflight commands. 
+
+acmp\+\_\+controller\+\_\+state\+\_\+machine.\+cpp 파일의 219 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+220 \{
+221     \textcolor{keywordflow}{for} (\hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\_t} i = 0; i < \hyperlink{classavdecc__lib_1_1acmp__controller__state__machine_a0475b054c1890c88809394d9cef2a4c0}{inflight\_cmds}.size(); i++)
+222     \{
+223         \textcolor{keywordflow}{if} (\hyperlink{classavdecc__lib_1_1acmp__controller__state__machine_a0475b054c1890c88809394d9cef2a4c0}{inflight\_cmds}.at(i).timeout())
+224         \{
+225             \hyperlink{classavdecc__lib_1_1acmp__controller__state__machine_a1e6e8844609ddaee9d544e95210c495c}{state\_timeout}(i);
+226         \}
+227     \}
+228 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classavdecc__lib_1_1acmp__controller__state__machine_a873dd91783f9efb4a590aded1f70d6b0_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classavdecc__lib_1_1acmp__controller__state__machine_a873dd91783f9efb4a590aded1f70d6b0_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine@{avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine}!tx\+\_\+cmd@{tx\+\_\+cmd}}
+\index{tx\+\_\+cmd@{tx\+\_\+cmd}!avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine@{avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine}}
+\subsubsection[{\texorpdfstring{tx\+\_\+cmd(void $\ast$notification\+\_\+id, uint32\+\_\+t notification\+\_\+flag, struct jdksavdecc\+\_\+frame $\ast$cmd\+\_\+frame, bool resend)}{tx_cmd(void *notification_id, uint32_t notification_flag, struct jdksavdecc_frame *cmd_frame, bool resend)}}]{\setlength{\rightskip}{0pt plus 5cm}int tx\+\_\+cmd (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{notification\+\_\+id, }
+\item[{{\bf uint32\+\_\+t}}]{notification\+\_\+flag, }
+\item[{struct {\bf jdksavdecc\+\_\+frame} $\ast$}]{cmd\+\_\+frame, }
+\item[{{\bf bool}}]{resend}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classavdecc__lib_1_1acmp__controller__state__machine_a1a1c2c9ae3773c01cbad352f2a2c2dfc}{}\label{classavdecc__lib_1_1acmp__controller__state__machine_a1a1c2c9ae3773c01cbad352f2a2c2dfc}
+Transmit an A\+C\+MP Command. 
+
+acmp\+\_\+controller\+\_\+state\+\_\+machine.\+cpp 파일의 155 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+156 \{
+157     \textcolor{keywordtype}{int} send\_frame\_returned;
+158 
+159     \textcolor{keywordflow}{if} (!resend)
+160     \{
+161         uint16\_t this\_seq\_id = \hyperlink{classavdecc__lib_1_1acmp__controller__state__machine_abc8353807adf298f195ae2f0dc170b51}{acmp\_seq\_id};
+162         \hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\_t} msg\_type = 
+      \hyperlink{group__jdksavdecc__avtp__common__control__header_gacb435e5d647474931972cb9eb93b4e41}{jdksavdecc\_common\_control\_header\_get\_control\_data}(
+      cmd\_frame->\hyperlink{structjdksavdecc__frame_a220ad076814a31ae0163e722e523de46}{payload}, \hyperlink{namespaceavdecc__lib_a6c827b1a0d973e18119c5e3da518e65ca9512ad9b34302ba7048d88197e0a2dc0}{ETHER\_HDR\_SIZE});
+163         \hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\_t} timeout\_ms = \hyperlink{namespaceavdecc__lib_1_1utility_a146d6f5e7a915c5e59058fafc6e6402c}{utility::acmp\_cmd\_to\_timeout}(msg\_type); \textcolor{comment}{
+      // ACMP command timeout lookup}
+164         \hyperlink{group__acmpdu_gac25bc4c2517c617eab5713ab6e1e162d}{jdksavdecc\_acmpdu\_set\_sequence\_id}(
+      \hyperlink{classavdecc__lib_1_1acmp__controller__state__machine_abc8353807adf298f195ae2f0dc170b51}{acmp\_seq\_id}++, cmd\_frame->\hyperlink{structjdksavdecc__frame_a220ad076814a31ae0163e722e523de46}{payload}, \hyperlink{namespaceavdecc__lib_a6c827b1a0d973e18119c5e3da518e65ca9512ad9b34302ba7048d88197e0a2dc0}{ETHER\_HDR\_SIZE});
+165 
+166         inflight in\_flight = inflight(cmd\_frame,
+167                                       this\_seq\_id,
+168                                       notification\_id,
+169                                       notification\_flag,
+170                                       timeout\_ms);
+171 
+172         in\_flight.start\_timer();
+173         \hyperlink{classavdecc__lib_1_1acmp__controller__state__machine_a0475b054c1890c88809394d9cef2a4c0}{inflight\_cmds}.push\_back(in\_flight);
+174     \}
+175     \textcolor{keywordflow}{else}
+176     \{
+177         uint16\_t resend\_with\_seq\_id = \hyperlink{group__acmpdu_gaf20d00ac6431b19d3f1213b4b6bf6fd5}{jdksavdecc\_acmpdu\_get\_sequence\_id}(
+      cmd\_frame->\hyperlink{structjdksavdecc__frame_a220ad076814a31ae0163e722e523de46}{payload}, \hyperlink{namespaceavdecc__lib_a6c827b1a0d973e18119c5e3da518e65ca9512ad9b34302ba7048d88197e0a2dc0}{ETHER\_HDR\_SIZE});
+178         std::vector<inflight>::iterator j =
+179             std::find\_if(\hyperlink{classavdecc__lib_1_1acmp__controller__state__machine_a0475b054c1890c88809394d9cef2a4c0}{inflight\_cmds}.begin(), \hyperlink{classavdecc__lib_1_1acmp__controller__state__machine_a0475b054c1890c88809394d9cef2a4c0}{inflight\_cmds}.end(), SeqIdComp(
+      resend\_with\_seq\_id));
+180 
+181         \textcolor{keywordflow}{if} (j != \hyperlink{classavdecc__lib_1_1acmp__controller__state__machine_a0475b054c1890c88809394d9cef2a4c0}{inflight\_cmds}.end()) \textcolor{comment}{// found?}
+182         \{
+183             (*j).start\_timer();
+184         \}
+185     \}
+186 
+187     send\_frame\_returned = \hyperlink{namespaceavdecc__lib_adb4da03bc65b7846cc240ee919bbde19}{net\_interface\_ref}->\hyperlink{classavdecc__lib_1_1net__interface__imp_ac1a430cb59bcfc3b43ed26b624db5dea}{send\_frame}(cmd\_frame->
+      \hyperlink{structjdksavdecc__frame_a220ad076814a31ae0163e722e523de46}{payload}, cmd\_frame->\hyperlink{structjdksavdecc__frame_a1892eba2086d12ac2b09005aeb09ea3b}{length});
+188     \textcolor{keywordflow}{if} (send\_frame\_returned < 0)
+189     \{
+190         \hyperlink{namespaceavdecc__lib_acbe3e2a96ae6524943ca532c87a28529}{log\_imp\_ref}->\hyperlink{classavdecc__lib_1_1log_a68139a6297697e4ccebf36ccfd02e44a}{post\_log\_msg}(\hyperlink{namespaceavdecc__lib_a501055c431e6872ef46f252ad13f85cdaf2c4481208273451a6f5c7bb9770ec8a}{LOGGING\_LEVEL\_ERROR}, \textcolor{stringliteral}{"
+      netif\_send\_frame error"});
+191         assert(send\_frame\_returned >= 0);
+192     \}
+193 
+194     \hyperlink{classavdecc__lib_1_1acmp__controller__state__machine_a5803ae7099ff1a9c0721244e3d9b77b4}{callback}(notification\_id, notification\_flag, cmd\_frame->\hyperlink{structjdksavdecc__frame_a220ad076814a31ae0163e722e523de46}{payload});
+195 
+196     \textcolor{keywordflow}{return} 0;
+197 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classavdecc__lib_1_1acmp__controller__state__machine_a1a1c2c9ae3773c01cbad352f2a2c2dfc_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classavdecc__lib_1_1acmp__controller__state__machine_a1a1c2c9ae3773c01cbad352f2a2c2dfc_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{필드 문서화}
+\index{avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine@{avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine}!acmp\+\_\+seq\+\_\+id@{acmp\+\_\+seq\+\_\+id}}
+\index{acmp\+\_\+seq\+\_\+id@{acmp\+\_\+seq\+\_\+id}!avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine@{avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine}}
+\subsubsection[{\texorpdfstring{acmp\+\_\+seq\+\_\+id}{acmp_seq_id}}]{\setlength{\rightskip}{0pt plus 5cm}uint16\+\_\+t acmp\+\_\+seq\+\_\+id\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classavdecc__lib_1_1acmp__controller__state__machine_abc8353807adf298f195ae2f0dc170b51}{}\label{classavdecc__lib_1_1acmp__controller__state__machine_abc8353807adf298f195ae2f0dc170b51}
+
+
+acmp\+\_\+controller\+\_\+state\+\_\+machine.\+h 파일의 39 번째 라인에서 정의되었습니다.
+
+\index{avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine@{avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine}!inflight\+\_\+cmds@{inflight\+\_\+cmds}}
+\index{inflight\+\_\+cmds@{inflight\+\_\+cmds}!avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine@{avdecc\+\_\+lib\+::acmp\+\_\+controller\+\_\+state\+\_\+machine}}
+\subsubsection[{\texorpdfstring{inflight\+\_\+cmds}{inflight_cmds}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<${\bf inflight}$>$ inflight\+\_\+cmds\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classavdecc__lib_1_1acmp__controller__state__machine_a0475b054c1890c88809394d9cef2a4c0}{}\label{classavdecc__lib_1_1acmp__controller__state__machine_a0475b054c1890c88809394d9cef2a4c0}
+
+
+acmp\+\_\+controller\+\_\+state\+\_\+machine.\+h 파일의 40 번째 라인에서 정의되었습니다.
+
+
+
+이 클래스에 대한 문서화 페이지는 다음의 파일들로부터 생성되었습니다.\+:\begin{DoxyCompactItemize}
+\item 
+avdecc-\/lib/controller/lib/src/\hyperlink{acmp__controller__state__machine_8h}{acmp\+\_\+controller\+\_\+state\+\_\+machine.\+h}\item 
+avdecc-\/lib/controller/lib/src/\hyperlink{acmp__controller__state__machine_8cpp}{acmp\+\_\+controller\+\_\+state\+\_\+machine.\+cpp}\end{DoxyCompactItemize}

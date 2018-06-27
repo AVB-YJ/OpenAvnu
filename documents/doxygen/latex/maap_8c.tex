@@ -1,0 +1,2581 @@
+\hypertarget{maap_8c}{}\section{daemons/maap/common/maap.c 파일 참조}
+\label{maap_8c}\index{daemons/maap/common/maap.\+c@{daemons/maap/common/maap.\+c}}
+{\ttfamily \#include \char`\"{}maap.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}maap\+\_\+packet.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$errno.\+h$>$}\\*
+{\ttfamily \#include $<$time.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$ctype.\+h$>$}\\*
+{\ttfamily \#include $<$assert.\+h$>$}\\*
+{\ttfamily \#include $<$linux/if\+\_\+ether.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}maap\+\_\+log.\+h\char`\"{}}\\*
+maap.\+c에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{maap_8c_af641e281ec3ad594d47b9071f3cbc493}{M\+A\+A\+P\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}~\char`\"{}Main\char`\"{}
+\item 
+\#define \hyperlink{maap_8c_ad2ad4b26ade1b0cf494d499da94c70e6}{D\+E\+B\+U\+G\+\_\+\+T\+I\+M\+E\+R\+\_\+\+M\+SG}
+\item 
+\#define \hyperlink{maap_8c_aeea4d4398456dd5af86e8b9055dd450c}{D\+E\+B\+U\+G\+\_\+\+N\+E\+G\+O\+T\+I\+A\+T\+E\+\_\+\+M\+SG}
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+static int \hyperlink{maap_8c_ab242a9bc452252bfb882a2b22c883be1}{get\+\_\+count} (\hyperlink{struct_maap___client}{Maap\+\_\+\+Client} $\ast$mc, \hyperlink{maap_8h_a7224b59335de60a4d7328209ed591ac5}{Range} $\ast$\hyperlink{structrange}{range})
+\item 
+static unsigned long long int \hyperlink{maap_8c_af402827798fb1beb38578db3622c58d3}{get\+\_\+start\+\_\+address} (\hyperlink{struct_maap___client}{Maap\+\_\+\+Client} $\ast$mc, \hyperlink{maap_8h_a7224b59335de60a4d7328209ed591ac5}{Range} $\ast$\hyperlink{structrange}{range})
+\item 
+static unsigned long long int \hyperlink{maap_8c_a8134fc0dafff29b1e3a7efed0c33f8d3}{get\+\_\+end\+\_\+address} (\hyperlink{struct_maap___client}{Maap\+\_\+\+Client} $\ast$mc, \hyperlink{maap_8h_a7224b59335de60a4d7328209ed591ac5}{Range} $\ast$\hyperlink{structrange}{range})
+\item 
+static int \hyperlink{maap_8c_a660e88c2bde25150a4e00c81f0bebfd5}{send\+\_\+packet} (\hyperlink{struct_maap___client}{Maap\+\_\+\+Client} $\ast$mc, \hyperlink{struct_m_a_a_p___packet}{M\+A\+A\+P\+\_\+\+Packet} $\ast$p)
+\item 
+static int \hyperlink{maap_8c_a3518a5176c421f589c9720bee301c977}{send\+\_\+probe} (\hyperlink{struct_maap___client}{Maap\+\_\+\+Client} $\ast$mc, \hyperlink{maap_8h_a7224b59335de60a4d7328209ed591ac5}{Range} $\ast$\hyperlink{structrange}{range})
+\item 
+static int \hyperlink{maap_8c_a347a548120a8564100386c1937b9bf0c}{send\+\_\+announce} (\hyperlink{struct_maap___client}{Maap\+\_\+\+Client} $\ast$mc, \hyperlink{maap_8h_a7224b59335de60a4d7328209ed591ac5}{Range} $\ast$\hyperlink{structrange}{range})
+\item 
+static int \hyperlink{maap_8c_a2f736d2d0d06de43bfcf25347618481b}{send\+\_\+defend} (\hyperlink{struct_maap___client}{Maap\+\_\+\+Client} $\ast$mc, \hyperlink{maap_8h_a7224b59335de60a4d7328209ed591ac5}{Range} $\ast$\hyperlink{structrange}{range}, \hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\+\_\+t} start, uint16\+\_\+t count, \hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\+\_\+t} destination)
+\item 
+static int \hyperlink{maap_8c_a8dda57ae534fb838663bac266a054074}{inform\+\_\+initialized} (\hyperlink{struct_maap___client}{Maap\+\_\+\+Client} $\ast$mc, const void $\ast$sender, \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808dd}{Maap\+\_\+\+Notify\+\_\+\+Error} result)
+\item 
+static int \hyperlink{maap_8c_a692c87a4ead0c5aab0e11973b2fa659c}{inform\+\_\+acquiring} (\hyperlink{struct_maap___client}{Maap\+\_\+\+Client} $\ast$mc, \hyperlink{maap_8h_a7224b59335de60a4d7328209ed591ac5}{Range} $\ast$\hyperlink{structrange}{range})
+\item 
+static int \hyperlink{maap_8c_a8f18995bead4e44c65c99a1c117f8ea5}{inform\+\_\+acquired} (\hyperlink{struct_maap___client}{Maap\+\_\+\+Client} $\ast$mc, \hyperlink{maap_8h_a7224b59335de60a4d7328209ed591ac5}{Range} $\ast$\hyperlink{structrange}{range}, \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808dd}{Maap\+\_\+\+Notify\+\_\+\+Error} result)
+\item 
+static int \hyperlink{maap_8c_a467114b6b0203c3f577f6fc1e8b60783}{inform\+\_\+not\+\_\+acquired} (\hyperlink{struct_maap___client}{Maap\+\_\+\+Client} $\ast$mc, const void $\ast$sender, int id, int range\+\_\+size, \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808dd}{Maap\+\_\+\+Notify\+\_\+\+Error} result)
+\item 
+static int \hyperlink{maap_8c_af9079dd78987f5c3c5d1e9ef2f2d3784}{inform\+\_\+released} (\hyperlink{struct_maap___client}{Maap\+\_\+\+Client} $\ast$mc, const void $\ast$sender, int id, \hyperlink{maap_8h_a7224b59335de60a4d7328209ed591ac5}{Range} $\ast$\hyperlink{structrange}{range}, \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808dd}{Maap\+\_\+\+Notify\+\_\+\+Error} result)
+\item 
+static int \hyperlink{maap_8c_a2bc35518b980e45f5547d82857e30583}{inform\+\_\+status} (\hyperlink{struct_maap___client}{Maap\+\_\+\+Client} $\ast$mc, const void $\ast$sender, int id, \hyperlink{maap_8h_a7224b59335de60a4d7328209ed591ac5}{Range} $\ast$\hyperlink{structrange}{range}, \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808dd}{Maap\+\_\+\+Notify\+\_\+\+Error} result)
+\item 
+static int \hyperlink{maap_8c_a502e63928d40c610c0e5d7912f3df0ac}{inform\+\_\+yielded} (\hyperlink{struct_maap___client}{Maap\+\_\+\+Client} $\ast$mc, const void $\ast$sender, int id, \hyperlink{maap_8h_a7224b59335de60a4d7328209ed591ac5}{Range} $\ast$\hyperlink{structrange}{range}, \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808dd}{Maap\+\_\+\+Notify\+\_\+\+Error} result)
+\item 
+static void \hyperlink{maap_8c_ac6d881d2f87314ec30a2d4acef413828}{start\+\_\+timer} (\hyperlink{struct_maap___client}{Maap\+\_\+\+Client} $\ast$mc)
+\item 
+static void \hyperlink{maap_8c_a132704b4be610a84953dc760c2de5ffb}{remove\+\_\+range\+\_\+interval} (\hyperlink{intervals_8h_af6f1ab89800839a9266a6dd11c2bc7ce}{Interval} $\ast$$\ast$root, \hyperlink{intervals_8h_af6f1ab89800839a9266a6dd11c2bc7ce}{Interval} $\ast$node)
+\item 
+void \hyperlink{maap_8c_aae85a0d8134e2f59396a0ea9eb117b6c}{add\+\_\+notify} (\hyperlink{struct_maap___client}{Maap\+\_\+\+Client} $\ast$mc, const void $\ast$sender, const \hyperlink{struct_maap___notify}{Maap\+\_\+\+Notify} $\ast$mn)
+\item 
+int \hyperlink{maap_8c_a781fa6b6b28682a51333187f4a1970c0}{get\+\_\+notify} (\hyperlink{struct_maap___client}{Maap\+\_\+\+Client} $\ast$mc, const void $\ast$$\ast$sender, \hyperlink{struct_maap___notify}{Maap\+\_\+\+Notify} $\ast$mn)
+\item 
+void \hyperlink{maap_8c_aa1d7d02b66a15fb6cf11b3bab9ff1907}{print\+\_\+notify} (\hyperlink{struct_maap___notify}{Maap\+\_\+\+Notify} $\ast$mn, \hyperlink{maap__iface_8h_a7ea08dbcb16d8fb55b10f06e9020c055}{print\+\_\+notify\+\_\+callback\+\_\+t} notify\+\_\+callback, void $\ast$callback\+\_\+data)
+\item 
+int \hyperlink{maap_8c_ab40b6b8a9d9c4269ef5deb0cb453e652}{maap\+\_\+init\+\_\+client} (\hyperlink{struct_maap___client}{Maap\+\_\+\+Client} $\ast$mc, const void $\ast$sender, \hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\+\_\+t} range\+\_\+address\+\_\+base, \hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\+\_\+t} range\+\_\+len)
+\item 
+void \hyperlink{maap_8c_abb26ec0dca0b97acd80b602bcfc2179a}{maap\+\_\+deinit\+\_\+client} (\hyperlink{struct_maap___client}{Maap\+\_\+\+Client} $\ast$mc)
+\item 
+int \hyperlink{maap_8c_aa175b28953c435758f47262cfb812534}{rand\+\_\+ms} (int variation)
+\item 
+int \hyperlink{maap_8c_a772c3868b86e35a12e19d64a61819eaa}{schedule\+\_\+timer} (\hyperlink{struct_maap___client}{Maap\+\_\+\+Client} $\ast$mc, \hyperlink{maap_8h_a7224b59335de60a4d7328209ed591ac5}{Range} $\ast$\hyperlink{structrange}{range})
+\item 
+static int \hyperlink{maap_8c_a92dcbdd4599817c3ef20dbd7970857c9}{assign\+\_\+interval} (\hyperlink{struct_maap___client}{Maap\+\_\+\+Client} $\ast$mc, \hyperlink{maap_8h_a7224b59335de60a4d7328209ed591ac5}{Range} $\ast$\hyperlink{structrange}{range}, \hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\+\_\+t} attempt\+\_\+base, uint16\+\_\+t len)
+\item 
+int \hyperlink{maap_8c_a0815c405656bea7b54ea61f23925da82}{maap\+\_\+reserve\+\_\+range} (\hyperlink{struct_maap___client}{Maap\+\_\+\+Client} $\ast$mc, const void $\ast$sender, \hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\+\_\+t} attempt\+\_\+base, \hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\+\_\+t} length)
+\item 
+int \hyperlink{maap_8c_a417bfd5470da32b65311e94ee9ea2893}{maap\+\_\+release\+\_\+range} (\hyperlink{struct_maap___client}{Maap\+\_\+\+Client} $\ast$mc, const void $\ast$sender, int id)
+\item 
+void \hyperlink{maap_8c_a1f75df116573c750510198dda3dc69f3}{maap\+\_\+range\+\_\+status} (\hyperlink{struct_maap___client}{Maap\+\_\+\+Client} $\ast$mc, const void $\ast$sender, int id)
+\item 
+int \hyperlink{maap_8c_a343d579cb0df77bcbc32402f0d15e378}{maap\+\_\+yield\+\_\+range} (\hyperlink{struct_maap___client}{Maap\+\_\+\+Client} $\ast$mc, const void $\ast$sender, int id)
+\item 
+int \hyperlink{maap_8c_a7807b60e9a515b68da136756773bd576}{maap\+\_\+handle\+\_\+packet} (\hyperlink{struct_maap___client}{Maap\+\_\+\+Client} $\ast$mc, const \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\+\_\+t} $\ast$stream, int len)
+\item 
+int \hyperlink{maap_8c_af2c988eccac613bbe3104d4ce81080ef}{handle\+\_\+probe\+\_\+timer} (\hyperlink{struct_maap___client}{Maap\+\_\+\+Client} $\ast$mc, \hyperlink{maap_8h_a7224b59335de60a4d7328209ed591ac5}{Range} $\ast$\hyperlink{structrange}{range})
+\item 
+int \hyperlink{maap_8c_ae0d0f73d062f3459b8e56393192bdba0}{handle\+\_\+defend\+\_\+timer} (\hyperlink{struct_maap___client}{Maap\+\_\+\+Client} $\ast$mc, \hyperlink{maap_8h_a7224b59335de60a4d7328209ed591ac5}{Range} $\ast$\hyperlink{structrange}{range})
+\item 
+int \hyperlink{maap_8c_aa1afbfc7f866343d5bd44b53325b4164}{maap\+\_\+handle\+\_\+timer} (\hyperlink{struct_maap___client}{Maap\+\_\+\+Client} $\ast$mc)
+\item 
+\hyperlink{parse_8c_a67a9885ef4908cb72ce26d75b694386c}{int64\+\_\+t} \hyperlink{maap_8c_ac4c7992b7ae19944422573787cdd8a87}{maap\+\_\+get\+\_\+delay\+\_\+to\+\_\+next\+\_\+timer} (\hyperlink{struct_maap___client}{Maap\+\_\+\+Client} $\ast$mc)
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{maap.\+c@{maap.\+c}!D\+E\+B\+U\+G\+\_\+\+N\+E\+G\+O\+T\+I\+A\+T\+E\+\_\+\+M\+SG@{D\+E\+B\+U\+G\+\_\+\+N\+E\+G\+O\+T\+I\+A\+T\+E\+\_\+\+M\+SG}}
+\index{D\+E\+B\+U\+G\+\_\+\+N\+E\+G\+O\+T\+I\+A\+T\+E\+\_\+\+M\+SG@{D\+E\+B\+U\+G\+\_\+\+N\+E\+G\+O\+T\+I\+A\+T\+E\+\_\+\+M\+SG}!maap.\+c@{maap.\+c}}
+\subsubsection[{\texorpdfstring{D\+E\+B\+U\+G\+\_\+\+N\+E\+G\+O\+T\+I\+A\+T\+E\+\_\+\+M\+SG}{DEBUG_NEGOTIATE_MSG}}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+E\+B\+U\+G\+\_\+\+N\+E\+G\+O\+T\+I\+A\+T\+E\+\_\+\+M\+SG}\hypertarget{maap_8c_aeea4d4398456dd5af86e8b9055dd450c}{}\label{maap_8c_aeea4d4398456dd5af86e8b9055dd450c}
+
+
+maap.\+c 파일의 53 번째 라인에서 정의되었습니다.
+
+\index{maap.\+c@{maap.\+c}!D\+E\+B\+U\+G\+\_\+\+T\+I\+M\+E\+R\+\_\+\+M\+SG@{D\+E\+B\+U\+G\+\_\+\+T\+I\+M\+E\+R\+\_\+\+M\+SG}}
+\index{D\+E\+B\+U\+G\+\_\+\+T\+I\+M\+E\+R\+\_\+\+M\+SG@{D\+E\+B\+U\+G\+\_\+\+T\+I\+M\+E\+R\+\_\+\+M\+SG}!maap.\+c@{maap.\+c}}
+\subsubsection[{\texorpdfstring{D\+E\+B\+U\+G\+\_\+\+T\+I\+M\+E\+R\+\_\+\+M\+SG}{DEBUG_TIMER_MSG}}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+E\+B\+U\+G\+\_\+\+T\+I\+M\+E\+R\+\_\+\+M\+SG}\hypertarget{maap_8c_ad2ad4b26ade1b0cf494d499da94c70e6}{}\label{maap_8c_ad2ad4b26ade1b0cf494d499da94c70e6}
+
+
+maap.\+c 파일의 50 번째 라인에서 정의되었습니다.
+
+\index{maap.\+c@{maap.\+c}!M\+A\+A\+P\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT@{M\+A\+A\+P\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}}
+\index{M\+A\+A\+P\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT@{M\+A\+A\+P\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}!maap.\+c@{maap.\+c}}
+\subsubsection[{\texorpdfstring{M\+A\+A\+P\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}{MAAP_LOG_COMPONENT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+A\+P\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT~\char`\"{}Main\char`\"{}}\hypertarget{maap_8c_af641e281ec3ad594d47b9071f3cbc493}{}\label{maap_8c_af641e281ec3ad594d47b9071f3cbc493}
+
+
+maap.\+c 파일의 46 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{함수 문서화}
+\index{maap.\+c@{maap.\+c}!add\+\_\+notify@{add\+\_\+notify}}
+\index{add\+\_\+notify@{add\+\_\+notify}!maap.\+c@{maap.\+c}}
+\subsubsection[{\texorpdfstring{add\+\_\+notify(\+Maap\+\_\+\+Client $\ast$mc, const void $\ast$sender, const Maap\+\_\+\+Notify $\ast$mn)}{add_notify(Maap_Client *mc, const void *sender, const Maap_Notify *mn)}}]{\setlength{\rightskip}{0pt plus 5cm}void add\+\_\+notify (
+\begin{DoxyParamCaption}
+\item[{{\bf Maap\+\_\+\+Client} $\ast$}]{mc, }
+\item[{const void $\ast$}]{sender, }
+\item[{const {\bf Maap\+\_\+\+Notify} $\ast$}]{mn}
+\end{DoxyParamCaption}
+)}\hypertarget{maap_8c_aae85a0d8134e2f59396a0ea9eb117b6c}{}\label{maap_8c_aae85a0d8134e2f59396a0ea9eb117b6c}
+Add a notification to the end of the notifications queue.
+
+
+\begin{DoxyParams}{매개변수}
+{\em mc} & Pointer to the \hyperlink{struct_maap___client}{Maap\+\_\+\+Client} structure to use \\
+\hline
+{\em sender} & Sender information pointer used to track the entity requesting the command \\
+\hline
+{\em mn} & \hyperlink{struct_maap___notify}{Maap\+\_\+\+Notify} structure with the notification information to use \\
+\hline
+\end{DoxyParams}
+
+
+maap.\+c 파일의 276 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+276                                                                             \{
+277     \hyperlink{structmaap__notify__list}{Maap\_Notify\_List} *tmp, *li = \hyperlink{_memory_leak_detector_malloc_macros_8h_a7cbb7b79af9d539af55b59dfc3598390}{calloc}(1, \textcolor{keyword}{sizeof} (
+      \hyperlink{structmaap__notify__list}{Maap\_Notify\_List}));
+278     memcpy(&li->\hyperlink{structmaap__notify__list_a1f432a44e5c304a860941b05468fa821}{notify}, mn, sizeof (\hyperlink{struct_maap___notify}{Maap\_Notify}));
+279     li->\hyperlink{structmaap__notify__list_a6da9953a2443ab3bd33eea3534c01fdd}{sender} = sender;
+280 
+281     \textcolor{keywordflow}{if} (mc->\hyperlink{struct_maap___client_a898d3392eb9ff64e224e8fb47d4f59fc}{notifies} == \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \{
+282         mc->\hyperlink{struct_maap___client_a898d3392eb9ff64e224e8fb47d4f59fc}{notifies} = li;
+283     \} \textcolor{keywordflow}{else} \{
+284         tmp = mc->\hyperlink{struct_maap___client_a898d3392eb9ff64e224e8fb47d4f59fc}{notifies};
+285         \textcolor{keywordflow}{while} (tmp->\hyperlink{structmaap__notify__list_af599eaac27b6bff8faccf3831694bace}{next}) \{
+286             tmp = tmp->\hyperlink{structmaap__notify__list_af599eaac27b6bff8faccf3831694bace}{next};
+287         \}
+288         tmp->\hyperlink{structmaap__notify__list_af599eaac27b6bff8faccf3831694bace}{next} = li;
+289     \}
+290 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_aae85a0d8134e2f59396a0ea9eb117b6c_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap.\+c@{maap.\+c}!assign\+\_\+interval@{assign\+\_\+interval}}
+\index{assign\+\_\+interval@{assign\+\_\+interval}!maap.\+c@{maap.\+c}}
+\subsubsection[{\texorpdfstring{assign\+\_\+interval(\+Maap\+\_\+\+Client $\ast$mc, Range $\ast$range, uint64\+\_\+t attempt\+\_\+base, uint16\+\_\+t len)}{assign_interval(Maap_Client *mc, Range *range, uint64_t attempt_base, uint16_t len)}}]{\setlength{\rightskip}{0pt plus 5cm}static int assign\+\_\+interval (
+\begin{DoxyParamCaption}
+\item[{{\bf Maap\+\_\+\+Client} $\ast$}]{mc, }
+\item[{{\bf Range} $\ast$}]{range, }
+\item[{{\bf uint64\+\_\+t}}]{attempt\+\_\+base, }
+\item[{uint16\+\_\+t}]{len}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{maap_8c_a92dcbdd4599817c3ef20dbd7970857c9}{}\label{maap_8c_a92dcbdd4599817c3ef20dbd7970857c9}
+\begin{DoxyRefDesc}{할일}
+\item[\hyperlink{todo__todo000031}{할일}]Use the saved M\+A\+A\+P\+\_\+\+A\+N\+N\+O\+U\+N\+CE message ranges to search for addresses likely to be available. Old announced ranges (e.\+g. older than 1.\+75 minutes) can be deleted if there are no ranges available. \end{DoxyRefDesc}
+
+
+maap.\+c 파일의 621 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+621                                                                                                \{
+622     \hyperlink{structinterval__node}{Interval} *iv;
+623     \textcolor{keywordtype}{int} i, rv = \hyperlink{intervals_8h_afe0cbfc351857ce556b7e1017a3dac87}{INTERVAL\_OVERLAP};
+624     \hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\_t} range\_max;
+625 
+626     \textcolor{keywordflow}{if} (len > mc->\hyperlink{struct_maap___client_aa1f919567122a4029070948bdfdcf2a3}{range\_len}) \{ \textcolor{keywordflow}{return} -1; \}
+627     range\_max = mc->\hyperlink{struct_maap___client_aa1f919567122a4029070948bdfdcf2a3}{range\_len} - 1;
+628 
+629     \textcolor{comment}{/* If we were supplied with a base address to attempt, try that first. */}
+630     \textcolor{keywordflow}{if} (attempt\_base >= mc->\hyperlink{struct_maap___client_a35767d757d073fc43d0f1118d5cbdc4e}{address\_base} &&
+631         attempt\_base + len - 1 <= mc->\hyperlink{struct_maap___client_a35767d757d073fc43d0f1118d5cbdc4e}{address\_base} + mc->\hyperlink{struct_maap___client_aa1f919567122a4029070948bdfdcf2a3}{range\_len} - 1)
+632     \{
+633         iv = \hyperlink{intervals_8c_a56ad0aff1af6eebd9d516f25709a761b}{alloc\_interval}((\hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\_t}) (attempt\_base - mc->
+      \hyperlink{struct_maap___client_a35767d757d073fc43d0f1118d5cbdc4e}{address\_base}), len);
+634         assert(iv->\hyperlink{structinterval__node_a0d90a9fe74bca2dccde7f81cddfdf7b0}{high} <= range\_max);
+635         rv = \hyperlink{intervals_8c_ab0d11dcd6cc7cdd26d1954e27578e722}{insert\_interval}(&mc->\hyperlink{struct_maap___client_a415d09d180ac60757c9f10728fd42e8a}{ranges}, iv);
+636         \textcolor{keywordflow}{if} (rv == \hyperlink{intervals_8h_afe0cbfc351857ce556b7e1017a3dac87}{INTERVAL\_OVERLAP}) \{
+637             \hyperlink{intervals_8c_a12921bd81229ae4bc736b1bf543d7b3c}{free\_interval}(iv);
+638         \}
+639     \}
+640 
+644     \textcolor{keywordflow}{for} (i = 0; i < 1000 && rv == \hyperlink{intervals_8h_afe0cbfc351857ce556b7e1017a3dac87}{INTERVAL\_OVERLAP}; ++i) \{
+645         iv = \hyperlink{intervals_8c_a56ad0aff1af6eebd9d516f25709a761b}{alloc\_interval}(random() % (mc->\hyperlink{struct_maap___client_aa1f919567122a4029070948bdfdcf2a3}{range\_len} + 1 - len), len);
+646         assert(iv->\hyperlink{structinterval__node_a0d90a9fe74bca2dccde7f81cddfdf7b0}{high} <= range\_max);
+647         rv = \hyperlink{intervals_8c_ab0d11dcd6cc7cdd26d1954e27578e722}{insert\_interval}(&mc->\hyperlink{struct_maap___client_a415d09d180ac60757c9f10728fd42e8a}{ranges}, iv);
+648         \textcolor{keywordflow}{if} (rv == \hyperlink{intervals_8h_afe0cbfc351857ce556b7e1017a3dac87}{INTERVAL\_OVERLAP}) \{
+649             \hyperlink{intervals_8c_a12921bd81229ae4bc736b1bf543d7b3c}{free\_interval}(iv);
+650         \}
+651     \}
+652     \textcolor{keywordflow}{if} (i >= 1000) \{
+653         \textcolor{comment}{/* There don't appear to be any options! */}
+654         \textcolor{keywordflow}{return} -1;
+655     \}
+656 
+657     iv->\hyperlink{structinterval__node_a735984d41155bc1032e09bece8f8d66d}{data} = range;
+658     range->\hyperlink{structrange_a07955c04c790953cbbcc9305fda01a0a}{interval} = iv;
+659 
+660     \textcolor{keywordflow}{return} 0;
+661 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_a92dcbdd4599817c3ef20dbd7970857c9_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_a92dcbdd4599817c3ef20dbd7970857c9_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap.\+c@{maap.\+c}!get\+\_\+count@{get\+\_\+count}}
+\index{get\+\_\+count@{get\+\_\+count}!maap.\+c@{maap.\+c}}
+\subsubsection[{\texorpdfstring{get\+\_\+count(\+Maap\+\_\+\+Client $\ast$mc, Range $\ast$range)}{get_count(Maap_Client *mc, Range *range)}}]{\setlength{\rightskip}{0pt plus 5cm}static int get\+\_\+count (
+\begin{DoxyParamCaption}
+\item[{{\bf Maap\+\_\+\+Client} $\ast$}]{mc, }
+\item[{{\bf Range} $\ast$}]{range}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{maap_8c_ab242a9bc452252bfb882a2b22c883be1}{}\label{maap_8c_ab242a9bc452252bfb882a2b22c883be1}
+
+
+maap.\+c 파일의 56 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+56                                                     \{
+57     (void)mc;
+58     \textcolor{keywordflow}{return} range->\hyperlink{structrange_a07955c04c790953cbbcc9305fda01a0a}{interval}->\hyperlink{structinterval__node_a0d90a9fe74bca2dccde7f81cddfdf7b0}{high} - range->\hyperlink{structrange_a07955c04c790953cbbcc9305fda01a0a}{interval}->\hyperlink{structinterval__node_a864f755b7008df85b29726891bdd4fbd}{low} + 1;
+59  \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_ab242a9bc452252bfb882a2b22c883be1_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap.\+c@{maap.\+c}!get\+\_\+end\+\_\+address@{get\+\_\+end\+\_\+address}}
+\index{get\+\_\+end\+\_\+address@{get\+\_\+end\+\_\+address}!maap.\+c@{maap.\+c}}
+\subsubsection[{\texorpdfstring{get\+\_\+end\+\_\+address(\+Maap\+\_\+\+Client $\ast$mc, Range $\ast$range)}{get_end_address(Maap_Client *mc, Range *range)}}]{\setlength{\rightskip}{0pt plus 5cm}static unsigned long long int get\+\_\+end\+\_\+address (
+\begin{DoxyParamCaption}
+\item[{{\bf Maap\+\_\+\+Client} $\ast$}]{mc, }
+\item[{{\bf Range} $\ast$}]{range}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{maap_8c_a8134fc0dafff29b1e3a7efed0c33f8d3}{}\label{maap_8c_a8134fc0dafff29b1e3a7efed0c33f8d3}
+
+
+maap.\+c 파일의 65 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+65                                                                              \{
+66     \textcolor{keywordflow}{return} mc->\hyperlink{struct_maap___client_a35767d757d073fc43d0f1118d5cbdc4e}{address\_base} + range->\hyperlink{structrange_a07955c04c790953cbbcc9305fda01a0a}{interval}->\hyperlink{structinterval__node_a0d90a9fe74bca2dccde7f81cddfdf7b0}{high};
+67 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_a8134fc0dafff29b1e3a7efed0c33f8d3_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap.\+c@{maap.\+c}!get\+\_\+notify@{get\+\_\+notify}}
+\index{get\+\_\+notify@{get\+\_\+notify}!maap.\+c@{maap.\+c}}
+\subsubsection[{\texorpdfstring{get\+\_\+notify(\+Maap\+\_\+\+Client $\ast$mc, const void $\ast$$\ast$sender, Maap\+\_\+\+Notify $\ast$mn)}{get_notify(Maap_Client *mc, const void **sender, Maap_Notify *mn)}}]{\setlength{\rightskip}{0pt plus 5cm}int get\+\_\+notify (
+\begin{DoxyParamCaption}
+\item[{{\bf Maap\+\_\+\+Client} $\ast$}]{mc, }
+\item[{const void $\ast$$\ast$}]{sender, }
+\item[{{\bf Maap\+\_\+\+Notify} $\ast$}]{mn}
+\end{DoxyParamCaption}
+)}\hypertarget{maap_8c_a781fa6b6b28682a51333187f4a1970c0}{}\label{maap_8c_a781fa6b6b28682a51333187f4a1970c0}
+Get the next notification from the notifications queue.
+
+
+\begin{DoxyParams}{매개변수}
+{\em mc} & Pointer to the \hyperlink{struct_maap___client}{Maap\+\_\+\+Client} structure to use \\
+\hline
+{\em sender} & Pointer to empty sender information pointer to receive the entity requesting the command \\
+\hline
+{\em mn} & Empty \hyperlink{struct_maap___notify}{Maap\+\_\+\+Notify} structure to fill with the notification information\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+1 if a notification was returned, 0 if there are no more queued notifications. 
+\end{DoxyReturn}
+
+
+maap.\+c 파일의 292 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+292                                                                       \{
+293     \hyperlink{structmaap__notify__list}{Maap\_Notify\_List} *tmp;
+294 
+295     \textcolor{keywordflow}{if} (mc->\hyperlink{struct_maap___client_a898d3392eb9ff64e224e8fb47d4f59fc}{notifies}) \{
+296         tmp = mc->\hyperlink{struct_maap___client_a898d3392eb9ff64e224e8fb47d4f59fc}{notifies};
+297         \textcolor{keywordflow}{if} (mn) \{ memcpy(mn, &(tmp->\hyperlink{structmaap__notify__list_a1f432a44e5c304a860941b05468fa821}{notify}), sizeof (\hyperlink{struct_maap___notify}{Maap\_Notify})); \}
+298         \textcolor{keywordflow}{if} (sender) \{ *sender = tmp->\hyperlink{structmaap__notify__list_a6da9953a2443ab3bd33eea3534c01fdd}{sender}; \}
+299         mc->\hyperlink{struct_maap___client_a898d3392eb9ff64e224e8fb47d4f59fc}{notifies} = tmp->\hyperlink{structmaap__notify__list_af599eaac27b6bff8faccf3831694bace}{next};
+300         \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(tmp);
+301         \textcolor{keywordflow}{return} 1;
+302     \}
+303     \textcolor{keywordflow}{return} 0;
+304 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_a781fa6b6b28682a51333187f4a1970c0_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap.\+c@{maap.\+c}!get\+\_\+start\+\_\+address@{get\+\_\+start\+\_\+address}}
+\index{get\+\_\+start\+\_\+address@{get\+\_\+start\+\_\+address}!maap.\+c@{maap.\+c}}
+\subsubsection[{\texorpdfstring{get\+\_\+start\+\_\+address(\+Maap\+\_\+\+Client $\ast$mc, Range $\ast$range)}{get_start_address(Maap_Client *mc, Range *range)}}]{\setlength{\rightskip}{0pt plus 5cm}static unsigned long long int get\+\_\+start\+\_\+address (
+\begin{DoxyParamCaption}
+\item[{{\bf Maap\+\_\+\+Client} $\ast$}]{mc, }
+\item[{{\bf Range} $\ast$}]{range}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{maap_8c_af402827798fb1beb38578db3622c58d3}{}\label{maap_8c_af402827798fb1beb38578db3622c58d3}
+
+
+maap.\+c 파일의 61 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+61                                                                                \{
+62     \textcolor{keywordflow}{return} mc->\hyperlink{struct_maap___client_a35767d757d073fc43d0f1118d5cbdc4e}{address\_base} + range->\hyperlink{structrange_a07955c04c790953cbbcc9305fda01a0a}{interval}->\hyperlink{structinterval__node_a864f755b7008df85b29726891bdd4fbd}{low};
+63 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_af402827798fb1beb38578db3622c58d3_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap.\+c@{maap.\+c}!handle\+\_\+defend\+\_\+timer@{handle\+\_\+defend\+\_\+timer}}
+\index{handle\+\_\+defend\+\_\+timer@{handle\+\_\+defend\+\_\+timer}!maap.\+c@{maap.\+c}}
+\subsubsection[{\texorpdfstring{handle\+\_\+defend\+\_\+timer(\+Maap\+\_\+\+Client $\ast$mc, Range $\ast$range)}{handle_defend_timer(Maap_Client *mc, Range *range)}}]{\setlength{\rightskip}{0pt plus 5cm}int handle\+\_\+defend\+\_\+timer (
+\begin{DoxyParamCaption}
+\item[{{\bf Maap\+\_\+\+Client} $\ast$}]{mc, }
+\item[{{\bf Range} $\ast$}]{range}
+\end{DoxyParamCaption}
+)}\hypertarget{maap_8c_ae0d0f73d062f3459b8e56393192bdba0}{}\label{maap_8c_ae0d0f73d062f3459b8e56393192bdba0}
+
+
+maap.\+c 파일의 1022 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+1022                                                        \{
+1023     \hyperlink{maap_8c_a772c3868b86e35a12e19d64a61819eaa}{schedule\_timer}(mc, range);
+1024     \hyperlink{maap_8c_a347a548120a8564100386c1937b9bf0c}{send\_announce}(mc, range);
+1025 
+1026     \textcolor{keywordflow}{return} 0;
+1027 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_ae0d0f73d062f3459b8e56393192bdba0_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_ae0d0f73d062f3459b8e56393192bdba0_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap.\+c@{maap.\+c}!handle\+\_\+probe\+\_\+timer@{handle\+\_\+probe\+\_\+timer}}
+\index{handle\+\_\+probe\+\_\+timer@{handle\+\_\+probe\+\_\+timer}!maap.\+c@{maap.\+c}}
+\subsubsection[{\texorpdfstring{handle\+\_\+probe\+\_\+timer(\+Maap\+\_\+\+Client $\ast$mc, Range $\ast$range)}{handle_probe_timer(Maap_Client *mc, Range *range)}}]{\setlength{\rightskip}{0pt plus 5cm}int handle\+\_\+probe\+\_\+timer (
+\begin{DoxyParamCaption}
+\item[{{\bf Maap\+\_\+\+Client} $\ast$}]{mc, }
+\item[{{\bf Range} $\ast$}]{range}
+\end{DoxyParamCaption}
+)}\hypertarget{maap_8c_af2c988eccac613bbe3104d4ce81080ef}{}\label{maap_8c_af2c988eccac613bbe3104d4ce81080ef}
+
+
+maap.\+c 파일의 1007 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+1007                                                       \{
+1008     \textcolor{keywordflow}{if} (range->\hyperlink{structrange_a617a47c70795bcff659815ad0efd2266}{counter} == 0) \{
+1009         \hyperlink{maap_8c_a8f18995bead4e44c65c99a1c117f8ea5}{inform\_acquired}(mc, range, \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808ddaf7eb8886cefe2e917296e22c19bbebd0}{MAAP\_NOTIFY\_ERROR\_NONE});
+1010         range->\hyperlink{structrange_afb8e4b0a842160bfedbee377952d8dde}{state} = \hyperlink{maap_8h_a683b69c2f503f6c19577bca59530533ba96eb18649b740c73582bca409e1d2d52}{MAAP\_STATE\_DEFENDING};
+1011         \hyperlink{maap_8c_a772c3868b86e35a12e19d64a61819eaa}{schedule\_timer}(mc, range);
+1012         \hyperlink{maap_8c_a347a548120a8564100386c1937b9bf0c}{send\_announce}(mc, range);
+1013     \} \textcolor{keywordflow}{else} \{
+1014         range->\hyperlink{structrange_a617a47c70795bcff659815ad0efd2266}{counter}--;
+1015         \hyperlink{maap_8c_a772c3868b86e35a12e19d64a61819eaa}{schedule\_timer}(mc, range);
+1016         \hyperlink{maap_8c_a3518a5176c421f589c9720bee301c977}{send\_probe}(mc, range);
+1017     \}
+1018 
+1019     \textcolor{keywordflow}{return} 0;
+1020 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_af2c988eccac613bbe3104d4ce81080ef_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_af2c988eccac613bbe3104d4ce81080ef_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap.\+c@{maap.\+c}!inform\+\_\+acquired@{inform\+\_\+acquired}}
+\index{inform\+\_\+acquired@{inform\+\_\+acquired}!maap.\+c@{maap.\+c}}
+\subsubsection[{\texorpdfstring{inform\+\_\+acquired(\+Maap\+\_\+\+Client $\ast$mc, Range $\ast$range, Maap\+\_\+\+Notify\+\_\+\+Error result)}{inform_acquired(Maap_Client *mc, Range *range, Maap_Notify_Error result)}}]{\setlength{\rightskip}{0pt plus 5cm}static int inform\+\_\+acquired (
+\begin{DoxyParamCaption}
+\item[{{\bf Maap\+\_\+\+Client} $\ast$}]{mc, }
+\item[{{\bf Range} $\ast$}]{range, }
+\item[{{\bf Maap\+\_\+\+Notify\+\_\+\+Error}}]{result}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{maap_8c_a8f18995bead4e44c65c99a1c117f8ea5}{}\label{maap_8c_a8f18995bead4e44c65c99a1c117f8ea5}
+
+
+maap.\+c 파일의 180 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+180                                                                                     \{
+181     \hyperlink{struct_maap___notify}{Maap\_Notify} note;
+182 
+183     note.\hyperlink{struct_maap___notify_a28725ddb5295895b12a48456f73a5665}{kind} = \hyperlink{maap__iface_8h_a0d45e125fb876b383321d96bc510285ea37a35b37b6f804ebc82248ae3ed110c6}{MAAP\_NOTIFY\_ACQUIRED};
+184     note.\hyperlink{struct_maap___notify_a2708c0bbb6f926149707c2c61fe43c3e}{id} = range->\hyperlink{structrange_a7441ef0865bcb3db9b8064dd7375c1ea}{id};
+185     note.\hyperlink{struct_maap___notify_a6a51e9baeec9b06ae477cf6475efc71d}{start} = \hyperlink{maap_8c_af402827798fb1beb38578db3622c58d3}{get\_start\_address}(mc, range);
+186     note.\hyperlink{struct_maap___notify_a86988a65e0d3ece7990c032c159786d6}{count} = \hyperlink{maap_8c_ab242a9bc452252bfb882a2b22c883be1}{get\_count}(mc, range);
+187     note.\hyperlink{struct_maap___notify_a9d66bc8bbfd0a30a80edda69603ea9ba}{result} = result;
+188 
+189     \hyperlink{maap_8c_aae85a0d8134e2f59396a0ea9eb117b6c}{add\_notify}(mc, range->\hyperlink{structrange_a6da9953a2443ab3bd33eea3534c01fdd}{sender}, &note);
+190     \textcolor{keywordflow}{return} 0;
+191 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=297pt]{maap_8c_a8f18995bead4e44c65c99a1c117f8ea5_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_a8f18995bead4e44c65c99a1c117f8ea5_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap.\+c@{maap.\+c}!inform\+\_\+acquiring@{inform\+\_\+acquiring}}
+\index{inform\+\_\+acquiring@{inform\+\_\+acquiring}!maap.\+c@{maap.\+c}}
+\subsubsection[{\texorpdfstring{inform\+\_\+acquiring(\+Maap\+\_\+\+Client $\ast$mc, Range $\ast$range)}{inform_acquiring(Maap_Client *mc, Range *range)}}]{\setlength{\rightskip}{0pt plus 5cm}static int inform\+\_\+acquiring (
+\begin{DoxyParamCaption}
+\item[{{\bf Maap\+\_\+\+Client} $\ast$}]{mc, }
+\item[{{\bf Range} $\ast$}]{range}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{maap_8c_a692c87a4ead0c5aab0e11973b2fa659c}{}\label{maap_8c_a692c87a4ead0c5aab0e11973b2fa659c}
+
+
+maap.\+c 파일의 167 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+167                                                            \{
+168     \hyperlink{struct_maap___notify}{Maap\_Notify} note;
+169 
+170     note.\hyperlink{struct_maap___notify_a28725ddb5295895b12a48456f73a5665}{kind} = \hyperlink{maap__iface_8h_a0d45e125fb876b383321d96bc510285ea0f5d99d0f124fe7233cacefd53f26127}{MAAP\_NOTIFY\_ACQUIRING};
+171     note.\hyperlink{struct_maap___notify_a2708c0bbb6f926149707c2c61fe43c3e}{id} = range->\hyperlink{structrange_a7441ef0865bcb3db9b8064dd7375c1ea}{id};
+172     note.\hyperlink{struct_maap___notify_a6a51e9baeec9b06ae477cf6475efc71d}{start} = \hyperlink{maap_8c_af402827798fb1beb38578db3622c58d3}{get\_start\_address}(mc, range);
+173     note.\hyperlink{struct_maap___notify_a86988a65e0d3ece7990c032c159786d6}{count} = \hyperlink{maap_8c_ab242a9bc452252bfb882a2b22c883be1}{get\_count}(mc, range);
+174     note.\hyperlink{struct_maap___notify_a9d66bc8bbfd0a30a80edda69603ea9ba}{result} = \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808ddaf7eb8886cefe2e917296e22c19bbebd0}{MAAP\_NOTIFY\_ERROR\_NONE};
+175 
+176     \hyperlink{maap_8c_aae85a0d8134e2f59396a0ea9eb117b6c}{add\_notify}(mc, range->\hyperlink{structrange_a6da9953a2443ab3bd33eea3534c01fdd}{sender}, &note);
+177     \textcolor{keywordflow}{return} 0;
+178 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=299pt]{maap_8c_a692c87a4ead0c5aab0e11973b2fa659c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_a692c87a4ead0c5aab0e11973b2fa659c_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap.\+c@{maap.\+c}!inform\+\_\+initialized@{inform\+\_\+initialized}}
+\index{inform\+\_\+initialized@{inform\+\_\+initialized}!maap.\+c@{maap.\+c}}
+\subsubsection[{\texorpdfstring{inform\+\_\+initialized(\+Maap\+\_\+\+Client $\ast$mc, const void $\ast$sender, Maap\+\_\+\+Notify\+\_\+\+Error result)}{inform_initialized(Maap_Client *mc, const void *sender, Maap_Notify_Error result)}}]{\setlength{\rightskip}{0pt plus 5cm}static int inform\+\_\+initialized (
+\begin{DoxyParamCaption}
+\item[{{\bf Maap\+\_\+\+Client} $\ast$}]{mc, }
+\item[{const void $\ast$}]{sender, }
+\item[{{\bf Maap\+\_\+\+Notify\+\_\+\+Error}}]{result}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{maap_8c_a8dda57ae534fb838663bac266a054074}{}\label{maap_8c_a8dda57ae534fb838663bac266a054074}
+
+
+maap.\+c 파일의 154 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+154                                                                                              \{
+155     \hyperlink{struct_maap___notify}{Maap\_Notify} note;
+156 
+157     note.\hyperlink{struct_maap___notify_a28725ddb5295895b12a48456f73a5665}{kind} = \hyperlink{maap__iface_8h_a0d45e125fb876b383321d96bc510285ea1933d7302204862df14f845d2566183c}{MAAP\_NOTIFY\_INITIALIZED};
+158     note.\hyperlink{struct_maap___notify_a2708c0bbb6f926149707c2c61fe43c3e}{id} = -1; \textcolor{comment}{/* Not used */}
+159     note.\hyperlink{struct_maap___notify_a6a51e9baeec9b06ae477cf6475efc71d}{start} = mc->\hyperlink{struct_maap___client_a35767d757d073fc43d0f1118d5cbdc4e}{address\_base};
+160     note.\hyperlink{struct_maap___notify_a86988a65e0d3ece7990c032c159786d6}{count} = mc->\hyperlink{struct_maap___client_aa1f919567122a4029070948bdfdcf2a3}{range\_len};
+161     note.\hyperlink{struct_maap___notify_a9d66bc8bbfd0a30a80edda69603ea9ba}{result} = result;
+162 
+163     \hyperlink{maap_8c_aae85a0d8134e2f59396a0ea9eb117b6c}{add\_notify}(mc, sender, &note);
+164     \textcolor{keywordflow}{return} 0;
+165 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=267pt]{maap_8c_a8dda57ae534fb838663bac266a054074_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_a8dda57ae534fb838663bac266a054074_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap.\+c@{maap.\+c}!inform\+\_\+not\+\_\+acquired@{inform\+\_\+not\+\_\+acquired}}
+\index{inform\+\_\+not\+\_\+acquired@{inform\+\_\+not\+\_\+acquired}!maap.\+c@{maap.\+c}}
+\subsubsection[{\texorpdfstring{inform\+\_\+not\+\_\+acquired(\+Maap\+\_\+\+Client $\ast$mc, const void $\ast$sender, int id, int range\+\_\+size, Maap\+\_\+\+Notify\+\_\+\+Error result)}{inform_not_acquired(Maap_Client *mc, const void *sender, int id, int range_size, Maap_Notify_Error result)}}]{\setlength{\rightskip}{0pt plus 5cm}static int inform\+\_\+not\+\_\+acquired (
+\begin{DoxyParamCaption}
+\item[{{\bf Maap\+\_\+\+Client} $\ast$}]{mc, }
+\item[{const void $\ast$}]{sender, }
+\item[{int}]{id, }
+\item[{int}]{range\+\_\+size, }
+\item[{{\bf Maap\+\_\+\+Notify\+\_\+\+Error}}]{result}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{maap_8c_a467114b6b0203c3f577f6fc1e8b60783}{}\label{maap_8c_a467114b6b0203c3f577f6fc1e8b60783}
+
+
+maap.\+c 파일의 193 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+193                                                                                                            
+                 \{
+194     \hyperlink{struct_maap___notify}{Maap\_Notify} note;
+195 
+196     note.\hyperlink{struct_maap___notify_a28725ddb5295895b12a48456f73a5665}{kind} = \hyperlink{maap__iface_8h_a0d45e125fb876b383321d96bc510285ea37a35b37b6f804ebc82248ae3ed110c6}{MAAP\_NOTIFY\_ACQUIRED};
+197     note.\hyperlink{struct_maap___notify_a2708c0bbb6f926149707c2c61fe43c3e}{id} = id;
+198     note.\hyperlink{struct_maap___notify_a6a51e9baeec9b06ae477cf6475efc71d}{start} = 0;
+199     note.\hyperlink{struct_maap___notify_a86988a65e0d3ece7990c032c159786d6}{count} = range\_size;
+200     note.\hyperlink{struct_maap___notify_a9d66bc8bbfd0a30a80edda69603ea9ba}{result} = result;
+201 
+202     \hyperlink{maap_8c_aae85a0d8134e2f59396a0ea9eb117b6c}{add\_notify}(mc, sender, &note);
+203     \textcolor{keywordflow}{return} 0;
+204 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=282pt]{maap_8c_a467114b6b0203c3f577f6fc1e8b60783_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_a467114b6b0203c3f577f6fc1e8b60783_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap.\+c@{maap.\+c}!inform\+\_\+released@{inform\+\_\+released}}
+\index{inform\+\_\+released@{inform\+\_\+released}!maap.\+c@{maap.\+c}}
+\subsubsection[{\texorpdfstring{inform\+\_\+released(\+Maap\+\_\+\+Client $\ast$mc, const void $\ast$sender, int id, Range $\ast$range, Maap\+\_\+\+Notify\+\_\+\+Error result)}{inform_released(Maap_Client *mc, const void *sender, int id, Range *range, Maap_Notify_Error result)}}]{\setlength{\rightskip}{0pt plus 5cm}static int inform\+\_\+released (
+\begin{DoxyParamCaption}
+\item[{{\bf Maap\+\_\+\+Client} $\ast$}]{mc, }
+\item[{const void $\ast$}]{sender, }
+\item[{int}]{id, }
+\item[{{\bf Range} $\ast$}]{range, }
+\item[{{\bf Maap\+\_\+\+Notify\+\_\+\+Error}}]{result}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{maap_8c_af9079dd78987f5c3c5d1e9ef2f2d3784}{}\label{maap_8c_af9079dd78987f5c3c5d1e9ef2f2d3784}
+
+
+maap.\+c 파일의 206 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+206                                                                                                            
+           \{
+207     \hyperlink{struct_maap___notify}{Maap\_Notify} note;
+208 
+209     note.\hyperlink{struct_maap___notify_a28725ddb5295895b12a48456f73a5665}{kind} = \hyperlink{maap__iface_8h_a0d45e125fb876b383321d96bc510285eadcdf0612242dddc5976bc7eb80ae8813}{MAAP\_NOTIFY\_RELEASED};
+210     note.\hyperlink{struct_maap___notify_a2708c0bbb6f926149707c2c61fe43c3e}{id} = id;
+211     note.\hyperlink{struct_maap___notify_a6a51e9baeec9b06ae477cf6475efc71d}{start} = (range ? \hyperlink{maap_8c_af402827798fb1beb38578db3622c58d3}{get\_start\_address}(mc, range) : 0);
+212     note.\hyperlink{struct_maap___notify_a86988a65e0d3ece7990c032c159786d6}{count} = (range ? \hyperlink{maap_8c_ab242a9bc452252bfb882a2b22c883be1}{get\_count}(mc, range) : 0);
+213     note.\hyperlink{struct_maap___notify_a9d66bc8bbfd0a30a80edda69603ea9ba}{result} = result;
+214 
+215     \hyperlink{maap_8c_aae85a0d8134e2f59396a0ea9eb117b6c}{add\_notify}(mc, sender, &note);
+216     \textcolor{keywordflow}{return} 0;
+217 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=297pt]{maap_8c_af9079dd78987f5c3c5d1e9ef2f2d3784_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_af9079dd78987f5c3c5d1e9ef2f2d3784_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap.\+c@{maap.\+c}!inform\+\_\+status@{inform\+\_\+status}}
+\index{inform\+\_\+status@{inform\+\_\+status}!maap.\+c@{maap.\+c}}
+\subsubsection[{\texorpdfstring{inform\+\_\+status(\+Maap\+\_\+\+Client $\ast$mc, const void $\ast$sender, int id, Range $\ast$range, Maap\+\_\+\+Notify\+\_\+\+Error result)}{inform_status(Maap_Client *mc, const void *sender, int id, Range *range, Maap_Notify_Error result)}}]{\setlength{\rightskip}{0pt plus 5cm}static int inform\+\_\+status (
+\begin{DoxyParamCaption}
+\item[{{\bf Maap\+\_\+\+Client} $\ast$}]{mc, }
+\item[{const void $\ast$}]{sender, }
+\item[{int}]{id, }
+\item[{{\bf Range} $\ast$}]{range, }
+\item[{{\bf Maap\+\_\+\+Notify\+\_\+\+Error}}]{result}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{maap_8c_a2bc35518b980e45f5547d82857e30583}{}\label{maap_8c_a2bc35518b980e45f5547d82857e30583}
+
+
+maap.\+c 파일의 219 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+219                                                                                                            
+         \{
+220     \hyperlink{struct_maap___notify}{Maap\_Notify} note;
+221 
+222     note.\hyperlink{struct_maap___notify_a28725ddb5295895b12a48456f73a5665}{kind} = \hyperlink{maap__iface_8h_a0d45e125fb876b383321d96bc510285ea993b057f5516f007248e70006319c846}{MAAP\_NOTIFY\_STATUS};
+223     note.\hyperlink{struct_maap___notify_a2708c0bbb6f926149707c2c61fe43c3e}{id} = id;
+224     note.\hyperlink{struct_maap___notify_a6a51e9baeec9b06ae477cf6475efc71d}{start} = (range ? \hyperlink{maap_8c_af402827798fb1beb38578db3622c58d3}{get\_start\_address}(mc, range) : 0);
+225     note.\hyperlink{struct_maap___notify_a86988a65e0d3ece7990c032c159786d6}{count} = (range ? \hyperlink{maap_8c_ab242a9bc452252bfb882a2b22c883be1}{get\_count}(mc, range) : 0);
+226     note.\hyperlink{struct_maap___notify_a9d66bc8bbfd0a30a80edda69603ea9ba}{result} = result;
+227 
+228     \hyperlink{maap_8c_aae85a0d8134e2f59396a0ea9eb117b6c}{add\_notify}(mc, sender, &note);
+229     \textcolor{keywordflow}{return} 0;
+230 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=287pt]{maap_8c_a2bc35518b980e45f5547d82857e30583_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_a2bc35518b980e45f5547d82857e30583_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap.\+c@{maap.\+c}!inform\+\_\+yielded@{inform\+\_\+yielded}}
+\index{inform\+\_\+yielded@{inform\+\_\+yielded}!maap.\+c@{maap.\+c}}
+\subsubsection[{\texorpdfstring{inform\+\_\+yielded(\+Maap\+\_\+\+Client $\ast$mc, const void $\ast$sender, int id, Range $\ast$range, Maap\+\_\+\+Notify\+\_\+\+Error result)}{inform_yielded(Maap_Client *mc, const void *sender, int id, Range *range, Maap_Notify_Error result)}}]{\setlength{\rightskip}{0pt plus 5cm}static int inform\+\_\+yielded (
+\begin{DoxyParamCaption}
+\item[{{\bf Maap\+\_\+\+Client} $\ast$}]{mc, }
+\item[{const void $\ast$}]{sender, }
+\item[{int}]{id, }
+\item[{{\bf Range} $\ast$}]{range, }
+\item[{{\bf Maap\+\_\+\+Notify\+\_\+\+Error}}]{result}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{maap_8c_a502e63928d40c610c0e5d7912f3df0ac}{}\label{maap_8c_a502e63928d40c610c0e5d7912f3df0ac}
+
+
+maap.\+c 파일의 232 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+232                                                                                                            
+          \{
+233     \hyperlink{struct_maap___notify}{Maap\_Notify} note;
+234 
+235     note.\hyperlink{struct_maap___notify_a28725ddb5295895b12a48456f73a5665}{kind} = \hyperlink{maap__iface_8h_a0d45e125fb876b383321d96bc510285ea438f0d11e6e3a74550cab4c378f9aeba}{MAAP\_NOTIFY\_YIELDED};
+236     note.\hyperlink{struct_maap___notify_a2708c0bbb6f926149707c2c61fe43c3e}{id} = id;
+237     note.\hyperlink{struct_maap___notify_a6a51e9baeec9b06ae477cf6475efc71d}{start} = (range ? \hyperlink{maap_8c_af402827798fb1beb38578db3622c58d3}{get\_start\_address}(mc, range) : 0);
+238     note.\hyperlink{struct_maap___notify_a86988a65e0d3ece7990c032c159786d6}{count} = (range ? \hyperlink{maap_8c_ab242a9bc452252bfb882a2b22c883be1}{get\_count}(mc, range) : 0 );
+239     note.\hyperlink{struct_maap___notify_a9d66bc8bbfd0a30a80edda69603ea9ba}{result} = result;
+240 
+241     \hyperlink{maap_8c_aae85a0d8134e2f59396a0ea9eb117b6c}{add\_notify}(mc, sender, &note);
+242     \textcolor{keywordflow}{return} 0;
+243 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=291pt]{maap_8c_a502e63928d40c610c0e5d7912f3df0ac_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_a502e63928d40c610c0e5d7912f3df0ac_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap.\+c@{maap.\+c}!maap\+\_\+deinit\+\_\+client@{maap\+\_\+deinit\+\_\+client}}
+\index{maap\+\_\+deinit\+\_\+client@{maap\+\_\+deinit\+\_\+client}!maap.\+c@{maap.\+c}}
+\subsubsection[{\texorpdfstring{maap\+\_\+deinit\+\_\+client(\+Maap\+\_\+\+Client $\ast$mc)}{maap_deinit_client(Maap_Client *mc)}}]{\setlength{\rightskip}{0pt plus 5cm}void maap\+\_\+deinit\+\_\+client (
+\begin{DoxyParamCaption}
+\item[{{\bf Maap\+\_\+\+Client} $\ast$}]{mc}
+\end{DoxyParamCaption}
+)}\hypertarget{maap_8c_abb26ec0dca0b97acd80b602bcfc2179a}{}\label{maap_8c_abb26ec0dca0b97acd80b602bcfc2179a}
+Deinitialize the M\+A\+AP support.
+
+
+\begin{DoxyParams}{매개변수}
+{\em mc} & Pointer to the \hyperlink{struct_maap___client}{Maap\+\_\+\+Client} structure to use \\
+\hline
+\end{DoxyParams}
+
+
+maap.\+c 파일의 489 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+489                                          \{
+490     \textcolor{keywordflow}{if} (mc->\hyperlink{struct_maap___client_ad06983e7f6e71b233ea7ff3dee1952f2}{initialized}) \{
+491         \textcolor{keywordflow}{while} (mc->\hyperlink{struct_maap___client_a9d54ec9961bf59b379abe4e487904bbd}{timer\_queue}) \{
+492             \hyperlink{structrange}{Range} * pDel = mc->\hyperlink{struct_maap___client_a9d54ec9961bf59b379abe4e487904bbd}{timer\_queue};
+493             mc->\hyperlink{struct_maap___client_a9d54ec9961bf59b379abe4e487904bbd}{timer\_queue} = mc->\hyperlink{struct_maap___client_a9d54ec9961bf59b379abe4e487904bbd}{timer\_queue}->\hyperlink{structrange_a3c89fc489da1e4f9bad21fbdb15e2386}{next\_timer};
+494             \textcolor{keywordflow}{if} (pDel->\hyperlink{structrange_afb8e4b0a842160bfedbee377952d8dde}{state} == \hyperlink{maap_8h_a683b69c2f503f6c19577bca59530533ba57a8bbf4f3a9d5742d3cb4f547386ecd}{MAAP\_STATE\_RELEASED}) \{ 
+      \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(pDel); \}
+495         \}
+496 
+497         \textcolor{keywordflow}{while} (mc->\hyperlink{struct_maap___client_a415d09d180ac60757c9f10728fd42e8a}{ranges}) \{
+498             \hyperlink{structrange}{Range} *\hyperlink{structrange}{range} = mc->\hyperlink{struct_maap___client_a415d09d180ac60757c9f10728fd42e8a}{ranges}->\hyperlink{structinterval__node_a735984d41155bc1032e09bece8f8d66d}{data};
+499             \hyperlink{maap_8c_a132704b4be610a84953dc760c2de5ffb}{remove\_range\_interval}(&mc->\hyperlink{struct_maap___client_a415d09d180ac60757c9f10728fd42e8a}{ranges}, mc->
+      \hyperlink{struct_maap___client_a415d09d180ac60757c9f10728fd42e8a}{ranges});
+500             \textcolor{keywordflow}{if} (range) \{ \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(range); \}
+501         \}
+502 
+503         \textcolor{keywordflow}{if} (mc->\hyperlink{struct_maap___client_ad59f2b60cccbf7bd6a43003017d1d01a}{timer}) \{
+504             \hyperlink{maap__timer_8h_a644091a3aacd9a19d75b37b38b94189a}{Time\_delTimer}(mc->\hyperlink{struct_maap___client_ad59f2b60cccbf7bd6a43003017d1d01a}{timer});
+505             mc->\hyperlink{struct_maap___client_ad59f2b60cccbf7bd6a43003017d1d01a}{timer} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+506         \}
+507 
+508         \textcolor{keywordflow}{if} (mc->\hyperlink{struct_maap___client_a504c73ff1a68c50e5435dece66bc2772}{net}) \{
+509             \hyperlink{maap__net_8c_a80d485754d42dab19b7ee03f3eaa49d8}{Net\_delNet}(mc->\hyperlink{struct_maap___client_a504c73ff1a68c50e5435dece66bc2772}{net});
+510             mc->\hyperlink{struct_maap___client_a504c73ff1a68c50e5435dece66bc2772}{net} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+511         \}
+512 
+513         \textcolor{keywordflow}{while} (\hyperlink{maap_8c_a781fa6b6b28682a51333187f4a1970c0}{get\_notify}(mc, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL})) \{ \textcolor{comment}{/* Do nothing with the result */} \}
+514 
+515         mc->\hyperlink{struct_maap___client_ad06983e7f6e71b233ea7ff3dee1952f2}{initialized} = 0;
+516     \}
+517 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_abb26ec0dca0b97acd80b602bcfc2179a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_abb26ec0dca0b97acd80b602bcfc2179a_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap.\+c@{maap.\+c}!maap\+\_\+get\+\_\+delay\+\_\+to\+\_\+next\+\_\+timer@{maap\+\_\+get\+\_\+delay\+\_\+to\+\_\+next\+\_\+timer}}
+\index{maap\+\_\+get\+\_\+delay\+\_\+to\+\_\+next\+\_\+timer@{maap\+\_\+get\+\_\+delay\+\_\+to\+\_\+next\+\_\+timer}!maap.\+c@{maap.\+c}}
+\subsubsection[{\texorpdfstring{maap\+\_\+get\+\_\+delay\+\_\+to\+\_\+next\+\_\+timer(\+Maap\+\_\+\+Client $\ast$mc)}{maap_get_delay_to_next_timer(Maap_Client *mc)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int64\+\_\+t} maap\+\_\+get\+\_\+delay\+\_\+to\+\_\+next\+\_\+timer (
+\begin{DoxyParamCaption}
+\item[{{\bf Maap\+\_\+\+Client} $\ast$}]{mc}
+\end{DoxyParamCaption}
+)}\hypertarget{maap_8c_ac4c7992b7ae19944422573787cdd8a87}{}\label{maap_8c_ac4c7992b7ae19944422573787cdd8a87}
+Get the number of nanoseconds until the next timer event.
+
+
+\begin{DoxyParams}{매개변수}
+{\em mc} & Pointer to the \hyperlink{struct_maap___client}{Maap\+\_\+\+Client} structure to use\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+Number of nanoseconds until the next timer expires, or a very large value if there are no timers waiting. 
+\end{DoxyReturn}
+
+
+maap.\+c 파일의 1070 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+1071 \{
+1072     \textcolor{keywordtype}{long} \textcolor{keywordtype}{long} \textcolor{keywordtype}{int} timeRemaining;
+1073 
+1074     \textcolor{keywordflow}{if} (!(mc->\hyperlink{struct_maap___client_ad59f2b60cccbf7bd6a43003017d1d01a}{timer}) || !(mc->\hyperlink{struct_maap___client_a9d54ec9961bf59b379abe4e487904bbd}{timer\_queue}))
+1075     \{
+1076         \textcolor{comment}{/* There are no timers waiting, so wait for an hour.}
+1077 \textcolor{comment}{         * (No particular reason; it just sounded reasonable.) */}
+1078         timeRemaining = 60LL * 60LL * 1000000000LL;
+1079     \}
+1080     \textcolor{keywordflow}{else}
+1081     \{
+1082         \textcolor{comment}{/* Get the time remaining for the next timer. */}
+1083         timeRemaining = \hyperlink{maap__timer_8h_a11bccdfcf12a494019f18378721e072d}{Time\_remaining}(mc->\hyperlink{struct_maap___client_ad59f2b60cccbf7bd6a43003017d1d01a}{timer});
+1084     \}
+1085 \textcolor{preprocessor}{#ifdef DEBUG\_TIMER\_MSG}
+1086     \hyperlink{maap__log_8h_a0b034a60b88c3465e3a7de39737a216f}{MAAP\_LOG\_DEBUG}(\textcolor{stringliteral}{""}); \textcolor{comment}{/* Blank line */}
+1087     \hyperlink{maap__log_8h_af1aff357381c140941965db32eb316b9}{MAAP\_LOGF\_DEBUG}(\textcolor{stringliteral}{"Time\_remaining:  %lld ns"}, timeRemaining);
+1088     \hyperlink{maap__log_8h_a0b034a60b88c3465e3a7de39737a216f}{MAAP\_LOG\_DEBUG}(\textcolor{stringliteral}{""}); \textcolor{comment}{/* Blank line */}
+1089 \textcolor{preprocessor}{#endif}
+1090     \textcolor{keywordflow}{return} timeRemaining;
+1091 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_ac4c7992b7ae19944422573787cdd8a87_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_ac4c7992b7ae19944422573787cdd8a87_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap.\+c@{maap.\+c}!maap\+\_\+handle\+\_\+packet@{maap\+\_\+handle\+\_\+packet}}
+\index{maap\+\_\+handle\+\_\+packet@{maap\+\_\+handle\+\_\+packet}!maap.\+c@{maap.\+c}}
+\subsubsection[{\texorpdfstring{maap\+\_\+handle\+\_\+packet(\+Maap\+\_\+\+Client $\ast$mc, const uint8\+\_\+t $\ast$stream, int len)}{maap_handle_packet(Maap_Client *mc, const uint8_t *stream, int len)}}]{\setlength{\rightskip}{0pt plus 5cm}int maap\+\_\+handle\+\_\+packet (
+\begin{DoxyParamCaption}
+\item[{{\bf Maap\+\_\+\+Client} $\ast$}]{mc, }
+\item[{const {\bf uint8\+\_\+t} $\ast$}]{stream, }
+\item[{int}]{len}
+\end{DoxyParamCaption}
+)}\hypertarget{maap_8c_a7807b60e9a515b68da136756773bd576}{}\label{maap_8c_a7807b60e9a515b68da136756773bd576}
+Processing for a received (incoming) networking packet
+
+
+\begin{DoxyParams}{매개변수}
+{\em mc} & Pointer to the \hyperlink{struct_maap___client}{Maap\+\_\+\+Client} structure to use \\
+\hline
+{\em stream} & Binary data for the raw incoming packet \\
+\hline
+{\em len} & Length (in bytes) for the raw incoming packet\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+0 if the packet is a M\+A\+AP packet, -\/1 otherwise. 
+\end{DoxyReturn}
+\begin{DoxyRefDesc}{할일}
+\item[\hyperlink{todo__todo000032}{할일}]If this is a M\+A\+A\+P\+\_\+\+A\+N\+N\+O\+U\+N\+CE message, save the announced range and time received for later reference. \end{DoxyRefDesc}
+
+
+maap.\+c 파일의 807 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+807                                                                         \{
+808     \hyperlink{struct_m_a_a_p___packet}{MAAP\_Packet} p;
+809     \hyperlink{structinterval__node}{Interval} *iv;
+810     \hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\_t} start;
+811     \hyperlink{structrange}{Range} *\hyperlink{structrange}{range};
+812     \textcolor{keywordtype}{int} rv, num\_overlaps;
+813     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long} \textcolor{keywordtype}{int} own\_base, own\_max, incoming\_base, incoming\_max;
+814 
+815     \textcolor{keywordflow}{if} (len < \hyperlink{maap_8h_a4a3b5067a2a8edb0d690164e05f01f15}{MAAP\_PKT\_SIZE}) \{
+816         \hyperlink{maap__log_8h_a5aed2d0b26117d4ef9653c2a0be67a8c}{MAAP\_LOGF\_ERROR}(\textcolor{stringliteral}{"Truncated MAAP packet of length %d received, discarding"}, len);
+817         \textcolor{keywordflow}{return} -1;
+818     \}
+819     rv = \hyperlink{maap__packet_8c_a32695149ad598bfdb071eb146926950b}{unpack\_maap}(&p, stream);
+820     \textcolor{keywordflow}{if} (rv != 0) \{
+821         \hyperlink{maap__log_8h_a953cc1d79351edec0f60b7e736a308de}{MAAP\_LOG\_ERROR}(\textcolor{stringliteral}{"Error unpacking the MAAP packet"});
+822         \textcolor{keywordflow}{return} -1;
+823     \}
+824 
+825     \textcolor{keywordflow}{if} (p.\hyperlink{struct_m_a_a_p___packet_a1a9102ebc02a8e42299ec477781088cd}{Ethertype} != \hyperlink{maap_8h_a30d904d6751d5f3bc1f6f283bff4e8a9}{MAAP\_TYPE} ||
+826         p.\hyperlink{struct_m_a_a_p___packet_ac5d9ab8403fb9ca24facc32b821dd53b}{subtype} != \hyperlink{maap_8h_a912646d59468b9c7e1186218e0ecc76a}{MAAP\_SUBTYPE} ||
+827         p.\hyperlink{struct_m_a_a_p___packet_acc7cd70455e6e455ac498477b95f9e21}{control\_data\_length} != 16 )
+828     \{
+829         \textcolor{comment}{/* This is not a MAAP packet.  Ignore it. */}
+830 \textcolor{preprocessor}{#ifdef DEBUG\_NEGOTIATE\_MSG}
+831         \hyperlink{maap__log_8h_af1aff357381c140941965db32eb316b9}{MAAP\_LOGF\_DEBUG}(\textcolor{stringliteral}{"Ignoring non-MAAP packet of length %d"}, len);
+832 \textcolor{preprocessor}{#endif}
+833         \textcolor{keywordflow}{return} -1;
+834     \}
+835 
+836     \textcolor{keywordflow}{if} (p.\hyperlink{struct_m_a_a_p___packet_ab22abc2906422da61885ac6c8e6a1a59}{version} != 0) \{
+837         \hyperlink{maap__log_8h_a5aed2d0b26117d4ef9653c2a0be67a8c}{MAAP\_LOGF\_ERROR}(\textcolor{stringliteral}{"AVTP version %u not supported"}, p.
+      \hyperlink{struct_m_a_a_p___packet_ab22abc2906422da61885ac6c8e6a1a59}{version});
+838         \textcolor{keywordflow}{return} -1;
+839     \}
+840 
+841     \textcolor{keywordflow}{if} (p.\hyperlink{struct_m_a_a_p___packet_aeaaffeace8c23899e558022f62ce6de4}{message\_type} < \hyperlink{maap__packet_8h_a453ba2e1458fdbd8cddf68943d5ecc94}{MAAP\_PROBE} || p.\hyperlink{struct_m_a_a_p___packet_aeaaffeace8c23899e558022f62ce6de4}{message\_type} > 
+      \hyperlink{maap__packet_8h_a1f3bb437d08b91177375d98db0ec96d6}{MAAP\_ANNOUNCE}) \{
+842         \hyperlink{maap__log_8h_a5aed2d0b26117d4ef9653c2a0be67a8c}{MAAP\_LOGF\_ERROR}(\textcolor{stringliteral}{"MAAP packet message type %u not recognized"}, p.
+      \hyperlink{struct_m_a_a_p___packet_aeaaffeace8c23899e558022f62ce6de4}{message\_type});
+843         \textcolor{keywordflow}{return} -1;
+844     \}
+845 
+846     own\_base = mc->\hyperlink{struct_maap___client_a35767d757d073fc43d0f1118d5cbdc4e}{address\_base};
+847     own\_max = mc->\hyperlink{struct_maap___client_a35767d757d073fc43d0f1118d5cbdc4e}{address\_base} + mc->\hyperlink{struct_maap___client_aa1f919567122a4029070948bdfdcf2a3}{range\_len} - 1;
+848     incoming\_base = p.\hyperlink{struct_m_a_a_p___packet_a6e54c2881571f11a3a4a82c664794326}{requested\_start\_address};
+849     incoming\_max = p.\hyperlink{struct_m_a_a_p___packet_a6e54c2881571f11a3a4a82c664794326}{requested\_start\_address} + p.
+      \hyperlink{struct_m_a_a_p___packet_a3b7ca808f59412368434591249aa8a79}{requested\_count} - 1;
+850 
+851 \textcolor{preprocessor}{#ifdef DEBUG\_NEGOTIATE\_MSG}
+852     \textcolor{keywordflow}{if} (p.\hyperlink{struct_m_a_a_p___packet_aeaaffeace8c23899e558022f62ce6de4}{message\_type} == \hyperlink{maap__packet_8h_a453ba2e1458fdbd8cddf68943d5ecc94}{MAAP\_PROBE}) \{
+853         \hyperlink{maap__log_8h_af1aff357381c140941965db32eb316b9}{MAAP\_LOGF\_DEBUG}(\textcolor{stringliteral}{"Received PROBE for range 0x%012llx-0x%012llx (Size %u)"}, 
+      incoming\_base, incoming\_max, p.\hyperlink{struct_m_a_a_p___packet_a3b7ca808f59412368434591249aa8a79}{requested\_count});
+854     \}
+855     \textcolor{keywordflow}{if} (p.\hyperlink{struct_m_a_a_p___packet_aeaaffeace8c23899e558022f62ce6de4}{message\_type} == \hyperlink{maap__packet_8h_ac9b42f0f7f08abebfa62a425fc3c073b}{MAAP\_DEFEND}) \{
+856         \hyperlink{maap__log_8h_af1aff357381c140941965db32eb316b9}{MAAP\_LOGF\_DEBUG}(\textcolor{stringliteral}{"Received DEFEND for range 0x%012llx-0x%012llx (Size %u),"},
+857             incoming\_base, incoming\_max, p.\hyperlink{struct_m_a_a_p___packet_a3b7ca808f59412368434591249aa8a79}{requested\_count});
+858         \hyperlink{maap__log_8h_af1aff357381c140941965db32eb316b9}{MAAP\_LOGF\_DEBUG}(\textcolor{stringliteral}{"conflicting with range 0x%012llx-0x%012llx (Size %u)"},
+859             (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long}) p.\hyperlink{struct_m_a_a_p___packet_a75c1b7fade099765ff29a3302e3ad072}{conflict\_start\_address},
+860             (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long}) p.\hyperlink{struct_m_a_a_p___packet_a75c1b7fade099765ff29a3302e3ad072}{conflict\_start\_address} + p.
+      \hyperlink{struct_m_a_a_p___packet_a7454bb2b51c745c38822d008f1a322a1}{conflict\_count} - 1,
+861             p.\hyperlink{struct_m_a_a_p___packet_a7454bb2b51c745c38822d008f1a322a1}{conflict\_count});
+862     \}
+863     \textcolor{keywordflow}{if} (p.\hyperlink{struct_m_a_a_p___packet_aeaaffeace8c23899e558022f62ce6de4}{message\_type} == \hyperlink{maap__packet_8h_a1f3bb437d08b91177375d98db0ec96d6}{MAAP\_ANNOUNCE}) \{
+864         \hyperlink{maap__log_8h_af1aff357381c140941965db32eb316b9}{MAAP\_LOGF\_DEBUG}(\textcolor{stringliteral}{"Received ANNOUNCE for range 0x%012llx-0x%012llx (Size %u)"}, 
+      incoming\_base, incoming\_max, p.\hyperlink{struct_m_a_a_p___packet_a3b7ca808f59412368434591249aa8a79}{requested\_count});
+865     \}
+866 \textcolor{preprocessor}{#endif}
+867 
+868     \textcolor{keywordflow}{if} (incoming\_max < own\_base || own\_max < incoming\_base) \{
+869 \textcolor{preprocessor}{#ifdef DEBUG\_NEGOTIATE\_MSG}
+870         \hyperlink{maap__log_8h_a0b034a60b88c3465e3a7de39737a216f}{MAAP\_LOG\_DEBUG}(\textcolor{stringliteral}{"Packet refers to a range outside of our concern:"});
+871         \hyperlink{maap__log_8h_af1aff357381c140941965db32eb316b9}{MAAP\_LOGF\_DEBUG}(\textcolor{stringliteral}{"    0x%012llx < 0x%012llx || 0x%012llx < 0x%012llx"}, incoming\_max, 
+      own\_base, own\_max, incoming\_base);
+872 \textcolor{preprocessor}{#endif}
+873         \textcolor{keywordflow}{return} 0;
+874     \}
+875 
+878     \textcolor{comment}{/* Flag all the range items that overlap with the incoming packet. */}
+879     num\_overlaps = 0;
+880     start = (\hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\_t}) (p.\hyperlink{struct_m_a_a_p___packet_a6e54c2881571f11a3a4a82c664794326}{requested\_start\_address} - mc->
+      \hyperlink{struct_maap___client_a35767d757d073fc43d0f1118d5cbdc4e}{address\_base});
+881     \textcolor{keywordflow}{for} (iv = \hyperlink{intervals_8c_ae49e97a2e6ed26dcdbc25ecdbf425be4}{search\_interval}(mc->\hyperlink{struct_maap___client_a415d09d180ac60757c9f10728fd42e8a}{ranges}, start, p.
+      \hyperlink{struct_m_a_a_p___packet_a3b7ca808f59412368434591249aa8a79}{requested\_count}); iv != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} && \hyperlink{intervals_8h_a02e6b03f9fc1410343b2ad94cd1ecf9f}{interval\_check\_overlap}(iv, start, 
+      p.\hyperlink{struct_m_a_a_p___packet_a3b7ca808f59412368434591249aa8a79}{requested\_count}); iv = \hyperlink{intervals_8c_a7e2900527140ff8c3f6eb60d100f38bb}{next\_interval}(iv)) \{
+882         range = iv->\hyperlink{structinterval__node_a735984d41155bc1032e09bece8f8d66d}{data};
+883         range->\hyperlink{structrange_a2525856385331d88032dd796949d83ab}{overlapping} = 1;
+884         num\_overlaps++;
+885     \}
+886 
+887     \textcolor{keywordflow}{while} (num\_overlaps-- > 0) \{
+888         \textcolor{comment}{/* Find the first item that is still flagged. */}
+889         \textcolor{keywordflow}{for} (iv = \hyperlink{intervals_8c_ae49e97a2e6ed26dcdbc25ecdbf425be4}{search\_interval}(mc->\hyperlink{struct_maap___client_a415d09d180ac60757c9f10728fd42e8a}{ranges}, start, p.
+      \hyperlink{struct_m_a_a_p___packet_a3b7ca808f59412368434591249aa8a79}{requested\_count}); iv != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}; iv = \hyperlink{intervals_8c_a7e2900527140ff8c3f6eb60d100f38bb}{next\_interval}(iv)) \{
+890             range = iv->\hyperlink{structinterval__node_a735984d41155bc1032e09bece8f8d66d}{data};
+891             \textcolor{keywordflow}{if} (range->\hyperlink{structrange_a2525856385331d88032dd796949d83ab}{overlapping}) \{ \textcolor{keywordflow}{break}; \}
+892         \}
+893         \textcolor{keywordflow}{if} (!iv) \{
+894             \textcolor{comment}{/* We reached the end of the list. */}
+895             assert(0); \textcolor{comment}{/* We should never get here! */}
+896             \textcolor{keywordflow}{break};
+897         \}
+898         range->\hyperlink{structrange_a2525856385331d88032dd796949d83ab}{overlapping} = 0;
+899 
+900         \textcolor{keywordflow}{if} (range->\hyperlink{structrange_afb8e4b0a842160bfedbee377952d8dde}{state} == \hyperlink{maap_8h_a683b69c2f503f6c19577bca59530533ba2056a730980af2724e93edf62a992170}{MAAP\_STATE\_PROBING}) \{
+901 
+902             \textcolor{keywordflow}{if} (p.\hyperlink{struct_m_a_a_p___packet_aeaaffeace8c23899e558022f62ce6de4}{message\_type} == \hyperlink{maap__packet_8h_a453ba2e1458fdbd8cddf68943d5ecc94}{MAAP\_PROBE} && 
+      \hyperlink{maap__packet_8c_a661c56673782c56e73ccbfa8a8bbabc7}{compare\_mac\_addresses}(mc->\hyperlink{struct_maap___client_ae2c98c9078f80f770e85f937c34da4eb}{src\_mac}, p.\hyperlink{struct_m_a_a_p___packet_a725bf85ec39adedda8b4adb109c29ded}{SA})) \{
+903                 \textcolor{comment}{/* We won with the lower MAC Address.  Do nothing. */}
+904 \textcolor{preprocessor}{#ifdef DEBUG\_NEGOTIATE\_MSG}
+905                 \hyperlink{maap__log_8h_a0b034a60b88c3465e3a7de39737a216f}{MAAP\_LOG\_DEBUG}(\textcolor{stringliteral}{"Ignoring conflicting probe request"});
+906 \textcolor{preprocessor}{#endif}
+907             \} \textcolor{keywordflow}{else} \{
+908                 \textcolor{comment}{/* Find an alternate interval, remove old interval,}
+909 \textcolor{comment}{                   and restart probe counter */}
+910                 \textcolor{keywordtype}{int} range\_size = iv->\hyperlink{structinterval__node_a0d90a9fe74bca2dccde7f81cddfdf7b0}{high} - iv->\hyperlink{structinterval__node_a864f755b7008df85b29726891bdd4fbd}{low} + 1;
+911                 iv->\hyperlink{structinterval__node_a735984d41155bc1032e09bece8f8d66d}{data} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}; \textcolor{comment}{/* Range is moving to a new interval */}
+912                 \textcolor{keywordflow}{if} (\hyperlink{maap_8c_a92dcbdd4599817c3ef20dbd7970857c9}{assign\_interval}(mc, range, 0, range\_size) < 0) \{
+913                     \textcolor{comment}{/* No interval is available, so stop probing and report an error. */}
+914                     \hyperlink{maap__log_8h_ab54c9ec4b07ccb98694328a9563fd2fc}{MAAP\_LOG\_WARNING}(\textcolor{stringliteral}{"Unable to find an available address block to probe"});
+915                     \hyperlink{maap_8c_a467114b6b0203c3f577f6fc1e8b60783}{inform\_not\_acquired}(mc, range->\hyperlink{structrange_a6da9953a2443ab3bd33eea3534c01fdd}{sender}, range->
+      \hyperlink{structrange_a7441ef0865bcb3db9b8064dd7375c1ea}{id}, range\_size, \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808dda24b41710d2d55527893f60cb2115eb48}{MAAP\_NOTIFY\_ERROR\_RESERVE\_NOT\_AVAILABLE});
+916                     \hyperlink{maap_8c_a132704b4be610a84953dc760c2de5ffb}{remove\_range\_interval}(&mc->\hyperlink{struct_maap___client_a415d09d180ac60757c9f10728fd42e8a}{ranges}, iv);
+917                     \textcolor{comment}{/* memory will be freed the next time its timer elapses */}
+918                     range->\hyperlink{structrange_afb8e4b0a842160bfedbee377952d8dde}{state} = \hyperlink{maap_8h_a683b69c2f503f6c19577bca59530533ba57a8bbf4f3a9d5742d3cb4f547386ecd}{MAAP\_STATE\_RELEASED};
+919                 \} \textcolor{keywordflow}{else} \{
+920 \textcolor{preprocessor}{#ifdef DEBUG\_NEGOTIATE\_MSG}
+921                     \hyperlink{maap__log_8h_af1aff357381c140941965db32eb316b9}{MAAP\_LOGF\_DEBUG}(\textcolor{stringliteral}{"Selected new address range 0x%012llx-0x%012llx"},
+922                         \hyperlink{maap_8c_af402827798fb1beb38578db3622c58d3}{get\_start\_address}(mc, range), 
+      \hyperlink{maap_8c_a8134fc0dafff29b1e3a7efed0c33f8d3}{get\_end\_address}(mc, range));
+923 \textcolor{preprocessor}{#endif}
+924                     \hyperlink{maap_8c_a692c87a4ead0c5aab0e11973b2fa659c}{inform\_acquiring}(mc, range);
+925 
+926                     \hyperlink{maap_8c_a132704b4be610a84953dc760c2de5ffb}{remove\_range\_interval}(&mc->\hyperlink{struct_maap___client_a415d09d180ac60757c9f10728fd42e8a}{ranges}, iv);
+927                     range->\hyperlink{structrange_a617a47c70795bcff659815ad0efd2266}{counter} = \hyperlink{maap_8h_a2ff3046bfd787ec572ffca68a3ae05ab}{MAAP\_PROBE\_RETRANSMITS};
+928 
+929                     \hyperlink{maap_8c_a772c3868b86e35a12e19d64a61819eaa}{schedule\_timer}(mc, range);
+930                     \hyperlink{maap_8c_a3518a5176c421f589c9720bee301c977}{send\_probe}(mc, range);
+931                 \}
+932             \}
+933 
+934         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (range->\hyperlink{structrange_afb8e4b0a842160bfedbee377952d8dde}{state} == \hyperlink{maap_8h_a683b69c2f503f6c19577bca59530533ba96eb18649b740c73582bca409e1d2d52}{MAAP\_STATE\_DEFENDING}) \{
+935 
+936             \hyperlink{maap__log_8h_afd4d876a38da529c1d1c04053409b230}{MAAP\_LOGF\_INFO}(\textcolor{stringliteral}{"Conflict detected with our range (id %d)!"}, range->
+      \hyperlink{structrange_a7441ef0865bcb3db9b8064dd7375c1ea}{id});
+937 \textcolor{preprocessor}{#ifdef DEBUG\_NEGOTIATE\_MSG}
+938             \hyperlink{maap__log_8h_af1aff357381c140941965db32eb316b9}{MAAP\_LOGF\_DEBUG}(\textcolor{stringliteral}{"    Request of 0x%012llx-0x%012llx conflicts with our range of
+       0x%012llx-0x%012llx"},
+939                 incoming\_base, incoming\_max,
+940                 \hyperlink{maap_8c_af402827798fb1beb38578db3622c58d3}{get\_start\_address}(mc, range), \hyperlink{maap_8c_a8134fc0dafff29b1e3a7efed0c33f8d3}{get\_end\_address}(mc, range));
+941 \textcolor{preprocessor}{#endif}
+942 
+943             \textcolor{keywordflow}{if} (p.\hyperlink{struct_m_a_a_p___packet_aeaaffeace8c23899e558022f62ce6de4}{message\_type} == \hyperlink{maap__packet_8h_a453ba2e1458fdbd8cddf68943d5ecc94}{MAAP\_PROBE}) \{
+944                 \hyperlink{maap__log_8h_a1b983b69729d7f1f4cfd05e775f8c8c8}{MAAP\_LOG\_INFO}(\textcolor{stringliteral}{"DEFEND!"});
+945                 \hyperlink{maap_8c_a2f736d2d0d06de43bfcf25347618481b}{send\_defend}(mc, range, p.\hyperlink{struct_m_a_a_p___packet_a6e54c2881571f11a3a4a82c664794326}{requested\_start\_address}, p.
+      \hyperlink{struct_m_a_a_p___packet_a3b7ca808f59412368434591249aa8a79}{requested\_count}, p.\hyperlink{struct_m_a_a_p___packet_a725bf85ec39adedda8b4adb109c29ded}{SA});
+946             \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{maap__packet_8c_a661c56673782c56e73ccbfa8a8bbabc7}{compare\_mac\_addresses}(mc->\hyperlink{struct_maap___client_ae2c98c9078f80f770e85f937c34da4eb}{src\_mac}, p.
+      \hyperlink{struct_m_a_a_p___packet_a725bf85ec39adedda8b4adb109c29ded}{SA})) \{
+947                 \textcolor{comment}{/* We won with the lower MAC Address.  Do nothing. */}
+948                 \hyperlink{maap__log_8h_a1b983b69729d7f1f4cfd05e775f8c8c8}{MAAP\_LOG\_INFO}(\textcolor{stringliteral}{"IGNORE"});
+949             \} \textcolor{keywordflow}{else} \{
+950                 \hyperlink{structrange}{Range} *new\_range;
+951                 \textcolor{keywordtype}{int} range\_size = iv->\hyperlink{structinterval__node_a0d90a9fe74bca2dccde7f81cddfdf7b0}{high} - iv->\hyperlink{structinterval__node_a864f755b7008df85b29726891bdd4fbd}{low} + 1;
+952 
+953                 \hyperlink{maap__log_8h_a1b983b69729d7f1f4cfd05e775f8c8c8}{MAAP\_LOG\_INFO}(\textcolor{stringliteral}{"YIELD"});
+954 
+955                 \textcolor{comment}{/* Start a new reservation request for the owner of the yielded reservation.}
+956 \textcolor{comment}{                 * Use the same ID as the yielded range, so the owner can easily track it.}
+957 \textcolor{comment}{                 *}
+958 \textcolor{comment}{                 * Note:  Because our previous range is still in our range list,}
+959 \textcolor{comment}{                 * the new range selected will not overlap it.}
+960 \textcolor{comment}{                 */}
+961                 new\_range = \hyperlink{_memory_leak_detector_malloc_macros_8h_ab8b25cd8f16d4a6552afe4e65c4f082d}{malloc}(\textcolor{keyword}{sizeof}(\hyperlink{structrange}{Range}));
+962                 \textcolor{keywordflow}{if} (new\_range == \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \{
+963                     \hyperlink{maap_8c_a502e63928d40c610c0e5d7912f3df0ac}{inform\_yielded}(mc, range->\hyperlink{structrange_a6da9953a2443ab3bd33eea3534c01fdd}{sender}, range->
+      \hyperlink{structrange_a7441ef0865bcb3db9b8064dd7375c1ea}{id}, range, \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808ddac832ecff02b8d3cd9136eb499440562b}{MAAP\_NOTIFY\_ERROR\_OUT\_OF\_MEMORY});
+964                 \} \textcolor{keywordflow}{else} \{
+965                     new\_range->\hyperlink{structrange_a7441ef0865bcb3db9b8064dd7375c1ea}{id} = range->\hyperlink{structrange_a7441ef0865bcb3db9b8064dd7375c1ea}{id};
+966                     new\_range->\hyperlink{structrange_afb8e4b0a842160bfedbee377952d8dde}{state} = \hyperlink{maap_8h_a683b69c2f503f6c19577bca59530533ba2056a730980af2724e93edf62a992170}{MAAP\_STATE\_PROBING};
+967                     new\_range->\hyperlink{structrange_a617a47c70795bcff659815ad0efd2266}{counter} = \hyperlink{maap_8h_a2ff3046bfd787ec572ffca68a3ae05ab}{MAAP\_PROBE\_RETRANSMITS};
+968                     new\_range->\hyperlink{structrange_a2525856385331d88032dd796949d83ab}{overlapping} = 0;
+969                     \hyperlink{maap__timer_8h_abe1fa73a62adeef30aa8c8eb8fd614e9}{Time\_setFromMonotonicTimer}(&new\_range->
+      \hyperlink{structrange_a612425de4bd924a67f8e553419d979ba}{next\_act\_time});
+970                     new\_range->\hyperlink{structrange_a07955c04c790953cbbcc9305fda01a0a}{interval} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+971                     new\_range->\hyperlink{structrange_a6da9953a2443ab3bd33eea3534c01fdd}{sender} = range->\hyperlink{structrange_a6da9953a2443ab3bd33eea3534c01fdd}{sender};
+972                     new\_range->\hyperlink{structrange_a3c89fc489da1e4f9bad21fbdb15e2386}{next\_timer} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+973                     \textcolor{keywordflow}{if} (\hyperlink{maap_8c_a92dcbdd4599817c3ef20dbd7970857c9}{assign\_interval}(mc, new\_range, 0, range\_size) < 0)
+974                     \{
+975                         \textcolor{comment}{/* Cannot find any available intervals of the requested size. */}
+976                         \hyperlink{maap_8c_a502e63928d40c610c0e5d7912f3df0ac}{inform\_yielded}(mc, range->\hyperlink{structrange_a6da9953a2443ab3bd33eea3534c01fdd}{sender}, range->
+      \hyperlink{structrange_a7441ef0865bcb3db9b8064dd7375c1ea}{id}, range, \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808dda24b41710d2d55527893f60cb2115eb48}{MAAP\_NOTIFY\_ERROR\_RESERVE\_NOT\_AVAILABLE});
+977                         \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(new\_range);
+978                     \} \textcolor{keywordflow}{else} \{
+979 \textcolor{preprocessor}{#ifdef DEBUG\_NEGOTIATE\_MSG}
+980                         \hyperlink{maap__log_8h_af1aff357381c140941965db32eb316b9}{MAAP\_LOGF\_DEBUG}(\textcolor{stringliteral}{"Requested replacement address range, id %d"}, 
+      new\_range->\hyperlink{structrange_a7441ef0865bcb3db9b8064dd7375c1ea}{id});
+981                         \hyperlink{maap__log_8h_af1aff357381c140941965db32eb316b9}{MAAP\_LOGF\_DEBUG}(\textcolor{stringliteral}{"Selected replacement address range
+       0x%012llx-0x%012llx"}, \hyperlink{maap_8c_af402827798fb1beb38578db3622c58d3}{get\_start\_address}(mc, new\_range), \hyperlink{maap_8c_a8134fc0dafff29b1e3a7efed0c33f8d3}{get\_end\_address}(mc, new\_range));
+982 \textcolor{preprocessor}{#endif}
+983 
+984                         \textcolor{comment}{/* Send a probe for the replacement address range to try. */}
+985                         \hyperlink{maap_8c_a772c3868b86e35a12e19d64a61819eaa}{schedule\_timer}(mc, new\_range);
+986                         \hyperlink{maap_8c_a3518a5176c421f589c9720bee301c977}{send\_probe}(mc, new\_range);
+987 
+988                         \hyperlink{maap_8c_a502e63928d40c610c0e5d7912f3df0ac}{inform\_yielded}(mc, range->\hyperlink{structrange_a6da9953a2443ab3bd33eea3534c01fdd}{sender}, range->
+      \hyperlink{structrange_a7441ef0865bcb3db9b8064dd7375c1ea}{id}, range, \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808ddaf7eb8886cefe2e917296e22c19bbebd0}{MAAP\_NOTIFY\_ERROR\_NONE});
+989                         \hyperlink{maap_8c_a692c87a4ead0c5aab0e11973b2fa659c}{inform\_acquiring}(mc, new\_range);
+990                     \}
+991                 \}
+992 
+993                 \textcolor{comment}{/* We are done with the old range. */}
+994                 \hyperlink{maap_8c_a132704b4be610a84953dc760c2de5ffb}{remove\_range\_interval}(&mc->\hyperlink{struct_maap___client_a415d09d180ac60757c9f10728fd42e8a}{ranges}, iv);
+995                 \textcolor{comment}{/* memory will be freed the next time its timer elapses */}
+996                 range->\hyperlink{structrange_afb8e4b0a842160bfedbee377952d8dde}{state} = \hyperlink{maap_8h_a683b69c2f503f6c19577bca59530533ba57a8bbf4f3a9d5742d3cb4f547386ecd}{MAAP\_STATE\_RELEASED};
+997             \}
+998 
+999         \}
+1000     \}
+1001 
+1002     \hyperlink{maap_8c_ac6d881d2f87314ec30a2d4acef413828}{start\_timer}(mc);
+1003 
+1004     \textcolor{keywordflow}{return} 0;
+1005 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_a7807b60e9a515b68da136756773bd576_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_a7807b60e9a515b68da136756773bd576_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap.\+c@{maap.\+c}!maap\+\_\+handle\+\_\+timer@{maap\+\_\+handle\+\_\+timer}}
+\index{maap\+\_\+handle\+\_\+timer@{maap\+\_\+handle\+\_\+timer}!maap.\+c@{maap.\+c}}
+\subsubsection[{\texorpdfstring{maap\+\_\+handle\+\_\+timer(\+Maap\+\_\+\+Client $\ast$mc)}{maap_handle_timer(Maap_Client *mc)}}]{\setlength{\rightskip}{0pt plus 5cm}int maap\+\_\+handle\+\_\+timer (
+\begin{DoxyParamCaption}
+\item[{{\bf Maap\+\_\+\+Client} $\ast$}]{mc}
+\end{DoxyParamCaption}
+)}\hypertarget{maap_8c_aa1afbfc7f866343d5bd44b53325b4164}{}\label{maap_8c_aa1afbfc7f866343d5bd44b53325b4164}
+Determine if the next timer has expired, and perform any relevant actions if it has.
+
+
+\begin{DoxyParams}{매개변수}
+{\em mc} & Pointer to the \hyperlink{struct_maap___client}{Maap\+\_\+\+Client} structure to use\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+0 if successful, -\/1 otherwise. 
+\end{DoxyReturn}
+
+
+maap.\+c 파일의 1029 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+1029                                        \{
+1030     \hyperlink{maap__timer_8h_a820ab516df7068a95c9e59f09e82859b}{Time} currenttime;
+1031     \hyperlink{structrange}{Range} *\hyperlink{structrange}{range};
+1032 
+1033     \textcolor{comment}{/* Get the current time. */}
+1034     \hyperlink{maap__timer_8h_abe1fa73a62adeef30aa8c8eb8fd614e9}{Time\_setFromMonotonicTimer}(&currenttime);
+1035 \textcolor{preprocessor}{#ifdef DEBUG\_TIMER\_MSG}
+1036     \hyperlink{maap__log_8h_af1aff357381c140941965db32eb316b9}{MAAP\_LOGF\_DEBUG}(\textcolor{stringliteral}{"maap\_handle\_timer called at:  %s"}, \hyperlink{maap__timer_8h_afe800aa08a24713870ea65a7ca03d87b}{Time\_dump}(&currenttime));
+1037 \textcolor{preprocessor}{#endif}
+1038 
+1039     \textcolor{keywordflow}{while} ((range = mc->\hyperlink{struct_maap___client_a9d54ec9961bf59b379abe4e487904bbd}{timer\_queue}) && \hyperlink{maap__timer_8h_af9d862cfcea8ef782ac4490b30646c5c}{Time\_passed}(&currenttime, &range->
+      \hyperlink{structrange_a612425de4bd924a67f8e553419d979ba}{next\_act\_time})) \{
+1040 \textcolor{preprocessor}{#ifdef DEBUG\_TIMER\_MSG}
+1041         \hyperlink{maap__log_8h_af1aff357381c140941965db32eb316b9}{MAAP\_LOGF\_DEBUG}(\textcolor{stringliteral}{"Due timer:  %s"}, \hyperlink{maap__timer_8h_afe800aa08a24713870ea65a7ca03d87b}{Time\_dump}(&range->
+      \hyperlink{structrange_a612425de4bd924a67f8e553419d979ba}{next\_act\_time}));
+1042 \textcolor{preprocessor}{#endif}
+1043         mc->\hyperlink{struct_maap___client_a9d54ec9961bf59b379abe4e487904bbd}{timer\_queue} = range->\hyperlink{structrange_a3c89fc489da1e4f9bad21fbdb15e2386}{next\_timer};
+1044         range->\hyperlink{structrange_a3c89fc489da1e4f9bad21fbdb15e2386}{next\_timer} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+1045 
+1046         \textcolor{keywordflow}{if} (range->\hyperlink{structrange_afb8e4b0a842160bfedbee377952d8dde}{state} == \hyperlink{maap_8h_a683b69c2f503f6c19577bca59530533ba2056a730980af2724e93edf62a992170}{MAAP\_STATE\_PROBING}) \{
+1047 \textcolor{preprocessor}{#ifdef DEBUG\_TIMER\_MSG}
+1048             \hyperlink{maap__log_8h_a0b034a60b88c3465e3a7de39737a216f}{MAAP\_LOG\_DEBUG}(\textcolor{stringliteral}{"Handling probe timer"});
+1049 \textcolor{preprocessor}{#endif}
+1050             \hyperlink{maap_8c_af2c988eccac613bbe3104d4ce81080ef}{handle\_probe\_timer}(mc, range);
+1051         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (range->\hyperlink{structrange_afb8e4b0a842160bfedbee377952d8dde}{state} == \hyperlink{maap_8h_a683b69c2f503f6c19577bca59530533ba96eb18649b740c73582bca409e1d2d52}{MAAP\_STATE\_DEFENDING}) \{
+1052 \textcolor{preprocessor}{#ifdef DEBUG\_TIMER\_MSG}
+1053             \hyperlink{maap__log_8h_a0b034a60b88c3465e3a7de39737a216f}{MAAP\_LOG\_DEBUG}(\textcolor{stringliteral}{"Handling defend timer"});
+1054 \textcolor{preprocessor}{#endif}
+1055             \hyperlink{maap_8c_ae0d0f73d062f3459b8e56393192bdba0}{handle\_defend\_timer}(mc, range);
+1056         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (range->\hyperlink{structrange_afb8e4b0a842160bfedbee377952d8dde}{state} == \hyperlink{maap_8h_a683b69c2f503f6c19577bca59530533ba57a8bbf4f3a9d5742d3cb4f547386ecd}{MAAP\_STATE\_RELEASED}) \{
+1057 \textcolor{preprocessor}{#ifdef DEBUG\_TIMER\_MSG}
+1058             \hyperlink{maap__log_8h_a0b034a60b88c3465e3a7de39737a216f}{MAAP\_LOG\_DEBUG}(\textcolor{stringliteral}{"Freeing released timer"});
+1059 \textcolor{preprocessor}{#endif}
+1060             \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(range);
+1061         \}
+1062 
+1063     \}
+1064 
+1065     \hyperlink{maap_8c_ac6d881d2f87314ec30a2d4acef413828}{start\_timer}(mc);
+1066 
+1067     \textcolor{keywordflow}{return} 0;
+1068 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_aa1afbfc7f866343d5bd44b53325b4164_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_aa1afbfc7f866343d5bd44b53325b4164_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap.\+c@{maap.\+c}!maap\+\_\+init\+\_\+client@{maap\+\_\+init\+\_\+client}}
+\index{maap\+\_\+init\+\_\+client@{maap\+\_\+init\+\_\+client}!maap.\+c@{maap.\+c}}
+\subsubsection[{\texorpdfstring{maap\+\_\+init\+\_\+client(\+Maap\+\_\+\+Client $\ast$mc, const void $\ast$sender, uint64\+\_\+t range\+\_\+address\+\_\+base, uint32\+\_\+t range\+\_\+len)}{maap_init_client(Maap_Client *mc, const void *sender, uint64_t range_address_base, uint32_t range_len)}}]{\setlength{\rightskip}{0pt plus 5cm}int maap\+\_\+init\+\_\+client (
+\begin{DoxyParamCaption}
+\item[{{\bf Maap\+\_\+\+Client} $\ast$}]{mc, }
+\item[{const void $\ast$}]{sender, }
+\item[{{\bf uint64\+\_\+t}}]{range\+\_\+address\+\_\+base, }
+\item[{{\bf uint32\+\_\+t}}]{range\+\_\+len}
+\end{DoxyParamCaption}
+)}\hypertarget{maap_8c_ab40b6b8a9d9c4269ef5deb0cb453e652}{}\label{maap_8c_ab40b6b8a9d9c4269ef5deb0cb453e652}
+Initialize the M\+A\+AP support, in response to a M\+A\+A\+P\+\_\+\+C\+M\+D\+\_\+\+I\+N\+IT command.
+
+
+\begin{DoxyParams}{매개변수}
+{\em mc} & Pointer to the \hyperlink{struct_maap___client}{Maap\+\_\+\+Client} structure to use \\
+\hline
+{\em sender} & Sender information pointer used to track the entity requesting the command \\
+\hline
+{\em range\+\_\+address\+\_\+base} & Starting address of the recognized range of addresses (typically \hyperlink{maap_8h_ae6263079f02d6fcdb18350e93b5e8fd9}{M\+A\+A\+P\+\_\+\+D\+Y\+N\+A\+M\+I\+C\+\_\+\+P\+O\+O\+L\+\_\+\+B\+A\+SE}) \\
+\hline
+{\em range\+\_\+len} & Number of recognized addresses (typically \hyperlink{maap_8h_a27db04878ffebe92dbbcbae7e7c5d447}{M\+A\+A\+P\+\_\+\+D\+Y\+N\+A\+M\+I\+C\+\_\+\+P\+O\+O\+L\+\_\+\+S\+I\+ZE})\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+0 if the initialization was successful, -\/1 otherwise. 
+\end{DoxyReturn}
+
+
+maap.\+c 파일의 450 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+450                                                                                                            
+      \{
+451 
+452     \textcolor{keywordflow}{if} (mc->\hyperlink{struct_maap___client_ad06983e7f6e71b233ea7ff3dee1952f2}{initialized}) \{
+453         \textcolor{comment}{/* If the desired values are the same as the initialized values, pretend the command succeeded.}
+454 \textcolor{comment}{         * Otherwise, let the sender know the range that was already specified and cannot change. */}
+455         \textcolor{keywordtype}{int} matches = (range\_address\_base == mc->\hyperlink{struct_maap___client_a35767d757d073fc43d0f1118d5cbdc4e}{address\_base} && range\_len == mc->
+      \hyperlink{struct_maap___client_aa1f919567122a4029070948bdfdcf2a3}{range\_len});
+456         \hyperlink{maap_8c_a8dda57ae534fb838663bac266a054074}{inform\_initialized}(mc, sender, (matches ? 
+      \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808ddaf7eb8886cefe2e917296e22c19bbebd0}{MAAP\_NOTIFY\_ERROR\_NONE} : 
+      \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808ddab6456efeda22d33ab1fb2766f533d019}{MAAP\_NOTIFY\_ERROR\_ALREADY\_INITIALIZED}));
+457 
+458         \textcolor{keywordflow}{return} (matches ? 0 : -1);
+459     \}
+460 
+461     mc->\hyperlink{struct_maap___client_ad59f2b60cccbf7bd6a43003017d1d01a}{timer} = \hyperlink{maap__timer_8h_a622fec71a6c325661618dec64b6a8837}{Time\_newTimer}();
+462     \textcolor{keywordflow}{if} (!mc->\hyperlink{struct_maap___client_ad59f2b60cccbf7bd6a43003017d1d01a}{timer}) \{
+463         \hyperlink{maap__log_8h_a953cc1d79351edec0f60b7e736a308de}{MAAP\_LOG\_ERROR}(\textcolor{stringliteral}{"Failed to create Timer"});
+464         \textcolor{keywordflow}{return} -1;
+465     \}
+466 
+467     mc->\hyperlink{struct_maap___client_a504c73ff1a68c50e5435dece66bc2772}{net} = \hyperlink{maap__net_8c_a99aac24b70bfd73e186e558457d9909f}{Net\_newNet}();
+468     \textcolor{keywordflow}{if} (!mc->\hyperlink{struct_maap___client_a504c73ff1a68c50e5435dece66bc2772}{net}) \{
+469         \hyperlink{maap__log_8h_a953cc1d79351edec0f60b7e736a308de}{MAAP\_LOG\_ERROR}(\textcolor{stringliteral}{"Failed to create Net"});
+470         \hyperlink{maap__timer_8h_a644091a3aacd9a19d75b37b38b94189a}{Time\_delTimer}(mc->\hyperlink{struct_maap___client_ad59f2b60cccbf7bd6a43003017d1d01a}{timer});
+471         \textcolor{keywordflow}{return} -1;
+472     \}
+473 
+474     mc->\hyperlink{struct_maap___client_a35767d757d073fc43d0f1118d5cbdc4e}{address\_base} = range\_address\_base;
+475     mc->\hyperlink{struct_maap___client_aa1f919567122a4029070948bdfdcf2a3}{range\_len} = range\_len;
+476     mc->\hyperlink{struct_maap___client_a415d09d180ac60757c9f10728fd42e8a}{ranges} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+477     mc->\hyperlink{struct_maap___client_a9d54ec9961bf59b379abe4e487904bbd}{timer\_queue} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+478     mc->\hyperlink{struct_maap___client_adf2905c4b99c43f87a111e240a32932b}{maxid} = 0;
+479     mc->\hyperlink{struct_maap___client_a898d3392eb9ff64e224e8fb47d4f59fc}{notifies} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+480 
+481     mc->\hyperlink{struct_maap___client_ad06983e7f6e71b233ea7ff3dee1952f2}{initialized} = 1;
+482 
+483     \textcolor{comment}{/* Let the sender know the range is now specified. */}
+484     \hyperlink{maap_8c_a8dda57ae534fb838663bac266a054074}{inform\_initialized}(mc, sender, \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808ddaf7eb8886cefe2e917296e22c19bbebd0}{MAAP\_NOTIFY\_ERROR\_NONE});
+485 
+486     \textcolor{keywordflow}{return} 0;
+487 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_ab40b6b8a9d9c4269ef5deb0cb453e652_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_ab40b6b8a9d9c4269ef5deb0cb453e652_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap.\+c@{maap.\+c}!maap\+\_\+range\+\_\+status@{maap\+\_\+range\+\_\+status}}
+\index{maap\+\_\+range\+\_\+status@{maap\+\_\+range\+\_\+status}!maap.\+c@{maap.\+c}}
+\subsubsection[{\texorpdfstring{maap\+\_\+range\+\_\+status(\+Maap\+\_\+\+Client $\ast$mc, const void $\ast$sender, int id)}{maap_range_status(Maap_Client *mc, const void *sender, int id)}}]{\setlength{\rightskip}{0pt plus 5cm}void maap\+\_\+range\+\_\+status (
+\begin{DoxyParamCaption}
+\item[{{\bf Maap\+\_\+\+Client} $\ast$}]{mc, }
+\item[{const void $\ast$}]{sender, }
+\item[{int}]{id}
+\end{DoxyParamCaption}
+)}\hypertarget{maap_8c_a1f75df116573c750510198dda3dc69f3}{}\label{maap_8c_a1f75df116573c750510198dda3dc69f3}
+Get the start and length of a block of addresses, in support of a M\+A\+A\+P\+\_\+\+C\+M\+D\+\_\+\+S\+T\+A\+T\+US command.
+
+\begin{DoxyNote}{주의}
+This call starts the status process. A M\+A\+A\+P\+\_\+\+N\+O\+T\+I\+F\+Y\+\_\+\+S\+T\+A\+T\+US notification will be sent when the process is complete.
+\end{DoxyNote}
+
+\begin{DoxyParams}{매개변수}
+{\em mc} & Pointer to the \hyperlink{struct_maap___client}{Maap\+\_\+\+Client} structure to use \\
+\hline
+{\em sender} & Sender information pointer used to track the entity requesting the command \\
+\hline
+{\em id} & Identifier for the address block to get the status of \\
+\hline
+\end{DoxyParams}
+
+
+maap.\+c 파일의 751 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+752 \{
+753     \hyperlink{structrange}{Range} *\hyperlink{structrange}{range};
+754 
+755     \textcolor{keywordflow}{if} (!mc->\hyperlink{struct_maap___client_ad06983e7f6e71b233ea7ff3dee1952f2}{initialized}) \{
+756         \hyperlink{maap__log_8h_a0b034a60b88c3465e3a7de39737a216f}{MAAP\_LOG\_DEBUG}(\textcolor{stringliteral}{"Status not allowed, as MAAP not initialized"});
+757         \hyperlink{maap_8c_a2bc35518b980e45f5547d82857e30583}{inform\_status}(mc, sender, \textcolor{keywordtype}{id}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, 
+      \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808ddaf7026afb657e0c00f45b8b2d077103ac}{MAAP\_NOTIFY\_ERROR\_REQUIRES\_INITIALIZATION});
+758         \textcolor{keywordflow}{return};
+759     \}
+760 
+761     range = mc->\hyperlink{struct_maap___client_a9d54ec9961bf59b379abe4e487904bbd}{timer\_queue};
+762     \textcolor{keywordflow}{while} (range) \{
+763         \textcolor{keywordflow}{if} (range->\hyperlink{structrange_a7441ef0865bcb3db9b8064dd7375c1ea}{id} == \textcolor{keywordtype}{id} && range->\hyperlink{structrange_afb8e4b0a842160bfedbee377952d8dde}{state} == \hyperlink{maap_8h_a683b69c2f503f6c19577bca59530533ba96eb18649b740c73582bca409e1d2d52}{MAAP\_STATE\_DEFENDING}) \{
+764             \hyperlink{maap_8c_a2bc35518b980e45f5547d82857e30583}{inform\_status}(mc, sender, \textcolor{keywordtype}{id}, range, 
+      \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808ddaf7eb8886cefe2e917296e22c19bbebd0}{MAAP\_NOTIFY\_ERROR\_NONE});
+765             \textcolor{keywordflow}{return};
+766         \}
+767         range = range->\hyperlink{structrange_a3c89fc489da1e4f9bad21fbdb15e2386}{next\_timer};
+768     \}
+769 
+770     \hyperlink{maap__log_8h_af1aff357381c140941965db32eb316b9}{MAAP\_LOGF\_DEBUG}(\textcolor{stringliteral}{"Range id %d does not exist"}, \textcolor{keywordtype}{id});
+771     \hyperlink{maap_8c_a2bc35518b980e45f5547d82857e30583}{inform\_status}(mc, sender, \textcolor{keywordtype}{id}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, 
+      \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808dda6e7e01cfe2e813ec310a2ad52a8a1a41}{MAAP\_NOTIFY\_ERROR\_RELEASE\_INVALID\_ID});
+772 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_a1f75df116573c750510198dda3dc69f3_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_a1f75df116573c750510198dda3dc69f3_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap.\+c@{maap.\+c}!maap\+\_\+release\+\_\+range@{maap\+\_\+release\+\_\+range}}
+\index{maap\+\_\+release\+\_\+range@{maap\+\_\+release\+\_\+range}!maap.\+c@{maap.\+c}}
+\subsubsection[{\texorpdfstring{maap\+\_\+release\+\_\+range(\+Maap\+\_\+\+Client $\ast$mc, const void $\ast$sender, int id)}{maap_release_range(Maap_Client *mc, const void *sender, int id)}}]{\setlength{\rightskip}{0pt plus 5cm}int maap\+\_\+release\+\_\+range (
+\begin{DoxyParamCaption}
+\item[{{\bf Maap\+\_\+\+Client} $\ast$}]{mc, }
+\item[{const void $\ast$}]{sender, }
+\item[{int}]{id}
+\end{DoxyParamCaption}
+)}\hypertarget{maap_8c_a417bfd5470da32b65311e94ee9ea2893}{}\label{maap_8c_a417bfd5470da32b65311e94ee9ea2893}
+Release a reserved block of addresses, in support of a M\+A\+A\+P\+\_\+\+C\+M\+D\+\_\+\+R\+E\+L\+E\+A\+SE command.
+
+\begin{DoxyNote}{주의}
+This call starts the release process. A M\+A\+A\+P\+\_\+\+N\+O\+T\+I\+F\+Y\+\_\+\+R\+E\+L\+E\+A\+S\+ED notification will be sent when the process is complete.
+\end{DoxyNote}
+
+\begin{DoxyParams}{매개변수}
+{\em mc} & Pointer to the \hyperlink{struct_maap___client}{Maap\+\_\+\+Client} structure to use \\
+\hline
+{\em sender} & Sender information pointer used to track the entity requesting the command \\
+\hline
+{\em id} & Identifier for the address block to release\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+0 if the release was started successfully, -\/1 otherwise. 
+\end{DoxyReturn}
+
+
+maap.\+c 파일의 716 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+716                                                                     \{
+717     \hyperlink{structinterval__node}{Interval} *iv;
+718     \hyperlink{structrange}{Range} *\hyperlink{structrange}{range};
+719 
+720     \textcolor{keywordflow}{if} (!mc->\hyperlink{struct_maap___client_ad06983e7f6e71b233ea7ff3dee1952f2}{initialized}) \{
+721         \hyperlink{maap__log_8h_a0b034a60b88c3465e3a7de39737a216f}{MAAP\_LOG\_DEBUG}(\textcolor{stringliteral}{"Release not allowed, as MAAP not initialized"});
+722         \hyperlink{maap_8c_af9079dd78987f5c3c5d1e9ef2f2d3784}{inform\_released}(mc, sender, \textcolor{keywordtype}{id}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, 
+      \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808ddaf7026afb657e0c00f45b8b2d077103ac}{MAAP\_NOTIFY\_ERROR\_REQUIRES\_INITIALIZATION});
+723         \textcolor{keywordflow}{return} -1;
+724     \}
+725 
+726     range = mc->\hyperlink{struct_maap___client_a9d54ec9961bf59b379abe4e487904bbd}{timer\_queue};
+727     \textcolor{keywordflow}{while} (range) \{
+728         \textcolor{keywordflow}{if} (range->\hyperlink{structrange_a7441ef0865bcb3db9b8064dd7375c1ea}{id} == \textcolor{keywordtype}{id} && range->\hyperlink{structrange_afb8e4b0a842160bfedbee377952d8dde}{state} != \hyperlink{maap_8h_a683b69c2f503f6c19577bca59530533ba57a8bbf4f3a9d5742d3cb4f547386ecd}{MAAP\_STATE\_RELEASED}) \{
+729             \hyperlink{maap_8c_af9079dd78987f5c3c5d1e9ef2f2d3784}{inform\_released}(mc, sender, \textcolor{keywordtype}{id}, range, 
+      \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808ddaf7eb8886cefe2e917296e22c19bbebd0}{MAAP\_NOTIFY\_ERROR\_NONE});
+730             \textcolor{keywordflow}{if} (sender != range->\hyperlink{structrange_a6da9953a2443ab3bd33eea3534c01fdd}{sender})
+731             \{
+732                 \textcolor{comment}{/* Also inform the sender that originally reserved this range. */}
+733                 \hyperlink{maap_8c_af9079dd78987f5c3c5d1e9ef2f2d3784}{inform\_released}(mc, range->\hyperlink{structrange_a6da9953a2443ab3bd33eea3534c01fdd}{sender}, \textcolor{keywordtype}{id}, range, 
+      \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808ddaf7eb8886cefe2e917296e22c19bbebd0}{MAAP\_NOTIFY\_ERROR\_NONE});
+734             \}
+735 
+736             iv = range->\hyperlink{structrange_a07955c04c790953cbbcc9305fda01a0a}{interval};
+737             \hyperlink{maap_8c_a132704b4be610a84953dc760c2de5ffb}{remove\_range\_interval}(&mc->\hyperlink{struct_maap___client_a415d09d180ac60757c9f10728fd42e8a}{ranges}, iv);
+738             \textcolor{comment}{/* memory for range will be freed the next time its timer elapses */}
+739             range->\hyperlink{structrange_afb8e4b0a842160bfedbee377952d8dde}{state} = \hyperlink{maap_8h_a683b69c2f503f6c19577bca59530533ba57a8bbf4f3a9d5742d3cb4f547386ecd}{MAAP\_STATE\_RELEASED};
+740 
+741             \textcolor{keywordflow}{return} 0;
+742         \}
+743         range = range->\hyperlink{structrange_a3c89fc489da1e4f9bad21fbdb15e2386}{next\_timer};
+744     \}
+745 
+746     \hyperlink{maap__log_8h_af1aff357381c140941965db32eb316b9}{MAAP\_LOGF\_DEBUG}(\textcolor{stringliteral}{"Range id %d does not exist to release"}, \textcolor{keywordtype}{id});
+747     \hyperlink{maap_8c_af9079dd78987f5c3c5d1e9ef2f2d3784}{inform\_released}(mc, sender, \textcolor{keywordtype}{id}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, 
+      \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808dda6e7e01cfe2e813ec310a2ad52a8a1a41}{MAAP\_NOTIFY\_ERROR\_RELEASE\_INVALID\_ID});
+748     \textcolor{keywordflow}{return} -1;
+749 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_a417bfd5470da32b65311e94ee9ea2893_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_a417bfd5470da32b65311e94ee9ea2893_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap.\+c@{maap.\+c}!maap\+\_\+reserve\+\_\+range@{maap\+\_\+reserve\+\_\+range}}
+\index{maap\+\_\+reserve\+\_\+range@{maap\+\_\+reserve\+\_\+range}!maap.\+c@{maap.\+c}}
+\subsubsection[{\texorpdfstring{maap\+\_\+reserve\+\_\+range(\+Maap\+\_\+\+Client $\ast$mc, const void $\ast$sender, uint64\+\_\+t attempt\+\_\+base, uint32\+\_\+t length)}{maap_reserve_range(Maap_Client *mc, const void *sender, uint64_t attempt_base, uint32_t length)}}]{\setlength{\rightskip}{0pt plus 5cm}int maap\+\_\+reserve\+\_\+range (
+\begin{DoxyParamCaption}
+\item[{{\bf Maap\+\_\+\+Client} $\ast$}]{mc, }
+\item[{const void $\ast$}]{sender, }
+\item[{{\bf uint64\+\_\+t}}]{attempt\+\_\+base, }
+\item[{{\bf uint32\+\_\+t}}]{length}
+\end{DoxyParamCaption}
+)}\hypertarget{maap_8c_a0815c405656bea7b54ea61f23925da82}{}\label{maap_8c_a0815c405656bea7b54ea61f23925da82}
+Reserve a block of addresses, in support of a M\+A\+A\+P\+\_\+\+C\+M\+D\+\_\+\+R\+E\+S\+E\+R\+VE command.
+
+\begin{DoxyNote}{주의}
+This call starts the reservation process. One or more M\+A\+A\+P\+\_\+\+N\+O\+T\+I\+F\+Y\+\_\+\+A\+C\+Q\+U\+I\+R\+I\+NG notifications may be sent during the process. A M\+A\+A\+P\+\_\+\+N\+O\+T\+I\+F\+Y\+\_\+\+A\+C\+Q\+U\+I\+R\+ED notification will be sent when the process is complete (either succeeded or failed).
+\end{DoxyNote}
+
+\begin{DoxyParams}{매개변수}
+{\em mc} & Pointer to the \hyperlink{struct_maap___client}{Maap\+\_\+\+Client} structure to use \\
+\hline
+{\em sender} & Sender information pointer used to track the entity requesting the command \\
+\hline
+{\em attempt\+\_\+base} & The base address to be attempted first, or 0 if no preference. If the preferred address is not available, another random address will be attempted instead. \\
+\hline
+{\em length} & Number of addresses in the block to reserve (1 to 65535)\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+The identifier value if the request was started successfully, -\/1 otherwise. 
+\end{DoxyReturn}
+
+
+maap.\+c 파일의 663 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+663                                                                                                     \{
+664     \textcolor{keywordtype}{int} id;
+665     \hyperlink{structrange}{Range} *\hyperlink{structrange}{range};
+666 
+667     \textcolor{keywordflow}{if} (!mc->\hyperlink{struct_maap___client_ad06983e7f6e71b233ea7ff3dee1952f2}{initialized}) \{
+668         \hyperlink{maap__log_8h_a0b034a60b88c3465e3a7de39737a216f}{MAAP\_LOG\_DEBUG}(\textcolor{stringliteral}{"Reserve not allowed, as MAAP not initialized"});
+669         \hyperlink{maap_8c_a467114b6b0203c3f577f6fc1e8b60783}{inform\_not\_acquired}(mc, sender, -1, length, 
+      \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808ddaf7026afb657e0c00f45b8b2d077103ac}{MAAP\_NOTIFY\_ERROR\_REQUIRES\_INITIALIZATION});
+670         \textcolor{keywordflow}{return} -1;
+671     \}
+672 
+673     \textcolor{keywordflow}{if} (length > 0xFFFF || length > mc->\hyperlink{struct_maap___client_aa1f919567122a4029070948bdfdcf2a3}{range\_len}) \{
+674         \textcolor{comment}{/* Range size cannot be more than 16 bits in size, due to the MAAP packet format */}
+675         \hyperlink{maap_8c_a467114b6b0203c3f577f6fc1e8b60783}{inform\_not\_acquired}(mc, sender, -1, length, 
+      \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808dda24b41710d2d55527893f60cb2115eb48}{MAAP\_NOTIFY\_ERROR\_RESERVE\_NOT\_AVAILABLE});
+676         \textcolor{keywordflow}{return} -1;
+677     \}
+678 
+679     range = \hyperlink{_memory_leak_detector_malloc_macros_8h_ab8b25cd8f16d4a6552afe4e65c4f082d}{malloc}(\textcolor{keyword}{sizeof}(\hyperlink{structrange}{Range}));
+680     \textcolor{keywordflow}{if} (range == \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \{
+681         \hyperlink{maap_8c_a467114b6b0203c3f577f6fc1e8b60783}{inform\_not\_acquired}(mc, sender, -1, length, 
+      \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808ddac832ecff02b8d3cd9136eb499440562b}{MAAP\_NOTIFY\_ERROR\_OUT\_OF\_MEMORY});
+682         \textcolor{keywordflow}{return} -1;
+683     \}
+684 
+685     \textcolor{keywordtype}{id} = ++(mc->\hyperlink{struct_maap___client_adf2905c4b99c43f87a111e240a32932b}{maxid});
+686     range->\hyperlink{structrange_a7441ef0865bcb3db9b8064dd7375c1ea}{id} = id;
+687     range->\hyperlink{structrange_afb8e4b0a842160bfedbee377952d8dde}{state} = \hyperlink{maap_8h_a683b69c2f503f6c19577bca59530533ba2056a730980af2724e93edf62a992170}{MAAP\_STATE\_PROBING};
+688     range->\hyperlink{structrange_a617a47c70795bcff659815ad0efd2266}{counter} = \hyperlink{maap_8h_a2ff3046bfd787ec572ffca68a3ae05ab}{MAAP\_PROBE\_RETRANSMITS};
+689     range->\hyperlink{structrange_a2525856385331d88032dd796949d83ab}{overlapping} = 0;
+690     \hyperlink{maap__timer_8h_abe1fa73a62adeef30aa8c8eb8fd614e9}{Time\_setFromMonotonicTimer}(&range->\hyperlink{structrange_a612425de4bd924a67f8e553419d979ba}{next\_act\_time});
+691     range->\hyperlink{structrange_a07955c04c790953cbbcc9305fda01a0a}{interval} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+692     range->\hyperlink{structrange_a6da9953a2443ab3bd33eea3534c01fdd}{sender} = sender;
+693     range->\hyperlink{structrange_a3c89fc489da1e4f9bad21fbdb15e2386}{next\_timer} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+694 
+695     \textcolor{keywordflow}{if} (\hyperlink{maap_8c_a92dcbdd4599817c3ef20dbd7970857c9}{assign\_interval}(mc, range, attempt\_base, length) < 0)
+696     \{
+697         \textcolor{comment}{/* Cannot find any available intervals of the requested size. */}
+698         \hyperlink{maap_8c_a467114b6b0203c3f577f6fc1e8b60783}{inform\_not\_acquired}(mc, sender, -1, length, 
+      \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808dda24b41710d2d55527893f60cb2115eb48}{MAAP\_NOTIFY\_ERROR\_RESERVE\_NOT\_AVAILABLE});
+699         \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(range);
+700         \textcolor{keywordflow}{return} -1;
+701     \}
+702 
+703 \textcolor{preprocessor}{#ifdef DEBUG\_NEGOTIATE\_MSG}
+704     \hyperlink{maap__log_8h_af1aff357381c140941965db32eb316b9}{MAAP\_LOGF\_DEBUG}(\textcolor{stringliteral}{"Requested address range, id %d"}, \textcolor{keywordtype}{id});
+705     \hyperlink{maap__log_8h_af1aff357381c140941965db32eb316b9}{MAAP\_LOGF\_DEBUG}(\textcolor{stringliteral}{"Selected address range 0x%012llx-0x%012llx"}, 
+      \hyperlink{maap_8c_af402827798fb1beb38578db3622c58d3}{get\_start\_address}(mc, range), \hyperlink{maap_8c_a8134fc0dafff29b1e3a7efed0c33f8d3}{get\_end\_address}(mc, range));
+706 \textcolor{preprocessor}{#endif}
+707     \hyperlink{maap_8c_a692c87a4ead0c5aab0e11973b2fa659c}{inform\_acquiring}(mc, range);
+708 
+709     \hyperlink{maap_8c_a772c3868b86e35a12e19d64a61819eaa}{schedule\_timer}(mc, range);
+710     \hyperlink{maap_8c_ac6d881d2f87314ec30a2d4acef413828}{start\_timer}(mc);
+711     \hyperlink{maap_8c_a3518a5176c421f589c9720bee301c977}{send\_probe}(mc, range);
+712 
+713     \textcolor{keywordflow}{return} id;
+714 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_a0815c405656bea7b54ea61f23925da82_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_a0815c405656bea7b54ea61f23925da82_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap.\+c@{maap.\+c}!maap\+\_\+yield\+\_\+range@{maap\+\_\+yield\+\_\+range}}
+\index{maap\+\_\+yield\+\_\+range@{maap\+\_\+yield\+\_\+range}!maap.\+c@{maap.\+c}}
+\subsubsection[{\texorpdfstring{maap\+\_\+yield\+\_\+range(\+Maap\+\_\+\+Client $\ast$mc, const void $\ast$sender, int id)}{maap_yield_range(Maap_Client *mc, const void *sender, int id)}}]{\setlength{\rightskip}{0pt plus 5cm}int maap\+\_\+yield\+\_\+range (
+\begin{DoxyParamCaption}
+\item[{{\bf Maap\+\_\+\+Client} $\ast$}]{mc, }
+\item[{const void $\ast$}]{sender, }
+\item[{int}]{id}
+\end{DoxyParamCaption}
+)}\hypertarget{maap_8c_a343d579cb0df77bcbc32402f0d15e378}{}\label{maap_8c_a343d579cb0df77bcbc32402f0d15e378}
+Yield a reserved block of addresses, in support of a M\+A\+A\+P\+\_\+\+C\+M\+D\+\_\+\+Y\+I\+E\+LD command.
+
+\begin{DoxyNote}{주의}
+This call starts the yield process, which is only useful for testing. A M\+A\+A\+P\+\_\+\+N\+O\+T\+I\+F\+Y\+\_\+\+Y\+I\+E\+L\+D\+ED notification will be sent when the process is complete.
+\end{DoxyNote}
+
+\begin{DoxyParams}{매개변수}
+{\em mc} & Pointer to the \hyperlink{struct_maap___client}{Maap\+\_\+\+Client} structure to use \\
+\hline
+{\em sender} & Sender information pointer used to track the entity requesting the command \\
+\hline
+{\em id} & Identifier for the address block to yield\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+0 if the yield was started successfully, -\/1 otherwise. 
+\end{DoxyReturn}
+
+
+maap.\+c 파일의 774 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+774                                                                   \{
+775     \hyperlink{structrange}{Range} *\hyperlink{structrange}{range};
+776     \hyperlink{struct_m_a_a_p___packet}{MAAP\_Packet} announce\_packet;
+777     \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} announce\_buffer[\hyperlink{maap__net_8h_a7201d613d0bf5b69e51304c574a77022}{MAAP\_NET\_BUFFER\_SIZE}];
+778 
+779     \textcolor{keywordflow}{if} (!mc->\hyperlink{struct_maap___client_ad06983e7f6e71b233ea7ff3dee1952f2}{initialized}) \{
+780         \hyperlink{maap__log_8h_a0b034a60b88c3465e3a7de39737a216f}{MAAP\_LOG\_DEBUG}(\textcolor{stringliteral}{"Yield not allowed, as MAAP not initialized"});
+781         \hyperlink{maap_8c_a502e63928d40c610c0e5d7912f3df0ac}{inform\_yielded}(mc, sender, \textcolor{keywordtype}{id}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, 
+      \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808ddaf7026afb657e0c00f45b8b2d077103ac}{MAAP\_NOTIFY\_ERROR\_REQUIRES\_INITIALIZATION});
+782         \textcolor{keywordflow}{return} -1;
+783     \}
+784 
+785     range = mc->\hyperlink{struct_maap___client_a9d54ec9961bf59b379abe4e487904bbd}{timer\_queue};
+786     \textcolor{keywordflow}{while} (range) \{
+787         \textcolor{keywordflow}{if} (range->\hyperlink{structrange_a7441ef0865bcb3db9b8064dd7375c1ea}{id} == \textcolor{keywordtype}{id} && range->\hyperlink{structrange_afb8e4b0a842160bfedbee377952d8dde}{state} == \hyperlink{maap_8h_a683b69c2f503f6c19577bca59530533ba96eb18649b740c73582bca409e1d2d52}{MAAP\_STATE\_DEFENDING}) \{
+788             \textcolor{comment}{// Create a conflicting packet for this range.}
+789             \textcolor{comment}{// Use a source address which will always be less than our address, so we should always yield.}
+790             \hyperlink{maap__packet_8c_a9063c2879e9df1c7c1164ff761f19b0d}{init\_packet}(&announce\_packet, 0x010000000000ull, 0x010000000000ull);
+791             announce\_packet.\hyperlink{struct_m_a_a_p___packet_aeaaffeace8c23899e558022f62ce6de4}{message\_type} = \hyperlink{maap__packet_8h_a1f3bb437d08b91177375d98db0ec96d6}{MAAP\_ANNOUNCE};
+792             announce\_packet.\hyperlink{struct_m_a_a_p___packet_a6e54c2881571f11a3a4a82c664794326}{requested\_start\_address} = 
+      \hyperlink{maap_8c_af402827798fb1beb38578db3622c58d3}{get\_start\_address}(mc, range);
+793             announce\_packet.\hyperlink{struct_m_a_a_p___packet_a3b7ca808f59412368434591249aa8a79}{requested\_count} = \hyperlink{maap_8c_ab242a9bc452252bfb882a2b22c883be1}{get\_count}(mc, range);
+794             \hyperlink{maap__packet_8c_a219a9cbe130aa9f2aeb60e962cc0bee7}{pack\_maap}(&announce\_packet, announce\_buffer);
+795             \hyperlink{maap_8c_a7807b60e9a515b68da136756773bd576}{maap\_handle\_packet}(mc, announce\_buffer, 
+      \hyperlink{maap__net_8h_a7201d613d0bf5b69e51304c574a77022}{MAAP\_NET\_BUFFER\_SIZE});
+796 
+797             \textcolor{keywordflow}{return} 0;
+798         \}
+799         range = range->\hyperlink{structrange_a3c89fc489da1e4f9bad21fbdb15e2386}{next\_timer};
+800     \}
+801 
+802     \hyperlink{maap__log_8h_af1aff357381c140941965db32eb316b9}{MAAP\_LOGF\_DEBUG}(\textcolor{stringliteral}{"Range id %d does not exist"}, \textcolor{keywordtype}{id});
+803     \hyperlink{maap_8c_a502e63928d40c610c0e5d7912f3df0ac}{inform\_yielded}(mc, sender, \textcolor{keywordtype}{id}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, 
+      \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808dda6e7e01cfe2e813ec310a2ad52a8a1a41}{MAAP\_NOTIFY\_ERROR\_RELEASE\_INVALID\_ID});
+804     \textcolor{keywordflow}{return} -1;
+805 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_a343d579cb0df77bcbc32402f0d15e378_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_a343d579cb0df77bcbc32402f0d15e378_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap.\+c@{maap.\+c}!print\+\_\+notify@{print\+\_\+notify}}
+\index{print\+\_\+notify@{print\+\_\+notify}!maap.\+c@{maap.\+c}}
+\subsubsection[{\texorpdfstring{print\+\_\+notify(\+Maap\+\_\+\+Notify $\ast$mn, print\+\_\+notify\+\_\+callback\+\_\+t notify\+\_\+callback, void $\ast$callback\+\_\+data)}{print_notify(Maap_Notify *mn, print_notify_callback_t notify_callback, void *callback_data)}}]{\setlength{\rightskip}{0pt plus 5cm}void print\+\_\+notify (
+\begin{DoxyParamCaption}
+\item[{{\bf Maap\+\_\+\+Notify} $\ast$}]{mn, }
+\item[{{\bf print\+\_\+notify\+\_\+callback\+\_\+t}}]{notify\+\_\+callback, }
+\item[{void $\ast$}]{callback\+\_\+data}
+\end{DoxyParamCaption}
+)}\hypertarget{maap_8c_aa1d7d02b66a15fb6cf11b3bab9ff1907}{}\label{maap_8c_aa1d7d02b66a15fb6cf11b3bab9ff1907}
+Output the text equivalent of the notification information to the callback function.
+
+
+\begin{DoxyParams}{매개변수}
+{\em mn} & Pointer to the notification information structure. \\
+\hline
+{\em notify\+\_\+callback} & Function of type \hyperlink{maap__iface_8h_a7ea08dbcb16d8fb55b10f06e9020c055}{print\+\_\+notify\+\_\+callback\+\_\+t} that will handle printable results. \\
+\hline
+{\em callback\+\_\+data} & Data to return with the callback. \\
+\hline
+\end{DoxyParams}
+
+
+maap.\+c 파일의 306 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+307 \{
+308     \textcolor{keywordtype}{char} szOutput[300];
+309 
+310     assert(mn);
+311 
+312     \textcolor{keywordflow}{switch} (mn->\hyperlink{struct_maap___notify_a9d66bc8bbfd0a30a80edda69603ea9ba}{result})
+313     \{
+314     \textcolor{keywordflow}{case} \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808ddaf7eb8886cefe2e917296e22c19bbebd0}{MAAP\_NOTIFY\_ERROR\_NONE}:
+315         \textcolor{comment}{/* No error.  Don't display anything. */}
+316         \textcolor{keywordflow}{break};
+317     \textcolor{keywordflow}{case} \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808ddaf7026afb657e0c00f45b8b2d077103ac}{MAAP\_NOTIFY\_ERROR\_REQUIRES\_INITIALIZATION}:
+318         notify\_callback(callback\_data, \hyperlink{maap__log_8h_a3f328d6c0dafdb801bc09410346b6fc7}{MAAP\_LOG\_LEVEL\_ERROR},
+319             \textcolor{stringliteral}{"MAAP is not initialized, so the command cannot be performed."});
+320         \textcolor{keywordflow}{break};
+321     \textcolor{keywordflow}{case} \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808ddab6456efeda22d33ab1fb2766f533d019}{MAAP\_NOTIFY\_ERROR\_ALREADY\_INITIALIZED}:
+322         notify\_callback(callback\_data, \hyperlink{maap__log_8h_a3f328d6c0dafdb801bc09410346b6fc7}{MAAP\_LOG\_LEVEL\_ERROR},
+323             \textcolor{stringliteral}{"MAAP is already initialized, so the values cannot be changed."});
+324         \textcolor{keywordflow}{break};
+325     \textcolor{keywordflow}{case} \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808dda24b41710d2d55527893f60cb2115eb48}{MAAP\_NOTIFY\_ERROR\_RESERVE\_NOT\_AVAILABLE}:
+326         notify\_callback(callback\_data, \hyperlink{maap__log_8h_a3f328d6c0dafdb801bc09410346b6fc7}{MAAP\_LOG\_LEVEL\_ERROR},
+327             \textcolor{stringliteral}{"The MAAP reservation is not available, or yield cannot allocate a replacement block. "}
+328             \textcolor{stringliteral}{"Try again with a smaller address block size."});
+329         \textcolor{keywordflow}{break};
+330     \textcolor{keywordflow}{case} \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808dda6e7e01cfe2e813ec310a2ad52a8a1a41}{MAAP\_NOTIFY\_ERROR\_RELEASE\_INVALID\_ID}:
+331         notify\_callback(callback\_data, \hyperlink{maap__log_8h_a3f328d6c0dafdb801bc09410346b6fc7}{MAAP\_LOG\_LEVEL\_ERROR},
+332             \textcolor{stringliteral}{"The MAAP reservation ID is not valid, so cannot be released or report its status."});
+333         \textcolor{keywordflow}{break};
+334     \textcolor{keywordflow}{case} \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808ddac832ecff02b8d3cd9136eb499440562b}{MAAP\_NOTIFY\_ERROR\_OUT\_OF\_MEMORY}:
+335         notify\_callback(callback\_data, \hyperlink{maap__log_8h_a3f328d6c0dafdb801bc09410346b6fc7}{MAAP\_LOG\_LEVEL\_ERROR},
+336             \textcolor{stringliteral}{"The MAAP application is out of memory."});
+337         \textcolor{keywordflow}{break};
+338     \textcolor{keywordflow}{case} \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808dda7aef1926e7d6b988cedae62744b0e4b5}{MAAP\_NOTIFY\_ERROR\_INTERNAL}:
+339         notify\_callback(callback\_data, \hyperlink{maap__log_8h_a3f328d6c0dafdb801bc09410346b6fc7}{MAAP\_LOG\_LEVEL\_ERROR},
+340             \textcolor{stringliteral}{"The MAAP application experienced an internal error."});
+341         \textcolor{keywordflow}{break};
+342     \textcolor{keywordflow}{default}:
+343         sprintf(szOutput, \textcolor{stringliteral}{"The MAAP application returned an unknown error %d."}, mn->
+      \hyperlink{struct_maap___notify_a9d66bc8bbfd0a30a80edda69603ea9ba}{result});
+344         notify\_callback(callback\_data, \hyperlink{maap__log_8h_a3f328d6c0dafdb801bc09410346b6fc7}{MAAP\_LOG\_LEVEL\_ERROR}, szOutput);
+345         \textcolor{keywordflow}{break};
+346     \}
+347 
+348     \textcolor{keywordflow}{switch} (mn->\hyperlink{struct_maap___notify_a28725ddb5295895b12a48456f73a5665}{kind})
+349     \{
+350     \textcolor{keywordflow}{case} \hyperlink{maap__iface_8h_a0d45e125fb876b383321d96bc510285ea1933d7302204862df14f845d2566183c}{MAAP\_NOTIFY\_INITIALIZED}:
+351         \textcolor{keywordflow}{if} (mn->\hyperlink{struct_maap___notify_a9d66bc8bbfd0a30a80edda69603ea9ba}{result} == \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808ddaf7eb8886cefe2e917296e22c19bbebd0}{MAAP\_NOTIFY\_ERROR\_NONE}) \{
+352             sprintf(szOutput, \textcolor{stringliteral}{"MAAP initialized:  0x%012llx-0x%012llx (Size: %d)"},
+353                 (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long}) mn->\hyperlink{struct_maap___notify_a6a51e9baeec9b06ae477cf6475efc71d}{start},
+354                 (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long}) mn->\hyperlink{struct_maap___notify_a6a51e9baeec9b06ae477cf6475efc71d}{start} + mn->\hyperlink{struct_maap___notify_a86988a65e0d3ece7990c032c159786d6}{count} - 1,
+355                 (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int}) mn->\hyperlink{struct_maap___notify_a86988a65e0d3ece7990c032c159786d6}{count});
+356             notify\_callback(callback\_data, \hyperlink{maap__log_8h_a8dca16bbef5b5633d90b792f18a73262}{MAAP\_LOG\_LEVEL\_INFO}, szOutput);
+357         \} \textcolor{keywordflow}{else} \{
+358             sprintf(szOutput, \textcolor{stringliteral}{"MAAP previously initialized to 0x%012llx-0x%012llx (Size: %d)"},
+359                 (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long}) mn->\hyperlink{struct_maap___notify_a6a51e9baeec9b06ae477cf6475efc71d}{start},
+360                 (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long}) mn->\hyperlink{struct_maap___notify_a6a51e9baeec9b06ae477cf6475efc71d}{start} + mn->\hyperlink{struct_maap___notify_a86988a65e0d3ece7990c032c159786d6}{count} - 1,
+361                 (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int}) mn->\hyperlink{struct_maap___notify_a86988a65e0d3ece7990c032c159786d6}{count});
+362             notify\_callback(callback\_data, \hyperlink{maap__log_8h_a3f328d6c0dafdb801bc09410346b6fc7}{MAAP\_LOG\_LEVEL\_ERROR}, szOutput);
+363         \}
+364         \textcolor{keywordflow}{break};
+365     \textcolor{keywordflow}{case} \hyperlink{maap__iface_8h_a0d45e125fb876b383321d96bc510285ea0f5d99d0f124fe7233cacefd53f26127}{MAAP\_NOTIFY\_ACQUIRING}:
+366         \textcolor{keywordflow}{if} (mn->\hyperlink{struct_maap___notify_a9d66bc8bbfd0a30a80edda69603ea9ba}{result} == \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808ddaf7eb8886cefe2e917296e22c19bbebd0}{MAAP\_NOTIFY\_ERROR\_NONE}) \{
+367             sprintf(szOutput, \textcolor{stringliteral}{"Address range %d querying:  0x%012llx-0x%012llx (Size %d)"},
+368                 mn->\hyperlink{struct_maap___notify_a2708c0bbb6f926149707c2c61fe43c3e}{id},
+369                 (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long}) mn->\hyperlink{struct_maap___notify_a6a51e9baeec9b06ae477cf6475efc71d}{start},
+370                 (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long}) mn->\hyperlink{struct_maap___notify_a6a51e9baeec9b06ae477cf6475efc71d}{start} + mn->\hyperlink{struct_maap___notify_a86988a65e0d3ece7990c032c159786d6}{count} - 1,
+371                 mn->\hyperlink{struct_maap___notify_a86988a65e0d3ece7990c032c159786d6}{count});
+372             notify\_callback(callback\_data, \hyperlink{maap__log_8h_a8dca16bbef5b5633d90b792f18a73262}{MAAP\_LOG\_LEVEL\_INFO}, szOutput);
+373         \} \textcolor{keywordflow}{else} \{
+374             sprintf(szOutput, \textcolor{stringliteral}{"Unknown address range %d acquisition error"}, mn->
+      \hyperlink{struct_maap___notify_a2708c0bbb6f926149707c2c61fe43c3e}{id});
+375             notify\_callback(callback\_data, \hyperlink{maap__log_8h_a3f328d6c0dafdb801bc09410346b6fc7}{MAAP\_LOG\_LEVEL\_ERROR}, szOutput);
+376         \}
+377         \textcolor{keywordflow}{break};
+378     \textcolor{keywordflow}{case} \hyperlink{maap__iface_8h_a0d45e125fb876b383321d96bc510285ea37a35b37b6f804ebc82248ae3ed110c6}{MAAP\_NOTIFY\_ACQUIRED}:
+379         \textcolor{keywordflow}{if} (mn->\hyperlink{struct_maap___notify_a9d66bc8bbfd0a30a80edda69603ea9ba}{result} == \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808ddaf7eb8886cefe2e917296e22c19bbebd0}{MAAP\_NOTIFY\_ERROR\_NONE}) \{
+380             sprintf(szOutput, \textcolor{stringliteral}{"Address range %d acquired:  0x%012llx-0x%012llx (Size %d)"},
+381                 mn->\hyperlink{struct_maap___notify_a2708c0bbb6f926149707c2c61fe43c3e}{id},
+382                 (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long}) mn->\hyperlink{struct_maap___notify_a6a51e9baeec9b06ae477cf6475efc71d}{start},
+383                 (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long}) mn->\hyperlink{struct_maap___notify_a6a51e9baeec9b06ae477cf6475efc71d}{start} + mn->\hyperlink{struct_maap___notify_a86988a65e0d3ece7990c032c159786d6}{count} - 1,
+384                 mn->\hyperlink{struct_maap___notify_a86988a65e0d3ece7990c032c159786d6}{count});
+385             notify\_callback(callback\_data, \hyperlink{maap__log_8h_a8dca16bbef5b5633d90b792f18a73262}{MAAP\_LOG\_LEVEL\_INFO}, szOutput);
+386         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (mn->\hyperlink{struct_maap___notify_a2708c0bbb6f926149707c2c61fe43c3e}{id} != -1) \{
+387             sprintf(szOutput, \textcolor{stringliteral}{"Address range %d of size %d not acquired"},
+388                 mn->\hyperlink{struct_maap___notify_a2708c0bbb6f926149707c2c61fe43c3e}{id}, mn->\hyperlink{struct_maap___notify_a86988a65e0d3ece7990c032c159786d6}{count});
+389             notify\_callback(callback\_data, \hyperlink{maap__log_8h_a3f328d6c0dafdb801bc09410346b6fc7}{MAAP\_LOG\_LEVEL\_ERROR}, szOutput);
+390         \} \textcolor{keywordflow}{else} \{
+391             sprintf(szOutput, \textcolor{stringliteral}{"Address range of size %d not acquired"},
+392                 mn->\hyperlink{struct_maap___notify_a86988a65e0d3ece7990c032c159786d6}{count});
+393             notify\_callback(callback\_data, \hyperlink{maap__log_8h_a3f328d6c0dafdb801bc09410346b6fc7}{MAAP\_LOG\_LEVEL\_ERROR}, szOutput);
+394         \}
+395         \textcolor{keywordflow}{break};
+396     \textcolor{keywordflow}{case} \hyperlink{maap__iface_8h_a0d45e125fb876b383321d96bc510285eadcdf0612242dddc5976bc7eb80ae8813}{MAAP\_NOTIFY\_RELEASED}:
+397         \textcolor{keywordflow}{if} (mn->\hyperlink{struct_maap___notify_a9d66bc8bbfd0a30a80edda69603ea9ba}{result} == \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808ddaf7eb8886cefe2e917296e22c19bbebd0}{MAAP\_NOTIFY\_ERROR\_NONE}) \{
+398             sprintf(szOutput, \textcolor{stringliteral}{"Address range %d released:  0x%012llx-0x%012llx (Size %d)"},
+399                 mn->\hyperlink{struct_maap___notify_a2708c0bbb6f926149707c2c61fe43c3e}{id},
+400                 (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long}) mn->\hyperlink{struct_maap___notify_a6a51e9baeec9b06ae477cf6475efc71d}{start},
+401                 (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long}) mn->\hyperlink{struct_maap___notify_a6a51e9baeec9b06ae477cf6475efc71d}{start} + mn->\hyperlink{struct_maap___notify_a86988a65e0d3ece7990c032c159786d6}{count} - 1,
+402                 mn->\hyperlink{struct_maap___notify_a86988a65e0d3ece7990c032c159786d6}{count});
+403             notify\_callback(callback\_data, \hyperlink{maap__log_8h_a8dca16bbef5b5633d90b792f18a73262}{MAAP\_LOG\_LEVEL\_INFO}, szOutput);
+404         \} \textcolor{keywordflow}{else} \{
+405             sprintf(szOutput, \textcolor{stringliteral}{"Address range %d not released"},
+406                 mn->\hyperlink{struct_maap___notify_a2708c0bbb6f926149707c2c61fe43c3e}{id});
+407             notify\_callback(callback\_data, \hyperlink{maap__log_8h_a3f328d6c0dafdb801bc09410346b6fc7}{MAAP\_LOG\_LEVEL\_ERROR}, szOutput);
+408         \}
+409         \textcolor{keywordflow}{break};
+410     \textcolor{keywordflow}{case} \hyperlink{maap__iface_8h_a0d45e125fb876b383321d96bc510285ea993b057f5516f007248e70006319c846}{MAAP\_NOTIFY\_STATUS}:
+411         \textcolor{keywordflow}{if} (mn->\hyperlink{struct_maap___notify_a9d66bc8bbfd0a30a80edda69603ea9ba}{result} == \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808ddaf7eb8886cefe2e917296e22c19bbebd0}{MAAP\_NOTIFY\_ERROR\_NONE}) \{
+412             sprintf(szOutput, \textcolor{stringliteral}{"ID %d is address range 0x%012llx-0x%012llx (Size %d)"},
+413                 mn->\hyperlink{struct_maap___notify_a2708c0bbb6f926149707c2c61fe43c3e}{id},
+414                 (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long}) mn->\hyperlink{struct_maap___notify_a6a51e9baeec9b06ae477cf6475efc71d}{start},
+415                 (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long}) mn->\hyperlink{struct_maap___notify_a6a51e9baeec9b06ae477cf6475efc71d}{start} + mn->\hyperlink{struct_maap___notify_a86988a65e0d3ece7990c032c159786d6}{count} - 1,
+416                 mn->\hyperlink{struct_maap___notify_a86988a65e0d3ece7990c032c159786d6}{count});
+417             notify\_callback(callback\_data, \hyperlink{maap__log_8h_a8dca16bbef5b5633d90b792f18a73262}{MAAP\_LOG\_LEVEL\_INFO}, szOutput);
+418         \} \textcolor{keywordflow}{else} \{
+419             sprintf(szOutput, \textcolor{stringliteral}{"ID %d is not valid"},
+420                 mn->\hyperlink{struct_maap___notify_a2708c0bbb6f926149707c2c61fe43c3e}{id});
+421             notify\_callback(callback\_data, \hyperlink{maap__log_8h_a3f328d6c0dafdb801bc09410346b6fc7}{MAAP\_LOG\_LEVEL\_ERROR}, szOutput);
+422         \}
+423         \textcolor{keywordflow}{break};
+424     \textcolor{keywordflow}{case} \hyperlink{maap__iface_8h_a0d45e125fb876b383321d96bc510285ea438f0d11e6e3a74550cab4c378f9aeba}{MAAP\_NOTIFY\_YIELDED}:
+425         \textcolor{keywordflow}{if} (mn->\hyperlink{struct_maap___notify_a9d66bc8bbfd0a30a80edda69603ea9ba}{result} != \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808ddaf7026afb657e0c00f45b8b2d077103ac}{MAAP\_NOTIFY\_ERROR\_REQUIRES\_INITIALIZATION}
+       && mn->\hyperlink{struct_maap___notify_a9d66bc8bbfd0a30a80edda69603ea9ba}{result} != \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808dda6e7e01cfe2e813ec310a2ad52a8a1a41}{MAAP\_NOTIFY\_ERROR\_RELEASE\_INVALID\_ID}) \{
+426             sprintf(szOutput, \textcolor{stringliteral}{"Address range %d yielded:  0x%012llx-0x%012llx (Size %d)"},
+427                 mn->\hyperlink{struct_maap___notify_a2708c0bbb6f926149707c2c61fe43c3e}{id},
+428                 (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long}) mn->\hyperlink{struct_maap___notify_a6a51e9baeec9b06ae477cf6475efc71d}{start},
+429                 (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long}) mn->\hyperlink{struct_maap___notify_a6a51e9baeec9b06ae477cf6475efc71d}{start} + mn->\hyperlink{struct_maap___notify_a86988a65e0d3ece7990c032c159786d6}{count} - 1,
+430                 mn->\hyperlink{struct_maap___notify_a86988a65e0d3ece7990c032c159786d6}{count});
+431             notify\_callback(callback\_data, \hyperlink{maap__log_8h_ae7dbd9677f572ebd7757e0cdc2b0992e}{MAAP\_LOG\_LEVEL\_WARNING}, szOutput);
+432             \textcolor{keywordflow}{if} (mn->\hyperlink{struct_maap___notify_a9d66bc8bbfd0a30a80edda69603ea9ba}{result} != \hyperlink{maap__iface_8h_aad86c36b2cb1c22bfa5e2e5032f808ddaf7eb8886cefe2e917296e22c19bbebd0}{MAAP\_NOTIFY\_ERROR\_NONE}) \{
+433                 notify\_callback(callback\_data, \hyperlink{maap__log_8h_a3f328d6c0dafdb801bc09410346b6fc7}{MAAP\_LOG\_LEVEL\_ERROR},
+434                     \textcolor{stringliteral}{"A new address range will not be allocated"});
+435             \}
+436         \} \textcolor{keywordflow}{else} \{
+437             sprintf(szOutput, \textcolor{stringliteral}{"ID %d is not valid"},
+438                 mn->\hyperlink{struct_maap___notify_a2708c0bbb6f926149707c2c61fe43c3e}{id});
+439             notify\_callback(callback\_data, \hyperlink{maap__log_8h_a3f328d6c0dafdb801bc09410346b6fc7}{MAAP\_LOG\_LEVEL\_ERROR}, szOutput);
+440         \}
+441         \textcolor{keywordflow}{break};
+442     \textcolor{keywordflow}{default}:
+443         sprintf(szOutput, \textcolor{stringliteral}{"Notification type %d not recognized"}, mn->\hyperlink{struct_maap___notify_a28725ddb5295895b12a48456f73a5665}{kind});
+444         notify\_callback(callback\_data, \hyperlink{maap__log_8h_a3f328d6c0dafdb801bc09410346b6fc7}{MAAP\_LOG\_LEVEL\_ERROR}, szOutput);
+445         \textcolor{keywordflow}{break};
+446     \}
+447 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=333pt]{maap_8c_aa1d7d02b66a15fb6cf11b3bab9ff1907_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap.\+c@{maap.\+c}!rand\+\_\+ms@{rand\+\_\+ms}}
+\index{rand\+\_\+ms@{rand\+\_\+ms}!maap.\+c@{maap.\+c}}
+\subsubsection[{\texorpdfstring{rand\+\_\+ms(int variation)}{rand_ms(int variation)}}]{\setlength{\rightskip}{0pt plus 5cm}int rand\+\_\+ms (
+\begin{DoxyParamCaption}
+\item[{int}]{variation}
+\end{DoxyParamCaption}
+)}\hypertarget{maap_8c_aa175b28953c435758f47262cfb812534}{}\label{maap_8c_aa175b28953c435758f47262cfb812534}
+
+
+maap.\+c 파일의 519 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+519                            \{
+520     \textcolor{comment}{/* Return a value between 1 and variation-1, inclusive.}
+521 \textcolor{comment}{     * This is to adhere to IEEE 1722-2016 B.3.4.1 and B.3.4.2. */}
+522     \textcolor{keywordflow}{return} random() % (variation - 1) + 1;
+523 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_aa175b28953c435758f47262cfb812534_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap.\+c@{maap.\+c}!remove\+\_\+range\+\_\+interval@{remove\+\_\+range\+\_\+interval}}
+\index{remove\+\_\+range\+\_\+interval@{remove\+\_\+range\+\_\+interval}!maap.\+c@{maap.\+c}}
+\subsubsection[{\texorpdfstring{remove\+\_\+range\+\_\+interval(\+Interval $\ast$$\ast$root, Interval $\ast$node)}{remove_range_interval(Interval **root, Interval *node)}}]{\setlength{\rightskip}{0pt plus 5cm}static void remove\+\_\+range\+\_\+interval (
+\begin{DoxyParamCaption}
+\item[{{\bf Interval} $\ast$$\ast$}]{root, }
+\item[{{\bf Interval} $\ast$}]{node}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{maap_8c_a132704b4be610a84953dc760c2de5ffb}{}\label{maap_8c_a132704b4be610a84953dc760c2de5ffb}
+
+
+maap.\+c 파일의 252 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+252                                                                    \{
+253     \hyperlink{structrange}{Range} *old\_range = node->\hyperlink{structinterval__node_a735984d41155bc1032e09bece8f8d66d}{data};
+254     \hyperlink{structinterval__node}{Interval} *free\_inter, *test\_inter;
+255 
+256     \textcolor{comment}{/* Remove and free the interval from the set of intervals.}
+257 \textcolor{comment}{     * Note that the interval freed may not be the same one supplied. */}
+258     assert(!old\_range || old\_range->\hyperlink{structrange_a07955c04c790953cbbcc9305fda01a0a}{interval} == node);
+259     free\_inter = \hyperlink{intervals_8c_af873be8e2041714eb5a49efdc9186e48}{remove\_interval}(root, node);
+260     assert(free\_inter->\hyperlink{structinterval__node_a735984d41155bc1032e09bece8f8d66d}{data} == old\_range);
+261     \hyperlink{intervals_8c_a12921bd81229ae4bc736b1bf543d7b3c}{free\_interval}(free\_inter);
+262 
+263     \textcolor{comment}{/* Make sure the remaining ranges point to the intervals that hold them.}
+264 \textcolor{comment}{     * This is necessary as the Range object may have moved to a different node. */}
+265     \textcolor{keywordflow}{for} (test\_inter = \hyperlink{intervals_8c_aa7356543330bcc74735ddbe1ae8ff1d0}{minimum\_interval}(*root); test\_inter != 
+      \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}; test\_inter = \hyperlink{intervals_8c_a7e2900527140ff8c3f6eb60d100f38bb}{next\_interval}(test\_inter)) \{
+266         \hyperlink{structrange}{Range} *\hyperlink{structrange}{range} = test\_inter->\hyperlink{structinterval__node_a735984d41155bc1032e09bece8f8d66d}{data};
+267         assert(range);
+268         assert(range != old\_range);
+269         \textcolor{keywordflow}{if} (range->\hyperlink{structrange_a07955c04c790953cbbcc9305fda01a0a}{interval} != test\_inter) \{
+270             range->\hyperlink{structrange_a07955c04c790953cbbcc9305fda01a0a}{interval} = test\_inter;
+271         \}
+272     \}
+273 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_a132704b4be610a84953dc760c2de5ffb_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_a132704b4be610a84953dc760c2de5ffb_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap.\+c@{maap.\+c}!schedule\+\_\+timer@{schedule\+\_\+timer}}
+\index{schedule\+\_\+timer@{schedule\+\_\+timer}!maap.\+c@{maap.\+c}}
+\subsubsection[{\texorpdfstring{schedule\+\_\+timer(\+Maap\+\_\+\+Client $\ast$mc, Range $\ast$range)}{schedule_timer(Maap_Client *mc, Range *range)}}]{\setlength{\rightskip}{0pt plus 5cm}int schedule\+\_\+timer (
+\begin{DoxyParamCaption}
+\item[{{\bf Maap\+\_\+\+Client} $\ast$}]{mc, }
+\item[{{\bf Range} $\ast$}]{range}
+\end{DoxyParamCaption}
+)}\hypertarget{maap_8c_a772c3868b86e35a12e19d64a61819eaa}{}\label{maap_8c_a772c3868b86e35a12e19d64a61819eaa}
+
+
+maap.\+c 파일의 525 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+525                                                   \{
+526     \hyperlink{structrange}{Range} *rp, *prev\_rp;
+527     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long} \textcolor{keywordtype}{int} ns;
+528     \hyperlink{maap__timer_8h_a820ab516df7068a95c9e59f09e82859b}{Time} ts;
+529 
+530     assert(mc);
+531     assert(range);
+532 
+533 \textcolor{preprocessor}{#ifdef DEBUG\_TIMER\_MSG}
+534     \textcolor{keywordflow}{if} (\hyperlink{maap__log_8h_ae1357fa170beab46da00a253b0e7b0b2}{MAAP\_LOG\_LEVEL\_DEBUG} <= \hyperlink{maap__log_8h_a2ccd1b8477f20e51a331f4a2b20901e7}{MAAP\_LOG\_LEVEL}) \{
+535         \hyperlink{maap__timer_8h_abe1fa73a62adeef30aa8c8eb8fd614e9}{Time\_setFromMonotonicTimer}(&ts);
+536         \hyperlink{maap__log_8h_af1aff357381c140941965db32eb316b9}{MAAP\_LOGF\_DEBUG}(\textcolor{stringliteral}{"schedule\_timer called at:  %s"}, 
+      \hyperlink{maap__timer_8h_afe800aa08a24713870ea65a7ca03d87b}{Time\_dump}(&ts));
+537     \}
+538 \textcolor{preprocessor}{#endif}
+539 
+540     \textcolor{keywordflow}{if} (range->\hyperlink{structrange_afb8e4b0a842160bfedbee377952d8dde}{state} == \hyperlink{maap_8h_a683b69c2f503f6c19577bca59530533ba2056a730980af2724e93edf62a992170}{MAAP\_STATE\_PROBING}) \{
+541         ns = \hyperlink{maap_8h_a973ed524cc009560abfe9820f643179c}{MAAP\_PROBE\_INTERVAL\_BASE} + \hyperlink{maap_8c_aa175b28953c435758f47262cfb812534}{rand\_ms}(
+      \hyperlink{maap_8h_a2d064e4950dd3886c21ba637c8d672eb}{MAAP\_PROBE\_INTERVAL\_VARIATION});
+542         ns = ns * 1000000;
+543 \textcolor{preprocessor}{#ifdef DEBUG\_TIMER\_MSG}
+544         \hyperlink{maap__log_8h_af1aff357381c140941965db32eb316b9}{MAAP\_LOGF\_DEBUG}(\textcolor{stringliteral}{"Scheduling probe timer for %llu ns from now"}, ns);
+545 \textcolor{preprocessor}{#endif}
+546         \hyperlink{maap__timer_8h_a90f59a555e6d8f8655218a63f6b1768e}{Time\_setFromNanos}(&ts, ns);
+547         \hyperlink{maap__timer_8h_abe1fa73a62adeef30aa8c8eb8fd614e9}{Time\_setFromMonotonicTimer}(&range->
+      \hyperlink{structrange_a612425de4bd924a67f8e553419d979ba}{next\_act\_time});
+548         \hyperlink{maap__timer_8h_a89f6a851fce064664ddac3d9b5b12d9f}{Time\_add}(&range->\hyperlink{structrange_a612425de4bd924a67f8e553419d979ba}{next\_act\_time}, &ts);
+549 \textcolor{preprocessor}{#ifdef DEBUG\_TIMER\_MSG}
+550         \hyperlink{maap__log_8h_af1aff357381c140941965db32eb316b9}{MAAP\_LOGF\_DEBUG}(\textcolor{stringliteral}{"Expiration time is:  %s"}, \hyperlink{maap__timer_8h_afe800aa08a24713870ea65a7ca03d87b}{Time\_dump}(&range->
+      \hyperlink{structrange_a612425de4bd924a67f8e553419d979ba}{next\_act\_time}));
+551 \textcolor{preprocessor}{#endif}
+552     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (range->\hyperlink{structrange_afb8e4b0a842160bfedbee377952d8dde}{state} == \hyperlink{maap_8h_a683b69c2f503f6c19577bca59530533ba96eb18649b740c73582bca409e1d2d52}{MAAP\_STATE\_DEFENDING}) \{
+553         ns = \hyperlink{maap_8h_a09241f10d014eafb56f0d6d6483303bc}{MAAP\_ANNOUNCE\_INTERVAL\_BASE} + \hyperlink{maap_8c_aa175b28953c435758f47262cfb812534}{rand\_ms}(
+      \hyperlink{maap_8h_a17327d088708951f7e28f64938423721}{MAAP\_ANNOUNCE\_INTERVAL\_VARIATION});
+554         ns = ns * 1000000;
+555 \textcolor{preprocessor}{#ifdef DEBUG\_TIMER\_MSG}
+556         \hyperlink{maap__log_8h_af1aff357381c140941965db32eb316b9}{MAAP\_LOGF\_DEBUG}(\textcolor{stringliteral}{"Scheduling defend timer for %llu ns from now"}, ns);
+557 \textcolor{preprocessor}{#endif}
+558         \hyperlink{maap__timer_8h_a90f59a555e6d8f8655218a63f6b1768e}{Time\_setFromNanos}(&ts, (\hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\_t})ns);
+559         \hyperlink{maap__timer_8h_abe1fa73a62adeef30aa8c8eb8fd614e9}{Time\_setFromMonotonicTimer}(&range->
+      \hyperlink{structrange_a612425de4bd924a67f8e553419d979ba}{next\_act\_time});
+560         \hyperlink{maap__timer_8h_a89f6a851fce064664ddac3d9b5b12d9f}{Time\_add}(&range->\hyperlink{structrange_a612425de4bd924a67f8e553419d979ba}{next\_act\_time}, &ts);
+561 \textcolor{preprocessor}{#ifdef DEBUG\_TIMER\_MSG}
+562         \hyperlink{maap__log_8h_af1aff357381c140941965db32eb316b9}{MAAP\_LOGF\_DEBUG}(\textcolor{stringliteral}{"Expiration time is:  %s"}, \hyperlink{maap__timer_8h_afe800aa08a24713870ea65a7ca03d87b}{Time\_dump}(&range->
+      \hyperlink{structrange_a612425de4bd924a67f8e553419d979ba}{next\_act\_time}));
+563 \textcolor{preprocessor}{#endif}
+564     \}
+565 
+566     \textcolor{comment}{/* Remove the range from the timer queue, if it is already in it. */}
+567     \textcolor{keywordflow}{if} (mc->\hyperlink{struct_maap___client_a9d54ec9961bf59b379abe4e487904bbd}{timer\_queue} == range) \{
+568         \textcolor{comment}{/* Range was at the front of the queue. */}
+569         mc->\hyperlink{struct_maap___client_a9d54ec9961bf59b379abe4e487904bbd}{timer\_queue} = range->\hyperlink{structrange_a3c89fc489da1e4f9bad21fbdb15e2386}{next\_timer};
+570     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (mc->\hyperlink{struct_maap___client_a9d54ec9961bf59b379abe4e487904bbd}{timer\_queue}) \{
+571         \textcolor{comment}{/* Search the rest of the queue. */}
+572         prev\_rp = mc->\hyperlink{struct_maap___client_a9d54ec9961bf59b379abe4e487904bbd}{timer\_queue};
+573         rp = prev\_rp->\hyperlink{structrange_a3c89fc489da1e4f9bad21fbdb15e2386}{next\_timer};
+574         \textcolor{keywordflow}{while} (rp && rp != range) \{
+575             prev\_rp = rp;
+576             rp = rp->\hyperlink{structrange_a3c89fc489da1e4f9bad21fbdb15e2386}{next\_timer};
+577         \}
+578         \textcolor{keywordflow}{if} (rp) \{
+579             \textcolor{comment}{/* Range was found.  Remove it. */}
+580             prev\_rp->\hyperlink{structrange_a3c89fc489da1e4f9bad21fbdb15e2386}{next\_timer} = rp->\hyperlink{structrange_a3c89fc489da1e4f9bad21fbdb15e2386}{next\_timer};
+581             rp->\hyperlink{structrange_a3c89fc489da1e4f9bad21fbdb15e2386}{next\_timer} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+582         \}
+583     \}
+584 
+585     \textcolor{comment}{/* Add the range to the timer queue. */}
+586     \textcolor{keywordflow}{if} (mc->\hyperlink{struct_maap___client_a9d54ec9961bf59b379abe4e487904bbd}{timer\_queue} == \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} ||
+587         \hyperlink{maap__timer_8h_a0fed899a04a952b1cfefd3832aa75a8b}{Time\_cmp}(&range->\hyperlink{structrange_a612425de4bd924a67f8e553419d979ba}{next\_act\_time}, &mc->\hyperlink{struct_maap___client_a9d54ec9961bf59b379abe4e487904bbd}{timer\_queue}->
+      \hyperlink{structrange_a612425de4bd924a67f8e553419d979ba}{next\_act\_time}) < 0) \{
+588         range->\hyperlink{structrange_a3c89fc489da1e4f9bad21fbdb15e2386}{next\_timer} = mc->\hyperlink{struct_maap___client_a9d54ec9961bf59b379abe4e487904bbd}{timer\_queue};
+589         mc->\hyperlink{struct_maap___client_a9d54ec9961bf59b379abe4e487904bbd}{timer\_queue} = range;
+590     \} \textcolor{keywordflow}{else} \{
+591         rp = mc->\hyperlink{struct_maap___client_a9d54ec9961bf59b379abe4e487904bbd}{timer\_queue};
+592         \textcolor{keywordflow}{while} (rp->\hyperlink{structrange_a3c89fc489da1e4f9bad21fbdb15e2386}{next\_timer} &&
+593             \hyperlink{maap__timer_8h_a0fed899a04a952b1cfefd3832aa75a8b}{Time\_cmp}(&rp->\hyperlink{structrange_a3c89fc489da1e4f9bad21fbdb15e2386}{next\_timer}->\hyperlink{structrange_a612425de4bd924a67f8e553419d979ba}{next\_act\_time}, &range->
+      \hyperlink{structrange_a612425de4bd924a67f8e553419d979ba}{next\_act\_time}) <= 0)
+594         \{
+595             rp = rp->\hyperlink{structrange_a3c89fc489da1e4f9bad21fbdb15e2386}{next\_timer};
+596         \}
+597         range->\hyperlink{structrange_a3c89fc489da1e4f9bad21fbdb15e2386}{next\_timer} = rp->\hyperlink{structrange_a3c89fc489da1e4f9bad21fbdb15e2386}{next\_timer};
+598         rp->\hyperlink{structrange_a3c89fc489da1e4f9bad21fbdb15e2386}{next\_timer} = range;
+599     \}
+600 
+601 \textcolor{preprocessor}{#ifdef DEBUG\_TIMER\_MSG}
+602     \textcolor{comment}{/* Perform a sanity test on the timer queue. */}
+603     \{
+604         \hyperlink{structrange}{Range} *test = mc->\hyperlink{struct_maap___client_a9d54ec9961bf59b379abe4e487904bbd}{timer\_queue};
+605         \textcolor{keywordtype}{int} i;
+606         \textcolor{keywordflow}{for} (i = 0; test && i < 100000; ++i) \{
+607             assert(test->\hyperlink{structrange_a3c89fc489da1e4f9bad21fbdb15e2386}{next\_timer} != test);
+608             assert(test->\hyperlink{structrange_a3c89fc489da1e4f9bad21fbdb15e2386}{next\_timer} == \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} || \hyperlink{maap__timer_8h_a0fed899a04a952b1cfefd3832aa75a8b}{Time\_cmp}(&test->
+      \hyperlink{structrange_a612425de4bd924a67f8e553419d979ba}{next\_act\_time}, &test->\hyperlink{structrange_a3c89fc489da1e4f9bad21fbdb15e2386}{next\_timer}->\hyperlink{structrange_a612425de4bd924a67f8e553419d979ba}{next\_act\_time}) <= 0);
+609             test = test->\hyperlink{structrange_a3c89fc489da1e4f9bad21fbdb15e2386}{next\_timer};
+610         \}
+611         \textcolor{keywordflow}{if} (test) \{
+612             \hyperlink{maap__log_8h_a953cc1d79351edec0f60b7e736a308de}{MAAP\_LOG\_ERROR}(\textcolor{stringliteral}{"Timer infinite loop detected!"});
+613             assert(0);
+614         \}
+615     \}
+616 \textcolor{preprocessor}{#endif}
+617 
+618     \textcolor{keywordflow}{return} 0;
+619 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_a772c3868b86e35a12e19d64a61819eaa_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_a772c3868b86e35a12e19d64a61819eaa_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap.\+c@{maap.\+c}!send\+\_\+announce@{send\+\_\+announce}}
+\index{send\+\_\+announce@{send\+\_\+announce}!maap.\+c@{maap.\+c}}
+\subsubsection[{\texorpdfstring{send\+\_\+announce(\+Maap\+\_\+\+Client $\ast$mc, Range $\ast$range)}{send_announce(Maap_Client *mc, Range *range)}}]{\setlength{\rightskip}{0pt plus 5cm}static int send\+\_\+announce (
+\begin{DoxyParamCaption}
+\item[{{\bf Maap\+\_\+\+Client} $\ast$}]{mc, }
+\item[{{\bf Range} $\ast$}]{range}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{maap_8c_a347a548120a8564100386c1937b9bf0c}{}\label{maap_8c_a347a548120a8564100386c1937b9bf0c}
+
+
+maap.\+c 파일의 102 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+102                                                         \{
+103     \hyperlink{struct_m_a_a_p___packet}{MAAP\_Packet} p;
+104 
+105     \hyperlink{maap__packet_8c_a9063c2879e9df1c7c1164ff761f19b0d}{init\_packet}(&p, mc->\hyperlink{struct_maap___client_a205a8c33627111589223916ef80462c2}{dest\_mac}, mc->\hyperlink{struct_maap___client_ae2c98c9078f80f770e85f937c34da4eb}{src\_mac});
+106 
+107     p.\hyperlink{struct_m_a_a_p___packet_aeaaffeace8c23899e558022f62ce6de4}{message\_type} = \hyperlink{maap__packet_8h_a1f3bb437d08b91177375d98db0ec96d6}{MAAP\_ANNOUNCE};
+108     p.\hyperlink{struct_m_a_a_p___packet_a6e54c2881571f11a3a4a82c664794326}{requested\_start\_address} = \hyperlink{maap_8c_af402827798fb1beb38578db3622c58d3}{get\_start\_address}(mc, range);
+109     p.\hyperlink{struct_m_a_a_p___packet_a3b7ca808f59412368434591249aa8a79}{requested\_count} = \hyperlink{maap_8c_ab242a9bc452252bfb882a2b22c883be1}{get\_count}(mc, range);
+110 
+111 \textcolor{preprocessor}{#ifdef DEBUG\_NEGOTIATE\_MSG}
+112     \textcolor{keywordflow}{if} (\hyperlink{maap__log_8h_ae1357fa170beab46da00a253b0e7b0b2}{MAAP\_LOG\_LEVEL\_DEBUG} <= \hyperlink{maap__log_8h_a2ccd1b8477f20e51a331f4a2b20901e7}{MAAP\_LOG\_LEVEL}) \{
+113         \hyperlink{maap__timer_8h_a820ab516df7068a95c9e59f09e82859b}{Time} t;
+114         \hyperlink{maap__timer_8h_abe1fa73a62adeef30aa8c8eb8fd614e9}{Time\_setFromMonotonicTimer}(&t);
+115         \hyperlink{maap__log_8h_af1aff357381c140941965db32eb316b9}{MAAP\_LOGF\_DEBUG}(\textcolor{stringliteral}{"Sending announce at %s"}, \hyperlink{maap__timer_8h_afe800aa08a24713870ea65a7ca03d87b}{Time\_dump}(&t));
+116     \}
+117 \textcolor{preprocessor}{#endif}
+118 
+119     \textcolor{keywordflow}{return} \hyperlink{maap_8c_a660e88c2bde25150a4e00c81f0bebfd5}{send\_packet}(mc, &p);
+120 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_a347a548120a8564100386c1937b9bf0c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_a347a548120a8564100386c1937b9bf0c_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap.\+c@{maap.\+c}!send\+\_\+defend@{send\+\_\+defend}}
+\index{send\+\_\+defend@{send\+\_\+defend}!maap.\+c@{maap.\+c}}
+\subsubsection[{\texorpdfstring{send\+\_\+defend(\+Maap\+\_\+\+Client $\ast$mc, Range $\ast$range, uint64\+\_\+t start, uint16\+\_\+t count, uint64\+\_\+t destination)}{send_defend(Maap_Client *mc, Range *range, uint64_t start, uint16_t count, uint64_t destination)}}]{\setlength{\rightskip}{0pt plus 5cm}static int send\+\_\+defend (
+\begin{DoxyParamCaption}
+\item[{{\bf Maap\+\_\+\+Client} $\ast$}]{mc, }
+\item[{{\bf Range} $\ast$}]{range, }
+\item[{{\bf uint64\+\_\+t}}]{start, }
+\item[{uint16\+\_\+t}]{count, }
+\item[{{\bf uint64\+\_\+t}}]{destination}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{maap_8c_a2f736d2d0d06de43bfcf25347618481b}{}\label{maap_8c_a2f736d2d0d06de43bfcf25347618481b}
+
+
+maap.\+c 파일의 122 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+123                                                              \{
+124     \hyperlink{struct_m_a_a_p___packet}{MAAP\_Packet} p;
+125     \hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\_t} conflict\_start, conflict\_end;
+126 
+127     \hyperlink{maap__packet_8c_a9063c2879e9df1c7c1164ff761f19b0d}{init\_packet}(&p, mc->\hyperlink{struct_maap___client_a205a8c33627111589223916ef80462c2}{dest\_mac}, mc->\hyperlink{struct_maap___client_ae2c98c9078f80f770e85f937c34da4eb}{src\_mac});
+128 
+129     \textcolor{comment}{/* Determine the range of addresses where the conflict occurred}
+130 \textcolor{comment}{     * (the union of the requested and allocated ranges). */}
+131     conflict\_start = \hyperlink{maap_8c_af402827798fb1beb38578db3622c58d3}{get\_start\_address}(mc, range);
+132     \textcolor{keywordflow}{if} (conflict\_start < start) \{ conflict\_start = start; \}
+133     conflict\_end = \hyperlink{maap_8c_a8134fc0dafff29b1e3a7efed0c33f8d3}{get\_end\_address}(mc, range);
+134     \textcolor{keywordflow}{if} (conflict\_end > start + count - 1) \{ conflict\_end = start + count - 1; \}
+135 
+136     p.\hyperlink{struct_m_a_a_p___packet_acb85280d2eab3ae8bc045112037a565d}{DA} = destination;
+137     p.\hyperlink{struct_m_a_a_p___packet_aeaaffeace8c23899e558022f62ce6de4}{message\_type} = \hyperlink{maap__packet_8h_ac9b42f0f7f08abebfa62a425fc3c073b}{MAAP\_DEFEND};
+138     p.\hyperlink{struct_m_a_a_p___packet_a6e54c2881571f11a3a4a82c664794326}{requested\_start\_address} = start;
+139     p.\hyperlink{struct_m_a_a_p___packet_a3b7ca808f59412368434591249aa8a79}{requested\_count} = count;
+140     p.\hyperlink{struct_m_a_a_p___packet_a75c1b7fade099765ff29a3302e3ad072}{conflict\_start\_address} = conflict\_start;
+141     p.\hyperlink{struct_m_a_a_p___packet_a7454bb2b51c745c38822d008f1a322a1}{conflict\_count} = (uint16\_t)(conflict\_end - conflict\_start + 1);
+142 
+143 \textcolor{preprocessor}{#ifdef DEBUG\_NEGOTIATE\_MSG}
+144     \textcolor{keywordflow}{if} (\hyperlink{maap__log_8h_ae1357fa170beab46da00a253b0e7b0b2}{MAAP\_LOG\_LEVEL\_DEBUG} <= \hyperlink{maap__log_8h_a2ccd1b8477f20e51a331f4a2b20901e7}{MAAP\_LOG\_LEVEL}) \{
+145         \hyperlink{maap__timer_8h_a820ab516df7068a95c9e59f09e82859b}{Time} t;
+146         \hyperlink{maap__timer_8h_abe1fa73a62adeef30aa8c8eb8fd614e9}{Time\_setFromMonotonicTimer}(&t);
+147         \hyperlink{maap__log_8h_af1aff357381c140941965db32eb316b9}{MAAP\_LOGF\_DEBUG}(\textcolor{stringliteral}{"Sending defend at %s"}, \hyperlink{maap__timer_8h_afe800aa08a24713870ea65a7ca03d87b}{Time\_dump}(&t));
+148     \}
+149 \textcolor{preprocessor}{#endif}
+150 
+151     \textcolor{keywordflow}{return} \hyperlink{maap_8c_a660e88c2bde25150a4e00c81f0bebfd5}{send\_packet}(mc, &p);
+152 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_a2f736d2d0d06de43bfcf25347618481b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_a2f736d2d0d06de43bfcf25347618481b_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap.\+c@{maap.\+c}!send\+\_\+packet@{send\+\_\+packet}}
+\index{send\+\_\+packet@{send\+\_\+packet}!maap.\+c@{maap.\+c}}
+\subsubsection[{\texorpdfstring{send\+\_\+packet(\+Maap\+\_\+\+Client $\ast$mc, M\+A\+A\+P\+\_\+\+Packet $\ast$p)}{send_packet(Maap_Client *mc, MAAP_Packet *p)}}]{\setlength{\rightskip}{0pt plus 5cm}static int send\+\_\+packet (
+\begin{DoxyParamCaption}
+\item[{{\bf Maap\+\_\+\+Client} $\ast$}]{mc, }
+\item[{{\bf M\+A\+A\+P\+\_\+\+Packet} $\ast$}]{p}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{maap_8c_a660e88c2bde25150a4e00c81f0bebfd5}{}\label{maap_8c_a660e88c2bde25150a4e00c81f0bebfd5}
+
+
+maap.\+c 파일의 69 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+69                                                         \{
+70     \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} *pbuf = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+71     \textcolor{keywordtype}{int} ret = 0;
+72     (void)mc;
+73 
+74     pbuf = \hyperlink{maap__net_8c_a382a76cf6360e9dca400228296d21359}{Net\_getPacketBuffer}(mc->\hyperlink{struct_maap___client_a504c73ff1a68c50e5435dece66bc2772}{net});
+75 
+76     \hyperlink{maap__packet_8c_a219a9cbe130aa9f2aeb60e962cc0bee7}{pack\_maap}(p, pbuf);
+77 
+78     ret = \hyperlink{maap__net_8c_a5266e6e25b92acdaeefad4e105cef67a}{Net\_queuePacket}(mc->\hyperlink{struct_maap___client_a504c73ff1a68c50e5435dece66bc2772}{net}, pbuf);
+79     \textcolor{keywordflow}{return} ret;
+80 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=296pt]{maap_8c_a660e88c2bde25150a4e00c81f0bebfd5_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_a660e88c2bde25150a4e00c81f0bebfd5_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap.\+c@{maap.\+c}!send\+\_\+probe@{send\+\_\+probe}}
+\index{send\+\_\+probe@{send\+\_\+probe}!maap.\+c@{maap.\+c}}
+\subsubsection[{\texorpdfstring{send\+\_\+probe(\+Maap\+\_\+\+Client $\ast$mc, Range $\ast$range)}{send_probe(Maap_Client *mc, Range *range)}}]{\setlength{\rightskip}{0pt plus 5cm}static int send\+\_\+probe (
+\begin{DoxyParamCaption}
+\item[{{\bf Maap\+\_\+\+Client} $\ast$}]{mc, }
+\item[{{\bf Range} $\ast$}]{range}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{maap_8c_a3518a5176c421f589c9720bee301c977}{}\label{maap_8c_a3518a5176c421f589c9720bee301c977}
+
+
+maap.\+c 파일의 82 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+82                                                      \{
+83     \hyperlink{struct_m_a_a_p___packet}{MAAP\_Packet} p;
+84 
+85     \hyperlink{maap__packet_8c_a9063c2879e9df1c7c1164ff761f19b0d}{init\_packet}(&p, mc->\hyperlink{struct_maap___client_a205a8c33627111589223916ef80462c2}{dest\_mac}, mc->\hyperlink{struct_maap___client_ae2c98c9078f80f770e85f937c34da4eb}{src\_mac});
+86 
+87     p.\hyperlink{struct_m_a_a_p___packet_aeaaffeace8c23899e558022f62ce6de4}{message\_type} = \hyperlink{maap__packet_8h_a453ba2e1458fdbd8cddf68943d5ecc94}{MAAP\_PROBE};
+88     p.\hyperlink{struct_m_a_a_p___packet_a6e54c2881571f11a3a4a82c664794326}{requested\_start\_address} = \hyperlink{maap_8c_af402827798fb1beb38578db3622c58d3}{get\_start\_address}(mc, range);
+89     p.\hyperlink{struct_m_a_a_p___packet_a3b7ca808f59412368434591249aa8a79}{requested\_count} = \hyperlink{maap_8c_ab242a9bc452252bfb882a2b22c883be1}{get\_count}(mc, range);
+90 
+91 \textcolor{preprocessor}{#ifdef DEBUG\_NEGOTIATE\_MSG}
+92     \textcolor{keywordflow}{if} (\hyperlink{maap__log_8h_ae1357fa170beab46da00a253b0e7b0b2}{MAAP\_LOG\_LEVEL\_DEBUG} <= \hyperlink{maap__log_8h_a2ccd1b8477f20e51a331f4a2b20901e7}{MAAP\_LOG\_LEVEL}) \{
+93         \hyperlink{maap__timer_8h_a820ab516df7068a95c9e59f09e82859b}{Time} t;
+94         \hyperlink{maap__timer_8h_abe1fa73a62adeef30aa8c8eb8fd614e9}{Time\_setFromMonotonicTimer}(&t);
+95         \hyperlink{maap__log_8h_af1aff357381c140941965db32eb316b9}{MAAP\_LOGF\_DEBUG}(\textcolor{stringliteral}{"Sending probe at %s"}, \hyperlink{maap__timer_8h_afe800aa08a24713870ea65a7ca03d87b}{Time\_dump}(&t));
+96     \}
+97 \textcolor{preprocessor}{#endif}
+98 
+99     \textcolor{keywordflow}{return} \hyperlink{maap_8c_a660e88c2bde25150a4e00c81f0bebfd5}{send\_packet}(mc, &p);
+100 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_a3518a5176c421f589c9720bee301c977_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_a3518a5176c421f589c9720bee301c977_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{maap.\+c@{maap.\+c}!start\+\_\+timer@{start\+\_\+timer}}
+\index{start\+\_\+timer@{start\+\_\+timer}!maap.\+c@{maap.\+c}}
+\subsubsection[{\texorpdfstring{start\+\_\+timer(\+Maap\+\_\+\+Client $\ast$mc)}{start_timer(Maap_Client *mc)}}]{\setlength{\rightskip}{0pt plus 5cm}static void start\+\_\+timer (
+\begin{DoxyParamCaption}
+\item[{{\bf Maap\+\_\+\+Client} $\ast$}]{mc}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{maap_8c_ac6d881d2f87314ec30a2d4acef413828}{}\label{maap_8c_ac6d881d2f87314ec30a2d4acef413828}
+
+
+maap.\+c 파일의 245 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+245                                          \{
+246 
+247     \textcolor{keywordflow}{if} (mc->\hyperlink{struct_maap___client_a9d54ec9961bf59b379abe4e487904bbd}{timer\_queue}) \{
+248         \hyperlink{maap__timer_8h_a8920ffffa792240e706412f5c692af7f}{Time\_setTimer}(mc->\hyperlink{struct_maap___client_ad59f2b60cccbf7bd6a43003017d1d01a}{timer}, &mc->\hyperlink{struct_maap___client_a9d54ec9961bf59b379abe4e487904bbd}{timer\_queue}->
+      \hyperlink{structrange_a612425de4bd924a67f8e553419d979ba}{next\_act\_time});
+249     \}
+250 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_ac6d881d2f87314ec30a2d4acef413828_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{maap_8c_ac6d881d2f87314ec30a2d4acef413828_icgraph}
+\end{center}
+\end{figure}
+
+

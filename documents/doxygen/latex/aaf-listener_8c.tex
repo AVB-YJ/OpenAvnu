@@ -1,0 +1,887 @@
+\hypertarget{aaf-listener_8c}{}\section{lib/libavtp/examples/aaf-\/listener.c 파일 참조}
+\label{aaf-listener_8c}\index{lib/libavtp/examples/aaf-\/listener.\+c@{lib/libavtp/examples/aaf-\/listener.\+c}}
+{\ttfamily \#include $<$assert.\+h$>$}\\*
+{\ttfamily \#include $<$argp.\+h$>$}\\*
+{\ttfamily \#include $<$arpa/inet.\+h$>$}\\*
+{\ttfamily \#include $<$linux/if.\+h$>$}\\*
+{\ttfamily \#include $<$linux/if\+\_\+ether.\+h$>$}\\*
+{\ttfamily \#include $<$linux/if\+\_\+packet.\+h$>$}\\*
+{\ttfamily \#include $<$poll.\+h$>$}\\*
+{\ttfamily \#include $<$stdbool.\+h$>$}\\*
+{\ttfamily \#include $<$stdint.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$sys/ioctl.\+h$>$}\\*
+{\ttfamily \#include $<$sys/queue.\+h$>$}\\*
+{\ttfamily \#include $<$sys/timerfd.\+h$>$}\\*
+{\ttfamily \#include $<$unistd.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}avtp.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}avtp\+\_\+aaf.\+h\char`\"{}}\\*
+aaf-\/listener.c에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{aaf-listener_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{데이타 구조}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structsample__entry}{sample\+\_\+entry}
+\end{DoxyCompactItemize}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{aaf-listener_8c_ade86a80a3d067dece1f7e7cf957e3e92}{S\+T\+R\+E\+A\+M\+\_\+\+ID}~0x\+A\+A\+B\+B\+C\+C\+D\+D\+E\+E\+F\+F0001
+\item 
+\#define \hyperlink{aaf-listener_8c_ae25e0da7cdb20c758a56dc6aece92ba7}{S\+A\+M\+P\+L\+E\+\_\+\+S\+I\+ZE}~2 /$\ast$ Sample \hyperlink{gst__avb__playbin_8c_a439227feff9d7f55384e8780cfc2eb82}{size} \hyperlink{jack_8c_afc03a33132f7c0bcacbeeeaf5b8510c0}{in} bytes. $\ast$/
+\item 
+\#define \hyperlink{aaf-listener_8c_ae5597ce31d23d11493e6e674fe257d73}{N\+U\+M\+\_\+\+C\+H\+A\+N\+N\+E\+LS}~2
+\item 
+\#define \hyperlink{aaf-listener_8c_af02e45f15080b8ec9dd7b286157617ff}{D\+A\+T\+A\+\_\+\+L\+EN}~(\hyperlink{aaf-talker_8c_ae25e0da7cdb20c758a56dc6aece92ba7}{S\+A\+M\+P\+L\+E\+\_\+\+S\+I\+ZE} $\ast$ \hyperlink{aaf-talker_8c_ae5597ce31d23d11493e6e674fe257d73}{N\+U\+M\+\_\+\+C\+H\+A\+N\+N\+E\+LS})
+\item 
+\#define \hyperlink{aaf-listener_8c_a4bdc13655ee7bf4cf0e66d16e22dc103}{P\+D\+U\+\_\+\+S\+I\+ZE}~(sizeof(struct \hyperlink{structavtp__stream__pdu}{avtp\+\_\+stream\+\_\+pdu}) + \hyperlink{aaf-talker_8c_af02e45f15080b8ec9dd7b286157617ff}{D\+A\+T\+A\+\_\+\+L\+EN})
+\item 
+\#define \hyperlink{aaf-listener_8c_a0501e82515b2bdf36453c4cc80f5e0cc}{N\+S\+E\+C\+\_\+\+P\+E\+R\+\_\+\+S\+EC}~1000000000\+U\+LL
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{aaf-listener_8c_a43629b469704e1765673dea619f84454}{S\+T\+A\+I\+L\+Q\+\_\+\+H\+E\+AD} (sample\+\_\+queue, \hyperlink{structsample__entry}{sample\+\_\+entry})
+\item 
+static error\+\_\+t \hyperlink{aaf-listener_8c_aa4dfc09c5a09d2e347cd355dfdecba57}{parser} (int key, char $\ast$arg, struct argp\+\_\+state $\ast$state)
+\item 
+static int \hyperlink{aaf-listener_8c_a4087791d7eed1c4cdfa65b841601c5a0}{arm\+\_\+timer} (int fd, struct timespec $\ast$tspec)
+\item 
+static int \hyperlink{aaf-listener_8c_a4d4e3f1353c49077c865384052a66aa2}{schedule\+\_\+sample} (int fd, struct timespec $\ast$tspec, \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\+\_\+t} $\ast$pcm\+\_\+sample)
+\item 
+static int \hyperlink{aaf-listener_8c_aca821bd61e3f356d8e26a4be812affee}{present\+\_\+sample} (\hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\+\_\+t} $\ast$pcm\+\_\+sample)
+\item 
+static int \hyperlink{aaf-listener_8c_aad31b1ae23d50a606d0b3cc45d346f4e}{setup\+\_\+socket} (void)
+\item 
+static \hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{aaf-listener_8c_a0f404f938e1dca24ac2365f4c11fe142}{is\+\_\+valid\+\_\+packet} (struct \hyperlink{structavtp__stream__pdu}{avtp\+\_\+stream\+\_\+pdu} $\ast$pdu)
+\item 
+static int \hyperlink{aaf-listener_8c_adcf17f48b1ca0dde610d14b0212c023d}{get\+\_\+presentation\+\_\+time} (struct \hyperlink{structavtp__stream__pdu}{avtp\+\_\+stream\+\_\+pdu} $\ast$pdu, struct timespec $\ast$tspec)
+\item 
+static int \hyperlink{aaf-listener_8c_a17a073ddf3b61d9030710c8da691b0c5}{new\+\_\+packet} (int sk\+\_\+fd, int timer\+\_\+fd)
+\item 
+static int \hyperlink{aaf-listener_8c_a869c60cb165af7b6177060c00c5c416c}{timeout} (int fd)
+\item 
+int \hyperlink{aaf-listener_8c_a0ddf1224851353fc92bfbff6f499fa97}{main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\subsection*{변수}
+\begin{DoxyCompactItemize}
+\item 
+static struct argp \hyperlink{aaf-listener_8c_ab70c96531b1b652d70c221cfaf3207f3}{argp} = \{ \hyperlink{aaf-talker_8c_abc1fd3a47aea6a8944038c9100eb9135}{options}, \hyperlink{aaf-talker_8c_aa4dfc09c5a09d2e347cd355dfdecba57}{parser} \}
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{aaf-\/listener.\+c@{aaf-\/listener.\+c}!D\+A\+T\+A\+\_\+\+L\+EN@{D\+A\+T\+A\+\_\+\+L\+EN}}
+\index{D\+A\+T\+A\+\_\+\+L\+EN@{D\+A\+T\+A\+\_\+\+L\+EN}!aaf-\/listener.\+c@{aaf-\/listener.\+c}}
+\subsubsection[{\texorpdfstring{D\+A\+T\+A\+\_\+\+L\+EN}{DATA_LEN}}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+A\+T\+A\+\_\+\+L\+EN~({\bf S\+A\+M\+P\+L\+E\+\_\+\+S\+I\+ZE} $\ast$ {\bf N\+U\+M\+\_\+\+C\+H\+A\+N\+N\+E\+LS})}\hypertarget{aaf-listener_8c_af02e45f15080b8ec9dd7b286157617ff}{}\label{aaf-listener_8c_af02e45f15080b8ec9dd7b286157617ff}
+
+
+aaf-\/listener.\+c 파일의 80 번째 라인에서 정의되었습니다.
+
+\index{aaf-\/listener.\+c@{aaf-\/listener.\+c}!N\+S\+E\+C\+\_\+\+P\+E\+R\+\_\+\+S\+EC@{N\+S\+E\+C\+\_\+\+P\+E\+R\+\_\+\+S\+EC}}
+\index{N\+S\+E\+C\+\_\+\+P\+E\+R\+\_\+\+S\+EC@{N\+S\+E\+C\+\_\+\+P\+E\+R\+\_\+\+S\+EC}!aaf-\/listener.\+c@{aaf-\/listener.\+c}}
+\subsubsection[{\texorpdfstring{N\+S\+E\+C\+\_\+\+P\+E\+R\+\_\+\+S\+EC}{NSEC_PER_SEC}}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+S\+E\+C\+\_\+\+P\+E\+R\+\_\+\+S\+EC~1000000000\+U\+LL}\hypertarget{aaf-listener_8c_a0501e82515b2bdf36453c4cc80f5e0cc}{}\label{aaf-listener_8c_a0501e82515b2bdf36453c4cc80f5e0cc}
+
+
+aaf-\/listener.\+c 파일의 82 번째 라인에서 정의되었습니다.
+
+\index{aaf-\/listener.\+c@{aaf-\/listener.\+c}!N\+U\+M\+\_\+\+C\+H\+A\+N\+N\+E\+LS@{N\+U\+M\+\_\+\+C\+H\+A\+N\+N\+E\+LS}}
+\index{N\+U\+M\+\_\+\+C\+H\+A\+N\+N\+E\+LS@{N\+U\+M\+\_\+\+C\+H\+A\+N\+N\+E\+LS}!aaf-\/listener.\+c@{aaf-\/listener.\+c}}
+\subsubsection[{\texorpdfstring{N\+U\+M\+\_\+\+C\+H\+A\+N\+N\+E\+LS}{NUM_CHANNELS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+U\+M\+\_\+\+C\+H\+A\+N\+N\+E\+LS~2}\hypertarget{aaf-listener_8c_ae5597ce31d23d11493e6e674fe257d73}{}\label{aaf-listener_8c_ae5597ce31d23d11493e6e674fe257d73}
+
+
+aaf-\/listener.\+c 파일의 79 번째 라인에서 정의되었습니다.
+
+\index{aaf-\/listener.\+c@{aaf-\/listener.\+c}!P\+D\+U\+\_\+\+S\+I\+ZE@{P\+D\+U\+\_\+\+S\+I\+ZE}}
+\index{P\+D\+U\+\_\+\+S\+I\+ZE@{P\+D\+U\+\_\+\+S\+I\+ZE}!aaf-\/listener.\+c@{aaf-\/listener.\+c}}
+\subsubsection[{\texorpdfstring{P\+D\+U\+\_\+\+S\+I\+ZE}{PDU_SIZE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+D\+U\+\_\+\+S\+I\+ZE~(sizeof(struct {\bf avtp\+\_\+stream\+\_\+pdu}) + {\bf D\+A\+T\+A\+\_\+\+L\+EN})}\hypertarget{aaf-listener_8c_a4bdc13655ee7bf4cf0e66d16e22dc103}{}\label{aaf-listener_8c_a4bdc13655ee7bf4cf0e66d16e22dc103}
+
+
+aaf-\/listener.\+c 파일의 81 번째 라인에서 정의되었습니다.
+
+\index{aaf-\/listener.\+c@{aaf-\/listener.\+c}!S\+A\+M\+P\+L\+E\+\_\+\+S\+I\+ZE@{S\+A\+M\+P\+L\+E\+\_\+\+S\+I\+ZE}}
+\index{S\+A\+M\+P\+L\+E\+\_\+\+S\+I\+ZE@{S\+A\+M\+P\+L\+E\+\_\+\+S\+I\+ZE}!aaf-\/listener.\+c@{aaf-\/listener.\+c}}
+\subsubsection[{\texorpdfstring{S\+A\+M\+P\+L\+E\+\_\+\+S\+I\+ZE}{SAMPLE_SIZE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+A\+M\+P\+L\+E\+\_\+\+S\+I\+ZE~2 /$\ast$ Sample {\bf size} {\bf in} bytes. $\ast$/}\hypertarget{aaf-listener_8c_ae25e0da7cdb20c758a56dc6aece92ba7}{}\label{aaf-listener_8c_ae25e0da7cdb20c758a56dc6aece92ba7}
+
+
+aaf-\/listener.\+c 파일의 78 번째 라인에서 정의되었습니다.
+
+\index{aaf-\/listener.\+c@{aaf-\/listener.\+c}!S\+T\+R\+E\+A\+M\+\_\+\+ID@{S\+T\+R\+E\+A\+M\+\_\+\+ID}}
+\index{S\+T\+R\+E\+A\+M\+\_\+\+ID@{S\+T\+R\+E\+A\+M\+\_\+\+ID}!aaf-\/listener.\+c@{aaf-\/listener.\+c}}
+\subsubsection[{\texorpdfstring{S\+T\+R\+E\+A\+M\+\_\+\+ID}{STREAM_ID}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+T\+R\+E\+A\+M\+\_\+\+ID~0x\+A\+A\+B\+B\+C\+C\+D\+D\+E\+E\+F\+F0001}\hypertarget{aaf-listener_8c_ade86a80a3d067dece1f7e7cf957e3e92}{}\label{aaf-listener_8c_ade86a80a3d067dece1f7e7cf957e3e92}
+
+
+aaf-\/listener.\+c 파일의 77 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{함수 문서화}
+\index{aaf-\/listener.\+c@{aaf-\/listener.\+c}!arm\+\_\+timer@{arm\+\_\+timer}}
+\index{arm\+\_\+timer@{arm\+\_\+timer}!aaf-\/listener.\+c@{aaf-\/listener.\+c}}
+\subsubsection[{\texorpdfstring{arm\+\_\+timer(int fd, struct timespec $\ast$tspec)}{arm_timer(int fd, struct timespec *tspec)}}]{\setlength{\rightskip}{0pt plus 5cm}static int arm\+\_\+timer (
+\begin{DoxyParamCaption}
+\item[{int}]{fd, }
+\item[{struct timespec $\ast$}]{tspec}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{aaf-listener_8c_a4087791d7eed1c4cdfa65b841601c5a0}{}\label{aaf-listener_8c_a4087791d7eed1c4cdfa65b841601c5a0}
+
+
+aaf-\/listener.\+c 파일의 127 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+128 \{
+129     \textcolor{keywordtype}{int} res;
+130     \textcolor{keyword}{struct }itimerspec timer\_spec = \{ 0 \};
+131 
+132     timer\_spec.it\_value.tv\_sec = tspec->tv\_sec;
+133     timer\_spec.it\_value.tv\_nsec = tspec->tv\_nsec;
+134 
+135     res = timerfd\_settime(fd, TFD\_TIMER\_ABSTIME, &timer\_spec, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+136     \textcolor{keywordflow}{if} (res < 0) \{
+137         perror(\textcolor{stringliteral}{"Failed to set timer"});
+138         \textcolor{keywordflow}{return} -1;
+139     \}
+140 
+141     \textcolor{keywordflow}{return} 0;
+142 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{aaf-listener_8c_a4087791d7eed1c4cdfa65b841601c5a0_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{aaf-\/listener.\+c@{aaf-\/listener.\+c}!get\+\_\+presentation\+\_\+time@{get\+\_\+presentation\+\_\+time}}
+\index{get\+\_\+presentation\+\_\+time@{get\+\_\+presentation\+\_\+time}!aaf-\/listener.\+c@{aaf-\/listener.\+c}}
+\subsubsection[{\texorpdfstring{get\+\_\+presentation\+\_\+time(struct avtp\+\_\+stream\+\_\+pdu $\ast$pdu, struct timespec $\ast$tspec)}{get_presentation_time(struct avtp_stream_pdu *pdu, struct timespec *tspec)}}]{\setlength{\rightskip}{0pt plus 5cm}static int get\+\_\+presentation\+\_\+time (
+\begin{DoxyParamCaption}
+\item[{struct {\bf avtp\+\_\+stream\+\_\+pdu} $\ast$}]{pdu, }
+\item[{struct timespec $\ast$}]{tspec}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{aaf-listener_8c_adcf17f48b1ca0dde610d14b0212c023d}{}\label{aaf-listener_8c_adcf17f48b1ca0dde610d14b0212c023d}
+
+
+aaf-\/listener.\+c 파일의 380 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+382 \{
+383     \textcolor{keywordtype}{int} res;
+384     \hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\_t} \hyperlink{avtp_8h_a81ec49d93f7a916531f4d97214f47515}{avtp\_time}, ptime, now;
+385 
+386     res = \hyperlink{avtp__aaf_8h_acc4c927b036e22def8e6b6beb3ac6026}{avtp\_aaf\_pdu\_get}(pdu, \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dba2b2d9a400ce400921c5e96caabf8a631}{AVTP\_AAF\_FIELD\_TIMESTAMP}, &
+      avtp\_time);
+387     \textcolor{keywordflow}{if} (res < 0) \{
+388         fprintf(stderr, \textcolor{stringliteral}{"Failed to get AVTP time from PDU\(\backslash\)n"});
+389         \textcolor{keywordflow}{return} -1;
+390     \}
+391 
+392     res = clock\_gettime(CLOCK\_REALTIME, tspec);
+393     \textcolor{keywordflow}{if} (res < 0) \{
+394         perror(\textcolor{stringliteral}{"Failed to get time from PHC"});
+395         \textcolor{keywordflow}{return} -1;
+396     \}
+397 
+398     now = (tspec->tv\_sec * \hyperlink{aaf-listener_8c_a0501e82515b2bdf36453c4cc80f5e0cc}{NSEC\_PER\_SEC}) + tspec->tv\_nsec;
+399 
+400     \textcolor{comment}{/* The avtp\_timestamp within AAF packet is the lower part (32}
+401 \textcolor{comment}{     * less-significant bits) from presentation time calculated by the}
+402 \textcolor{comment}{     * talker.}
+403 \textcolor{comment}{     */}
+404     ptime = (now & 0xFFFFFFFF00000000ULL) | \hyperlink{avtp_8h_a81ec49d93f7a916531f4d97214f47515}{avtp\_time};
+405 
+406     \textcolor{comment}{/* If 'ptime' is less than the 'now', it means the higher part}
+407 \textcolor{comment}{     * from 'ptime' needs to be incremented by 1 in order to recover the}
+408 \textcolor{comment}{     * presentation time set by the talker.}
+409 \textcolor{comment}{     */}
+410     \textcolor{keywordflow}{if} (ptime < now)
+411         ptime += (1ULL << 32);
+412 
+413     tspec->tv\_sec = ptime / \hyperlink{aaf-listener_8c_a0501e82515b2bdf36453c4cc80f5e0cc}{NSEC\_PER\_SEC};
+414     tspec->tv\_nsec = ptime % \hyperlink{aaf-listener_8c_a0501e82515b2bdf36453c4cc80f5e0cc}{NSEC\_PER\_SEC};
+415 
+416     \textcolor{keywordflow}{return} 0;
+417 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{aaf-listener_8c_adcf17f48b1ca0dde610d14b0212c023d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{aaf-listener_8c_adcf17f48b1ca0dde610d14b0212c023d_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{aaf-\/listener.\+c@{aaf-\/listener.\+c}!is\+\_\+valid\+\_\+packet@{is\+\_\+valid\+\_\+packet}}
+\index{is\+\_\+valid\+\_\+packet@{is\+\_\+valid\+\_\+packet}!aaf-\/listener.\+c@{aaf-\/listener.\+c}}
+\subsubsection[{\texorpdfstring{is\+\_\+valid\+\_\+packet(struct avtp\+\_\+stream\+\_\+pdu $\ast$pdu)}{is_valid_packet(struct avtp_stream_pdu *pdu)}}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf bool} is\+\_\+valid\+\_\+packet (
+\begin{DoxyParamCaption}
+\item[{struct {\bf avtp\+\_\+stream\+\_\+pdu} $\ast$}]{pdu}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{aaf-listener_8c_a0f404f938e1dca24ac2365f4c11fe142}{}\label{aaf-listener_8c_a0f404f938e1dca24ac2365f4c11fe142}
+
+
+aaf-\/listener.\+c 파일의 242 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+243 \{
+244     \textcolor{keyword}{struct }\hyperlink{structavtp__common__pdu}{avtp\_common\_pdu} *common = (\textcolor{keyword}{struct }\hyperlink{structavtp__common__pdu}{avtp\_common\_pdu} *) pdu;
+245     \hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\_t} val64;
+246     \hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\_t} val32;
+247     \textcolor{keywordtype}{int} res;
+248 
+249     res = \hyperlink{avtp_8h_a5834d6469319080f4b98b71db402a672}{avtp\_pdu\_get}(common, \hyperlink{avtp_8h_ae8ac82f40d36ba8c7a71a451a1d7ddf0a9e663acceb0e8f7e7f4ac33bff00512c}{AVTP\_FIELD\_SUBTYPE}, &val32);
+250     \textcolor{keywordflow}{if} (res < 0) \{
+251         fprintf(stderr, \textcolor{stringliteral}{"Failed to get subtype field: %d\(\backslash\)n"}, res);
+252         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+253     \}
+254     \textcolor{keywordflow}{if} (val32 != \hyperlink{openavb__map__aaf__audio_8c_a246903796b0d2d8596659143992f1c3b}{AVTP\_SUBTYPE\_AAF}) \{
+255         fprintf(stderr, \textcolor{stringliteral}{"Subtype mismatch: expected %u, got %u\(\backslash\)n"},
+256                         \hyperlink{avtp_8h_ae8ac82f40d36ba8c7a71a451a1d7ddf0a9e663acceb0e8f7e7f4ac33bff00512c}{AVTP\_FIELD\_SUBTYPE}, val32);
+257         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+258     \}
+259 
+260     res = \hyperlink{avtp_8h_a5834d6469319080f4b98b71db402a672}{avtp\_pdu\_get}(common, \hyperlink{avtp_8h_ae8ac82f40d36ba8c7a71a451a1d7ddf0a7e7c49ba84d0ff1d6f92707dd34cd364}{AVTP\_FIELD\_VERSION}, &val32);
+261     \textcolor{keywordflow}{if} (res < 0) \{
+262         fprintf(stderr, \textcolor{stringliteral}{"Failed to get version field: %d\(\backslash\)n"}, res);
+263         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+264     \}
+265     \textcolor{keywordflow}{if} (val32 != 0) \{
+266         fprintf(stderr, \textcolor{stringliteral}{"Version mismatch: expected %u, got %u\(\backslash\)n"},
+267                                 0, val32);
+268         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+269     \}
+270 
+271     res = \hyperlink{avtp__aaf_8h_acc4c927b036e22def8e6b6beb3ac6026}{avtp\_aaf\_pdu\_get}(pdu, \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dba490dfd07398cccbefac45e6a58692eab}{AVTP\_AAF\_FIELD\_TV}, &val64);
+272     \textcolor{keywordflow}{if} (res < 0) \{
+273         fprintf(stderr, \textcolor{stringliteral}{"Failed to get tv field: %d\(\backslash\)n"}, res);
+274         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+275     \}
+276     \textcolor{keywordflow}{if} (val64 != 1) \{
+277         fprintf(stderr, \textcolor{stringliteral}{"tv mismatch: expected %u, got %lu\(\backslash\)n"},
+278                                 1, val64);
+279         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+280     \}
+281 
+282     res = \hyperlink{avtp__aaf_8h_acc4c927b036e22def8e6b6beb3ac6026}{avtp\_aaf\_pdu\_get}(pdu, \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dba79d34018cdf39cf46998df2bc16e7617}{AVTP\_AAF\_FIELD\_SP}, &val64);
+283     \textcolor{keywordflow}{if} (res < 0) \{
+284         fprintf(stderr, \textcolor{stringliteral}{"Failed to get sp field: %d\(\backslash\)n"}, res);
+285         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+286     \}
+287     \textcolor{keywordflow}{if} (val64 != \hyperlink{avtp__aaf_8h_a70d680c008a86c9899abf41a18e89a51}{AVTP\_AAF\_PCM\_SP\_NORMAL}) \{
+288         fprintf(stderr, \textcolor{stringliteral}{"tv mismatch: expected %u, got %lu\(\backslash\)n"},
+289                                 1, val64);
+290         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+291     \}
+292 
+293     res = \hyperlink{avtp__aaf_8h_acc4c927b036e22def8e6b6beb3ac6026}{avtp\_aaf\_pdu\_get}(pdu, \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dba4760c4bfc01d5a5200aa35cc1cdc0c13}{AVTP\_AAF\_FIELD\_STREAM\_ID}, &val64);
+294     \textcolor{keywordflow}{if} (res < 0) \{
+295         fprintf(stderr, \textcolor{stringliteral}{"Failed to get stream ID field: %d\(\backslash\)n"}, res);
+296         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+297     \}
+298     \textcolor{keywordflow}{if} (val64 != \hyperlink{aaf-listener_8c_ade86a80a3d067dece1f7e7cf957e3e92}{STREAM\_ID}) \{
+299         fprintf(stderr, \textcolor{stringliteral}{"Stream ID mismatch: expected %lu, got %lu\(\backslash\)n"},
+300                             \hyperlink{aaf-listener_8c_ade86a80a3d067dece1f7e7cf957e3e92}{STREAM\_ID}, val64);
+301         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+302     \}
+303 
+304     res = \hyperlink{avtp__aaf_8h_acc4c927b036e22def8e6b6beb3ac6026}{avtp\_aaf\_pdu\_get}(pdu, \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dba8d6f89598372ef8aaf5dfbbf0c4c7111}{AVTP\_AAF\_FIELD\_SEQ\_NUM}, &val64);
+305     \textcolor{keywordflow}{if} (res < 0) \{
+306         fprintf(stderr, \textcolor{stringliteral}{"Failed to get sequence num field: %d\(\backslash\)n"}, res);
+307         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+308     \}
+309 
+310     \textcolor{keywordflow}{if} (val64 != expected\_seq) \{
+311         \textcolor{comment}{/* If we have a sequence number mismatch, we simply log the}
+312 \textcolor{comment}{         * issue and continue to process the packet. We don't want to}
+313 \textcolor{comment}{         * invalidate it since it is a valid packet after all.}
+314 \textcolor{comment}{         */}
+315         fprintf(stderr, \textcolor{stringliteral}{"Sequence number mismatch: expected %u, got %lu\(\backslash\)n"},
+316                             expected\_seq, val64);
+317         expected\_seq = val64;
+318     \}
+319 
+320     expected\_seq++;
+321 
+322     res = \hyperlink{avtp__aaf_8h_acc4c927b036e22def8e6b6beb3ac6026}{avtp\_aaf\_pdu\_get}(pdu, \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dbad867950e53bb3b120e37a7598fcd1fb4}{AVTP\_AAF\_FIELD\_FORMAT}, &val64);
+323     \textcolor{keywordflow}{if} (res < 0) \{
+324         fprintf(stderr, \textcolor{stringliteral}{"Failed to get format field: %d\(\backslash\)n"}, res);
+325         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+326     \}
+327     \textcolor{keywordflow}{if} (val64 != \hyperlink{avtp__aaf_8h_a9eba80944b5c061b495ca045ef887799}{AVTP\_AAF\_FORMAT\_INT\_16BIT}) \{
+328         fprintf(stderr, \textcolor{stringliteral}{"Format mismatch: expected %u, got %lu\(\backslash\)n"},
+329                     \hyperlink{avtp__aaf_8h_a9eba80944b5c061b495ca045ef887799}{AVTP\_AAF\_FORMAT\_INT\_16BIT}, val64);
+330         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+331     \}
+332 
+333     res = \hyperlink{avtp__aaf_8h_acc4c927b036e22def8e6b6beb3ac6026}{avtp\_aaf\_pdu\_get}(pdu, \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dbaa7c9036133950993bf1311879c665634}{AVTP\_AAF\_FIELD\_NSR}, &val64);
+334     \textcolor{keywordflow}{if} (res < 0) \{
+335         fprintf(stderr, \textcolor{stringliteral}{"Failed to get sample rate field: %d\(\backslash\)n"}, res);
+336         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+337     \}
+338     \textcolor{keywordflow}{if} (val64 != \hyperlink{avtp__aaf_8h_a328e6cfab35eba3db6e5659df3cdef38}{AVTP\_AAF\_PCM\_NSR\_48KHZ}) \{
+339         fprintf(stderr, \textcolor{stringliteral}{"Sample rate mismatch: expected %u, got %lu"},
+340                         \hyperlink{avtp__aaf_8h_a328e6cfab35eba3db6e5659df3cdef38}{AVTP\_AAF\_PCM\_NSR\_48KHZ}, val64);
+341         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+342     \}
+343 
+344     res = \hyperlink{avtp__aaf_8h_acc4c927b036e22def8e6b6beb3ac6026}{avtp\_aaf\_pdu\_get}(pdu, \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dbab6202d8ac4e1b7e819e5adb08b90a346}{AVTP\_AAF\_FIELD\_CHAN\_PER\_FRAME},
+       &val64);
+345     \textcolor{keywordflow}{if} (res < 0) \{
+346         fprintf(stderr, \textcolor{stringliteral}{"Failed to get channels field: %d\(\backslash\)n"}, res);
+347         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+348     \}
+349     \textcolor{keywordflow}{if} (val64 != \hyperlink{aaf-listener_8c_ae5597ce31d23d11493e6e674fe257d73}{NUM\_CHANNELS}) \{
+350         fprintf(stderr, \textcolor{stringliteral}{"Channels mismatch: expected %u, got %lu\(\backslash\)n"},
+351                             \hyperlink{aaf-listener_8c_ae5597ce31d23d11493e6e674fe257d73}{NUM\_CHANNELS}, val64);
+352         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+353     \}
+354 
+355     res = \hyperlink{avtp__aaf_8h_acc4c927b036e22def8e6b6beb3ac6026}{avtp\_aaf\_pdu\_get}(pdu, \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dbabedcf9db303c9373c61a44389d371993}{AVTP\_AAF\_FIELD\_BIT\_DEPTH}, &val64);
+356     \textcolor{keywordflow}{if} (res < 0) \{
+357         fprintf(stderr, \textcolor{stringliteral}{"Failed to get depth field: %d\(\backslash\)n"}, res);
+358         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+359     \}
+360     \textcolor{keywordflow}{if} (val64 != 16) \{
+361         fprintf(stderr, \textcolor{stringliteral}{"Depth mismatch: expected %u, got %lu\(\backslash\)n"},
+362                                 16, val64);
+363         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+364     \}
+365 
+366     res = \hyperlink{avtp__aaf_8h_acc4c927b036e22def8e6b6beb3ac6026}{avtp\_aaf\_pdu\_get}(pdu, \hyperlink{avtp__aaf_8h_a7eaee6c1ebc806c0401dbe7b14cd22dba0adf28243896ab6183e2558b52b1cae5}{AVTP\_AAF\_FIELD\_STREAM\_DATA\_LEN}
+      , &val64);
+367     \textcolor{keywordflow}{if} (res < 0) \{
+368         fprintf(stderr, \textcolor{stringliteral}{"Failed to get data\_len field: %d\(\backslash\)n"}, res);
+369         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+370     \}
+371     \textcolor{keywordflow}{if} (val64 != \hyperlink{aaf-listener_8c_af02e45f15080b8ec9dd7b286157617ff}{DATA\_LEN}) \{
+372         fprintf(stderr, \textcolor{stringliteral}{"Data len mismatch: expected %u, got %lu\(\backslash\)n"},
+373                             \hyperlink{aaf-listener_8c_af02e45f15080b8ec9dd7b286157617ff}{DATA\_LEN}, val64);
+374         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+375     \}
+376 
+377     \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+378 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{aaf-listener_8c_a0f404f938e1dca24ac2365f4c11fe142_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=343pt]{aaf-listener_8c_a0f404f938e1dca24ac2365f4c11fe142_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{aaf-\/listener.\+c@{aaf-\/listener.\+c}!main@{main}}
+\index{main@{main}!aaf-\/listener.\+c@{aaf-\/listener.\+c}}
+\subsubsection[{\texorpdfstring{main(int argc, char $\ast$argv[])}{main(int argc, char *argv[])}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{aaf-listener_8c_a0ddf1224851353fc92bfbff6f499fa97}{}\label{aaf-listener_8c_a0ddf1224851353fc92bfbff6f499fa97}
+
+
+aaf-\/listener.\+c 파일의 486 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+487 \{
+488     \textcolor{keywordtype}{int} sk\_fd, timer\_fd, res;
+489     \textcolor{keyword}{struct }pollfd \hyperlink{openavb__avdecc__msg__server__osal_8c_ae18b289099c8c9be5f76acee6311699a}{fds}[2];
+490 
+491     argp\_parse(&\hyperlink{aaf-listener_8c_ab70c96531b1b652d70c221cfaf3207f3}{argp}, argc, argv, 0, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+492 
+493     STAILQ\_INIT(&samples);
+494 
+495     sk\_fd = \hyperlink{aaf-listener_8c_aad31b1ae23d50a606d0b3cc45d346f4e}{setup\_socket}();
+496     \textcolor{keywordflow}{if} (sk\_fd < 0)
+497         \textcolor{keywordflow}{return} 1;
+498 
+499     timer\_fd = timerfd\_create(CLOCK\_REALTIME, 0);
+500     \textcolor{keywordflow}{if} (timer\_fd < 0) \{
+501         close(sk\_fd);
+502         \textcolor{keywordflow}{return} 1;
+503     \}
+504 
+505     \hyperlink{openavb__avdecc__msg__server__osal_8c_ae18b289099c8c9be5f76acee6311699a}{fds}[0].fd = sk\_fd;
+506     \hyperlink{openavb__avdecc__msg__server__osal_8c_ae18b289099c8c9be5f76acee6311699a}{fds}[0].events = POLLIN;
+507     \hyperlink{openavb__avdecc__msg__server__osal_8c_ae18b289099c8c9be5f76acee6311699a}{fds}[1].fd = timer\_fd;
+508     \hyperlink{openavb__avdecc__msg__server__osal_8c_ae18b289099c8c9be5f76acee6311699a}{fds}[1].events = POLLIN;
+509 
+510     \textcolor{keywordflow}{while} (1) \{
+511         res = poll(\hyperlink{openavb__avdecc__msg__server__osal_8c_ae18b289099c8c9be5f76acee6311699a}{fds}, 2, -1);
+512         \textcolor{keywordflow}{if} (res < 0) \{
+513             perror(\textcolor{stringliteral}{"Failed to poll() fds"});
+514             \textcolor{keywordflow}{goto} \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err};
+515         \}
+516 
+517         \textcolor{keywordflow}{if} (\hyperlink{openavb__avdecc__msg__server__osal_8c_ae18b289099c8c9be5f76acee6311699a}{fds}[0].revents & POLLIN) \{
+518             res = \hyperlink{aaf-listener_8c_a17a073ddf3b61d9030710c8da691b0c5}{new\_packet}(sk\_fd, timer\_fd);
+519             \textcolor{keywordflow}{if} (res < 0)
+520                 \textcolor{keywordflow}{goto} \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err};
+521         \}
+522 
+523         \textcolor{keywordflow}{if} (\hyperlink{openavb__avdecc__msg__server__osal_8c_ae18b289099c8c9be5f76acee6311699a}{fds}[1].revents & POLLIN) \{
+524             res = \hyperlink{aaf-listener_8c_a869c60cb165af7b6177060c00c5c416c}{timeout}(timer\_fd);
+525             \textcolor{keywordflow}{if} (res < 0)
+526                 \textcolor{keywordflow}{goto} \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err};
+527         \}
+528     \}
+529 
+530     \textcolor{keywordflow}{return} 0;
+531 
+532 \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err}:
+533     close(sk\_fd);
+534     close(timer\_fd);
+535     \textcolor{keywordflow}{return} 1;
+536 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{aaf-listener_8c_a0ddf1224851353fc92bfbff6f499fa97_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{aaf-\/listener.\+c@{aaf-\/listener.\+c}!new\+\_\+packet@{new\+\_\+packet}}
+\index{new\+\_\+packet@{new\+\_\+packet}!aaf-\/listener.\+c@{aaf-\/listener.\+c}}
+\subsubsection[{\texorpdfstring{new\+\_\+packet(int sk\+\_\+fd, int timer\+\_\+fd)}{new_packet(int sk_fd, int timer_fd)}}]{\setlength{\rightskip}{0pt plus 5cm}static int new\+\_\+packet (
+\begin{DoxyParamCaption}
+\item[{int}]{sk\+\_\+fd, }
+\item[{int}]{timer\+\_\+fd}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{aaf-listener_8c_a17a073ddf3b61d9030710c8da691b0c5}{}\label{aaf-listener_8c_a17a073ddf3b61d9030710c8da691b0c5}
+
+
+aaf-\/listener.\+c 파일의 419 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+420 \{
+421     \textcolor{keywordtype}{int} res;
+422     ssize\_t n;
+423     \textcolor{keyword}{struct }timespec tspec;
+424     \textcolor{keyword}{struct }\hyperlink{structavtp__stream__pdu}{avtp\_stream\_pdu} *pdu = alloca(\hyperlink{aaf-listener_8c_a4bdc13655ee7bf4cf0e66d16e22dc103}{PDU\_SIZE});
+425 
+426     memset(pdu, 0, \hyperlink{aaf-listener_8c_a4bdc13655ee7bf4cf0e66d16e22dc103}{PDU\_SIZE});
+427 
+428     n = recv(sk\_fd, pdu, \hyperlink{aaf-listener_8c_a4bdc13655ee7bf4cf0e66d16e22dc103}{PDU\_SIZE}, 0);
+429     \textcolor{keywordflow}{if} (n < 0 || n != \hyperlink{aaf-listener_8c_a4bdc13655ee7bf4cf0e66d16e22dc103}{PDU\_SIZE}) \{
+430         perror(\textcolor{stringliteral}{"Failed to receive data"});
+431         \textcolor{keywordflow}{return} -1;
+432     \}
+433 
+434     \textcolor{keywordflow}{if} (!\hyperlink{aaf-listener_8c_a0f404f938e1dca24ac2365f4c11fe142}{is\_valid\_packet}(pdu)) \{
+435         fprintf(stderr, \textcolor{stringliteral}{"Dropping packet\(\backslash\)n"});
+436         \textcolor{keywordflow}{return} 0;
+437     \}
+438 
+439     res = \hyperlink{aaf-listener_8c_adcf17f48b1ca0dde610d14b0212c023d}{get\_presentation\_time}(pdu, &tspec);
+440     \textcolor{keywordflow}{if} (res < 0)
+441         \textcolor{keywordflow}{return} -1;
+442 
+443     res = \hyperlink{aaf-listener_8c_a4d4e3f1353c49077c865384052a66aa2}{schedule\_sample}(timer\_fd, &tspec, pdu->\hyperlink{structavtp__stream__pdu_af7de5ad9772244bef16d6266d874498d}{avtp\_payload});
+444     \textcolor{keywordflow}{if} (res < 0)
+445         \textcolor{keywordflow}{return} -1;
+446 
+447     \textcolor{keywordflow}{return} 0;
+448 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{aaf-listener_8c_a17a073ddf3b61d9030710c8da691b0c5_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=223pt]{aaf-listener_8c_a17a073ddf3b61d9030710c8da691b0c5_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{aaf-\/listener.\+c@{aaf-\/listener.\+c}!parser@{parser}}
+\index{parser@{parser}!aaf-\/listener.\+c@{aaf-\/listener.\+c}}
+\subsubsection[{\texorpdfstring{parser(int key, char $\ast$arg, struct argp\+\_\+state $\ast$state)}{parser(int key, char *arg, struct argp_state *state)}}]{\setlength{\rightskip}{0pt plus 5cm}static error\+\_\+t parser (
+\begin{DoxyParamCaption}
+\item[{int}]{key, }
+\item[{char $\ast$}]{arg, }
+\item[{struct argp\+\_\+state $\ast$}]{state}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{aaf-listener_8c_aa4dfc09c5a09d2e347cd355dfdecba57}{}\label{aaf-listener_8c_aa4dfc09c5a09d2e347cd355dfdecba57}
+
+
+aaf-\/listener.\+c 파일의 102 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+103 \{
+104     \textcolor{keywordtype}{int} res;
+105 
+106     \textcolor{keywordflow}{switch} (key) \{
+107     \textcolor{keywordflow}{case} \textcolor{charliteral}{'d'}:
+108         res = sscanf(arg, \textcolor{stringliteral}{"%hhx:%hhx:%hhx:%hhx:%hhx:%hhx"},
+109                     &\hyperlink{aaf-talker_8c_a951f0a7da0c9d9009218fb069f9d3f2a}{macaddr}[0], &\hyperlink{aaf-talker_8c_a951f0a7da0c9d9009218fb069f9d3f2a}{macaddr}[1], &\hyperlink{aaf-talker_8c_a951f0a7da0c9d9009218fb069f9d3f2a}{macaddr}[2],
+110                     &\hyperlink{aaf-talker_8c_a951f0a7da0c9d9009218fb069f9d3f2a}{macaddr}[3], &\hyperlink{aaf-talker_8c_a951f0a7da0c9d9009218fb069f9d3f2a}{macaddr}[4], &\hyperlink{aaf-talker_8c_a951f0a7da0c9d9009218fb069f9d3f2a}{macaddr}[5]);
+111         \textcolor{keywordflow}{if} (res != 6) \{
+112             fprintf(stderr, \textcolor{stringliteral}{"Invalid address\(\backslash\)n"});
+113             exit(EXIT\_FAILURE);
+114         \}
+115 
+116         \textcolor{keywordflow}{break};
+117     \textcolor{keywordflow}{case} \textcolor{charliteral}{'i'}:
+118         strncpy(\hyperlink{aaf-talker_8c_ac7b430acaa92a7a26fbcdad47d2efc20}{ifname}, arg, \textcolor{keyword}{sizeof}(\hyperlink{aaf-talker_8c_ac7b430acaa92a7a26fbcdad47d2efc20}{ifname}) - 1);
+119         \textcolor{keywordflow}{break};
+120     \}
+121 
+122     \textcolor{keywordflow}{return} 0;
+123 \}
+\end{DoxyCode}
+\index{aaf-\/listener.\+c@{aaf-\/listener.\+c}!present\+\_\+sample@{present\+\_\+sample}}
+\index{present\+\_\+sample@{present\+\_\+sample}!aaf-\/listener.\+c@{aaf-\/listener.\+c}}
+\subsubsection[{\texorpdfstring{present\+\_\+sample(uint8\+\_\+t $\ast$pcm\+\_\+sample)}{present_sample(uint8_t *pcm_sample)}}]{\setlength{\rightskip}{0pt plus 5cm}static int present\+\_\+sample (
+\begin{DoxyParamCaption}
+\item[{{\bf uint8\+\_\+t} $\ast$}]{pcm\+\_\+sample}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{aaf-listener_8c_aca821bd61e3f356d8e26a4be812affee}{}\label{aaf-listener_8c_aca821bd61e3f356d8e26a4be812affee}
+
+
+aaf-\/listener.\+c 파일의 178 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+179 \{
+180     ssize\_t n;
+181 
+182     n = write(STDOUT\_FILENO, pcm\_sample, \hyperlink{aaf-listener_8c_af02e45f15080b8ec9dd7b286157617ff}{DATA\_LEN});
+183     \textcolor{keywordflow}{if} (n < 0 || n != \hyperlink{aaf-listener_8c_af02e45f15080b8ec9dd7b286157617ff}{DATA\_LEN}) \{
+184         perror(\textcolor{stringliteral}{"Failed to write()"});
+185         \textcolor{keywordflow}{return} -1;
+186     \}
+187 
+188     \textcolor{keywordflow}{return} 0;
+189 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{aaf-listener_8c_aca821bd61e3f356d8e26a4be812affee_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{aaf-\/listener.\+c@{aaf-\/listener.\+c}!schedule\+\_\+sample@{schedule\+\_\+sample}}
+\index{schedule\+\_\+sample@{schedule\+\_\+sample}!aaf-\/listener.\+c@{aaf-\/listener.\+c}}
+\subsubsection[{\texorpdfstring{schedule\+\_\+sample(int fd, struct timespec $\ast$tspec, uint8\+\_\+t $\ast$pcm\+\_\+sample)}{schedule_sample(int fd, struct timespec *tspec, uint8_t *pcm_sample)}}]{\setlength{\rightskip}{0pt plus 5cm}static int schedule\+\_\+sample (
+\begin{DoxyParamCaption}
+\item[{int}]{fd, }
+\item[{struct timespec $\ast$}]{tspec, }
+\item[{{\bf uint8\+\_\+t} $\ast$}]{pcm\+\_\+sample}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{aaf-listener_8c_a4d4e3f1353c49077c865384052a66aa2}{}\label{aaf-listener_8c_a4d4e3f1353c49077c865384052a66aa2}
+
+
+aaf-\/listener.\+c 파일의 145 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+146 \{
+147     \textcolor{keyword}{struct }\hyperlink{structsample__entry}{sample\_entry} *entry;
+148 
+149     entry = \hyperlink{_memory_leak_detector_malloc_macros_8h_ab8b25cd8f16d4a6552afe4e65c4f082d}{malloc}(\textcolor{keyword}{sizeof}(*entry));
+150     \textcolor{keywordflow}{if} (!entry) \{
+151         fprintf(stderr, \textcolor{stringliteral}{"Failed to allocate memory\(\backslash\)n"});
+152         \textcolor{keywordflow}{return} -1;
+153     \}
+154 
+155     entry->tspec.tv\_sec = tspec->tv\_sec;
+156     entry->tspec.tv\_nsec = tspec->tv\_nsec;
+157     memcpy(entry->pcm\_sample, pcm\_sample, \hyperlink{aaf-listener_8c_af02e45f15080b8ec9dd7b286157617ff}{DATA\_LEN});
+158 
+159     STAILQ\_INSERT\_TAIL(&samples, entry, \hyperlink{avtp__rx_8c_a76565232f25302e8cb99c60a629034cc}{entries});
+160 
+161     \textcolor{comment}{/* If this was the first entry inserted onto the queue, we need to arm}
+162 \textcolor{comment}{     * the timer.}
+163 \textcolor{comment}{     */}
+164     \textcolor{keywordflow}{if} (STAILQ\_FIRST(&samples) == entry) \{
+165         \textcolor{keywordtype}{int} res;
+166 
+167         res = \hyperlink{aaf-listener_8c_a4087791d7eed1c4cdfa65b841601c5a0}{arm\_timer}(fd, tspec);
+168         \textcolor{keywordflow}{if} (res < 0) \{
+169             STAILQ\_REMOVE(&samples, entry, \hyperlink{structsample__entry}{sample\_entry}, \hyperlink{avtp__rx_8c_a76565232f25302e8cb99c60a629034cc}{entries});
+170             \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(entry);
+171             \textcolor{keywordflow}{return} -1;
+172         \}
+173     \}
+174 
+175     \textcolor{keywordflow}{return} 0;
+176 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=268pt]{aaf-listener_8c_a4d4e3f1353c49077c865384052a66aa2_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{aaf-listener_8c_a4d4e3f1353c49077c865384052a66aa2_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{aaf-\/listener.\+c@{aaf-\/listener.\+c}!setup\+\_\+socket@{setup\+\_\+socket}}
+\index{setup\+\_\+socket@{setup\+\_\+socket}!aaf-\/listener.\+c@{aaf-\/listener.\+c}}
+\subsubsection[{\texorpdfstring{setup\+\_\+socket(void)}{setup_socket(void)}}]{\setlength{\rightskip}{0pt plus 5cm}static int setup\+\_\+socket (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{aaf-listener_8c_aad31b1ae23d50a606d0b3cc45d346f4e}{}\label{aaf-listener_8c_aad31b1ae23d50a606d0b3cc45d346f4e}
+
+
+aaf-\/listener.\+c 파일의 191 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+192 \{
+193     \textcolor{keywordtype}{int} fd, res;
+194     \textcolor{keyword}{struct }ifreq req;
+195     \textcolor{keyword}{struct }packet\_mreq mreq;
+196 
+197     \textcolor{keyword}{struct }sockaddr\_ll sk\_addr = \{
+198         .sll\_family = AF\_PACKET,
+199         .sll\_protocol = htons(ETH\_P\_TSN),
+200     \};
+201 
+202     fd = socket(AF\_PACKET, SOCK\_DGRAM, htons(ETH\_P\_TSN));
+203     \textcolor{keywordflow}{if} (fd < 0) \{
+204         perror(\textcolor{stringliteral}{"Failed to open socket"});
+205         \textcolor{keywordflow}{return} -1;
+206     \}
+207 
+208     snprintf(req.ifr\_name, \textcolor{keyword}{sizeof}(req.ifr\_name), \textcolor{stringliteral}{"%s"}, \hyperlink{aaf-talker_8c_ac7b430acaa92a7a26fbcdad47d2efc20}{ifname});
+209     res = ioctl(fd, SIOCGIFINDEX, &req);
+210     \textcolor{keywordflow}{if} (res < 0) \{
+211         perror(\textcolor{stringliteral}{"Failed to get interface index"});
+212         \textcolor{keywordflow}{goto} \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err};
+213     \}
+214 
+215     sk\_addr.sll\_ifindex = req.ifr\_ifindex;
+216 
+217     res = bind(fd, (\textcolor{keyword}{struct} sockaddr *) &sk\_addr, \textcolor{keyword}{sizeof}(sk\_addr));
+218     \textcolor{keywordflow}{if} (res < 0) \{
+219         perror(\textcolor{stringliteral}{"Couldn't bind() to interface"});
+220         \textcolor{keywordflow}{goto} \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err};
+221     \}
+222 
+223     mreq.mr\_ifindex = sk\_addr.sll\_ifindex;
+224     mreq.mr\_type = PACKET\_MR\_MULTICAST;
+225     mreq.mr\_alen = \hyperlink{openavb__avdecc__pub_8h_a9822d89774e0d6ddaa06503950130423}{ETH\_ALEN};
+226     memcpy(&mreq.mr\_address, \hyperlink{aaf-talker_8c_a951f0a7da0c9d9009218fb069f9d3f2a}{macaddr}, \hyperlink{openavb__avdecc__pub_8h_a9822d89774e0d6ddaa06503950130423}{ETH\_ALEN});
+227 
+228     res = setsockopt(fd, SOL\_PACKET, PACKET\_ADD\_MEMBERSHIP,
+229                     &mreq, \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} packet\_mreq));
+230     \textcolor{keywordflow}{if} (res < 0) \{
+231         perror(\textcolor{stringliteral}{"Couldn't set PACKET\_ADD\_MEMBERSHIP"});
+232         \textcolor{keywordflow}{goto} \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err};
+233     \}
+234 
+235     \textcolor{keywordflow}{return} fd;
+236 
+237 \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err}:
+238     close(fd);
+239     \textcolor{keywordflow}{return} -1;
+240 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=229pt]{aaf-listener_8c_aad31b1ae23d50a606d0b3cc45d346f4e_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{aaf-\/listener.\+c@{aaf-\/listener.\+c}!S\+T\+A\+I\+L\+Q\+\_\+\+H\+E\+AD@{S\+T\+A\+I\+L\+Q\+\_\+\+H\+E\+AD}}
+\index{S\+T\+A\+I\+L\+Q\+\_\+\+H\+E\+AD@{S\+T\+A\+I\+L\+Q\+\_\+\+H\+E\+AD}!aaf-\/listener.\+c@{aaf-\/listener.\+c}}
+\subsubsection[{\texorpdfstring{S\+T\+A\+I\+L\+Q\+\_\+\+H\+E\+A\+D(sample\+\_\+queue, sample\+\_\+entry)}{STAILQ_HEAD(sample_queue, sample_entry)}}]{\setlength{\rightskip}{0pt plus 5cm}static S\+T\+A\+I\+L\+Q\+\_\+\+H\+E\+AD (
+\begin{DoxyParamCaption}
+\item[{sample\+\_\+queue}]{, }
+\item[{{\bf sample\+\_\+entry}}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{aaf-listener_8c_a43629b469704e1765673dea619f84454}{}\label{aaf-listener_8c_a43629b469704e1765673dea619f84454}
+
+
+aaf-\/listener.\+c 파일의 91 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+96                                       \{
+97     \{\textcolor{stringliteral}{"dst-addr"}, \textcolor{charliteral}{'d'}, \textcolor{stringliteral}{"MACADDR"}, 0, \textcolor{stringliteral}{"Stream Destination MAC address"} \},
+98     \{\textcolor{stringliteral}{"ifname"}, \textcolor{charliteral}{'i'}, \textcolor{stringliteral}{"IFNAME"}, 0, \textcolor{stringliteral}{"Network Interface"} \},
+99     \{ 0 \}
+100 \};
+\end{DoxyCode}
+\index{aaf-\/listener.\+c@{aaf-\/listener.\+c}!timeout@{timeout}}
+\index{timeout@{timeout}!aaf-\/listener.\+c@{aaf-\/listener.\+c}}
+\subsubsection[{\texorpdfstring{timeout(int fd)}{timeout(int fd)}}]{\setlength{\rightskip}{0pt plus 5cm}static int timeout (
+\begin{DoxyParamCaption}
+\item[{int}]{fd}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{aaf-listener_8c_a869c60cb165af7b6177060c00c5c416c}{}\label{aaf-listener_8c_a869c60cb165af7b6177060c00c5c416c}
+
+
+aaf-\/listener.\+c 파일의 450 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+451 \{
+452     \textcolor{keywordtype}{int} res;
+453     ssize\_t n;
+454     \hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\_t} expirations;
+455     \textcolor{keyword}{struct }\hyperlink{structsample__entry}{sample\_entry} *entry;
+456 
+457     n = read(fd, &expirations, \textcolor{keyword}{sizeof}(\hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\_t}));
+458     \textcolor{keywordflow}{if} (n < 0) \{
+459         perror(\textcolor{stringliteral}{"Failed to read timerfd"});
+460         \textcolor{keywordflow}{return} -1;
+461     \}
+462 
+463     assert(expirations == 1);
+464 
+465     entry = STAILQ\_FIRST(&samples);
+466     assert(entry != \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+467 
+468     res = \hyperlink{aaf-listener_8c_aca821bd61e3f356d8e26a4be812affee}{present\_sample}(entry->pcm\_sample);
+469     \textcolor{keywordflow}{if} (res < 0)
+470         \textcolor{keywordflow}{return} -1;
+471 
+472     STAILQ\_REMOVE\_HEAD(&samples, \hyperlink{avtp__rx_8c_a76565232f25302e8cb99c60a629034cc}{entries});
+473     \hyperlink{_memory_leak_detector_malloc_macros_8h_aa7157aa9480bb73f090dca36776419bf}{free}(entry);
+474 
+475     \textcolor{keywordflow}{if} (!STAILQ\_EMPTY(&samples)) \{
+476         entry = STAILQ\_FIRST(&samples);
+477 
+478         res = \hyperlink{aaf-listener_8c_a4087791d7eed1c4cdfa65b841601c5a0}{arm\_timer}(fd, &entry->tspec);
+479         \textcolor{keywordflow}{if} (res < 0)
+480             \textcolor{keywordflow}{return} -1;
+481     \}
+482 
+483     \textcolor{keywordflow}{return} 0;
+484 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=251pt]{aaf-listener_8c_a869c60cb165af7b6177060c00c5c416c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{aaf-listener_8c_a869c60cb165af7b6177060c00c5c416c_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{변수 문서화}
+\index{aaf-\/listener.\+c@{aaf-\/listener.\+c}!argp@{argp}}
+\index{argp@{argp}!aaf-\/listener.\+c@{aaf-\/listener.\+c}}
+\subsubsection[{\texorpdfstring{argp}{argp}}]{\setlength{\rightskip}{0pt plus 5cm}struct argp argp = \{ {\bf options}, {\bf parser} \}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{aaf-listener_8c_ab70c96531b1b652d70c221cfaf3207f3}{}\label{aaf-listener_8c_ab70c96531b1b652d70c221cfaf3207f3}
+
+
+aaf-\/listener.\+c 파일의 125 번째 라인에서 정의되었습니다.
+

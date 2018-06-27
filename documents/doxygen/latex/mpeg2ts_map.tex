@@ -1,0 +1,30 @@
+\section*{Description}
+
+Mpeg2 TS mapping module conforming to A\+VB 61883-\/4 encapsulation.
+
+Refer to I\+EC 61883-\/4 for details of the \char`\"{}source packet\char`\"{} structure.
+
+This mapping module module as a talker requires an interface module to push one source packet of 192 octets into the media queue along with a media queue time value when the first data block of the source packet was obtained. There is no need to place the timestamp within the source packet header, this will be done within the mapping module when the maximum transit time is added. The mapping module may bundle multiple source packets into one A\+V\+TP packet before sending it.
+
+This mapping module module as a listener will parse source packets from the A\+V\+TP packet and place each source packet of 192 octets into the media queue along with the correct timestamp from the source packet header. The interface module will pull each source packet from the media queue and present has needed.
+
+The protocol\+\_\+specific\+\_\+header, C\+IP header and the mpeg2 ts source packet header are all taken care of in the mapping module.
+
+~\newline
+ \section*{Mapping module configuration parameters}
+
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*2{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}{\bf Name }&{\bf Description  }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}{\bf Name }&{\bf Description  }\\\cline{1-2}
+\endhead
+map\+\_\+nv\+\_\+item\+\_\+count &The number of Media Queue items to hold. \\\cline{1-2}
+map\+\_\+nv\+\_\+item\+\_\+size &Size of data in each Media Queue item \\\cline{1-2}
+map\+\_\+nv\+\_\+ts\+\_\+packet\+\_\+size&Size of transport stream packets passed to/from interface\textbackslash{} \\\cline{1-2}
+\end{longtabu}
+module (188 or 192) map\+\_\+nv\+\_\+num\+\_\+source\+\_\+packets$\vert$\+Number of source packets to send an in A\+V\+TP frame \textbackslash{} ({\bfseries Talker only}) map\+\_\+nv\+\_\+tx\+\_\+rate or map\+\_\+nv\+\_\+tx\+\_\+interval $\vert$ Transmit interval in frames per second. \textbackslash{} 0 = default for talker class 

@@ -1,0 +1,985 @@
+\hypertarget{openavb__adp__message_8c}{}\section{lib/avtp\+\_\+pipeline/adp/openavb\+\_\+adp\+\_\+message.c 파일 참조}
+\label{openavb__adp__message_8c}\index{lib/avtp\+\_\+pipeline/adp/openavb\+\_\+adp\+\_\+message.\+c@{lib/avtp\+\_\+pipeline/adp/openavb\+\_\+adp\+\_\+message.\+c}}
+{\ttfamily \#include \char`\"{}openavb\+\_\+platform.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$ctype.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+log.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+debug.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+rawsock.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+avtp.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+srp.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+adp.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+adp\+\_\+sm\+\_\+advertise\+\_\+interface.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+acmp\+\_\+sm\+\_\+listener.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+grandmaster\+\_\+osal\+\_\+pub.\+h\char`\"{}}\\*
+openavb\+\_\+adp\+\_\+message.\+c에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__adp__message_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{openavb__adp__message_8c_abcfb21b6495585fe36058f57a9fe58fc}{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}~\char`\"{}A\+DP\char`\"{}
+\item 
+\#define \hyperlink{openavb__adp__message_8c_a26769957ec1a2beaf223f33b66ee64ab}{I\+N\+V\+A\+L\+I\+D\+\_\+\+S\+O\+C\+K\+ET}~(-\/1)
+\item 
+\#define \hyperlink{openavb__adp__message_8c_a968b39b2b3379b44261088ebc1910d45}{A\+D\+P\+\_\+\+P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+A\+D\+DR}~\char`\"{}91\+:E0\+:\+F0\+:01\+:00\+:00\char`\"{}
+\item 
+\#define \hyperlink{openavb__adp__message_8c_af98fb8372f1f7bbd3f0456cad630770c}{A\+V\+T\+P\+\_\+\+H\+D\+R\+\_\+\+L\+EN}~12
+\item 
+\#define \hyperlink{openavb__adp__message_8c_a6c8009f48ed8ee5ded0e53d00af95312}{A\+D\+P\+\_\+\+D\+A\+T\+A\+\_\+\+L\+EN}~56
+\item 
+\#define \hyperlink{openavb__adp__message_8c_aaceb464c58a42bae942421f4c0348710}{A\+D\+P\+\_\+\+F\+R\+A\+M\+E\+\_\+\+L\+EN}~(\hyperlink{openavb__avtp_8h_a6fd5764cb5a23a3c8ece29f613e4a277}{E\+T\+H\+\_\+\+H\+D\+R\+\_\+\+L\+E\+N\+\_\+\+V\+L\+AN} + \hyperlink{openavb__aecp__message_8c_af98fb8372f1f7bbd3f0456cad630770c}{A\+V\+T\+P\+\_\+\+H\+D\+R\+\_\+\+L\+EN} + \hyperlink{openavb__adp__message_8c_a6c8009f48ed8ee5ded0e53d00af95312}{A\+D\+P\+\_\+\+D\+A\+T\+A\+\_\+\+L\+EN})
+\item 
+\#define \hyperlink{openavb__adp__message_8c_a9ac30bea1972c4e220fdfca0d866fe70}{A\+D\+P\+\_\+\+N\+U\+M\+\_\+\+B\+U\+F\+F\+E\+RS}~2
+\item 
+\#define \hyperlink{openavb__adp__message_8c_ad937f94043c94bc430c2bb95753bdbcc}{A\+D\+D\+R\+\_\+\+P\+TR}(A)~(\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8}$\ast$)(\&((A)-\/$>$ether\+\_\+addr\+\_\+octet))
+\item 
+\#define \hyperlink{openavb__adp__message_8c_ae5c3487244f6f7a4b6d059cb198a2228}{A\+D\+P\+\_\+\+L\+O\+CK}()~\{ \hyperlink{openavb__os__services__osal__pub_8h_aee93da9d4ea28eeaa9c64bd938d5549b}{M\+U\+T\+E\+X\+\_\+\+C\+R\+E\+A\+T\+E\+\_\+\+E\+RR}(); \hyperlink{openavb__os__services__osal__pub_8h_aaa0e54e00ca1cc9cb5bf9ac824a5e4ef}{M\+U\+T\+E\+X\+\_\+\+L\+O\+CK}(openavb\+Adp\+Mutex); \hyperlink{openavb__os__services__osal__pub_8h_a08d33bd2184e24e7676bda0efb5a3e5e}{M\+U\+T\+E\+X\+\_\+\+L\+O\+G\+\_\+\+E\+RR}(\char`\"{}Mutex lock failure\char`\"{}); \}
+\item 
+\#define \hyperlink{openavb__adp__message_8c_ae0cdadf85582a39006df760ad7d2ad2c}{A\+D\+P\+\_\+\+U\+N\+L\+O\+CK}()~\{ \hyperlink{openavb__os__services__osal__pub_8h_aee93da9d4ea28eeaa9c64bd938d5549b}{M\+U\+T\+E\+X\+\_\+\+C\+R\+E\+A\+T\+E\+\_\+\+E\+RR}(); \hyperlink{openavb__os__services__osal__pub_8h_a0945f1588c967fbabfc91ddc7287cb32}{M\+U\+T\+E\+X\+\_\+\+U\+N\+L\+O\+CK}(openavb\+Adp\+Mutex); \hyperlink{openavb__os__services__osal__pub_8h_a08d33bd2184e24e7676bda0efb5a3e5e}{M\+U\+T\+E\+X\+\_\+\+L\+O\+G\+\_\+\+E\+RR}(\char`\"{}Mutex unlock failure\char`\"{}); \}
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{openavb__adp__message_8c_a49c06b7a462069c22adbffa929825144}{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+LE} (openavb\+Adp\+Mutex)
+\item 
+\hyperlink{openavb__adp__message_8c_a82c3ca57d1d6a0a21ee51fb0af35b595}{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE} (openavb\+Adp\+Message\+Rx\+Thread)
+\item 
+\hyperlink{openavb__adp__message_8c_a8c7194e80f8721d4db022b79487f1fef}{T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+ON} (openavb\+Adp\+Message\+Rx\+Thread)
+\item 
+void \hyperlink{openavb__adp__message_8c_a4616382bd1a7697bbccaff26263038ba}{openavb\+Adp\+Close\+Socket} ()
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__adp__message_8c_af4cff1ee63d34ab9c04d09561fa532ae}{openavb\+Adp\+Open\+Socket} (const char $\ast$\hyperlink{aaf-talker_8c_ac7b430acaa92a7a26fbcdad47d2efc20}{ifname}, \hyperlink{openavb__types__base__pub_8h_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16} vlan\+ID, \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} vlan\+P\+CP)
+\item 
+static void \hyperlink{openavb__adp__message_8c_abe121c67bcf70de773d2bf899f37db8e}{openavb\+Adp\+Message\+Rx\+Frame\+Parse} (\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} $\ast$payload, int \hyperlink{gstavbsink_8c_afbbc2e77af6298f5550aec6087ba7d32}{payload\+\_\+len}, \hyperlink{structhdr__info__t}{hdr\+\_\+info\+\_\+t} $\ast$hdr)
+\item 
+static void \hyperlink{openavb__adp__message_8c_af7eb9fb88af8b8be627b4af965f6bc45}{openavb\+Adp\+Message\+Rx\+Frame\+Receive} (\hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} timeout\+Usec)
+\item 
+void \hyperlink{openavb__adp__message_8c_a99be2fe1b3a932a9b1485f4a9ca40ccc}{openavb\+Adp\+Message\+Tx\+Frame} (\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} msg\+Type, \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} $\ast$dest\+Addr)
+\item 
+void $\ast$ \hyperlink{openavb__adp__message_8c_a22d92f62848141f95be5c8093447f1a2}{openavb\+Adp\+Message\+Rx\+Thread\+Fn} (void $\ast$pv)
+\item 
+\hyperlink{openavb__result__codes_8h_a0cb594b7f047b8e4a76be68eca619be5}{openavb\+RC} \hyperlink{openavb__adp__message_8c_ae417a192f4257dfa7af9e209f4dafd0f}{openavb\+Adp\+Message\+Handler\+Start} ()
+\item 
+void \hyperlink{openavb__adp__message_8c_a87c2e0543b1e73d0acf29c9bf1674d2b}{openavb\+Adp\+Message\+Handler\+Stop} ()
+\item 
+\hyperlink{openavb__result__codes_8h_a0cb594b7f047b8e4a76be68eca619be5}{openavb\+RC} \hyperlink{openavb__adp__message_8c_af098a8d35286283fba529a1204e7d17f}{openavb\+Adp\+Message\+Send} (\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} message\+Type)
+\end{DoxyCompactItemize}
+\subsection*{변수}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structopenavb__avdecc__cfg__t}{openavb\+\_\+avdecc\+\_\+cfg\+\_\+t} \hyperlink{openavb__adp__message_8c_a142e959837c765cd9a1767b886421315}{g\+Avdecc\+Cfg}
+\item 
+static void $\ast$ \hyperlink{openavb__adp__message_8c_a2d8cdd4e3e7124a63509a346ade26a4b}{rx\+Sock} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{N\+U\+LL}
+\item 
+static void $\ast$ \hyperlink{openavb__adp__message_8c_acc3c897b6f4f88ddba59c97f3178e402}{tx\+Sock} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{N\+U\+LL}
+\item 
+static struct ether\+\_\+addr \hyperlink{openavb__adp__message_8c_ab00d246f71209a6c53d44b0ec45542a8}{intf\+Addr}
+\item 
+static struct ether\+\_\+addr \hyperlink{openavb__adp__message_8c_a33f67c13c448c2e2639438d2dc832a7a}{adp\+Addr}
+\item 
+\hyperlink{structopenavb__adp__sm__global__vars__t}{openavb\+\_\+adp\+\_\+sm\+\_\+global\+\_\+vars\+\_\+t} \hyperlink{openavb__adp__message_8c_a1a30a222ed39fa185fa222f43fe981e7}{openavb\+Adp\+S\+M\+Global\+Vars}
+\item 
+static \hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{openavb__adp__message_8c_acf182b7b2127314d5d00c6df827734b5}{b\+Running} = \hyperlink{lib_2igb_2e1000__osdep_8h_aa93f0eb578d23995850d61f7d61c55c1}{F\+A\+L\+SE}
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}!A\+D\+D\+R\+\_\+\+P\+TR@{A\+D\+D\+R\+\_\+\+P\+TR}}
+\index{A\+D\+D\+R\+\_\+\+P\+TR@{A\+D\+D\+R\+\_\+\+P\+TR}!openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{A\+D\+D\+R\+\_\+\+P\+TR}{ADDR_PTR}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+D\+D\+R\+\_\+\+P\+TR(
+\begin{DoxyParamCaption}
+\item[{}]{A}
+\end{DoxyParamCaption}
+)~({\bf U8}$\ast$)(\&((A)-\/$>$ether\+\_\+addr\+\_\+octet))}\hypertarget{openavb__adp__message_8c_ad937f94043c94bc430c2bb95753bdbcc}{}\label{openavb__adp__message_8c_ad937f94043c94bc430c2bb95753bdbcc}
+
+
+openavb\+\_\+adp\+\_\+message.\+c 파일의 84 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}!A\+D\+P\+\_\+\+D\+A\+T\+A\+\_\+\+L\+EN@{A\+D\+P\+\_\+\+D\+A\+T\+A\+\_\+\+L\+EN}}
+\index{A\+D\+P\+\_\+\+D\+A\+T\+A\+\_\+\+L\+EN@{A\+D\+P\+\_\+\+D\+A\+T\+A\+\_\+\+L\+EN}!openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{A\+D\+P\+\_\+\+D\+A\+T\+A\+\_\+\+L\+EN}{ADP_DATA_LEN}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+D\+P\+\_\+\+D\+A\+T\+A\+\_\+\+L\+EN~56}\hypertarget{openavb__adp__message_8c_a6c8009f48ed8ee5ded0e53d00af95312}{}\label{openavb__adp__message_8c_a6c8009f48ed8ee5ded0e53d00af95312}
+
+
+openavb\+\_\+adp\+\_\+message.\+c 파일의 77 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}!A\+D\+P\+\_\+\+F\+R\+A\+M\+E\+\_\+\+L\+EN@{A\+D\+P\+\_\+\+F\+R\+A\+M\+E\+\_\+\+L\+EN}}
+\index{A\+D\+P\+\_\+\+F\+R\+A\+M\+E\+\_\+\+L\+EN@{A\+D\+P\+\_\+\+F\+R\+A\+M\+E\+\_\+\+L\+EN}!openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{A\+D\+P\+\_\+\+F\+R\+A\+M\+E\+\_\+\+L\+EN}{ADP_FRAME_LEN}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+D\+P\+\_\+\+F\+R\+A\+M\+E\+\_\+\+L\+EN~({\bf E\+T\+H\+\_\+\+H\+D\+R\+\_\+\+L\+E\+N\+\_\+\+V\+L\+AN} + {\bf A\+V\+T\+P\+\_\+\+H\+D\+R\+\_\+\+L\+EN} + {\bf A\+D\+P\+\_\+\+D\+A\+T\+A\+\_\+\+L\+EN})}\hypertarget{openavb__adp__message_8c_aaceb464c58a42bae942421f4c0348710}{}\label{openavb__adp__message_8c_aaceb464c58a42bae942421f4c0348710}
+
+
+openavb\+\_\+adp\+\_\+message.\+c 파일의 78 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}!A\+D\+P\+\_\+\+L\+O\+CK@{A\+D\+P\+\_\+\+L\+O\+CK}}
+\index{A\+D\+P\+\_\+\+L\+O\+CK@{A\+D\+P\+\_\+\+L\+O\+CK}!openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{A\+D\+P\+\_\+\+L\+O\+CK}{ADP_LOCK}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+D\+P\+\_\+\+L\+O\+CK(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~\{ {\bf M\+U\+T\+E\+X\+\_\+\+C\+R\+E\+A\+T\+E\+\_\+\+E\+RR}(); {\bf M\+U\+T\+E\+X\+\_\+\+L\+O\+CK}(openavb\+Adp\+Mutex); {\bf M\+U\+T\+E\+X\+\_\+\+L\+O\+G\+\_\+\+E\+RR}(\char`\"{}Mutex lock failure\char`\"{}); \}}\hypertarget{openavb__adp__message_8c_ae5c3487244f6f7a4b6d059cb198a2228}{}\label{openavb__adp__message_8c_ae5c3487244f6f7a4b6d059cb198a2228}
+
+
+openavb\+\_\+adp\+\_\+message.\+c 파일의 89 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}!A\+D\+P\+\_\+\+N\+U\+M\+\_\+\+B\+U\+F\+F\+E\+RS@{A\+D\+P\+\_\+\+N\+U\+M\+\_\+\+B\+U\+F\+F\+E\+RS}}
+\index{A\+D\+P\+\_\+\+N\+U\+M\+\_\+\+B\+U\+F\+F\+E\+RS@{A\+D\+P\+\_\+\+N\+U\+M\+\_\+\+B\+U\+F\+F\+E\+RS}!openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{A\+D\+P\+\_\+\+N\+U\+M\+\_\+\+B\+U\+F\+F\+E\+RS}{ADP_NUM_BUFFERS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+D\+P\+\_\+\+N\+U\+M\+\_\+\+B\+U\+F\+F\+E\+RS~2}\hypertarget{openavb__adp__message_8c_a9ac30bea1972c4e220fdfca0d866fe70}{}\label{openavb__adp__message_8c_a9ac30bea1972c4e220fdfca0d866fe70}
+
+
+openavb\+\_\+adp\+\_\+message.\+c 파일의 81 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}!A\+D\+P\+\_\+\+P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+A\+D\+DR@{A\+D\+P\+\_\+\+P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+A\+D\+DR}}
+\index{A\+D\+P\+\_\+\+P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+A\+D\+DR@{A\+D\+P\+\_\+\+P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+A\+D\+DR}!openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{A\+D\+P\+\_\+\+P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+A\+D\+DR}{ADP_PROTOCOL_ADDR}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+D\+P\+\_\+\+P\+R\+O\+T\+O\+C\+O\+L\+\_\+\+A\+D\+DR~\char`\"{}91\+:E0\+:\+F0\+:01\+:00\+:00\char`\"{}}\hypertarget{openavb__adp__message_8c_a968b39b2b3379b44261088ebc1910d45}{}\label{openavb__adp__message_8c_a968b39b2b3379b44261088ebc1910d45}
+
+
+openavb\+\_\+adp\+\_\+message.\+c 파일의 73 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}!A\+D\+P\+\_\+\+U\+N\+L\+O\+CK@{A\+D\+P\+\_\+\+U\+N\+L\+O\+CK}}
+\index{A\+D\+P\+\_\+\+U\+N\+L\+O\+CK@{A\+D\+P\+\_\+\+U\+N\+L\+O\+CK}!openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{A\+D\+P\+\_\+\+U\+N\+L\+O\+CK}{ADP_UNLOCK}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+D\+P\+\_\+\+U\+N\+L\+O\+CK(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~\{ {\bf M\+U\+T\+E\+X\+\_\+\+C\+R\+E\+A\+T\+E\+\_\+\+E\+RR}(); {\bf M\+U\+T\+E\+X\+\_\+\+U\+N\+L\+O\+CK}(openavb\+Adp\+Mutex); {\bf M\+U\+T\+E\+X\+\_\+\+L\+O\+G\+\_\+\+E\+RR}(\char`\"{}Mutex unlock failure\char`\"{}); \}}\hypertarget{openavb__adp__message_8c_ae0cdadf85582a39006df760ad7d2ad2c}{}\label{openavb__adp__message_8c_ae0cdadf85582a39006df760ad7d2ad2c}
+
+
+openavb\+\_\+adp\+\_\+message.\+c 파일의 90 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}!A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT@{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}}
+\index{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT@{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}!openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}{AVB_LOG_COMPONENT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT~\char`\"{}A\+DP\char`\"{}}\hypertarget{openavb__adp__message_8c_abcfb21b6495585fe36058f57a9fe58fc}{}\label{openavb__adp__message_8c_abcfb21b6495585fe36058f57a9fe58fc}
+
+
+openavb\+\_\+adp\+\_\+message.\+c 파일의 45 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}!A\+V\+T\+P\+\_\+\+H\+D\+R\+\_\+\+L\+EN@{A\+V\+T\+P\+\_\+\+H\+D\+R\+\_\+\+L\+EN}}
+\index{A\+V\+T\+P\+\_\+\+H\+D\+R\+\_\+\+L\+EN@{A\+V\+T\+P\+\_\+\+H\+D\+R\+\_\+\+L\+EN}!openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{A\+V\+T\+P\+\_\+\+H\+D\+R\+\_\+\+L\+EN}{AVTP_HDR_LEN}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+V\+T\+P\+\_\+\+H\+D\+R\+\_\+\+L\+EN~12}\hypertarget{openavb__adp__message_8c_af98fb8372f1f7bbd3f0456cad630770c}{}\label{openavb__adp__message_8c_af98fb8372f1f7bbd3f0456cad630770c}
+
+
+openavb\+\_\+adp\+\_\+message.\+c 파일의 76 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}!I\+N\+V\+A\+L\+I\+D\+\_\+\+S\+O\+C\+K\+ET@{I\+N\+V\+A\+L\+I\+D\+\_\+\+S\+O\+C\+K\+ET}}
+\index{I\+N\+V\+A\+L\+I\+D\+\_\+\+S\+O\+C\+K\+ET@{I\+N\+V\+A\+L\+I\+D\+\_\+\+S\+O\+C\+K\+ET}!openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{I\+N\+V\+A\+L\+I\+D\+\_\+\+S\+O\+C\+K\+ET}{INVALID_SOCKET}}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\+N\+V\+A\+L\+I\+D\+\_\+\+S\+O\+C\+K\+ET~(-\/1)}\hypertarget{openavb__adp__message_8c_a26769957ec1a2beaf223f33b66ee64ab}{}\label{openavb__adp__message_8c_a26769957ec1a2beaf223f33b66ee64ab}
+
+
+openavb\+\_\+adp\+\_\+message.\+c 파일의 70 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{함수 문서화}
+\index{openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}!M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+LE@{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+LE}}
+\index{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+LE@{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+LE}!openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+L\+E(openavb\+Adp\+Mutex)}{MUTEX_HANDLE(openavbAdpMutex)}}]{\setlength{\rightskip}{0pt plus 5cm}M\+U\+T\+E\+X\+\_\+\+H\+A\+N\+D\+LE (
+\begin{DoxyParamCaption}
+\item[{openavb\+Adp\+Mutex}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__adp__message_8c_a49c06b7a462069c22adbffa929825144}{}\label{openavb__adp__message_8c_a49c06b7a462069c22adbffa929825144}
+\index{openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}!openavb\+Adp\+Close\+Socket@{openavb\+Adp\+Close\+Socket}}
+\index{openavb\+Adp\+Close\+Socket@{openavb\+Adp\+Close\+Socket}!openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Adp\+Close\+Socket()}{openavbAdpCloseSocket()}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Adp\+Close\+Socket (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__adp__message_8c_a4616382bd1a7697bbccaff26263038ba}{}\label{openavb__adp__message_8c_a4616382bd1a7697bbccaff26263038ba}
+
+
+openavb\+\_\+adp\+\_\+message.\+c 파일의 104 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+105 \{
+106     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a4f95bb7c7f4eddadad84c8dffb6da6db}{AVB\_TRACE\_ADP});
+107 
+108     \textcolor{keywordflow}{if} (\hyperlink{openavb__adp__message_8c_a2d8cdd4e3e7124a63509a346ade26a4b}{rxSock}) \{
+109         \hyperlink{openavb__rawsock_8h_ae1e456bd2922c4ed8fc8263cc65d98d1}{openavbRawsockClose}(\hyperlink{openavb__adp__message_8c_a2d8cdd4e3e7124a63509a346ade26a4b}{rxSock});
+110         \hyperlink{openavb__adp__message_8c_a2d8cdd4e3e7124a63509a346ade26a4b}{rxSock} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+111     \}
+112     \textcolor{keywordflow}{if} (\hyperlink{openavb__adp__message_8c_acc3c897b6f4f88ddba59c97f3178e402}{txSock}) \{
+113         \hyperlink{openavb__rawsock_8h_ae1e456bd2922c4ed8fc8263cc65d98d1}{openavbRawsockClose}(\hyperlink{openavb__adp__message_8c_acc3c897b6f4f88ddba59c97f3178e402}{txSock});
+114         \hyperlink{openavb__adp__message_8c_acc3c897b6f4f88ddba59c97f3178e402}{txSock} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+115     \}
+116 
+117     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a4f95bb7c7f4eddadad84c8dffb6da6db}{AVB\_TRACE\_ADP});
+118 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__adp__message_8c_a4616382bd1a7697bbccaff26263038ba_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__adp__message_8c_a4616382bd1a7697bbccaff26263038ba_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}!openavb\+Adp\+Message\+Handler\+Start@{openavb\+Adp\+Message\+Handler\+Start}}
+\index{openavb\+Adp\+Message\+Handler\+Start@{openavb\+Adp\+Message\+Handler\+Start}!openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Adp\+Message\+Handler\+Start()}{openavbAdpMessageHandlerStart()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf openavb\+RC} openavb\+Adp\+Message\+Handler\+Start (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__adp__message_8c_ae417a192f4257dfa7af9e209f4dafd0f}{}\label{openavb__adp__message_8c_ae417a192f4257dfa7af9e209f4dafd0f}
+
+
+openavb\+\_\+adp\+\_\+message.\+c 파일의 382 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+383 \{
+384     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a4f95bb7c7f4eddadad84c8dffb6da6db}{AVB\_TRACE\_ADP});
+385 
+386     \hyperlink{openavb__adp__message_8c_acf182b7b2127314d5d00c6df827734b5}{bRunning} = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+387 
+388     \textcolor{keywordflow}{if} (\hyperlink{openavb__adp__message_8c_af4cff1ee63d34ab9c04d09561fa532ae}{openavbAdpOpenSocket}((\textcolor{keyword}{const} \textcolor{keywordtype}{char} *)\hyperlink{openavb__adp__message_8c_a142e959837c765cd9a1767b886421315}{gAvdeccCfg}.
+      \hyperlink{structopenavb__avdecc__cfg__t_a11d6071e5fa37b0c5776e17651485f11}{ifname}, \hyperlink{openavb__adp__message_8c_a142e959837c765cd9a1767b886421315}{gAvdeccCfg}.\hyperlink{structopenavb__avdecc__cfg__t_a6f9e150f3345cb797072070d8972aec8}{vlanID}, \hyperlink{openavb__adp__message_8c_a142e959837c765cd9a1767b886421315}{gAvdeccCfg}.\hyperlink{structopenavb__avdecc__cfg__t_aeceb46fe9886e43a65d96da0339c43fb}{vlanPCP})) \{
+389 
+390         \textcolor{comment}{// Start the RX thread}
+391         \textcolor{keywordtype}{bool} errResult;
+392         \hyperlink{maap__helper__linux_8h_a153e2ca1dd20bd23c619f8d2bafcc764}{THREAD\_CREATE}(openavbAdpMessageRxThread, openavbAdpMessageRxThread, 
+      \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{openavb__adp__message_8c_a22d92f62848141f95be5c8093447f1a2}{openavbAdpMessageRxThreadFn}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+393         \hyperlink{maap__helper__linux_8h_a2d61dbf377bb5ab560d4b4bddf49c9c2}{THREAD\_CHECK\_ERROR}(openavbAdpMessageRxThread, \textcolor{stringliteral}{"Thread / task creation failed"}, 
+      errResult);
+394         \textcolor{keywordflow}{if} (errResult) \{
+395             \hyperlink{openavb__adp__message_8c_acf182b7b2127314d5d00c6df827734b5}{bRunning} = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+396             \hyperlink{openavb__adp__message_8c_a4616382bd1a7697bbccaff26263038ba}{openavbAdpCloseSocket}();
+397             \hyperlink{openavb__result__codes_8h_a914b1a10e0333e834ea192298c7d9e26}{AVB\_RC\_TRACE\_RET}(\hyperlink{openavb__result__codes_8h_ae011b3feb6683a50e9a6a566b7bb679d}{OPENAVB\_AVDECC\_FAILURE}, 
+      \hyperlink{openavb__trace_8h_a4f95bb7c7f4eddadad84c8dffb6da6db}{AVB\_TRACE\_ADP});
+398         \}
+399 
+400         \hyperlink{openavb__result__codes_8h_a914b1a10e0333e834ea192298c7d9e26}{AVB\_RC\_TRACE\_RET}(\hyperlink{openavb__result__codes_8h_a36a28b5430025e16249854e3e1e74f5e}{OPENAVB\_AVDECC\_SUCCESS}, 
+      \hyperlink{openavb__trace_8h_a4f95bb7c7f4eddadad84c8dffb6da6db}{AVB\_TRACE\_ADP});
+401     \}
+402 
+403     \hyperlink{openavb__adp__message_8c_acf182b7b2127314d5d00c6df827734b5}{bRunning} = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+404     \hyperlink{openavb__result__codes_8h_a914b1a10e0333e834ea192298c7d9e26}{AVB\_RC\_TRACE\_RET}(\hyperlink{openavb__result__codes_8h_ae011b3feb6683a50e9a6a566b7bb679d}{OPENAVB\_AVDECC\_FAILURE}, 
+      \hyperlink{openavb__trace_8h_a4f95bb7c7f4eddadad84c8dffb6da6db}{AVB\_TRACE\_ADP});
+405 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__adp__message_8c_ae417a192f4257dfa7af9e209f4dafd0f_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__adp__message_8c_ae417a192f4257dfa7af9e209f4dafd0f_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}!openavb\+Adp\+Message\+Handler\+Stop@{openavb\+Adp\+Message\+Handler\+Stop}}
+\index{openavb\+Adp\+Message\+Handler\+Stop@{openavb\+Adp\+Message\+Handler\+Stop}!openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Adp\+Message\+Handler\+Stop()}{openavbAdpMessageHandlerStop()}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Adp\+Message\+Handler\+Stop (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__adp__message_8c_a87c2e0543b1e73d0acf29c9bf1674d2b}{}\label{openavb__adp__message_8c_a87c2e0543b1e73d0acf29c9bf1674d2b}
+
+
+openavb\+\_\+adp\+\_\+message.\+c 파일의 407 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+408 \{
+409     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a4f95bb7c7f4eddadad84c8dffb6da6db}{AVB\_TRACE\_ADP});
+410 
+411     \textcolor{keywordflow}{if} (\hyperlink{openavb__adp__message_8c_acf182b7b2127314d5d00c6df827734b5}{bRunning}) \{
+412         \hyperlink{openavb__adp__message_8c_acf182b7b2127314d5d00c6df827734b5}{bRunning} = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+413         \hyperlink{maap__helper__linux_8h_ab2bcb74112112a2ed181d5784e0530f3}{THREAD\_JOIN}(openavbAdpMessageRxThread, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+414         \hyperlink{openavb__adp__message_8c_a4616382bd1a7697bbccaff26263038ba}{openavbAdpCloseSocket}();
+415     \}
+416 
+417     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a4f95bb7c7f4eddadad84c8dffb6da6db}{AVB\_TRACE\_ADP});
+418 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__adp__message_8c_a87c2e0543b1e73d0acf29c9bf1674d2b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__adp__message_8c_a87c2e0543b1e73d0acf29c9bf1674d2b_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}!openavb\+Adp\+Message\+Rx\+Frame\+Parse@{openavb\+Adp\+Message\+Rx\+Frame\+Parse}}
+\index{openavb\+Adp\+Message\+Rx\+Frame\+Parse@{openavb\+Adp\+Message\+Rx\+Frame\+Parse}!openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Adp\+Message\+Rx\+Frame\+Parse(\+U8 $\ast$payload, int payload\+\_\+len, hdr\+\_\+info\+\_\+t $\ast$hdr)}{openavbAdpMessageRxFrameParse(U8 *payload, int payload_len, hdr_info_t *hdr)}}]{\setlength{\rightskip}{0pt plus 5cm}static void openavb\+Adp\+Message\+Rx\+Frame\+Parse (
+\begin{DoxyParamCaption}
+\item[{{\bf U8} $\ast$}]{payload, }
+\item[{int}]{payload\+\_\+len, }
+\item[{{\bf hdr\+\_\+info\+\_\+t} $\ast$}]{hdr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__adp__message_8c_abe121c67bcf70de773d2bf899f37db8e}{}\label{openavb__adp__message_8c_abe121c67bcf70de773d2bf899f37db8e}
+
+
+openavb\+\_\+adp\+\_\+message.\+c 파일의 171 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+172 \{
+173     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a4f95bb7c7f4eddadad84c8dffb6da6db}{AVB\_TRACE\_ADP});
+174 
+175     \hyperlink{structopenavb__adp__control__header__t}{openavb\_adp\_control\_header\_t} adpHeader;
+176     \hyperlink{structopenavb__adp__data__unit__t}{openavb\_adp\_data\_unit\_t} adpPdu;
+177 
+178 \textcolor{preprocessor}{#if 0}
+179     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afcf1f0c1d10ae9efe3782eb6cae78355}{AVB\_LOGF\_DEBUG}(\textcolor{stringliteral}{"openavbAdpMessageRxFrameParse packet data (length %d):"}, 
+      \hyperlink{gstavbsink_8c_afbbc2e77af6298f5550aec6087ba7d32}{payload\_len});
+180     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a8d4c50ca73e8a7fbca488128755e5e5c}{AVB\_LOG\_BUFFER}(\hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a35e326523cfad3b35b50459a9e6bf259}{AVB\_LOG\_LEVEL\_DEBUG}, payload, 
+      \hyperlink{gstavbsink_8c_afbbc2e77af6298f5550aec6087ba7d32}{payload\_len}, 16);
+181 \textcolor{preprocessor}{#endif}
+182 
+183     \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *pSrc = payload;
+184     \{
+185         \textcolor{comment}{// AVTP Control Header}
+186         \hyperlink{structopenavb__adp__control__header__t}{openavb\_adp\_control\_header\_t} *pDst = &adpHeader;
+187 
+188         \hyperlink{openavb__avdecc_8h_a9b27d3f1018540fea565cdce94708cb4}{BIT\_B2DNTOHB}(pDst->\hyperlink{structopenavb__adp__control__header__t_ad2828a59ad0b95e77da38333c0a717de}{cd}, pSrc, 0x80, 7, 0);
+189         \hyperlink{openavb__avdecc_8h_a9b27d3f1018540fea565cdce94708cb4}{BIT\_B2DNTOHB}(pDst->\hyperlink{structopenavb__adp__control__header__t_ad61c2796f8f447c2ca8979f4aeccf351}{subtype}, pSrc, 0x7f, 0, 1);
+190         \hyperlink{openavb__avdecc_8h_a9b27d3f1018540fea565cdce94708cb4}{BIT\_B2DNTOHB}(pDst->\hyperlink{structopenavb__adp__control__header__t_adc62d14194c9ab3aff5b994caef8bcb0}{sv}, pSrc, 0x80, 7, 0);
+191         \hyperlink{openavb__avdecc_8h_a9b27d3f1018540fea565cdce94708cb4}{BIT\_B2DNTOHB}(pDst->\hyperlink{structopenavb__adp__control__header__t_ae5d1ca2d5099c6a5f760c897505cb11b}{version}, pSrc, 0x70, 4, 0);
+192         \hyperlink{openavb__avdecc_8h_a9b27d3f1018540fea565cdce94708cb4}{BIT\_B2DNTOHB}(pDst->\hyperlink{structopenavb__adp__control__header__t_a5e8953d77df4508aa07ed906c5b19beb}{message\_type}, pSrc, 0x0f, 0, 1);
+193         \hyperlink{openavb__avdecc_8h_a9b27d3f1018540fea565cdce94708cb4}{BIT\_B2DNTOHB}(pDst->\hyperlink{structopenavb__adp__control__header__t_aebe5bad8aaf2356c644fc10e5c3f8fdf}{valid\_time}, pSrc, 0xf800, 11, 0);
+194         \hyperlink{openavb__avdecc_8h_ac640f4ad78fb76861555b256d3f8a649}{BIT\_B2DNTOHS}(pDst->\hyperlink{structopenavb__adp__control__header__t_a6a26fcf01946013b206d67551ef6eb84}{control\_data\_length}, pSrc, 0x07ff, 0, 2);
+195         \hyperlink{openavb__avdecc_8h_a89139086445bc0a41eaa2a0d463d20ee}{OCT\_B2DMEMCP}(pDst->\hyperlink{structopenavb__adp__control__header__t_ab748fb58fac21e84c356282323c9b9e2}{entity\_id}, pSrc);
+196     \}
+197 
+198     \textcolor{keywordflow}{if} (adpHeader.\hyperlink{structopenavb__adp__control__header__t_ad61c2796f8f447c2ca8979f4aeccf351}{subtype} == \hyperlink{openavb__adp_8h_a8659b57afb1248266b3bd424ba3b106a}{OPENAVB\_ADP\_AVTP\_SUBTYPE} &&
+199             (adpHeader.\hyperlink{structopenavb__adp__control__header__t_a5e8953d77df4508aa07ed906c5b19beb}{message\_type} == 
+      \hyperlink{openavb__adp__pub_8h_a7425eeb83a4adc954a624decb275a3c6}{OPENAVB\_ADP\_MESSAGE\_TYPE\_ENTITY\_DISCOVER} ||
+200              (\hyperlink{openavb__adp__message_8c_a142e959837c765cd9a1767b886421315}{gAvdeccCfg}.\hyperlink{structopenavb__avdecc__cfg__t_af2d13c6414749c36d13faf34d3bbbd40}{bFastConnectSupported} && adpHeader.
+      \hyperlink{structopenavb__adp__control__header__t_a5e8953d77df4508aa07ed906c5b19beb}{message\_type} == \hyperlink{openavb__acmp_8h_a42bb5ab5fddd54035f7e2c7f1b606ebb}{OPENAVB\_ADP\_MESSAGE\_TYPE\_ENTITY\_AVAILABLE}
+      ))) \{
+201         \textcolor{comment}{// ADP PDU}
+202         \hyperlink{structopenavb__adp__data__unit__t}{openavb\_adp\_data\_unit\_t} *pDst = &adpPdu;
+203 
+204         \hyperlink{openavb__avdecc_8h_a89139086445bc0a41eaa2a0d463d20ee}{OCT\_B2DMEMCP}(pDst->\hyperlink{structopenavb__adp__data__unit__t_a10141ef89fe144c95be49eeb9a34b2d1}{entity\_model\_id}, pSrc);
+205         \hyperlink{openavb__avdecc_8h_a4717f6c89c7c15ead09e02dc6f11f110}{OCT\_B2DNTOHL}(pDst->\hyperlink{structopenavb__adp__data__unit__t_ac778b7422da24a5903fadab48c5d4850}{entity\_capabilities}, pSrc);
+206         \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst->\hyperlink{structopenavb__adp__data__unit__t_a1cef978c7d5f0fe43e419f34dea172ab}{talker\_stream\_sources}, pSrc);
+207         \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst->\hyperlink{structopenavb__adp__data__unit__t_a3a68601d6925b6f1c051f043ce6960ea}{talker\_capabilities}, pSrc);
+208         \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst->\hyperlink{structopenavb__adp__data__unit__t_afcd73932b3d14b611b7af06f5e11c79b}{listener\_stream\_sinks}, pSrc);
+209         \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst->\hyperlink{structopenavb__adp__data__unit__t_a53c2042d30d525b821c23ec62838a448}{listener\_capabilities}, pSrc);
+210         \hyperlink{openavb__avdecc_8h_a4717f6c89c7c15ead09e02dc6f11f110}{OCT\_B2DNTOHL}(pDst->\hyperlink{structopenavb__adp__data__unit__t_a8cff5cc2f441a3695ad6c76bfe61faa9}{controller\_capabilities}, pSrc);
+211         \hyperlink{openavb__avdecc_8h_a4717f6c89c7c15ead09e02dc6f11f110}{OCT\_B2DNTOHL}(pDst->\hyperlink{structopenavb__adp__data__unit__t_afd1f3dd8f9e3b3a1ab9e658dca9e7f6b}{available\_index}, pSrc);
+212         \hyperlink{openavb__avdecc_8h_a89139086445bc0a41eaa2a0d463d20ee}{OCT\_B2DMEMCP}(pDst->\hyperlink{structopenavb__adp__data__unit__t_a6b0bee998a598f7a78f5f876313a0a6f}{gptp\_grandmaster\_id}, pSrc);
+213         \hyperlink{openavb__avdecc_8h_a3268271594416c63f2216ecf26139745}{OCT\_B2DNTOHB}(pDst->\hyperlink{structopenavb__adp__data__unit__t_a611d3f6e96402e72b14d4b7363a084b4}{gptp\_domain\_number}, pSrc);
+214         \hyperlink{openavb__avdecc_8h_a89139086445bc0a41eaa2a0d463d20ee}{OCT\_B2DMEMCP}(pDst->\hyperlink{structopenavb__adp__data__unit__t_a0c2fb64a266474c53c5b370e9f9bba70}{reserved0}, pSrc);
+215         \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst->\hyperlink{structopenavb__adp__data__unit__t_a3eb7ec791879c83d6a38c2aaa156c964}{identify\_control\_index}, pSrc);
+216         \hyperlink{openavb__avdecc_8h_a69c1ec8bb188c80035667b45ea365153}{OCT\_B2DNTOHS}(pDst->\hyperlink{structopenavb__adp__data__unit__t_a527cbe894109bf3cc338d42cae235c77}{interface\_index}, pSrc);
+217         \hyperlink{openavb__avdecc_8h_a89139086445bc0a41eaa2a0d463d20ee}{OCT\_B2DMEMCP}(pDst->\hyperlink{structopenavb__adp__data__unit__t_a920b3895c87e46889863d44538f57702}{association\_id}, pSrc);
+218         \hyperlink{openavb__avdecc_8h_a89139086445bc0a41eaa2a0d463d20ee}{OCT\_B2DMEMCP}(pDst->\hyperlink{structopenavb__adp__data__unit__t_a717895c028e3570d18efb49f76dd1fc6}{reserved1}, pSrc);
+219 
+220         \textcolor{keywordflow}{if} (adpHeader.\hyperlink{structopenavb__adp__control__header__t_a5e8953d77df4508aa07ed906c5b19beb}{message\_type} == 
+      \hyperlink{openavb__adp__pub_8h_a7425eeb83a4adc954a624decb275a3c6}{OPENAVB\_ADP\_MESSAGE\_TYPE\_ENTITY\_DISCOVER}) \{
+221             \textcolor{comment}{// Update the interface state machine}
+222             \hyperlink{openavb__adp__sm__advertise__interface_8c_ab10a8f695cd60b01037d303015c0af01}{openavbAdpSMAdvertiseInterfaceSet\_entityID}(adpHeader.
+      \hyperlink{structopenavb__adp__control__header__t_ab748fb58fac21e84c356282323c9b9e2}{entity\_id});
+223             \hyperlink{openavb__adp__sm__advertise__interface_8c_af66b8ce2053aaed2ea94785a1d4bbabc}{openavbAdpSMAdvertiseInterfaceSet\_rcvdDiscover}(
+      \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+224         \}
+225         \textcolor{keywordflow}{else} \{
+226             \textcolor{comment}{// See if Fast Connect is waiting for this device to be available.}
+227             \textcolor{keywordflow}{if} (adpPdu.\hyperlink{structopenavb__adp__data__unit__t_a1cef978c7d5f0fe43e419f34dea172ab}{talker\_stream\_sources} > 0) \{
+228                 \hyperlink{openavb__acmp__sm__listener_8c_ade0196d75871226ba86d32b3f9b30e45}{openavbAcmpSMListenerSet\_talkerTestFastConnect}
+      (adpHeader.\hyperlink{structopenavb__adp__control__header__t_ab748fb58fac21e84c356282323c9b9e2}{entity\_id});
+229             \}
+230         \}
+231     \}
+232 
+233     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a4f95bb7c7f4eddadad84c8dffb6da6db}{AVB\_TRACE\_ADP});
+234 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__adp__message_8c_abe121c67bcf70de773d2bf899f37db8e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__adp__message_8c_abe121c67bcf70de773d2bf899f37db8e_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}!openavb\+Adp\+Message\+Rx\+Frame\+Receive@{openavb\+Adp\+Message\+Rx\+Frame\+Receive}}
+\index{openavb\+Adp\+Message\+Rx\+Frame\+Receive@{openavb\+Adp\+Message\+Rx\+Frame\+Receive}!openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Adp\+Message\+Rx\+Frame\+Receive(\+U32 timeout\+Usec)}{openavbAdpMessageRxFrameReceive(U32 timeoutUsec)}}]{\setlength{\rightskip}{0pt plus 5cm}static void openavb\+Adp\+Message\+Rx\+Frame\+Receive (
+\begin{DoxyParamCaption}
+\item[{{\bf U32}}]{timeout\+Usec}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__adp__message_8c_af7eb9fb88af8b8be627b4af965f6bc45}{}\label{openavb__adp__message_8c_af7eb9fb88af8b8be627b4af965f6bc45}
+
+
+openavb\+\_\+adp\+\_\+message.\+c 파일의 236 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+237 \{
+238     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a4f95bb7c7f4eddadad84c8dffb6da6db}{AVB\_TRACE\_ADP});
+239 
+240     \hyperlink{structhdr__info__t}{hdr\_info\_t} hdrInfo;
+241     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} offset, len;
+242     \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *pBuf, *pFrame;
+243 
+244     memset(&hdrInfo, 0, \textcolor{keyword}{sizeof}(\hyperlink{structhdr__info__t}{hdr\_info\_t}));
+245 
+246     pBuf = (\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *)\hyperlink{openavb__rawsock_8h_ab4beedf5fcac2ab0b3aaf41095a0dbc1}{openavbRawsockGetRxFrame}(\hyperlink{openavb__adp__message_8c_a2d8cdd4e3e7124a63509a346ade26a4b}{rxSock}, timeoutUsec, &offset, &
+      len);
+247     \textcolor{keywordflow}{if} (pBuf) \{
+248         pFrame = pBuf + offset;
+249 
+250         offset = \hyperlink{openavb__rawsock_8h_a9e622aafeae5b3aacba4996de08b554a}{openavbRawsockRxParseHdr}(\hyperlink{openavb__adp__message_8c_a2d8cdd4e3e7124a63509a346ade26a4b}{rxSock}, pBuf, &hdrInfo);
+251         \{
+252 \textcolor{preprocessor}{#ifndef UBUNTU}
+253             \textcolor{keywordflow}{if} (hdrInfo.\hyperlink{structhdr__info__t_a54283e441ba9b75fc494232121266e2c}{ethertype} == \hyperlink{openavb__avtp_8h_a07fb0f2498c8b8dd62cc44da13bb092a}{ETHERTYPE\_8021Q}) \{
+254                 \textcolor{comment}{// Oh!  Need to look past the VLAN tag}
+255                 \hyperlink{openavb__types__base__pub_8h_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16} vlan\_bits = ntohs(*(\hyperlink{openavb__types__base__pub_8h_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16} *)(pFrame + offset));
+256                 hdrInfo.\hyperlink{structhdr__info__t_aae65321fd27fc2507a499a3f00660a93}{vlan} = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+257                 hdrInfo.\hyperlink{structhdr__info__t_aed62b55d4664ac7c198517a01adc4f6b}{vlan\_vid} = vlan\_bits & 0x0FFF;
+258                 hdrInfo.\hyperlink{structhdr__info__t_a394deccdf47e8dd6b4e6329e6fe0f8fc}{vlan\_pcp} = (vlan\_bits >> 13) & 0x0007;
+259                 offset += 2;
+260                 hdrInfo.\hyperlink{structhdr__info__t_a54283e441ba9b75fc494232121266e2c}{ethertype} = ntohs(*(\hyperlink{openavb__types__base__pub_8h_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16} *)(pFrame + offset));
+261                 offset += 2;
+262             \}
+263 \textcolor{preprocessor}{#endif}
+264 
+265             \textcolor{comment}{// Make sure that this is an AVTP packet}
+266             \textcolor{comment}{// (Should always be AVTP if it's to our AVTP-specific multicast address)}
+267             \textcolor{keywordflow}{if} (hdrInfo.\hyperlink{structhdr__info__t_a54283e441ba9b75fc494232121266e2c}{ethertype} == \hyperlink{openavb__avtp_8h_a5e6dfe517d14f65222b866a550498e5f}{ETHERTYPE\_AVTP}) \{
+268                 \textcolor{comment}{// parse the PDU only for ADP messages}
+269                 \textcolor{keywordflow}{if} (*(pFrame + offset) == (0x80 | \hyperlink{openavb__adp_8h_a8659b57afb1248266b3bd424ba3b106a}{OPENAVB\_ADP\_AVTP\_SUBTYPE})) \{
+270                     \textcolor{keywordflow}{if} (memcmp(hdrInfo.\hyperlink{structhdr__info__t_a603b5aebe0d4619ae32b09cd6612535f}{shost}, \hyperlink{openavb__adp__message_8c_ad937f94043c94bc430c2bb95753bdbcc}{ADDR\_PTR}(&\hyperlink{openavb__adp__message_8c_ab00d246f71209a6c53d44b0ec45542a8}{intfAddr}), 6) != 0) \{ \textcolor{comment}{// Not
+       from us!}
+271                         \hyperlink{openavb__adp__message_8c_abe121c67bcf70de773d2bf899f37db8e}{openavbAdpMessageRxFrameParse}(pFrame + offset, len - 
+      offset, &hdrInfo);
+272                     \}
+273                 \}
+274             \}
+275             \textcolor{keywordflow}{else} \{
+276                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a6e7cd550837a0406e98b81a840d10ea9}{AVB\_LOG\_WARNING}(\textcolor{stringliteral}{"Received non-AVTP frame!"});
+277                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afcf1f0c1d10ae9efe3782eb6cae78355}{AVB\_LOGF\_DEBUG}(\textcolor{stringliteral}{"Unexpected packet data (length %d):"}, len);
+278                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a8d4c50ca73e8a7fbca488128755e5e5c}{AVB\_LOG\_BUFFER}(\hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a35e326523cfad3b35b50459a9e6bf259}{AVB\_LOG\_LEVEL\_DEBUG}, pFrame, len, 16);
+279             \}
+280         \}
+281 
+282         \textcolor{comment}{// Release the frame}
+283         \hyperlink{openavb__rawsock_8h_ab9af76bc21dc0112d657252bd61b1219}{openavbRawsockRelRxFrame}(\hyperlink{openavb__adp__message_8c_a2d8cdd4e3e7124a63509a346ade26a4b}{rxSock}, pBuf);
+284     \}
+285 
+286     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a4f95bb7c7f4eddadad84c8dffb6da6db}{AVB\_TRACE\_ADP});
+287 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__adp__message_8c_af7eb9fb88af8b8be627b4af965f6bc45_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__adp__message_8c_af7eb9fb88af8b8be627b4af965f6bc45_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}!openavb\+Adp\+Message\+Rx\+Thread\+Fn@{openavb\+Adp\+Message\+Rx\+Thread\+Fn}}
+\index{openavb\+Adp\+Message\+Rx\+Thread\+Fn@{openavb\+Adp\+Message\+Rx\+Thread\+Fn}!openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Adp\+Message\+Rx\+Thread\+Fn(void $\ast$pv)}{openavbAdpMessageRxThreadFn(void *pv)}}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ openavb\+Adp\+Message\+Rx\+Thread\+Fn (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{pv}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__adp__message_8c_a22d92f62848141f95be5c8093447f1a2}{}\label{openavb__adp__message_8c_a22d92f62848141f95be5c8093447f1a2}
+
+
+openavb\+\_\+adp\+\_\+message.\+c 파일의 367 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+368 \{
+369     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a4f95bb7c7f4eddadad84c8dffb6da6db}{AVB\_TRACE\_ADP});
+370 
+371     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a28a4d0350d530ad95c95b8383c00cd9c}{AVB\_LOG\_DEBUG}(\textcolor{stringliteral}{"ADP Thread Started"});
+372     \textcolor{keywordflow}{while} (\hyperlink{openavb__adp__message_8c_acf182b7b2127314d5d00c6df827734b5}{bRunning}) \{
+373         \textcolor{comment}{// Try to get and process an ADP discovery message.}
+374         \hyperlink{openavb__adp__message_8c_af7eb9fb88af8b8be627b4af965f6bc45}{openavbAdpMessageRxFrameReceive}(
+      \hyperlink{maap__helper__linux_8h_a8a708413d6171e7d86056793abe2cd1a}{MICROSECONDS\_PER\_SECOND});
+375     \}
+376     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a28a4d0350d530ad95c95b8383c00cd9c}{AVB\_LOG\_DEBUG}(\textcolor{stringliteral}{"ADP Thread Done"});
+377 
+378     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a4f95bb7c7f4eddadad84c8dffb6da6db}{AVB\_TRACE\_ADP});
+379     \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+380 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__adp__message_8c_a22d92f62848141f95be5c8093447f1a2_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__adp__message_8c_a22d92f62848141f95be5c8093447f1a2_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}!openavb\+Adp\+Message\+Send@{openavb\+Adp\+Message\+Send}}
+\index{openavb\+Adp\+Message\+Send@{openavb\+Adp\+Message\+Send}!openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Adp\+Message\+Send(\+U8 message\+Type)}{openavbAdpMessageSend(U8 messageType)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf openavb\+RC} openavb\+Adp\+Message\+Send (
+\begin{DoxyParamCaption}
+\item[{{\bf U8}}]{message\+Type}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__adp__message_8c_af098a8d35286283fba529a1204e7d17f}{}\label{openavb__adp__message_8c_af098a8d35286283fba529a1204e7d17f}
+
+
+openavb\+\_\+adp\+\_\+message.\+c 파일의 420 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+421 \{
+422     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a4f95bb7c7f4eddadad84c8dffb6da6db}{AVB\_TRACE\_ADP});
+423 
+424     \textcolor{comment}{// Note: this entire process of the GM ID is not as the 1722.1 spec expects.}
+425     \textcolor{comment}{//  The openavbAdpSMAdvertiseInterfaceSet\_advertisedGrandmasterID() should be called when the}
+426     \textcolor{comment}{//  stack detects a GM change that will trigger an advertise. Instead we are detecting}
+427     \textcolor{comment}{//  the GM change when we have are sending an advertise message. This means we will not have a timely}
+428     \textcolor{comment}{//  new advertise in the event of a GM change.  Additionally the handling the advertiseInterface var}
+429     \textcolor{comment}{//  of GM ID is not normal since the GM ID is being placed directly into the PDU rather than getting}
+430     \textcolor{comment}{//  pulled from the state machine var.}
+431     \textcolor{comment}{//  AVDECC\_TODO: This logic should change to detect GM change else where in the system and call the}
+432     \textcolor{comment}{//  expected openavbAdpSMAdvertiseInterfaceSet\_advertisedGrandmasterID() to start the advertise
+       process.}
+433 \textcolor{preprocessor}{#ifdef AVB\_PTP\_AVAILABLE}
+434     \hyperlink{structopenavb__adp__data__unit__t}{openavb\_adp\_data\_unit\_t} *pPdu = &
+      \hyperlink{openavb__adp__message_8c_a1a30a222ed39fa185fa222f43fe981e7}{openavbAdpSMGlobalVars}.\hyperlink{structopenavb__adp__sm__global__vars__t_a0a53d1ffa923d38bed8b74cbf8629070}{entityInfo}.\hyperlink{structopenavb__adp__entity__info__t_a572a822389c9b7885725f32e0deaa340}{pdu};
+435     \hyperlink{openavb__result__codes_8h_a0cb594b7f047b8e4a76be68eca619be5}{openavbRC}  retCode = \hyperlink{openavb__result__codes_8h_a354f4d4e4dfc88995932d1af5aba3046}{OPENAVB\_PTP\_FAILURE};
+436     \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} ptpSharedMemoryEntryIndex;
+437     retCode = openavbPtpFindLatestSharedMemoryEntry(&ptpSharedMemoryEntryIndex);
+438     \textcolor{keywordflow}{if} (\hyperlink{openavb__result__codes_8h_ae0eab4d295cc774efd66a6a91aea0958}{IS\_OPENAVB\_FAILURE}(retCode)) \{
+439         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afd47d3bbb5f5219dd0a18ebba4ba9b3e}{AVB\_LOG\_INFO}(\textcolor{stringliteral}{"Failed to find PTP shared memory entry."});
+440     \}
+441     \textcolor{keywordflow}{else} \{
+442         \textcolor{keywordflow}{if} (memcmp(pPdu->\hyperlink{structopenavb__adp__data__unit__t_a6b0bee998a598f7a78f5f876313a0a6f}{gptp\_grandmaster\_id}, openavbPtpGMChageTable.entry[
+      ptpSharedMemoryEntryIndex].gmId, \textcolor{keyword}{sizeof}(pPdu->\hyperlink{structopenavb__adp__data__unit__t_a6b0bee998a598f7a78f5f876313a0a6f}{gptp\_grandmaster\_id}))) \{
+443             memcpy(pPdu->\hyperlink{structopenavb__adp__data__unit__t_a6b0bee998a598f7a78f5f876313a0a6f}{gptp\_grandmaster\_id}, openavbPtpGMChageTable.entry[
+      ptpSharedMemoryEntryIndex].gmId, \textcolor{keyword}{sizeof}(pPdu->\hyperlink{structopenavb__adp__data__unit__t_a6b0bee998a598f7a78f5f876313a0a6f}{gptp\_grandmaster\_id}));
+444             \hyperlink{openavb__adp__sm__advertise__interface_8c_aca7b9252134d3b166b02d3421ea51ade}{openavbAdpSMAdvertiseInterfaceSet\_advertisedGrandmasterID}
+      (pPdu->\hyperlink{structopenavb__adp__data__unit__t_a6b0bee998a598f7a78f5f876313a0a6f}{gptp\_grandmaster\_id});
+445         \}
+446     \}
+447 \textcolor{preprocessor}{#else}
+448     \hyperlink{structopenavb__adp__data__unit__t}{openavb\_adp\_data\_unit\_t} *pPdu = &
+      \hyperlink{openavb__adp__message_8c_a1a30a222ed39fa185fa222f43fe981e7}{openavbAdpSMGlobalVars}.\hyperlink{structopenavb__adp__sm__global__vars__t_a0a53d1ffa923d38bed8b74cbf8629070}{entityInfo}.\hyperlink{structopenavb__adp__entity__info__t_a572a822389c9b7885725f32e0deaa340}{pdu};
+449     \hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} current\_grandmaster\_id[8];
+450     \textcolor{keywordflow}{if} (!\hyperlink{openavb__grandmaster__osal_8c_a78bcc090ab7afc987a68a113b16a02db}{osalAVBGrandmasterGetCurrent}(current\_grandmaster\_id, &(pPdu->
+      \hyperlink{structopenavb__adp__data__unit__t_a611d3f6e96402e72b14d4b7363a084b4}{gptp\_domain\_number})))
+451     \{
+452         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"osalAVBGrandmasterGetCurrent failure"});
+453     \}
+454     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (memcmp(pPdu->\hyperlink{structopenavb__adp__data__unit__t_a6b0bee998a598f7a78f5f876313a0a6f}{gptp\_grandmaster\_id}, current\_grandmaster\_id, \textcolor{keyword}{sizeof}(pPdu->
+      \hyperlink{structopenavb__adp__data__unit__t_a6b0bee998a598f7a78f5f876313a0a6f}{gptp\_grandmaster\_id})))
+455     \{
+456         memcpy(pPdu->\hyperlink{structopenavb__adp__data__unit__t_a6b0bee998a598f7a78f5f876313a0a6f}{gptp\_grandmaster\_id}, current\_grandmaster\_id, \textcolor{keyword}{sizeof}(pPdu->
+      \hyperlink{structopenavb__adp__data__unit__t_a6b0bee998a598f7a78f5f876313a0a6f}{gptp\_grandmaster\_id}));
+457         \hyperlink{openavb__adp__sm__advertise__interface_8c_aca7b9252134d3b166b02d3421ea51ade}{openavbAdpSMAdvertiseInterfaceSet\_advertisedGrandmasterID}
+      (pPdu->\hyperlink{structopenavb__adp__data__unit__t_a6b0bee998a598f7a78f5f876313a0a6f}{gptp\_grandmaster\_id});
+458     \}
+459 \textcolor{preprocessor}{#endif}
+460 
+461     \hyperlink{openavb__adp__message_8c_a99be2fe1b3a932a9b1485f4a9ca40ccc}{openavbAdpMessageTxFrame}(messageType, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+462     \hyperlink{openavb__result__codes_8h_a914b1a10e0333e834ea192298c7d9e26}{AVB\_RC\_TRACE\_RET}(\hyperlink{openavb__result__codes_8h_a36a28b5430025e16249854e3e1e74f5e}{OPENAVB\_AVDECC\_SUCCESS}, 
+      \hyperlink{openavb__trace_8h_a4f95bb7c7f4eddadad84c8dffb6da6db}{AVB\_TRACE\_ADP});
+463 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__adp__message_8c_af098a8d35286283fba529a1204e7d17f_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__adp__message_8c_af098a8d35286283fba529a1204e7d17f_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}!openavb\+Adp\+Message\+Tx\+Frame@{openavb\+Adp\+Message\+Tx\+Frame}}
+\index{openavb\+Adp\+Message\+Tx\+Frame@{openavb\+Adp\+Message\+Tx\+Frame}!openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Adp\+Message\+Tx\+Frame(\+U8 msg\+Type, U8 $\ast$dest\+Addr)}{openavbAdpMessageTxFrame(U8 msgType, U8 *destAddr)}}]{\setlength{\rightskip}{0pt plus 5cm}void openavb\+Adp\+Message\+Tx\+Frame (
+\begin{DoxyParamCaption}
+\item[{{\bf U8}}]{msg\+Type, }
+\item[{{\bf U8} $\ast$}]{dest\+Addr}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__adp__message_8c_a99be2fe1b3a932a9b1485f4a9ca40ccc}{}\label{openavb__adp__message_8c_a99be2fe1b3a932a9b1485f4a9ca40ccc}
+
+
+openavb\+\_\+adp\+\_\+message.\+c 파일의 290 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+291 \{
+292     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a4f95bb7c7f4eddadad84c8dffb6da6db}{AVB\_TRACE\_ADP});
+293 
+294     \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *pBuf;
+295     \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} \hyperlink{gst__avb__playbin_8c_a439227feff9d7f55384e8780cfc2eb82}{size};
+296     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} hdrlen = 0;
+297 
+298     pBuf = \hyperlink{openavb__rawsock_8h_a121372984c2c72c3b5872783dbf3dbea}{openavbRawsockGetTxFrame}(\hyperlink{openavb__adp__message_8c_acc3c897b6f4f88ddba59c97f3178e402}{txSock}, \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, &size);
+299 
+300     \textcolor{keywordflow}{if} (!pBuf) \{
+301         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"No TX buffer"});
+302         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a4f95bb7c7f4eddadad84c8dffb6da6db}{AVB\_TRACE\_ADP});
+303         \textcolor{keywordflow}{return};
+304     \}
+305 
+306     \textcolor{keywordflow}{if} (size < \hyperlink{openavb__adp__message_8c_aaceb464c58a42bae942421f4c0348710}{ADP\_FRAME\_LEN}) \{
+307         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"TX buffer too small"});
+308         \hyperlink{openavb__rawsock_8h_ad8a88781ff68572ec2b3e7605a99c653}{openavbRawsockRelTxFrame}(\hyperlink{openavb__adp__message_8c_acc3c897b6f4f88ddba59c97f3178e402}{txSock}, pBuf);
+309         pBuf = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+310         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a4f95bb7c7f4eddadad84c8dffb6da6db}{AVB\_TRACE\_ADP});
+311         \textcolor{keywordflow}{return};
+312     \}
+313 
+314     memset(pBuf, 0, \hyperlink{openavb__adp__message_8c_aaceb464c58a42bae942421f4c0348710}{ADP\_FRAME\_LEN});
+315     \hyperlink{openavb__rawsock_8h_a64af44702b6f40bf8932eca5ece06d0c}{openavbRawsockTxFillHdr}(\hyperlink{openavb__adp__message_8c_acc3c897b6f4f88ddba59c97f3178e402}{txSock}, pBuf, &hdrlen);
+316 
+317     \textcolor{keywordflow}{if} (destAddr)
+318         memcpy(pBuf, destAddr, \hyperlink{openavb__avdecc__pub_8h_a9822d89774e0d6ddaa06503950130423}{ETH\_ALEN});
+319 
+320     \hyperlink{openavb__adp__message_8c_ae5c3487244f6f7a4b6d059cb198a2228}{ADP\_LOCK}();
+321     \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *pDst = pBuf + hdrlen;
+322     \{
+323         \textcolor{comment}{// AVTP Control Header}
+324         \hyperlink{structopenavb__adp__control__header__t}{openavb\_adp\_control\_header\_t} *pSrc = &
+      \hyperlink{openavb__adp__message_8c_a1a30a222ed39fa185fa222f43fe981e7}{openavbAdpSMGlobalVars}.\hyperlink{structopenavb__adp__sm__global__vars__t_a0a53d1ffa923d38bed8b74cbf8629070}{entityInfo}.\hyperlink{structopenavb__adp__entity__info__t_ae9ac3201c2ad757d43a8c75f430a39c3}{header};
+325         \hyperlink{ap__message_8cpp_a96729df4f440a649d696b081c6dfac8b}{BIT\_D2BHTONB}(pDst, pSrc->\hyperlink{structopenavb__adp__control__header__t_ad2828a59ad0b95e77da38333c0a717de}{cd}, 7, 0);
+326         \hyperlink{ap__message_8cpp_a96729df4f440a649d696b081c6dfac8b}{BIT\_D2BHTONB}(pDst, pSrc->\hyperlink{structopenavb__adp__control__header__t_ad61c2796f8f447c2ca8979f4aeccf351}{subtype}, 0, 1);
+327         \hyperlink{ap__message_8cpp_a96729df4f440a649d696b081c6dfac8b}{BIT\_D2BHTONB}(pDst, pSrc->\hyperlink{structopenavb__adp__control__header__t_adc62d14194c9ab3aff5b994caef8bcb0}{sv}, 7, 0);
+328         \hyperlink{ap__message_8cpp_a96729df4f440a649d696b081c6dfac8b}{BIT\_D2BHTONB}(pDst, pSrc->\hyperlink{structopenavb__adp__control__header__t_ae5d1ca2d5099c6a5f760c897505cb11b}{version}, 4, 0);
+329         \hyperlink{ap__message_8cpp_a96729df4f440a649d696b081c6dfac8b}{BIT\_D2BHTONB}(pDst, msgType, 0, 1);
+330         \hyperlink{ap__message_8cpp_a320aa3b496f6b0356f37f1f09edb0734}{BIT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__adp__control__header__t_aebe5bad8aaf2356c644fc10e5c3f8fdf}{valid\_time}, 11, 0);
+331         \hyperlink{ap__message_8cpp_a320aa3b496f6b0356f37f1f09edb0734}{BIT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__adp__control__header__t_a6a26fcf01946013b206d67551ef6eb84}{control\_data\_length}, 0, 2);
+332         \hyperlink{ap__message_8cpp_a84ff71482380e24df395988abd6c768f}{OCT\_D2BMEMCP}(pDst, pSrc->\hyperlink{structopenavb__adp__control__header__t_ab748fb58fac21e84c356282323c9b9e2}{entity\_id});
+333     \}
+334 
+335     \{
+336         \textcolor{comment}{// ADP PDU}
+337         \hyperlink{structopenavb__adp__data__unit__t}{openavb\_adp\_data\_unit\_t} *pSrc = &
+      \hyperlink{openavb__adp__message_8c_a1a30a222ed39fa185fa222f43fe981e7}{openavbAdpSMGlobalVars}.\hyperlink{structopenavb__adp__sm__global__vars__t_a0a53d1ffa923d38bed8b74cbf8629070}{entityInfo}.\hyperlink{structopenavb__adp__entity__info__t_a572a822389c9b7885725f32e0deaa340}{pdu};
+338         \hyperlink{ap__message_8cpp_a84ff71482380e24df395988abd6c768f}{OCT\_D2BMEMCP}(pDst, pSrc->\hyperlink{structopenavb__adp__data__unit__t_a10141ef89fe144c95be49eeb9a34b2d1}{entity\_model\_id});
+339         \hyperlink{ap__message_8cpp_a600b0c76545a0d0a35a5027518bd797d}{OCT\_D2BHTONL}(pDst, pSrc->\hyperlink{structopenavb__adp__data__unit__t_ac778b7422da24a5903fadab48c5d4850}{entity\_capabilities});
+340         \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__adp__data__unit__t_a1cef978c7d5f0fe43e419f34dea172ab}{talker\_stream\_sources});
+341         \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__adp__data__unit__t_a3a68601d6925b6f1c051f043ce6960ea}{talker\_capabilities});
+342         \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__adp__data__unit__t_afcd73932b3d14b611b7af06f5e11c79b}{listener\_stream\_sinks});
+343         \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__adp__data__unit__t_a53c2042d30d525b821c23ec62838a448}{listener\_capabilities});
+344         \hyperlink{ap__message_8cpp_a600b0c76545a0d0a35a5027518bd797d}{OCT\_D2BHTONL}(pDst, pSrc->\hyperlink{structopenavb__adp__data__unit__t_a8cff5cc2f441a3695ad6c76bfe61faa9}{controller\_capabilities});
+345         \hyperlink{ap__message_8cpp_a600b0c76545a0d0a35a5027518bd797d}{OCT\_D2BHTONL}(pDst, pSrc->\hyperlink{structopenavb__adp__data__unit__t_afd1f3dd8f9e3b3a1ab9e658dca9e7f6b}{available\_index});
+346         \hyperlink{ap__message_8cpp_a84ff71482380e24df395988abd6c768f}{OCT\_D2BMEMCP}(pDst, pSrc->\hyperlink{structopenavb__adp__data__unit__t_a6b0bee998a598f7a78f5f876313a0a6f}{gptp\_grandmaster\_id});
+347         \hyperlink{ap__message_8cpp_a61cc0b8227aa123a21a35310841dbf43}{OCT\_D2BHTONB}(pDst, pSrc->\hyperlink{structopenavb__adp__data__unit__t_a611d3f6e96402e72b14d4b7363a084b4}{gptp\_domain\_number});
+348         \hyperlink{ap__message_8cpp_a84ff71482380e24df395988abd6c768f}{OCT\_D2BMEMCP}(pDst, pSrc->\hyperlink{structopenavb__adp__data__unit__t_a0c2fb64a266474c53c5b370e9f9bba70}{reserved0});
+349         \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__adp__data__unit__t_a3eb7ec791879c83d6a38c2aaa156c964}{identify\_control\_index});
+350         \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{OCT\_D2BHTONS}(pDst, pSrc->\hyperlink{structopenavb__adp__data__unit__t_a527cbe894109bf3cc338d42cae235c77}{interface\_index});
+351         \hyperlink{ap__message_8cpp_a84ff71482380e24df395988abd6c768f}{OCT\_D2BMEMCP}(pDst, pSrc->\hyperlink{structopenavb__adp__data__unit__t_a920b3895c87e46889863d44538f57702}{association\_id});
+352         \hyperlink{ap__message_8cpp_a84ff71482380e24df395988abd6c768f}{OCT\_D2BMEMCP}(pDst, pSrc->\hyperlink{structopenavb__adp__data__unit__t_a717895c028e3570d18efb49f76dd1fc6}{reserved1});
+353     \}
+354     \hyperlink{openavb__adp__message_8c_ae0cdadf85582a39006df760ad7d2ad2c}{ADP\_UNLOCK}();
+355 
+356 \textcolor{preprocessor}{#if 0}
+357     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afcf1f0c1d10ae9efe3782eb6cae78355}{AVB\_LOGF\_DEBUG}(\textcolor{stringliteral}{"openavbAdpMessageTxFrame packet data (length %d):"}, hdrlen + 
+      \hyperlink{openavb__adp__message_8c_af98fb8372f1f7bbd3f0456cad630770c}{AVTP\_HDR\_LEN} + \hyperlink{openavb__adp__message_8c_a6c8009f48ed8ee5ded0e53d00af95312}{ADP\_DATA\_LEN});
+358     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a8d4c50ca73e8a7fbca488128755e5e5c}{AVB\_LOG\_BUFFER}(\hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a35e326523cfad3b35b50459a9e6bf259}{AVB\_LOG\_LEVEL\_DEBUG}, pBuf, hdrlen + 
+      \hyperlink{openavb__adp__message_8c_af98fb8372f1f7bbd3f0456cad630770c}{AVTP\_HDR\_LEN} + \hyperlink{openavb__adp__message_8c_a6c8009f48ed8ee5ded0e53d00af95312}{ADP\_DATA\_LEN}, 16);
+359 \textcolor{preprocessor}{#endif}
+360 
+361     \hyperlink{openavb__rawsock_8h_ac04c99d5bc5e7371260b21fc79e7d253}{openavbRawsockTxFrameReady}(\hyperlink{openavb__adp__message_8c_acc3c897b6f4f88ddba59c97f3178e402}{txSock}, pBuf, hdrlen + 
+      \hyperlink{openavb__adp__message_8c_af98fb8372f1f7bbd3f0456cad630770c}{AVTP\_HDR\_LEN} + \hyperlink{openavb__adp__message_8c_a6c8009f48ed8ee5ded0e53d00af95312}{ADP\_DATA\_LEN}, 0);
+362     \hyperlink{openavb__rawsock_8h_addc3b3ada9a2ba3695987ce93c571f76}{openavbRawsockSend}(\hyperlink{openavb__adp__message_8c_acc3c897b6f4f88ddba59c97f3178e402}{txSock});
+363 
+364     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a4f95bb7c7f4eddadad84c8dffb6da6db}{AVB\_TRACE\_ADP});
+365 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__adp__message_8c_a99be2fe1b3a932a9b1485f4a9ca40ccc_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__adp__message_8c_a99be2fe1b3a932a9b1485f4a9ca40ccc_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}!openavb\+Adp\+Open\+Socket@{openavb\+Adp\+Open\+Socket}}
+\index{openavb\+Adp\+Open\+Socket@{openavb\+Adp\+Open\+Socket}!openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Adp\+Open\+Socket(const char $\ast$ifname, U16 vlan\+I\+D, U8 vlan\+P\+C\+P)}{openavbAdpOpenSocket(const char *ifname, U16 vlanID, U8 vlanPCP)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} openavb\+Adp\+Open\+Socket (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{ifname, }
+\item[{{\bf U16}}]{vlan\+ID, }
+\item[{{\bf U8}}]{vlan\+P\+CP}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__adp__message_8c_af4cff1ee63d34ab9c04d09561fa532ae}{}\label{openavb__adp__message_8c_af4cff1ee63d34ab9c04d09561fa532ae}
+
+
+openavb\+\_\+adp\+\_\+message.\+c 파일의 120 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+121 \{
+122     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a4f95bb7c7f4eddadad84c8dffb6da6db}{AVB\_TRACE\_ADP});
+123 
+124     \hyperlink{structhdr__info__t}{hdr\_info\_t} hdr;
+125 
+126 \textcolor{preprocessor}{#ifndef UBUNTU}
+127     \textcolor{comment}{// This is the normal case for most of our supported platforms}
+128     \hyperlink{openavb__adp__message_8c_a2d8cdd4e3e7124a63509a346ade26a4b}{rxSock} = \hyperlink{openavb__rawsock_8c_a51a8d60253a8bab7c193b36bf743d12f}{openavbRawsockOpen}(\hyperlink{aaf-talker_8c_ac7b430acaa92a7a26fbcdad47d2efc20}{ifname}, \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 
+      \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{openavb__avtp_8h_a07fb0f2498c8b8dd62cc44da13bb092a}{ETHERTYPE\_8021Q}, \hyperlink{openavb__adp__message_8c_aaceb464c58a42bae942421f4c0348710}{ADP\_FRAME\_LEN}, 
+      \hyperlink{openavb__adp__message_8c_a9ac30bea1972c4e220fdfca0d866fe70}{ADP\_NUM\_BUFFERS});
+129 \textcolor{preprocessor}{#else}
+130     \hyperlink{openavb__adp__message_8c_a2d8cdd4e3e7124a63509a346ade26a4b}{rxSock} = \hyperlink{openavb__rawsock_8c_a51a8d60253a8bab7c193b36bf743d12f}{openavbRawsockOpen}(\hyperlink{aaf-talker_8c_ac7b430acaa92a7a26fbcdad47d2efc20}{ifname}, \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 
+      \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{openavb__avtp_8h_a5e6dfe517d14f65222b866a550498e5f}{ETHERTYPE\_AVTP}, \hyperlink{openavb__adp__message_8c_aaceb464c58a42bae942421f4c0348710}{ADP\_FRAME\_LEN}, 
+      \hyperlink{openavb__adp__message_8c_a9ac30bea1972c4e220fdfca0d866fe70}{ADP\_NUM\_BUFFERS});
+131 \textcolor{preprocessor}{#endif}
+132     \hyperlink{openavb__adp__message_8c_acc3c897b6f4f88ddba59c97f3178e402}{txSock} = \hyperlink{openavb__rawsock_8c_a51a8d60253a8bab7c193b36bf743d12f}{openavbRawsockOpen}(\hyperlink{aaf-talker_8c_ac7b430acaa92a7a26fbcdad47d2efc20}{ifname}, \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, 
+      \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{openavb__avtp_8h_a5e6dfe517d14f65222b866a550498e5f}{ETHERTYPE\_AVTP}, \hyperlink{openavb__adp__message_8c_aaceb464c58a42bae942421f4c0348710}{ADP\_FRAME\_LEN}, 
+      \hyperlink{openavb__adp__message_8c_a9ac30bea1972c4e220fdfca0d866fe70}{ADP\_NUM\_BUFFERS});
+133 
+134     \textcolor{keywordflow}{if} (\hyperlink{openavb__adp__message_8c_acc3c897b6f4f88ddba59c97f3178e402}{txSock} && \hyperlink{openavb__adp__message_8c_a2d8cdd4e3e7124a63509a346ade26a4b}{rxSock}
+135         && \hyperlink{openavb__rawsock_8h_a099e2a46bd9edcba96f26f455fccbdf6}{openavbRawsockGetAddr}(\hyperlink{openavb__adp__message_8c_acc3c897b6f4f88ddba59c97f3178e402}{txSock}, \hyperlink{openavb__adp__message_8c_ad937f94043c94bc430c2bb95753bdbcc}{ADDR\_PTR}(&
+      \hyperlink{openavb__adp__message_8c_ab00d246f71209a6c53d44b0ec45542a8}{intfAddr}))
+136         && ether\_aton\_r(\hyperlink{openavb__adp__message_8c_a968b39b2b3379b44261088ebc1910d45}{ADP\_PROTOCOL\_ADDR}, &\hyperlink{openavb__adp__message_8c_a33f67c13c448c2e2639438d2dc832a7a}{adpAddr})
+137         && \hyperlink{openavb__rawsock_8h_abb439fef4018a616bbf4072cc2382276}{openavbRawsockRxMulticast}(\hyperlink{openavb__adp__message_8c_a2d8cdd4e3e7124a63509a346ade26a4b}{rxSock}, \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 
+      \hyperlink{openavb__adp__message_8c_ad937f94043c94bc430c2bb95753bdbcc}{ADDR\_PTR}(&\hyperlink{openavb__adp__message_8c_a33f67c13c448c2e2639438d2dc832a7a}{adpAddr})))
+138     \{
+139         \textcolor{keywordflow}{if} (!\hyperlink{openavb__rawsock_8h_a59cb802dece1927c5ea78e4a92b4e2be}{openavbRawsockRxAVTPSubtype}(\hyperlink{openavb__adp__message_8c_a2d8cdd4e3e7124a63509a346ade26a4b}{rxSock}, 
+      \hyperlink{openavb__adp_8h_a8659b57afb1248266b3bd424ba3b106a}{OPENAVB\_ADP\_AVTP\_SUBTYPE} | 0x80)) \{
+140             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a28a4d0350d530ad95c95b8383c00cd9c}{AVB\_LOG\_DEBUG}(\textcolor{stringliteral}{"RX AVTP Subtype not supported"});
+141         \}
+142 
+143         memset(&hdr, 0, \textcolor{keyword}{sizeof}(\hyperlink{structhdr__info__t}{hdr\_info\_t}));
+144         hdr.\hyperlink{structhdr__info__t_a603b5aebe0d4619ae32b09cd6612535f}{shost} = \hyperlink{openavb__adp__message_8c_ad937f94043c94bc430c2bb95753bdbcc}{ADDR\_PTR}(&\hyperlink{openavb__adp__message_8c_ab00d246f71209a6c53d44b0ec45542a8}{intfAddr});
+145         hdr.\hyperlink{structhdr__info__t_a5a0b8fa2025e75a8db03f7a23cadc04e}{dhost} = \hyperlink{openavb__adp__message_8c_ad937f94043c94bc430c2bb95753bdbcc}{ADDR\_PTR}(&\hyperlink{openavb__adp__message_8c_a33f67c13c448c2e2639438d2dc832a7a}{adpAddr});
+146         hdr.\hyperlink{structhdr__info__t_a54283e441ba9b75fc494232121266e2c}{ethertype} = \hyperlink{openavb__avtp_8h_a5e6dfe517d14f65222b866a550498e5f}{ETHERTYPE\_AVTP};
+147         \textcolor{keywordflow}{if} (vlanID != 0 || vlanPCP != 0) \{
+148             hdr.\hyperlink{structhdr__info__t_aae65321fd27fc2507a499a3f00660a93}{vlan} = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+149             hdr.\hyperlink{structhdr__info__t_a394deccdf47e8dd6b4e6329e6fe0f8fc}{vlan\_pcp} = vlanPCP;
+150             hdr.\hyperlink{structhdr__info__t_aed62b55d4664ac7c198517a01adc4f6b}{vlan\_vid} = vlanID;
+151             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afcf1f0c1d10ae9efe3782eb6cae78355}{AVB\_LOGF\_DEBUG}(\textcolor{stringliteral}{"VLAN pcp=%d vid=%d"}, hdr.\hyperlink{structhdr__info__t_a394deccdf47e8dd6b4e6329e6fe0f8fc}{vlan\_pcp}, hdr.
+      \hyperlink{structhdr__info__t_aed62b55d4664ac7c198517a01adc4f6b}{vlan\_vid});
+152         \}
+153         \textcolor{keywordflow}{if} (!\hyperlink{openavb__rawsock_8h_a533478c640918e91d858316a98f26176}{openavbRawsockTxSetHdr}(\hyperlink{openavb__adp__message_8c_acc3c897b6f4f88ddba59c97f3178e402}{txSock}, &hdr)) \{
+154             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"TX socket Header Failure"});
+155             \hyperlink{openavb__adp__message_8c_a4616382bd1a7697bbccaff26263038ba}{openavbAdpCloseSocket}();
+156             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a4f95bb7c7f4eddadad84c8dffb6da6db}{AVB\_TRACE\_ADP});
+157             \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+158         \}
+159 
+160         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a4f95bb7c7f4eddadad84c8dffb6da6db}{AVB\_TRACE\_ADP});
+161         \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+162     \}
+163 
+164     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Invalid socket"});
+165     \hyperlink{openavb__adp__message_8c_a4616382bd1a7697bbccaff26263038ba}{openavbAdpCloseSocket}();
+166 
+167     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a4f95bb7c7f4eddadad84c8dffb6da6db}{AVB\_TRACE\_ADP});
+168     \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+169 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__adp__message_8c_af4cff1ee63d34ab9c04d09561fa532ae_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{openavb__adp__message_8c_af4cff1ee63d34ab9c04d09561fa532ae_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}!T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+ON@{T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+ON}}
+\index{T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+ON@{T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+ON}!openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+O\+N(openavb\+Adp\+Message\+Rx\+Thread)}{THREAD_DEFINITON(openavbAdpMessageRxThread)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+H\+R\+E\+A\+D\+\_\+\+D\+E\+F\+I\+N\+I\+T\+ON (
+\begin{DoxyParamCaption}
+\item[{openavb\+Adp\+Message\+Rx\+Thread}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__adp__message_8c_a8c7194e80f8721d4db022b79487f1fef}{}\label{openavb__adp__message_8c_a8c7194e80f8721d4db022b79487f1fef}
+\index{openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}!T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE@{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE}}
+\index{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE@{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE}!openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+P\+E(openavb\+Adp\+Message\+Rx\+Thread)}{THREAD_TYPE(openavbAdpMessageRxThread)}}]{\setlength{\rightskip}{0pt plus 5cm}T\+H\+R\+E\+A\+D\+\_\+\+T\+Y\+PE (
+\begin{DoxyParamCaption}
+\item[{openavb\+Adp\+Message\+Rx\+Thread}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{openavb__adp__message_8c_a82c3ca57d1d6a0a21ee51fb0af35b595}{}\label{openavb__adp__message_8c_a82c3ca57d1d6a0a21ee51fb0af35b595}
+
+
+\subsection{변수 문서화}
+\index{openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}!adp\+Addr@{adp\+Addr}}
+\index{adp\+Addr@{adp\+Addr}!openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{adp\+Addr}{adpAddr}}]{\setlength{\rightskip}{0pt plus 5cm}struct ether\+\_\+addr adp\+Addr\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__adp__message_8c_a33f67c13c448c2e2639438d2dc832a7a}{}\label{openavb__adp__message_8c_a33f67c13c448c2e2639438d2dc832a7a}
+
+
+openavb\+\_\+adp\+\_\+message.\+c 파일의 95 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}!b\+Running@{b\+Running}}
+\index{b\+Running@{b\+Running}!openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{b\+Running}{bRunning}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} b\+Running = {\bf F\+A\+L\+SE}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__adp__message_8c_acf182b7b2127314d5d00c6df827734b5}{}\label{openavb__adp__message_8c_acf182b7b2127314d5d00c6df827734b5}
+
+
+openavb\+\_\+adp\+\_\+message.\+c 파일의 102 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}!g\+Avdecc\+Cfg@{g\+Avdecc\+Cfg}}
+\index{g\+Avdecc\+Cfg@{g\+Avdecc\+Cfg}!openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{g\+Avdecc\+Cfg}{gAvdeccCfg}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf openavb\+\_\+avdecc\+\_\+cfg\+\_\+t} g\+Avdecc\+Cfg}\hypertarget{openavb__adp__message_8c_a142e959837c765cd9a1767b886421315}{}\label{openavb__adp__message_8c_a142e959837c765cd9a1767b886421315}
+
+
+openavb\+\_\+avdecc.\+c 파일의 54 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}!intf\+Addr@{intf\+Addr}}
+\index{intf\+Addr@{intf\+Addr}!openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{intf\+Addr}{intfAddr}}]{\setlength{\rightskip}{0pt plus 5cm}struct ether\+\_\+addr intf\+Addr\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__adp__message_8c_ab00d246f71209a6c53d44b0ec45542a8}{}\label{openavb__adp__message_8c_ab00d246f71209a6c53d44b0ec45542a8}
+
+
+openavb\+\_\+adp\+\_\+message.\+c 파일의 94 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}!openavb\+Adp\+S\+M\+Global\+Vars@{openavb\+Adp\+S\+M\+Global\+Vars}}
+\index{openavb\+Adp\+S\+M\+Global\+Vars@{openavb\+Adp\+S\+M\+Global\+Vars}!openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{openavb\+Adp\+S\+M\+Global\+Vars}{openavbAdpSMGlobalVars}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf openavb\+\_\+adp\+\_\+sm\+\_\+global\+\_\+vars\+\_\+t} openavb\+Adp\+S\+M\+Global\+Vars}\hypertarget{openavb__adp__message_8c_a1a30a222ed39fa185fa222f43fe981e7}{}\label{openavb__adp__message_8c_a1a30a222ed39fa185fa222f43fe981e7}
+
+
+openavb\+\_\+adp.\+c 파일의 63 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}!rx\+Sock@{rx\+Sock}}
+\index{rx\+Sock@{rx\+Sock}!openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{rx\+Sock}{rxSock}}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ rx\+Sock = {\bf N\+U\+LL}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__adp__message_8c_a2d8cdd4e3e7124a63509a346ade26a4b}{}\label{openavb__adp__message_8c_a2d8cdd4e3e7124a63509a346ade26a4b}
+
+
+openavb\+\_\+adp\+\_\+message.\+c 파일의 92 번째 라인에서 정의되었습니다.
+
+\index{openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}!tx\+Sock@{tx\+Sock}}
+\index{tx\+Sock@{tx\+Sock}!openavb\+\_\+adp\+\_\+message.\+c@{openavb\+\_\+adp\+\_\+message.\+c}}
+\subsubsection[{\texorpdfstring{tx\+Sock}{txSock}}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ tx\+Sock = {\bf N\+U\+LL}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{openavb__adp__message_8c_acc3c897b6f4f88ddba59c97f3178e402}{}\label{openavb__adp__message_8c_acc3c897b6f4f88ddba59c97f3178e402}
+
+
+openavb\+\_\+adp\+\_\+message.\+c 파일의 93 번째 라인에서 정의되었습니다.
+

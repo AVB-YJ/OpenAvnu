@@ -1,0 +1,1133 @@
+\hypertarget{ring__rawsock_8c}{}\section{lib/avtp\+\_\+pipeline/platform/\+Linux/rawsock/ring\+\_\+rawsock.c 파일 참조}
+\label{ring__rawsock_8c}\index{lib/avtp\+\_\+pipeline/platform/\+Linux/rawsock/ring\+\_\+rawsock.\+c@{lib/avtp\+\_\+pipeline/platform/\+Linux/rawsock/ring\+\_\+rawsock.\+c}}
+{\ttfamily \#include \char`\"{}ring\+\_\+rawsock.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}simple\+\_\+rawsock.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$linux/if\+\_\+packet.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+trace.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}openavb\+\_\+log.\+h\char`\"{}}\\*
+ring\+\_\+rawsock.\+c에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ring__rawsock_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{ring__rawsock_8c_abcfb21b6495585fe36058f57a9fe58fc}{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}~\char`\"{}Raw Socket\char`\"{}
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+void $\ast$ \hyperlink{ring__rawsock_8c_a8c3c41f38f4b4099b092efd78af768f7}{ring\+Rawsock\+Open} (\hyperlink{structring__rawsock__t}{ring\+\_\+rawsock\+\_\+t} $\ast$rawsock, const char $\ast$\hyperlink{aaf-talker_8c_ac7b430acaa92a7a26fbcdad47d2efc20}{ifname}, \hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} rx\+\_\+mode, \hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} tx\+\_\+mode, \hyperlink{openavb__types__base__pub_8h_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16} \hyperlink{rawsock__tx_8c_af3d6d4ec5b93edfddc9de51233ae9f7e}{ethertype}, \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} \hyperlink{gstavbsink_8c_ad662aa56c1696f09c0ac6b97abafac6d}{frame\+\_\+size}, \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} num\+\_\+frames)
+\item 
+void \hyperlink{ring__rawsock_8c_a7d349188f93b838f0781fc5b6f83c078}{ring\+Rawsock\+Close} (void $\ast$pv\+Rawsock)
+\item 
+\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} $\ast$ \hyperlink{ring__rawsock_8c_a9802aaf0ba84c3cc3f4b181219fe0beb}{ring\+Rawsock\+Get\+Tx\+Frame} (void $\ast$pv\+Rawsock, \hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} blocking, unsigned int $\ast$len)
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{ring__rawsock_8c_aaed75c238770458295d14110310de48f}{ring\+Rawsock\+Rel\+Tx\+Frame} (void $\ast$pv\+Rawsock, \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} $\ast$p\+Buffer)
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{ring__rawsock_8c_a7ce6e8e2283cc523351360ed4fb404f3}{ring\+Rawsock\+Tx\+Frame\+Ready} (void $\ast$pv\+Rawsock, \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} $\ast$p\+Buffer, unsigned int len, \hyperlink{openavb__types__base__pub_8h_a25809e0734a149248fcf5831efa4e33d}{U64} time\+Nsec)
+\item 
+int \hyperlink{ring__rawsock_8c_a285304be3f0a760da16d66485aa1fd78}{ring\+Rawsock\+Send} (void $\ast$pv\+Rawsock)
+\item 
+int \hyperlink{ring__rawsock_8c_aaed4624ecab079d7fa8c43d03184e341}{ring\+Rawsock\+Tx\+Buf\+Level} (void $\ast$pv\+Rawsock)
+\item 
+int \hyperlink{ring__rawsock_8c_a211cb98a7a620e383899432f640913ee}{ring\+Rawsock\+Rx\+Buf\+Level} (void $\ast$pv\+Rawsock)
+\item 
+\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} $\ast$ \hyperlink{ring__rawsock_8c_a87230d62a61b69c9331ea840ef427808}{ring\+Rawsock\+Get\+Rx\+Frame} (void $\ast$pv\+Rawsock, \hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} \hyperlink{aaf-listener_8c_a869c60cb165af7b6177060c00c5c416c}{timeout}, unsigned int $\ast$offset, unsigned int $\ast$len)
+\item 
+int \hyperlink{ring__rawsock_8c_a438edd9929544e28a3c5008a22aae508}{ring\+Rawsock\+Rx\+Parse\+Hdr} (void $\ast$pv\+Rawsock, \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} $\ast$p\+Buffer, \hyperlink{structhdr__info__t}{hdr\+\_\+info\+\_\+t} $\ast$p\+Info)
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{ring__rawsock_8c_abd23abac1ea9758f29ccf12d2164d436}{ring\+Rawsock\+Rel\+Rx\+Frame} (void $\ast$pv\+Rawsock, \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} $\ast$p\+Buffer)
+\item 
+unsigned long \hyperlink{ring__rawsock_8c_a3a7c5b19e132abd6d37f292414c19707}{ring\+Rawsock\+Get\+T\+X\+Out\+Of\+Buffers} (void $\ast$pv\+Rawsock)
+\item 
+unsigned long \hyperlink{ring__rawsock_8c_a5ca979125501ead933010be92a5ece5c}{ring\+Rawsock\+Get\+T\+X\+Out\+Of\+Buffers\+Cyclic} (void $\ast$pv\+Rawsock)
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{ring\+\_\+rawsock.\+c@{ring\+\_\+rawsock.\+c}!A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT@{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}}
+\index{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT@{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}!ring\+\_\+rawsock.\+c@{ring\+\_\+rawsock.\+c}}
+\subsubsection[{\texorpdfstring{A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT}{AVB_LOG_COMPONENT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+V\+B\+\_\+\+L\+O\+G\+\_\+\+C\+O\+M\+P\+O\+N\+E\+NT~\char`\"{}Raw Socket\char`\"{}}\hypertarget{ring__rawsock_8c_abcfb21b6495585fe36058f57a9fe58fc}{}\label{ring__rawsock_8c_abcfb21b6495585fe36058f57a9fe58fc}
+
+
+ring\+\_\+rawsock.\+c 파일의 38 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{함수 문서화}
+\index{ring\+\_\+rawsock.\+c@{ring\+\_\+rawsock.\+c}!ring\+Rawsock\+Close@{ring\+Rawsock\+Close}}
+\index{ring\+Rawsock\+Close@{ring\+Rawsock\+Close}!ring\+\_\+rawsock.\+c@{ring\+\_\+rawsock.\+c}}
+\subsubsection[{\texorpdfstring{ring\+Rawsock\+Close(void $\ast$pv\+Rawsock)}{ringRawsockClose(void *pvRawsock)}}]{\setlength{\rightskip}{0pt plus 5cm}void ring\+Rawsock\+Close (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{pv\+Rawsock}
+\end{DoxyParamCaption}
+)}\hypertarget{ring__rawsock_8c_a7d349188f93b838f0781fc5b6f83c078}{}\label{ring__rawsock_8c_a7d349188f93b838f0781fc5b6f83c078}
+
+
+ring\+\_\+rawsock.\+c 파일의 175 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+176 \{
+177     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a8fb2c92eb64f80cb2ecb22d129df5a95}{AVB\_TRACE\_RAWSOCK});
+178     \hyperlink{structring__rawsock__t}{ring\_rawsock\_t} *rawsock = (\hyperlink{structring__rawsock__t}{ring\_rawsock\_t}*)pvRawsock;
+179 
+180     \textcolor{keywordflow}{if} (rawsock) \{
+181         \textcolor{comment}{// free ring memory}
+182         \textcolor{keywordflow}{if} (rawsock->\hyperlink{structring__rawsock__t_ac6fe146258c3cdfbead7faecd622c7fb}{pMem} != (\textcolor{keywordtype}{void}*)(-1)) \{
+183             munmap(rawsock->\hyperlink{structring__rawsock__t_ac6fe146258c3cdfbead7faecd622c7fb}{pMem}, rawsock->\hyperlink{structring__rawsock__t_a0c5a5c70b20489656e038a0281d514c4}{memSize});
+184             rawsock->\hyperlink{structring__rawsock__t_ac6fe146258c3cdfbead7faecd622c7fb}{pMem} = (\textcolor{keywordtype}{void}*)(-1);
+185         \}
+186     \}
+187 
+188     \hyperlink{simple__rawsock_8c_aad9fe1265c59c18f7dea3d27057da7d8}{simpleRawsockClose}(pvRawsock);
+189 
+190     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a8fb2c92eb64f80cb2ecb22d129df5a95}{AVB\_TRACE\_RAWSOCK});
+191 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ring__rawsock_8c_a7d349188f93b838f0781fc5b6f83c078_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ring__rawsock_8c_a7d349188f93b838f0781fc5b6f83c078_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{ring\+\_\+rawsock.\+c@{ring\+\_\+rawsock.\+c}!ring\+Rawsock\+Get\+Rx\+Frame@{ring\+Rawsock\+Get\+Rx\+Frame}}
+\index{ring\+Rawsock\+Get\+Rx\+Frame@{ring\+Rawsock\+Get\+Rx\+Frame}!ring\+\_\+rawsock.\+c@{ring\+\_\+rawsock.\+c}}
+\subsubsection[{\texorpdfstring{ring\+Rawsock\+Get\+Rx\+Frame(void $\ast$pv\+Rawsock, U32 timeout, unsigned int $\ast$offset, unsigned int $\ast$len)}{ringRawsockGetRxFrame(void *pvRawsock, U32 timeout, unsigned int *offset, unsigned int *len)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf U8}$\ast$ ring\+Rawsock\+Get\+Rx\+Frame (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{pv\+Rawsock, }
+\item[{{\bf U32}}]{timeout, }
+\item[{unsigned int $\ast$}]{offset, }
+\item[{unsigned int $\ast$}]{len}
+\end{DoxyParamCaption}
+)}\hypertarget{ring__rawsock_8c_a87230d62a61b69c9331ea840ef427808}{}\label{ring__rawsock_8c_a87230d62a61b69c9331ea840ef427808}
+
+
+ring\+\_\+rawsock.\+c 파일의 466 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+467 \{
+468     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+469     \hyperlink{structring__rawsock__t}{ring\_rawsock\_t} *rawsock = (\hyperlink{structring__rawsock__t}{ring\_rawsock\_t}*)pvRawsock;
+470     \textcolor{keywordflow}{if} (!\hyperlink{rawsock__impl_8h_a0215ee9cb615329e13dfb6b2f28107ff}{VALID\_RX\_RAWSOCK}(rawsock)) \{
+471         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Getting RX frame; invalid arguments"});
+472         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+473         \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+474     \}
+475     \textcolor{keywordflow}{if} (rawsock->\hyperlink{structring__rawsock__t_aeda5b51f8dc77d9f2012426b2e4d87aa}{buffersOut} >= rawsock->\hyperlink{structring__rawsock__t_abaf7d77bd2fc7eb6125fa605bd645b67}{frameCount}) \{
+476         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Too many RX buffers in use"});
+477         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+478         \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+479     \}
+480 
+481     \textcolor{comment}{// Get pointer to active buffer in ring}
+482     \textcolor{keyword}{volatile} \textcolor{keyword}{struct }tpacket2\_hdr *pHdr =
+483         (\textcolor{keyword}{struct }tpacket2\_hdr*)(rawsock->\hyperlink{structring__rawsock__t_ac6fe146258c3cdfbead7faecd622c7fb}{pMem}
+484                                + (rawsock->\hyperlink{structring__rawsock__t_a2a1e28d33a60201939f6745a3b410b57}{blockIndex} * rawsock->
+      \hyperlink{structring__rawsock__t_a4aaa73e329d20f35039fa5cdd2e6f648}{blockSize})
+485                                + (rawsock->\hyperlink{structring__rawsock__t_a73b963945a418c57630c1b66ce2aa74f}{bufferIndex} * rawsock->
+      \hyperlink{structring__rawsock__t_a8556d19b129aa550f5b2819ed0320e83}{bufferSize}));
+486     \textcolor{keyword}{volatile} \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *pBuffer = (\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8}*)pHdr + rawsock->\hyperlink{structring__rawsock__t_ac19f434244a282fa75ce90a0db4052c1}{bufHdrSize};
+487 
+488     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a6a12c45e5eafd615acb82399ffff16c7}{AVB\_LOGF\_VERBOSE}(\textcolor{stringliteral}{"block=%d, buffer=%d, out=%d, pBuffer=%p, pHdr=%p"},
+489                      rawsock->\hyperlink{structring__rawsock__t_a2a1e28d33a60201939f6745a3b410b57}{blockIndex}, rawsock->\hyperlink{structring__rawsock__t_a73b963945a418c57630c1b66ce2aa74f}{bufferIndex}, rawsock->
+      \hyperlink{structring__rawsock__t_aeda5b51f8dc77d9f2012426b2e4d87aa}{buffersOut},
+490                      pBuffer, pHdr);
+491 
+492     \textcolor{comment}{// Check if buffer ready for user}
+493     \textcolor{comment}{// In receive mode, we want TP\_STATUS\_USER flag set}
+494     \textcolor{keywordflow}{if} ((pHdr->tp\_status & TP\_STATUS\_USER) == 0)
+495     \{
+496         \textcolor{keyword}{struct }timespec ts, *pts = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+497         \textcolor{keyword}{struct }pollfd pfd;
+498 
+499         \textcolor{comment}{// Use poll to wait for "ready to read" condition}
+500 
+501         \textcolor{comment}{// Poll even if our timeout is 0 - to catch the case where}
+502         \textcolor{comment}{// kernel is writing to the wrong slot (see below.)}
+503         \textcolor{keywordflow}{if} (\hyperlink{aaf-listener_8c_a869c60cb165af7b6177060c00c5c416c}{timeout} != \hyperlink{openavb__rawsock_8h_a8edaf4a4b212acbd2bddbf83ce87cef4}{OPENAVB\_RAWSOCK\_BLOCK}) \{
+504             ts.tv\_sec = \hyperlink{aaf-listener_8c_a869c60cb165af7b6177060c00c5c416c}{timeout} / \hyperlink{maap__helper__linux_8h_a8a708413d6171e7d86056793abe2cd1a}{MICROSECONDS\_PER\_SECOND};
+505             ts.tv\_nsec = (\hyperlink{aaf-listener_8c_a869c60cb165af7b6177060c00c5c416c}{timeout} % \hyperlink{maap__helper__linux_8h_a8a708413d6171e7d86056793abe2cd1a}{MICROSECONDS\_PER\_SECOND}) * 
+      \hyperlink{maap__helper__linux_8h_a3b2779e65a68758ef2bfe4875b41e091}{NANOSECONDS\_PER\_USEC};
+506             pts = &ts;
+507         \}
+508 
+509         pfd.fd = rawsock->\hyperlink{structring__rawsock__t_a5903d0b282fc5eae503de618f896b5e1}{sock};
+510         pfd.events = POLLIN;
+511         pfd.revents = 0;
+512 
+513         \textcolor{keywordtype}{int} ret = ppoll(&pfd, 1, pts, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+514         \textcolor{keywordflow}{if} (ret < 0) \{
+515             \textcolor{keywordflow}{if} (errno != EINTR) \{
+516                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Getting RX frame; poll failed: %s"}, strerror(errno));
+517             \}
+518             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+519             \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+520         \}
+521         \textcolor{keywordflow}{if} ((pfd.revents & POLLIN) == 0) \{
+522             \textcolor{comment}{// timeout}
+523             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+524             \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+525         \}
+526 
+527         \textcolor{keywordflow}{if} ((pHdr->tp\_status & TP\_STATUS\_USER) == 0) \{
+528             \textcolor{comment}{// Hmmm, this is unexpected.  poll indicated that the}
+529             \textcolor{comment}{// socket was ready to read, but the slot in the TX ring}
+530             \textcolor{comment}{// that we're looking for the kernel to fill isn't filled.}
+531 
+532             \textcolor{comment}{// If there aren't any RX buffers held by the application,}
+533             \textcolor{comment}{// we can try to fix this sticky situation...}
+534             \textcolor{keywordflow}{if} (rawsock->\hyperlink{structring__rawsock__t_aeda5b51f8dc77d9f2012426b2e4d87aa}{buffersOut} == 0) \{
+535                 \textcolor{comment}{// Scan forward through the RX ring, and look for a}
+536                 \textcolor{comment}{// buffer that's ready for us to read.  The kernel has}
+537                 \textcolor{comment}{// a bad habit of not starting at the beginning of the}
+538                 \textcolor{comment}{// ring when the listener process is restarted.}
+539                 \textcolor{keywordtype}{int} nSkipped = 0;
+540                 \textcolor{keywordflow}{while}((pHdr->tp\_status & TP\_STATUS\_USER) == 0) \{
+541                     \textcolor{comment}{// Move to next slot in ring.}
+542                     \textcolor{comment}{// (Increment buffer/block indexes)}
+543                     \textcolor{keywordflow}{if} (++(rawsock->\hyperlink{structring__rawsock__t_a73b963945a418c57630c1b66ce2aa74f}{bufferIndex}) >= (rawsock->
+      \hyperlink{structring__rawsock__t_abaf7d77bd2fc7eb6125fa605bd645b67}{frameCount}/rawsock->\hyperlink{structring__rawsock__t_a8425bcfbacc94a75383be43e6114947a}{blockCount})) \{
+544                         rawsock->\hyperlink{structring__rawsock__t_a73b963945a418c57630c1b66ce2aa74f}{bufferIndex} = 0;
+545                         \textcolor{keywordflow}{if} (++(rawsock->\hyperlink{structring__rawsock__t_a2a1e28d33a60201939f6745a3b410b57}{blockIndex}) >= rawsock->
+      \hyperlink{structring__rawsock__t_a8425bcfbacc94a75383be43e6114947a}{blockCount}) \{
+546                             rawsock->\hyperlink{structring__rawsock__t_a2a1e28d33a60201939f6745a3b410b57}{blockIndex} = 0;
+547                         \}
+548                     \}
+549 
+550                     \textcolor{comment}{// Adjust pHdr, pBuffer to point to the new slot}
+551                     pHdr = (\textcolor{keyword}{struct }tpacket2\_hdr*)(rawsock->\hyperlink{structring__rawsock__t_ac6fe146258c3cdfbead7faecd622c7fb}{pMem}
+552                                                   + (rawsock->\hyperlink{structring__rawsock__t_a2a1e28d33a60201939f6745a3b410b57}{blockIndex} * rawsock->
+      \hyperlink{structring__rawsock__t_a4aaa73e329d20f35039fa5cdd2e6f648}{blockSize})
+553                                                   + (rawsock->\hyperlink{structring__rawsock__t_a73b963945a418c57630c1b66ce2aa74f}{bufferIndex} * rawsock->
+      \hyperlink{structring__rawsock__t_a8556d19b129aa550f5b2819ed0320e83}{bufferSize}));
+554                     pBuffer = (\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8}*)pHdr + rawsock->\hyperlink{structring__rawsock__t_ac19f434244a282fa75ce90a0db4052c1}{bufHdrSize};
+555 
+556                     \textcolor{comment}{// If we've scanned all the way around the ring, bail out.}
+557                     if (++nSkipped > rawsock->\hyperlink{structring__rawsock__t_abaf7d77bd2fc7eb6125fa605bd645b67}{frameCount}) \{
+558                         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a6e7cd550837a0406e98b81a840d10ea9}{AVB\_LOG\_WARNING}(\textcolor{stringliteral}{"Getting RX frame; no frame after poll"});
+559                         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+560                         \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+561                     \}
+562                 \}
+563 
+564                 \textcolor{comment}{// We found a slot that's ready.  Hopefully, we're good now.}
+565                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a6b02336e691e2e0579d2a5bb06367296}{AVB\_LOGF\_WARNING}(\textcolor{stringliteral}{"Getting RX frame; skipped %d empty slots (rawsock=%p)"}, 
+      nSkipped, rawsock);
+566             \}
+567             \textcolor{keywordflow}{else} \{
+568                 \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a6e7cd550837a0406e98b81a840d10ea9}{AVB\_LOG\_WARNING}(\textcolor{stringliteral}{"Getting RX frame; no frame after poll"});
+569                 \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+570                 \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+571             \}
+572         \}
+573     \}
+574 
+575     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a6a12c45e5eafd615acb82399ffff16c7}{AVB\_LOGF\_VERBOSE}(\textcolor{stringliteral}{"Buffer status=0x%4.4lx"}, (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long})pHdr->tp\_status);
+576     \textcolor{keywordflow}{if} (pHdr->tp\_status & TP\_STATUS\_COPY) \{
+577         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a6e7cd550837a0406e98b81a840d10ea9}{AVB\_LOG\_WARNING}(\textcolor{stringliteral}{"Frame too big for receive buffer"});
+578     \}
+579 
+580     \textcolor{comment}{// Check the "losing" flag.  That indicates that the ring is full,}
+581     \textcolor{comment}{// and the kernel had to toss some frames. There is no "winning" flag.}
+582     \textcolor{keywordflow}{if} ((pHdr->tp\_status & TP\_STATUS\_LOSING)) \{
+583         \textcolor{keywordflow}{if} (!rawsock->\hyperlink{structring__rawsock__t_a1b1908d367566395a95aac1d61367585}{bLosing}) \{
+584             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a6e7cd550837a0406e98b81a840d10ea9}{AVB\_LOG\_WARNING}(\textcolor{stringliteral}{"Getting RX frame; mmap buffers full"});
+585             rawsock->\hyperlink{structring__rawsock__t_a1b1908d367566395a95aac1d61367585}{bLosing} = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+586         \}
+587     \}
+588     \textcolor{keywordflow}{else} \{
+589         rawsock->\hyperlink{structring__rawsock__t_a1b1908d367566395a95aac1d61367585}{bLosing} = \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+590     \}
+591 
+592     \textcolor{comment}{// increment indexes for next time}
+593     \textcolor{keywordflow}{if} (++(rawsock->\hyperlink{structring__rawsock__t_a73b963945a418c57630c1b66ce2aa74f}{bufferIndex}) >= (rawsock->\hyperlink{structring__rawsock__t_abaf7d77bd2fc7eb6125fa605bd645b67}{frameCount}/rawsock->
+      \hyperlink{structring__rawsock__t_a8425bcfbacc94a75383be43e6114947a}{blockCount})) \{
+594         rawsock->\hyperlink{structring__rawsock__t_a73b963945a418c57630c1b66ce2aa74f}{bufferIndex} = 0;
+595         \textcolor{keywordflow}{if} (++(rawsock->\hyperlink{structring__rawsock__t_a2a1e28d33a60201939f6745a3b410b57}{blockIndex}) >= rawsock->\hyperlink{structring__rawsock__t_a8425bcfbacc94a75383be43e6114947a}{blockCount}) \{
+596             rawsock->\hyperlink{structring__rawsock__t_a2a1e28d33a60201939f6745a3b410b57}{blockIndex} = 0;
+597         \}
+598     \}
+599 
+600     \textcolor{comment}{// Remember that the client has another buffer}
+601     rawsock->\hyperlink{structring__rawsock__t_aeda5b51f8dc77d9f2012426b2e4d87aa}{buffersOut} += 1;
+602 
+603     \textcolor{keywordflow}{if} (pHdr->tp\_snaplen < pHdr->tp\_len) \{
+604 \textcolor{preprocessor}{#if (AVB\_LOG\_LEVEL >= AVB\_LOG\_LEVEL\_VERBOSE)}
+605         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a6b02336e691e2e0579d2a5bb06367296}{AVB\_LOGF\_WARNING}(\textcolor{stringliteral}{"Getting RX frame; partial frame ignored (len %d, snaplen %d)"}, 
+      pHdr->tp\_len, pHdr->tp\_snaplen);
+606         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a8d4c50ca73e8a7fbca488128755e5e5c}{AVB\_LOG\_BUFFER}(\hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a6772cf4a6adc720ed776ed59e6a5a235}{AVB\_LOG\_LEVEL\_VERBOSE}, (\textcolor{keyword}{const} 
+      \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *) pBuffer + (pHdr->tp\_mac - rawsock->\hyperlink{structring__rawsock__t_ac19f434244a282fa75ce90a0db4052c1}{bufHdrSize}), pHdr->tp\_len, 16);
+607 \textcolor{preprocessor}{#else}
+608         \hyperlink{maap__log_8h_ae9decd5440c360a6d0ab5175c9cf08be}{IF\_LOG\_INTERVAL}(1000) \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a6b02336e691e2e0579d2a5bb06367296}{AVB\_LOGF\_WARNING}("Getting RX 
+      \hyperlink{gst__avb__playbin_8c_ac8e710e0b5e994c0545d75d69868c6f0}{frame}; partial frame ignored (len %d, snaplen %d)", pHdr->tp\_len, pHdr->tp\_snaplen);
+609 \textcolor{preprocessor}{#endif}
+610         \hyperlink{ring__rawsock_8c_abd23abac1ea9758f29ccf12d2164d436}{ringRawsockRelRxFrame}(rawsock, (\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8}*)pBuffer);
+611         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+612         \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+613     \}
+614 
+615     \textcolor{comment}{// Return pointer to the buffer and length}
+616     *offset = pHdr->tp\_mac - rawsock->\hyperlink{structring__rawsock__t_ac19f434244a282fa75ce90a0db4052c1}{bufHdrSize};
+617     *len = pHdr->tp\_snaplen;
+618     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a6a12c45e5eafd615acb82399ffff16c7}{AVB\_LOGF\_VERBOSE}(\textcolor{stringliteral}{"Good RX frame (len %d, snaplen %d)"}, pHdr->tp\_len, pHdr->tp\_snaplen);
+619 
+620     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+621     \textcolor{keywordflow}{return} (\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8}*)pBuffer;
+622 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ring__rawsock_8c_a87230d62a61b69c9331ea840ef427808_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ring__rawsock_8c_a87230d62a61b69c9331ea840ef427808_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{ring\+\_\+rawsock.\+c@{ring\+\_\+rawsock.\+c}!ring\+Rawsock\+Get\+Tx\+Frame@{ring\+Rawsock\+Get\+Tx\+Frame}}
+\index{ring\+Rawsock\+Get\+Tx\+Frame@{ring\+Rawsock\+Get\+Tx\+Frame}!ring\+\_\+rawsock.\+c@{ring\+\_\+rawsock.\+c}}
+\subsubsection[{\texorpdfstring{ring\+Rawsock\+Get\+Tx\+Frame(void $\ast$pv\+Rawsock, bool blocking, unsigned int $\ast$len)}{ringRawsockGetTxFrame(void *pvRawsock, bool blocking, unsigned int *len)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf U8}$\ast$ ring\+Rawsock\+Get\+Tx\+Frame (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{pv\+Rawsock, }
+\item[{{\bf bool}}]{blocking, }
+\item[{unsigned int $\ast$}]{len}
+\end{DoxyParamCaption}
+)}\hypertarget{ring__rawsock_8c_a9802aaf0ba84c3cc3f4b181219fe0beb}{}\label{ring__rawsock_8c_a9802aaf0ba84c3cc3f4b181219fe0beb}
+
+
+ring\+\_\+rawsock.\+c 파일의 194 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+195 \{
+196     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+197     \hyperlink{structring__rawsock__t}{ring\_rawsock\_t} *rawsock = (\hyperlink{structring__rawsock__t}{ring\_rawsock\_t}*)pvRawsock;
+198 
+199     \textcolor{comment}{// Displays only warning when buffer busy after second try}
+200     \textcolor{keywordtype}{int} bBufferBusyReported = 0;
+201 
+202 
+203     \textcolor{keywordflow}{if} (!\hyperlink{rawsock__impl_8h_a4b69291961256f36eefc280eb2d3e447}{VALID\_TX\_RAWSOCK}(rawsock) || len == \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \{
+204         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Getting TX frame; bad arguments"});
+205         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+206         \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+207     \}
+208     \textcolor{keywordflow}{if} (rawsock->\hyperlink{structring__rawsock__t_aeda5b51f8dc77d9f2012426b2e4d87aa}{buffersOut} >= rawsock->\hyperlink{structring__rawsock__t_abaf7d77bd2fc7eb6125fa605bd645b67}{frameCount}) \{
+209         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Getting TX frame; too many TX buffers in use"});
+210         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+211         \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+212     \}
+213 
+214     \textcolor{comment}{// Get pointer to next framebuf.}
+215     \textcolor{keyword}{volatile} \textcolor{keyword}{struct }tpacket2\_hdr *pHdr =
+216         (\textcolor{keyword}{struct }tpacket2\_hdr*)(rawsock->\hyperlink{structring__rawsock__t_ac6fe146258c3cdfbead7faecd622c7fb}{pMem}
+217                                + (rawsock->\hyperlink{structring__rawsock__t_a2a1e28d33a60201939f6745a3b410b57}{blockIndex} * rawsock->
+      \hyperlink{structring__rawsock__t_a4aaa73e329d20f35039fa5cdd2e6f648}{blockSize})
+218                                + (rawsock->\hyperlink{structring__rawsock__t_a73b963945a418c57630c1b66ce2aa74f}{bufferIndex} * rawsock->
+      \hyperlink{structring__rawsock__t_a8556d19b129aa550f5b2819ed0320e83}{bufferSize}));
+219     \textcolor{comment}{// And pointer to portion of buffer to be filled with frame}
+220     \textcolor{keyword}{volatile} \hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} *pBuffer = (\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8}*)pHdr + rawsock->\hyperlink{structring__rawsock__t_ac19f434244a282fa75ce90a0db4052c1}{bufHdrSize};
+221 
+222     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a6a12c45e5eafd615acb82399ffff16c7}{AVB\_LOGF\_VERBOSE}(\textcolor{stringliteral}{"block=%d, buffer=%d, out=%d, pBuffer=%p, pHdr=%p"},
+223                      rawsock->\hyperlink{structring__rawsock__t_a2a1e28d33a60201939f6745a3b410b57}{blockIndex}, rawsock->\hyperlink{structring__rawsock__t_a73b963945a418c57630c1b66ce2aa74f}{bufferIndex}, rawsock->
+      \hyperlink{structring__rawsock__t_aeda5b51f8dc77d9f2012426b2e4d87aa}{buffersOut},
+224                      pBuffer, pHdr);
+225 
+226     \textcolor{comment}{// Check if buffer ready for user}
+227     \textcolor{comment}{// In send mode, we want to see TP\_STATUS\_AVAILABLE}
+228     \textcolor{keywordflow}{while} (pHdr->tp\_status != TP\_STATUS\_AVAILABLE)
+229     \{
+230         \textcolor{keywordflow}{switch} (pHdr->tp\_status) \{
+231             \textcolor{keywordflow}{case} TP\_STATUS\_SEND\_REQUEST:
+232             \textcolor{keywordflow}{case} TP\_STATUS\_SENDING:
+233                 \textcolor{keywordflow}{if} (blocking) \{
+234 \textcolor{preprocessor}{#if 0}
+235 \textcolor{comment}{// We should be able to poll on the socket to wait for the buffer to}
+236 \textcolor{comment}{// be ready, but it doesn't work (at least on 2.6.37).}
+237 \textcolor{comment}{// Keep this code, because it may work on newer kernels}
+238                     \textcolor{comment}{// poll until tx buffer is ready}
+239                     \textcolor{keyword}{struct }pollfd pfd;
+240                     pfd.fd = rawsock->\hyperlink{structring__rawsock__t_a5903d0b282fc5eae503de618f896b5e1}{sock};
+241                     pfd.events = POLLWRNORM;
+242                     pfd.revents = 0;
+243                     \textcolor{keywordtype}{int} ret = poll(&pfd, 1, -1);
+244                     \textcolor{keywordflow}{if} (ret < 0 && errno != EINTR) \{
+245                         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afcf1f0c1d10ae9efe3782eb6cae78355}{AVB\_LOGF\_DEBUG}(\textcolor{stringliteral}{"getting TX frame; poll failed: %s"}, strerror(errno));
+246                     \}
+247 \textcolor{preprocessor}{#else}
+248                     \textcolor{comment}{// Can't poll, so sleep instead to avoid tight loop}
+249                     \textcolor{keywordflow}{if}(0 == bBufferBusyReported) \{
+250                         \textcolor{keywordflow}{if}(!rawsock->\hyperlink{structring__rawsock__t_a93b332533b50c7524d3eb7fc03a8df7a}{txOutOfBuffer}) \{
+251                             \textcolor{comment}{// Display this info only once just to let know that something like this
+       happened}
+252                             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a2be7e90c7cb63f12b221ed1cd4999185}{AVB\_LOGF\_INFO}(\textcolor{stringliteral}{"Getting TX frame (sock=%d): TX buffer busy"}, 
+      rawsock->\hyperlink{structring__rawsock__t_a5903d0b282fc5eae503de618f896b5e1}{sock});
+253                         \}
+254 
+255                         ++rawsock->\hyperlink{structring__rawsock__t_a93b332533b50c7524d3eb7fc03a8df7a}{txOutOfBuffer};
+256                         ++rawsock->\hyperlink{structring__rawsock__t_ab72f6e390a1b3447a247f4c70c6ff8d0}{txOutOfBufferCyclic};
+257                     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(1 == bBufferBusyReported) \{
+258                         \textcolor{comment}{//Display this warning if buffer was busy more than once because it might influence
+       late/lost}
+259                         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a6b02336e691e2e0579d2a5bb06367296}{AVB\_LOGF\_WARNING}(\textcolor{stringliteral}{"Getting TX frame (sock=%d): TX buffer busy after
+       usleep(50) verify if there are any lost/late frames"}, rawsock->\hyperlink{structring__rawsock__t_a5903d0b282fc5eae503de618f896b5e1}{sock});
+260                     \}
+261 
+262                     ++bBufferBusyReported;
+263 
+264                     usleep(50);
+265 \textcolor{preprocessor}{#endif}
+266                 \}
+267                 \textcolor{keywordflow}{else} \{
+268                     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a28a4d0350d530ad95c95b8383c00cd9c}{AVB\_LOG\_DEBUG}(\textcolor{stringliteral}{"Non-blocking, return NULL"});
+269                     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+270                     \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+271                 \}
+272                 \textcolor{keywordflow}{break};
+273             \textcolor{keywordflow}{case} TP\_STATUS\_WRONG\_FORMAT:
+274             \textcolor{keywordflow}{default}:
+275                 pHdr->tp\_status = TP\_STATUS\_AVAILABLE;
+276                 \textcolor{keywordflow}{break};
+277         \}
+278     \}
+279 
+280     \textcolor{comment}{// Remind client how big the frame buffer is}
+281     \textcolor{keywordflow}{if} (len)
+282         *len = rawsock->\hyperlink{structring__rawsock__t_a1507c5af4508d59cb0a730a852763e94}{base}.\hyperlink{structbase__rawsock_aa3dad37bb3b3c95138a96b2668936923}{frameSize};
+283 
+284     \textcolor{comment}{// increment indexes to point to next buffer}
+285     \textcolor{keywordflow}{if} (++(rawsock->\hyperlink{structring__rawsock__t_a73b963945a418c57630c1b66ce2aa74f}{bufferIndex}) >= (rawsock->\hyperlink{structring__rawsock__t_abaf7d77bd2fc7eb6125fa605bd645b67}{frameCount}/rawsock->
+      \hyperlink{structring__rawsock__t_a8425bcfbacc94a75383be43e6114947a}{blockCount})) \{
+286         rawsock->\hyperlink{structring__rawsock__t_a73b963945a418c57630c1b66ce2aa74f}{bufferIndex} = 0;
+287         \textcolor{keywordflow}{if} (++(rawsock->\hyperlink{structring__rawsock__t_a2a1e28d33a60201939f6745a3b410b57}{blockIndex}) >= rawsock->\hyperlink{structring__rawsock__t_a8425bcfbacc94a75383be43e6114947a}{blockCount}) \{
+288             rawsock->\hyperlink{structring__rawsock__t_a2a1e28d33a60201939f6745a3b410b57}{blockIndex} = 0;
+289         \}
+290     \}
+291 
+292     \textcolor{comment}{// increment the count of buffers held by client}
+293     rawsock->\hyperlink{structring__rawsock__t_aeda5b51f8dc77d9f2012426b2e4d87aa}{buffersOut} += 1;
+294 
+295     \textcolor{comment}{// warn if too many are out}
+296     \textcolor{keywordflow}{if} (rawsock->\hyperlink{structring__rawsock__t_aeda5b51f8dc77d9f2012426b2e4d87aa}{buffersOut} >= (rawsock->\hyperlink{structring__rawsock__t_abaf7d77bd2fc7eb6125fa605bd645b67}{frameCount} * 4)/5) \{
+297         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a6b02336e691e2e0579d2a5bb06367296}{AVB\_LOGF\_WARNING}(\textcolor{stringliteral}{"Getting TX frame; consider increasing buffers: count=%d, out=%d"},
+298                          rawsock->\hyperlink{structring__rawsock__t_abaf7d77bd2fc7eb6125fa605bd645b67}{frameCount}, rawsock->\hyperlink{structring__rawsock__t_aeda5b51f8dc77d9f2012426b2e4d87aa}{buffersOut});
+299     \}
+300 
+301     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+302     \textcolor{keywordflow}{return} (\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8}*)pBuffer;
+303 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ring__rawsock_8c_a9802aaf0ba84c3cc3f4b181219fe0beb_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{ring\+\_\+rawsock.\+c@{ring\+\_\+rawsock.\+c}!ring\+Rawsock\+Get\+T\+X\+Out\+Of\+Buffers@{ring\+Rawsock\+Get\+T\+X\+Out\+Of\+Buffers}}
+\index{ring\+Rawsock\+Get\+T\+X\+Out\+Of\+Buffers@{ring\+Rawsock\+Get\+T\+X\+Out\+Of\+Buffers}!ring\+\_\+rawsock.\+c@{ring\+\_\+rawsock.\+c}}
+\subsubsection[{\texorpdfstring{ring\+Rawsock\+Get\+T\+X\+Out\+Of\+Buffers(void $\ast$pv\+Rawsock)}{ringRawsockGetTXOutOfBuffers(void *pvRawsock)}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long ring\+Rawsock\+Get\+T\+X\+Out\+Of\+Buffers (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{pv\+Rawsock}
+\end{DoxyParamCaption}
+)}\hypertarget{ring__rawsock_8c_a3a7c5b19e132abd6d37f292414c19707}{}\label{ring__rawsock_8c_a3a7c5b19e132abd6d37f292414c19707}
+
+
+ring\+\_\+rawsock.\+c 파일의 683 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+684 \{
+685     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a8fb2c92eb64f80cb2ecb22d129df5a95}{AVB\_TRACE\_RAWSOCK});
+686     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} counter = 0;
+687     \hyperlink{structring__rawsock__t}{ring\_rawsock\_t} *rawsock = (\hyperlink{structring__rawsock__t}{ring\_rawsock\_t}*)pvRawsock;
+688 
+689     \textcolor{keywordflow}{if}(\hyperlink{rawsock__impl_8h_a4b69291961256f36eefc280eb2d3e447}{VALID\_TX\_RAWSOCK}(rawsock)) \{
+690         counter = rawsock->\hyperlink{structring__rawsock__t_a93b332533b50c7524d3eb7fc03a8df7a}{txOutOfBuffer};
+691     \}
+692 
+693     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a8fb2c92eb64f80cb2ecb22d129df5a95}{AVB\_TRACE\_RAWSOCK});
+694     \textcolor{keywordflow}{return} counter;
+695 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ring__rawsock_8c_a3a7c5b19e132abd6d37f292414c19707_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{ring\+\_\+rawsock.\+c@{ring\+\_\+rawsock.\+c}!ring\+Rawsock\+Get\+T\+X\+Out\+Of\+Buffers\+Cyclic@{ring\+Rawsock\+Get\+T\+X\+Out\+Of\+Buffers\+Cyclic}}
+\index{ring\+Rawsock\+Get\+T\+X\+Out\+Of\+Buffers\+Cyclic@{ring\+Rawsock\+Get\+T\+X\+Out\+Of\+Buffers\+Cyclic}!ring\+\_\+rawsock.\+c@{ring\+\_\+rawsock.\+c}}
+\subsubsection[{\texorpdfstring{ring\+Rawsock\+Get\+T\+X\+Out\+Of\+Buffers\+Cyclic(void $\ast$pv\+Rawsock)}{ringRawsockGetTXOutOfBuffersCyclic(void *pvRawsock)}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long ring\+Rawsock\+Get\+T\+X\+Out\+Of\+Buffers\+Cyclic (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{pv\+Rawsock}
+\end{DoxyParamCaption}
+)}\hypertarget{ring__rawsock_8c_a5ca979125501ead933010be92a5ece5c}{}\label{ring__rawsock_8c_a5ca979125501ead933010be92a5ece5c}
+
+
+ring\+\_\+rawsock.\+c 파일의 697 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+698 \{
+699     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a8fb2c92eb64f80cb2ecb22d129df5a95}{AVB\_TRACE\_RAWSOCK});
+700     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} counter = 0;
+701     \hyperlink{structring__rawsock__t}{ring\_rawsock\_t} *rawsock = (\hyperlink{structring__rawsock__t}{ring\_rawsock\_t}*)pvRawsock;
+702 
+703     \textcolor{keywordflow}{if}(\hyperlink{rawsock__impl_8h_a4b69291961256f36eefc280eb2d3e447}{VALID\_TX\_RAWSOCK}(rawsock)) \{
+704         counter = rawsock->\hyperlink{structring__rawsock__t_ab72f6e390a1b3447a247f4c70c6ff8d0}{txOutOfBufferCyclic};
+705         rawsock->\hyperlink{structring__rawsock__t_ab72f6e390a1b3447a247f4c70c6ff8d0}{txOutOfBufferCyclic} = 0;
+706     \}
+707 
+708     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a8fb2c92eb64f80cb2ecb22d129df5a95}{AVB\_TRACE\_RAWSOCK});
+709     \textcolor{keywordflow}{return} counter;
+710 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ring__rawsock_8c_a5ca979125501ead933010be92a5ece5c_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{ring\+\_\+rawsock.\+c@{ring\+\_\+rawsock.\+c}!ring\+Rawsock\+Open@{ring\+Rawsock\+Open}}
+\index{ring\+Rawsock\+Open@{ring\+Rawsock\+Open}!ring\+\_\+rawsock.\+c@{ring\+\_\+rawsock.\+c}}
+\subsubsection[{\texorpdfstring{ring\+Rawsock\+Open(ring\+\_\+rawsock\+\_\+t $\ast$rawsock, const char $\ast$ifname, bool rx\+\_\+mode, bool tx\+\_\+mode, U16 ethertype, U32 frame\+\_\+size, U32 num\+\_\+frames)}{ringRawsockOpen(ring_rawsock_t *rawsock, const char *ifname, bool rx_mode, bool tx_mode, U16 ethertype, U32 frame_size, U32 num_frames)}}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ ring\+Rawsock\+Open (
+\begin{DoxyParamCaption}
+\item[{{\bf ring\+\_\+rawsock\+\_\+t} $\ast$}]{rawsock, }
+\item[{const char $\ast$}]{ifname, }
+\item[{{\bf bool}}]{rx\+\_\+mode, }
+\item[{{\bf bool}}]{tx\+\_\+mode, }
+\item[{{\bf U16}}]{ethertype, }
+\item[{{\bf U32}}]{frame\+\_\+size, }
+\item[{{\bf U32}}]{num\+\_\+frames}
+\end{DoxyParamCaption}
+)}\hypertarget{ring__rawsock_8c_a8c3c41f38f4b4099b092efd78af768f7}{}\label{ring__rawsock_8c_a8c3c41f38f4b4099b092efd78af768f7}
+
+
+ring\+\_\+rawsock.\+c 파일의 43 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+44 \{
+45     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_a8fb2c92eb64f80cb2ecb22d129df5a95}{AVB\_TRACE\_RAWSOCK});
+46 
+47     \textcolor{keywordflow}{if} (!\hyperlink{simple__rawsock_8c_a3791f04c920de1731e2c08b009e30fdd}{simpleRawsockOpen}((\hyperlink{structsimple__rawsock__t}{simple\_rawsock\_t}*)rawsock, 
+      \hyperlink{aaf-talker_8c_ac7b430acaa92a7a26fbcdad47d2efc20}{ifname}, rx\_mode,
+48                    tx\_mode, \hyperlink{avtp__rx_8c_af3d6d4ec5b93edfddc9de51233ae9f7e}{ethertype}, \hyperlink{gstavbsink_8c_ad662aa56c1696f09c0ac6b97abafac6d}{frame\_size}, num\_frames))
+49     \{
+50         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a8fb2c92eb64f80cb2ecb22d129df5a95}{AVB\_TRACE\_RAWSOCK});
+51         \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+52     \}
+53 
+54     rawsock->\hyperlink{structring__rawsock__t_ac6fe146258c3cdfbead7faecd622c7fb}{pMem} = (\textcolor{keywordtype}{void}*)(-1);
+55 
+56     \textcolor{comment}{// Use version 2 headers for the MMAP packet stuff - avoids 32/64}
+57     \textcolor{comment}{// bit problems, gives nanosecond timestamps, and allows rx of vlan id}
+58     \textcolor{keywordtype}{int} val = TPACKET\_V2;
+59     \textcolor{keywordflow}{if} (setsockopt(rawsock->\hyperlink{structring__rawsock__t_a5903d0b282fc5eae503de618f896b5e1}{sock}, SOL\_PACKET, PACKET\_VERSION, &val, \textcolor{keyword}{sizeof}(val)) < 0) \{
+60         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Creating rawsock; get PACKET\_VERSION: %s"}, strerror(errno));
+61         \hyperlink{ring__rawsock_8c_a7d349188f93b838f0781fc5b6f83c078}{ringRawsockClose}(rawsock);
+62         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a8fb2c92eb64f80cb2ecb22d129df5a95}{AVB\_TRACE\_RAWSOCK});
+63         \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+64     \}
+65 
+66     \textcolor{comment}{// Get the size of the headers in the ring}
+67     \textcolor{keywordtype}{unsigned} len = \textcolor{keyword}{sizeof}(val);
+68     \textcolor{keywordflow}{if} (getsockopt(rawsock->\hyperlink{structring__rawsock__t_a5903d0b282fc5eae503de618f896b5e1}{sock}, SOL\_PACKET, PACKET\_HDRLEN, &val, &len) < 0) \{
+69         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Creating rawsock; get PACKET\_HDRLEN: %s"}, strerror(errno));
+70         \hyperlink{ring__rawsock_8c_a7d349188f93b838f0781fc5b6f83c078}{ringRawsockClose}(rawsock);
+71         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a8fb2c92eb64f80cb2ecb22d129df5a95}{AVB\_TRACE\_RAWSOCK});
+72         \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+73     \}
+74     rawsock->\hyperlink{structring__rawsock__t_ac19f434244a282fa75ce90a0db4052c1}{bufHdrSize} = TPACKET\_ALIGN(val);
+75 
+76     \textcolor{keywordflow}{if} (rawsock->\hyperlink{structring__rawsock__t_a1507c5af4508d59cb0a730a852763e94}{base}.\hyperlink{structbase__rawsock_aad4d1429d48996f23f9dd4b0f1940850}{rxMode}) \{
+77         rawsock->\hyperlink{structring__rawsock__t_ac19f434244a282fa75ce90a0db4052c1}{bufHdrSize} = rawsock->\hyperlink{structring__rawsock__t_ac19f434244a282fa75ce90a0db4052c1}{bufHdrSize} + TPACKET\_ALIGN(\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} 
+      sockaddr\_ll));
+78     \}
+79     rawsock->\hyperlink{structring__rawsock__t_a8556d19b129aa550f5b2819ed0320e83}{bufferSize} = rawsock->\hyperlink{structring__rawsock__t_a1507c5af4508d59cb0a730a852763e94}{base}.\hyperlink{structbase__rawsock_aa3dad37bb3b3c95138a96b2668936923}{frameSize} + rawsock->
+      \hyperlink{structring__rawsock__t_ac19f434244a282fa75ce90a0db4052c1}{bufHdrSize};
+80     rawsock->\hyperlink{structring__rawsock__t_abaf7d77bd2fc7eb6125fa605bd645b67}{frameCount} = num\_frames;
+81     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afcf1f0c1d10ae9efe3782eb6cae78355}{AVB\_LOGF\_DEBUG}(\textcolor{stringliteral}{"frameSize=%d, bufHdrSize=%d(%d+%zu) bufferSize=%d, frameCount=%d"},
+82                    rawsock->\hyperlink{structring__rawsock__t_a1507c5af4508d59cb0a730a852763e94}{base}.\hyperlink{structbase__rawsock_aa3dad37bb3b3c95138a96b2668936923}{frameSize}, rawsock->\hyperlink{structring__rawsock__t_ac19f434244a282fa75ce90a0db4052c1}{bufHdrSize}, val, \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} 
+      sockaddr\_ll),
+83                    rawsock->\hyperlink{structring__rawsock__t_a8556d19b129aa550f5b2819ed0320e83}{bufferSize}, rawsock->\hyperlink{structring__rawsock__t_abaf7d77bd2fc7eb6125fa605bd645b67}{frameCount});
+84 
+85     \textcolor{comment}{// Get number of bytes in a memory page.  The blocks we ask for}
+86     \textcolor{comment}{// must be a multiple of pagesize.  (Actually, it should be}
+87     \textcolor{comment}{// (pagesize * 2^N) to avoid wasting memory.)}
+88     \textcolor{keywordtype}{int} pagesize = getpagesize();
+89     rawsock->\hyperlink{structring__rawsock__t_a4aaa73e329d20f35039fa5cdd2e6f648}{blockSize} = pagesize * 4;
+90     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afcf1f0c1d10ae9efe3782eb6cae78355}{AVB\_LOGF\_DEBUG}(\textcolor{stringliteral}{"pagesize=%d blockSize=%d"}, pagesize, rawsock->
+      \hyperlink{structring__rawsock__t_a4aaa73e329d20f35039fa5cdd2e6f648}{blockSize});
+91 
+92     \textcolor{comment}{// Calculate number of buffers and frames based on blocks}
+93     \textcolor{keywordtype}{int} buffersPerBlock = rawsock->\hyperlink{structring__rawsock__t_a4aaa73e329d20f35039fa5cdd2e6f648}{blockSize} / rawsock->\hyperlink{structring__rawsock__t_a8556d19b129aa550f5b2819ed0320e83}{bufferSize};
+94     rawsock->\hyperlink{structring__rawsock__t_a8425bcfbacc94a75383be43e6114947a}{blockCount} = rawsock->\hyperlink{structring__rawsock__t_abaf7d77bd2fc7eb6125fa605bd645b67}{frameCount} / buffersPerBlock + 1;
+95     rawsock->\hyperlink{structring__rawsock__t_abaf7d77bd2fc7eb6125fa605bd645b67}{frameCount} = buffersPerBlock * rawsock->\hyperlink{structring__rawsock__t_a8425bcfbacc94a75383be43e6114947a}{blockCount};
+96 
+97     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afcf1f0c1d10ae9efe3782eb6cae78355}{AVB\_LOGF\_DEBUG}(\textcolor{stringliteral}{"frameCount=%d, buffersPerBlock=%d, blockCount=%d"},
+98                    rawsock->\hyperlink{structring__rawsock__t_abaf7d77bd2fc7eb6125fa605bd645b67}{frameCount}, buffersPerBlock, rawsock->
+      \hyperlink{structring__rawsock__t_a8425bcfbacc94a75383be43e6114947a}{blockCount});
+99 
+100     \textcolor{comment}{// Fill in the kernel structure with our calculated values}
+101     \textcolor{keyword}{struct }tpacket\_req s\_packet\_req;
+102     memset(&s\_packet\_req, 0, \textcolor{keyword}{sizeof}(s\_packet\_req));
+103     s\_packet\_req.tp\_block\_size = rawsock->\hyperlink{structring__rawsock__t_a4aaa73e329d20f35039fa5cdd2e6f648}{blockSize};
+104     s\_packet\_req.tp\_frame\_size = rawsock->\hyperlink{structring__rawsock__t_a8556d19b129aa550f5b2819ed0320e83}{bufferSize};
+105     s\_packet\_req.tp\_block\_nr = rawsock->\hyperlink{structring__rawsock__t_a8425bcfbacc94a75383be43e6114947a}{blockCount};
+106     s\_packet\_req.tp\_frame\_nr = rawsock->\hyperlink{structring__rawsock__t_abaf7d77bd2fc7eb6125fa605bd645b67}{frameCount};
+107 
+108     \textcolor{comment}{// Ask the kernel to create the TX\_RING or RX\_RING}
+109     \textcolor{keywordflow}{if} (rawsock->\hyperlink{structring__rawsock__t_a1507c5af4508d59cb0a730a852763e94}{base}.\hyperlink{structbase__rawsock_a15ac92f42c8328bb63a903014e00dda0}{txMode}) \{
+110         \textcolor{keywordflow}{if} (setsockopt(rawsock->\hyperlink{structring__rawsock__t_a5903d0b282fc5eae503de618f896b5e1}{sock}, SOL\_PACKET, PACKET\_TX\_RING,
+111                        (\textcolor{keywordtype}{char}*)&s\_packet\_req, \textcolor{keyword}{sizeof}(s\_packet\_req)) < 0) \{
+112             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Creating rawsock; TX\_RING: %s"}, strerror(errno));
+113             \hyperlink{ring__rawsock_8c_a7d349188f93b838f0781fc5b6f83c078}{ringRawsockClose}(rawsock);
+114             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a8fb2c92eb64f80cb2ecb22d129df5a95}{AVB\_TRACE\_RAWSOCK});
+115             \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+116         \}
+117         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afcf1f0c1d10ae9efe3782eb6cae78355}{AVB\_LOGF\_DEBUG}(\textcolor{stringliteral}{"PACKET\_%s\_RING OK"}, \textcolor{stringliteral}{"TX"});
+118     \}
+119     \textcolor{keywordflow}{else} \{
+120         \textcolor{keywordflow}{if} (setsockopt(rawsock->\hyperlink{structring__rawsock__t_a5903d0b282fc5eae503de618f896b5e1}{sock}, SOL\_PACKET, PACKET\_RX\_RING,
+121                        (\textcolor{keywordtype}{char}*)&s\_packet\_req, \textcolor{keyword}{sizeof}(s\_packet\_req)) < 0) \{
+122             \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Creating rawsock, RX\_RING: %s"}, strerror(errno));
+123             \hyperlink{ring__rawsock_8c_a7d349188f93b838f0781fc5b6f83c078}{ringRawsockClose}(rawsock);
+124             \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a8fb2c92eb64f80cb2ecb22d129df5a95}{AVB\_TRACE\_RAWSOCK});
+125             \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+126         \}
+127         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afcf1f0c1d10ae9efe3782eb6cae78355}{AVB\_LOGF\_DEBUG}(\textcolor{stringliteral}{"PACKET\_%s\_RING OK"}, \textcolor{stringliteral}{"TX"});
+128     \}
+129 
+130     \textcolor{comment}{// Call MMAP to get access to the memory used for the ring}
+131     rawsock->\hyperlink{structring__rawsock__t_a0c5a5c70b20489656e038a0281d514c4}{memSize} = rawsock->\hyperlink{structring__rawsock__t_a8425bcfbacc94a75383be43e6114947a}{blockCount} * rawsock->\hyperlink{structring__rawsock__t_a4aaa73e329d20f35039fa5cdd2e6f648}{blockSize};
+132     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afcf1f0c1d10ae9efe3782eb6cae78355}{AVB\_LOGF\_DEBUG}(\textcolor{stringliteral}{"memSize=%zu (%d, %d), sock=%d"},
+133                    rawsock->\hyperlink{structring__rawsock__t_a0c5a5c70b20489656e038a0281d514c4}{memSize},
+134                    rawsock->\hyperlink{structring__rawsock__t_a8425bcfbacc94a75383be43e6114947a}{blockCount},
+135                    rawsock->\hyperlink{structring__rawsock__t_a4aaa73e329d20f35039fa5cdd2e6f648}{blockSize},
+136                    rawsock->\hyperlink{structring__rawsock__t_a5903d0b282fc5eae503de618f896b5e1}{sock});
+137     rawsock->\hyperlink{structring__rawsock__t_ac6fe146258c3cdfbead7faecd622c7fb}{pMem} = mmap((\textcolor{keywordtype}{void}*)0, rawsock->\hyperlink{structring__rawsock__t_a0c5a5c70b20489656e038a0281d514c4}{memSize}, PROT\_READ|PROT\_WRITE, MAP\_SHARED, rawsock->
+      \hyperlink{structring__rawsock__t_a5903d0b282fc5eae503de618f896b5e1}{sock}, (off\_t)0);
+138     \textcolor{keywordflow}{if} (rawsock->\hyperlink{structring__rawsock__t_ac6fe146258c3cdfbead7faecd622c7fb}{pMem} == (\textcolor{keywordtype}{void}*)(-1)) \{
+139         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Creating rawsock; MMAP: %s"}, strerror(errno));
+140         \hyperlink{ring__rawsock_8c_a7d349188f93b838f0781fc5b6f83c078}{ringRawsockClose}(rawsock);
+141         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a8fb2c92eb64f80cb2ecb22d129df5a95}{AVB\_TRACE\_RAWSOCK});
+142         \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+143     \}
+144     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_afcf1f0c1d10ae9efe3782eb6cae78355}{AVB\_LOGF\_DEBUG}(\textcolor{stringliteral}{"mmap: %p"}, rawsock->\hyperlink{structring__rawsock__t_ac6fe146258c3cdfbead7faecd622c7fb}{pMem});
+145 
+146     \textcolor{comment}{// Initialize the memory}
+147     memset(rawsock->\hyperlink{structring__rawsock__t_ac6fe146258c3cdfbead7faecd622c7fb}{pMem}, 0, rawsock->\hyperlink{structring__rawsock__t_a0c5a5c70b20489656e038a0281d514c4}{memSize});
+148 
+149     \textcolor{comment}{// Initialize the state of the ring}
+150     rawsock->\hyperlink{structring__rawsock__t_a2a1e28d33a60201939f6745a3b410b57}{blockIndex} = 0;
+151     rawsock->\hyperlink{structring__rawsock__t_a73b963945a418c57630c1b66ce2aa74f}{bufferIndex} = 0;
+152     rawsock->\hyperlink{structring__rawsock__t_aeda5b51f8dc77d9f2012426b2e4d87aa}{buffersOut} = 0;
+153     rawsock->\hyperlink{structring__rawsock__t_a06dd59c797f7aa0ca9f888304888f2a0}{buffersReady} = 0;
+154 
+155     \textcolor{comment}{// fill virtual functions table}
+156     \hyperlink{structrawsock__cb__t}{rawsock\_cb\_t} *cb = &rawsock->\hyperlink{structring__rawsock__t_a1507c5af4508d59cb0a730a852763e94}{base}.\hyperlink{structbase__rawsock_a2b12273a224877b0bbbe5e7f774c7568}{cb};
+157     cb->\hyperlink{structrawsock__cb__t_a985e065be665d4efc528911317edb3fa}{close} = \hyperlink{ring__rawsock_8c_a7d349188f93b838f0781fc5b6f83c078}{ringRawsockClose};
+158     cb->\hyperlink{structrawsock__cb__t_abac4c30aae337d681176b220b37237fc}{getTxFrame} = \hyperlink{ring__rawsock_8c_a9802aaf0ba84c3cc3f4b181219fe0beb}{ringRawsockGetTxFrame};
+159     cb->\hyperlink{structrawsock__cb__t_a271ab89bbfda02e12adfcdc727c2d5e2}{relTxFrame} = \hyperlink{ring__rawsock_8c_aaed75c238770458295d14110310de48f}{ringRawsockRelTxFrame};
+160     cb->\hyperlink{structrawsock__cb__t_ae06401a7fdbf21f6bfd7fd65d8e760d0}{txFrameReady} = \hyperlink{ring__rawsock_8c_a7ce6e8e2283cc523351360ed4fb404f3}{ringRawsockTxFrameReady};
+161     cb->\hyperlink{structrawsock__cb__t_ae6202a72f83a5d92e126344ed22470a1}{send} = \hyperlink{ring__rawsock_8c_a285304be3f0a760da16d66485aa1fd78}{ringRawsockSend};
+162     cb->\hyperlink{structrawsock__cb__t_a3d3805c9ca1a1c658c648699ea3fdce6}{txBufLevel} = \hyperlink{ring__rawsock_8c_aaed4624ecab079d7fa8c43d03184e341}{ringRawsockTxBufLevel};
+163     cb->\hyperlink{structrawsock__cb__t_ae53f5e072b7695b093ebd9a709f945b4}{rxBufLevel} = \hyperlink{ring__rawsock_8c_a211cb98a7a620e383899432f640913ee}{ringRawsockRxBufLevel};
+164     cb->\hyperlink{structrawsock__cb__t_ae9c0b8e9e26d88a6d7ef3191fec6cd5a}{getRxFrame} = \hyperlink{ring__rawsock_8c_a87230d62a61b69c9331ea840ef427808}{ringRawsockGetRxFrame};
+165     cb->\hyperlink{structrawsock__cb__t_a21ebeb1cf85f9d386cbe5c3e9f46a1d4}{rxParseHdr} = \hyperlink{ring__rawsock_8c_a438edd9929544e28a3c5008a22aae508}{ringRawsockRxParseHdr};
+166     cb->\hyperlink{structrawsock__cb__t_a428063ea57178d7db91ee180d7028101}{relRxFrame} = \hyperlink{ring__rawsock_8c_abd23abac1ea9758f29ccf12d2164d436}{ringRawsockRelRxFrame};
+167     cb->\hyperlink{structrawsock__cb__t_a224915eda51e77d90c9e53bad4bd3ee9}{getTXOutOfBuffers} = \hyperlink{ring__rawsock_8c_a3a7c5b19e132abd6d37f292414c19707}{ringRawsockGetTXOutOfBuffers};
+168     cb->\hyperlink{structrawsock__cb__t_a1551298f6cf98c1bee5479535d90e893}{getTXOutOfBuffersCyclic} = 
+      \hyperlink{ring__rawsock_8c_a5ca979125501ead933010be92a5ece5c}{ringRawsockGetTXOutOfBuffersCyclic};
+169 
+170     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_a8fb2c92eb64f80cb2ecb22d129df5a95}{AVB\_TRACE\_RAWSOCK});
+171     \textcolor{keywordflow}{return} rawsock;
+172 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ring__rawsock_8c_a8c3c41f38f4b4099b092efd78af768f7_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ring__rawsock_8c_a8c3c41f38f4b4099b092efd78af768f7_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{ring\+\_\+rawsock.\+c@{ring\+\_\+rawsock.\+c}!ring\+Rawsock\+Rel\+Rx\+Frame@{ring\+Rawsock\+Rel\+Rx\+Frame}}
+\index{ring\+Rawsock\+Rel\+Rx\+Frame@{ring\+Rawsock\+Rel\+Rx\+Frame}!ring\+\_\+rawsock.\+c@{ring\+\_\+rawsock.\+c}}
+\subsubsection[{\texorpdfstring{ring\+Rawsock\+Rel\+Rx\+Frame(void $\ast$pv\+Rawsock, U8 $\ast$p\+Buffer)}{ringRawsockRelRxFrame(void *pvRawsock, U8 *pBuffer)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} ring\+Rawsock\+Rel\+Rx\+Frame (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{pv\+Rawsock, }
+\item[{{\bf U8} $\ast$}]{p\+Buffer}
+\end{DoxyParamCaption}
+)}\hypertarget{ring__rawsock_8c_abd23abac1ea9758f29ccf12d2164d436}{}\label{ring__rawsock_8c_abd23abac1ea9758f29ccf12d2164d436}
+
+
+ring\+\_\+rawsock.\+c 파일의 662 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+663 \{
+664     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+665     \hyperlink{structring__rawsock__t}{ring\_rawsock\_t} *rawsock = (\hyperlink{structring__rawsock__t}{ring\_rawsock\_t}*)pvRawsock;
+666 
+667     \textcolor{keywordflow}{if} (!\hyperlink{rawsock__impl_8h_a0215ee9cb615329e13dfb6b2f28107ff}{VALID\_RX\_RAWSOCK}(rawsock)) \{
+668         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Releasing RX frame; invalid arguments"});
+669         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+670         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+671     \}
+672 
+673     \textcolor{keyword}{volatile} \textcolor{keyword}{struct }tpacket2\_hdr *pHdr = (\textcolor{keyword}{struct }tpacket2\_hdr*)(pBuffer - rawsock->
+      \hyperlink{structring__rawsock__t_ac19f434244a282fa75ce90a0db4052c1}{bufHdrSize});
+674     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a6a12c45e5eafd615acb82399ffff16c7}{AVB\_LOGF\_VERBOSE}(\textcolor{stringliteral}{"ringRawsockRelRxFrame: pBuffer=%p, pHdr=%p"}, pBuffer, pHdr);
+675 
+676     pHdr->tp\_status = TP\_STATUS\_KERNEL;
+677     rawsock->\hyperlink{structring__rawsock__t_aeda5b51f8dc77d9f2012426b2e4d87aa}{buffersOut} -= 1;
+678 
+679     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+680     \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+681 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ring__rawsock_8c_abd23abac1ea9758f29ccf12d2164d436_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{ring\+\_\+rawsock.\+c@{ring\+\_\+rawsock.\+c}!ring\+Rawsock\+Rel\+Tx\+Frame@{ring\+Rawsock\+Rel\+Tx\+Frame}}
+\index{ring\+Rawsock\+Rel\+Tx\+Frame@{ring\+Rawsock\+Rel\+Tx\+Frame}!ring\+\_\+rawsock.\+c@{ring\+\_\+rawsock.\+c}}
+\subsubsection[{\texorpdfstring{ring\+Rawsock\+Rel\+Tx\+Frame(void $\ast$pv\+Rawsock, U8 $\ast$p\+Buffer)}{ringRawsockRelTxFrame(void *pvRawsock, U8 *pBuffer)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} ring\+Rawsock\+Rel\+Tx\+Frame (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{pv\+Rawsock, }
+\item[{{\bf U8} $\ast$}]{p\+Buffer}
+\end{DoxyParamCaption}
+)}\hypertarget{ring__rawsock_8c_aaed75c238770458295d14110310de48f}{}\label{ring__rawsock_8c_aaed75c238770458295d14110310de48f}
+
+
+ring\+\_\+rawsock.\+c 파일의 306 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+307 \{
+308     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+309     \hyperlink{structring__rawsock__t}{ring\_rawsock\_t} *rawsock = (\hyperlink{structring__rawsock__t}{ring\_rawsock\_t}*)pvRawsock;
+310     \textcolor{keywordflow}{if} (!\hyperlink{rawsock__impl_8h_a4b69291961256f36eefc280eb2d3e447}{VALID\_TX\_RAWSOCK}(rawsock) || pBuffer == \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \{
+311         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Releasing TX frame; invalid argument"});
+312         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+313         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+314     \}
+315 
+316     \textcolor{keyword}{volatile} \textcolor{keyword}{struct }tpacket2\_hdr *pHdr = (\textcolor{keyword}{struct }tpacket2\_hdr*)(pBuffer - rawsock->
+      \hyperlink{structring__rawsock__t_ac19f434244a282fa75ce90a0db4052c1}{bufHdrSize});
+317     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a6a12c45e5eafd615acb82399ffff16c7}{AVB\_LOGF\_VERBOSE}(\textcolor{stringliteral}{"pBuffer=%p, pHdr=%p"}, pBuffer, pHdr);
+318 
+319     pHdr->tp\_len = 0;
+320     pHdr->tp\_status = TP\_STATUS\_KERNEL;
+321     rawsock->\hyperlink{structring__rawsock__t_aeda5b51f8dc77d9f2012426b2e4d87aa}{buffersOut} -= 1;
+322 
+323     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+324     \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+325 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ring__rawsock_8c_aaed75c238770458295d14110310de48f_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{ring\+\_\+rawsock.\+c@{ring\+\_\+rawsock.\+c}!ring\+Rawsock\+Rx\+Buf\+Level@{ring\+Rawsock\+Rx\+Buf\+Level}}
+\index{ring\+Rawsock\+Rx\+Buf\+Level@{ring\+Rawsock\+Rx\+Buf\+Level}!ring\+\_\+rawsock.\+c@{ring\+\_\+rawsock.\+c}}
+\subsubsection[{\texorpdfstring{ring\+Rawsock\+Rx\+Buf\+Level(void $\ast$pv\+Rawsock)}{ringRawsockRxBufLevel(void *pvRawsock)}}]{\setlength{\rightskip}{0pt plus 5cm}int ring\+Rawsock\+Rx\+Buf\+Level (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{pv\+Rawsock}
+\end{DoxyParamCaption}
+)}\hypertarget{ring__rawsock_8c_a211cb98a7a620e383899432f640913ee}{}\label{ring__rawsock_8c_a211cb98a7a620e383899432f640913ee}
+
+
+ring\+\_\+rawsock.\+c 파일의 431 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+432 \{
+433     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+434     \hyperlink{structring__rawsock__t}{ring\_rawsock\_t} *rawsock = (\hyperlink{structring__rawsock__t}{ring\_rawsock\_t}*)pvRawsock;
+435 
+436     \textcolor{keywordtype}{int} buffersPerBlock = rawsock->\hyperlink{structring__rawsock__t_a4aaa73e329d20f35039fa5cdd2e6f648}{blockSize} / rawsock->\hyperlink{structring__rawsock__t_a8556d19b129aa550f5b2819ed0320e83}{bufferSize};
+437 
+438     \textcolor{keywordtype}{int} iBlock, iBuffer, nInUse = 0;
+439     \textcolor{keyword}{volatile} \textcolor{keyword}{struct }tpacket2\_hdr *pHdr;
+440 
+441     \textcolor{keywordflow}{if} (!\hyperlink{rawsock__impl_8h_a30175fd5aa7b34a9da233b5a235e6229}{VALID\_RAWSOCK}(rawsock)) \{
+442         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"getting buffer level; invalid arguments"});
+443         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+444         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+445     \}
+446 
+447     \textcolor{keywordflow}{for} (iBlock = 0; iBlock < rawsock->\hyperlink{structring__rawsock__t_a8425bcfbacc94a75383be43e6114947a}{blockCount}; iBlock++) \{
+448         \textcolor{keywordflow}{for} (iBuffer = 0; iBuffer < buffersPerBlock; iBuffer++) \{
+449 
+450             pHdr = (\textcolor{keyword}{struct }tpacket2\_hdr*)(rawsock->\hyperlink{structring__rawsock__t_ac6fe146258c3cdfbead7faecd622c7fb}{pMem}
+451                                           + (iBlock * rawsock->\hyperlink{structring__rawsock__t_a4aaa73e329d20f35039fa5cdd2e6f648}{blockSize})
+452                                           + (iBuffer * rawsock->\hyperlink{structring__rawsock__t_a8556d19b129aa550f5b2819ed0320e83}{bufferSize}));
+453 
+454             \textcolor{keywordflow}{if} (!rawsock->\hyperlink{structring__rawsock__t_a1507c5af4508d59cb0a730a852763e94}{base}.\hyperlink{structbase__rawsock_a15ac92f42c8328bb63a903014e00dda0}{txMode}) \{
+455                 \textcolor{keywordflow}{if} (pHdr->tp\_status & TP\_STATUS\_USER)
+456                     nInUse++;
+457             \}
+458         \}
+459     \}
+460 
+461     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+462     \textcolor{keywordflow}{return} nInUse;
+463 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ring__rawsock_8c_a211cb98a7a620e383899432f640913ee_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{ring\+\_\+rawsock.\+c@{ring\+\_\+rawsock.\+c}!ring\+Rawsock\+Rx\+Parse\+Hdr@{ring\+Rawsock\+Rx\+Parse\+Hdr}}
+\index{ring\+Rawsock\+Rx\+Parse\+Hdr@{ring\+Rawsock\+Rx\+Parse\+Hdr}!ring\+\_\+rawsock.\+c@{ring\+\_\+rawsock.\+c}}
+\subsubsection[{\texorpdfstring{ring\+Rawsock\+Rx\+Parse\+Hdr(void $\ast$pv\+Rawsock, U8 $\ast$p\+Buffer, hdr\+\_\+info\+\_\+t $\ast$p\+Info)}{ringRawsockRxParseHdr(void *pvRawsock, U8 *pBuffer, hdr_info_t *pInfo)}}]{\setlength{\rightskip}{0pt plus 5cm}int ring\+Rawsock\+Rx\+Parse\+Hdr (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{pv\+Rawsock, }
+\item[{{\bf U8} $\ast$}]{p\+Buffer, }
+\item[{{\bf hdr\+\_\+info\+\_\+t} $\ast$}]{p\+Info}
+\end{DoxyParamCaption}
+)}\hypertarget{ring__rawsock_8c_a438edd9929544e28a3c5008a22aae508}{}\label{ring__rawsock_8c_a438edd9929544e28a3c5008a22aae508}
+
+
+ring\+\_\+rawsock.\+c 파일의 625 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+626 \{
+627     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+628     \hyperlink{structring__rawsock__t}{ring\_rawsock\_t} *rawsock = (\hyperlink{structring__rawsock__t}{ring\_rawsock\_t}*)pvRawsock;
+629     \textcolor{keywordtype}{int} hdrLen;
+630     \textcolor{keywordflow}{if} (!\hyperlink{rawsock__impl_8h_a0215ee9cb615329e13dfb6b2f28107ff}{VALID\_RX\_RAWSOCK}(rawsock)) \{
+631         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Parsing Ethernet headers; invalid arguments"});
+632         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+633         \textcolor{keywordflow}{return} -1;
+634     \}
+635 
+636     \textcolor{keyword}{volatile} \textcolor{keyword}{struct }tpacket2\_hdr *pHdr = (\textcolor{keyword}{struct }tpacket2\_hdr*)(pBuffer - rawsock->
+      \hyperlink{structring__rawsock__t_ac19f434244a282fa75ce90a0db4052c1}{bufHdrSize});
+637     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a6a12c45e5eafd615acb82399ffff16c7}{AVB\_LOGF\_VERBOSE}(\textcolor{stringliteral}{"ringRawsockRxParseHdr: pBuffer=%p, pHdr=%p"}, pBuffer, pHdr);
+638 
+639     memset(pInfo, 0, \textcolor{keyword}{sizeof}(\hyperlink{structhdr__info__t}{hdr\_info\_t}));
+640 
+641     \hyperlink{structeth__hdr}{eth\_hdr\_t} *pNoTag = (\hyperlink{structeth__hdr}{eth\_hdr\_t}*)((\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8}*)pHdr + pHdr->tp\_mac);
+642     hdrLen = pHdr->tp\_net - pHdr->tp\_mac;
+643     pInfo->\hyperlink{structhdr__info__t_a603b5aebe0d4619ae32b09cd6612535f}{shost} = pNoTag->shost;
+644     pInfo->\hyperlink{structhdr__info__t_a5a0b8fa2025e75a8db03f7a23cadc04e}{dhost} = pNoTag->dhost;
+645     pInfo->\hyperlink{structhdr__info__t_a54283e441ba9b75fc494232121266e2c}{ethertype} = ntohs(pNoTag->ethertype);
+646     pInfo->\hyperlink{structhdr__info__t_ad7bf7613b53788b73c72e70d5335e7c8}{ts}.tv\_sec = pHdr->tp\_sec;
+647     pInfo->\hyperlink{structhdr__info__t_ad7bf7613b53788b73c72e70d5335e7c8}{ts}.tv\_nsec = pHdr->tp\_nsec;
+648 
+649     \textcolor{keywordflow}{if} (pInfo->\hyperlink{structhdr__info__t_a54283e441ba9b75fc494232121266e2c}{ethertype} == \hyperlink{openavb__avtp_8h_a07fb0f2498c8b8dd62cc44da13bb092a}{ETHERTYPE\_8021Q}) \{
+650         pInfo->\hyperlink{structhdr__info__t_aae65321fd27fc2507a499a3f00660a93}{vlan} = \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+651         pInfo->\hyperlink{structhdr__info__t_aed62b55d4664ac7c198517a01adc4f6b}{vlan\_vid} = pHdr->tp\_vlan\_tci & 0x0FFF;
+652         pInfo->\hyperlink{structhdr__info__t_a394deccdf47e8dd6b4e6329e6fe0f8fc}{vlan\_pcp} = (pHdr->tp\_vlan\_tci >> 13) & 0x0007;
+653         pInfo->\hyperlink{structhdr__info__t_a54283e441ba9b75fc494232121266e2c}{ethertype} = ntohs(*(\hyperlink{openavb__types__base__pub_8h_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16}*)( ((\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8}*)(&pNoTag->ethertype)) + 4));
+654         hdrLen += 4;
+655     \}
+656 
+657     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+658     \textcolor{keywordflow}{return} hdrLen;
+659 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ring__rawsock_8c_a438edd9929544e28a3c5008a22aae508_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{ring\+\_\+rawsock.\+c@{ring\+\_\+rawsock.\+c}!ring\+Rawsock\+Send@{ring\+Rawsock\+Send}}
+\index{ring\+Rawsock\+Send@{ring\+Rawsock\+Send}!ring\+\_\+rawsock.\+c@{ring\+\_\+rawsock.\+c}}
+\subsubsection[{\texorpdfstring{ring\+Rawsock\+Send(void $\ast$pv\+Rawsock)}{ringRawsockSend(void *pvRawsock)}}]{\setlength{\rightskip}{0pt plus 5cm}int ring\+Rawsock\+Send (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{pv\+Rawsock}
+\end{DoxyParamCaption}
+)}\hypertarget{ring__rawsock_8c_a285304be3f0a760da16d66485aa1fd78}{}\label{ring__rawsock_8c_a285304be3f0a760da16d66485aa1fd78}
+
+
+ring\+\_\+rawsock.\+c 파일의 362 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+363 \{
+364     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+365     \hyperlink{structring__rawsock__t}{ring\_rawsock\_t} *rawsock = (\hyperlink{structring__rawsock__t}{ring\_rawsock\_t}*)pvRawsock;
+366     \textcolor{keywordflow}{if} (!\hyperlink{rawsock__impl_8h_a4b69291961256f36eefc280eb2d3e447}{VALID\_TX\_RAWSOCK}(rawsock)) \{
+367         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Send; invalid argument"});
+368         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+369         \textcolor{keywordflow}{return} -1;
+370     \}
+371 
+372     \textcolor{comment}{// Linux does something dumb to wait for frames to be sent.}
+373     \textcolor{comment}{// Without MSG\_DONTWAIT, CPU usage is bad.}
+374     \textcolor{keywordtype}{int} \hyperlink{namespaceavdecc__lib_ab6b306ef981f5e21bb41ea2c2dbe8cd9}{flags} = MSG\_DONTWAIT;
+375     \textcolor{keywordtype}{int} sent = send(rawsock->\hyperlink{structring__rawsock__t_a5903d0b282fc5eae503de618f896b5e1}{sock}, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, 0, flags);
+376     \textcolor{keywordflow}{if} (errno == EINTR) \{
+377         \textcolor{comment}{// ignore}
+378     \}
+379     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (sent < 0) \{
+380         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a7965828e6f132ce789a962b917519e24}{AVB\_LOGF\_ERROR}(\textcolor{stringliteral}{"Send failed: %s"}, strerror(errno));
+381         assert(0);
+382     \}
+383     \textcolor{keywordflow}{else} \{
+384         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a6a12c45e5eafd615acb82399ffff16c7}{AVB\_LOGF\_VERBOSE}(\textcolor{stringliteral}{"Sent %d bytes, %d frames"}, sent, rawsock->
+      \hyperlink{structring__rawsock__t_a06dd59c797f7aa0ca9f888304888f2a0}{buffersReady});
+385         rawsock->\hyperlink{structring__rawsock__t_aeda5b51f8dc77d9f2012426b2e4d87aa}{buffersOut} -= rawsock->\hyperlink{structring__rawsock__t_a06dd59c797f7aa0ca9f888304888f2a0}{buffersReady};
+386         rawsock->\hyperlink{structring__rawsock__t_a06dd59c797f7aa0ca9f888304888f2a0}{buffersReady} = 0;
+387     \}
+388 
+389     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+390     \textcolor{keywordflow}{return} sent;
+391 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ring__rawsock_8c_a285304be3f0a760da16d66485aa1fd78_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{ring\+\_\+rawsock.\+c@{ring\+\_\+rawsock.\+c}!ring\+Rawsock\+Tx\+Buf\+Level@{ring\+Rawsock\+Tx\+Buf\+Level}}
+\index{ring\+Rawsock\+Tx\+Buf\+Level@{ring\+Rawsock\+Tx\+Buf\+Level}!ring\+\_\+rawsock.\+c@{ring\+\_\+rawsock.\+c}}
+\subsubsection[{\texorpdfstring{ring\+Rawsock\+Tx\+Buf\+Level(void $\ast$pv\+Rawsock)}{ringRawsockTxBufLevel(void *pvRawsock)}}]{\setlength{\rightskip}{0pt plus 5cm}int ring\+Rawsock\+Tx\+Buf\+Level (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{pv\+Rawsock}
+\end{DoxyParamCaption}
+)}\hypertarget{ring__rawsock_8c_aaed4624ecab079d7fa8c43d03184e341}{}\label{ring__rawsock_8c_aaed4624ecab079d7fa8c43d03184e341}
+
+
+ring\+\_\+rawsock.\+c 파일의 394 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+395 \{
+396     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+397     \hyperlink{structring__rawsock__t}{ring\_rawsock\_t} *rawsock = (\hyperlink{structring__rawsock__t}{ring\_rawsock\_t}*)pvRawsock;
+398 
+399     \textcolor{keywordtype}{int} buffersPerBlock = rawsock->\hyperlink{structring__rawsock__t_a4aaa73e329d20f35039fa5cdd2e6f648}{blockSize} / rawsock->\hyperlink{structring__rawsock__t_a8556d19b129aa550f5b2819ed0320e83}{bufferSize};
+400 
+401     \textcolor{keywordtype}{int} iBlock, iBuffer, nInUse = 0;
+402     \textcolor{keyword}{volatile} \textcolor{keyword}{struct }tpacket2\_hdr *pHdr;
+403 
+404     \textcolor{keywordflow}{if} (!\hyperlink{rawsock__impl_8h_a30175fd5aa7b34a9da233b5a235e6229}{VALID\_RAWSOCK}(rawsock)) \{
+405         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"getting buffer level; invalid arguments"});
+406         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+407         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+408     \}
+409 
+410     \textcolor{keywordflow}{for} (iBlock = 0; iBlock < rawsock->\hyperlink{structring__rawsock__t_a8425bcfbacc94a75383be43e6114947a}{blockCount}; iBlock++) \{
+411         \textcolor{keywordflow}{for} (iBuffer = 0; iBuffer < buffersPerBlock; iBuffer++) \{
+412 
+413             pHdr = (\textcolor{keyword}{struct }tpacket2\_hdr*)(rawsock->\hyperlink{structring__rawsock__t_ac6fe146258c3cdfbead7faecd622c7fb}{pMem}
+414                                           + (iBlock * rawsock->\hyperlink{structring__rawsock__t_a4aaa73e329d20f35039fa5cdd2e6f648}{blockSize})
+415                                           + (iBuffer * rawsock->\hyperlink{structring__rawsock__t_a8556d19b129aa550f5b2819ed0320e83}{bufferSize}));
+416 
+417             \textcolor{keywordflow}{if} (rawsock->\hyperlink{structring__rawsock__t_a1507c5af4508d59cb0a730a852763e94}{base}.\hyperlink{structbase__rawsock_a15ac92f42c8328bb63a903014e00dda0}{txMode}) \{
+418                 \textcolor{keywordflow}{if} (pHdr->tp\_status == TP\_STATUS\_SEND\_REQUEST
+419                     || pHdr->tp\_status == TP\_STATUS\_SENDING)
+420                     nInUse++;
+421             \}
+422         \}
+423     \}
+424 
+425     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+426     \textcolor{keywordflow}{return} nInUse;
+427 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ring__rawsock_8c_aaed4624ecab079d7fa8c43d03184e341_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{ring\+\_\+rawsock.\+c@{ring\+\_\+rawsock.\+c}!ring\+Rawsock\+Tx\+Frame\+Ready@{ring\+Rawsock\+Tx\+Frame\+Ready}}
+\index{ring\+Rawsock\+Tx\+Frame\+Ready@{ring\+Rawsock\+Tx\+Frame\+Ready}!ring\+\_\+rawsock.\+c@{ring\+\_\+rawsock.\+c}}
+\subsubsection[{\texorpdfstring{ring\+Rawsock\+Tx\+Frame\+Ready(void $\ast$pv\+Rawsock, U8 $\ast$p\+Buffer, unsigned int len, U64 time\+Nsec)}{ringRawsockTxFrameReady(void *pvRawsock, U8 *pBuffer, unsigned int len, U64 timeNsec)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} ring\+Rawsock\+Tx\+Frame\+Ready (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{pv\+Rawsock, }
+\item[{{\bf U8} $\ast$}]{p\+Buffer, }
+\item[{unsigned int}]{len, }
+\item[{{\bf U64}}]{time\+Nsec}
+\end{DoxyParamCaption}
+)}\hypertarget{ring__rawsock_8c_a7ce6e8e2283cc523351360ed4fb404f3}{}\label{ring__rawsock_8c_a7ce6e8e2283cc523351360ed4fb404f3}
+
+
+ring\+\_\+rawsock.\+c 파일의 328 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+329 \{
+330     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_ab2bfc814f0447a6d975e8332be197b85}{AVB\_TRACE\_ENTRY}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+331     \hyperlink{structring__rawsock__t}{ring\_rawsock\_t} *rawsock = (\hyperlink{structring__rawsock__t}{ring\_rawsock\_t}*)pvRawsock;
+332 
+333     \textcolor{keywordflow}{if} (!\hyperlink{rawsock__impl_8h_a4b69291961256f36eefc280eb2d3e447}{VALID\_TX\_RAWSOCK}(rawsock)) \{
+334         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_ac8495212c30dbf627b5ae3a9f01f4e2a}{AVB\_LOG\_ERROR}(\textcolor{stringliteral}{"Marking TX frame ready; invalid argument"});
+335         \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+336         \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+337     \}
+338 
+339     \textcolor{keywordflow}{if} (timeNsec) \{
+340         \hyperlink{maap__log_8h_ae9decd5440c360a6d0ab5175c9cf08be}{IF\_LOG\_INTERVAL}(1000) \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a6e7cd550837a0406e98b81a840d10ea9}{AVB\_LOG\_WARNING}("launch time is unsupported 
+      \hyperlink{jack_8c_afc03a33132f7c0bcacbeeeaf5b8510c0}{in} ring\_rawsock");
+341     \}
+342 
+343 
+344     volatile struct tpacket2\_hdr *pHdr = (struct tpacket2\_hdr*)(pBuffer - rawsock->bufHdrSize);
+345     \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a6a12c45e5eafd615acb82399ffff16c7}{AVB\_LOGF\_VERBOSE}("pBuffer=%p, pHdr=%p szFrame=%d, len=%d", pBuffer, pHdr, rawsock->base
+      .frameSize, len);
+346 
+347     assert(len <= rawsock->bufferSize);
+348     pHdr->tp\_len = len;
+349     pHdr->tp\_status = TP\_STATUS\_SEND\_REQUEST;
+350     rawsock->buffersReady += 1;
+351 
+352     if (rawsock->buffersReady >= rawsock->frameCount) \{
+353         \hyperlink{build_2sdk__eavb_2openavb__log__pub_8h_a6e7cd550837a0406e98b81a840d10ea9}{AVB\_LOG\_WARNING}(\textcolor{stringliteral}{"All buffers in ready/unsent state, calling send"});
+354         \hyperlink{ring__rawsock_8c_a285304be3f0a760da16d66485aa1fd78}{ringRawsockSend}(pvRawsock);
+355     \}
+356 
+357     \hyperlink{build_2sdk__eavb_2openavb__trace__pub_8h_a0906ddd9e84cc650a76634fe8ff766d7}{AVB\_TRACE\_EXIT}(\hyperlink{openavb__trace_8h_afc31946eef39d8853f580f865dc0d09b}{AVB\_TRACE\_RAWSOCK\_DETAIL});
+358     \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+359 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ring__rawsock_8c_a7ce6e8e2283cc523351360ed4fb404f3_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ring__rawsock_8c_a7ce6e8e2283cc523351360ed4fb404f3_icgraph}
+\end{center}
+\end{figure}
+
+

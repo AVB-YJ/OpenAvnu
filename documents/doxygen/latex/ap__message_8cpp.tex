@@ -1,0 +1,141 @@
+\hypertarget{ap__message_8cpp}{}\section{daemons/gptp/common/ap\+\_\+message.cpp 파일 참조}
+\label{ap__message_8cpp}\index{daemons/gptp/common/ap\+\_\+message.\+cpp@{daemons/gptp/common/ap\+\_\+message.\+cpp}}
+{\ttfamily \#include $<$ieee1588.\+hpp$>$}\\*
+{\ttfamily \#include $<$avbts\+\_\+clock.\+hpp$>$}\\*
+{\ttfamily \#include $<$avbap\+\_\+message.\+hpp$>$}\\*
+{\ttfamily \#include $<$ether\+\_\+port.\+hpp$>$}\\*
+{\ttfamily \#include $<$avbts\+\_\+ostimer.\+hpp$>$}\\*
+{\ttfamily \#include $<$gptp\+\_\+log.\+hpp$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$math.\+h$>$}\\*
+ap\+\_\+message.\+cpp에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ap__message_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{ap__message_8cpp_a84ff71482380e24df395988abd6c768f}{O\+C\+T\+\_\+\+D2\+B\+M\+E\+M\+CP}(d,  s)~memcpy(d, s, sizeof(s)); d += sizeof(s);
+\item 
+\#define \hyperlink{ap__message_8cpp_a80428db14406c9ea6e9a616e8954012c}{O\+C\+T\+\_\+\+D2\+B\+B\+U\+F\+CP}(d,  s,  len)~memcpy(d, s, len); d += len;
+\item 
+\#define \hyperlink{ap__message_8cpp_a61cc0b8227aa123a21a35310841dbf43}{O\+C\+T\+\_\+\+D2\+B\+H\+T\+O\+NB}(d,  s)~$\ast$(\hyperlink{openavb__types__base__pub_8h_aa63ef7b996d5487ce35a5a66601f3e73}{U8} $\ast$)(d) = s; d += sizeof(s);
+\item 
+\#define \hyperlink{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{O\+C\+T\+\_\+\+D2\+B\+H\+T\+O\+NS}(d,  s)~$\ast$(\hyperlink{openavb__types__base__pub_8h_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16} $\ast$)(d) = \hyperlink{windows_2daemon__cl_2platform_8hpp_aa89fc0aa7465274c200da69771d2a043}{P\+L\+A\+T\+\_\+htons}(s); d += sizeof(s);
+\item 
+\#define \hyperlink{ap__message_8cpp_a600b0c76545a0d0a35a5027518bd797d}{O\+C\+T\+\_\+\+D2\+B\+H\+T\+O\+NL}(d,  s)~$\ast$(\hyperlink{openavb__types__base__pub_8h_a696390429f2f3b644bde8d0322a24124}{U32} $\ast$)(d) = \hyperlink{windows_2daemon__cl_2platform_8hpp_a8bf9e45ac3e41441f0e139139241c19d}{P\+L\+A\+T\+\_\+htonl}(s); d += sizeof(s);
+\item 
+\#define \hyperlink{ap__message_8cpp_a96729df4f440a649d696b081c6dfac8b}{B\+I\+T\+\_\+\+D2\+B\+H\+T\+O\+NB}(d,  s,  shf)~$\ast$(\hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\+\_\+t} $\ast$)(d) $\vert$= s $<$$<$ shf;
+\item 
+\#define \hyperlink{ap__message_8cpp_a320aa3b496f6b0356f37f1f09edb0734}{B\+I\+T\+\_\+\+D2\+B\+H\+T\+O\+NS}(d,  s,  shf)~$\ast$(uint16\+\_\+t $\ast$)(d) $\vert$= \hyperlink{windows_2daemon__cl_2platform_8hpp_aa89fc0aa7465274c200da69771d2a043}{P\+L\+A\+T\+\_\+htons}((uint16\+\_\+t)(s $<$$<$ shf));
+\item 
+\#define \hyperlink{ap__message_8cpp_a3fed3f8ff23d3d253c2339e588c278b9}{B\+I\+T\+\_\+\+D2\+B\+H\+T\+O\+NL}(d,  s,  shf)~$\ast$(\hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\+\_\+t} $\ast$)(d) $\vert$= \hyperlink{windows_2daemon__cl_2platform_8hpp_a8bf9e45ac3e41441f0e139139241c19d}{P\+L\+A\+T\+\_\+htonl}((\hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\+\_\+t})(s $<$$<$ shf));
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{ap\+\_\+message.\+cpp@{ap\+\_\+message.\+cpp}!B\+I\+T\+\_\+\+D2\+B\+H\+T\+O\+NB@{B\+I\+T\+\_\+\+D2\+B\+H\+T\+O\+NB}}
+\index{B\+I\+T\+\_\+\+D2\+B\+H\+T\+O\+NB@{B\+I\+T\+\_\+\+D2\+B\+H\+T\+O\+NB}!ap\+\_\+message.\+cpp@{ap\+\_\+message.\+cpp}}
+\subsubsection[{\texorpdfstring{B\+I\+T\+\_\+\+D2\+B\+H\+T\+O\+NB}{BIT_D2BHTONB}}]{\setlength{\rightskip}{0pt plus 5cm}\#define B\+I\+T\+\_\+\+D2\+B\+H\+T\+O\+NB(
+\begin{DoxyParamCaption}
+\item[{}]{d, }
+\item[{}]{s, }
+\item[{}]{shf}
+\end{DoxyParamCaption}
+)~$\ast$({\bf uint8\+\_\+t} $\ast$)(d) $\vert$= s $<$$<$ shf;}\hypertarget{ap__message_8cpp_a96729df4f440a649d696b081c6dfac8b}{}\label{ap__message_8cpp_a96729df4f440a649d696b081c6dfac8b}
+
+
+ap\+\_\+message.\+cpp 파일의 45 번째 라인에서 정의되었습니다.
+
+\index{ap\+\_\+message.\+cpp@{ap\+\_\+message.\+cpp}!B\+I\+T\+\_\+\+D2\+B\+H\+T\+O\+NL@{B\+I\+T\+\_\+\+D2\+B\+H\+T\+O\+NL}}
+\index{B\+I\+T\+\_\+\+D2\+B\+H\+T\+O\+NL@{B\+I\+T\+\_\+\+D2\+B\+H\+T\+O\+NL}!ap\+\_\+message.\+cpp@{ap\+\_\+message.\+cpp}}
+\subsubsection[{\texorpdfstring{B\+I\+T\+\_\+\+D2\+B\+H\+T\+O\+NL}{BIT_D2BHTONL}}]{\setlength{\rightskip}{0pt plus 5cm}\#define B\+I\+T\+\_\+\+D2\+B\+H\+T\+O\+NL(
+\begin{DoxyParamCaption}
+\item[{}]{d, }
+\item[{}]{s, }
+\item[{}]{shf}
+\end{DoxyParamCaption}
+)~$\ast$({\bf uint32\+\_\+t} $\ast$)(d) $\vert$= {\bf P\+L\+A\+T\+\_\+htonl}(({\bf uint32\+\_\+t})(s $<$$<$ shf));}\hypertarget{ap__message_8cpp_a3fed3f8ff23d3d253c2339e588c278b9}{}\label{ap__message_8cpp_a3fed3f8ff23d3d253c2339e588c278b9}
+
+
+ap\+\_\+message.\+cpp 파일의 47 번째 라인에서 정의되었습니다.
+
+\index{ap\+\_\+message.\+cpp@{ap\+\_\+message.\+cpp}!B\+I\+T\+\_\+\+D2\+B\+H\+T\+O\+NS@{B\+I\+T\+\_\+\+D2\+B\+H\+T\+O\+NS}}
+\index{B\+I\+T\+\_\+\+D2\+B\+H\+T\+O\+NS@{B\+I\+T\+\_\+\+D2\+B\+H\+T\+O\+NS}!ap\+\_\+message.\+cpp@{ap\+\_\+message.\+cpp}}
+\subsubsection[{\texorpdfstring{B\+I\+T\+\_\+\+D2\+B\+H\+T\+O\+NS}{BIT_D2BHTONS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define B\+I\+T\+\_\+\+D2\+B\+H\+T\+O\+NS(
+\begin{DoxyParamCaption}
+\item[{}]{d, }
+\item[{}]{s, }
+\item[{}]{shf}
+\end{DoxyParamCaption}
+)~$\ast$(uint16\+\_\+t $\ast$)(d) $\vert$= {\bf P\+L\+A\+T\+\_\+htons}((uint16\+\_\+t)(s $<$$<$ shf));}\hypertarget{ap__message_8cpp_a320aa3b496f6b0356f37f1f09edb0734}{}\label{ap__message_8cpp_a320aa3b496f6b0356f37f1f09edb0734}
+
+
+ap\+\_\+message.\+cpp 파일의 46 번째 라인에서 정의되었습니다.
+
+\index{ap\+\_\+message.\+cpp@{ap\+\_\+message.\+cpp}!O\+C\+T\+\_\+\+D2\+B\+B\+U\+F\+CP@{O\+C\+T\+\_\+\+D2\+B\+B\+U\+F\+CP}}
+\index{O\+C\+T\+\_\+\+D2\+B\+B\+U\+F\+CP@{O\+C\+T\+\_\+\+D2\+B\+B\+U\+F\+CP}!ap\+\_\+message.\+cpp@{ap\+\_\+message.\+cpp}}
+\subsubsection[{\texorpdfstring{O\+C\+T\+\_\+\+D2\+B\+B\+U\+F\+CP}{OCT_D2BBUFCP}}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+C\+T\+\_\+\+D2\+B\+B\+U\+F\+CP(
+\begin{DoxyParamCaption}
+\item[{}]{d, }
+\item[{}]{s, }
+\item[{}]{len}
+\end{DoxyParamCaption}
+)~memcpy(d, s, len); d += len;}\hypertarget{ap__message_8cpp_a80428db14406c9ea6e9a616e8954012c}{}\label{ap__message_8cpp_a80428db14406c9ea6e9a616e8954012c}
+
+
+ap\+\_\+message.\+cpp 파일의 39 번째 라인에서 정의되었습니다.
+
+\index{ap\+\_\+message.\+cpp@{ap\+\_\+message.\+cpp}!O\+C\+T\+\_\+\+D2\+B\+H\+T\+O\+NB@{O\+C\+T\+\_\+\+D2\+B\+H\+T\+O\+NB}}
+\index{O\+C\+T\+\_\+\+D2\+B\+H\+T\+O\+NB@{O\+C\+T\+\_\+\+D2\+B\+H\+T\+O\+NB}!ap\+\_\+message.\+cpp@{ap\+\_\+message.\+cpp}}
+\subsubsection[{\texorpdfstring{O\+C\+T\+\_\+\+D2\+B\+H\+T\+O\+NB}{OCT_D2BHTONB}}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+C\+T\+\_\+\+D2\+B\+H\+T\+O\+NB(
+\begin{DoxyParamCaption}
+\item[{}]{d, }
+\item[{}]{s}
+\end{DoxyParamCaption}
+)~$\ast$({\bf U8} $\ast$)(d) = s; d += sizeof(s);}\hypertarget{ap__message_8cpp_a61cc0b8227aa123a21a35310841dbf43}{}\label{ap__message_8cpp_a61cc0b8227aa123a21a35310841dbf43}
+
+
+ap\+\_\+message.\+cpp 파일의 40 번째 라인에서 정의되었습니다.
+
+\index{ap\+\_\+message.\+cpp@{ap\+\_\+message.\+cpp}!O\+C\+T\+\_\+\+D2\+B\+H\+T\+O\+NL@{O\+C\+T\+\_\+\+D2\+B\+H\+T\+O\+NL}}
+\index{O\+C\+T\+\_\+\+D2\+B\+H\+T\+O\+NL@{O\+C\+T\+\_\+\+D2\+B\+H\+T\+O\+NL}!ap\+\_\+message.\+cpp@{ap\+\_\+message.\+cpp}}
+\subsubsection[{\texorpdfstring{O\+C\+T\+\_\+\+D2\+B\+H\+T\+O\+NL}{OCT_D2BHTONL}}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+C\+T\+\_\+\+D2\+B\+H\+T\+O\+NL(
+\begin{DoxyParamCaption}
+\item[{}]{d, }
+\item[{}]{s}
+\end{DoxyParamCaption}
+)~$\ast$({\bf U32} $\ast$)(d) = {\bf P\+L\+A\+T\+\_\+htonl}(s); d += sizeof(s);}\hypertarget{ap__message_8cpp_a600b0c76545a0d0a35a5027518bd797d}{}\label{ap__message_8cpp_a600b0c76545a0d0a35a5027518bd797d}
+
+
+ap\+\_\+message.\+cpp 파일의 42 번째 라인에서 정의되었습니다.
+
+\index{ap\+\_\+message.\+cpp@{ap\+\_\+message.\+cpp}!O\+C\+T\+\_\+\+D2\+B\+H\+T\+O\+NS@{O\+C\+T\+\_\+\+D2\+B\+H\+T\+O\+NS}}
+\index{O\+C\+T\+\_\+\+D2\+B\+H\+T\+O\+NS@{O\+C\+T\+\_\+\+D2\+B\+H\+T\+O\+NS}!ap\+\_\+message.\+cpp@{ap\+\_\+message.\+cpp}}
+\subsubsection[{\texorpdfstring{O\+C\+T\+\_\+\+D2\+B\+H\+T\+O\+NS}{OCT_D2BHTONS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+C\+T\+\_\+\+D2\+B\+H\+T\+O\+NS(
+\begin{DoxyParamCaption}
+\item[{}]{d, }
+\item[{}]{s}
+\end{DoxyParamCaption}
+)~$\ast$({\bf U16} $\ast$)(d) = {\bf P\+L\+A\+T\+\_\+htons}(s); d += sizeof(s);}\hypertarget{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}{}\label{ap__message_8cpp_ae02a8d8c7f9337b9cfb9e6a361f7e5f2}
+
+
+ap\+\_\+message.\+cpp 파일의 41 번째 라인에서 정의되었습니다.
+
+\index{ap\+\_\+message.\+cpp@{ap\+\_\+message.\+cpp}!O\+C\+T\+\_\+\+D2\+B\+M\+E\+M\+CP@{O\+C\+T\+\_\+\+D2\+B\+M\+E\+M\+CP}}
+\index{O\+C\+T\+\_\+\+D2\+B\+M\+E\+M\+CP@{O\+C\+T\+\_\+\+D2\+B\+M\+E\+M\+CP}!ap\+\_\+message.\+cpp@{ap\+\_\+message.\+cpp}}
+\subsubsection[{\texorpdfstring{O\+C\+T\+\_\+\+D2\+B\+M\+E\+M\+CP}{OCT_D2BMEMCP}}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+C\+T\+\_\+\+D2\+B\+M\+E\+M\+CP(
+\begin{DoxyParamCaption}
+\item[{}]{d, }
+\item[{}]{s}
+\end{DoxyParamCaption}
+)~memcpy(d, s, sizeof(s)); d += sizeof(s);}\hypertarget{ap__message_8cpp_a84ff71482380e24df395988abd6c768f}{}\label{ap__message_8cpp_a84ff71482380e24df395988abd6c768f}
+
+
+ap\+\_\+message.\+cpp 파일의 38 번째 라인에서 정의되었습니다.
+

@@ -1,0 +1,980 @@
+\hypertarget{group__maap}{}\section{M\+A\+AP -\/ Multicast Address Allocation Protocol}
+\label{group__maap}\index{M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}}
+M\+A\+AP -\/ Multicast Address Allocation Protocol에 대한 협력 다이어그램\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=317pt]{group__maap}
+\end{center}
+\end{figure}
+\subsection*{모듈}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{group__maap__print}{M\+A\+A\+P Print}
+\end{DoxyCompactItemize}
+\subsection*{데이타 구조}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structjdksavdecc__maap__common__control__header}{jdksavdecc\+\_\+maap\+\_\+common\+\_\+control\+\_\+header}
+\item 
+struct \hyperlink{structjdksavdecc__maap}{jdksavdecc\+\_\+maap}
+\end{DoxyCompactItemize}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{group__maap_ga556ac5c61c338764ed5e750395f0dd41}{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+P\+R\+O\+B\+E\+\_\+\+R\+E\+T\+R\+A\+N\+S\+M\+I\+TS}~( 3 )
+\item 
+\#define \hyperlink{group__maap_gad8ec6d4ac9740a07a7a5f65a4559df76}{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+P\+R\+O\+B\+E\+\_\+\+I\+N\+T\+E\+R\+V\+A\+L\+\_\+\+B\+A\+SE}~( (\hyperlink{group__util_gaca5142930a1fb7fba0d88a9c2d16a848}{jdksavdecc\+\_\+timestamp\+\_\+in\+\_\+microseconds})500000\+L )
+\item 
+\#define \hyperlink{group__maap_gae7cc533158607050fa170564541658ab}{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+P\+R\+O\+B\+E\+\_\+\+I\+N\+T\+E\+R\+V\+A\+L\+\_\+\+V\+A\+R\+I\+A\+T\+I\+ON}~( (\hyperlink{group__util_gaca5142930a1fb7fba0d88a9c2d16a848}{jdksavdecc\+\_\+timestamp\+\_\+in\+\_\+microseconds})100000\+L )
+\item 
+\#define \hyperlink{group__maap_gaed2e694a9d3873dc0c045c3d3996960b}{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+A\+N\+N\+O\+U\+N\+C\+E\+\_\+\+I\+N\+T\+E\+R\+V\+A\+L\+\_\+\+B\+A\+SE}~( (\hyperlink{group__util_gaca5142930a1fb7fba0d88a9c2d16a848}{jdksavdecc\+\_\+timestamp\+\_\+in\+\_\+microseconds})30000000\+L )
+\item 
+\#define \hyperlink{group__maap_ga48b3f8f27e97b81997b46a4544573728}{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+A\+N\+N\+O\+U\+N\+C\+E\+\_\+\+I\+N\+T\+E\+R\+V\+A\+L\+\_\+\+V\+A\+R\+I\+A\+T\+I\+ON}~( (\hyperlink{group__util_gaca5142930a1fb7fba0d88a9c2d16a848}{jdksavdecc\+\_\+timestamp\+\_\+in\+\_\+microseconds})2000000\+L )
+\item 
+\#define \hyperlink{group__maap_ga017f97144722763ab58c54a785161bca}{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+D\+Y\+N\+A\+M\+I\+C\+\_\+\+A\+L\+L\+O\+C\+A\+T\+I\+O\+N\+\_\+\+P\+O\+O\+L\+\_\+\+S\+T\+A\+RT}
+\item 
+\#define \hyperlink{group__maap_gadbac602ad778e595bffe6148884e4715}{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+D\+Y\+N\+A\+M\+I\+C\+\_\+\+A\+L\+L\+O\+C\+A\+T\+I\+O\+N\+\_\+\+P\+O\+O\+L\+\_\+\+E\+ND}
+\item 
+\#define \hyperlink{group__maap_ga36960965a02d8ab57b5339528373a5f8}{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+L\+O\+C\+A\+L\+\_\+\+A\+L\+L\+O\+C\+A\+T\+I\+O\+N\+\_\+\+P\+O\+O\+L\+\_\+\+S\+T\+A\+RT}
+\item 
+\#define \hyperlink{group__maap_ga5a78755bb5eaba85874f87f29f33aee0}{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+L\+O\+C\+A\+L\+\_\+\+A\+L\+L\+O\+C\+A\+T\+I\+O\+N\+\_\+\+P\+O\+O\+L\+\_\+\+E\+ND}
+\item 
+\#define \hyperlink{group__maap_gaa7812d0cb8624ea9c07cb6e714bb7e88}{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+P\+R\+O\+BE}~( 1 )
+\item 
+\#define \hyperlink{group__maap_ga9b414558b129efd4b0edfd1cea17bfea}{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+D\+E\+F\+E\+ND}~( 2 )
+\item 
+\#define \hyperlink{group__maap_ga45548bfca1b80deda951d25ffb75dc18}{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+A\+N\+N\+O\+U\+N\+CE}~( 3 )
+\item 
+\#define \hyperlink{group__maap_gaa6e1c9777b7d55a49990310c82c2e01b}{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+E\+D\+\_\+\+S\+T\+A\+R\+T\+\_\+\+A\+D\+D\+R\+E\+SS}~( \hyperlink{group__jdksavdecc__avtp__common__control__header_gaae84052886fb1bb42f3bc5f85b741dff}{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+C\+O\+M\+M\+O\+N\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+L\+EN} + 0 )
+\item 
+\#define \hyperlink{group__maap_ga2ae31eb4ee8d271ba09c3ddfac65c0ce}{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+E\+D\+\_\+\+C\+O\+U\+NT}~( \hyperlink{group__jdksavdecc__avtp__common__control__header_gaae84052886fb1bb42f3bc5f85b741dff}{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+C\+O\+M\+M\+O\+N\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+L\+EN} + 6 )
+\item 
+\#define \hyperlink{group__maap_ga80c82c02aa0e3ca6b1430b5d9a43811a}{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+C\+O\+N\+F\+L\+I\+C\+T\+\_\+\+S\+T\+A\+R\+T\+\_\+\+A\+D\+D\+R\+E\+SS}~( \hyperlink{group__jdksavdecc__avtp__common__control__header_gaae84052886fb1bb42f3bc5f85b741dff}{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+C\+O\+M\+M\+O\+N\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+L\+EN} + 8 )
+\item 
+\#define \hyperlink{group__maap_gaccacf622b27f9b634ddcf04f09ee2e91}{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+C\+O\+N\+F\+L\+I\+C\+T\+\_\+\+C\+O\+U\+NT}~( \hyperlink{group__jdksavdecc__avtp__common__control__header_gaae84052886fb1bb42f3bc5f85b741dff}{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+C\+O\+M\+M\+O\+N\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+L\+EN} + 14 )
+\item 
+\#define \hyperlink{group__maap_ga554b0e25c8ea77e28e7720dd4662758b}{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+L\+EN}~( \hyperlink{group__jdksavdecc__avtp__common__control__header_gaae84052886fb1bb42f3bc5f85b741dff}{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+C\+O\+M\+M\+O\+N\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+L\+EN} + 16 )
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+static ssize\+\_\+t \hyperlink{group__maap_ga8996877577f51c77eea7402da4d29a66}{jdksavdecc\+\_\+maap\+\_\+common\+\_\+control\+\_\+header\+\_\+read} (struct \hyperlink{structjdksavdecc__maap__common__control__header}{jdksavdecc\+\_\+maap\+\_\+common\+\_\+control\+\_\+header} $\ast$p, void const $\ast$base, ssize\+\_\+t pos, size\+\_\+t len)
+\item 
+static ssize\+\_\+t \hyperlink{group__maap_gab7754abbc6810e8f62fcaf117dd7de5d}{jdksavdecc\+\_\+maap\+\_\+common\+\_\+control\+\_\+header\+\_\+write} (struct \hyperlink{structjdksavdecc__maap__common__control__header}{jdksavdecc\+\_\+maap\+\_\+common\+\_\+control\+\_\+header} const $\ast$p, void $\ast$base, ssize\+\_\+t pos, size\+\_\+t len)
+\item 
+static struct \hyperlink{structjdksavdecc__eui48}{jdksavdecc\+\_\+eui48} \hyperlink{group__maap_gaae4ba6d9f12fa49106ae74c0148dc33d}{jdksavdecc\+\_\+maap\+\_\+get\+\_\+requested\+\_\+start\+\_\+address} (void const $\ast$base, ssize\+\_\+t pos)
+\item 
+static void \hyperlink{group__maap_ga3b8b59a0014a0e87cc1af82123bfdf1e}{jdksavdecc\+\_\+maap\+\_\+set\+\_\+requested\+\_\+start\+\_\+address} (struct \hyperlink{structjdksavdecc__eui48}{jdksavdecc\+\_\+eui48} v, void $\ast$base, ssize\+\_\+t pos)
+\item 
+static uint16\+\_\+t \hyperlink{group__maap_ga5fe709a6899411d9c88706a26b7afc2e}{jdksavdecc\+\_\+maap\+\_\+get\+\_\+requested\+\_\+count} (void const $\ast$base, ssize\+\_\+t pos)
+\item 
+static void \hyperlink{group__maap_ga852cae235a6f5f817c069d2e187da081}{jdksavdecc\+\_\+maap\+\_\+set\+\_\+requested\+\_\+count} (uint16\+\_\+t v, void $\ast$base, ssize\+\_\+t pos)
+\item 
+static struct \hyperlink{structjdksavdecc__eui48}{jdksavdecc\+\_\+eui48} \hyperlink{group__maap_gad3974960a03d497ccfa9f8e966480aa7}{jdksavdecc\+\_\+maap\+\_\+get\+\_\+conflict\+\_\+start\+\_\+address} (void const $\ast$base, ssize\+\_\+t pos)
+\item 
+static void \hyperlink{group__maap_gab2464cd4c7723dc065be692feca2f85b}{jdksavdecc\+\_\+maap\+\_\+set\+\_\+conflict\+\_\+start\+\_\+address} (struct \hyperlink{structjdksavdecc__eui48}{jdksavdecc\+\_\+eui48} v, void $\ast$base, ssize\+\_\+t pos)
+\item 
+static uint16\+\_\+t \hyperlink{group__maap_ga5ee187eaa19bfb46348ecb21ed2445a6}{jdksavdecc\+\_\+maap\+\_\+get\+\_\+conflict\+\_\+count} (void const $\ast$base, ssize\+\_\+t pos)
+\item 
+static void \hyperlink{group__maap_gac0e57e547d918d3576e7b9ed184e6ece}{jdksavdecc\+\_\+maap\+\_\+set\+\_\+conflict\+\_\+count} (uint16\+\_\+t v, void $\ast$base, ssize\+\_\+t pos)
+\item 
+static ssize\+\_\+t \hyperlink{group__maap_ga6d3101b71cf397abb634bf28e78f1522}{jdksavdecc\+\_\+maap\+\_\+read} (struct \hyperlink{structjdksavdecc__maap}{jdksavdecc\+\_\+maap} $\ast$p, void const $\ast$base, ssize\+\_\+t pos, size\+\_\+t len)
+\item 
+static ssize\+\_\+t \hyperlink{group__maap_ga53b823e33af6d26d36a3e91be92e7c91}{jdksavdecc\+\_\+maap\+\_\+write} (struct \hyperlink{structjdksavdecc__maap}{jdksavdecc\+\_\+maap} const $\ast$p, void $\ast$base, size\+\_\+t pos, size\+\_\+t len)
+\end{DoxyCompactItemize}
+\subsection*{변수}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structjdksavdecc__eui48}{jdksavdecc\+\_\+eui48} \hyperlink{group__maap_ga0b0791ba795b6f2f27b392ec448d5b1f}{jdksavdecc\+\_\+maap\+\_\+dynamic\+\_\+allocation\+\_\+pool\+\_\+start}
+\item 
+struct \hyperlink{structjdksavdecc__eui48}{jdksavdecc\+\_\+eui48} \hyperlink{group__maap_ga0233a9c2fef3818db040ab70e050d2d8}{jdksavdecc\+\_\+maap\+\_\+dynamic\+\_\+allocation\+\_\+pool\+\_\+end}
+\item 
+struct \hyperlink{structjdksavdecc__eui48}{jdksavdecc\+\_\+eui48} \hyperlink{group__maap_gad50c2a9baf15dd4433e9c95ed696943d}{jdksavdecc\+\_\+maap\+\_\+local\+\_\+allocation\+\_\+pool\+\_\+start}
+\item 
+struct \hyperlink{structjdksavdecc__eui48}{jdksavdecc\+\_\+eui48} \hyperlink{group__maap_ga613f18192fb8974b3bb889465dfa55f4}{jdksavdecc\+\_\+maap\+\_\+local\+\_\+allocation\+\_\+pool\+\_\+end}
+\end{DoxyCompactItemize}
+
+
+\subsection{상세한 설명}
+See I\+E\+EE Std 1722-\/2011 Annex B.\+2 
+
+\subsection{매크로 문서화}
+\index{M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}!J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+A\+N\+N\+O\+U\+N\+CE@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+A\+N\+N\+O\+U\+N\+CE}}
+\index{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+A\+N\+N\+O\+U\+N\+CE@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+A\+N\+N\+O\+U\+N\+CE}!M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}}
+\subsubsection[{\texorpdfstring{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+A\+N\+N\+O\+U\+N\+CE}{JDKSAVDECC_MAAP_ANNOUNCE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+A\+N\+N\+O\+U\+N\+CE~( 3 )}\hypertarget{group__maap_ga45548bfca1b80deda951d25ffb75dc18}{}\label{group__maap_ga45548bfca1b80deda951d25ffb75dc18}
+
+
+jdksavdecc\+\_\+maap.\+h 파일의 136 번째 라인에서 정의되었습니다.
+
+\index{M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}!J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+A\+N\+N\+O\+U\+N\+C\+E\+\_\+\+I\+N\+T\+E\+R\+V\+A\+L\+\_\+\+B\+A\+SE@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+A\+N\+N\+O\+U\+N\+C\+E\+\_\+\+I\+N\+T\+E\+R\+V\+A\+L\+\_\+\+B\+A\+SE}}
+\index{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+A\+N\+N\+O\+U\+N\+C\+E\+\_\+\+I\+N\+T\+E\+R\+V\+A\+L\+\_\+\+B\+A\+SE@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+A\+N\+N\+O\+U\+N\+C\+E\+\_\+\+I\+N\+T\+E\+R\+V\+A\+L\+\_\+\+B\+A\+SE}!M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}}
+\subsubsection[{\texorpdfstring{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+A\+N\+N\+O\+U\+N\+C\+E\+\_\+\+I\+N\+T\+E\+R\+V\+A\+L\+\_\+\+B\+A\+SE}{JDKSAVDECC_MAAP_ANNOUNCE_INTERVAL_BASE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+A\+N\+N\+O\+U\+N\+C\+E\+\_\+\+I\+N\+T\+E\+R\+V\+A\+L\+\_\+\+B\+A\+SE~( ({\bf jdksavdecc\+\_\+timestamp\+\_\+in\+\_\+microseconds})30000000\+L )}\hypertarget{group__maap_gaed2e694a9d3873dc0c045c3d3996960b}{}\label{group__maap_gaed2e694a9d3873dc0c045c3d3996960b}
+30s in microseconds -\/ See I\+E\+EE Std 1722-\/2011 Annex B.\+3.\+3 
+
+jdksavdecc\+\_\+maap.\+h 파일의 56 번째 라인에서 정의되었습니다.
+
+\index{M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}!J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+A\+N\+N\+O\+U\+N\+C\+E\+\_\+\+I\+N\+T\+E\+R\+V\+A\+L\+\_\+\+V\+A\+R\+I\+A\+T\+I\+ON@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+A\+N\+N\+O\+U\+N\+C\+E\+\_\+\+I\+N\+T\+E\+R\+V\+A\+L\+\_\+\+V\+A\+R\+I\+A\+T\+I\+ON}}
+\index{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+A\+N\+N\+O\+U\+N\+C\+E\+\_\+\+I\+N\+T\+E\+R\+V\+A\+L\+\_\+\+V\+A\+R\+I\+A\+T\+I\+ON@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+A\+N\+N\+O\+U\+N\+C\+E\+\_\+\+I\+N\+T\+E\+R\+V\+A\+L\+\_\+\+V\+A\+R\+I\+A\+T\+I\+ON}!M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}}
+\subsubsection[{\texorpdfstring{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+A\+N\+N\+O\+U\+N\+C\+E\+\_\+\+I\+N\+T\+E\+R\+V\+A\+L\+\_\+\+V\+A\+R\+I\+A\+T\+I\+ON}{JDKSAVDECC_MAAP_ANNOUNCE_INTERVAL_VARIATION}}]{\setlength{\rightskip}{0pt plus 5cm}\#define J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+A\+N\+N\+O\+U\+N\+C\+E\+\_\+\+I\+N\+T\+E\+R\+V\+A\+L\+\_\+\+V\+A\+R\+I\+A\+T\+I\+ON~( ({\bf jdksavdecc\+\_\+timestamp\+\_\+in\+\_\+microseconds})2000000\+L )}\hypertarget{group__maap_ga48b3f8f27e97b81997b46a4544573728}{}\label{group__maap_ga48b3f8f27e97b81997b46a4544573728}
+2s in microseconds -\/ See I\+E\+EE Std 1722-\/2011 Annex B.\+3.\+3 
+
+jdksavdecc\+\_\+maap.\+h 파일의 59 번째 라인에서 정의되었습니다.
+
+\index{M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}!J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+D\+E\+F\+E\+ND@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+D\+E\+F\+E\+ND}}
+\index{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+D\+E\+F\+E\+ND@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+D\+E\+F\+E\+ND}!M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}}
+\subsubsection[{\texorpdfstring{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+D\+E\+F\+E\+ND}{JDKSAVDECC_MAAP_DEFEND}}]{\setlength{\rightskip}{0pt plus 5cm}\#define J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+D\+E\+F\+E\+ND~( 2 )}\hypertarget{group__maap_ga9b414558b129efd4b0edfd1cea17bfea}{}\label{group__maap_ga9b414558b129efd4b0edfd1cea17bfea}
+
+
+jdksavdecc\+\_\+maap.\+h 파일의 135 번째 라인에서 정의되었습니다.
+
+\index{M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}!J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+D\+Y\+N\+A\+M\+I\+C\+\_\+\+A\+L\+L\+O\+C\+A\+T\+I\+O\+N\+\_\+\+P\+O\+O\+L\+\_\+\+E\+ND@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+D\+Y\+N\+A\+M\+I\+C\+\_\+\+A\+L\+L\+O\+C\+A\+T\+I\+O\+N\+\_\+\+P\+O\+O\+L\+\_\+\+E\+ND}}
+\index{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+D\+Y\+N\+A\+M\+I\+C\+\_\+\+A\+L\+L\+O\+C\+A\+T\+I\+O\+N\+\_\+\+P\+O\+O\+L\+\_\+\+E\+ND@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+D\+Y\+N\+A\+M\+I\+C\+\_\+\+A\+L\+L\+O\+C\+A\+T\+I\+O\+N\+\_\+\+P\+O\+O\+L\+\_\+\+E\+ND}!M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}}
+\subsubsection[{\texorpdfstring{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+D\+Y\+N\+A\+M\+I\+C\+\_\+\+A\+L\+L\+O\+C\+A\+T\+I\+O\+N\+\_\+\+P\+O\+O\+L\+\_\+\+E\+ND}{JDKSAVDECC_MAAP_DYNAMIC_ALLOCATION_POOL_END}}]{\setlength{\rightskip}{0pt plus 5cm}\#define J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+D\+Y\+N\+A\+M\+I\+C\+\_\+\+A\+L\+L\+O\+C\+A\+T\+I\+O\+N\+\_\+\+P\+O\+O\+L\+\_\+\+E\+ND}\hypertarget{group__maap_gadbac602ad778e595bffe6148884e4715}{}\label{group__maap_gadbac602ad778e595bffe6148884e4715}
+{\bfseries 값\+:}
+\begin{DoxyCode}
+\{                                                                                                          
+                      \(\backslash\)
+        \{                                                                                                  
+                          \(\backslash\)
+            0x91, 0xe0, 0xf0, 0x00, 0xFD, 0xFF                                                             
+                          \(\backslash\)
+        \}                                                                                                  
+                          \(\backslash\)
+    \}
+\end{DoxyCode}
+See I\+E\+EE Std 1722-\/2011 Table B.\+4 
+
+jdksavdecc\+\_\+maap.\+h 파일의 73 번째 라인에서 정의되었습니다.
+
+\index{M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}!J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+D\+Y\+N\+A\+M\+I\+C\+\_\+\+A\+L\+L\+O\+C\+A\+T\+I\+O\+N\+\_\+\+P\+O\+O\+L\+\_\+\+S\+T\+A\+RT@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+D\+Y\+N\+A\+M\+I\+C\+\_\+\+A\+L\+L\+O\+C\+A\+T\+I\+O\+N\+\_\+\+P\+O\+O\+L\+\_\+\+S\+T\+A\+RT}}
+\index{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+D\+Y\+N\+A\+M\+I\+C\+\_\+\+A\+L\+L\+O\+C\+A\+T\+I\+O\+N\+\_\+\+P\+O\+O\+L\+\_\+\+S\+T\+A\+RT@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+D\+Y\+N\+A\+M\+I\+C\+\_\+\+A\+L\+L\+O\+C\+A\+T\+I\+O\+N\+\_\+\+P\+O\+O\+L\+\_\+\+S\+T\+A\+RT}!M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}}
+\subsubsection[{\texorpdfstring{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+D\+Y\+N\+A\+M\+I\+C\+\_\+\+A\+L\+L\+O\+C\+A\+T\+I\+O\+N\+\_\+\+P\+O\+O\+L\+\_\+\+S\+T\+A\+RT}{JDKSAVDECC_MAAP_DYNAMIC_ALLOCATION_POOL_START}}]{\setlength{\rightskip}{0pt plus 5cm}\#define J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+D\+Y\+N\+A\+M\+I\+C\+\_\+\+A\+L\+L\+O\+C\+A\+T\+I\+O\+N\+\_\+\+P\+O\+O\+L\+\_\+\+S\+T\+A\+RT}\hypertarget{group__maap_ga017f97144722763ab58c54a785161bca}{}\label{group__maap_ga017f97144722763ab58c54a785161bca}
+{\bfseries 값\+:}
+\begin{DoxyCode}
+\{                                                                                                          
+                      \(\backslash\)
+        \{                                                                                                  
+                          \(\backslash\)
+            0x91, 0xe0, 0xf0, 0x00, 0x00, 0x00                                                             
+                          \(\backslash\)
+        \}                                                                                                  
+                          \(\backslash\)
+    \}
+\end{DoxyCode}
+See I\+E\+EE Std 1722-\/2011 Table B.\+4 
+
+jdksavdecc\+\_\+maap.\+h 파일의 62 번째 라인에서 정의되었습니다.
+
+\index{M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}!J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+L\+EN@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+L\+EN}}
+\index{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+L\+EN@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+L\+EN}!M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}}
+\subsubsection[{\texorpdfstring{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+L\+EN}{JDKSAVDECC_MAAP_LEN}}]{\setlength{\rightskip}{0pt plus 5cm}\#define J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+L\+EN~( {\bf J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+C\+O\+M\+M\+O\+N\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+L\+EN} + 16 )}\hypertarget{group__maap_ga554b0e25c8ea77e28e7720dd4662758b}{}\label{group__maap_ga554b0e25c8ea77e28e7720dd4662758b}
+
+
+jdksavdecc\+\_\+maap.\+h 파일의 142 번째 라인에서 정의되었습니다.
+
+\index{M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}!J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+L\+O\+C\+A\+L\+\_\+\+A\+L\+L\+O\+C\+A\+T\+I\+O\+N\+\_\+\+P\+O\+O\+L\+\_\+\+E\+ND@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+L\+O\+C\+A\+L\+\_\+\+A\+L\+L\+O\+C\+A\+T\+I\+O\+N\+\_\+\+P\+O\+O\+L\+\_\+\+E\+ND}}
+\index{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+L\+O\+C\+A\+L\+\_\+\+A\+L\+L\+O\+C\+A\+T\+I\+O\+N\+\_\+\+P\+O\+O\+L\+\_\+\+E\+ND@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+L\+O\+C\+A\+L\+\_\+\+A\+L\+L\+O\+C\+A\+T\+I\+O\+N\+\_\+\+P\+O\+O\+L\+\_\+\+E\+ND}!M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}}
+\subsubsection[{\texorpdfstring{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+L\+O\+C\+A\+L\+\_\+\+A\+L\+L\+O\+C\+A\+T\+I\+O\+N\+\_\+\+P\+O\+O\+L\+\_\+\+E\+ND}{JDKSAVDECC_MAAP_LOCAL_ALLOCATION_POOL_END}}]{\setlength{\rightskip}{0pt plus 5cm}\#define J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+L\+O\+C\+A\+L\+\_\+\+A\+L\+L\+O\+C\+A\+T\+I\+O\+N\+\_\+\+P\+O\+O\+L\+\_\+\+E\+ND}\hypertarget{group__maap_ga5a78755bb5eaba85874f87f29f33aee0}{}\label{group__maap_ga5a78755bb5eaba85874f87f29f33aee0}
+{\bfseries 값\+:}
+\begin{DoxyCode}
+\{                                                                                                          
+                      \(\backslash\)
+        \{                                                                                                  
+                          \(\backslash\)
+            0x91, 0xe0, 0xf0, 0x00, 0xFE, 0xFF                                                             
+                          \(\backslash\)
+        \}                                                                                                  
+                          \(\backslash\)
+    \}
+\end{DoxyCode}
+See I\+E\+EE Std 1722-\/2011 Table B.\+4 
+
+jdksavdecc\+\_\+maap.\+h 파일의 95 번째 라인에서 정의되었습니다.
+
+\index{M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}!J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+L\+O\+C\+A\+L\+\_\+\+A\+L\+L\+O\+C\+A\+T\+I\+O\+N\+\_\+\+P\+O\+O\+L\+\_\+\+S\+T\+A\+RT@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+L\+O\+C\+A\+L\+\_\+\+A\+L\+L\+O\+C\+A\+T\+I\+O\+N\+\_\+\+P\+O\+O\+L\+\_\+\+S\+T\+A\+RT}}
+\index{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+L\+O\+C\+A\+L\+\_\+\+A\+L\+L\+O\+C\+A\+T\+I\+O\+N\+\_\+\+P\+O\+O\+L\+\_\+\+S\+T\+A\+RT@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+L\+O\+C\+A\+L\+\_\+\+A\+L\+L\+O\+C\+A\+T\+I\+O\+N\+\_\+\+P\+O\+O\+L\+\_\+\+S\+T\+A\+RT}!M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}}
+\subsubsection[{\texorpdfstring{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+L\+O\+C\+A\+L\+\_\+\+A\+L\+L\+O\+C\+A\+T\+I\+O\+N\+\_\+\+P\+O\+O\+L\+\_\+\+S\+T\+A\+RT}{JDKSAVDECC_MAAP_LOCAL_ALLOCATION_POOL_START}}]{\setlength{\rightskip}{0pt plus 5cm}\#define J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+L\+O\+C\+A\+L\+\_\+\+A\+L\+L\+O\+C\+A\+T\+I\+O\+N\+\_\+\+P\+O\+O\+L\+\_\+\+S\+T\+A\+RT}\hypertarget{group__maap_ga36960965a02d8ab57b5339528373a5f8}{}\label{group__maap_ga36960965a02d8ab57b5339528373a5f8}
+{\bfseries 값\+:}
+\begin{DoxyCode}
+\{                                                                                                          
+                      \(\backslash\)
+        \{                                                                                                  
+                          \(\backslash\)
+            0x91, 0xe0, 0xf0, 0x00, 0xFE, 0x00                                                             
+                          \(\backslash\)
+        \}                                                                                                  
+                          \(\backslash\)
+    \}
+\end{DoxyCode}
+See I\+E\+EE Std 1722-\/2011 Table B.\+4 
+
+jdksavdecc\+\_\+maap.\+h 파일의 84 번째 라인에서 정의되었습니다.
+
+\index{M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}!J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+C\+O\+N\+F\+L\+I\+C\+T\+\_\+\+C\+O\+U\+NT@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+C\+O\+N\+F\+L\+I\+C\+T\+\_\+\+C\+O\+U\+NT}}
+\index{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+C\+O\+N\+F\+L\+I\+C\+T\+\_\+\+C\+O\+U\+NT@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+C\+O\+N\+F\+L\+I\+C\+T\+\_\+\+C\+O\+U\+NT}!M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}}
+\subsubsection[{\texorpdfstring{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+C\+O\+N\+F\+L\+I\+C\+T\+\_\+\+C\+O\+U\+NT}{JDKSAVDECC_MAAP_OFFSET_CONFLICT_COUNT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+C\+O\+N\+F\+L\+I\+C\+T\+\_\+\+C\+O\+U\+NT~( {\bf J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+C\+O\+M\+M\+O\+N\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+L\+EN} + 14 )}\hypertarget{group__maap_gaccacf622b27f9b634ddcf04f09ee2e91}{}\label{group__maap_gaccacf622b27f9b634ddcf04f09ee2e91}
+
+
+jdksavdecc\+\_\+maap.\+h 파일의 141 번째 라인에서 정의되었습니다.
+
+\index{M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}!J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+C\+O\+N\+F\+L\+I\+C\+T\+\_\+\+S\+T\+A\+R\+T\+\_\+\+A\+D\+D\+R\+E\+SS@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+C\+O\+N\+F\+L\+I\+C\+T\+\_\+\+S\+T\+A\+R\+T\+\_\+\+A\+D\+D\+R\+E\+SS}}
+\index{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+C\+O\+N\+F\+L\+I\+C\+T\+\_\+\+S\+T\+A\+R\+T\+\_\+\+A\+D\+D\+R\+E\+SS@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+C\+O\+N\+F\+L\+I\+C\+T\+\_\+\+S\+T\+A\+R\+T\+\_\+\+A\+D\+D\+R\+E\+SS}!M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}}
+\subsubsection[{\texorpdfstring{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+C\+O\+N\+F\+L\+I\+C\+T\+\_\+\+S\+T\+A\+R\+T\+\_\+\+A\+D\+D\+R\+E\+SS}{JDKSAVDECC_MAAP_OFFSET_CONFLICT_START_ADDRESS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+C\+O\+N\+F\+L\+I\+C\+T\+\_\+\+S\+T\+A\+R\+T\+\_\+\+A\+D\+D\+R\+E\+SS~( {\bf J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+C\+O\+M\+M\+O\+N\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+L\+EN} + 8 )}\hypertarget{group__maap_ga80c82c02aa0e3ca6b1430b5d9a43811a}{}\label{group__maap_ga80c82c02aa0e3ca6b1430b5d9a43811a}
+
+
+jdksavdecc\+\_\+maap.\+h 파일의 140 번째 라인에서 정의되었습니다.
+
+\index{M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}!J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+E\+D\+\_\+\+C\+O\+U\+NT@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+E\+D\+\_\+\+C\+O\+U\+NT}}
+\index{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+E\+D\+\_\+\+C\+O\+U\+NT@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+E\+D\+\_\+\+C\+O\+U\+NT}!M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}}
+\subsubsection[{\texorpdfstring{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+E\+D\+\_\+\+C\+O\+U\+NT}{JDKSAVDECC_MAAP_OFFSET_REQUESTED_COUNT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+E\+D\+\_\+\+C\+O\+U\+NT~( {\bf J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+C\+O\+M\+M\+O\+N\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+L\+EN} + 6 )}\hypertarget{group__maap_ga2ae31eb4ee8d271ba09c3ddfac65c0ce}{}\label{group__maap_ga2ae31eb4ee8d271ba09c3ddfac65c0ce}
+
+
+jdksavdecc\+\_\+maap.\+h 파일의 139 번째 라인에서 정의되었습니다.
+
+\index{M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}!J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+E\+D\+\_\+\+S\+T\+A\+R\+T\+\_\+\+A\+D\+D\+R\+E\+SS@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+E\+D\+\_\+\+S\+T\+A\+R\+T\+\_\+\+A\+D\+D\+R\+E\+SS}}
+\index{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+E\+D\+\_\+\+S\+T\+A\+R\+T\+\_\+\+A\+D\+D\+R\+E\+SS@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+E\+D\+\_\+\+S\+T\+A\+R\+T\+\_\+\+A\+D\+D\+R\+E\+SS}!M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}}
+\subsubsection[{\texorpdfstring{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+E\+D\+\_\+\+S\+T\+A\+R\+T\+\_\+\+A\+D\+D\+R\+E\+SS}{JDKSAVDECC_MAAP_OFFSET_REQUESTED_START_ADDRESS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+R\+E\+Q\+U\+E\+S\+T\+E\+D\+\_\+\+S\+T\+A\+R\+T\+\_\+\+A\+D\+D\+R\+E\+SS~( {\bf J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+C\+O\+M\+M\+O\+N\+\_\+\+C\+O\+N\+T\+R\+O\+L\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+L\+EN} + 0 )}\hypertarget{group__maap_gaa6e1c9777b7d55a49990310c82c2e01b}{}\label{group__maap_gaa6e1c9777b7d55a49990310c82c2e01b}
+
+
+jdksavdecc\+\_\+maap.\+h 파일의 138 번째 라인에서 정의되었습니다.
+
+\index{M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}!J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+P\+R\+O\+BE@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+P\+R\+O\+BE}}
+\index{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+P\+R\+O\+BE@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+P\+R\+O\+BE}!M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}}
+\subsubsection[{\texorpdfstring{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+P\+R\+O\+BE}{JDKSAVDECC_MAAP_PROBE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+P\+R\+O\+BE~( 1 )}\hypertarget{group__maap_gaa7812d0cb8624ea9c07cb6e714bb7e88}{}\label{group__maap_gaa7812d0cb8624ea9c07cb6e714bb7e88}
+
+
+jdksavdecc\+\_\+maap.\+h 파일의 134 번째 라인에서 정의되었습니다.
+
+\index{M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}!J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+P\+R\+O\+B\+E\+\_\+\+I\+N\+T\+E\+R\+V\+A\+L\+\_\+\+B\+A\+SE@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+P\+R\+O\+B\+E\+\_\+\+I\+N\+T\+E\+R\+V\+A\+L\+\_\+\+B\+A\+SE}}
+\index{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+P\+R\+O\+B\+E\+\_\+\+I\+N\+T\+E\+R\+V\+A\+L\+\_\+\+B\+A\+SE@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+P\+R\+O\+B\+E\+\_\+\+I\+N\+T\+E\+R\+V\+A\+L\+\_\+\+B\+A\+SE}!M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}}
+\subsubsection[{\texorpdfstring{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+P\+R\+O\+B\+E\+\_\+\+I\+N\+T\+E\+R\+V\+A\+L\+\_\+\+B\+A\+SE}{JDKSAVDECC_MAAP_PROBE_INTERVAL_BASE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+P\+R\+O\+B\+E\+\_\+\+I\+N\+T\+E\+R\+V\+A\+L\+\_\+\+B\+A\+SE~( ({\bf jdksavdecc\+\_\+timestamp\+\_\+in\+\_\+microseconds})500000\+L )}\hypertarget{group__maap_gad8ec6d4ac9740a07a7a5f65a4559df76}{}\label{group__maap_gad8ec6d4ac9740a07a7a5f65a4559df76}
+500ms in microseconds -\/ See I\+E\+EE Std 1722-\/2011 Annex B.\+3.\+3 
+
+jdksavdecc\+\_\+maap.\+h 파일의 50 번째 라인에서 정의되었습니다.
+
+\index{M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}!J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+P\+R\+O\+B\+E\+\_\+\+I\+N\+T\+E\+R\+V\+A\+L\+\_\+\+V\+A\+R\+I\+A\+T\+I\+ON@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+P\+R\+O\+B\+E\+\_\+\+I\+N\+T\+E\+R\+V\+A\+L\+\_\+\+V\+A\+R\+I\+A\+T\+I\+ON}}
+\index{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+P\+R\+O\+B\+E\+\_\+\+I\+N\+T\+E\+R\+V\+A\+L\+\_\+\+V\+A\+R\+I\+A\+T\+I\+ON@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+P\+R\+O\+B\+E\+\_\+\+I\+N\+T\+E\+R\+V\+A\+L\+\_\+\+V\+A\+R\+I\+A\+T\+I\+ON}!M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}}
+\subsubsection[{\texorpdfstring{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+P\+R\+O\+B\+E\+\_\+\+I\+N\+T\+E\+R\+V\+A\+L\+\_\+\+V\+A\+R\+I\+A\+T\+I\+ON}{JDKSAVDECC_MAAP_PROBE_INTERVAL_VARIATION}}]{\setlength{\rightskip}{0pt plus 5cm}\#define J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+P\+R\+O\+B\+E\+\_\+\+I\+N\+T\+E\+R\+V\+A\+L\+\_\+\+V\+A\+R\+I\+A\+T\+I\+ON~( ({\bf jdksavdecc\+\_\+timestamp\+\_\+in\+\_\+microseconds})100000\+L )}\hypertarget{group__maap_gae7cc533158607050fa170564541658ab}{}\label{group__maap_gae7cc533158607050fa170564541658ab}
+100ms in microseconds -\/ See I\+E\+EE Std 1722-\/2011 Annex B.\+3.\+3 
+
+jdksavdecc\+\_\+maap.\+h 파일의 53 번째 라인에서 정의되었습니다.
+
+\index{M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}!J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+P\+R\+O\+B\+E\+\_\+\+R\+E\+T\+R\+A\+N\+S\+M\+I\+TS@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+P\+R\+O\+B\+E\+\_\+\+R\+E\+T\+R\+A\+N\+S\+M\+I\+TS}}
+\index{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+P\+R\+O\+B\+E\+\_\+\+R\+E\+T\+R\+A\+N\+S\+M\+I\+TS@{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+P\+R\+O\+B\+E\+\_\+\+R\+E\+T\+R\+A\+N\+S\+M\+I\+TS}!M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}}
+\subsubsection[{\texorpdfstring{J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+P\+R\+O\+B\+E\+\_\+\+R\+E\+T\+R\+A\+N\+S\+M\+I\+TS}{JDKSAVDECC_MAAP_PROBE_RETRANSMITS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define J\+D\+K\+S\+A\+V\+D\+E\+C\+C\+\_\+\+M\+A\+A\+P\+\_\+\+P\+R\+O\+B\+E\+\_\+\+R\+E\+T\+R\+A\+N\+S\+M\+I\+TS~( 3 )}\hypertarget{group__maap_ga556ac5c61c338764ed5e750395f0dd41}{}\label{group__maap_ga556ac5c61c338764ed5e750395f0dd41}
+See I\+E\+EE Std 1722-\/2011 Annex B.\+3.\+3 
+
+jdksavdecc\+\_\+maap.\+h 파일의 47 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{함수 문서화}
+\index{M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}!jdksavdecc\+\_\+maap\+\_\+common\+\_\+control\+\_\+header\+\_\+read@{jdksavdecc\+\_\+maap\+\_\+common\+\_\+control\+\_\+header\+\_\+read}}
+\index{jdksavdecc\+\_\+maap\+\_\+common\+\_\+control\+\_\+header\+\_\+read@{jdksavdecc\+\_\+maap\+\_\+common\+\_\+control\+\_\+header\+\_\+read}!M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}}
+\subsubsection[{\texorpdfstring{jdksavdecc\+\_\+maap\+\_\+common\+\_\+control\+\_\+header\+\_\+read(struct jdksavdecc\+\_\+maap\+\_\+common\+\_\+control\+\_\+header $\ast$p, void const $\ast$base, ssize\+\_\+t pos, size\+\_\+t len)}{jdksavdecc_maap_common_control_header_read(struct jdksavdecc_maap_common_control_header *p, void const *base, ssize_t pos, size_t len)}}]{\setlength{\rightskip}{0pt plus 5cm}static ssize\+\_\+t jdksavdecc\+\_\+maap\+\_\+common\+\_\+control\+\_\+header\+\_\+read (
+\begin{DoxyParamCaption}
+\item[{struct {\bf jdksavdecc\+\_\+maap\+\_\+common\+\_\+control\+\_\+header} $\ast$}]{p, }
+\item[{void const $\ast$}]{base, }
+\item[{ssize\+\_\+t}]{pos, }
+\item[{size\+\_\+t}]{len}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{group__maap_ga8996877577f51c77eea7402da4d29a66}{}\label{group__maap_ga8996877577f51c77eea7402da4d29a66}
+
+
+jdksavdecc\+\_\+maap.\+h 파일의 118 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+122 \{
+123     \textcolor{keywordflow}{return} \hyperlink{group__jdksavdecc__avtp__common__control__header_ga92a6293fe53957c3ea12564fff690d18}{jdksavdecc\_common\_control\_header\_read}( (\textcolor{keyword}{struct} 
+      \hyperlink{structjdksavdecc__common__control__header}{jdksavdecc\_common\_control\_header} *)p, base, pos, len );
+124 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__maap_ga8996877577f51c77eea7402da4d29a66_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__maap_ga8996877577f51c77eea7402da4d29a66_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}!jdksavdecc\+\_\+maap\+\_\+common\+\_\+control\+\_\+header\+\_\+write@{jdksavdecc\+\_\+maap\+\_\+common\+\_\+control\+\_\+header\+\_\+write}}
+\index{jdksavdecc\+\_\+maap\+\_\+common\+\_\+control\+\_\+header\+\_\+write@{jdksavdecc\+\_\+maap\+\_\+common\+\_\+control\+\_\+header\+\_\+write}!M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}}
+\subsubsection[{\texorpdfstring{jdksavdecc\+\_\+maap\+\_\+common\+\_\+control\+\_\+header\+\_\+write(struct jdksavdecc\+\_\+maap\+\_\+common\+\_\+control\+\_\+header const $\ast$p, void $\ast$base, ssize\+\_\+t pos, size\+\_\+t len)}{jdksavdecc_maap_common_control_header_write(struct jdksavdecc_maap_common_control_header const *p, void *base, ssize_t pos, size_t len)}}]{\setlength{\rightskip}{0pt plus 5cm}static ssize\+\_\+t jdksavdecc\+\_\+maap\+\_\+common\+\_\+control\+\_\+header\+\_\+write (
+\begin{DoxyParamCaption}
+\item[{struct {\bf jdksavdecc\+\_\+maap\+\_\+common\+\_\+control\+\_\+header} const $\ast$}]{p, }
+\item[{void $\ast$}]{base, }
+\item[{ssize\+\_\+t}]{pos, }
+\item[{size\+\_\+t}]{len}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{group__maap_gab7754abbc6810e8f62fcaf117dd7de5d}{}\label{group__maap_gab7754abbc6810e8f62fcaf117dd7de5d}
+
+
+jdksavdecc\+\_\+maap.\+h 파일의 126 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+130 \{
+131     \textcolor{keywordflow}{return} \hyperlink{group__jdksavdecc__avtp__common__control__header_ga5ee847b232024b2cf936899b912f0c96}{jdksavdecc\_common\_control\_header\_write}( (\textcolor{keyword}{struct} 
+      \hyperlink{structjdksavdecc__common__control__header}{jdksavdecc\_common\_control\_header} \textcolor{keyword}{const} *)p, base, pos, len );
+132 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__maap_gab7754abbc6810e8f62fcaf117dd7de5d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__maap_gab7754abbc6810e8f62fcaf117dd7de5d_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}!jdksavdecc\+\_\+maap\+\_\+get\+\_\+conflict\+\_\+count@{jdksavdecc\+\_\+maap\+\_\+get\+\_\+conflict\+\_\+count}}
+\index{jdksavdecc\+\_\+maap\+\_\+get\+\_\+conflict\+\_\+count@{jdksavdecc\+\_\+maap\+\_\+get\+\_\+conflict\+\_\+count}!M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}}
+\subsubsection[{\texorpdfstring{jdksavdecc\+\_\+maap\+\_\+get\+\_\+conflict\+\_\+count(void const $\ast$base, ssize\+\_\+t pos)}{jdksavdecc_maap_get_conflict_count(void const *base, ssize_t pos)}}]{\setlength{\rightskip}{0pt plus 5cm}static uint16\+\_\+t jdksavdecc\+\_\+maap\+\_\+get\+\_\+conflict\+\_\+count (
+\begin{DoxyParamCaption}
+\item[{void const $\ast$}]{base, }
+\item[{ssize\+\_\+t}]{pos}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{group__maap_ga5ee187eaa19bfb46348ecb21ed2445a6}{}\label{group__maap_ga5ee187eaa19bfb46348ecb21ed2445a6}
+Extract the uint16 value of the conflict\+\_\+count field of the M\+A\+AP object from a network buffer.
+
+No bounds checking of the memory buffer is done. It is the caller\textquotesingle{}s responsibility to pre-\/validate base and pos.
+
+
+\begin{DoxyParams}{매개변수}
+{\em base} & pointer to raw memory buffer to read from. \\
+\hline
+{\em pos} & offset from base to read the field from; \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+the uint16\+\_\+t conflict\+\_\+count value 
+\end{DoxyReturn}
+
+
+jdksavdecc\+\_\+maap.\+h 파일의 258 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+259 \{
+260     \textcolor{keywordflow}{return} \hyperlink{group__endian_ga3fbbbc20be954aa61e039872965b0dc9}{jdksavdecc\_uint16\_get}( base, pos + 
+      \hyperlink{group__maap_gaccacf622b27f9b634ddcf04f09ee2e91}{JDKSAVDECC\_MAAP\_OFFSET\_CONFLICT\_COUNT} );
+261 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=346pt]{group__maap_ga5ee187eaa19bfb46348ecb21ed2445a6_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=349pt]{group__maap_ga5ee187eaa19bfb46348ecb21ed2445a6_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}!jdksavdecc\+\_\+maap\+\_\+get\+\_\+conflict\+\_\+start\+\_\+address@{jdksavdecc\+\_\+maap\+\_\+get\+\_\+conflict\+\_\+start\+\_\+address}}
+\index{jdksavdecc\+\_\+maap\+\_\+get\+\_\+conflict\+\_\+start\+\_\+address@{jdksavdecc\+\_\+maap\+\_\+get\+\_\+conflict\+\_\+start\+\_\+address}!M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}}
+\subsubsection[{\texorpdfstring{jdksavdecc\+\_\+maap\+\_\+get\+\_\+conflict\+\_\+start\+\_\+address(void const $\ast$base, ssize\+\_\+t pos)}{jdksavdecc_maap_get_conflict_start_address(void const *base, ssize_t pos)}}]{\setlength{\rightskip}{0pt plus 5cm}static struct {\bf jdksavdecc\+\_\+eui48} jdksavdecc\+\_\+maap\+\_\+get\+\_\+conflict\+\_\+start\+\_\+address (
+\begin{DoxyParamCaption}
+\item[{void const $\ast$}]{base, }
+\item[{ssize\+\_\+t}]{pos}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{group__maap_gad3974960a03d497ccfa9f8e966480aa7}{}\label{group__maap_gad3974960a03d497ccfa9f8e966480aa7}
+Extract the eui48 value of the conflict\+\_\+start\+\_\+address field of the M\+A\+AP object from a network buffer.
+
+No bounds checking of the memory buffer is done. It is the caller\textquotesingle{}s responsibility to pre-\/validate base and pos.
+
+
+\begin{DoxyParams}{매개변수}
+{\em base} & pointer to raw memory buffer to read from. \\
+\hline
+{\em pos} & offset from base to read the field from; \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+the struct jdksavdecc\+\_\+eui48\+\_\+t conflict\+\_\+start\+\_\+address value 
+\end{DoxyReturn}
+
+
+jdksavdecc\+\_\+maap.\+h 파일의 224 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+225 \{
+226     \textcolor{keywordflow}{return} \hyperlink{group__eui48_ga7b4c95f03a90bdf416e9d0833ac08a86}{jdksavdecc\_eui48\_get}( base, pos + 
+      \hyperlink{group__maap_ga80c82c02aa0e3ca6b1430b5d9a43811a}{JDKSAVDECC\_MAAP\_OFFSET\_CONFLICT\_START\_ADDRESS} );
+227 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=347pt]{group__maap_gad3974960a03d497ccfa9f8e966480aa7_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__maap_gad3974960a03d497ccfa9f8e966480aa7_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}!jdksavdecc\+\_\+maap\+\_\+get\+\_\+requested\+\_\+count@{jdksavdecc\+\_\+maap\+\_\+get\+\_\+requested\+\_\+count}}
+\index{jdksavdecc\+\_\+maap\+\_\+get\+\_\+requested\+\_\+count@{jdksavdecc\+\_\+maap\+\_\+get\+\_\+requested\+\_\+count}!M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}}
+\subsubsection[{\texorpdfstring{jdksavdecc\+\_\+maap\+\_\+get\+\_\+requested\+\_\+count(void const $\ast$base, ssize\+\_\+t pos)}{jdksavdecc_maap_get_requested_count(void const *base, ssize_t pos)}}]{\setlength{\rightskip}{0pt plus 5cm}static uint16\+\_\+t jdksavdecc\+\_\+maap\+\_\+get\+\_\+requested\+\_\+count (
+\begin{DoxyParamCaption}
+\item[{void const $\ast$}]{base, }
+\item[{ssize\+\_\+t}]{pos}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{group__maap_ga5fe709a6899411d9c88706a26b7afc2e}{}\label{group__maap_ga5fe709a6899411d9c88706a26b7afc2e}
+Extract the uint16 value of the requested\+\_\+count field of the M\+A\+AP object from a network buffer.
+
+No bounds checking of the memory buffer is done. It is the caller\textquotesingle{}s responsibility to pre-\/validate base and pos.
+
+
+\begin{DoxyParams}{매개변수}
+{\em base} & pointer to raw memory buffer to read from. \\
+\hline
+{\em pos} & offset from base to read the field from; \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+the uint16\+\_\+t requested\+\_\+count value 
+\end{DoxyReturn}
+
+
+jdksavdecc\+\_\+maap.\+h 파일의 190 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+191 \{
+192     \textcolor{keywordflow}{return} \hyperlink{group__endian_ga3fbbbc20be954aa61e039872965b0dc9}{jdksavdecc\_uint16\_get}( base, pos + 
+      \hyperlink{group__maap_ga2ae31eb4ee8d271ba09c3ddfac65c0ce}{JDKSAVDECC\_MAAP\_OFFSET\_REQUESTED\_COUNT} );
+193 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=346pt]{group__maap_ga5fe709a6899411d9c88706a26b7afc2e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=349pt]{group__maap_ga5fe709a6899411d9c88706a26b7afc2e_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}!jdksavdecc\+\_\+maap\+\_\+get\+\_\+requested\+\_\+start\+\_\+address@{jdksavdecc\+\_\+maap\+\_\+get\+\_\+requested\+\_\+start\+\_\+address}}
+\index{jdksavdecc\+\_\+maap\+\_\+get\+\_\+requested\+\_\+start\+\_\+address@{jdksavdecc\+\_\+maap\+\_\+get\+\_\+requested\+\_\+start\+\_\+address}!M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}}
+\subsubsection[{\texorpdfstring{jdksavdecc\+\_\+maap\+\_\+get\+\_\+requested\+\_\+start\+\_\+address(void const $\ast$base, ssize\+\_\+t pos)}{jdksavdecc_maap_get_requested_start_address(void const *base, ssize_t pos)}}]{\setlength{\rightskip}{0pt plus 5cm}static struct {\bf jdksavdecc\+\_\+eui48} jdksavdecc\+\_\+maap\+\_\+get\+\_\+requested\+\_\+start\+\_\+address (
+\begin{DoxyParamCaption}
+\item[{void const $\ast$}]{base, }
+\item[{ssize\+\_\+t}]{pos}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{group__maap_gaae4ba6d9f12fa49106ae74c0148dc33d}{}\label{group__maap_gaae4ba6d9f12fa49106ae74c0148dc33d}
+Extract the eui48 value of the requested\+\_\+start\+\_\+address field of the M\+A\+AP object from a network buffer.
+
+No bounds checking of the memory buffer is done. It is the caller\textquotesingle{}s responsibility to pre-\/validate base and pos.
+
+
+\begin{DoxyParams}{매개변수}
+{\em base} & pointer to raw memory buffer to read from. \\
+\hline
+{\em pos} & offset from base to read the field from; \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+the struct jdksavdecc\+\_\+eui48\+\_\+t requested\+\_\+start\+\_\+address value 
+\end{DoxyReturn}
+
+
+jdksavdecc\+\_\+maap.\+h 파일의 156 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+157 \{
+158     \textcolor{keywordflow}{return} \hyperlink{group__eui48_ga7b4c95f03a90bdf416e9d0833ac08a86}{jdksavdecc\_eui48\_get}( base, pos + 
+      \hyperlink{group__maap_gaa6e1c9777b7d55a49990310c82c2e01b}{JDKSAVDECC\_MAAP\_OFFSET\_REQUESTED\_START\_ADDRESS} );
+159 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__maap_gaae4ba6d9f12fa49106ae74c0148dc33d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__maap_gaae4ba6d9f12fa49106ae74c0148dc33d_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}!jdksavdecc\+\_\+maap\+\_\+read@{jdksavdecc\+\_\+maap\+\_\+read}}
+\index{jdksavdecc\+\_\+maap\+\_\+read@{jdksavdecc\+\_\+maap\+\_\+read}!M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}}
+\subsubsection[{\texorpdfstring{jdksavdecc\+\_\+maap\+\_\+read(struct jdksavdecc\+\_\+maap $\ast$p, void const $\ast$base, ssize\+\_\+t pos, size\+\_\+t len)}{jdksavdecc_maap_read(struct jdksavdecc_maap *p, void const *base, ssize_t pos, size_t len)}}]{\setlength{\rightskip}{0pt plus 5cm}static ssize\+\_\+t jdksavdecc\+\_\+maap\+\_\+read (
+\begin{DoxyParamCaption}
+\item[{struct {\bf jdksavdecc\+\_\+maap} $\ast$}]{p, }
+\item[{void const $\ast$}]{base, }
+\item[{ssize\+\_\+t}]{pos, }
+\item[{size\+\_\+t}]{len}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{group__maap_ga6d3101b71cf397abb634bf28e78f1522}{}\label{group__maap_ga6d3101b71cf397abb634bf28e78f1522}
+Extract the \hyperlink{structjdksavdecc__maap}{jdksavdecc\+\_\+maap} structure from a network buffer.
+
+Bounds checking of the buffer size is done.
+
+
+\begin{DoxyParams}{매개변수}
+{\em p} & pointer to maap structure to fill in. \\
+\hline
+{\em base} & pointer to raw memory buffer to read from. \\
+\hline
+{\em pos} & offset from base to read the field from; \\
+\hline
+{\em len} & length of the raw memory buffer; \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+-\/1 if the buffer length is insufficent, otherwise the offset of the octet following the structure in the buffer. 
+\end{DoxyReturn}
+
+
+jdksavdecc\+\_\+maap.\+h 파일의 304 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+305 \{
+306     ssize\_t r = \hyperlink{group__util_ga9c02bdfe76c69163647c3196db7a73a1}{jdksavdecc\_validate\_range}( pos, len, 
+      \hyperlink{group__maap_ga554b0e25c8ea77e28e7720dd4662758b}{JDKSAVDECC\_MAAP\_LEN} );
+307     \textcolor{keywordflow}{if} ( r >= 0 )
+308     \{
+309         \hyperlink{group__maap_ga8996877577f51c77eea7402da4d29a66}{jdksavdecc\_maap\_common\_control\_header\_read}( &p->
+      \hyperlink{structjdksavdecc__maap_a14c416d0f59ebb809de1ab5889e4cd06}{header}, base, pos, len );
+310         p->\hyperlink{structjdksavdecc__maap_a89e8561b4567080302ee157bb8d1e6c6}{requested\_start\_address} = 
+      \hyperlink{group__maap_gaae4ba6d9f12fa49106ae74c0148dc33d}{jdksavdecc\_maap\_get\_requested\_start\_address}( base, pos );
+311         p->\hyperlink{structjdksavdecc__maap_a3b7ca808f59412368434591249aa8a79}{requested\_count} = \hyperlink{group__maap_ga5fe709a6899411d9c88706a26b7afc2e}{jdksavdecc\_maap\_get\_requested\_count}
+      ( base, pos );
+312         p->\hyperlink{structjdksavdecc__maap_a8e207eea768f9c09349717e706b65a3b}{conflict\_start\_address} = 
+      \hyperlink{group__maap_gad3974960a03d497ccfa9f8e966480aa7}{jdksavdecc\_maap\_get\_conflict\_start\_address}( base, pos );
+313         p->\hyperlink{structjdksavdecc__maap_a7454bb2b51c745c38822d008f1a322a1}{conflict\_count} = \hyperlink{group__maap_ga5ee187eaa19bfb46348ecb21ed2445a6}{jdksavdecc\_maap\_get\_conflict\_count}
+      ( base, pos );
+314     \}
+315     \textcolor{keywordflow}{return} r;
+316 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__maap_ga6d3101b71cf397abb634bf28e78f1522_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}!jdksavdecc\+\_\+maap\+\_\+set\+\_\+conflict\+\_\+count@{jdksavdecc\+\_\+maap\+\_\+set\+\_\+conflict\+\_\+count}}
+\index{jdksavdecc\+\_\+maap\+\_\+set\+\_\+conflict\+\_\+count@{jdksavdecc\+\_\+maap\+\_\+set\+\_\+conflict\+\_\+count}!M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}}
+\subsubsection[{\texorpdfstring{jdksavdecc\+\_\+maap\+\_\+set\+\_\+conflict\+\_\+count(uint16\+\_\+t v, void $\ast$base, ssize\+\_\+t pos)}{jdksavdecc_maap_set_conflict_count(uint16_t v, void *base, ssize_t pos)}}]{\setlength{\rightskip}{0pt plus 5cm}static void jdksavdecc\+\_\+maap\+\_\+set\+\_\+conflict\+\_\+count (
+\begin{DoxyParamCaption}
+\item[{uint16\+\_\+t}]{v, }
+\item[{void $\ast$}]{base, }
+\item[{ssize\+\_\+t}]{pos}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{group__maap_gac0e57e547d918d3576e7b9ed184e6ece}{}\label{group__maap_gac0e57e547d918d3576e7b9ed184e6ece}
+Store a uint16 value to the conflict\+\_\+count field of the M\+A\+AP object to a network buffer.
+
+No bounds checking of the memory buffer is done. It is the caller\textquotesingle{}s responsibility to pre-\/validate base and pos.
+
+
+\begin{DoxyParams}{매개변수}
+{\em v} & The uint16\+\_\+t conflict\+\_\+count value. \\
+\hline
+{\em base} & pointer to raw memory buffer to write to. \\
+\hline
+{\em pos} & offset from base to write the field to; \\
+\hline
+\end{DoxyParams}
+
+
+jdksavdecc\+\_\+maap.\+h 파일의 275 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+276 \{
+277     \hyperlink{group__endian_ga14b9eeadc05f94334096c127c955a60b}{jdksavdecc\_uint16\_set}( v, base, pos + 
+      \hyperlink{group__maap_gaccacf622b27f9b634ddcf04f09ee2e91}{JDKSAVDECC\_MAAP\_OFFSET\_CONFLICT\_COUNT} );
+278 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=346pt]{group__maap_gac0e57e547d918d3576e7b9ed184e6ece_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__maap_gac0e57e547d918d3576e7b9ed184e6ece_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}!jdksavdecc\+\_\+maap\+\_\+set\+\_\+conflict\+\_\+start\+\_\+address@{jdksavdecc\+\_\+maap\+\_\+set\+\_\+conflict\+\_\+start\+\_\+address}}
+\index{jdksavdecc\+\_\+maap\+\_\+set\+\_\+conflict\+\_\+start\+\_\+address@{jdksavdecc\+\_\+maap\+\_\+set\+\_\+conflict\+\_\+start\+\_\+address}!M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}}
+\subsubsection[{\texorpdfstring{jdksavdecc\+\_\+maap\+\_\+set\+\_\+conflict\+\_\+start\+\_\+address(struct jdksavdecc\+\_\+eui48 v, void $\ast$base, ssize\+\_\+t pos)}{jdksavdecc_maap_set_conflict_start_address(struct jdksavdecc_eui48 v, void *base, ssize_t pos)}}]{\setlength{\rightskip}{0pt plus 5cm}static void jdksavdecc\+\_\+maap\+\_\+set\+\_\+conflict\+\_\+start\+\_\+address (
+\begin{DoxyParamCaption}
+\item[{struct {\bf jdksavdecc\+\_\+eui48}}]{v, }
+\item[{void $\ast$}]{base, }
+\item[{ssize\+\_\+t}]{pos}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{group__maap_gab2464cd4c7723dc065be692feca2f85b}{}\label{group__maap_gab2464cd4c7723dc065be692feca2f85b}
+Store a eui48 value to the conflict\+\_\+start\+\_\+address field of the M\+A\+AP object to a network buffer.
+
+No bounds checking of the memory buffer is done. It is the caller\textquotesingle{}s responsibility to pre-\/validate base and pos.
+
+
+\begin{DoxyParams}{매개변수}
+{\em v} & The struct jdksavdecc\+\_\+eui48\+\_\+t conflict\+\_\+start\+\_\+address value. \\
+\hline
+{\em base} & pointer to raw memory buffer to write to. \\
+\hline
+{\em pos} & offset from base to write the field to; \\
+\hline
+\end{DoxyParams}
+
+
+jdksavdecc\+\_\+maap.\+h 파일의 241 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+242 \{
+243     \hyperlink{group__eui48_ga469d246a17ff1ee085030ee7dae57c5e}{jdksavdecc\_eui48\_set}( v, base, pos + 
+      \hyperlink{group__maap_ga80c82c02aa0e3ca6b1430b5d9a43811a}{JDKSAVDECC\_MAAP\_OFFSET\_CONFLICT\_START\_ADDRESS} );
+244 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=347pt]{group__maap_gab2464cd4c7723dc065be692feca2f85b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__maap_gab2464cd4c7723dc065be692feca2f85b_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}!jdksavdecc\+\_\+maap\+\_\+set\+\_\+requested\+\_\+count@{jdksavdecc\+\_\+maap\+\_\+set\+\_\+requested\+\_\+count}}
+\index{jdksavdecc\+\_\+maap\+\_\+set\+\_\+requested\+\_\+count@{jdksavdecc\+\_\+maap\+\_\+set\+\_\+requested\+\_\+count}!M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}}
+\subsubsection[{\texorpdfstring{jdksavdecc\+\_\+maap\+\_\+set\+\_\+requested\+\_\+count(uint16\+\_\+t v, void $\ast$base, ssize\+\_\+t pos)}{jdksavdecc_maap_set_requested_count(uint16_t v, void *base, ssize_t pos)}}]{\setlength{\rightskip}{0pt plus 5cm}static void jdksavdecc\+\_\+maap\+\_\+set\+\_\+requested\+\_\+count (
+\begin{DoxyParamCaption}
+\item[{uint16\+\_\+t}]{v, }
+\item[{void $\ast$}]{base, }
+\item[{ssize\+\_\+t}]{pos}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{group__maap_ga852cae235a6f5f817c069d2e187da081}{}\label{group__maap_ga852cae235a6f5f817c069d2e187da081}
+Store a uint16 value to the requested\+\_\+count field of the M\+A\+AP object to a network buffer.
+
+No bounds checking of the memory buffer is done. It is the caller\textquotesingle{}s responsibility to pre-\/validate base and pos.
+
+
+\begin{DoxyParams}{매개변수}
+{\em v} & The uint16\+\_\+t requested\+\_\+count value. \\
+\hline
+{\em base} & pointer to raw memory buffer to write to. \\
+\hline
+{\em pos} & offset from base to write the field to; \\
+\hline
+\end{DoxyParams}
+
+
+jdksavdecc\+\_\+maap.\+h 파일의 207 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+208 \{
+209     \hyperlink{group__endian_ga14b9eeadc05f94334096c127c955a60b}{jdksavdecc\_uint16\_set}( v, base, pos + 
+      \hyperlink{group__maap_ga2ae31eb4ee8d271ba09c3ddfac65c0ce}{JDKSAVDECC\_MAAP\_OFFSET\_REQUESTED\_COUNT} );
+210 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=346pt]{group__maap_ga852cae235a6f5f817c069d2e187da081_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__maap_ga852cae235a6f5f817c069d2e187da081_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}!jdksavdecc\+\_\+maap\+\_\+set\+\_\+requested\+\_\+start\+\_\+address@{jdksavdecc\+\_\+maap\+\_\+set\+\_\+requested\+\_\+start\+\_\+address}}
+\index{jdksavdecc\+\_\+maap\+\_\+set\+\_\+requested\+\_\+start\+\_\+address@{jdksavdecc\+\_\+maap\+\_\+set\+\_\+requested\+\_\+start\+\_\+address}!M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}}
+\subsubsection[{\texorpdfstring{jdksavdecc\+\_\+maap\+\_\+set\+\_\+requested\+\_\+start\+\_\+address(struct jdksavdecc\+\_\+eui48 v, void $\ast$base, ssize\+\_\+t pos)}{jdksavdecc_maap_set_requested_start_address(struct jdksavdecc_eui48 v, void *base, ssize_t pos)}}]{\setlength{\rightskip}{0pt plus 5cm}static void jdksavdecc\+\_\+maap\+\_\+set\+\_\+requested\+\_\+start\+\_\+address (
+\begin{DoxyParamCaption}
+\item[{struct {\bf jdksavdecc\+\_\+eui48}}]{v, }
+\item[{void $\ast$}]{base, }
+\item[{ssize\+\_\+t}]{pos}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{group__maap_ga3b8b59a0014a0e87cc1af82123bfdf1e}{}\label{group__maap_ga3b8b59a0014a0e87cc1af82123bfdf1e}
+Store a eui48 value to the requested\+\_\+start\+\_\+address field of the M\+A\+AP object to a network buffer.
+
+No bounds checking of the memory buffer is done. It is the caller\textquotesingle{}s responsibility to pre-\/validate base and pos.
+
+
+\begin{DoxyParams}{매개변수}
+{\em v} & The struct jdksavdecc\+\_\+eui48\+\_\+t requested\+\_\+start\+\_\+address value. \\
+\hline
+{\em base} & pointer to raw memory buffer to write to. \\
+\hline
+{\em pos} & offset from base to write the field to; \\
+\hline
+\end{DoxyParams}
+
+
+jdksavdecc\+\_\+maap.\+h 파일의 173 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+174 \{
+175     \hyperlink{group__eui48_ga469d246a17ff1ee085030ee7dae57c5e}{jdksavdecc\_eui48\_set}( v, base, pos + 
+      \hyperlink{group__maap_gaa6e1c9777b7d55a49990310c82c2e01b}{JDKSAVDECC\_MAAP\_OFFSET\_REQUESTED\_START\_ADDRESS} );
+176 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__maap_ga3b8b59a0014a0e87cc1af82123bfdf1e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__maap_ga3b8b59a0014a0e87cc1af82123bfdf1e_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}!jdksavdecc\+\_\+maap\+\_\+write@{jdksavdecc\+\_\+maap\+\_\+write}}
+\index{jdksavdecc\+\_\+maap\+\_\+write@{jdksavdecc\+\_\+maap\+\_\+write}!M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}}
+\subsubsection[{\texorpdfstring{jdksavdecc\+\_\+maap\+\_\+write(struct jdksavdecc\+\_\+maap const $\ast$p, void $\ast$base, size\+\_\+t pos, size\+\_\+t len)}{jdksavdecc_maap_write(struct jdksavdecc_maap const *p, void *base, size_t pos, size_t len)}}]{\setlength{\rightskip}{0pt plus 5cm}static ssize\+\_\+t jdksavdecc\+\_\+maap\+\_\+write (
+\begin{DoxyParamCaption}
+\item[{struct {\bf jdksavdecc\+\_\+maap} const $\ast$}]{p, }
+\item[{void $\ast$}]{base, }
+\item[{size\+\_\+t}]{pos, }
+\item[{size\+\_\+t}]{len}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{group__maap_ga53b823e33af6d26d36a3e91be92e7c91}{}\label{group__maap_ga53b823e33af6d26d36a3e91be92e7c91}
+Store the \hyperlink{structjdksavdecc__maap}{jdksavdecc\+\_\+maap} structure to a network buffer.
+
+Bounds checking of the buffer size is done.
+
+
+\begin{DoxyParams}{매개변수}
+{\em p} & const pointer to maap structure to read from. \\
+\hline
+{\em base} & pointer to raw memory buffer to write to. \\
+\hline
+{\em pos} & offset from base to write the field to; \\
+\hline
+{\em len} & length of the raw memory buffer; \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+-\/1 if the buffer length is insufficent, otherwise the offset of the octet following the structure in the buffer. 
+\end{DoxyReturn}
+
+
+jdksavdecc\+\_\+maap.\+h 파일의 332 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+333 \{
+334     ssize\_t r = \hyperlink{group__util_ga9c02bdfe76c69163647c3196db7a73a1}{jdksavdecc\_validate\_range}( pos, len, 
+      \hyperlink{group__maap_ga554b0e25c8ea77e28e7720dd4662758b}{JDKSAVDECC\_MAAP\_LEN} );
+335     \textcolor{keywordflow}{if} ( r >= 0 )
+336     \{
+337         \hyperlink{group__maap_gab7754abbc6810e8f62fcaf117dd7de5d}{jdksavdecc\_maap\_common\_control\_header\_write}( &p->header,
+       base, pos, len );
+338         \hyperlink{group__maap_ga3b8b59a0014a0e87cc1af82123bfdf1e}{jdksavdecc\_maap\_set\_requested\_start\_address}( p->
+      requested\_start\_address, base, pos );
+339         \hyperlink{group__maap_ga852cae235a6f5f817c069d2e187da081}{jdksavdecc\_maap\_set\_requested\_count}( p->requested\_count, base, 
+      pos );
+340         \hyperlink{group__maap_gab2464cd4c7723dc065be692feca2f85b}{jdksavdecc\_maap\_set\_conflict\_start\_address}( p->
+      conflict\_start\_address, base, pos );
+341         \hyperlink{group__maap_gac0e57e547d918d3576e7b9ed184e6ece}{jdksavdecc\_maap\_set\_conflict\_count}( p->conflict\_count, base, pos 
+      );
+342     \}
+343     \textcolor{keywordflow}{return} r;
+344 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__maap_ga53b823e33af6d26d36a3e91be92e7c91_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{변수 문서화}
+\index{M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}!jdksavdecc\+\_\+maap\+\_\+dynamic\+\_\+allocation\+\_\+pool\+\_\+end@{jdksavdecc\+\_\+maap\+\_\+dynamic\+\_\+allocation\+\_\+pool\+\_\+end}}
+\index{jdksavdecc\+\_\+maap\+\_\+dynamic\+\_\+allocation\+\_\+pool\+\_\+end@{jdksavdecc\+\_\+maap\+\_\+dynamic\+\_\+allocation\+\_\+pool\+\_\+end}!M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}}
+\subsubsection[{\texorpdfstring{jdksavdecc\+\_\+maap\+\_\+dynamic\+\_\+allocation\+\_\+pool\+\_\+end}{jdksavdecc_maap_dynamic_allocation_pool_end}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf jdksavdecc\+\_\+eui48} jdksavdecc\+\_\+maap\+\_\+dynamic\+\_\+allocation\+\_\+pool\+\_\+end}\hypertarget{group__maap_ga0233a9c2fef3818db040ab70e050d2d8}{}\label{group__maap_ga0233a9c2fef3818db040ab70e050d2d8}
+See I\+E\+EE Std 1722-\/2011 Table B.\+4 
+
+jdksavdecc\+\_\+maap.\+c 파일의 38 번째 라인에서 정의되었습니다.
+
+\index{M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}!jdksavdecc\+\_\+maap\+\_\+dynamic\+\_\+allocation\+\_\+pool\+\_\+start@{jdksavdecc\+\_\+maap\+\_\+dynamic\+\_\+allocation\+\_\+pool\+\_\+start}}
+\index{jdksavdecc\+\_\+maap\+\_\+dynamic\+\_\+allocation\+\_\+pool\+\_\+start@{jdksavdecc\+\_\+maap\+\_\+dynamic\+\_\+allocation\+\_\+pool\+\_\+start}!M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}}
+\subsubsection[{\texorpdfstring{jdksavdecc\+\_\+maap\+\_\+dynamic\+\_\+allocation\+\_\+pool\+\_\+start}{jdksavdecc_maap_dynamic_allocation_pool_start}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf jdksavdecc\+\_\+eui48} jdksavdecc\+\_\+maap\+\_\+dynamic\+\_\+allocation\+\_\+pool\+\_\+start}\hypertarget{group__maap_ga0b0791ba795b6f2f27b392ec448d5b1f}{}\label{group__maap_ga0b0791ba795b6f2f27b392ec448d5b1f}
+See I\+E\+EE Std 1722-\/2011 Table B.\+4 
+
+jdksavdecc\+\_\+maap.\+c 파일의 36 번째 라인에서 정의되었습니다.
+
+\index{M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}!jdksavdecc\+\_\+maap\+\_\+local\+\_\+allocation\+\_\+pool\+\_\+end@{jdksavdecc\+\_\+maap\+\_\+local\+\_\+allocation\+\_\+pool\+\_\+end}}
+\index{jdksavdecc\+\_\+maap\+\_\+local\+\_\+allocation\+\_\+pool\+\_\+end@{jdksavdecc\+\_\+maap\+\_\+local\+\_\+allocation\+\_\+pool\+\_\+end}!M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}}
+\subsubsection[{\texorpdfstring{jdksavdecc\+\_\+maap\+\_\+local\+\_\+allocation\+\_\+pool\+\_\+end}{jdksavdecc_maap_local_allocation_pool_end}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf jdksavdecc\+\_\+eui48} jdksavdecc\+\_\+maap\+\_\+local\+\_\+allocation\+\_\+pool\+\_\+end}\hypertarget{group__maap_ga613f18192fb8974b3bb889465dfa55f4}{}\label{group__maap_ga613f18192fb8974b3bb889465dfa55f4}
+See I\+E\+EE Std 1722-\/2011 Table B.\+4 
+
+jdksavdecc\+\_\+maap.\+c 파일의 42 번째 라인에서 정의되었습니다.
+
+\index{M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}!jdksavdecc\+\_\+maap\+\_\+local\+\_\+allocation\+\_\+pool\+\_\+start@{jdksavdecc\+\_\+maap\+\_\+local\+\_\+allocation\+\_\+pool\+\_\+start}}
+\index{jdksavdecc\+\_\+maap\+\_\+local\+\_\+allocation\+\_\+pool\+\_\+start@{jdksavdecc\+\_\+maap\+\_\+local\+\_\+allocation\+\_\+pool\+\_\+start}!M\+A\+A\+P -\/ Multicast Address Allocation Protocol@{M\+A\+A\+P -\/ Multicast Address Allocation Protocol}}
+\subsubsection[{\texorpdfstring{jdksavdecc\+\_\+maap\+\_\+local\+\_\+allocation\+\_\+pool\+\_\+start}{jdksavdecc_maap_local_allocation_pool_start}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf jdksavdecc\+\_\+eui48} jdksavdecc\+\_\+maap\+\_\+local\+\_\+allocation\+\_\+pool\+\_\+start}\hypertarget{group__maap_gad50c2a9baf15dd4433e9c95ed696943d}{}\label{group__maap_gad50c2a9baf15dd4433e9c95ed696943d}
+See I\+E\+EE Std 1722-\/2011 Table B.\+4 
+
+jdksavdecc\+\_\+maap.\+c 파일의 40 번째 라인에서 정의되었습니다.
+

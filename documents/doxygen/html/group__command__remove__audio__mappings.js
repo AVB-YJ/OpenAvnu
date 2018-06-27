@@ -1,0 +1,35 @@
+var group__command__remove__audio__mappings =
+[
+    [ "jdksavdecc_aem_command_remove_audio_mappings", "structjdksavdecc__aem__command__remove__audio__mappings.html", [
+      [ "aem_header", "structjdksavdecc__aem__command__remove__audio__mappings.html#ae1e77ccb75ff5021ad923221eab38294", null ],
+      [ "descriptor_index", "structjdksavdecc__aem__command__remove__audio__mappings.html#a042bbc76d835b82d27c1932431ee38d4", null ],
+      [ "descriptor_type", "structjdksavdecc__aem__command__remove__audio__mappings.html#ab7c32b6c7131c13d4ea3b7ee2f09b78d", null ],
+      [ "number_of_mappings", "structjdksavdecc__aem__command__remove__audio__mappings.html#ac7db472c5622ef473d5d0a5c416d5531", null ],
+      [ "reserved", "structjdksavdecc__aem__command__remove__audio__mappings.html#a5a6ed8c04a3db86066924b1a1bf4dad3", null ]
+    ] ],
+    [ "JDKSAVDECC_AEM_COMMAND_REMOVE_AUDIO_MAPPINGS_COMMAND_LEN", "group__command__remove__audio__mappings.html#ga2f5c2a11750df03fd2b890c2a1f6303c", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_REMOVE_AUDIO_MAPPINGS_COMMAND_OFFSET_COMMAND_TYPE", "group__command__remove__audio__mappings.html#ga6b748df158b8fad5078ef06a0b1b3a5c", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_REMOVE_AUDIO_MAPPINGS_COMMAND_OFFSET_CONTROLLER_ENTITY_ID", "group__command__remove__audio__mappings.html#ga00e8f064a678e36d94dc53589745474a", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_REMOVE_AUDIO_MAPPINGS_COMMAND_OFFSET_DESCRIPTOR_INDEX", "group__command__remove__audio__mappings.html#ga2d21db2709fa007ee4ae1f1366a62661", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_REMOVE_AUDIO_MAPPINGS_COMMAND_OFFSET_DESCRIPTOR_TYPE", "group__command__remove__audio__mappings.html#gaf940c71ddf32340c348eb46f7cb90d45", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_REMOVE_AUDIO_MAPPINGS_COMMAND_OFFSET_MAPPINGS", "group__command__remove__audio__mappings.html#gade5c697bfe282579c5ddd334e762f6b6", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_REMOVE_AUDIO_MAPPINGS_COMMAND_OFFSET_NUMBER_OF_MAPPINGS", "group__command__remove__audio__mappings.html#ga43084ac1d8bebbb2d420a7e273e2606b", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_REMOVE_AUDIO_MAPPINGS_COMMAND_OFFSET_RESERVED", "group__command__remove__audio__mappings.html#ga20b737c65e454a554ca4728bfb7209c5", null ],
+    [ "JDKSAVDECC_AEM_COMMAND_REMOVE_AUDIO_MAPPINGS_COMMAND_OFFSET_SEQUENCE_ID", "group__command__remove__audio__mappings.html#ga977a0176d9d05bfd28c9e03b79ebee37", null ],
+    [ "jdksavdecc_aem_command_remove_audio_mappings_get_command_type", "group__command__remove__audio__mappings.html#ga21106402fd85b22df44e62de4b34af9e", null ],
+    [ "jdksavdecc_aem_command_remove_audio_mappings_get_controller_entity_id", "group__command__remove__audio__mappings.html#gad89ee13d0c65a29f6424c0e0722b9605", null ],
+    [ "jdksavdecc_aem_command_remove_audio_mappings_get_descriptor_index", "group__command__remove__audio__mappings.html#gabc08631a8d965cf87079bd7144b45c38", null ],
+    [ "jdksavdecc_aem_command_remove_audio_mappings_get_descriptor_type", "group__command__remove__audio__mappings.html#gac08f0d9d6c76db5a63f24480cbb3c443", null ],
+    [ "jdksavdecc_aem_command_remove_audio_mappings_get_number_of_mappings", "group__command__remove__audio__mappings.html#ga3cb31abb024d524ea07a4bcf3a469424", null ],
+    [ "jdksavdecc_aem_command_remove_audio_mappings_get_reserved", "group__command__remove__audio__mappings.html#ga16f85faf868c99edafe07e20e9704f3e", null ],
+    [ "jdksavdecc_aem_command_remove_audio_mappings_get_sequence_id", "group__command__remove__audio__mappings.html#ga2bc3a750f67c861b1f9f83bee55cc77c", null ],
+    [ "jdksavdecc_aem_command_remove_audio_mappings_read", "group__command__remove__audio__mappings.html#gac1dc19100160e620ea6ca7414b3b0af1", null ],
+    [ "jdksavdecc_aem_command_remove_audio_mappings_set_command_type", "group__command__remove__audio__mappings.html#gaab894f2c17f914650ee11fc0032d7e5f", null ],
+    [ "jdksavdecc_aem_command_remove_audio_mappings_set_controller_entity_id", "group__command__remove__audio__mappings.html#ga47ce4d66455a7496a03ca8fbc223d036", null ],
+    [ "jdksavdecc_aem_command_remove_audio_mappings_set_descriptor_index", "group__command__remove__audio__mappings.html#gab403fffb389bc8151b8f8717e0bfe8dd", null ],
+    [ "jdksavdecc_aem_command_remove_audio_mappings_set_descriptor_type", "group__command__remove__audio__mappings.html#gaf1891fce82aa944bb85889f6e75ef430", null ],
+    [ "jdksavdecc_aem_command_remove_audio_mappings_set_number_of_mappings", "group__command__remove__audio__mappings.html#ga651181196f9b7d69c4a3b29ab5c3cc9b", null ],
+    [ "jdksavdecc_aem_command_remove_audio_mappings_set_reserved", "group__command__remove__audio__mappings.html#ga1cf99f98df9513b381f1570282aa0b8d", null ],
+    [ "jdksavdecc_aem_command_remove_audio_mappings_set_sequence_id", "group__command__remove__audio__mappings.html#gab539f3ba97dadb4145ee5604bdb5cdc8", null ],
+    [ "jdksavdecc_aem_command_remove_audio_mappings_write", "group__command__remove__audio__mappings.html#gaa81cbfd23881b3c418e187bb590155a0", null ]
+];

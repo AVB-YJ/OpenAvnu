@@ -1,0 +1,1173 @@
+\hypertarget{gstavbsink_8c}{}\section{examples/gstreamer-\/avb-\/plugins/gst-\/plugin/src/gstavbsink.c 파일 참조}
+\label{gstavbsink_8c}\index{examples/gstreamer-\/avb-\/plugins/gst-\/plugin/src/gstavbsink.\+c@{examples/gstreamer-\/avb-\/plugins/gst-\/plugin/src/gstavbsink.\+c}}
+{\ttfamily \#include $<$errno.\+h$>$}\\*
+{\ttfamily \#include $<$fcntl.\+h$>$}\\*
+{\ttfamily \#include $<$math.\+h$>$}\\*
+{\ttfamily \#include $<$poll.\+h$>$}\\*
+{\ttfamily \#include $<$pthread.\+h$>$}\\*
+{\ttfamily \#include $<$signal.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$syslog.\+h$>$}\\*
+{\ttfamily \#include $<$unistd.\+h$>$}\\*
+{\ttfamily \#include $<$arpa/inet.\+h$>$}\\*
+{\ttfamily \#include $<$linux/if.\+h$>$}\\*
+{\ttfamily \#include $<$netinet/in.\+h$>$}\\*
+{\ttfamily \#include $<$net/ethernet.\+h$>$}\\*
+{\ttfamily \#include $<$netpacket/packet.\+h$>$}\\*
+{\ttfamily \#include $<$pci/pci.\+h$>$}\\*
+{\ttfamily \#include $<$sys/ioctl.\+h$>$}\\*
+{\ttfamily \#include $<$sys/mman.\+h$>$}\\*
+{\ttfamily \#include $<$sys/resource.\+h$>$}\\*
+{\ttfamily \#include $<$sys/socket.\+h$>$}\\*
+{\ttfamily \#include $<$sys/stat.\+h$>$}\\*
+{\ttfamily \#include $<$sys/time.\+h$>$}\\*
+{\ttfamily \#include $<$sys/queue.\+h$>$}\\*
+{\ttfamily \#include $<$sys/un.\+h$>$}\\*
+{\ttfamily \#include $<$sys/user.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}gstavbsink.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$../../../common/avb.\+h$>$}\\*
+gstavbsink.\+c에 대한 include 의존 그래프
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gstavbsink_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{매크로}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{gstavbsink_8c_a2ae72c76a67db73e44e68a9ebfe1f22e}{S\+T\+R\+E\+A\+M\+ID}~0x\+A\+B\+C\+D\+EF
+\item 
+\#define \hyperlink{gstavbsink_8c_ad9b2541b15929e98f6f46dc43a0a420d}{D\+E\+F\+A\+U\+L\+T\+\_\+\+I\+N\+T\+E\+R\+F\+A\+CE}~\char`\"{}eth0\char`\"{}
+\item 
+\#define \hyperlink{gstavbsink_8c_a05df1adf5da9e07f79d935f1bde3d32f}{P\+A\+C\+K\+E\+T\+\_\+\+I\+PG}~125000	/$\ast$ (1) packet every 125 usec $\ast$/
+\item 
+\#define \hyperlink{gstavbsink_8c_adef911caed7c65a1643062817f4a59d7}{G\+S\+T\+\_\+\+C\+A\+T\+\_\+\+D\+E\+F\+A\+U\+LT}~(avbsink\+\_\+debug)
+\item 
+\#define \hyperlink{gstavbsink_8c_a000c0c7c6c2902ebb066cc85fcbc4719}{gst\+\_\+avb\+\_\+parent\+\_\+class}~parent\+\_\+class
+\end{DoxyCompactItemize}
+\subsection*{열거형 타입}
+\begin{DoxyCompactItemize}
+\item 
+enum \{ \hyperlink{gstavbsink_8c_aba01db17f4a2bfbc3db60dc172972a25ac37dda0da1a44e10c0504afeeb863f3c}{P\+R\+O\+P\+\_\+0} = 0, 
+\hyperlink{gstavbsink_8c_aba01db17f4a2bfbc3db60dc172972a25ab832819372ad9cb620ef3bc3b7e8b93d}{P\+R\+O\+P\+\_\+\+I\+N\+T\+E\+R\+F\+A\+CE}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{함수}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{gstavbsink_8c_ad51fd3d5e92f52685c6c16a95fb4173d}{G\+S\+T\+\_\+\+D\+E\+B\+U\+G\+\_\+\+C\+A\+T\+E\+G\+O\+R\+Y\+\_\+\+S\+T\+A\+T\+IC} (avbsink\+\_\+debug)
+\item 
+static void \hyperlink{gstavbsink_8c_ac509b9b0bfd1560dc63608cdae6215a3}{gst\+\_\+avbsink\+\_\+set\+\_\+property} (G\+Object $\ast$object, guint prop\+\_\+id, const G\+Value $\ast$value, G\+Param\+Spec $\ast$pspec)
+\item 
+static void \hyperlink{gstavbsink_8c_a593b436887ac5e62e59db2171ab85098}{gst\+\_\+avbsink\+\_\+get\+\_\+property} (G\+Object $\ast$object, guint prop\+\_\+id, G\+Value $\ast$value, G\+Param\+Spec $\ast$pspec)
+\item 
+static Gst\+Flow\+Return \hyperlink{gstavbsink_8c_a2aa8a8acb35475d426ab0525f924ac74}{gst\+\_\+avbsink\+\_\+render} (Gst\+Base\+Sink $\ast$sink, Gst\+Buffer $\ast$buff)
+\item 
+\hyperlink{gstavbsink_8c_a2d65a8aa90a018a93c58cd0f401d51d6}{G\+\_\+\+D\+E\+F\+I\+N\+E\+\_\+\+T\+Y\+PE} (\hyperlink{gstavbsink_8h_a295c661db43078bbda9c0ba131e1320b}{Gst\+Avb\+Sink}, gst\+\_\+avbsink, G\+S\+T\+\_\+\+T\+Y\+P\+E\+\_\+\+B\+A\+S\+E\+\_\+\+S\+I\+NK)
+\item 
+static void \hyperlink{gstavbsink_8c_ac5aec9b7c822bcc5d637349c1f49abf2}{gst\+\_\+avbsink\+\_\+class\+\_\+init} (\hyperlink{gstavbsink_8h_a98bdfa72e0e82e11204a74207aa55138}{Gst\+Avb\+Sink\+Class} $\ast$klass)
+\item 
+static void \hyperlink{gstavbsink_8c_a19a4c24f80dd84b3486525a7f234b1c3}{gst\+\_\+avbsink\+\_\+init} (\hyperlink{gstavbsink_8h_a295c661db43078bbda9c0ba131e1320b}{Gst\+Avb\+Sink} $\ast$sink)
+\item 
+\hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\+\_\+t} \hyperlink{gstavbsink_8c_af9505fdfc4f190696f6d9312055c11a7}{reverse\+\_\+64} (\hyperlink{parse_8c_aec6fcb673ff035718c238c8c9d544c47}{uint64\+\_\+t} val)
+\item 
+int \hyperlink{gstavbsink_8c_a3df69a5fb66dabff3b2bc7f02270a4cb}{start\+\_\+feed\+\_\+socket\+\_\+init} ()
+\item 
+void $\ast$ \hyperlink{gstavbsink_8c_a2f1c6adee906673ec6ff43e59c8285db}{read\+\_\+start\+\_\+feed} (void $\ast$arg)
+\item 
+void \hyperlink{gstavbsink_8c_ab10c0c50c02a59ae9bd74c78c49b559d}{sigint\+\_\+handler} (int signum)
+\item 
+void \hyperlink{gstavbsink_8c_a9da044f1c94ab8d6f3f2fd72f8e9156a}{igb\+\_\+cleanup} ()
+\item 
+int \hyperlink{gstavbsink_8c_a1b1dc6594d299ea39478533af56f386e}{get\+\_\+mac\+\_\+addr} (int8\+\_\+t $\ast$\hyperlink{rawsock__tx_8c_af663a7576d2f8f288bb3996381484cd3}{interface})
+\item 
+static gboolean \hyperlink{gstavbsink_8c_a0dd7ff43338b628d63e394b6a94a5ac6}{plugin\+\_\+init} (Gst\+Plugin $\ast$plugin)
+\end{DoxyCompactItemize}
+\subsection*{변수}
+\begin{DoxyCompactItemize}
+\item 
+volatile int \hyperlink{gstavbsink_8c_a7c8176263e9704aa667fc335cc818a3f}{halt\+\_\+tx} = 0
+\item 
+volatile int \hyperlink{gstavbsink_8c_a70763450542106f6508fd1051eade47d}{listeners} = 1
+\item 
+int \hyperlink{gstavbsink_8c_a4a3a3b22b15c827af39faa82c1b8497a}{flag\+\_\+close\+\_\+thread} = 0
+\item 
+int \hyperlink{gstavbsink_8c_ab16a0c776c464dcfb5cf8a013a137647}{control\+\_\+socket} = -\/1
+\item 
+int \hyperlink{gstavbsink_8c_af8314afa25f4fdc538cac2afcf11c4c8}{g\+\_\+start\+\_\+feeding} = 1
+\item 
+int \hyperlink{gstavbsink_8c_a7f7979edeff06f0ba851f7a3d4866090}{g\+\_\+start\+\_\+feed\+\_\+socket} = 0
+\item 
+unsigned int \hyperlink{gstavbsink_8c_adee8f0101d99abe73e4ab6eb2c1543c8}{avb\+\_\+init}
+\item 
+\hyperlink{lib_2igb_2igb_8h_ae819c345449e1c44d253068a0a3ab5e5}{device\+\_\+t} \hyperlink{gstavbsink_8c_a456414422441623fbed2e3ba547b3524}{igb\+\_\+dev}
+\item 
+\hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\+\_\+t} \hyperlink{gstavbsink_8c_afbbc2e77af6298f5550aec6087ba7d32}{payload\+\_\+len}
+\item 
+unsigned char \hyperlink{gstavbsink_8c_ab42ba46b155e06fe7850ed877f07de86}{S\+T\+A\+T\+I\+O\+N\+\_\+\+A\+D\+DR} \mbox{[}$\,$\mbox{]} = \{ 0, 0, 0, 0, 0, 0 \}
+\item 
+unsigned char \hyperlink{gstavbsink_8c_abe54014872133bc67a059f3d713f8a83}{S\+T\+R\+E\+A\+M\+\_\+\+ID} \mbox{[}$\,$\mbox{]} = \{ 0, 0, 0, 0, 0, 0, 0, 0 \}
+\item 
+unsigned char \hyperlink{gstavbsink_8c_ae54c4983d509d6f290b00a6cc9892e0c}{D\+E\+S\+T\+\_\+\+A\+D\+DR} \mbox{[}$\,$\mbox{]} = \{ 0x91, 0x\+E0, 0x\+F0, 0x00, 0x0\+E, 0x80 \}
+\item 
+struct \hyperlink{structigb__dma__alloc}{igb\+\_\+dma\+\_\+alloc} \hyperlink{gstavbsink_8c_a014c349ebc9b62f76ad8a63a80060e72}{a\+\_\+page}
+\item 
+struct \hyperlink{structigb__packet}{igb\+\_\+packet} $\ast$ \hyperlink{gstavbsink_8c_afaac9ace7e52a3bcf0ce79e59b9b3f92}{tmp\+\_\+packet}
+\item 
+struct \hyperlink{structigb__packet}{igb\+\_\+packet} $\ast$ \hyperlink{gstavbsink_8c_a03cc454be42935d04410937d1053eb60}{cleaned\+\_\+packets}
+\item 
+struct \hyperlink{structigb__packet}{igb\+\_\+packet} $\ast$ \hyperlink{gstavbsink_8c_a3d35f061de7f1a4b1d4155fa8b352479}{free\+\_\+packets}
+\item 
+struct sched\+\_\+param \hyperlink{gstavbsink_8c_a171503523b22d0611a62475b2b7481d8}{sched}
+\item 
+\hyperlink{structsix1883__header}{six1883\+\_\+header} $\ast$ \hyperlink{gstavbsink_8c_aded8c6b656118d9e446a03c1b298c727}{h61883}
+\item 
+\hyperlink{avb__avtp_8h_a67f05a7fb6b937cfa210e6814661e9d9}{seventeen22\+\_\+header} $\ast$ \hyperlink{gstavbsink_8c_aa863c79d5dbc5de0efc3d9b8f749af59}{h1722}
+\item 
+int \hyperlink{gstavbsink_8c_a54d0bde7289ee46d2643ee7c676635b3}{seqnum}
+\item 
+unsigned \hyperlink{gstavbsink_8c_a45fbc7e1478f172d8b8555e663984056}{total\+\_\+samples} = 0
+\item 
+\hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\+\_\+t} \hyperlink{gstavbsink_8c_a165d98e3e74f326a15657fbb57e4ebf5}{pkt\+\_\+sz}
+\item 
+\hyperlink{parse_8c_a37994e3b11c72957c6f454c6ec96d43d}{int32\+\_\+t} \hyperlink{gstavbsink_8c_a1dd1315d137bcef8890f811a0bf8e23d}{read\+\_\+bytes}
+\item 
+\hyperlink{parse_8c_a67a9885ef4908cb72ce26d75b694386c}{int64\+\_\+t} \hyperlink{gstavbsink_8c_a3b3cb0932d0ff74463dbd0bbff6451fb}{total\+\_\+read\+\_\+bytes}
+\item 
+\hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\+\_\+t} $\ast$ \hyperlink{gstavbsink_8c_a6166cef59cbe432be35512925debeae6}{data\+\_\+ptr}
+\item 
+void $\ast$ \hyperlink{gstavbsink_8c_a4b422b190f58028be0571cc06ad77bc0}{stream\+\_\+packet}
+\item 
+int \hyperlink{gstavbsink_8c_ad662aa56c1696f09c0ac6b97abafac6d}{frame\+\_\+size}
+\item 
+long long int \hyperlink{gstavbsink_8c_a73f6455d8e0bd406fa3b5f25ddf7eb8f}{frame\+\_\+sequence} = 0
+\item 
+char $\ast$ \hyperlink{gstavbsink_8c_a386ebf0a88b164d6ddd2cc8197c20ccc}{interface1}
+\item 
+static Gst\+Static\+Pad\+Template \hyperlink{gstavbsink_8c_a26e2485c5fd610ac13e266fb32008cf7}{sink\+\_\+template}
+\end{DoxyCompactItemize}
+
+
+\subsection{매크로 문서화}
+\index{gstavbsink.\+c@{gstavbsink.\+c}!D\+E\+F\+A\+U\+L\+T\+\_\+\+I\+N\+T\+E\+R\+F\+A\+CE@{D\+E\+F\+A\+U\+L\+T\+\_\+\+I\+N\+T\+E\+R\+F\+A\+CE}}
+\index{D\+E\+F\+A\+U\+L\+T\+\_\+\+I\+N\+T\+E\+R\+F\+A\+CE@{D\+E\+F\+A\+U\+L\+T\+\_\+\+I\+N\+T\+E\+R\+F\+A\+CE}!gstavbsink.\+c@{gstavbsink.\+c}}
+\subsubsection[{\texorpdfstring{D\+E\+F\+A\+U\+L\+T\+\_\+\+I\+N\+T\+E\+R\+F\+A\+CE}{DEFAULT_INTERFACE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+E\+F\+A\+U\+L\+T\+\_\+\+I\+N\+T\+E\+R\+F\+A\+CE~\char`\"{}eth0\char`\"{}}\hypertarget{gstavbsink_8c_ad9b2541b15929e98f6f46dc43a0a420d}{}\label{gstavbsink_8c_ad9b2541b15929e98f6f46dc43a0a420d}
+
+
+gstavbsink.\+c 파일의 65 번째 라인에서 정의되었습니다.
+
+\index{gstavbsink.\+c@{gstavbsink.\+c}!gst\+\_\+avb\+\_\+parent\+\_\+class@{gst\+\_\+avb\+\_\+parent\+\_\+class}}
+\index{gst\+\_\+avb\+\_\+parent\+\_\+class@{gst\+\_\+avb\+\_\+parent\+\_\+class}!gstavbsink.\+c@{gstavbsink.\+c}}
+\subsubsection[{\texorpdfstring{gst\+\_\+avb\+\_\+parent\+\_\+class}{gst_avb_parent_class}}]{\setlength{\rightskip}{0pt plus 5cm}\#define gst\+\_\+avb\+\_\+parent\+\_\+class~parent\+\_\+class}\hypertarget{gstavbsink_8c_a000c0c7c6c2902ebb066cc85fcbc4719}{}\label{gstavbsink_8c_a000c0c7c6c2902ebb066cc85fcbc4719}
+
+
+gstavbsink.\+c 파일의 128 번째 라인에서 정의되었습니다.
+
+\index{gstavbsink.\+c@{gstavbsink.\+c}!G\+S\+T\+\_\+\+C\+A\+T\+\_\+\+D\+E\+F\+A\+U\+LT@{G\+S\+T\+\_\+\+C\+A\+T\+\_\+\+D\+E\+F\+A\+U\+LT}}
+\index{G\+S\+T\+\_\+\+C\+A\+T\+\_\+\+D\+E\+F\+A\+U\+LT@{G\+S\+T\+\_\+\+C\+A\+T\+\_\+\+D\+E\+F\+A\+U\+LT}!gstavbsink.\+c@{gstavbsink.\+c}}
+\subsubsection[{\texorpdfstring{G\+S\+T\+\_\+\+C\+A\+T\+\_\+\+D\+E\+F\+A\+U\+LT}{GST_CAT_DEFAULT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define G\+S\+T\+\_\+\+C\+A\+T\+\_\+\+D\+E\+F\+A\+U\+LT~(avbsink\+\_\+debug)}\hypertarget{gstavbsink_8c_adef911caed7c65a1643062817f4a59d7}{}\label{gstavbsink_8c_adef911caed7c65a1643062817f4a59d7}
+
+
+gstavbsink.\+c 파일의 102 번째 라인에서 정의되었습니다.
+
+\index{gstavbsink.\+c@{gstavbsink.\+c}!P\+A\+C\+K\+E\+T\+\_\+\+I\+PG@{P\+A\+C\+K\+E\+T\+\_\+\+I\+PG}}
+\index{P\+A\+C\+K\+E\+T\+\_\+\+I\+PG@{P\+A\+C\+K\+E\+T\+\_\+\+I\+PG}!gstavbsink.\+c@{gstavbsink.\+c}}
+\subsubsection[{\texorpdfstring{P\+A\+C\+K\+E\+T\+\_\+\+I\+PG}{PACKET_IPG}}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+A\+C\+K\+E\+T\+\_\+\+I\+PG~125000	/$\ast$ (1) packet every 125 usec $\ast$/}\hypertarget{gstavbsink_8c_a05df1adf5da9e07f79d935f1bde3d32f}{}\label{gstavbsink_8c_a05df1adf5da9e07f79d935f1bde3d32f}
+
+
+gstavbsink.\+c 파일의 66 번째 라인에서 정의되었습니다.
+
+\index{gstavbsink.\+c@{gstavbsink.\+c}!S\+T\+R\+E\+A\+M\+ID@{S\+T\+R\+E\+A\+M\+ID}}
+\index{S\+T\+R\+E\+A\+M\+ID@{S\+T\+R\+E\+A\+M\+ID}!gstavbsink.\+c@{gstavbsink.\+c}}
+\subsubsection[{\texorpdfstring{S\+T\+R\+E\+A\+M\+ID}{STREAMID}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+T\+R\+E\+A\+M\+ID~0x\+A\+B\+C\+D\+EF}\hypertarget{gstavbsink_8c_a2ae72c76a67db73e44e68a9ebfe1f22e}{}\label{gstavbsink_8c_a2ae72c76a67db73e44e68a9ebfe1f22e}
+
+
+gstavbsink.\+c 파일의 64 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{열거형 타입 문서화}
+\subsubsection[{\texorpdfstring{anonymous enum}{anonymous enum}}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}\hypertarget{gstavbsink_8c_aba01db17f4a2bfbc3db60dc172972a25}{}\label{gstavbsink_8c_aba01db17f4a2bfbc3db60dc172972a25}
+\begin{Desc}
+\item[열거형 멤버]\par
+\begin{description}
+\index{P\+R\+O\+P\+\_\+0@{P\+R\+O\+P\+\_\+0}!gstavbsink.\+c@{gstavbsink.\+c}}\index{gstavbsink.\+c@{gstavbsink.\+c}!P\+R\+O\+P\+\_\+0@{P\+R\+O\+P\+\_\+0}}\item[{\em 
+P\+R\+O\+P\+\_\+0\hypertarget{gstavbsink_8c_aba01db17f4a2bfbc3db60dc172972a25ac37dda0da1a44e10c0504afeeb863f3c}{}\label{gstavbsink_8c_aba01db17f4a2bfbc3db60dc172972a25ac37dda0da1a44e10c0504afeeb863f3c}
+}]\index{P\+R\+O\+P\+\_\+\+I\+N\+T\+E\+R\+F\+A\+CE@{P\+R\+O\+P\+\_\+\+I\+N\+T\+E\+R\+F\+A\+CE}!gstavbsink.\+c@{gstavbsink.\+c}}\index{gstavbsink.\+c@{gstavbsink.\+c}!P\+R\+O\+P\+\_\+\+I\+N\+T\+E\+R\+F\+A\+CE@{P\+R\+O\+P\+\_\+\+I\+N\+T\+E\+R\+F\+A\+CE}}\item[{\em 
+P\+R\+O\+P\+\_\+\+I\+N\+T\+E\+R\+F\+A\+CE\hypertarget{gstavbsink_8c_aba01db17f4a2bfbc3db60dc172972a25ab832819372ad9cb620ef3bc3b7e8b93d}{}\label{gstavbsink_8c_aba01db17f4a2bfbc3db60dc172972a25ab832819372ad9cb620ef3bc3b7e8b93d}
+}]\end{description}
+\end{Desc}
+
+
+gstavbsink.\+c 파일의 110 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+111 \{
+112     \hyperlink{gstavbsink_8c_aba01db17f4a2bfbc3db60dc172972a25ac37dda0da1a44e10c0504afeeb863f3c}{PROP\_0} = 0,
+113     \hyperlink{gstavbsink_8c_aba01db17f4a2bfbc3db60dc172972a25ab832819372ad9cb620ef3bc3b7e8b93d}{PROP\_INTERFACE}
+114 \};
+\end{DoxyCode}
+
+
+\subsection{함수 문서화}
+\index{gstavbsink.\+c@{gstavbsink.\+c}!G\+\_\+\+D\+E\+F\+I\+N\+E\+\_\+\+T\+Y\+PE@{G\+\_\+\+D\+E\+F\+I\+N\+E\+\_\+\+T\+Y\+PE}}
+\index{G\+\_\+\+D\+E\+F\+I\+N\+E\+\_\+\+T\+Y\+PE@{G\+\_\+\+D\+E\+F\+I\+N\+E\+\_\+\+T\+Y\+PE}!gstavbsink.\+c@{gstavbsink.\+c}}
+\subsubsection[{\texorpdfstring{G\+\_\+\+D\+E\+F\+I\+N\+E\+\_\+\+T\+Y\+P\+E(\+Gst\+Avb\+Sink, gst\+\_\+avbsink, G\+S\+T\+\_\+\+T\+Y\+P\+E\+\_\+\+B\+A\+S\+E\+\_\+\+S\+I\+N\+K)}{G_DEFINE_TYPE(GstAvbSink, gst_avbsink, GST_TYPE_BASE_SINK)}}]{\setlength{\rightskip}{0pt plus 5cm}G\+\_\+\+D\+E\+F\+I\+N\+E\+\_\+\+T\+Y\+PE (
+\begin{DoxyParamCaption}
+\item[{{\bf Gst\+Avb\+Sink}}]{, }
+\item[{gst\+\_\+avbsink}]{, }
+\item[{G\+S\+T\+\_\+\+T\+Y\+P\+E\+\_\+\+B\+A\+S\+E\+\_\+\+S\+I\+NK}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gstavbsink_8c_a2d65a8aa90a018a93c58cd0f401d51d6}{}\label{gstavbsink_8c_a2d65a8aa90a018a93c58cd0f401d51d6}
+\index{gstavbsink.\+c@{gstavbsink.\+c}!get\+\_\+mac\+\_\+addr@{get\+\_\+mac\+\_\+addr}}
+\index{get\+\_\+mac\+\_\+addr@{get\+\_\+mac\+\_\+addr}!gstavbsink.\+c@{gstavbsink.\+c}}
+\subsubsection[{\texorpdfstring{get\+\_\+mac\+\_\+addr(int8\+\_\+t $\ast$interface)}{get_mac_addr(int8_t *interface)}}]{\setlength{\rightskip}{0pt plus 5cm}int get\+\_\+mac\+\_\+addr (
+\begin{DoxyParamCaption}
+\item[{int8\+\_\+t $\ast$}]{interface}
+\end{DoxyParamCaption}
+)}\hypertarget{gstavbsink_8c_a1b1dc6594d299ea39478533af56f386e}{}\label{gstavbsink_8c_a1b1dc6594d299ea39478533af56f386e}
+
+
+gstavbsink.\+c 파일의 307 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+308 \{
+309       \textcolor{keywordtype}{int} \hyperlink{openavb__avdecc__msg__server__osal_8c_a5fd2838acec3b3db522def9bdb11fba7}{lsock} = socket(PF\_PACKET, SOCK\_RAW, htons(0x800));
+310       \textcolor{keyword}{struct }ifreq if\_request;
+311       \textcolor{keywordtype}{int} \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err};
+312 
+313       \textcolor{keywordflow}{if} (lsock < 0)
+314         \textcolor{keywordflow}{return} -1;
+315 
+316       memset(&if\_request, 0, \textcolor{keyword}{sizeof}(if\_request));
+317       strncpy(if\_request.ifr\_name, (\textcolor{keyword}{const} \textcolor{keywordtype}{char} *)\hyperlink{mrpd_8c_af663a7576d2f8f288bb3996381484cd3}{interface}, \textcolor{keyword}{sizeof}(if\_request.ifr\_name));
+318       err = ioctl(lsock, SIOCGIFHWADDR, &if\_request);
+319       \textcolor{keywordflow}{if} (err < 0) \{
+320           close(lsock);
+321             \textcolor{keywordflow}{return} -1;
+322       \}
+323       memcpy(\hyperlink{gstavbsink_8c_ab42ba46b155e06fe7850ed877f07de86}{STATION\_ADDR}, if\_request.ifr\_hwaddr.sa\_data,
+324           \textcolor{keyword}{sizeof}(\hyperlink{gstavbsink_8c_ab42ba46b155e06fe7850ed877f07de86}{STATION\_ADDR}));
+325       close(lsock);
+326 
+327       \textcolor{keywordflow}{return} 0;
+328 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gstavbsink_8c_a1b1dc6594d299ea39478533af56f386e_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{gstavbsink.\+c@{gstavbsink.\+c}!gst\+\_\+avbsink\+\_\+class\+\_\+init@{gst\+\_\+avbsink\+\_\+class\+\_\+init}}
+\index{gst\+\_\+avbsink\+\_\+class\+\_\+init@{gst\+\_\+avbsink\+\_\+class\+\_\+init}!gstavbsink.\+c@{gstavbsink.\+c}}
+\subsubsection[{\texorpdfstring{gst\+\_\+avbsink\+\_\+class\+\_\+init(\+Gst\+Avb\+Sink\+Class $\ast$klass)}{gst_avbsink_class_init(GstAvbSinkClass *klass)}}]{\setlength{\rightskip}{0pt plus 5cm}static void gst\+\_\+avbsink\+\_\+class\+\_\+init (
+\begin{DoxyParamCaption}
+\item[{{\bf Gst\+Avb\+Sink\+Class} $\ast$}]{klass}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{gstavbsink_8c_ac5aec9b7c822bcc5d637349c1f49abf2}{}\label{gstavbsink_8c_ac5aec9b7c822bcc5d637349c1f49abf2}
+
+
+gstavbsink.\+c 파일의 132 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+133 \{
+134     GObjectClass *gobject\_class;
+135     GstElementClass *gstelement\_class;
+136     GstBaseSinkClass *gstbasesink\_class;
+137 
+138     gobject\_class = (GObjectClass *) klass;
+139     gstelement\_class = (GstElementClass *) klass;
+140     gstbasesink\_class = (GstBaseSinkClass *) klass;
+141     gobject\_class->set\_property = \hyperlink{gstavbsink_8c_ac509b9b0bfd1560dc63608cdae6215a3}{gst\_avbsink\_set\_property};
+142     gobject\_class->get\_property = \hyperlink{gstavbsink_8c_a593b436887ac5e62e59db2171ab85098}{gst\_avbsink\_get\_property};
+143     g\_object\_class\_install\_property (gobject\_class, \hyperlink{gstavbsink_8c_aba01db17f4a2bfbc3db60dc172972a25ab832819372ad9cb620ef3bc3b7e8b93d}{PROP\_INTERFACE},
+144     g\_param\_spec\_string (\textcolor{stringliteral}{"interface"}, \textcolor{stringliteral}{"Interface"},\textcolor{stringliteral}{"Ethernet AVB Interface"},
+145                  \hyperlink{gstavbsink_8c_a386ebf0a88b164d6ddd2cc8197c20ccc}{interface1}, G\_PARAM\_READWRITE | G\_PARAM\_STATIC\_STRINGS));
+146     gst\_element\_class\_add\_pad\_template (gstelement\_class,
+147     gst\_static\_pad\_template\_get (&\hyperlink{gstavbsink_8c_a26e2485c5fd610ac13e266fb32008cf7}{sink\_template}));
+148     gst\_element\_class\_set\_static\_metadata (gstelement\_class, \textcolor{stringliteral}{"AVB packet sender"},
+149                         \textcolor{stringliteral}{"Sink/Network"},
+150                         \textcolor{stringliteral}{"Send data over the network via AVB"},
+151                         \textcolor{stringliteral}{"Symphony-Teleca"});
+152     gstbasesink\_class->render = \hyperlink{gstavbsink_8c_a2aa8a8acb35475d426ab0525f924ac74}{gst\_avbsink\_render};
+153     GST\_DEBUG\_CATEGORY\_INIT (avbsink\_debug, \textcolor{stringliteral}{"avbsink"}, 0, \textcolor{stringliteral}{"AVB sink"});
+154 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{gstavbsink_8c_ac5aec9b7c822bcc5d637349c1f49abf2_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{gstavbsink.\+c@{gstavbsink.\+c}!gst\+\_\+avbsink\+\_\+get\+\_\+property@{gst\+\_\+avbsink\+\_\+get\+\_\+property}}
+\index{gst\+\_\+avbsink\+\_\+get\+\_\+property@{gst\+\_\+avbsink\+\_\+get\+\_\+property}!gstavbsink.\+c@{gstavbsink.\+c}}
+\subsubsection[{\texorpdfstring{gst\+\_\+avbsink\+\_\+get\+\_\+property(\+G\+Object $\ast$object, guint prop\+\_\+id, G\+Value $\ast$value, G\+Param\+Spec $\ast$pspec)}{gst_avbsink_get_property(GObject *object, guint prop_id, GValue *value, GParamSpec *pspec)}}]{\setlength{\rightskip}{0pt plus 5cm}static void gst\+\_\+avbsink\+\_\+get\+\_\+property (
+\begin{DoxyParamCaption}
+\item[{G\+Object $\ast$}]{object, }
+\item[{guint}]{prop\+\_\+id, }
+\item[{G\+Value $\ast$}]{value, }
+\item[{G\+Param\+Spec $\ast$}]{pspec}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{gstavbsink_8c_a593b436887ac5e62e59db2171ab85098}{}\label{gstavbsink_8c_a593b436887ac5e62e59db2171ab85098}
+
+
+gstavbsink.\+c 파일의 180 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+182 \{
+183     \textcolor{keywordflow}{switch} (prop\_id)
+184     \{
+185         \textcolor{keywordflow}{case} \hyperlink{gstavbsink_8c_aba01db17f4a2bfbc3db60dc172972a25ab832819372ad9cb620ef3bc3b7e8b93d}{PROP\_INTERFACE}:
+186             g\_value\_set\_string (value, \hyperlink{gstavbsink_8c_a386ebf0a88b164d6ddd2cc8197c20ccc}{interface1});
+187             \textcolor{keywordflow}{break}; 
+188         \textcolor{keywordflow}{default}:
+189             \textcolor{keywordflow}{break};
+190     \}
+191 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gstavbsink_8c_a593b436887ac5e62e59db2171ab85098_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{gstavbsink.\+c@{gstavbsink.\+c}!gst\+\_\+avbsink\+\_\+init@{gst\+\_\+avbsink\+\_\+init}}
+\index{gst\+\_\+avbsink\+\_\+init@{gst\+\_\+avbsink\+\_\+init}!gstavbsink.\+c@{gstavbsink.\+c}}
+\subsubsection[{\texorpdfstring{gst\+\_\+avbsink\+\_\+init(\+Gst\+Avb\+Sink $\ast$sink)}{gst_avbsink_init(GstAvbSink *sink)}}]{\setlength{\rightskip}{0pt plus 5cm}static void gst\+\_\+avbsink\+\_\+init (
+\begin{DoxyParamCaption}
+\item[{{\bf Gst\+Avb\+Sink} $\ast$}]{sink}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{gstavbsink_8c_a19a4c24f80dd84b3486525a7f234b1c3}{}\label{gstavbsink_8c_a19a4c24f80dd84b3486525a7f234b1c3}
+
+
+gstavbsink.\+c 파일의 156 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+157 \{
+158     sink->\hyperlink{struct___gst_avb_sink_a796aab0c0ba78c463684181ccbcac365}{interface} = \hyperlink{gstavbsink_8c_a386ebf0a88b164d6ddd2cc8197c20ccc}{interface1};
+159 \}
+\end{DoxyCode}
+\index{gstavbsink.\+c@{gstavbsink.\+c}!gst\+\_\+avbsink\+\_\+render@{gst\+\_\+avbsink\+\_\+render}}
+\index{gst\+\_\+avbsink\+\_\+render@{gst\+\_\+avbsink\+\_\+render}!gstavbsink.\+c@{gstavbsink.\+c}}
+\subsubsection[{\texorpdfstring{gst\+\_\+avbsink\+\_\+render(\+Gst\+Base\+Sink $\ast$sink, Gst\+Buffer $\ast$buff)}{gst_avbsink_render(GstBaseSink *sink, GstBuffer *buff)}}]{\setlength{\rightskip}{0pt plus 5cm}static Gst\+Flow\+Return gst\+\_\+avbsink\+\_\+render (
+\begin{DoxyParamCaption}
+\item[{Gst\+Base\+Sink $\ast$}]{sink, }
+\item[{Gst\+Buffer $\ast$}]{buff}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{gstavbsink_8c_a2aa8a8acb35475d426ab0525f924ac74}{}\label{gstavbsink_8c_a2aa8a8acb35475d426ab0525f924ac74}
+
+
+gstavbsink.\+c 파일의 331 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+332 \{
+333     
+334     GstMapInfo info;
+335     \textcolor{keywordtype}{unsigned} i;
+336     \textcolor{keywordtype}{int} \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err};
+337 
+338     \textcolor{keywordflow}{if}(!\hyperlink{gstavbsink_8c_adee8f0101d99abe73e4ab6eb2c1543c8}{avb\_init})
+339     \{
+340         \textcolor{keyword}{struct }\hyperlink{structigb__packet}{igb\_packet} a\_packet;
+341         pthread\_t tid;
+342 
+343         \hyperlink{gstavbsink_8c_adee8f0101d99abe73e4ab6eb2c1543c8}{avb\_init} = 1;
+344         \hyperlink{gstavbsink_8c_a165d98e3e74f326a15657fbb57e4ebf5}{pkt\_sz} = 1024;
+345         \hyperlink{gstavbsink_8c_afbbc2e77af6298f5550aec6087ba7d32}{payload\_len} = 1024;
+346         \hyperlink{gstavbsink_8c_a165d98e3e74f326a15657fbb57e4ebf5}{pkt\_sz} += \textcolor{keyword}{sizeof}(\hyperlink{structsix1883__header}{six1883\_header}) + \textcolor{keyword}{sizeof}(
+      \hyperlink{avb__avtp_8h_a67f05a7fb6b937cfa210e6814661e9d9}{seventeen22\_header}) + \textcolor{keyword}{sizeof}(\hyperlink{avb__avtp_8h_a605c2dabb13492c54cbdf6afa4752898}{eth\_header});
+347         \textcolor{keywordflow}{if} (\hyperlink{gstavbsink_8c_a165d98e3e74f326a15657fbb57e4ebf5}{pkt\_sz} > 1500) \{
+348             fprintf(stderr,\textcolor{stringliteral}{"payload\_len is > MAX\_ETH\_PACKET\_LEN - not supported.\(\backslash\)n"});
+349             \textcolor{keywordflow}{return} -EINVAL;
+350         \}
+351         err = \hyperlink{linux__hal__i210_8cpp_a9a17c0a5cd13afce277fe14723862446}{pci\_connect}(&\hyperlink{gstavbsink_8c_a456414422441623fbed2e3ba547b3524}{igb\_dev});
+352         \textcolor{keywordflow}{if} (err) \{
+353             printf(\textcolor{stringliteral}{"connect failed (%s) - are you running as root?\(\backslash\)n"}, strerror(errno));
+354             \textcolor{keywordflow}{return} errno;
+355         \}
+356         
+357         err = \hyperlink{igb_8c_a923b0ffcf94a4a6ac8f36a7bacd6b0f3}{igb\_init}(&\hyperlink{gstavbsink_8c_a456414422441623fbed2e3ba547b3524}{igb\_dev});
+358         \textcolor{keywordflow}{if} (err) \{
+359             printf(\textcolor{stringliteral}{"init failed (%s) - is the driver really loaded?\(\backslash\)n"}, strerror(errno));
+360             \textcolor{keywordflow}{return} errno;
+361         \}
+362         err = \hyperlink{igb_8c_a4e2589d22e959c35c0902ef79ed3f059}{igb\_dma\_malloc\_page}(&\hyperlink{gstavbsink_8c_a456414422441623fbed2e3ba547b3524}{igb\_dev}, &\hyperlink{gstavbsink_8c_a014c349ebc9b62f76ad8a63a80060e72}{a\_page});
+363         \textcolor{keywordflow}{if} (err) \{
+364             printf(\textcolor{stringliteral}{"malloc failed (%s) - out of memory?\(\backslash\)n"}, strerror(errno));
+365             \textcolor{keywordflow}{return} errno;
+366         \}
+367         signal(SIGINT, \hyperlink{gstavbsink_8c_ab10c0c50c02a59ae9bd74c78c49b559d}{sigint\_handler});
+368         err = \hyperlink{gstavbsink_8c_a1b1dc6594d299ea39478533af56f386e}{get\_mac\_addr}(\hyperlink{gstavbsink_8c_a386ebf0a88b164d6ddd2cc8197c20ccc}{interface1});
+369         \textcolor{keywordflow}{if} (err) \{
+370                 printf(\textcolor{stringliteral}{"failed to open interface(%s)\(\backslash\)n"},\hyperlink{gstavbsink_8c_a386ebf0a88b164d6ddd2cc8197c20ccc}{interface1});
+371         \}
+372         \hyperlink{igb_8c_a8d49a6fa54c79c1b5bd5b6f006eeb8e1}{igb\_set\_class\_bandwidth}(&\hyperlink{gstavbsink_8c_a456414422441623fbed2e3ba547b3524}{igb\_dev}, 
+      \hyperlink{gstavbsink_8c_a05df1adf5da9e07f79d935f1bde3d32f}{PACKET\_IPG} / 125000, 0, \hyperlink{gstavbsink_8c_a165d98e3e74f326a15657fbb57e4ebf5}{pkt\_sz} - 22, 0);
+373         memset(\hyperlink{gstavbsink_8c_abe54014872133bc67a059f3d713f8a83}{STREAM\_ID}, 0, \textcolor{keyword}{sizeof}(\hyperlink{gstavbsink_8c_abe54014872133bc67a059f3d713f8a83}{STREAM\_ID}));
+374         memcpy(\hyperlink{gstavbsink_8c_abe54014872133bc67a059f3d713f8a83}{STREAM\_ID}, \hyperlink{gstavbsink_8c_ab42ba46b155e06fe7850ed877f07de86}{STATION\_ADDR}, \textcolor{keyword}{sizeof}(\hyperlink{gstavbsink_8c_ab42ba46b155e06fe7850ed877f07de86}{STATION\_ADDR}));
+375         a\_packet.dmatime = a\_packet.attime = a\_packet.flags = 0;
+376         a\_packet.map.paddr = \hyperlink{gstavbsink_8c_a014c349ebc9b62f76ad8a63a80060e72}{a\_page}.\hyperlink{structigb__dma__alloc_a634628ebb0fecc5be46345b286cce0ef}{dma\_paddr};
+377         a\_packet.map.mmap\_size = \hyperlink{gstavbsink_8c_a014c349ebc9b62f76ad8a63a80060e72}{a\_page}.\hyperlink{structigb__dma__alloc_a8258a70481ee5ece54c23de98e767611}{mmap\_size};
+378         a\_packet.offset = 0;
+379         a\_packet.vaddr = \hyperlink{gstavbsink_8c_a014c349ebc9b62f76ad8a63a80060e72}{a\_page}.\hyperlink{structigb__dma__alloc_a1a7aec22103dc161f23a441da520af5b}{dma\_vaddr} + a\_packet.offset;
+380         a\_packet.len = \hyperlink{gstavbsink_8c_a165d98e3e74f326a15657fbb57e4ebf5}{pkt\_sz};
+381         \hyperlink{gstavbsink_8c_a3d35f061de7f1a4b1d4155fa8b352479}{free\_packets} = \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+382         \hyperlink{gstavbsink_8c_a54d0bde7289ee46d2643ee7c676635b3}{seqnum} = 0;
+383         \hyperlink{gstavbsink_8c_ad662aa56c1696f09c0ac6b97abafac6d}{frame\_size} = \hyperlink{gstavbsink_8c_afbbc2e77af6298f5550aec6087ba7d32}{payload\_len} + \textcolor{keyword}{sizeof}(\hyperlink{structsix1883__header}{six1883\_header}) + \textcolor{keyword}{sizeof}(
+      \hyperlink{avb__avtp_8h_a67f05a7fb6b937cfa210e6814661e9d9}{seventeen22\_header}) + \textcolor{keyword}{sizeof}(\hyperlink{avb__avtp_8h_a605c2dabb13492c54cbdf6afa4752898}{eth\_header});
+384         \hyperlink{gstavbsink_8c_a4b422b190f58028be0571cc06ad77bc0}{stream\_packet} = \hyperlink{avb__avtp_8c_a7e28b7643b9d67175fd68ad4ca070899}{avb\_create\_packet}(
+      \hyperlink{gstavbsink_8c_afbbc2e77af6298f5550aec6087ba7d32}{payload\_len});
+385         \hyperlink{gstavbsink_8c_aa863c79d5dbc5de0efc3d9b8f749af59}{h1722} = (\hyperlink{avb__avtp_8h_a67f05a7fb6b937cfa210e6814661e9d9}{seventeen22\_header} *)((\hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t}*)
+      \hyperlink{gstavbsink_8c_a4b422b190f58028be0571cc06ad77bc0}{stream\_packet} + \textcolor{keyword}{sizeof}(\hyperlink{avb__avtp_8h_a605c2dabb13492c54cbdf6afa4752898}{eth\_header}));
+386         \hyperlink{gstavbsink_8c_aded8c6b656118d9e446a03c1b298c727}{h61883} = (\hyperlink{structsix1883__header}{six1883\_header} *)((\hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t}*)
+      \hyperlink{gstavbsink_8c_a4b422b190f58028be0571cc06ad77bc0}{stream\_packet} + \textcolor{keyword}{sizeof}(\hyperlink{avb__avtp_8h_a605c2dabb13492c54cbdf6afa4752898}{eth\_header}) +
+387                         \textcolor{keyword}{sizeof}(\hyperlink{avb__avtp_8h_a67f05a7fb6b937cfa210e6814661e9d9}{seventeen22\_header}));
+388 
+389         \textcolor{comment}{/*initialize h1722 header */}
+390         \hyperlink{avb__avtp_8c_a63f95e973a5ba151a35d8431a65d5a6b}{avb\_initialize\_h1722\_to\_defaults}(\hyperlink{gstavbsink_8c_aa863c79d5dbc5de0efc3d9b8f749af59}{h1722});
+391         \textcolor{comment}{/* set the length */}
+392         \hyperlink{avb__avtp_8c_a5a461cc9af1336b6951fec669d9bf2c4}{avb\_set\_1722\_length}(\hyperlink{gstavbsink_8c_aa863c79d5dbc5de0efc3d9b8f749af59}{h1722}, htons(\hyperlink{gstavbsink_8c_afbbc2e77af6298f5550aec6087ba7d32}{payload\_len} + \textcolor{keyword}{sizeof}(
+      \hyperlink{structsix1883__header}{six1883\_header})));
+393         \hyperlink{avb__avtp_8c_ab77ffb529c63ed0c11d0150517c7d5bb}{avb\_set\_1722\_stream\_id}(\hyperlink{gstavbsink_8c_aa863c79d5dbc5de0efc3d9b8f749af59}{h1722},\hyperlink{gstavbsink_8c_af9505fdfc4f190696f6d9312055c11a7}{reverse\_64}(
+      \hyperlink{gstavbsink_8c_a2ae72c76a67db73e44e68a9ebfe1f22e}{STREAMID}));
+394         \hyperlink{avb__avtp_8c_af92086a8ec77d372dae9be9b1d135f67}{avb\_set\_1722\_sid\_valid}(\hyperlink{gstavbsink_8c_aa863c79d5dbc5de0efc3d9b8f749af59}{h1722}, 0x1);
+395 
+396 
+397         \textcolor{comment}{/*initialize h61883 header */}
+398         \hyperlink{avb__avtp_8c_ae63afd50b58c5b108a3738ea2408962e}{avb\_initialize\_61883\_to\_defaults}(\hyperlink{gstavbsink_8c_aded8c6b656118d9e446a03c1b298c727}{h61883});
+399         \hyperlink{avb__avtp_8c_a6d64eccb6ce48ac208cb390d73949598}{avb\_set\_61883\_format\_tag}(\hyperlink{gstavbsink_8c_aded8c6b656118d9e446a03c1b298c727}{h61883}, 0x1);
+400         \hyperlink{avb__avtp_8c_a90bca6e8753e7d2d941868dc24f5434a}{avb\_set\_61883\_packet\_channel}(\hyperlink{gstavbsink_8c_aded8c6b656118d9e446a03c1b298c727}{h61883}, 0x1f);
+401         \hyperlink{avb__avtp_8c_a90970959c90959984fbef4e6e2bfb685}{avb\_set\_61883\_packet\_tcode}(\hyperlink{gstavbsink_8c_aded8c6b656118d9e446a03c1b298c727}{h61883}, 0xa);
+402         \hyperlink{avb__avtp_8c_a9a23ce92a9bfbb8a04ce1b5136c8b839}{avb\_set\_61883\_source\_id}(\hyperlink{gstavbsink_8c_aded8c6b656118d9e446a03c1b298c727}{h61883} , 0x3f);
+403         \hyperlink{avb__avtp_8c_a5a7567dc456f1ef263f9806ef574f837}{avb\_set\_61883\_data\_block\_size}(\hyperlink{gstavbsink_8c_aded8c6b656118d9e446a03c1b298c727}{h61883}, 0x1);
+404         \hyperlink{avb__avtp_8c_a6ad608d7d5ab604bcf6f1caee9ed0d03}{avb\_set\_61883\_eoh}(\hyperlink{gstavbsink_8c_aded8c6b656118d9e446a03c1b298c727}{h61883}, 0x2);
+405         \hyperlink{avb__avtp_8c_ac6799a7cae77a9d9f2625f7fb5116a13}{avb\_set\_61883\_format\_id}(\hyperlink{gstavbsink_8c_aded8c6b656118d9e446a03c1b298c727}{h61883}, 0x10);
+406         \hyperlink{avb__avtp_8c_ac66fc7c7292c1e94ff1e2e62ddbeb456}{avb\_set\_61883\_format\_dependent\_field}(
+      \hyperlink{gstavbsink_8c_aded8c6b656118d9e446a03c1b298c727}{h61883}, 0x2);
+407         \hyperlink{avb__avtp_8c_ac026593a7c4ce6a14a0d07b45f1e551f}{avb\_set\_61883\_syt}(\hyperlink{gstavbsink_8c_aded8c6b656118d9e446a03c1b298c727}{h61883}, 0xffff);
+408 
+409         \textcolor{comment}{/* initialize the source & destination mac address */}
+410         \hyperlink{avb__avtp_8c_a35a3976b42361981ca8a3b0083256096}{avb\_eth\_header\_set\_mac}(\hyperlink{gstavbsink_8c_a4b422b190f58028be0571cc06ad77bc0}{stream\_packet}, 
+      \hyperlink{gstavbsink_8c_ae54c4983d509d6f290b00a6cc9892e0c}{DEST\_ADDR}, \hyperlink{gstavbsink_8c_a386ebf0a88b164d6ddd2cc8197c20ccc}{interface1});
+411 
+412         \textcolor{comment}{/* set 1772 eth type */}
+413         \hyperlink{avb__avtp_8c_a3dbccdee044089691570d1441d7b69d2}{avb\_1722\_set\_eth\_type}(\hyperlink{gstavbsink_8c_a4b422b190f58028be0571cc06ad77bc0}{stream\_packet});
+414 
+415         \textcolor{comment}{/* divide the dma page into buffers for packets */}
+416         \textcolor{keywordflow}{for} (i = 1; i < ((\hyperlink{gstavbsink_8c_a014c349ebc9b62f76ad8a63a80060e72}{a\_page}.\hyperlink{structigb__dma__alloc_a8258a70481ee5ece54c23de98e767611}{mmap\_size}) / \hyperlink{gstavbsink_8c_a165d98e3e74f326a15657fbb57e4ebf5}{pkt\_sz}); i++) \{
+417             \hyperlink{gstavbsink_8c_afaac9ace7e52a3bcf0ce79e59b9b3f92}{tmp\_packet} = \hyperlink{_memory_leak_detector_malloc_macros_8h_ab8b25cd8f16d4a6552afe4e65c4f082d}{malloc}(\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} \hyperlink{structigb__packet}{igb\_packet}));
+418             \textcolor{keywordflow}{if} (!\hyperlink{gstavbsink_8c_afaac9ace7e52a3bcf0ce79e59b9b3f92}{tmp\_packet}) \{
+419                 printf(\textcolor{stringliteral}{"failed to allocate igb\_packet memory!\(\backslash\)n"});
+420                 \textcolor{keywordflow}{return} errno;
+421             \}
+422             *\hyperlink{gstavbsink_8c_afaac9ace7e52a3bcf0ce79e59b9b3f92}{tmp\_packet} = a\_packet;
+423             \hyperlink{gstavbsink_8c_afaac9ace7e52a3bcf0ce79e59b9b3f92}{tmp\_packet}->\hyperlink{structigb__packet_a29b5297d3393519050e3126c4cb07c1c}{offset} = (i * \hyperlink{gstavbsink_8c_a165d98e3e74f326a15657fbb57e4ebf5}{pkt\_sz});
+424             \hyperlink{gstavbsink_8c_afaac9ace7e52a3bcf0ce79e59b9b3f92}{tmp\_packet}->\hyperlink{structigb__packet_aa0bb68874ee9bcccfa45212ec3b12466}{vaddr} += \hyperlink{gstavbsink_8c_afaac9ace7e52a3bcf0ce79e59b9b3f92}{tmp\_packet}->\hyperlink{structigb__packet_a29b5297d3393519050e3126c4cb07c1c}{offset};
+425             \hyperlink{gstavbsink_8c_afaac9ace7e52a3bcf0ce79e59b9b3f92}{tmp\_packet}->\hyperlink{structigb__packet_a1a20432d28f575630a2562c1c728a40f}{next} = \hyperlink{gstavbsink_8c_a3d35f061de7f1a4b1d4155fa8b352479}{free\_packets};
+426             memset(\hyperlink{gstavbsink_8c_afaac9ace7e52a3bcf0ce79e59b9b3f92}{tmp\_packet}->\hyperlink{structigb__packet_aa0bb68874ee9bcccfa45212ec3b12466}{vaddr}, 0, \hyperlink{gstavbsink_8c_a165d98e3e74f326a15657fbb57e4ebf5}{pkt\_sz});  \textcolor{comment}{/* MAC header at least */}
+427             memcpy(((\textcolor{keywordtype}{char} *)\hyperlink{gstavbsink_8c_afaac9ace7e52a3bcf0ce79e59b9b3f92}{tmp\_packet}->\hyperlink{structigb__packet_aa0bb68874ee9bcccfa45212ec3b12466}{vaddr}), \hyperlink{gstavbsink_8c_a4b422b190f58028be0571cc06ad77bc0}{stream\_packet}, 
+      \hyperlink{gstavbsink_8c_ad662aa56c1696f09c0ac6b97abafac6d}{frame\_size});
+428             \hyperlink{gstavbsink_8c_afaac9ace7e52a3bcf0ce79e59b9b3f92}{tmp\_packet}->\hyperlink{structigb__packet_a0c5f469bd681fb46e6f4203d5338e99f}{len} = \hyperlink{gstavbsink_8c_ad662aa56c1696f09c0ac6b97abafac6d}{frame\_size};
+429             \hyperlink{gstavbsink_8c_a3d35f061de7f1a4b1d4155fa8b352479}{free\_packets} = \hyperlink{gstavbsink_8c_afaac9ace7e52a3bcf0ce79e59b9b3f92}{tmp\_packet};
+430         \}
+431 
+432         \hyperlink{gstavbsink_8c_a3df69a5fb66dabff3b2bc7f02270a4cb}{start\_feed\_socket\_init}();
+433         err = pthread\_create(&tid, \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{gstavbsink_8c_a2f1c6adee906673ec6ff43e59c8285db}{read\_start\_feed}, 
+      \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+434         \textcolor{keywordflow}{if} (err != 0) \{
+435             printf(\textcolor{stringliteral}{"Failed to create thread :[%s] \(\backslash\)n"}, strerror(err));
+436             \textcolor{keywordflow}{return} -1;
+437         \}
+438 
+439         \hyperlink{gstavbsink_8c_a3b3cb0932d0ff74463dbd0bbff6451fb}{total\_read\_bytes} = 0;
+440         memset(&\hyperlink{gstavbsink_8c_a171503523b22d0611a62475b2b7481d8}{sched}, 0 , \textcolor{keyword}{sizeof} (\hyperlink{gstavbsink_8c_a171503523b22d0611a62475b2b7481d8}{sched}));
+441         \hyperlink{gstavbsink_8c_a171503523b22d0611a62475b2b7481d8}{sched}.sched\_priority = 25;
+442         sched\_setscheduler(0, SCHED\_RR, &\hyperlink{gstavbsink_8c_a171503523b22d0611a62475b2b7481d8}{sched});
+443     \}
+444 
+445     gst\_buffer\_map(buff,&info,GST\_MAP\_READ);
+446     \textcolor{keywordflow}{if}(info.size>1024) \{
+447         g\_print(\textcolor{stringliteral}{"Internal Data Flow Error: Expected blocksize=1024 for filesrc\(\backslash\)n"});
+448         \hyperlink{gstavbsink_8c_a9da044f1c94ab8d6f3f2fd72f8e9156a}{igb\_cleanup}();
+449     \}
+450 
+451     \textcolor{keywordflow}{if} (\hyperlink{gstavbsink_8c_a70763450542106f6508fd1051eade47d}{listeners} && !\hyperlink{gstavbsink_8c_a7c8176263e9704aa667fc335cc818a3f}{halt\_tx} && \hyperlink{gstavbsink_8c_adee8f0101d99abe73e4ab6eb2c1543c8}{avb\_init}) \{
+452 start:
+453         \textcolor{keywordflow}{if} (\hyperlink{gstavbsink_8c_af8314afa25f4fdc538cac2afcf11c4c8}{g\_start\_feeding} == 2)
+454             \textcolor{keywordflow}{goto} exit\_app;
+455         \hyperlink{gstavbsink_8c_afaac9ace7e52a3bcf0ce79e59b9b3f92}{tmp\_packet} = \hyperlink{gstavbsink_8c_a3d35f061de7f1a4b1d4155fa8b352479}{free\_packets};
+456         \textcolor{keywordflow}{if} (\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} == \hyperlink{gstavbsink_8c_afaac9ace7e52a3bcf0ce79e59b9b3f92}{tmp\_packet})
+457             \textcolor{keywordflow}{goto} \hyperlink{simple__rx_8c_aeb94fbd457627182ceee7e505f432541}{cleanup};
+458 
+459         \hyperlink{gstavbsink_8c_a4b422b190f58028be0571cc06ad77bc0}{stream\_packet} = ((\textcolor{keywordtype}{char} *)\hyperlink{gstavbsink_8c_afaac9ace7e52a3bcf0ce79e59b9b3f92}{tmp\_packet}->\hyperlink{structigb__packet_aa0bb68874ee9bcccfa45212ec3b12466}{vaddr});
+460         \hyperlink{gstavbsink_8c_a3d35f061de7f1a4b1d4155fa8b352479}{free\_packets} = \hyperlink{gstavbsink_8c_afaac9ace7e52a3bcf0ce79e59b9b3f92}{tmp\_packet}->\hyperlink{structigb__packet_a1a20432d28f575630a2562c1c728a40f}{next};
+461         \textcolor{comment}{/* unfortuntely unless this thread is at rtprio}
+462 \textcolor{comment}{        * you get pre-empted between fetching the time}
+463 \textcolor{comment}{        * and programming the packet and get a late packet}
+464 \textcolor{comment}{        */}
+465         \hyperlink{gstavbsink_8c_aa863c79d5dbc5de0efc3d9b8f749af59}{h1722} = (\hyperlink{avb__avtp_8h_a67f05a7fb6b937cfa210e6814661e9d9}{seventeen22\_header} *)((\hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t}*)
+      \hyperlink{gstavbsink_8c_a4b422b190f58028be0571cc06ad77bc0}{stream\_packet} + \textcolor{keyword}{sizeof}(\hyperlink{avb__avtp_8h_a605c2dabb13492c54cbdf6afa4752898}{eth\_header}));
+466         \hyperlink{avb__avtp_8c_a5dc8657c76486f09f30fef2d1b350be9}{avb\_set\_1722\_seq\_number}(\hyperlink{gstavbsink_8c_aa863c79d5dbc5de0efc3d9b8f749af59}{h1722}, \hyperlink{gstavbsink_8c_a54d0bde7289ee46d2643ee7c676635b3}{seqnum}++);
+467         \textcolor{keywordflow}{if} (\hyperlink{gstavbsink_8c_a54d0bde7289ee46d2643ee7c676635b3}{seqnum} % 4 == 0)
+468             \hyperlink{avb__avtp_8c_adde1649ea4ce08c44324f9c1e89b1ef2}{avb\_set\_1722\_timestamp\_valid}(\hyperlink{gstavbsink_8c_aa863c79d5dbc5de0efc3d9b8f749af59}{h1722}, 0);
+469         \textcolor{keywordflow}{else}
+470             \hyperlink{avb__avtp_8c_adde1649ea4ce08c44324f9c1e89b1ef2}{avb\_set\_1722\_timestamp\_valid}(\hyperlink{gstavbsink_8c_aa863c79d5dbc5de0efc3d9b8f749af59}{h1722}, 1);
+471 
+472         \hyperlink{gstavbsink_8c_a6166cef59cbe432be35512925debeae6}{data\_ptr} = (\hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} *)((\hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t}*)\hyperlink{gstavbsink_8c_a4b422b190f58028be0571cc06ad77bc0}{stream\_packet} + \textcolor{keyword}{sizeof}(
+      \hyperlink{avb__avtp_8h_a605c2dabb13492c54cbdf6afa4752898}{eth\_header}) +
+473             \textcolor{keyword}{sizeof}(\hyperlink{avb__avtp_8h_a67f05a7fb6b937cfa210e6814661e9d9}{seventeen22\_header}) + \textcolor{keyword}{sizeof}(\hyperlink{structsix1883__header}{six1883\_header}));
+474 
+475         memcpy((\textcolor{keywordtype}{void} *)\hyperlink{gstavbsink_8c_a6166cef59cbe432be35512925debeae6}{data\_ptr},info.data,\hyperlink{gstavbsink_8c_afbbc2e77af6298f5550aec6087ba7d32}{payload\_len});
+476         usleep(500);
+477         \hyperlink{gstavbsink_8c_a3b3cb0932d0ff74463dbd0bbff6451fb}{total\_read\_bytes} += \hyperlink{gstavbsink_8c_afbbc2e77af6298f5550aec6087ba7d32}{payload\_len};
+478         \hyperlink{gstavbsink_8c_a45fbc7e1478f172d8b8555e663984056}{total\_samples} += \hyperlink{gstavbsink_8c_afbbc2e77af6298f5550aec6087ba7d32}{payload\_len};
+479         \hyperlink{gstavbsink_8c_aded8c6b656118d9e446a03c1b298c727}{h61883} = (\hyperlink{structsix1883__header}{six1883\_header} *)((\hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t}*)
+      \hyperlink{gstavbsink_8c_a4b422b190f58028be0571cc06ad77bc0}{stream\_packet} + \textcolor{keyword}{sizeof}(\hyperlink{avb__avtp_8h_a605c2dabb13492c54cbdf6afa4752898}{eth\_header}) + \textcolor{keyword}{sizeof}(
+      \hyperlink{avb__avtp_8h_a67f05a7fb6b937cfa210e6814661e9d9}{seventeen22\_header}));
+480         \hyperlink{avb__avtp_8c_a95139fb9e6999df80a1a05426894e69a}{avb\_set\_61883\_data\_block\_continuity}(
+      \hyperlink{gstavbsink_8c_aded8c6b656118d9e446a03c1b298c727}{h61883}, \hyperlink{gstavbsink_8c_a45fbc7e1478f172d8b8555e663984056}{total\_samples});
+481 
+482         err = \hyperlink{igb_8c_a6c8e23bd2a93ab63646fd498ac8e2127}{igb\_xmit}(&\hyperlink{gstavbsink_8c_a456414422441623fbed2e3ba547b3524}{igb\_dev}, 0, \hyperlink{gstavbsink_8c_afaac9ace7e52a3bcf0ce79e59b9b3f92}{tmp\_packet});
+483         \textcolor{keywordflow}{if} (!err) \{
+484             fprintf(stderr,\textcolor{stringliteral}{"frame sequence = %lld\(\backslash\)n"}, \hyperlink{gstavbsink_8c_a73f6455d8e0bd406fa3b5f25ddf7eb8f}{frame\_sequence}++);
+485             \textcolor{keywordflow}{do}\{
+486                 usleep(100);
+487             \} \textcolor{keywordflow}{while} (\hyperlink{gstavbsink_8c_af8314afa25f4fdc538cac2afcf11c4c8}{g\_start\_feeding} == 0);
+488             \textcolor{keywordflow}{return} GST\_FLOW\_OK;
+489         \} \textcolor{keywordflow}{else} \{
+490             fprintf(stderr,\textcolor{stringliteral}{"Failed frame sequence = %lld !!!!\(\backslash\)n"}, \hyperlink{gstavbsink_8c_a73f6455d8e0bd406fa3b5f25ddf7eb8f}{frame\_sequence}++);
+491         \}
+492 
+493         \textcolor{keywordflow}{if} (ENOSPC == err) \{
+494             \textcolor{comment}{/* put back for now */}
+495             \hyperlink{gstavbsink_8c_afaac9ace7e52a3bcf0ce79e59b9b3f92}{tmp\_packet}->\hyperlink{structigb__packet_a1a20432d28f575630a2562c1c728a40f}{next} = \hyperlink{gstavbsink_8c_a3d35f061de7f1a4b1d4155fa8b352479}{free\_packets};
+496             \hyperlink{gstavbsink_8c_a3d35f061de7f1a4b1d4155fa8b352479}{free\_packets} = \hyperlink{gstavbsink_8c_afaac9ace7e52a3bcf0ce79e59b9b3f92}{tmp\_packet};
+497         \}
+498         \textcolor{keywordflow}{return} GST\_FLOW\_OK;
+499 
+500 \hyperlink{simple__rx_8c_aeb94fbd457627182ceee7e505f432541}{cleanup}:
+501         \hyperlink{igb_8c_a03eaebcc1732abe4fd77c1f79c8e2fee}{igb\_clean}(&\hyperlink{gstavbsink_8c_a456414422441623fbed2e3ba547b3524}{igb\_dev}, &\hyperlink{gstavbsink_8c_a03cc454be42935d04410937d1053eb60}{cleaned\_packets});
+502         \textcolor{keywordflow}{while} (\hyperlink{gstavbsink_8c_a03cc454be42935d04410937d1053eb60}{cleaned\_packets}) \{
+503             \hyperlink{gstavbsink_8c_afaac9ace7e52a3bcf0ce79e59b9b3f92}{tmp\_packet} = \hyperlink{gstavbsink_8c_a03cc454be42935d04410937d1053eb60}{cleaned\_packets};
+504             \hyperlink{gstavbsink_8c_a03cc454be42935d04410937d1053eb60}{cleaned\_packets} = \hyperlink{gstavbsink_8c_a03cc454be42935d04410937d1053eb60}{cleaned\_packets}->
+      \hyperlink{structigb__packet_a1a20432d28f575630a2562c1c728a40f}{next};
+505             \hyperlink{gstavbsink_8c_afaac9ace7e52a3bcf0ce79e59b9b3f92}{tmp\_packet}->\hyperlink{structigb__packet_a1a20432d28f575630a2562c1c728a40f}{next} = \hyperlink{gstavbsink_8c_a3d35f061de7f1a4b1d4155fa8b352479}{free\_packets};
+506             \hyperlink{gstavbsink_8c_a3d35f061de7f1a4b1d4155fa8b352479}{free\_packets} = \hyperlink{gstavbsink_8c_afaac9ace7e52a3bcf0ce79e59b9b3f92}{tmp\_packet};
+507         \}
+508           \textcolor{keywordflow}{goto} start;
+509       \}
+510 
+511       \textcolor{keywordflow}{if} (\hyperlink{gstavbsink_8c_a7c8176263e9704aa667fc335cc818a3f}{halt\_tx} == 0)
+512           printf(\textcolor{stringliteral}{"listener left ...\(\backslash\)n"}); 
+513 
+514 exit\_app:
+515       \hyperlink{gstavbsink_8c_a7c8176263e9704aa667fc335cc818a3f}{halt\_tx} = 1;
+516       \hyperlink{igb_8c_a8d49a6fa54c79c1b5bd5b6f006eeb8e1}{igb\_set\_class\_bandwidth}(&\hyperlink{gstavbsink_8c_a456414422441623fbed2e3ba547b3524}{igb\_dev}, 0, 0, 0, 0);
+517       \hyperlink{igb_8c_a850c73e1871342ff79fe6f0a5e6c26f3}{igb\_dma\_free\_page}(&\hyperlink{gstavbsink_8c_a456414422441623fbed2e3ba547b3524}{igb\_dev}, &\hyperlink{gstavbsink_8c_a014c349ebc9b62f76ad8a63a80060e72}{a\_page});
+518       \hyperlink{igb_8c_a234eba39e755b10f3ad1652c95072a77}{igb\_detach}(&\hyperlink{gstavbsink_8c_a456414422441623fbed2e3ba547b3524}{igb\_dev});
+519       pthread\_exit(\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+520 
+521       \textcolor{keywordflow}{return} 0;
+522 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{gstavbsink_8c_a2aa8a8acb35475d426ab0525f924ac74_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=333pt]{gstavbsink_8c_a2aa8a8acb35475d426ab0525f924ac74_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{gstavbsink.\+c@{gstavbsink.\+c}!gst\+\_\+avbsink\+\_\+set\+\_\+property@{gst\+\_\+avbsink\+\_\+set\+\_\+property}}
+\index{gst\+\_\+avbsink\+\_\+set\+\_\+property@{gst\+\_\+avbsink\+\_\+set\+\_\+property}!gstavbsink.\+c@{gstavbsink.\+c}}
+\subsubsection[{\texorpdfstring{gst\+\_\+avbsink\+\_\+set\+\_\+property(\+G\+Object $\ast$object, guint prop\+\_\+id, const G\+Value $\ast$value, G\+Param\+Spec $\ast$pspec)}{gst_avbsink_set_property(GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec)}}]{\setlength{\rightskip}{0pt plus 5cm}static void gst\+\_\+avbsink\+\_\+set\+\_\+property (
+\begin{DoxyParamCaption}
+\item[{G\+Object $\ast$}]{object, }
+\item[{guint}]{prop\+\_\+id, }
+\item[{const G\+Value $\ast$}]{value, }
+\item[{G\+Param\+Spec $\ast$}]{pspec}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{gstavbsink_8c_ac509b9b0bfd1560dc63608cdae6215a3}{}\label{gstavbsink_8c_ac509b9b0bfd1560dc63608cdae6215a3}
+
+
+gstavbsink.\+c 파일의 162 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+164 \{
+165     \textcolor{keywordflow}{switch} (prop\_id)
+166     \{
+167         \textcolor{keywordflow}{case} \hyperlink{gstavbsink_8c_aba01db17f4a2bfbc3db60dc172972a25ab832819372ad9cb620ef3bc3b7e8b93d}{PROP\_INTERFACE}:
+168             g\_free(\hyperlink{gstavbsink_8c_a386ebf0a88b164d6ddd2cc8197c20ccc}{interface1});
+169             \textcolor{keywordflow}{if} (g\_value\_get\_string (value) == \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL})
+170                 \hyperlink{gstavbsink_8c_a386ebf0a88b164d6ddd2cc8197c20ccc}{interface1} = g\_strdup (\hyperlink{gstavbsink_8c_ad9b2541b15929e98f6f46dc43a0a420d}{DEFAULT\_INTERFACE});
+171             \textcolor{keywordflow}{else}
+172                 \hyperlink{gstavbsink_8c_a386ebf0a88b164d6ddd2cc8197c20ccc}{interface1} = g\_value\_dup\_string (value);
+173             \textcolor{keywordflow}{break};
+174         \textcolor{keywordflow}{default}:
+175             \textcolor{keywordflow}{break};
+176     \}
+177 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gstavbsink_8c_ac509b9b0bfd1560dc63608cdae6215a3_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{gstavbsink.\+c@{gstavbsink.\+c}!G\+S\+T\+\_\+\+D\+E\+B\+U\+G\+\_\+\+C\+A\+T\+E\+G\+O\+R\+Y\+\_\+\+S\+T\+A\+T\+IC@{G\+S\+T\+\_\+\+D\+E\+B\+U\+G\+\_\+\+C\+A\+T\+E\+G\+O\+R\+Y\+\_\+\+S\+T\+A\+T\+IC}}
+\index{G\+S\+T\+\_\+\+D\+E\+B\+U\+G\+\_\+\+C\+A\+T\+E\+G\+O\+R\+Y\+\_\+\+S\+T\+A\+T\+IC@{G\+S\+T\+\_\+\+D\+E\+B\+U\+G\+\_\+\+C\+A\+T\+E\+G\+O\+R\+Y\+\_\+\+S\+T\+A\+T\+IC}!gstavbsink.\+c@{gstavbsink.\+c}}
+\subsubsection[{\texorpdfstring{G\+S\+T\+\_\+\+D\+E\+B\+U\+G\+\_\+\+C\+A\+T\+E\+G\+O\+R\+Y\+\_\+\+S\+T\+A\+T\+I\+C(avbsink\+\_\+debug)}{GST_DEBUG_CATEGORY_STATIC(avbsink_debug)}}]{\setlength{\rightskip}{0pt plus 5cm}G\+S\+T\+\_\+\+D\+E\+B\+U\+G\+\_\+\+C\+A\+T\+E\+G\+O\+R\+Y\+\_\+\+S\+T\+A\+T\+IC (
+\begin{DoxyParamCaption}
+\item[{avbsink\+\_\+debug}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{gstavbsink_8c_ad51fd3d5e92f52685c6c16a95fb4173d}{}\label{gstavbsink_8c_ad51fd3d5e92f52685c6c16a95fb4173d}
+\index{gstavbsink.\+c@{gstavbsink.\+c}!igb\+\_\+cleanup@{igb\+\_\+cleanup}}
+\index{igb\+\_\+cleanup@{igb\+\_\+cleanup}!gstavbsink.\+c@{gstavbsink.\+c}}
+\subsubsection[{\texorpdfstring{igb\+\_\+cleanup()}{igb_cleanup()}}]{\setlength{\rightskip}{0pt plus 5cm}void igb\+\_\+cleanup (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{gstavbsink_8c_a9da044f1c94ab8d6f3f2fd72f8e9156a}{}\label{gstavbsink_8c_a9da044f1c94ab8d6f3f2fd72f8e9156a}
+
+
+gstavbsink.\+c 파일의 297 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+298 \{ 
+299     \textcolor{keywordtype}{int} \hyperlink{gst__avb__playbin_8c_a6ce68847c12434f60d1b2654a3dc3409}{err};
+300 
+301     \hyperlink{igb_8c_a8d49a6fa54c79c1b5bd5b6f006eeb8e1}{igb\_set\_class\_bandwidth}(&\hyperlink{gstavbsink_8c_a456414422441623fbed2e3ba547b3524}{igb\_dev},0,0,0,0);
+302     \hyperlink{igb_8c_a850c73e1871342ff79fe6f0a5e6c26f3}{igb\_dma\_free\_page}(&\hyperlink{gstavbsink_8c_a456414422441623fbed2e3ba547b3524}{igb\_dev},&\hyperlink{gstavbsink_8c_a014c349ebc9b62f76ad8a63a80060e72}{a\_page});
+303     err=\hyperlink{igb_8c_a234eba39e755b10f3ad1652c95072a77}{igb\_detach}(&\hyperlink{gstavbsink_8c_a456414422441623fbed2e3ba547b3524}{igb\_dev});
+304     exit(0);
+305 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gstavbsink_8c_a9da044f1c94ab8d6f3f2fd72f8e9156a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gstavbsink_8c_a9da044f1c94ab8d6f3f2fd72f8e9156a_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{gstavbsink.\+c@{gstavbsink.\+c}!plugin\+\_\+init@{plugin\+\_\+init}}
+\index{plugin\+\_\+init@{plugin\+\_\+init}!gstavbsink.\+c@{gstavbsink.\+c}}
+\subsubsection[{\texorpdfstring{plugin\+\_\+init(\+Gst\+Plugin $\ast$plugin)}{plugin_init(GstPlugin *plugin)}}]{\setlength{\rightskip}{0pt plus 5cm}static gboolean plugin\+\_\+init (
+\begin{DoxyParamCaption}
+\item[{Gst\+Plugin $\ast$}]{plugin}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{gstavbsink_8c_a0dd7ff43338b628d63e394b6a94a5ac6}{}\label{gstavbsink_8c_a0dd7ff43338b628d63e394b6a94a5ac6}
+
+
+gstavbsink.\+c 파일의 526 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+527 \{
+528       \textcolor{keywordflow}{if} (!gst\_element\_register (plugin, \textcolor{stringliteral}{"avbsink"}, GST\_RANK\_NONE,
+529           \hyperlink{gstavbsink_8h_a88c2b5575d59b6ed1c0d19b525519ee0}{GST\_TYPE\_AVBSINK}))
+530           \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+531 
+532       \textcolor{keywordflow}{return} \hyperlink{maap__log_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+533 \}
+\end{DoxyCode}
+\index{gstavbsink.\+c@{gstavbsink.\+c}!read\+\_\+start\+\_\+feed@{read\+\_\+start\+\_\+feed}}
+\index{read\+\_\+start\+\_\+feed@{read\+\_\+start\+\_\+feed}!gstavbsink.\+c@{gstavbsink.\+c}}
+\subsubsection[{\texorpdfstring{read\+\_\+start\+\_\+feed(void $\ast$arg)}{read_start_feed(void *arg)}}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ read\+\_\+start\+\_\+feed (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{arg}
+\end{DoxyParamCaption}
+)}\hypertarget{gstavbsink_8c_a2f1c6adee906673ec6ff43e59c8285db}{}\label{gstavbsink_8c_a2f1c6adee906673ec6ff43e59c8285db}
+
+
+gstavbsink.\+c 파일의 255 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+256 \{
+257       \textcolor{keywordtype}{int} n;
+258       \textcolor{keywordtype}{char} buf[1024];
+259       socklen\_t fromlen;
+260       \textcolor{keyword}{struct }sockaddr\_in from;
+261 
+262       fromlen = \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct }sockaddr\_in);
+263 
+264       \textcolor{keywordflow}{while} (1) \{
+265           \textcolor{keywordflow}{if} (\hyperlink{gstavbsink_8c_a4a3a3b22b15c827af39faa82c1b8497a}{flag\_close\_thread} == 1)
+266             \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+267 
+268           n = recvfrom(\hyperlink{gstavbsink_8c_a7f7979edeff06f0ba851f7a3d4866090}{g\_start\_feed\_socket}, buf, 1024,
+269                    0 ,(\textcolor{keyword}{struct} sockaddr *)&from, &fromlen);
+270         \textcolor{keywordflow}{if} (n > 0) \{
+271             sscanf(buf, \textcolor{stringliteral}{"%d"}, &\hyperlink{gstavbsink_8c_af8314afa25f4fdc538cac2afcf11c4c8}{g\_start\_feeding});
+272             printf(\textcolor{stringliteral}{"\(\backslash\)nTransmitter status: %d"}, \hyperlink{gstavbsink_8c_af8314afa25f4fdc538cac2afcf11c4c8}{g\_start\_feeding});
+273             \textcolor{keywordflow}{if} (\hyperlink{gstavbsink_8c_af8314afa25f4fdc538cac2afcf11c4c8}{g\_start\_feeding} == 2) \{
+274                 \hyperlink{gstavbsink_8c_a70763450542106f6508fd1051eade47d}{listeners} = 0;
+275                 \hyperlink{gstavbsink_8c_a7c8176263e9704aa667fc335cc818a3f}{halt\_tx} = 1;
+276                 \textcolor{comment}{/* disable Qav */}
+277                 \hyperlink{igb_8c_a8d49a6fa54c79c1b5bd5b6f006eeb8e1}{igb\_set\_class\_bandwidth}(&\hyperlink{gstavbsink_8c_a456414422441623fbed2e3ba547b3524}{igb\_dev}, 0, 0, 0, 0);
+278                 pthread\_exit(\hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+279                 exit(0);
+280             \}
+281 
+282           \}
+283         \}
+284         \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+285 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gstavbsink_8c_a2f1c6adee906673ec6ff43e59c8285db_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gstavbsink_8c_a2f1c6adee906673ec6ff43e59c8285db_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{gstavbsink.\+c@{gstavbsink.\+c}!reverse\+\_\+64@{reverse\+\_\+64}}
+\index{reverse\+\_\+64@{reverse\+\_\+64}!gstavbsink.\+c@{gstavbsink.\+c}}
+\subsubsection[{\texorpdfstring{reverse\+\_\+64(uint64\+\_\+t val)}{reverse_64(uint64_t val)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint64\+\_\+t} reverse\+\_\+64 (
+\begin{DoxyParamCaption}
+\item[{{\bf uint64\+\_\+t}}]{val}
+\end{DoxyParamCaption}
+)}\hypertarget{gstavbsink_8c_af9505fdfc4f190696f6d9312055c11a7}{}\label{gstavbsink_8c_af9505fdfc4f190696f6d9312055c11a7}
+
+
+gstavbsink.\+c 파일의 193 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+194 \{
+195     \hyperlink{parse_8c_a6eb1e68cc391dd753bc8ce896dbb8315}{uint32\_t} low, high;
+196 
+197     low = val & 0xffffffff;
+198     high = (val >> 32) & 0xffffffff;
+199     low = htonl(low);
+200     high = htonl(high);
+201     val = 0;
+202     val = val | low;
+203     val = (val << 32) | high;
+204     \textcolor{keywordflow}{return} val;
+205 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gstavbsink_8c_af9505fdfc4f190696f6d9312055c11a7_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{gstavbsink.\+c@{gstavbsink.\+c}!sigint\+\_\+handler@{sigint\+\_\+handler}}
+\index{sigint\+\_\+handler@{sigint\+\_\+handler}!gstavbsink.\+c@{gstavbsink.\+c}}
+\subsubsection[{\texorpdfstring{sigint\+\_\+handler(int signum)}{sigint_handler(int signum)}}]{\setlength{\rightskip}{0pt plus 5cm}void sigint\+\_\+handler (
+\begin{DoxyParamCaption}
+\item[{int}]{signum}
+\end{DoxyParamCaption}
+)}\hypertarget{gstavbsink_8c_ab10c0c50c02a59ae9bd74c78c49b559d}{}\label{gstavbsink_8c_ab10c0c50c02a59ae9bd74c78c49b559d}
+
+
+gstavbsink.\+c 파일의 289 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+290 \{
+291     printf(\textcolor{stringliteral}{"got SIGINT\(\backslash\)n"});
+292     \hyperlink{gstavbsink_8c_a7c8176263e9704aa667fc335cc818a3f}{halt\_tx} = signum;
+293     \hyperlink{gstavbsink_8c_a4a3a3b22b15c827af39faa82c1b8497a}{flag\_close\_thread} = 1;
+294     exit(0);
+295 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gstavbsink_8c_ab10c0c50c02a59ae9bd74c78c49b559d_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{gstavbsink.\+c@{gstavbsink.\+c}!start\+\_\+feed\+\_\+socket\+\_\+init@{start\+\_\+feed\+\_\+socket\+\_\+init}}
+\index{start\+\_\+feed\+\_\+socket\+\_\+init@{start\+\_\+feed\+\_\+socket\+\_\+init}!gstavbsink.\+c@{gstavbsink.\+c}}
+\subsubsection[{\texorpdfstring{start\+\_\+feed\+\_\+socket\+\_\+init()}{start_feed_socket_init()}}]{\setlength{\rightskip}{0pt plus 5cm}int start\+\_\+feed\+\_\+socket\+\_\+init (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{gstavbsink_8c_a3df69a5fb66dabff3b2bc7f02270a4cb}{}\label{gstavbsink_8c_a3df69a5fb66dabff3b2bc7f02270a4cb}
+
+
+gstavbsink.\+c 파일의 207 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+208 \{
+209     \textcolor{keywordtype}{int} sock, length, rc, on = 1, \hyperlink{namespaceavdecc__lib_ab6b306ef981f5e21bb41ea2c2dbe8cd9}{flags} ;
+210     \textcolor{keyword}{struct }sockaddr\_in server;
+211 
+212     sock = socket(AF\_INET, SOCK\_DGRAM, 0);
+213     \textcolor{keywordflow}{if} (sock < 0) \{
+214         perror(\textcolor{stringliteral}{"Opening socket"});
+215         \textcolor{keywordflow}{return} -1;
+216     \}
+217 
+218     \hyperlink{gstavbsink_8c_a7f7979edeff06f0ba851f7a3d4866090}{g\_start\_feed\_socket} = sock;
+219 
+220     \textcolor{comment}{/* Allow socket descriptor to be reuseable */}
+221     rc = setsockopt(sock, SOL\_SOCKET,  SO\_REUSEADDR,
+222             (\textcolor{keywordtype}{char} *)&on, \textcolor{keyword}{sizeof}(on));
+223     \textcolor{keywordflow}{if} (rc < 0) \{
+224         perror(\textcolor{stringliteral}{"setsockopt() failed"});
+225         close(sock);
+226         exit(-1);
+227     \}
+228 
+229     \textcolor{comment}{/*}
+230 \textcolor{comment}{     * Set socket to be non-blocking.  All of the sockets for}
+231 \textcolor{comment}{     * the incoming connections will also be non-blocking since}
+232 \textcolor{comment}{     * they will inherit that state from the listening socket.}
+233 \textcolor{comment}{     */}
+234     \hyperlink{namespaceavdecc__lib_ab6b306ef981f5e21bb41ea2c2dbe8cd9}{flags} = fcntl(sock, F\_GETFL, 0);
+235     rc = fcntl(sock, F\_SETFL, \hyperlink{namespaceavdecc__lib_ab6b306ef981f5e21bb41ea2c2dbe8cd9}{flags} | O\_NONBLOCK);
+236     \textcolor{keywordflow}{if} (rc < 0) \{
+237           perror(\textcolor{stringliteral}{"ioctl() failed"});
+238           close(sock);
+239           exit(-1);
+240     \}
+241 
+242     length = \textcolor{keyword}{sizeof}(server);
+243     bzero(&server,length);
+244     server.sin\_family = AF\_INET;
+245     server.sin\_addr.s\_addr=INADDR\_ANY;
+246     server.sin\_port=htons(7600);
+247     \textcolor{keywordflow}{if} (bind(sock,(\textcolor{keyword}{struct} sockaddr *)&server,length) < 0) \{
+248           perror(\textcolor{stringliteral}{"binding"});
+249           exit(-1);
+250     \}
+251 
+252     \textcolor{keywordflow}{return} 0;
+253 \}
+\end{DoxyCode}
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{gstavbsink_8c_a3df69a5fb66dabff3b2bc7f02270a4cb_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{변수 문서화}
+\index{gstavbsink.\+c@{gstavbsink.\+c}!a\+\_\+page@{a\+\_\+page}}
+\index{a\+\_\+page@{a\+\_\+page}!gstavbsink.\+c@{gstavbsink.\+c}}
+\subsubsection[{\texorpdfstring{a\+\_\+page}{a_page}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf igb\+\_\+dma\+\_\+alloc} a\+\_\+page}\hypertarget{gstavbsink_8c_a014c349ebc9b62f76ad8a63a80060e72}{}\label{gstavbsink_8c_a014c349ebc9b62f76ad8a63a80060e72}
+
+
+gstavbsink.\+c 파일의 83 번째 라인에서 정의되었습니다.
+
+\index{gstavbsink.\+c@{gstavbsink.\+c}!avb\+\_\+init@{avb\+\_\+init}}
+\index{avb\+\_\+init@{avb\+\_\+init}!gstavbsink.\+c@{gstavbsink.\+c}}
+\subsubsection[{\texorpdfstring{avb\+\_\+init}{avb_init}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int avb\+\_\+init}\hypertarget{gstavbsink_8c_adee8f0101d99abe73e4ab6eb2c1543c8}{}\label{gstavbsink_8c_adee8f0101d99abe73e4ab6eb2c1543c8}
+
+
+gstavbsink.\+c 파일의 75 번째 라인에서 정의되었습니다.
+
+\index{gstavbsink.\+c@{gstavbsink.\+c}!cleaned\+\_\+packets@{cleaned\+\_\+packets}}
+\index{cleaned\+\_\+packets@{cleaned\+\_\+packets}!gstavbsink.\+c@{gstavbsink.\+c}}
+\subsubsection[{\texorpdfstring{cleaned\+\_\+packets}{cleaned_packets}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf igb\+\_\+packet}$\ast$ cleaned\+\_\+packets}\hypertarget{gstavbsink_8c_a03cc454be42935d04410937d1053eb60}{}\label{gstavbsink_8c_a03cc454be42935d04410937d1053eb60}
+
+
+gstavbsink.\+c 파일의 85 번째 라인에서 정의되었습니다.
+
+\index{gstavbsink.\+c@{gstavbsink.\+c}!control\+\_\+socket@{control\+\_\+socket}}
+\index{control\+\_\+socket@{control\+\_\+socket}!gstavbsink.\+c@{gstavbsink.\+c}}
+\subsubsection[{\texorpdfstring{control\+\_\+socket}{control_socket}}]{\setlength{\rightskip}{0pt plus 5cm}int control\+\_\+socket = -\/1}\hypertarget{gstavbsink_8c_ab16a0c776c464dcfb5cf8a013a137647}{}\label{gstavbsink_8c_ab16a0c776c464dcfb5cf8a013a137647}
+
+
+gstavbsink.\+c 파일의 72 번째 라인에서 정의되었습니다.
+
+\index{gstavbsink.\+c@{gstavbsink.\+c}!data\+\_\+ptr@{data\+\_\+ptr}}
+\index{data\+\_\+ptr@{data\+\_\+ptr}!gstavbsink.\+c@{gstavbsink.\+c}}
+\subsubsection[{\texorpdfstring{data\+\_\+ptr}{data_ptr}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint8\+\_\+t}$\ast$ data\+\_\+ptr}\hypertarget{gstavbsink_8c_a6166cef59cbe432be35512925debeae6}{}\label{gstavbsink_8c_a6166cef59cbe432be35512925debeae6}
+
+
+gstavbsink.\+c 파일의 95 번째 라인에서 정의되었습니다.
+
+\index{gstavbsink.\+c@{gstavbsink.\+c}!D\+E\+S\+T\+\_\+\+A\+D\+DR@{D\+E\+S\+T\+\_\+\+A\+D\+DR}}
+\index{D\+E\+S\+T\+\_\+\+A\+D\+DR@{D\+E\+S\+T\+\_\+\+A\+D\+DR}!gstavbsink.\+c@{gstavbsink.\+c}}
+\subsubsection[{\texorpdfstring{D\+E\+S\+T\+\_\+\+A\+D\+DR}{DEST_ADDR}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char D\+E\+S\+T\+\_\+\+A\+D\+DR\mbox{[}$\,$\mbox{]} = \{ 0x91, 0x\+E0, 0x\+F0, 0x00, 0x0\+E, 0x80 \}}\hypertarget{gstavbsink_8c_ae54c4983d509d6f290b00a6cc9892e0c}{}\label{gstavbsink_8c_ae54c4983d509d6f290b00a6cc9892e0c}
+
+
+gstavbsink.\+c 파일의 82 번째 라인에서 정의되었습니다.
+
+\index{gstavbsink.\+c@{gstavbsink.\+c}!flag\+\_\+close\+\_\+thread@{flag\+\_\+close\+\_\+thread}}
+\index{flag\+\_\+close\+\_\+thread@{flag\+\_\+close\+\_\+thread}!gstavbsink.\+c@{gstavbsink.\+c}}
+\subsubsection[{\texorpdfstring{flag\+\_\+close\+\_\+thread}{flag_close_thread}}]{\setlength{\rightskip}{0pt plus 5cm}int flag\+\_\+close\+\_\+thread = 0}\hypertarget{gstavbsink_8c_a4a3a3b22b15c827af39faa82c1b8497a}{}\label{gstavbsink_8c_a4a3a3b22b15c827af39faa82c1b8497a}
+
+
+gstavbsink.\+c 파일의 71 번째 라인에서 정의되었습니다.
+
+\index{gstavbsink.\+c@{gstavbsink.\+c}!frame\+\_\+sequence@{frame\+\_\+sequence}}
+\index{frame\+\_\+sequence@{frame\+\_\+sequence}!gstavbsink.\+c@{gstavbsink.\+c}}
+\subsubsection[{\texorpdfstring{frame\+\_\+sequence}{frame_sequence}}]{\setlength{\rightskip}{0pt plus 5cm}long long int frame\+\_\+sequence = 0}\hypertarget{gstavbsink_8c_a73f6455d8e0bd406fa3b5f25ddf7eb8f}{}\label{gstavbsink_8c_a73f6455d8e0bd406fa3b5f25ddf7eb8f}
+
+
+gstavbsink.\+c 파일의 98 번째 라인에서 정의되었습니다.
+
+\index{gstavbsink.\+c@{gstavbsink.\+c}!frame\+\_\+size@{frame\+\_\+size}}
+\index{frame\+\_\+size@{frame\+\_\+size}!gstavbsink.\+c@{gstavbsink.\+c}}
+\subsubsection[{\texorpdfstring{frame\+\_\+size}{frame_size}}]{\setlength{\rightskip}{0pt plus 5cm}int frame\+\_\+size}\hypertarget{gstavbsink_8c_ad662aa56c1696f09c0ac6b97abafac6d}{}\label{gstavbsink_8c_ad662aa56c1696f09c0ac6b97abafac6d}
+
+
+gstavbsink.\+c 파일의 97 번째 라인에서 정의되었습니다.
+
+\index{gstavbsink.\+c@{gstavbsink.\+c}!free\+\_\+packets@{free\+\_\+packets}}
+\index{free\+\_\+packets@{free\+\_\+packets}!gstavbsink.\+c@{gstavbsink.\+c}}
+\subsubsection[{\texorpdfstring{free\+\_\+packets}{free_packets}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf igb\+\_\+packet}$\ast$ free\+\_\+packets}\hypertarget{gstavbsink_8c_a3d35f061de7f1a4b1d4155fa8b352479}{}\label{gstavbsink_8c_a3d35f061de7f1a4b1d4155fa8b352479}
+
+
+gstavbsink.\+c 파일의 86 번째 라인에서 정의되었습니다.
+
+\index{gstavbsink.\+c@{gstavbsink.\+c}!g\+\_\+start\+\_\+feed\+\_\+socket@{g\+\_\+start\+\_\+feed\+\_\+socket}}
+\index{g\+\_\+start\+\_\+feed\+\_\+socket@{g\+\_\+start\+\_\+feed\+\_\+socket}!gstavbsink.\+c@{gstavbsink.\+c}}
+\subsubsection[{\texorpdfstring{g\+\_\+start\+\_\+feed\+\_\+socket}{g_start_feed_socket}}]{\setlength{\rightskip}{0pt plus 5cm}int g\+\_\+start\+\_\+feed\+\_\+socket = 0}\hypertarget{gstavbsink_8c_a7f7979edeff06f0ba851f7a3d4866090}{}\label{gstavbsink_8c_a7f7979edeff06f0ba851f7a3d4866090}
+
+
+gstavbsink.\+c 파일의 74 번째 라인에서 정의되었습니다.
+
+\index{gstavbsink.\+c@{gstavbsink.\+c}!g\+\_\+start\+\_\+feeding@{g\+\_\+start\+\_\+feeding}}
+\index{g\+\_\+start\+\_\+feeding@{g\+\_\+start\+\_\+feeding}!gstavbsink.\+c@{gstavbsink.\+c}}
+\subsubsection[{\texorpdfstring{g\+\_\+start\+\_\+feeding}{g_start_feeding}}]{\setlength{\rightskip}{0pt plus 5cm}int g\+\_\+start\+\_\+feeding = 1}\hypertarget{gstavbsink_8c_af8314afa25f4fdc538cac2afcf11c4c8}{}\label{gstavbsink_8c_af8314afa25f4fdc538cac2afcf11c4c8}
+
+
+gstavbsink.\+c 파일의 73 번째 라인에서 정의되었습니다.
+
+\index{gstavbsink.\+c@{gstavbsink.\+c}!h1722@{h1722}}
+\index{h1722@{h1722}!gstavbsink.\+c@{gstavbsink.\+c}}
+\subsubsection[{\texorpdfstring{h1722}{h1722}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf seventeen22\+\_\+header}$\ast$ h1722}\hypertarget{gstavbsink_8c_aa863c79d5dbc5de0efc3d9b8f749af59}{}\label{gstavbsink_8c_aa863c79d5dbc5de0efc3d9b8f749af59}
+
+
+gstavbsink.\+c 파일의 89 번째 라인에서 정의되었습니다.
+
+\index{gstavbsink.\+c@{gstavbsink.\+c}!h61883@{h61883}}
+\index{h61883@{h61883}!gstavbsink.\+c@{gstavbsink.\+c}}
+\subsubsection[{\texorpdfstring{h61883}{h61883}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf six1883\+\_\+header}$\ast$ h61883}\hypertarget{gstavbsink_8c_aded8c6b656118d9e446a03c1b298c727}{}\label{gstavbsink_8c_aded8c6b656118d9e446a03c1b298c727}
+
+
+gstavbsink.\+c 파일의 88 번째 라인에서 정의되었습니다.
+
+\index{gstavbsink.\+c@{gstavbsink.\+c}!halt\+\_\+tx@{halt\+\_\+tx}}
+\index{halt\+\_\+tx@{halt\+\_\+tx}!gstavbsink.\+c@{gstavbsink.\+c}}
+\subsubsection[{\texorpdfstring{halt\+\_\+tx}{halt_tx}}]{\setlength{\rightskip}{0pt plus 5cm}volatile int halt\+\_\+tx = 0}\hypertarget{gstavbsink_8c_a7c8176263e9704aa667fc335cc818a3f}{}\label{gstavbsink_8c_a7c8176263e9704aa667fc335cc818a3f}
+
+
+gstavbsink.\+c 파일의 69 번째 라인에서 정의되었습니다.
+
+\index{gstavbsink.\+c@{gstavbsink.\+c}!igb\+\_\+dev@{igb\+\_\+dev}}
+\index{igb\+\_\+dev@{igb\+\_\+dev}!gstavbsink.\+c@{gstavbsink.\+c}}
+\subsubsection[{\texorpdfstring{igb\+\_\+dev}{igb_dev}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf device\+\_\+t} igb\+\_\+dev}\hypertarget{gstavbsink_8c_a456414422441623fbed2e3ba547b3524}{}\label{gstavbsink_8c_a456414422441623fbed2e3ba547b3524}
+
+
+gstavbsink.\+c 파일의 76 번째 라인에서 정의되었습니다.
+
+\index{gstavbsink.\+c@{gstavbsink.\+c}!interface1@{interface1}}
+\index{interface1@{interface1}!gstavbsink.\+c@{gstavbsink.\+c}}
+\subsubsection[{\texorpdfstring{interface1}{interface1}}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ interface1}\hypertarget{gstavbsink_8c_a386ebf0a88b164d6ddd2cc8197c20ccc}{}\label{gstavbsink_8c_a386ebf0a88b164d6ddd2cc8197c20ccc}
+
+
+gstavbsink.\+c 파일의 99 번째 라인에서 정의되었습니다.
+
+\index{gstavbsink.\+c@{gstavbsink.\+c}!listeners@{listeners}}
+\index{listeners@{listeners}!gstavbsink.\+c@{gstavbsink.\+c}}
+\subsubsection[{\texorpdfstring{listeners}{listeners}}]{\setlength{\rightskip}{0pt plus 5cm}volatile int listeners = 1}\hypertarget{gstavbsink_8c_a70763450542106f6508fd1051eade47d}{}\label{gstavbsink_8c_a70763450542106f6508fd1051eade47d}
+
+
+gstavbsink.\+c 파일의 70 번째 라인에서 정의되었습니다.
+
+\index{gstavbsink.\+c@{gstavbsink.\+c}!payload\+\_\+len@{payload\+\_\+len}}
+\index{payload\+\_\+len@{payload\+\_\+len}!gstavbsink.\+c@{gstavbsink.\+c}}
+\subsubsection[{\texorpdfstring{payload\+\_\+len}{payload_len}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint32\+\_\+t} payload\+\_\+len}\hypertarget{gstavbsink_8c_afbbc2e77af6298f5550aec6087ba7d32}{}\label{gstavbsink_8c_afbbc2e77af6298f5550aec6087ba7d32}
+
+
+gstavbsink.\+c 파일의 77 번째 라인에서 정의되었습니다.
+
+\index{gstavbsink.\+c@{gstavbsink.\+c}!pkt\+\_\+sz@{pkt\+\_\+sz}}
+\index{pkt\+\_\+sz@{pkt\+\_\+sz}!gstavbsink.\+c@{gstavbsink.\+c}}
+\subsubsection[{\texorpdfstring{pkt\+\_\+sz}{pkt_sz}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint32\+\_\+t} pkt\+\_\+sz}\hypertarget{gstavbsink_8c_a165d98e3e74f326a15657fbb57e4ebf5}{}\label{gstavbsink_8c_a165d98e3e74f326a15657fbb57e4ebf5}
+
+
+gstavbsink.\+c 파일의 92 번째 라인에서 정의되었습니다.
+
+\index{gstavbsink.\+c@{gstavbsink.\+c}!read\+\_\+bytes@{read\+\_\+bytes}}
+\index{read\+\_\+bytes@{read\+\_\+bytes}!gstavbsink.\+c@{gstavbsink.\+c}}
+\subsubsection[{\texorpdfstring{read\+\_\+bytes}{read_bytes}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int32\+\_\+t} read\+\_\+bytes}\hypertarget{gstavbsink_8c_a1dd1315d137bcef8890f811a0bf8e23d}{}\label{gstavbsink_8c_a1dd1315d137bcef8890f811a0bf8e23d}
+
+
+gstavbsink.\+c 파일의 93 번째 라인에서 정의되었습니다.
+
+\index{gstavbsink.\+c@{gstavbsink.\+c}!sched@{sched}}
+\index{sched@{sched}!gstavbsink.\+c@{gstavbsink.\+c}}
+\subsubsection[{\texorpdfstring{sched}{sched}}]{\setlength{\rightskip}{0pt plus 5cm}struct sched\+\_\+param sched}\hypertarget{gstavbsink_8c_a171503523b22d0611a62475b2b7481d8}{}\label{gstavbsink_8c_a171503523b22d0611a62475b2b7481d8}
+
+
+gstavbsink.\+c 파일의 87 번째 라인에서 정의되었습니다.
+
+\index{gstavbsink.\+c@{gstavbsink.\+c}!seqnum@{seqnum}}
+\index{seqnum@{seqnum}!gstavbsink.\+c@{gstavbsink.\+c}}
+\subsubsection[{\texorpdfstring{seqnum}{seqnum}}]{\setlength{\rightskip}{0pt plus 5cm}int seqnum}\hypertarget{gstavbsink_8c_a54d0bde7289ee46d2643ee7c676635b3}{}\label{gstavbsink_8c_a54d0bde7289ee46d2643ee7c676635b3}
+
+
+gstavbsink.\+c 파일의 90 번째 라인에서 정의되었습니다.
+
+\index{gstavbsink.\+c@{gstavbsink.\+c}!sink\+\_\+template@{sink\+\_\+template}}
+\index{sink\+\_\+template@{sink\+\_\+template}!gstavbsink.\+c@{gstavbsink.\+c}}
+\subsubsection[{\texorpdfstring{sink\+\_\+template}{sink_template}}]{\setlength{\rightskip}{0pt plus 5cm}Gst\+Static\+Pad\+Template sink\+\_\+template\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{gstavbsink_8c_a26e2485c5fd610ac13e266fb32008cf7}{}\label{gstavbsink_8c_a26e2485c5fd610ac13e266fb32008cf7}
+{\bfseries 초기값\+:}
+\begin{DoxyCode}
+=
+                GST\_STATIC\_PAD\_TEMPLATE (\textcolor{stringliteral}{"sink"},
+                GST\_PAD\_SINK,
+                GST\_PAD\_ALWAYS,
+                GST\_STATIC\_CAPS\_ANY)
+\end{DoxyCode}
+
+
+gstavbsink.\+c 파일의 104 번째 라인에서 정의되었습니다.
+
+\index{gstavbsink.\+c@{gstavbsink.\+c}!S\+T\+A\+T\+I\+O\+N\+\_\+\+A\+D\+DR@{S\+T\+A\+T\+I\+O\+N\+\_\+\+A\+D\+DR}}
+\index{S\+T\+A\+T\+I\+O\+N\+\_\+\+A\+D\+DR@{S\+T\+A\+T\+I\+O\+N\+\_\+\+A\+D\+DR}!gstavbsink.\+c@{gstavbsink.\+c}}
+\subsubsection[{\texorpdfstring{S\+T\+A\+T\+I\+O\+N\+\_\+\+A\+D\+DR}{STATION_ADDR}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char S\+T\+A\+T\+I\+O\+N\+\_\+\+A\+D\+DR\mbox{[}$\,$\mbox{]} = \{ 0, 0, 0, 0, 0, 0 \}}\hypertarget{gstavbsink_8c_ab42ba46b155e06fe7850ed877f07de86}{}\label{gstavbsink_8c_ab42ba46b155e06fe7850ed877f07de86}
+
+
+gstavbsink.\+c 파일의 78 번째 라인에서 정의되었습니다.
+
+\index{gstavbsink.\+c@{gstavbsink.\+c}!S\+T\+R\+E\+A\+M\+\_\+\+ID@{S\+T\+R\+E\+A\+M\+\_\+\+ID}}
+\index{S\+T\+R\+E\+A\+M\+\_\+\+ID@{S\+T\+R\+E\+A\+M\+\_\+\+ID}!gstavbsink.\+c@{gstavbsink.\+c}}
+\subsubsection[{\texorpdfstring{S\+T\+R\+E\+A\+M\+\_\+\+ID}{STREAM_ID}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char S\+T\+R\+E\+A\+M\+\_\+\+ID\mbox{[}$\,$\mbox{]} = \{ 0, 0, 0, 0, 0, 0, 0, 0 \}}\hypertarget{gstavbsink_8c_abe54014872133bc67a059f3d713f8a83}{}\label{gstavbsink_8c_abe54014872133bc67a059f3d713f8a83}
+
+
+gstavbsink.\+c 파일의 79 번째 라인에서 정의되었습니다.
+
+\index{gstavbsink.\+c@{gstavbsink.\+c}!stream\+\_\+packet@{stream\+\_\+packet}}
+\index{stream\+\_\+packet@{stream\+\_\+packet}!gstavbsink.\+c@{gstavbsink.\+c}}
+\subsubsection[{\texorpdfstring{stream\+\_\+packet}{stream_packet}}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ stream\+\_\+packet}\hypertarget{gstavbsink_8c_a4b422b190f58028be0571cc06ad77bc0}{}\label{gstavbsink_8c_a4b422b190f58028be0571cc06ad77bc0}
+
+
+gstavbsink.\+c 파일의 96 번째 라인에서 정의되었습니다.
+
+\index{gstavbsink.\+c@{gstavbsink.\+c}!tmp\+\_\+packet@{tmp\+\_\+packet}}
+\index{tmp\+\_\+packet@{tmp\+\_\+packet}!gstavbsink.\+c@{gstavbsink.\+c}}
+\subsubsection[{\texorpdfstring{tmp\+\_\+packet}{tmp_packet}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf igb\+\_\+packet}$\ast$ tmp\+\_\+packet}\hypertarget{gstavbsink_8c_afaac9ace7e52a3bcf0ce79e59b9b3f92}{}\label{gstavbsink_8c_afaac9ace7e52a3bcf0ce79e59b9b3f92}
+
+
+gstavbsink.\+c 파일의 84 번째 라인에서 정의되었습니다.
+
+\index{gstavbsink.\+c@{gstavbsink.\+c}!total\+\_\+read\+\_\+bytes@{total\+\_\+read\+\_\+bytes}}
+\index{total\+\_\+read\+\_\+bytes@{total\+\_\+read\+\_\+bytes}!gstavbsink.\+c@{gstavbsink.\+c}}
+\subsubsection[{\texorpdfstring{total\+\_\+read\+\_\+bytes}{total_read_bytes}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf int64\+\_\+t} total\+\_\+read\+\_\+bytes}\hypertarget{gstavbsink_8c_a3b3cb0932d0ff74463dbd0bbff6451fb}{}\label{gstavbsink_8c_a3b3cb0932d0ff74463dbd0bbff6451fb}
+
+
+gstavbsink.\+c 파일의 94 번째 라인에서 정의되었습니다.
+
+\index{gstavbsink.\+c@{gstavbsink.\+c}!total\+\_\+samples@{total\+\_\+samples}}
+\index{total\+\_\+samples@{total\+\_\+samples}!gstavbsink.\+c@{gstavbsink.\+c}}
+\subsubsection[{\texorpdfstring{total\+\_\+samples}{total_samples}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned total\+\_\+samples = 0}\hypertarget{gstavbsink_8c_a45fbc7e1478f172d8b8555e663984056}{}\label{gstavbsink_8c_a45fbc7e1478f172d8b8555e663984056}
+
+
+gstavbsink.\+c 파일의 91 번째 라인에서 정의되었습니다.
+

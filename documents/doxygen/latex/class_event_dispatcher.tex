@@ -1,0 +1,120 @@
+\hypertarget{class_event_dispatcher}{}\section{Event\+Dispatcher 클래스 참조}
+\label{class_event_dispatcher}\index{Event\+Dispatcher@{Event\+Dispatcher}}
+
+
+{\ttfamily \#include $<$Event\+Dispatcher.\+h$>$}
+
+
+
+Event\+Dispatcher에 대한 협력 다이어그램\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=184pt]{class_event_dispatcher__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public 멤버 함수}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_event_dispatcher_ac34b07e6e793f0468642614b608c82df}{Event\+Dispatcher} ()
+\item 
+void \hyperlink{class_event_dispatcher_a2b4eb5b4034b272ac58f19c862ac9ea0}{register\+Observer} (\hyperlink{_event_dispatcher_8h_a2628ea8d12e8b2563c32f05dc7fff6fa}{Event\+Type} type, \hyperlink{class_event_observer}{Event\+Observer} $\ast$observer)
+\item 
+void \hyperlink{class_event_dispatcher_a2ed4fad1e5c05ae4a837baacdc42e737}{dispatch\+Event} (const \hyperlink{class_event}{Event} \&event, int timeout\+Seconds)
+\end{DoxyCompactItemize}
+\subsection*{Private 속성}
+\begin{DoxyCompactItemize}
+\item 
+std\+::list$<$ std\+::pair$<$ \hyperlink{_event_dispatcher_8h_a2628ea8d12e8b2563c32f05dc7fff6fa}{Event\+Type}, \hyperlink{class_event_observer}{Event\+Observer} $\ast$ $>$ $>$ \hyperlink{class_event_dispatcher_af24674678ad75412a8700583deef8f8d}{observer\+List\+\_\+}
+\end{DoxyCompactItemize}
+
+
+\subsection{상세한 설명}
+
+
+Event\+Dispatcher.\+h 파일의 53 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{생성자 \& 소멸자 문서화}
+\index{Event\+Dispatcher@{Event\+Dispatcher}!Event\+Dispatcher@{Event\+Dispatcher}}
+\index{Event\+Dispatcher@{Event\+Dispatcher}!Event\+Dispatcher@{Event\+Dispatcher}}
+\subsubsection[{\texorpdfstring{Event\+Dispatcher()}{EventDispatcher()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Event\+Dispatcher} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{class_event_dispatcher_ac34b07e6e793f0468642614b608c82df}{}\label{class_event_dispatcher_ac34b07e6e793f0468642614b608c82df}
+
+
+Event\+Dispatcher.\+cpp 파일의 31 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+32 \{
+33 \}
+\end{DoxyCode}
+
+
+\subsection{멤버 함수 문서화}
+\index{Event\+Dispatcher@{Event\+Dispatcher}!dispatch\+Event@{dispatch\+Event}}
+\index{dispatch\+Event@{dispatch\+Event}!Event\+Dispatcher@{Event\+Dispatcher}}
+\subsubsection[{\texorpdfstring{dispatch\+Event(const Event \&event, int timeout\+Seconds)}{dispatchEvent(const Event &event, int timeoutSeconds)}}]{\setlength{\rightskip}{0pt plus 5cm}void dispatch\+Event (
+\begin{DoxyParamCaption}
+\item[{const {\bf Event} \&}]{event, }
+\item[{int}]{timeout\+Seconds}
+\end{DoxyParamCaption}
+)}\hypertarget{class_event_dispatcher_a2ed4fad1e5c05ae4a837baacdc42e737}{}\label{class_event_dispatcher_a2ed4fad1e5c05ae4a837baacdc42e737}
+
+
+Event\+Dispatcher.\+cpp 파일의 43 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+44 \{
+45     \textcolor{keywordflow}{for} (list<pair<EventType, EventObserver*> >::iterator i = \hyperlink{class_event_dispatcher_af24674678ad75412a8700583deef8f8d}{observerList\_}.begin(); i != 
+      \hyperlink{class_event_dispatcher_af24674678ad75412a8700583deef8f8d}{observerList\_}.end(); i++)
+46     \{
+47         \textcolor{keywordflow}{if} (i->first == event.\hyperlink{class_event_a2f18e60350b641236ab0e724d0622d1d}{type})
+48             i->second->notify(event, timeoutSeconds);
+49     \}
+50 \}
+\end{DoxyCode}
+\index{Event\+Dispatcher@{Event\+Dispatcher}!register\+Observer@{register\+Observer}}
+\index{register\+Observer@{register\+Observer}!Event\+Dispatcher@{Event\+Dispatcher}}
+\subsubsection[{\texorpdfstring{register\+Observer(\+Event\+Type type, Event\+Observer $\ast$observer)}{registerObserver(EventType type, EventObserver *observer)}}]{\setlength{\rightskip}{0pt plus 5cm}void register\+Observer (
+\begin{DoxyParamCaption}
+\item[{{\bf Event\+Type}}]{type, }
+\item[{{\bf Event\+Observer} $\ast$}]{observer}
+\end{DoxyParamCaption}
+)}\hypertarget{class_event_dispatcher_a2b4eb5b4034b272ac58f19c862ac9ea0}{}\label{class_event_dispatcher_a2b4eb5b4034b272ac58f19c862ac9ea0}
+
+
+Event\+Dispatcher.\+cpp 파일의 35 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+36 \{
+37     \textcolor{keywordflow}{for} (list<pair<EventType, EventObserver*> >::iterator i = \hyperlink{class_event_dispatcher_af24674678ad75412a8700583deef8f8d}{observerList\_}.begin(); i != 
+      \hyperlink{class_event_dispatcher_af24674678ad75412a8700583deef8f8d}{observerList\_}.end(); i++)
+38         i->second->notifyRegistration(observer);
+39 
+40     \hyperlink{class_event_dispatcher_af24674678ad75412a8700583deef8f8d}{observerList\_}.push\_back(make\_pair(\hyperlink{namespaceastime__fitline_a7aead736a07eaf25623ad7bfa1f0ee2d}{type}, observer));
+41 \}
+\end{DoxyCode}
+
+
+\subsection{필드 문서화}
+\index{Event\+Dispatcher@{Event\+Dispatcher}!observer\+List\+\_\+@{observer\+List\+\_\+}}
+\index{observer\+List\+\_\+@{observer\+List\+\_\+}!Event\+Dispatcher@{Event\+Dispatcher}}
+\subsubsection[{\texorpdfstring{observer\+List\+\_\+}{observerList_}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::list$<$std\+::pair$<${\bf Event\+Type}, {\bf Event\+Observer}$\ast$$>$ $>$ observer\+List\+\_\+\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{class_event_dispatcher_af24674678ad75412a8700583deef8f8d}{}\label{class_event_dispatcher_af24674678ad75412a8700583deef8f8d}
+
+
+Event\+Dispatcher.\+h 파일의 55 번째 라인에서 정의되었습니다.
+
+
+
+이 클래스에 대한 문서화 페이지는 다음의 파일들로부터 생성되었습니다.\+:\begin{DoxyCompactItemize}
+\item 
+thirdparty/cpputest/examples/\+Application\+Lib/\hyperlink{_event_dispatcher_8h}{Event\+Dispatcher.\+h}\item 
+thirdparty/cpputest/examples/\+Application\+Lib/\hyperlink{_event_dispatcher_8cpp}{Event\+Dispatcher.\+cpp}\end{DoxyCompactItemize}

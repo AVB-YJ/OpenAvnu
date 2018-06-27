@@ -1,0 +1,167 @@
+\hypertarget{class_peer_addr}{}\section{Peer\+Addr 클래스 참조}
+\label{class_peer_addr}\index{Peer\+Addr@{Peer\+Addr}}
+
+
+Provides an interface for Peer addresses.  
+
+
+
+
+{\ttfamily \#include $<$windows\+\_\+ipc.\+hpp$>$}
+
+
+
+Peer\+Addr에 대한 협력 다이어그램\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=159pt]{class_peer_addr__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public 멤버 함수}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{class_peer_addr_aa729440f0d336c86fc8729c39df6ad08}{operator==} (const \hyperlink{class_peer_addr}{Peer\+Addr} \&other) const 
+\begin{DoxyCompactList}\small\item\em Implements the operator \textquotesingle{}==\textquotesingle{} overloading method. \end{DoxyCompactList}\item 
+\hyperlink{avb__gptp_8h_af6a258d8f3ee5206d682d799316314b1}{bool} \hyperlink{class_peer_addr_a7582142069c71ae7f8a9d118a8b3b4b5}{operator$<$} (const \hyperlink{class_peer_addr}{Peer\+Addr} \&other) const 
+\begin{DoxyCompactList}\small\item\em Implements the operator \textquotesingle{}$<$\textquotesingle{} overloading method. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{데이타 필드}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{windows__ipc_8hpp_a78c1870edaf6b83c04e1f67bb82c7949}{Addr\+Which} \hyperlink{class_peer_addr_a4fac08886c91b71455b5cf143430499c}{which}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>\hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} \hyperlink{class_peer_addr_a73f4cb9857c5bab45dec0ad2108b5187}{mac} \mbox{[}\hyperlink{packet_8hpp_ab81d402a4929723091a6731508845125}{ETHER\_ADDR\_OCTETS}\mbox{]}\\
+\>\hyperlink{stdint_8h_aba7bc1797add20fe3efdf37ced1182c5}{uint8\_t} \hyperlink{class_peer_addr_a5d1f23243cffcfd3754c409068180066}{ip} \mbox{[}\hyperlink{ptptypes_8hpp_a64a6f303320e115985db931a3290a6ea}{IP\_ADDR\_OCTETS}\mbox{]}\\
+\}; \\
+
+\end{tabbing}\begin{DoxyCompactList}\small\item\em shared memory between mac and ip addresses \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{상세한 설명}
+Provides an interface for Peer addresses. 
+
+windows\+\_\+ipc.\+hpp 파일의 266 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{멤버 함수 문서화}
+\index{Peer\+Addr@{Peer\+Addr}!operator$<$@{operator$<$}}
+\index{operator$<$@{operator$<$}!Peer\+Addr@{Peer\+Addr}}
+\subsubsection[{\texorpdfstring{operator$<$(const Peer\+Addr \&other) const }{operator<(const PeerAddr &other) const }}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} operator$<$ (
+\begin{DoxyParamCaption}
+\item[{const {\bf Peer\+Addr} \&}]{other}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{class_peer_addr_a7582142069c71ae7f8a9d118a8b3b4b5}{}\label{class_peer_addr_a7582142069c71ae7f8a9d118a8b3b4b5}
+
+
+Implements the operator \textquotesingle{}$<$\textquotesingle{} overloading method. 
+
+
+\begin{DoxyParams}{매개변수}
+{\em other} & Reference to the peer addresses to be compared. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+T\+R\+UE if mac or ip address from the object is lower than the peer\textquotesingle{}s. 
+\end{DoxyReturn}
+
+
+windows\+\_\+ipc.\+hpp 파일의 301 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+301                                                     \{
+302             \textcolor{keywordtype}{int} result;
+303             \textcolor{keywordflow}{switch}( \hyperlink{class_peer_addr_a4fac08886c91b71455b5cf143430499c}{which} ) \{
+304                 \textcolor{keywordflow}{case} \hyperlink{windows__ipc_8hpp_a78c1870edaf6b83c04e1f67bb82c7949a0d82378c75a0393498ca534d1e470826}{MAC\_ADDR}:
+305                     result = memcmp( &other.\hyperlink{class_peer_addr_a73f4cb9857c5bab45dec0ad2108b5187}{mac}, &\hyperlink{class_peer_addr_a73f4cb9857c5bab45dec0ad2108b5187}{mac}, \hyperlink{ptptypes_8hpp_ab81d402a4929723091a6731508845125}{ETHER\_ADDR\_OCTETS} );
+306                     \textcolor{keywordflow}{break};
+307                 \textcolor{keywordflow}{case} \hyperlink{windows__ipc_8hpp_a78c1870edaf6b83c04e1f67bb82c7949a1b1d7f84a16f08f0427394888806cefc}{IP\_ADDR}:
+308                     result = memcmp( &other.\hyperlink{class_peer_addr_a5d1f23243cffcfd3754c409068180066}{ip}, &\hyperlink{class_peer_addr_a5d1f23243cffcfd3754c409068180066}{ip}, \hyperlink{ptptypes_8hpp_a64a6f303320e115985db931a3290a6ea}{IP\_ADDR\_OCTETS} );
+309                     \textcolor{keywordflow}{break};
+310                 \textcolor{keywordflow}{default}:
+311                     result = 1; \textcolor{comment}{// > 0}
+312                     \textcolor{keywordflow}{break};
+313             \}
+314             \textcolor{keywordflow}{return} (result < 0) ? \textcolor{keyword}{true} : \textcolor{keyword}{false};
+315         \}
+\end{DoxyCode}
+\index{Peer\+Addr@{Peer\+Addr}!operator==@{operator==}}
+\index{operator==@{operator==}!Peer\+Addr@{Peer\+Addr}}
+\subsubsection[{\texorpdfstring{operator==(const Peer\+Addr \&other) const }{operator==(const PeerAddr &other) const }}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} operator== (
+\begin{DoxyParamCaption}
+\item[{const {\bf Peer\+Addr} \&}]{other}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{class_peer_addr_aa729440f0d336c86fc8729c39df6ad08}{}\label{class_peer_addr_aa729440f0d336c86fc8729c39df6ad08}
+
+
+Implements the operator \textquotesingle{}==\textquotesingle{} overloading method. 
+
+
+\begin{DoxyParams}{매개변수}
+{\em other} & \mbox{[}in\mbox{]} Reference to the peer addresses \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+T\+R\+UE if mac or ip are the same. F\+A\+L\+SE otherwise. 
+\end{DoxyReturn}
+
+
+windows\+\_\+ipc.\+hpp 파일의 281 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+281                                                      \{
+282             \textcolor{keywordtype}{int} result;
+283             \textcolor{keywordflow}{switch}( \hyperlink{class_peer_addr_a4fac08886c91b71455b5cf143430499c}{which} ) \{
+284                 \textcolor{keywordflow}{case} \hyperlink{windows__ipc_8hpp_a78c1870edaf6b83c04e1f67bb82c7949a0d82378c75a0393498ca534d1e470826}{MAC\_ADDR}:
+285                     result = memcmp( &other.\hyperlink{class_peer_addr_a73f4cb9857c5bab45dec0ad2108b5187}{mac}, &\hyperlink{class_peer_addr_a73f4cb9857c5bab45dec0ad2108b5187}{mac}, \hyperlink{ptptypes_8hpp_ab81d402a4929723091a6731508845125}{ETHER\_ADDR\_OCTETS} );
+286                     \textcolor{keywordflow}{break};
+287                 \textcolor{keywordflow}{case} \hyperlink{windows__ipc_8hpp_a78c1870edaf6b83c04e1f67bb82c7949a1b1d7f84a16f08f0427394888806cefc}{IP\_ADDR}:
+288                     result = memcmp( &other.\hyperlink{class_peer_addr_a5d1f23243cffcfd3754c409068180066}{ip}, &\hyperlink{class_peer_addr_a5d1f23243cffcfd3754c409068180066}{ip}, \hyperlink{ptptypes_8hpp_a64a6f303320e115985db931a3290a6ea}{IP\_ADDR\_OCTETS} );
+289                     \textcolor{keywordflow}{break};
+290                 \textcolor{keywordflow}{default}:
+291                     result = -1; \textcolor{comment}{// != 0}
+292                     \textcolor{keywordflow}{break};
+293             \}
+294             \textcolor{keywordflow}{return} (result == 0) ? \textcolor{keyword}{true} : \textcolor{keyword}{false};
+295         \}
+\end{DoxyCode}
+
+
+\subsection{필드 문서화}
+\subsubsection[{\texorpdfstring{"@5}{@5}}]{\setlength{\rightskip}{0pt plus 5cm}union \{ ... \} }\hypertarget{class_peer_addr_ade0f7431d344507ca847681cb9d7c4ef}{}\label{class_peer_addr_ade0f7431d344507ca847681cb9d7c4ef}
+
+
+shared memory between mac and ip addresses 
+
+\index{Peer\+Addr@{Peer\+Addr}!ip@{ip}}
+\index{ip@{ip}!Peer\+Addr@{Peer\+Addr}}
+\subsubsection[{\texorpdfstring{ip}{ip}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint8\+\_\+t} ip\mbox{[}{\bf I\+P\+\_\+\+A\+D\+D\+R\+\_\+\+O\+C\+T\+E\+TS}\mbox{]}}\hypertarget{class_peer_addr_a5d1f23243cffcfd3754c409068180066}{}\label{class_peer_addr_a5d1f23243cffcfd3754c409068180066}
+IP Address 
+
+windows\+\_\+ipc.\+hpp 파일의 274 번째 라인에서 정의되었습니다.
+
+\index{Peer\+Addr@{Peer\+Addr}!mac@{mac}}
+\index{mac@{mac}!Peer\+Addr@{Peer\+Addr}}
+\subsubsection[{\texorpdfstring{mac}{mac}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint8\+\_\+t} mac\mbox{[}{\bf E\+T\+H\+E\+R\+\_\+\+A\+D\+D\+R\+\_\+\+O\+C\+T\+E\+TS}\mbox{]}}\hypertarget{class_peer_addr_a73f4cb9857c5bab45dec0ad2108b5187}{}\label{class_peer_addr_a73f4cb9857c5bab45dec0ad2108b5187}
+Link Layer address 
+
+windows\+\_\+ipc.\+hpp 파일의 273 번째 라인에서 정의되었습니다.
+
+\index{Peer\+Addr@{Peer\+Addr}!which@{which}}
+\index{which@{which}!Peer\+Addr@{Peer\+Addr}}
+\subsubsection[{\texorpdfstring{which}{which}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Addr\+Which} which}\hypertarget{class_peer_addr_a4fac08886c91b71455b5cf143430499c}{}\label{class_peer_addr_a4fac08886c91b71455b5cf143430499c}
+Peer address 
+
+windows\+\_\+ipc.\+hpp 파일의 268 번째 라인에서 정의되었습니다.
+
+
+
+이 클래스에 대한 문서화 페이지는 다음의 파일로부터 생성되었습니다.\+:\begin{DoxyCompactItemize}
+\item 
+daemons/gptp/windows/daemon\+\_\+cl/\hyperlink{windows__ipc_8hpp}{windows\+\_\+ipc.\+hpp}\end{DoxyCompactItemize}

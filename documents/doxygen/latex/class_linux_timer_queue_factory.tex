@@ -1,0 +1,125 @@
+\hypertarget{class_linux_timer_queue_factory}{}\section{Linux\+Timer\+Queue\+Factory 클래스 참조}
+\label{class_linux_timer_queue_factory}\index{Linux\+Timer\+Queue\+Factory@{Linux\+Timer\+Queue\+Factory}}
+
+
+Implements factory design pattern for linux.  
+
+
+
+
+{\ttfamily \#include $<$linux\+\_\+hal\+\_\+common.\+hpp$>$}
+
+
+
+Linux\+Timer\+Queue\+Factory에 대한 상속 다이어그램 \+: 
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=218pt]{class_linux_timer_queue_factory__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Linux\+Timer\+Queue\+Factory에 대한 협력 다이어그램\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=218pt]{class_linux_timer_queue_factory__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public 멤버 함수}
+\begin{DoxyCompactItemize}
+\item 
+virtual \hyperlink{class_o_s_timer_queue}{O\+S\+Timer\+Queue} $\ast$ \hyperlink{class_linux_timer_queue_factory_a18fa037972106a1baf8f14d61d64dc81}{create\+O\+S\+Timer\+Queue} (\hyperlink{class_i_e_e_e1588_clock}{I\+E\+E\+E1588\+Clock} $\ast$clock)
+\begin{DoxyCompactList}\small\item\em Creates Linux timer queue. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{상세한 설명}
+Implements factory design pattern for linux. 
+
+linux\+\_\+hal\+\_\+common.\+hpp 파일의 465 번째 라인에서 정의되었습니다.
+
+
+
+\subsection{멤버 함수 문서화}
+\index{Linux\+Timer\+Queue\+Factory@{Linux\+Timer\+Queue\+Factory}!create\+O\+S\+Timer\+Queue@{create\+O\+S\+Timer\+Queue}}
+\index{create\+O\+S\+Timer\+Queue@{create\+O\+S\+Timer\+Queue}!Linux\+Timer\+Queue\+Factory@{Linux\+Timer\+Queue\+Factory}}
+\subsubsection[{\texorpdfstring{create\+O\+S\+Timer\+Queue(\+I\+E\+E\+E1588\+Clock $\ast$clock)}{createOSTimerQueue(IEEE1588Clock *clock)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf O\+S\+Timer\+Queue} $\ast$ create\+O\+S\+Timer\+Queue (
+\begin{DoxyParamCaption}
+\item[{{\bf I\+E\+E\+E1588\+Clock} $\ast$}]{clock}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\hypertarget{class_linux_timer_queue_factory_a18fa037972106a1baf8f14d61d64dc81}{}\label{class_linux_timer_queue_factory_a18fa037972106a1baf8f14d61d64dc81}
+
+
+Creates Linux timer queue. 
+
+
+\begin{DoxyParams}{매개변수}
+{\em clock} & \mbox{[}in\mbox{]} Pointer to I\+E\+E\+E15588\+Clock type \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{반환값}
+Pointer to \hyperlink{class_o_s_timer_queue}{O\+S\+Timer\+Queue} 
+\end{DoxyReturn}
+
+
+\hyperlink{class_o_s_timer_queue_factory_a6ef36ae2e4e33a6683ee412f06af7a85}{O\+S\+Timer\+Queue\+Factory}를 구현.
+
+
+
+linux\+\_\+hal\+\_\+common.\+cpp 파일의 475 번째 라인에서 정의되었습니다.
+
+
+\begin{DoxyCode}
+475                              \{
+476     \hyperlink{class_linux_timer_queue}{LinuxTimerQueue} *ret = \textcolor{keyword}{new} \hyperlink{class_linux_timer_queue}{LinuxTimerQueue}();
+477 
+478     \textcolor{keywordflow}{if}( !ret->\hyperlink{class_linux_timer_queue_aee8048628ff2b5c026c9e15acdcaacb8}{init}() ) \{
+479         \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+480     \}
+481 
+482     ret->\hyperlink{class_linux_timer_queue_a35af0be900467fedbb610bd6ea65ed78}{key} = 0;
+483     ret->\hyperlink{class_linux_timer_queue_a53a2d16dac430353052f49aaa0cce34a}{stop} = \textcolor{keyword}{false};
+484     ret->\hyperlink{class_linux_timer_queue_abdb6f223dacf8c3cf12e918dd48ed210}{lock} = clock->\hyperlink{class_i_e_e_e1588_clock_ac31b9a392fb3fd552253c32df6bf061f}{timerQLock}();
+485     \textcolor{keywordflow}{if}( pthread\_create
+486         ( &(ret->\hyperlink{class_linux_timer_queue_a7bb3221b5cf50ce69a938da040601c1b}{\_private}->\hyperlink{struct_linux_timer_queue_private_a62d0a2e78babe1e8a32b2a09a5d4e197}{signal\_thread}),
+487           \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{linux__hal__common_8cpp_a57b16fcbb008bbb516e808c2d9e86bf9}{LinuxTimerQueueHandler}, ret ) != 0 ) \{
+488         \textcolor{keyword}{delete} ret;
+489         \textcolor{keywordflow}{return} \hyperlink{openavb__types__base__pub_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+490     \}
+491 
+492     \textcolor{keywordflow}{return} ret;
+493 \}
+\end{DoxyCode}
+
+
+이 함수 내부에서 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_linux_timer_queue_factory_a18fa037972106a1baf8f14d61d64dc81_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 함수를 호출하는 함수들에 대한 그래프입니다.\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_linux_timer_queue_factory_a18fa037972106a1baf8f14d61d64dc81_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+이 클래스에 대한 문서화 페이지는 다음의 파일들로부터 생성되었습니다.\+:\begin{DoxyCompactItemize}
+\item 
+daemons/gptp/linux/src/\hyperlink{linux__hal__common_8hpp}{linux\+\_\+hal\+\_\+common.\+hpp}\item 
+daemons/gptp/linux/src/\hyperlink{linux__hal__common_8cpp}{linux\+\_\+hal\+\_\+common.\+cpp}\end{DoxyCompactItemize}
